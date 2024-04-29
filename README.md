@@ -1,1 +1,1 @@
-# Mos-CardWars2
+# Mos-CardWars2 lol
