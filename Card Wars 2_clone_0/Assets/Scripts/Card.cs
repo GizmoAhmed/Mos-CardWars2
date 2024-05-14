@@ -5,7 +5,7 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     public bool Grabbed;
-    public bool Movable;
+    public bool Movable = true;
     public bool FaceUp; // true = visible, false = back
 
     void Start()
