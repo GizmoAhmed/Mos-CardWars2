@@ -1170,9 +1170,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeckSizeText: {fileID: 0}
   CardsInDeck:
-  - {fileID: 5686318664878715872, guid: f0d997e18f756454480a1e56280fc47f, type: 3}
-  - {fileID: 5198093977880130389, guid: c1888b665e911e8468431778f1abf802, type: 3}
-  - {fileID: 6860191804246334505, guid: eaeed8262848aa348837be1881a14900, type: 3}
+  - {fileID: 2375371952407152090, guid: 91ab3fb287c184042ae6057de7c67834, type: 3}
+  - {fileID: 8704139662574260674, guid: a28aca83c58a1a84e9c920a86bf117cf, type: 3}
+  - {fileID: 8487166466601143867, guid: b532d71339c7df4499c768ff46d76703, type: 3}
   Hand: {fileID: 1303446597}
 --- !u!114 &8760493378558438057
 MonoBehaviour:
