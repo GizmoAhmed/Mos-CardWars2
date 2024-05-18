@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 942148944994015448, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_text
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1007634538234213432, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -130,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Name
-      value: Gazer Variant
+      value: Gazer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
