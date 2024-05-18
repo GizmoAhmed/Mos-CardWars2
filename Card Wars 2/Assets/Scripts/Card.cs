@@ -24,13 +24,9 @@ public class Card : MonoBehaviour
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
-	{
-        Debug.Log("Collided with something...")
-;
+	{;
         if (other.CompareTag("Land"))
         {
-            Debug.Log("Landed...");
-
 			NewDropZone = other.gameObject;
 			isOverDropZone = true;
         }
@@ -40,9 +36,8 @@ public class Card : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
+	private void OnTriggerExit2D(Collider2D collision)
 	{
-		Debug.Log("Leaving Land...");
 		NewDropZone = null;
 		isOverDropZone = false;
 	}
