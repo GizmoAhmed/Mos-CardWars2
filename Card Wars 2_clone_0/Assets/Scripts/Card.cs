@@ -8,9 +8,6 @@ public class Card : MonoBehaviour
     public bool Movable = true;
     public bool FaceUp; // true = visible, false = back
 
-    public GameObject GameCanvas;
-
-    public GameObject   DropZone;
     public GameObject   StartParent;
     public Vector2      StartPos;
     public GameObject   NewDropZone;
@@ -19,12 +16,10 @@ public class Card : MonoBehaviour
     void Start()
     {
         Movable = true;
-        GameCanvas = GameObject.Find("GameCanvas");
-		DropZone = GameObject.Find("DropZone");
 	}
 
 	private void OnTriggerEnter2D(Collider2D other)
-	{;
+	{
         if (other.CompareTag("Land"))
         {
 			NewDropZone = other.gameObject;
@@ -70,11 +65,9 @@ public class Card : MonoBehaviour
 
     void Update()
     {
-
         if (Movable && Grabbed)
         {
             transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            // transform.SetParent(GameCanvas.transform, true);
         }
     }
 
