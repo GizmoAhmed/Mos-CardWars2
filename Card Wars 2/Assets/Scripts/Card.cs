@@ -13,21 +13,33 @@ public class Card : MonoBehaviour
     public GameObject   NewDropZone;
     public bool         isOverDropZone;
 
-    void Start()
+	[Tooltip("Where the card exists")]
+	public enum CardState
+	{
+		Hand,
+		Deck,
+		Discard,
+        Placed
+	}
+
+	public CardState currentState = CardState.Deck;
+
+	public void SetState(CardState newState)
+	{
+		currentState = newState;
+	}
+
+	void Start()
     {
         Movable = true;
 	}
 
-	private void OnTriggerEnter2D(Collider2D other)
+	private void OnTriggerStay2D(Collider2D other)
 	{
-        if (other.CompareTag("Land"))
-        {
+		if (other.CompareTag("Land"))
+		{
 			NewDropZone = other.gameObject;
 			isOverDropZone = true;
-        }
-        else 
-        {
-			isOverDropZone = false;
 		}
 	}
 
@@ -41,9 +53,8 @@ public class Card : MonoBehaviour
     { 
         Grabbed = true;
 
-        // upon grab...
-        StartParent = transform.parent.gameObject;      // save parent 
-        StartPos = transform.position;                  // save position 
+        StartParent = transform.parent.gameObject;      
+        StartPos = transform.position;                  
     }
 
     public void LetGo() 
@@ -55,11 +66,13 @@ public class Card : MonoBehaviour
             transform.SetParent(NewDropZone.transform, true);
 			transform.localPosition = Vector2.zero;
 			Movable = false;
+            SetState(CardState.Placed);
         }
         else 
         {
             transform.position = StartPos;
             transform.SetParent(StartParent.transform, false);
+            SetState(CardState.Hand);
         }
     }
 

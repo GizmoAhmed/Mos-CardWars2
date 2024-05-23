@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Card;
 
 public class Deck : MonoBehaviour
 {
@@ -28,6 +29,13 @@ public class Deck : MonoBehaviour
 			drawnCard.transform.SetParent(Hand.transform, false);
 
 			CardsInDeck.RemoveAt(randomIndex);
+
+			Card cardScript = drawnCard.GetComponent<Card>();
+
+			if (cardScript != null)
+			{
+				cardScript.SetState(CardState.Hand);
+			}
 		}
 		
 	}

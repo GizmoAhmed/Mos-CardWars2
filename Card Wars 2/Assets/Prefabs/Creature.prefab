@@ -777,7 +777,7 @@ GameObject:
   - component: {fileID: 2891484082770052792}
   - component: {fileID: 8817537391844874344}
   m_Layer: 7
-  m_Name: Card
+  m_Name: Creature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -791,7 +791,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9217453708348395853}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -16.544346}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -907,8 +907,6 @@ MonoBehaviour:
   Grabbed: 0
   Movable: 1
   FaceUp: 0
-  GameCanvas: {fileID: 1793133090499541091, guid: 65bb352094d99534fa9f97d8d91b12eb, type: 3}
-  DropZone: {fileID: 0}
   StartParent: {fileID: 0}
   StartPos: {x: 0, y: 0}
   NewDropZone: {fileID: 0}

@@ -155,7 +155,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04599738, y: 0.028745651}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -166,7 +166,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.5, y: 23}
   m_EdgeRadius: 0
 --- !u!61 &507729331
 BoxCollider2D:
@@ -200,7 +200,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04599738, y: 0.028745651}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -211,7 +211,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.5, y: 23}
   m_EdgeRadius: 0
 --- !u!1 &519420028
 GameObject:
@@ -337,7 +337,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04599738, y: 0.028745651}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -348,52 +348,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!61 &996117536
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4296803526628364869}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.5, y: 23}
   m_EdgeRadius: 0
 --- !u!61 &996117537
 BoxCollider2D:
@@ -427,7 +382,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.04599738, y: 0.028745651}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -438,7 +393,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 7.5, y: 23}
   m_EdgeRadius: 0
 --- !u!1 &1205642842
 GameObject:
@@ -843,6 +798,7 @@ GameObject:
   - component: {fileID: 8149002742056826105}
   - component: {fileID: 7963164122616011676}
   - component: {fileID: 7882285189867854006}
+  - component: {fileID: 8149002742056826106}
   m_Layer: 0
   m_Name: Land3
   m_TagString: Untagged
@@ -961,6 +917,7 @@ MonoBehaviour:
   - {fileID: 5961052985149569895, guid: 8ce1788de6730f445aef2eeeb2d3af60, type: 3}
   - {fileID: 2866573148162227097, guid: 2dbe72106dde2c348bb7b3443eb7c851, type: 3}
   - {fileID: 2509186087479040677, guid: 4be2706f0526a4d48bcaf7071e8e7fa1, type: 3}
+  - {fileID: 2259463501157529856, guid: aff8bc232ea9e1c48bde583a6452da3f, type: 3}
   Hand: {fileID: 6975144434198844535}
 --- !u!224 &2220657012378665449
 RectTransform:
@@ -1174,7 +1131,6 @@ GameObject:
   - component: {fileID: 3228672916593459406}
   - component: {fileID: 7698110864953693534}
   - component: {fileID: 996117537}
-  - component: {fileID: 996117536}
   m_Layer: 0
   m_Name: Land1
   m_TagString: Land
@@ -1451,6 +1407,7 @@ GameObject:
   - component: {fileID: 5813714954478309688}
   - component: {fileID: 1689366325462355561}
   - component: {fileID: 6595568621558190830}
+  - component: {fileID: 6595568621558190831}
   m_Layer: 0
   m_Name: Land2
   m_TagString: Untagged
@@ -1488,7 +1445,7 @@ GameObject:
   - component: {fileID: 4658227052725997815}
   - component: {fileID: 8700978025625843411}
   - component: {fileID: 507729331}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Land3
   m_TagString: Land
   m_Icon: {fileID: 0}
@@ -1543,6 +1500,51 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!61 &6595568621558190831
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6062144187971297767}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04599738, y: 0.028745651}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.5, y: 23}
+  m_EdgeRadius: 0
 --- !u!1 &6973461976252965768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1590,7 +1592,7 @@ GameObject:
   - component: {fileID: 739440639900665116}
   - component: {fileID: 7361234971216747064}
   - component: {fileID: 446236545}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Land2
   m_TagString: Land
   m_Icon: {fileID: 0}
@@ -1775,6 +1777,7 @@ GameObject:
   - component: {fileID: 2236573269519340581}
   - component: {fileID: 2700369439919279281}
   - component: {fileID: 599551996813620559}
+  - component: {fileID: 7383528895041809610}
   m_Layer: 0
   m_Name: Land4
   m_TagString: Untagged
@@ -1782,6 +1785,51 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!61 &7383528895041809610
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7383528895041809609}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04599738, y: 0.028745651}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.5, y: 23}
+  m_EdgeRadius: 0
 --- !u!222 &7443313074317913602
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1802,7 +1850,7 @@ GameObject:
   - component: {fileID: 431823825552885303}
   - component: {fileID: 4982036774920535077}
   - component: {fileID: 762095566}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Land4
   m_TagString: Land
   m_Icon: {fileID: 0}
@@ -1923,6 +1971,51 @@ RectTransform:
   m_AnchoredPosition: {x: 8.25, y: 0}
   m_SizeDelta: {x: 15, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!61 &8149002742056826106
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616704209544996487}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04599738, y: 0.028745651}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.5, y: 23}
+  m_EdgeRadius: 0
 --- !u!223 &8371030458765082753
 Canvas:
   m_ObjectHideFlags: 0
@@ -1965,6 +2058,7 @@ GameObject:
   - component: {fileID: 3627844779741437648}
   - component: {fileID: 5198004356239630976}
   - component: {fileID: 1817491059949041365}
+  - component: {fileID: 8543837356370380212}
   m_Layer: 0
   m_Name: Land1
   m_TagString: Untagged
@@ -1972,6 +2066,51 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!61 &8543837356370380212
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8543837356370380211}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04599738, y: 0.028745651}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 7.5, y: 23}
+  m_EdgeRadius: 0
 --- !u!114 &8700978025625843411
 MonoBehaviour:
   m_ObjectHideFlags: 0
