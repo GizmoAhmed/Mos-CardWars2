@@ -1448,7 +1448,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 3
+  m_ChildAlignment: 4
   m_StartCorner: 2
   m_StartAxis: 1
   m_CellSize: {x: 165, y: 200}
@@ -1686,7 +1686,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 249, y: -140}
+  m_AnchoredPosition: {x: 288.9, y: -140}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6062144187971297767
@@ -1881,13 +1881,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6975144434198844535}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83f6e73f611b37e49b2ad381ad088cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   cardCount: 0
+  xsquared: 2.64
+  xflat: 55
 --- !u!1 &7053719383866038154
 GameObject:
   m_ObjectHideFlags: 0
