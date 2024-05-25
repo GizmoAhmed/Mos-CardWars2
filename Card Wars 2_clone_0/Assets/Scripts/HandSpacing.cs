@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class HandSpacing : MonoBehaviour
 {
 	public GridLayoutGroup grid;
-	public float multiplier = 1.0f;
 	public int cardCount;
 
 	void Start()
@@ -14,11 +13,16 @@ public class HandSpacing : MonoBehaviour
 		grid = GetComponent<GridLayoutGroup>();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		cardCount = transform.childCount;
+		grid.spacing = new Vector2(CalculateSpacing(cardCount), 0);
+	}
 
-		grid.spacing = new Vector2(45f - cardCount * multiplier, 0);
+	float CalculateSpacing(int cardCount)
+	{
+		// Calculate the spacing using the quadratic formula
+		float spacing = -7.5f * cardCount * cardCount + 82.5f * cardCount - 187.5f;
+		return spacing;
 	}
 }
