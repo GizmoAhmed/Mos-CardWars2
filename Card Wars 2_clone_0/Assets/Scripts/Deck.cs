@@ -3,41 +3,29 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Card;
+using Mirror;
 
-public class Deck : MonoBehaviour
+public class Deck : NetworkBehaviour
 {
+	public PlayerManager playerManager;
+
 	public TextMeshProUGUI DeckSizeText;
 	public List<GameObject> CardsInDeck;
-	public GameObject Hand;
 
 	void Start()
 	{
 		DeckSizeText = GetComponentInChildren<TextMeshProUGUI>();
-
-		DeckSizeText.text = CardsInDeck.Count.ToString();
 	}
 
 	public void DrawCard()
 	{
-		if (CardsInDeck.Count > 0)
-		{
-			int randomIndex = Random.Range(0, CardsInDeck.Count);
+		Debug.Log("Deck Clicked...");
 
-			GameObject drawnCard = Instantiate(CardsInDeck[randomIndex], new Vector2(0,0), Quaternion.identity);
+		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
 
-			drawnCard.transform.SetParent(Hand.transform, false);
+		playerManager = networkIdentity.GetComponent<PlayerManager>();
 
-			CardsInDeck.RemoveAt(randomIndex);
-
-			Card cardScript = drawnCard.GetComponent<Card>();
-
-			if (cardScript != null)
-			{
-				cardScript.SetState(CardState.Hand);
-			}
-		}
-		
+		playerManager.CmdDrawCard(CardsInDeck);
 	}
 
 	void Update()

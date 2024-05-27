@@ -776,6 +776,8 @@ GameObject:
   - component: {fileID: 3744609040900805961}
   - component: {fileID: 2891484082770052792}
   - component: {fileID: 8817537391844874344}
+  - component: {fileID: 8342063069471296040}
+  - component: {fileID: 262900241488350016}
   m_Layer: 7
   m_Name: _Creature
   m_TagString: Untagged
@@ -911,6 +913,7 @@ MonoBehaviour:
   StartPos: {x: 0, y: 0}
   NewDropZone: {fileID: 0}
   isOverDropZone: 0
+  currentState: 1
 --- !u!61 &2891484082770052792
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -983,3 +986,54 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &8342063069471296040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217453708348395853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 1794275429
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &262900241488350016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217453708348395853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 6166145134630806594}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01

@@ -128,8 +128,76 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ethan
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 262900241488350016, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1571752793565459247}
+    - targetCorrespondingSourceObject: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3580314134201396515}
   m_SourcePrefab: {fileID: 100100000, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+--- !u!1 &5961052985149569895 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+  m_PrefabInstance: {fileID: 3265975408967395882}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-1571752793565459247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5961052985149569895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 8701410778202607208}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01
+--- !u!114 &-3580314134201396515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5961052985149569895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 220504598
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!224 &8701410778202607208 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+  m_PrefabInstance: {fileID: 3265975408967395882}
+  m_PrefabAsset: {fileID: 0}

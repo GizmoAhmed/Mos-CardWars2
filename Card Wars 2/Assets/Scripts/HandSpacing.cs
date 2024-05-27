@@ -7,15 +7,17 @@ public class HandSpacing : MonoBehaviour
 {
 	public GridLayoutGroup grid;
 	public int cardCount;
-	public float xsquared = 2.66071f;
-	public float xflat = 54.9679f;
+
+	[Tooltip("ax^2 + bx + c")]
+	public float a = 2.66071f;
+	public float b = 54.9679f;
+	public float c = 183f;
 
 	void Start()
 	{
 		grid = GetComponent<GridLayoutGroup>();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		cardCount = transform.childCount;
@@ -24,11 +26,7 @@ public class HandSpacing : MonoBehaviour
 
 	float CalculateSpacing(int cardCount)
 	{
-		// cardCount is x in the quadratic equation
-		// Calculate the spacing (y) using the quadratic formula y = 2.88393x^2 - 59.1161x + 201.83
-		// float spacing = 2.88393f * cardCount * cardCount - 59.1161f * cardCount + 201.83f;
-		float spacing = xsquared * cardCount * cardCount - xflat * cardCount + 183f;
-
+		float spacing = a * cardCount * cardCount - b * cardCount + c;
 		return spacing;
 	}
 }
