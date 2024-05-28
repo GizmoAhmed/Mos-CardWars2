@@ -16,9 +16,8 @@ public class Card : MonoBehaviour
 	[Tooltip("Where the card exists")]
 	public enum CardState
 	{
-		Hand,
-		Deck,
-		Discard,
+        Deck,
+		Drawn,
         Placed
 	}
 
@@ -72,7 +71,6 @@ public class Card : MonoBehaviour
         {
             transform.position = StartPos;
             transform.SetParent(StartParent.transform, false);
-            SetState(CardState.Hand);
         }
     }
 

@@ -6,12 +6,10 @@ using Mirror;
 public class Deck : NetworkBehaviour
 {
 	public PlayerManager playerManager;
-	public TextMeshProUGUI DeckSizeText;
-	public List<GameObject> CardsInDeck;
 
 	void Start()
 	{
-		DeckSizeText = GetComponentInChildren<TextMeshProUGUI>();
+
 	}
 
 	public void DrawCard()
@@ -23,6 +21,6 @@ public class Deck : NetworkBehaviour
 
 	void Update()
 	{
-		DeckSizeText.text = CardsInDeck.Count.ToString();
+
 	}
 }
