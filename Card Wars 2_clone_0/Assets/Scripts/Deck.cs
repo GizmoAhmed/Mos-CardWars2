@@ -6,6 +6,7 @@ using Mirror;
 public class Deck : NetworkBehaviour
 {
 	public PlayerManager playerManager;
+	public bool Clickable;
 
 	void Start()
 	{
@@ -14,9 +15,12 @@ public class Deck : NetworkBehaviour
 
 	public void DrawCard()
 	{
-		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		playerManager = networkIdentity.GetComponent<PlayerManager>();
-		playerManager.CmdDrawCard();
+		if (Clickable) 
+		{
+			NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+			playerManager = networkIdentity.GetComponent<PlayerManager>();
+			playerManager.CmdDrawCard();
+		}	
 	}
 
 	void Update()

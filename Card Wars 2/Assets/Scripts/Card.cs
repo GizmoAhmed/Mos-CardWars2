@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class Card : MonoBehaviour
+public class Card : NetworkBehaviour
 {
     public bool Grabbed;
     public bool Movable = true;

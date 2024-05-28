@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7344546400719007892}
   - component: {fileID: 2803326698682675259}
   - component: {fileID: 3290235095940835346}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: FaceImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4060516748195964505}
   - component: {fileID: 4808308444363614795}
   - component: {fileID: 734480022760625857}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Deck Size
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 4122863717079115583}
   - component: {fileID: 3213931989537708568}
   - component: {fileID: 7169377159613783073}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Deck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,14 +362,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   playerManager: {fileID: 0}
-  DeckSizeText: {fileID: 0}
-  CardsInDeck:
-  - {fileID: 5961052985149569895, guid: 8ce1788de6730f445aef2eeeb2d3af60, type: 3}
-  - {fileID: 2866573148162227097, guid: 2dbe72106dde2c348bb7b3443eb7c851, type: 3}
-  - {fileID: 2509186087479040677, guid: 4be2706f0526a4d48bcaf7071e8e7fa1, type: 3}
-  - {fileID: 2259463501157529856, guid: aff8bc232ea9e1c48bde583a6452da3f, type: 3}
-  - {fileID: 4800586785374285995, guid: c30e76337535c20478c577d415690f8e, type: 3}
-  - {fileID: 7209055674182303185, guid: 6cbb20490318e43458a711b9ed02a1e4, type: 3}
+  Clickable: 0
 --- !u!114 &3213931989537708568
 MonoBehaviour:
   m_ObjectHideFlags: 0

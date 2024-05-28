@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8850178289575429581}
   - component: {fileID: 633821890262877693}
   - component: {fileID: 4681367567726821825}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 3620735959968189011}
   - component: {fileID: 2462783168345567483}
   - component: {fileID: 1007634538234213432}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ElementIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 1932783491009974410}
   - component: {fileID: 5752240928601279777}
   - component: {fileID: 6080323965616364456}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: FaceImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 2870663470215792738}
   - component: {fileID: 2491983108723103936}
   - component: {fileID: 4565312313732400333}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 1482441760415248140}
   - component: {fileID: 645432745409377244}
   - component: {fileID: 942148944994015448}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Mana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 4624909741750717549}
   - component: {fileID: 2871523882696902105}
   - component: {fileID: 6340323414335196411}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +638,7 @@ GameObject:
   - component: {fileID: 713404816321475323}
   - component: {fileID: 4001706135936370569}
   - component: {fileID: 7640762650242852277}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Defense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 8817537391844874344}
   - component: {fileID: 8342063069471296040}
   - component: {fileID: 262900241488350016}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: _Creature
   m_TagString: Untagged
   m_Icon: {fileID: 0}

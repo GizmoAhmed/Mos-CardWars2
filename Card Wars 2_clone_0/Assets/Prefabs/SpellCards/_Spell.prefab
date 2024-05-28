@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8716784173332052529}
   - component: {fileID: 422227199676680446}
   - component: {fileID: 1339144178801233240}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Mana
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 6295683417579380467}
   - component: {fileID: 6316132674617756016}
   - component: {fileID: 2971937800085501756}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: FaceImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 6621378006974080712}
   - component: {fileID: 6460159922716360492}
   - component: {fileID: 6371461017929914879}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: _Spell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 933317377593824254}
   - component: {fileID: 9050801020457129263}
   - component: {fileID: 4544129683579567075}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
