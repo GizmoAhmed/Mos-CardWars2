@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8218616231925570474}
   - component: {fileID: 4155411214752069577}
   - component: {fileID: 5181538459027039514}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Land4
   m_TagString: Land
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 651822922516921603}
   - component: {fileID: 173315531470608848}
   - component: {fileID: 7775925490364489875}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Land2
   m_TagString: Land
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 4523259518520943541}
   - component: {fileID: 2350513690969575076}
   - component: {fileID: 395839411035882249}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Land3
   m_TagString: Land
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 1467536474528219463}
   - component: {fileID: 4146014128279297844}
   - component: {fileID: 7824918313208229971}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Land1
   m_TagString: Land
   m_Icon: {fileID: 0}
@@ -497,7 +497,7 @@ GameObject:
   - component: {fileID: 8755024585989509891}
   - component: {fileID: -2583231902095214605}
   - component: {fileID: -1072243385070563525}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DropZone1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

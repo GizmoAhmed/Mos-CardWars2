@@ -5,9 +5,13 @@ using Mirror;
 
 public class Card : NetworkBehaviour
 {
-    public bool Grabbed;
+	public PlayerManager playerManager;
+
+	public bool Grabbed;
     public bool Movable = true;
-    public bool FaceUp; // true = visible, false = back
+
+    [Tooltip("true = front, visible, false = back, logo")]
+    public bool Flipped; 
 
     public GameObject   StartParent;
     public Vector2      StartPos;
@@ -18,7 +22,7 @@ public class Card : NetworkBehaviour
 	public enum CardState
 	{
         Deck,
-		Drawn,
+		Hand,
         Placed
 	}
 
@@ -31,7 +35,14 @@ public class Card : NetworkBehaviour
 
 	void Start()
     {
-        Movable = true;
+        if (isOwned)
+        {
+            Movable = true;
+        }
+        else 
+        {
+            Movable = false;
+        }
 	}
 
 	private void OnTriggerStay2D(Collider2D other)
@@ -50,7 +61,8 @@ public class Card : NetworkBehaviour
 	}
 
 	public void Grab() 
-    { 
+    {
+        if (!Movable) return;
         Grabbed = true;
 
         StartParent = transform.parent.gameObject;      
@@ -59,14 +71,22 @@ public class Card : NetworkBehaviour
 
     public void LetGo() 
     {
-        Grabbed = false;
+		if (!Movable) return;
+
+		Grabbed = false;
 
         if (isOverDropZone)
         {
             transform.SetParent(NewDropZone.transform, true);
 			transform.localPosition = Vector2.zero;
 			Movable = false;
+            
+
+			NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+			playerManager = networkIdentity.GetComponent<PlayerManager>();
+
             SetState(CardState.Placed);
+            playerManager.DropCard(gameObject, currentState);
         }
         else 
         {
@@ -77,10 +97,16 @@ public class Card : NetworkBehaviour
 
     void Update()
     {
+        if (currentState == CardState.Placed) 
+        {
+            Movable = false;
+        }
+
         if (Movable && Grabbed)
         {
             transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         }
+        
     }
 
 }

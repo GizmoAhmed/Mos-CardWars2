@@ -42,3 +42,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: sCard
+    uniqueID: 4257986547
+    locked: 0
+  - name: sBoard
+    uniqueID: 1972846435
+    locked: 0

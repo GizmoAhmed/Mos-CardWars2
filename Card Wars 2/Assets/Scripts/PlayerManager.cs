@@ -55,9 +55,9 @@ public class PlayerManager : NetworkBehaviour
 			NetworkServer.Spawn(drawnCard, conn);
 
 			Card cardScript = drawnCard.GetComponent<Card>();
-			cardScript.SetState(CardState.Drawn);
+			cardScript.SetState(CardState.Hand);
 
-			RpcShowCard(drawnCard, CardState.Drawn);
+			RpcShowCard(drawnCard, CardState.Hand);
 
 			cardList.RemoveAt(randomIndex);
 		}
@@ -66,7 +66,7 @@ public class PlayerManager : NetworkBehaviour
 	[ClientRpc] // server asks client(s) to do something
 	void RpcShowCard(GameObject card, CardState state)
 	{
-		if (state == CardState.Drawn)
+		if (state == CardState.Hand)
 		{
 			if (isOwned)
 			{
@@ -78,4 +78,10 @@ public class PlayerManager : NetworkBehaviour
 			}
 		}
 	}
+
+	public void DropCard(GameObject card, CardState state) 
+	{
+		RpcShowCard(card, state);
+	}
+
 }
