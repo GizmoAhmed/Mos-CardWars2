@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using static Card;
+using UnityEngine.UIElements;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -29,11 +30,19 @@ public class PlayerManager : NetworkBehaviour
 	public override void OnStartServer()
 	{
 		base.OnStartServer();
+		// Initialize server-specific data here if needed
 	}
 
-	[Command] // client asks server to do something
+	[Command] // Client asks server to do something
 	public void CmdDrawCard()
 	{
+		// Ensure that the command is being executed on the server
+		if (!isServer)
+		{
+			Debug.LogError("CmdDrawCard called on a client that is not the server.");
+			return;
+		}
+
 		if (isOwned)
 		{
 			DrawCardFromDeck(Cards1, connectionToClient);
@@ -57,16 +66,17 @@ public class PlayerManager : NetworkBehaviour
 			Card cardScript = drawnCard.GetComponent<Card>();
 			cardScript.SetState(CardState.Hand);
 
+			// Ensure RpcShowCard is called on the server
 			RpcShowCard(drawnCard, CardState.Hand);
 
 			cardList.RemoveAt(randomIndex);
 		}
 	}
 
-	[ClientRpc] // server asks client(s) to do something
+	[ClientRpc] // Server asks client(s) to do something
 	void RpcShowCard(GameObject card, CardState state)
 	{
-		if (state == CardState.Hand)
+		if (state == CardState.Hand) // from drawing card
 		{
 			if (isOwned)
 			{
@@ -77,11 +87,23 @@ public class PlayerManager : NetworkBehaviour
 				card.transform.SetParent(Hand2.transform, false);
 			}
 		}
+		else if (state == CardState.Placed) // from dropping onto drop zone
+		{
+			Debug.Log("code to make card appear on other land here...");
+		}
 	}
 
-	public void DropCard(GameObject card, CardState state) 
+	[Command]
+	public void CmdDropCard(GameObject card, CardState state)
 	{
-		RpcShowCard(card, state);
+		// Ensure this method is called appropriately, possibly only on the server
+		if (isServer)
+		{
+			RpcShowCard(card, state);
+		}
+		else
+		{
+			Debug.LogError("DropCard should be called from the server only.");
+		}
 	}
-
 }

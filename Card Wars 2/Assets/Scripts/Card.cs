@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Microsoft.Unity.VisualStudio.Editor;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Card : NetworkBehaviour
 {
 	public PlayerManager playerManager;
+
+    public UnityEngine.UI.Image image;
 
 	public bool Grabbed;
     public bool Movable = true;
@@ -35,6 +40,8 @@ public class Card : NetworkBehaviour
 
 	void Start()
     {
+        image = GetComponent<UnityEngine.UI.Image>();
+
         if (isOwned)
         {
             Movable = true;
@@ -47,11 +54,15 @@ public class Card : NetworkBehaviour
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
-		if (other.CompareTag("Land"))
-		{
-			NewDropZone = other.gameObject;
+        if (other.CompareTag("Player1Lands") && isOwned)
+        {
+            NewDropZone = other.gameObject;
+            isOverDropZone = true;
+        }
+        /*else if (other.CompareTag("Player2Lands") && !isOwned) 
+        {
 			isOverDropZone = true;
-		}
+		}*/
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
@@ -75,18 +86,17 @@ public class Card : NetworkBehaviour
 
 		Grabbed = false;
 
-        if (isOverDropZone)
+        if (isOverDropZone) // && newDropZone is accepting
         {
             transform.SetParent(NewDropZone.transform, true);
 			transform.localPosition = Vector2.zero;
 			Movable = false;
             
-
 			NetworkIdentity networkIdentity = NetworkClient.connection.identity;
 			playerManager = networkIdentity.GetComponent<PlayerManager>();
 
             SetState(CardState.Placed);
-            playerManager.DropCard(gameObject, currentState);
+            playerManager.CmdDropCard(gameObject, currentState);
         }
         else 
         {
@@ -106,6 +116,15 @@ public class Card : NetworkBehaviour
         {
             transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         }
+
+        if (isOverDropZone)
+        {
+            image.color = Color.green;
+        }
+        else 
+        {
+			image.color = Color.white;
+		}
         
     }
 
