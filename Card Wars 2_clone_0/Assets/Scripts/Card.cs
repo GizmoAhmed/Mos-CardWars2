@@ -23,6 +23,8 @@ public class Card : NetworkBehaviour
     public GameObject   NewDropZone;
     public bool         isOverDropZone;
 
+    public GameObject myLand;
+
 	[Tooltip("Where the card exists")]
 	public enum CardState
 	{
@@ -54,15 +56,22 @@ public class Card : NetworkBehaviour
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
-        if (other.CompareTag("Player1Lands") && isOwned)
+		Land landscript = other.GetComponent<Land>();
+
+        if (landscript != null) 
         {
-            NewDropZone = other.gameObject;
-            isOverDropZone = true;
+            if (other.CompareTag("Land") && isOwned && landscript.Taken == false)
+            {
+                NewDropZone = other.gameObject;
+			    isOverDropZone = true;
+            }
+
+            /*else if (other.CompareTag("Player2Lands") && !isOwned) 
+            {
+			    isOverDropZone = true;
+		    }*/
         }
-        /*else if (other.CompareTag("Player2Lands") && !isOwned) 
-        {
-			isOverDropZone = true;
-		}*/
+		
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
@@ -88,22 +97,36 @@ public class Card : NetworkBehaviour
 
         if (isOverDropZone) // && newDropZone is accepting
         {
-            transform.SetParent(NewDropZone.transform, true);
-			transform.localPosition = Vector2.zero;
-			Movable = false;
-            
-			NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-			playerManager = networkIdentity.GetComponent<PlayerManager>();
-
-            SetState(CardState.Placed);
-            playerManager.CmdDropCard(gameObject, currentState);
-        }
+            HandlePlacement();
+		}
         else 
         {
             transform.position = StartPos;
             transform.SetParent(StartParent.transform, false);
         }
-    }
+
+		image.color = Color.white;
+	}
+
+    public void HandlePlacement()
+    {
+        Movable = false;
+
+        /// link them
+        Land landscript = NewDropZone.GetComponent<Land>();
+        landscript.AttachCard(gameObject);
+        myLand = NewDropZone;
+
+        transform.SetParent(NewDropZone.transform, true);
+        transform.localPosition = Vector2.zero;
+
+
+        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+		playerManager = networkIdentity.GetComponent<PlayerManager>();
+
+		SetState(CardState.Placed);
+		playerManager.CmdDropCard(gameObject, currentState);
+	}
 
     void Update()
     {

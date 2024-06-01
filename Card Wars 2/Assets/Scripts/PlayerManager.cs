@@ -89,21 +89,20 @@ public class PlayerManager : NetworkBehaviour
 		}
 		else if (state == CardState.Placed) // from dropping onto drop zone
 		{
-			Debug.Log("code to make card appear on other land here...");
+			if (isOwned)
+			{
+				Debug.Log("Yours");
+			}
+			else 
+			{
+				Debug.Log("Not Yours");
+			}
 		}
 	}
 
 	[Command]
 	public void CmdDropCard(GameObject card, CardState state)
 	{
-		// Ensure this method is called appropriately, possibly only on the server
-		if (isServer)
-		{
-			RpcShowCard(card, state);
-		}
-		else
-		{
-			Debug.LogError("DropCard should be called from the server only.");
-		}
+		RpcShowCard(card, state);
 	}
 }

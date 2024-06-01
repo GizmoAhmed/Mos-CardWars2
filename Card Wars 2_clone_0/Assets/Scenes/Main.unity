@@ -144,7 +144,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Taken: 0
-  Card: {fileID: 0}
+  CurrentCard: {fileID: 0}
+  Across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
 --- !u!1 &62904762 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6526346361063094971, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
@@ -166,7 +171,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Taken: 0
-  Card: {fileID: 0}
+  CurrentCard: {fileID: 0}
+  Across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
 --- !u!1 &376083059 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7897201180788869975, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
@@ -188,7 +198,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Taken: 0
-  Card: {fileID: 0}
+  CurrentCard: {fileID: 0}
+  Across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
 --- !u!1 &409463522 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8929894410010254001, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
@@ -210,7 +225,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Taken: 0
-  Card: {fileID: 0}
+  CurrentCard: {fileID: 0}
+  Across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +344,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Taken: 0
-  Card: {fileID: 0}
+  CurrentCard: {fileID: 0}
+  Across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
 --- !u!1001 &898403999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -469,7 +494,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Taken: 0
-  Card: {fileID: 0}
+  CurrentCard: {fileID: 0}
+  Across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
 --- !u!1001 &987336215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -602,7 +632,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Taken: 0
-  Card: {fileID: 0}
+  CurrentCard: {fileID: 0}
+  Across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
 --- !u!1 &1205642842
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,7 +851,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   Taken: 0
-  Card: {fileID: 0}
+  CurrentCard: {fileID: 0}
+  Across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
 --- !u!1 &2129006737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1284,7 +1324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 889299806071885700, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
       propertyPath: m_TagString
-      value: Player2Lands
+      value: Land
       objectReference: {fileID: 0}
     - target: {fileID: 2816029261703196428, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
       propertyPath: m_Pivot.x
@@ -1376,7 +1416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6526346361063094971, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
       propertyPath: m_TagString
-      value: Player2Lands
+      value: Land
       objectReference: {fileID: 0}
     - target: {fileID: 7308647824562436316, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
       propertyPath: sceneId
@@ -1392,7 +1432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7897201180788869975, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
       propertyPath: m_TagString
-      value: Player2Lands
+      value: Land
       objectReference: {fileID: 0}
     - target: {fileID: 8509794995364783619, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
       propertyPath: m_Name
@@ -1412,7 +1452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8929894410010254001, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
       propertyPath: m_TagString
-      value: Player2Lands
+      value: Land
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1453,7 +1493,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1131125479244641757, guid: 0c9fae4b6df188d4e8b09e6c631839d7, type: 3}
       propertyPath: m_TagString
-      value: Player1Lands
+      value: Land
       objectReference: {fileID: 0}
     - target: {fileID: 1299978847076508053, guid: 0c9fae4b6df188d4e8b09e6c631839d7, type: 3}
       propertyPath: m_Name
@@ -1465,7 +1505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1299978847076508053, guid: 0c9fae4b6df188d4e8b09e6c631839d7, type: 3}
       propertyPath: m_TagString
-      value: Player1Lands
+      value: Land
       objectReference: {fileID: 0}
     - target: {fileID: 3964709926813298015, guid: 0c9fae4b6df188d4e8b09e6c631839d7, type: 3}
       propertyPath: m_Pivot.x
@@ -1557,7 +1597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5954035176666622831, guid: 0c9fae4b6df188d4e8b09e6c631839d7, type: 3}
       propertyPath: m_TagString
-      value: Player1Lands
+      value: Land
       objectReference: {fileID: 0}
     - target: {fileID: 6718096296605332035, guid: 0c9fae4b6df188d4e8b09e6c631839d7, type: 3}
       propertyPath: m_Name
@@ -1569,7 +1609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6718096296605332035, guid: 0c9fae4b6df188d4e8b09e6c631839d7, type: 3}
       propertyPath: m_TagString
-      value: Player1Lands
+      value: Land
       objectReference: {fileID: 0}
     - target: {fileID: 7542387904219371395, guid: 0c9fae4b6df188d4e8b09e6c631839d7, type: 3}
       propertyPath: m_Name
