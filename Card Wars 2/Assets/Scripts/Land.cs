@@ -8,7 +8,13 @@ public class Land : NetworkBehaviour
 	public bool Taken;
 	public GameObject CurrentCard = null;
 
-	public GameObject Across;
+	public GameObject across;
+
+	public GameObject _Across
+	{
+		get { return across; }
+		set { across = value; }
+	}
 
 	public GameObject AdjacentLeft;
 	public GameObject AdjacentRight;
@@ -34,6 +40,7 @@ public class Land : NetworkBehaviour
 		CurrentCard = card;
 	}
 
+	/// Thanks ChatGPT
 	private void InitializeNeighbors()
 	{
 		// Assuming that the naming convention for the lands follows the pattern
@@ -48,11 +55,11 @@ public class Land : NetworkBehaviour
 			// Set the Across field
 			if (landName.StartsWith("p1Land"))
 			{
-				Across = GameObject.Find("p2Land" + landNumber);
+				_Across = GameObject.Find("p2Land" + landNumber);
 			}
 			else if (landName.StartsWith("p2Land"))
 			{
-				Across = GameObject.Find("p1Land" + landNumber);
+				_Across = GameObject.Find("p1Land" + landNumber);
 			}
 
 			// Set the AdjacentLeft and AdjacentRight fields

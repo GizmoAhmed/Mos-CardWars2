@@ -9,8 +9,8 @@ public class PlayerManager : NetworkBehaviour
 	public GameObject Hand1;
 	public GameObject Hand2;
 
-	public GameObject Player1Area;
-	public GameObject Player2Area;
+	public GameObject ThisPlayer;
+	public GameObject OtherPlayer;
 
 	public List<GameObject> Cards1;
 	public List<GameObject> Cards2;
@@ -22,8 +22,8 @@ public class PlayerManager : NetworkBehaviour
 		Hand1 = GameObject.Find("Hand1");
 		Hand2 = GameObject.Find("Hand2");
 
-		Player1Area = GameObject.Find("Player1Area");
-		Player2Area = GameObject.Find("Player2Area");
+		ThisPlayer = GameObject.Find("ThisPlayer");
+		OtherPlayer = GameObject.Find("OtherPlayer");
 	}
 
 	[Server]
@@ -67,14 +67,14 @@ public class PlayerManager : NetworkBehaviour
 			cardScript.SetState(CardState.Hand);
 
 			// Ensure RpcShowCard is called on the server
-			RpcShowCard(drawnCard, CardState.Hand);
+			RpcShowCard(drawnCard, CardState.Hand, null);
 
 			cardList.RemoveAt(randomIndex);
 		}
 	}
 
 	[ClientRpc] // Server asks client(s) to do something
-	void RpcShowCard(GameObject card, CardState state)
+	void RpcShowCard(GameObject card, CardState state, GameObject land)
 	{
 		if (state == CardState.Hand) // from drawing card
 		{
@@ -89,20 +89,51 @@ public class PlayerManager : NetworkBehaviour
 		}
 		else if (state == CardState.Placed) // from dropping onto drop zone
 		{
-			if (isOwned)
+			if (!isOwned)
 			{
-				Debug.Log("Yours");
+				Debug.Log("Placing Across...");
+
+				if (land != null)
+				{
+					Land landScript = land.GetComponent<Land>();
+					GameObject acrossLand = landScript._Across;
+
+					card.transform.SetParent(acrossLand.transform, true);
+					card.transform.localPosition = Vector2.zero;
+				}
+				else
+				{
+					Debug.LogWarning("Land is not assigned...");
+				}
 			}
 			else 
 			{
-				Debug.Log("Not Yours");
+				Debug.Log("Yours");
 			}
 		}
 	}
 
-	[Command]
-	public void CmdDropCard(GameObject card, CardState state)
+	[Command] // called by clients but executed on the server.
+	public void CmdDropCard(GameObject card, CardState state, GameObject land)
 	{
-		RpcShowCard(card, state);
+		Debug.Log("Set myLand on the server"); 
+		Card cardScript = card.GetComponent<Card>();
+		cardScript.myLand = land;
+
+		// Call the RPCs
+		if (state == CardState.Placed) 
+		{
+			RpcSetMyLand(card, land);
+		}
+
+		RpcShowCard(card, state, land);
 	}
+
+	[ClientRpc] // called by the server and executed on all clients.
+	void RpcSetMyLand(GameObject card, GameObject land)
+	{
+		Card cardScript = card.GetComponent<Card>();
+		cardScript.myLand = land;
+	}
+
 }
