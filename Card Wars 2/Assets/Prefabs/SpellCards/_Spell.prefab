@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 6460159922716360492}
   - component: {fileID: 6371461017929914879}
   - component: {fileID: -3491478722320707335}
+  - component: {fileID: 4740380502033212643}
   m_Layer: 7
   m_Name: _Spell
   m_TagString: Untagged
@@ -339,6 +340,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7269777082976217633}
+          m_TargetAssemblyTypeName: Card, Assembly-CSharp
+          m_MethodName: PointerDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7269777082976217633}
+          m_TargetAssemblyTypeName: Card, Assembly-CSharp
+          m_MethodName: PointerUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &7269777082976217633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +394,8 @@ MonoBehaviour:
   StartPos: {x: 0, y: 0}
   NewDropZone: {fileID: 0}
   isOverDropZone: 0
+  currentMousePos: {x: 0, y: 0}
+  clickSave: {x: 0, y: 0}
   myLand: {fileID: 0}
   currentState: 1
 --- !u!61 &4912084331738091917
@@ -500,6 +535,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardFront: {fileID: 21300000, guid: e96ce24958ca32547b35678aaf95ece0, type: 3}
   CardBack: {fileID: 21300000, guid: 83a8423f882c691468d3b38c6b7296a4, type: 3}
+--- !u!114 &4740380502033212643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7272186375663456577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0985e2b76bad6e042a1b18d2ce2e3262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  Canvas: {fileID: 0}
+  ZoomCard: {fileID: 6033886716383317920, guid: f0813205180ff5649b56486955bd7fa8, type: 3}
 --- !u!1 &9018533075127916591
 GameObject:
   m_ObjectHideFlags: 0

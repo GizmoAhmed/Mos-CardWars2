@@ -16,6 +16,9 @@ public class Card : NetworkBehaviour
 	public GameObject NewDropZone;
 	public bool isOverDropZone;
 
+	public Vector2 currentMousePos;
+	public Vector2 clickSave;
+
 	[Tooltip("The Land space this card is on")]
 	public GameObject myLand;
 
@@ -66,9 +69,35 @@ public class Card : NetworkBehaviour
 		isOverDropZone = false;
 	}
 
+	public void Zoom()
+	{
+		CardFlipper flip = GetComponent<CardFlipper>();
+		CardZoom zoom = GetComponent<CardZoom>();
+
+		zoom.ZoomIn();
+	}
+
+	public void PointerDown() 
+	{
+		clickSave = new Vector2(Input.mousePosition.x, Input.mousePosition.y); 
+	}
+
+	public void PointerUp()
+	{
+		CardFlipper flip = GetComponent<CardFlipper>();
+
+		// If the mouse position has not changed, zoom into the card
+		if (clickSave == currentMousePos && flip.currentFace == CardFlipper.FaceState.FaceUp)
+		{
+			Zoom();
+		}
+	}
+
+
 	public void Grab()
 	{
 		if (!Movable) return;
+
 		Grabbed = true;
 
 		StartParent = transform.parent.gameObject;
@@ -83,21 +112,17 @@ public class Card : NetworkBehaviour
 
 		if (isOverDropZone)
 		{
-			HandleYourPlacement(NewDropZone);
+			PlaceCard(NewDropZone);
 		}
 		else
 		{
 			transform.position = StartPos;
 			transform.SetParent(StartParent.transform, false);
 		}
-
 	}
 
-	public void HandleYourPlacement(GameObject land)
+	public void PlaceCard(GameObject land)
 	{
-
-		Debug.Log("Handling Placement...");
-
 		Movable = false;
 
 		Land landscript = land.GetComponent<Land>();
@@ -114,11 +139,12 @@ public class Card : NetworkBehaviour
 
 		SetState(CardState.Placed);
 		playerManager.CmdDropCard(gameObject, currentState, land);
-
 	}
 
 	void Update()
 	{
+		currentMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
 		if (currentState == CardState.Placed)
 		{
 			Movable = false;
@@ -126,7 +152,7 @@ public class Card : NetworkBehaviour
 
 		if (Movable && Grabbed)
 		{
-			transform.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+			transform.position = currentMousePos;
 		}
 	}
 }

@@ -117,8 +117,6 @@ public class PlayerManager : NetworkBehaviour
 	[Command] // called by clients but executed on the server.
 	public void CmdDropCard(GameObject card, CardState state, GameObject land)
 	{
-		Debug.Log("Set myLand on the server"); 
-
 		Card cardScript = card.GetComponent<Card>();
 		cardScript.myLand = land;
 

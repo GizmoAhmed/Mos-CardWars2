@@ -8,20 +8,38 @@ public class CardFlipper : MonoBehaviour
 	public Sprite CardFront;
 	public Sprite CardBack;
 
+	public enum FaceState
+	{
+		FaceUp,
+		FaceDown
+	}
+
+	public FaceState currentFace;
+
+	public FaceState CurrentFace 
+	{
+		get { return currentFace; }
+		set { currentFace = value; }
+	}
+
 	public void Flip()
 	{
 		Sprite currentSprite = gameObject.GetComponent<Image>().sprite;
 
 		if (currentSprite == CardFront)
 		{
+			currentFace = FaceState.FaceDown;
+
 			gameObject.GetComponent<Image>().sprite = CardBack;
-			// Disable all children
+
 			SetChildrenActive(false);
 		}
 		else
 		{
+			currentFace= FaceState.FaceUp;
+
 			gameObject.GetComponent<Image>().sprite = CardFront;
-			// Enable all children
+
 			SetChildrenActive(true);
 		}
 	}
