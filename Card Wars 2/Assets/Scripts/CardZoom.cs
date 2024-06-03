@@ -7,9 +7,11 @@ using Mirror;
 public class CardZoom : NetworkBehaviour
 {
 	public GameObject Canvas;
-	public GameObject ZoomCard;
+	public GameObject ZoomCardPrefab;
 
-	private GameObject zoomCard;
+	private GameObject zoomedCard;
+
+	public bool ZoomedIn;
 
 	public void Awake()
 	{
@@ -18,6 +20,24 @@ public class CardZoom : NetworkBehaviour
 
 	public void ZoomIn()
 	{
-		Debug.Log("Zoomed In...");
+		// if already looking at a card
+		if (ZoomedIn) 
+		{
+			return;
+		}
+
+		Debug.Log("Zooming In...");
+
+		zoomedCard = Instantiate(ZoomCardPrefab, new Vector2(0,0), Quaternion.identity);
+
+		zoomedCard.transform.SetParent(Canvas.transform, false);
+
+		ZoomedIn = true;
+	}
+
+	public void ZoomOut() 
+	{
+		Destroy(zoomedCard);
+		ZoomedIn = false;
 	}
 }
