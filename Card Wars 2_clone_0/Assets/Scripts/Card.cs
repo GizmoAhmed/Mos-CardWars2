@@ -51,6 +51,11 @@ public class Card : NetworkBehaviour
 		}
 	}
 
+	public bool IsOwnedByLocalPlayer()
+	{
+		return isOwned;
+	}
+
 	private void OnTriggerStay2D(Collider2D other)
 	{
 		Land landscript = other.GetComponent<Land>();
@@ -73,7 +78,6 @@ public class Card : NetworkBehaviour
 
 	public void Zoom()
 	{
-		CardFlipper flip = GetComponent<CardFlipper>();
 		CardZoom zoom = GetComponent<CardZoom>();
 
 		zoom.ZoomIn();

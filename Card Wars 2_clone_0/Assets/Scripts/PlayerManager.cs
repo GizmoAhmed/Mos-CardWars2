@@ -114,13 +114,17 @@ public class PlayerManager : NetworkBehaviour
 		}
 	}
 
-	[Command] // called by clients but executed on the server.
+	/* 
+	 * called by clients but executed on the server.
+	 * ie: a client called into drop card, now server will call rpcs
+	 */
+
+	[Command] // 
 	public void CmdDropCard(GameObject card, CardState state, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();
 		cardScript.myLand = land;
 
-		// Call the RPCs
 		if (state == CardState.Placed) 
 		{
 			RpcSetMyLand(card, land);
@@ -129,11 +133,16 @@ public class PlayerManager : NetworkBehaviour
 		RpcShowCard(card, state, land);
 	}
 
-	[ClientRpc] // called by the server and executed on all clients.
+	/*
+	 * called by the server and executed on all clients.
+	 * ie: all clients will see that this card is given this land
+	 */
+	[ClientRpc] 
 	void RpcSetMyLand(GameObject card, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();
 		cardScript.myLand = land;
+		cardScript.currentState = CardState.Placed;
 	}
 
 }

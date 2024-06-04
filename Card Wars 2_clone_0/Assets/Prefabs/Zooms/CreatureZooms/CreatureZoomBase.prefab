@@ -546,6 +546,8 @@ GameObject:
   - component: {fileID: 6858764113813308779}
   - component: {fileID: 3350367700591757994}
   - component: {fileID: -3656835396325628944}
+  - component: {fileID: 3511104942341857253}
+  - component: {fileID: -3259570457198876605}
   m_Layer: 0
   m_Name: CreatureZoomBase
   m_TagString: Untagged
@@ -628,7 +630,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f406c654ed371a94c9e819e2043e06f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  card: {fileID: 0}
   zoom: {fileID: 0}
+  floopButton: {fileID: 314593516439212242}
+--- !u!114 &3511104942341857253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637343784872752918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 4331057113789067313}
+  syncPosition: 0
+  syncRotation: 0
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01
+--- !u!114 &-3259570457198876605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637343784872752918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2149112928
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &2475601183823793551
 GameObject:
   m_ObjectHideFlags: 0

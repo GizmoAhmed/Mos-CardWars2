@@ -44,6 +44,8 @@ public class CardZoom : NetworkBehaviour
 		zoomedCard = Instantiate(ZoomCardPrefab, new Vector2(0,0), Quaternion.identity);
 
 		floopScript = zoomedCard.GetComponent<FloopExit>();
+
+		// attach this card to the zoomedCards floop script
 		floopScript.card = gameObject;
 
 		zoomedCard.transform.SetParent(Canvas.transform, false);
@@ -53,15 +55,9 @@ public class CardZoom : NetworkBehaviour
 		ZoomedIn = true;
 	}
 
-	// instead of destruction, mabye try activity and inactivity
-
 	public void ZoomOut() 
 	{
 		Debug.Log("Zooming Out...");
-
-		/*Card cardScript = zoomedCard.GetComponent<Card>();
-
-		cardScript.isZoomLocked = false;*/
 
 		Destroy(zoomedCard);
 
