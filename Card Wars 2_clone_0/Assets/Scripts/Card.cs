@@ -16,6 +16,8 @@ public class Card : NetworkBehaviour
 	public GameObject NewDropZone;
 	public bool isOverDropZone;
 
+	public bool isZoomLocked;
+
 	public Vector2 currentMousePos;
 	public Vector2 clickSave;
 
@@ -87,7 +89,7 @@ public class Card : NetworkBehaviour
 		CardFlipper flip = GetComponent<CardFlipper>();
 
 		// If the mouse position has not changed, zoom into the card
-		if (clickSave == currentMousePos && flip.currentFace == CardFlipper.FaceState.FaceUp)
+		if (clickSave == currentMousePos && flip.currentFace == CardFlipper.FaceState.FaceUp && !isZoomLocked)
 		{
 			Zoom();
 		}
@@ -96,7 +98,7 @@ public class Card : NetworkBehaviour
 
 	public void Grab()
 	{
-		if (!Movable) return;
+		if (!Movable || isZoomLocked) return;
 
 		Grabbed = true;
 
@@ -106,7 +108,7 @@ public class Card : NetworkBehaviour
 
 	public void LetGo()
 	{
-		if (!Movable) return;
+		if (!Movable || isZoomLocked) return;
 
 		Grabbed = false;
 

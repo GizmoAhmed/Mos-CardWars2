@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: m_text
       value: 6/6
       objectReference: {fileID: 0}
+    - target: {fileID: 8475197582493474884, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: ZoomCardPrefab
+      value: 
+      objectReference: {fileID: 2240338899283417399, guid: 91cf841b9d5e67d4a9e7f01d115f3cf0, type: 3}
     - target: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Name
       value: Gazer

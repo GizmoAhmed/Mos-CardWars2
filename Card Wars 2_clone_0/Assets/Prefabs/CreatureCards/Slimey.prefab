@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: m_text
       value: 2/2
       objectReference: {fileID: 0}
+    - target: {fileID: 8475197582493474884, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: ZoomCardPrefab
+      value: 
+      objectReference: {fileID: 8840667392345259523, guid: 680d77c6b27b78e41b6bb1e2a7933ebf, type: 3}
     - target: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Name
       value: Slimey

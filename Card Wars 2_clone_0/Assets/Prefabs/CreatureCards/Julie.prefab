@@ -132,6 +132,10 @@ PrefabInstance:
       propertyPath: m_text
       value: 5/5
       objectReference: {fileID: 0}
+    - target: {fileID: 8475197582493474884, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: ZoomCardPrefab
+      value: 
+      objectReference: {fileID: 1983561758811094522, guid: 64de0d4e3c95c8949b5538f3187658e3, type: 3}
     - target: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Name
       value: Julie
