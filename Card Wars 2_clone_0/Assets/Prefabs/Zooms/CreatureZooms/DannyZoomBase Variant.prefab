@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7784858262894446869
+--- !u!1001 &4301785260945678997
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,12 +9,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3259570457198876605, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
+      propertyPath: sceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3259570457198876605, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: _assetId
-      value: 1298545921
+      value: 4146460981
       objectReference: {fileID: 0}
     - target: {fileID: 1637343784872752918, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_Name
-      value: SlimeyZoom
+      value: DannyZoomBase Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2385474876116360870, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_text
@@ -23,7 +27,7 @@ PrefabInstance:
     - target: {fileID: 2578297413175563186, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cf5acc225224bb54ba3fd3333d593384, type: 3}
+      objectReference: {fileID: 21300000, guid: ef0fc7036e046a243bcba077d3713ee5, type: 3}
     - target: {fileID: 4331057113789067313, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -106,11 +110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5877828346088915209, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_text
-      value: Deal 5 Damage to opposing Land, then Discard this Creature
+      value: Opposing Creature Loses 3 Attack and discard this creature
       objectReference: {fileID: 0}
     - target: {fileID: 8993916334787646478, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_text
-      value: Green Slimey
+      value: Danny Dwarf
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

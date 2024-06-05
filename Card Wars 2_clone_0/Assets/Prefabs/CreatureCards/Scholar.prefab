@@ -144,6 +144,10 @@ PrefabInstance:
       propertyPath: m_text
       value: 7/7
       objectReference: {fileID: 0}
+    - target: {fileID: 8475197582493474884, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: ZoomCardPrefab
+      value: 
+      objectReference: {fileID: 3824756213966671126, guid: 8ffb7b57afc0727458747f1992d35ee7, type: 3}
     - target: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Name
       value: Scholar

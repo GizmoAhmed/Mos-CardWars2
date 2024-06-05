@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7784858262894446869
+--- !u!1001 &7948098614260856090
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -9,21 +9,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3259570457198876605, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
+      propertyPath: sceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3259570457198876605, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: _assetId
-      value: 1298545921
+      value: 3678472121
       objectReference: {fileID: 0}
     - target: {fileID: 1637343784872752918, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_Name
-      value: SlimeyZoom
+      value: GramZoom
       objectReference: {fileID: 0}
     - target: {fileID: 2385474876116360870, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_text
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2578297413175563186, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: cf5acc225224bb54ba3fd3333d593384, type: 3}
+      objectReference: {fileID: 21300000, guid: 172e2a1e8bd749a41bbd472ae9b67a70, type: 3}
     - target: {fileID: 4331057113789067313, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -106,11 +110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5877828346088915209, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_text
-      value: Deal 5 Damage to opposing Land, then Discard this Creature
+      value: Start the next turn with +1 Mana for each enemy creature on the field
       objectReference: {fileID: 0}
     - target: {fileID: 8993916334787646478, guid: f8f171cf3e59ce248a6afd757cf930c3, type: 3}
       propertyPath: m_text
-      value: Green Slimey
+      value: Gram Gram The Hologram
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

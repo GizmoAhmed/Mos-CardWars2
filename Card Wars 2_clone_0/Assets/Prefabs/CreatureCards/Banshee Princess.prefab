@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6967564892161370189
+--- !u!1001 &4396302424690467307
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -15,47 +15,31 @@ PrefabInstance:
     - target: {fileID: 1007634538234213432, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 61cd345e600d0014680e6ae53a863d84, type: 3}
-    - target: {fileID: 1932783491009974410, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.0171242
-      objectReference: {fileID: 0}
-    - target: {fileID: 1932783491009974410, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.0171242
-      objectReference: {fileID: 0}
-    - target: {fileID: 1932783491009974410, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.0171242
-      objectReference: {fileID: 0}
-    - target: {fileID: 1932783491009974410, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 3620735959968189011, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 59.7
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: d06102b5419f6004ba21b1396b2cb4eb, type: 3}
     - target: {fileID: 4565312313732400333, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4624909741750717549, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -86.8
       objectReference: {fileID: 0}
     - target: {fileID: 4681367567726821825, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4681367567726821825, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Color.g
-      value: 0.28627452
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4681367567726821825, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Color.r
-      value: 0.6117647
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 6080323965616364456, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8dade034e36bf3742885d7a14e07e9f1, type: 3}
+      objectReference: {fileID: 21300000, guid: f7c58dbdf379ba844a1a787ad6e238fb, type: 3}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -66,27 +50,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 165
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -118,11 +102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 143
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -138,47 +122,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
-      value: Scholar
+      value: Banshee Princess
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_fontSize
+      value: 15.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_margin.z
+      value: 75.38731
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 15.5
       objectReference: {fileID: 0}
     - target: {fileID: 7640762650242852277, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
-      value: 7/7
+      value: 6/6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342063069471296040, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: sceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342063069471296040, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: _assetId
+      value: 4224603062
       objectReference: {fileID: 0}
     - target: {fileID: 8475197582493474884, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: ZoomCardPrefab
       value: 
-      objectReference: {fileID: 3824756213966671126, guid: 8ffb7b57afc0727458747f1992d35ee7, type: 3}
+      objectReference: {fileID: 6801384894190822199, guid: d52ef07d5a1c48342848a15a49d96a62, type: 3}
     - target: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Name
-      value: Scholar
+      value: Banshee Princess
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2071682973664178399}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
---- !u!1 &2259463501157529856 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-  m_PrefabInstance: {fileID: 6967564892161370189}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2071682973664178399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2259463501157529856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  _assetId: 1270750821
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0
