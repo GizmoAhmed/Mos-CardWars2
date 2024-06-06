@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class Land : NetworkBehaviour
+public class CreatureLand : NetworkBehaviour
 {
 	public bool Taken;
 	public GameObject CurrentCard = null;
@@ -22,7 +22,7 @@ public class Land : NetworkBehaviour
 	public GameObject DiagLeft;
 	public GameObject DiagRight;
 
-	void Start()
+	public void Start()
 	{
 		InitializeNeighbors();
 	}
@@ -41,7 +41,7 @@ public class Land : NetworkBehaviour
 	}
 
 	/// Thanks ChatGPT
-	private void InitializeNeighbors()
+	protected virtual void InitializeNeighbors()
 	{
 		// Assuming that the naming convention for the lands follows the pattern
 		// p1Land1, p1Land2, etc. for player 1

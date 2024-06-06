@@ -58,11 +58,11 @@ public class Card : NetworkBehaviour
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
-		Land landscript = other.GetComponent<Land>();
+		CreatureLand landscript = other.GetComponent<CreatureLand>();
 
 		if (landscript != null)
 		{
-			if (other.CompareTag("Land") && isOwned && landscript.Taken == false)
+			if ((other.CompareTag("Land")) || other.CompareTag("Build") && isOwned && landscript.Taken == false)
 			{
 				NewDropZone = other.gameObject;
 				isOverDropZone = true;
@@ -131,7 +131,7 @@ public class Card : NetworkBehaviour
 	{
 		Movable = false;
 
-		Land landscript = land.GetComponent<Land>();
+		CreatureLand landscript = land.GetComponent<CreatureLand>();
 
 		// Link them
 		landscript.AttachCard(gameObject);

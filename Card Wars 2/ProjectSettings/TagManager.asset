@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Player1Lands
   - Player2Lands
+  - Land
+  - Build
   layers:
   - Default
   - TransparentFX

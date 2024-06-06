@@ -96,7 +96,7 @@ public class PlayerManager : NetworkBehaviour
 
 				if (land != null)
 				{
-					Land landScript = land.GetComponent<Land>();
+					CreatureLand landScript = land.GetComponent<CreatureLand>();
 					GameObject acrossLand = landScript._Across;
 
 					card.transform.SetParent(acrossLand.transform, true);
@@ -144,5 +144,4 @@ public class PlayerManager : NetworkBehaviour
 		cardScript.myLand = land;
 		cardScript.currentState = CardState.Placed;
 	}
-
 }
