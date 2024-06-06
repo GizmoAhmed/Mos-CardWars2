@@ -26,7 +26,7 @@ public class FloopExit : NetworkBehaviour
 		// Check if floopButton is not assigned
 		if (floopButton == null)
 		{
-			Debug.LogWarning("FloopButton is not assigned! Please assign it in the Inspector.");
+			Debug.Log("Probably a building...");
 			return; 
 		}
 
@@ -51,8 +51,6 @@ public class FloopExit : NetworkBehaviour
 
     public void exit() 
     {
-		Debug.Log("exiting zoom...");
-
 		zoom.ZoomOut();
 	}
 }
