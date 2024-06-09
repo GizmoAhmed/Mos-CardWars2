@@ -4,10 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Player1Lands
-  - Player2Lands
-  - Land
-  - Build
+  - BuildLand
+  - CreatureLand
   layers:
   - Default
   - TransparentFX

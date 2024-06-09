@@ -355,13 +355,13 @@ GameObject:
   - component: {fileID: 6458416214165275622}
   - component: {fileID: 3074121270103888628}
   - component: {fileID: 2542018414168705338}
-  - component: {fileID: 7784200282307621868}
   - component: {fileID: 1490163082424846875}
   - component: {fileID: 8485211074397140036}
   - component: {fileID: 1844164581784522129}
   - component: {fileID: 7859894189341620525}
   - component: {fileID: 9707199076600373}
   - component: {fileID: 1907336228863376898}
+  - component: {fileID: 4584136613029985643}
   m_Layer: 7
   m_Name: _Building
   m_TagString: Untagged
@@ -448,7 +448,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7784200282307621868}
+        - m_Target: {fileID: 4584136613029985643}
           m_TargetAssemblyTypeName: Card, Assembly-CSharp
           m_MethodName: Grab
           m_Mode: 1
@@ -464,7 +464,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7784200282307621868}
+        - m_Target: {fileID: 4584136613029985643}
           m_TargetAssemblyTypeName: Card, Assembly-CSharp
           m_MethodName: LetGo
           m_Mode: 1
@@ -480,7 +480,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7784200282307621868}
+        - m_Target: {fileID: 4584136613029985643}
           m_TargetAssemblyTypeName: Card, Assembly-CSharp
           m_MethodName: PointerDown
           m_Mode: 1
@@ -496,7 +496,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7784200282307621868}
+        - m_Target: {fileID: 4584136613029985643}
           m_TargetAssemblyTypeName: Card, Assembly-CSharp
           m_MethodName: PointerUp
           m_Mode: 1
@@ -508,33 +508,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &7784200282307621868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5669542139119279889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4e27251ceb832248b6694446879f2d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  playerManager: {fileID: 0}
-  Grabbed: 0
-  Movable: 1
-  StartParent: {fileID: 0}
-  StartPos: {x: 0, y: 0}
-  NewDropZone: {fileID: 0}
-  isOverDropZone: 0
-  isZoomLocked: 0
-  currentMousePos: {x: 0, y: 0}
-  clickSave: {x: 0, y: 0}
-  myLand: {fileID: 0}
-  currentState: 1
 --- !u!61 &1490163082424846875
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -620,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 1794275429
+  _assetId: 1109322068
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
@@ -696,6 +669,34 @@ MonoBehaviour:
   deckButton: {fileID: 0}
   cardScript: {fileID: 0}
   ZoomedIn: 0
+--- !u!114 &4584136613029985643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5669542139119279889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b4525236b04ad4ca57599fdb6520e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerManager: {fileID: 0}
+  Grabbed: 0
+  Movable: 1
+  StartParent: {fileID: 0}
+  StartPos: {x: 0, y: 0}
+  NewDropZone: {fileID: 0}
+  isOverDropZone: 0
+  isZoomLocked: 0
+  currentMousePos: {x: 0, y: 0}
+  clickSave: {x: 0, y: 0}
+  myLand: {fileID: 0}
+  currentState: 0
+  requiredTag: 
 --- !u!1 &5877841891168593304
 GameObject:
   m_ObjectHideFlags: 0

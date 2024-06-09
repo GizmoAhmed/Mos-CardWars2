@@ -34,6 +34,8 @@ public class Card : NetworkBehaviour
 
 	public CardState currentState = CardState.Deck;
 
+	public string requiredTag;
+
 	public void SetState(CardState newState)
 	{
 		currentState = newState;
@@ -56,13 +58,13 @@ public class Card : NetworkBehaviour
 		return isOwned;
 	}
 
-	private void OnTriggerStay2D(Collider2D other)
+	protected virtual void OnTriggerStay2D(Collider2D other)
 	{
 		CreatureLand landscript = other.GetComponent<CreatureLand>();
 
 		if (landscript != null)
 		{
-			if ((other.CompareTag("Land")) || other.CompareTag("Build") && isOwned && landscript.Taken == false)
+			if (other.CompareTag(requiredTag) && isOwned && landscript.Taken == false)
 			{
 				NewDropZone = other.gameObject;
 				isOverDropZone = true;
@@ -83,9 +85,9 @@ public class Card : NetworkBehaviour
 		zoom.ZoomIn();
 	}
 
-	public void PointerDown() 
+	public void PointerDown()
 	{
-		clickSave = new Vector2(Input.mousePosition.x, Input.mousePosition.y); 
+		clickSave = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 	}
 
 	public void PointerUp()
@@ -98,7 +100,6 @@ public class Card : NetworkBehaviour
 			Zoom();
 		}
 	}
-
 
 	public void Grab()
 	{

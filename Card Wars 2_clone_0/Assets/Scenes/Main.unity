@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 148812086}
   m_Layer: 8
   m_Name: p1Build3
-  m_TagString: Build
+  m_TagString: BuildLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -580,7 +580,7 @@ GameObject:
   - component: {fileID: 265792451}
   m_Layer: 8
   m_Name: p1Build1
-  m_TagString: Build
+  m_TagString: BuildLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 370531261}
   m_Layer: 8
   m_Name: p1Build4
-  m_TagString: Build
+  m_TagString: BuildLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2342,7 +2342,7 @@ GameObject:
   - component: {fileID: 1951478314}
   m_Layer: 8
   m_Name: p1Build2
-  m_TagString: Build
+  m_TagString: BuildLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2644,7 +2644,6 @@ MonoBehaviour:
   - {fileID: 1983561758811094522, guid: 64de0d4e3c95c8949b5538f3187658e3, type: 3}
   - {fileID: 104921885069382094, guid: c7f805893aa579c449509cc0169cc67c, type: 3}
   - {fileID: 5863726776954763992, guid: daa2180d8a3fee243b0dc1cda490f925, type: 3}
-  - {fileID: 7879420104403120485, guid: 5efb24a2cc2784d4db2d1ae8f789dec4, type: 3}
   - {fileID: 2745455288065504265, guid: 07331bd8dd4fd4e4db782b67d6f38330, type: 3}
   - {fileID: 2579605830372846564, guid: bdc4d91bab32f2748b3820cd81699f60, type: 3}
   - {fileID: 2259463501157529856, guid: aff8bc232ea9e1c48bde583a6452da3f, type: 3}
@@ -2955,7 +2954,7 @@ GameObject:
   - component: {fileID: 9171217069136495256}
   m_Layer: 8
   m_Name: p1Land3
-  m_TagString: Land
+  m_TagString: CreatureLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3023,7 +3022,7 @@ GameObject:
   - component: {fileID: 8649994479479012887}
   m_Layer: 8
   m_Name: p1Land1
-  m_TagString: Land
+  m_TagString: CreatureLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4003,7 +4002,7 @@ GameObject:
   - component: {fileID: 8658612010558265068}
   m_Layer: 8
   m_Name: p1Land4
-  m_TagString: Land
+  m_TagString: CreatureLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4143,7 +4142,7 @@ GameObject:
   - component: {fileID: 6019375482099548344}
   m_Layer: 8
   m_Name: p1Land2
-  m_TagString: Land
+  m_TagString: CreatureLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
