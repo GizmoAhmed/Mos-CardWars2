@@ -24,7 +24,7 @@ public class CardZoom : NetworkBehaviour
 	{
 		Canvas = GameObject.Find("GameCanvas");
 
-		deck = GameObject.Find("Deck1");
+		deck = GameObject.Find("DeckButton");
 
 		deckButton = deck.GetComponent<Button>();
 
@@ -34,10 +34,7 @@ public class CardZoom : NetworkBehaviour
 	public void ZoomIn()
 	{
 		// if already looking at a card
-		if (ZoomedIn) 
-		{
-			return;
-		}
+		if (ZoomedIn) { return; }
 
 		Debug.Log("Zooming In...");
 

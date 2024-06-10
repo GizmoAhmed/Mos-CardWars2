@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BuildLand
   - CreatureLand
+  - SpellLand
   layers:
   - Default
   - TransparentFX
