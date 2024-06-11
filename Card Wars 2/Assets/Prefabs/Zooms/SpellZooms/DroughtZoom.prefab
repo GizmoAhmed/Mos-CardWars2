@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &356662654789582222
+--- !u!1001 &1395285642709435072
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -14,15 +14,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5574089146016616124, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
       propertyPath: _assetId
-      value: 1966901993
+      value: 1211601965
+      objectReference: {fileID: 0}
+    - target: {fileID: 1830727779335916465, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
+      propertyPath: m_text
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853306186649231423, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
+      propertyPath: m_text
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3208728349002140453, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8e318ac6b49e59744942964d229455df, type: 3}
+      objectReference: {fileID: 21300000, guid: 6919e8bfe197a67419e1601150b47fd4, type: 3}
     - target: {fileID: 3780612448474037210, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
       propertyPath: m_text
-      value: Choose a Creature and deal damage to it equal to its current attack
+      value: Opposing Player starts round with 1 less Magic
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972756494875969006, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3972756494875969006, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6273151807913120855, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
       propertyPath: m_Pivot.x
@@ -106,11 +122,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6490413397935793358, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
       propertyPath: m_Name
-      value: BloodStormBase Variant
+      value: DroughtZoom Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7437230355712093387, guid: 61f659487d6036f448e0f99104e7c3d2, type: 3}
       propertyPath: m_text
-      value: Cereberal Blood Storm
+      value: Extreme Drought
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -34,7 +34,7 @@ public class Card : NetworkBehaviour
 
 	public CardState currentState = CardState.Deck;
 
-	public string requiredTag;
+	public string landTag;
 
 	public void SetState(CardState newState)
 	{
@@ -64,7 +64,7 @@ public class Card : NetworkBehaviour
 
 		if (landscript != null)
 		{
-			if (other.CompareTag(requiredTag) && isOwned && landscript.Taken == false)
+			if (other.CompareTag(landTag) && isOwned && landscript.Taken == false)
 			{
 				NewDropZone = other.gameObject;
 				isOverDropZone = true;

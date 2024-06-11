@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HandSpacing : MonoBehaviour
+public class Spacing : MonoBehaviour
 {
 	public GridLayoutGroup grid;
 	public int cardCount;
 
-	[Tooltip("ax^2 + bx + c")]
+	[Header("ax^2 + bx + c")]
 	public float a = 2.66071f;
 	public float b = 54.9679f;
 	public float c = 183f;

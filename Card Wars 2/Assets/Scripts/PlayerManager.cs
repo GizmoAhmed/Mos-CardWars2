@@ -109,7 +109,7 @@ public class PlayerManager : NetworkBehaviour
 			}
 			else 
 			{
-				Debug.Log("Yours");
+				Debug.Log("You placed this card...");
 			}
 		}
 	}

@@ -4,11 +4,11 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
 
-public class Building : Card
+public class BuildingCard : Card
 {
 	void Start()
 	{
-		requiredTag = "BuildLand";
+		landTag = "BuildLand";
 	}
 
 	protected override void OnTriggerStay2D(Collider2D other)

@@ -38,11 +38,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1702342668745403071, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 165
       objectReference: {fileID: 0}
     - target: {fileID: 1702342668745403071, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1702342668745403071, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -104,16 +104,33 @@ PrefabInstance:
       propertyPath: m_text
       value: Donated Blood
       objectReference: {fileID: 0}
+    - target: {fileID: 4740380502033212643, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: ZoomCardPrefab
+      value: 
+      objectReference: {fileID: 4532030307048073668, guid: c6a794dc90846574fa6bbf6e46d29a29, type: 3}
     - target: {fileID: 5405302373525850137, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_text
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295683417579380467, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295683417579380467, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 6295683417579380467, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7272186375663456577, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_Name
       value: Donated Blood
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2328280138198224979, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7272186375663456577, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}

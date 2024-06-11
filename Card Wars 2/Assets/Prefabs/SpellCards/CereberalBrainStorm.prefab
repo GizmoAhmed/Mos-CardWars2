@@ -38,11 +38,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1702342668745403071, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 165
       objectReference: {fileID: 0}
     - target: {fileID: 1702342668745403071, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1702342668745403071, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -105,8 +105,16 @@ PrefabInstance:
       value: Cereberal Blood Storm
       objectReference: {fileID: 0}
     - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_fontSize
+      value: 11.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_margin.z
       value: -17.070724
+      objectReference: {fileID: 0}
+    - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 11.68
       objectReference: {fileID: 0}
     - target: {fileID: 4740380502033212643, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: ZoomCardPrefab
@@ -148,8 +156,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: CereberalBrainStorm
       objectReference: {fileID: 0}
+    - target: {fileID: 8297971900915386183, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2328280138198224979, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}

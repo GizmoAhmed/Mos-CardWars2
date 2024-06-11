@@ -4,11 +4,11 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
 
-public class Creature : Card
+public class CreatureCard : Card
 {
 	void Start()
 	{
-		requiredTag = "CreatureLand";
+		landTag = "CreatureLand";
 	}
 
 	protected override void OnTriggerStay2D(Collider2D other)
