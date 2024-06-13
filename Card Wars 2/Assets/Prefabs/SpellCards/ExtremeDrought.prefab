@@ -124,6 +124,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExtremeDrought
       objectReference: {fileID: 0}
+    - target: {fileID: 8356673554136141868, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: MagicCost
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

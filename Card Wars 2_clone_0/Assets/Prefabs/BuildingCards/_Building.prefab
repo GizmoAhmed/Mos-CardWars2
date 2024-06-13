@@ -691,12 +691,14 @@ MonoBehaviour:
   StartPos: {x: 0, y: 0}
   NewDropZone: {fileID: 0}
   isOverDropZone: 0
+  landTag: 
   isZoomLocked: 0
   currentMousePos: {x: 0, y: 0}
   clickSave: {x: 0, y: 0}
-  myLand: {fileID: 0}
+  MagicText: {fileID: 0}
+  MagicCost: 0
+  MyLand: {fileID: 0}
   currentState: 0
-  requiredTag: 
 --- !u!1 &5877841891168593304
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +711,7 @@ GameObject:
   - component: {fileID: 2436878711592765057}
   - component: {fileID: 7688437430107656521}
   m_Layer: 7
-  m_Name: Mana
+  m_Name: Magic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

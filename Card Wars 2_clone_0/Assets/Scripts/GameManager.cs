@@ -6,7 +6,18 @@ using Mirror;
 public class GameManager : NetworkBehaviour
 {
 	public int CurrentTurn;
-	public enum TurnTable 
+
+	private void Awake()
+	{
+		CurrentTurn = 0;
+	}
+
+	public void NextTurn() 
+	{
+		CurrentTurn++;
+	}
+
+	/*public enum GameState 
 	{
 		GameInactive,
 		BothSetUp,
@@ -15,5 +26,5 @@ public class GameManager : NetworkBehaviour
 		
 		ThisPlayerAttack,
 		OtherPlayerAttack,
-	}
+	}*/
 }

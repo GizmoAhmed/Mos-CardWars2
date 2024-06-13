@@ -8,6 +8,7 @@ public class BuildingCard : Card
 {
 	void Start()
 	{
+		base.Start();
 		landTag = "BuildLand";
 	}
 

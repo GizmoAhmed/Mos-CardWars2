@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using TMPro;
+using Unity.VisualScripting;
 
 public class Card : NetworkBehaviour
 {
 	public PlayerManager playerManager;
 
+	[Header("Card Movement")]
 	public bool Grabbed;
 	public bool Movable = true;
 
@@ -16,15 +19,24 @@ public class Card : NetworkBehaviour
 	public GameObject NewDropZone;
 	public bool isOverDropZone;
 
+	public string landTag;
+
+	[Header("Zooms")]
 	public bool isZoomLocked;
 
 	public Vector2 currentMousePos;
 	public Vector2 clickSave;
 
-	[Tooltip("The Land space this card is on")]
-	public GameObject myLand;
+	[Header("Card Traits")]
 
-	[Tooltip("Where the card exists")]
+	//[SyncVar]
+	public TextMeshProUGUI MagicText;
+
+	//[SyncVar]
+	public int MagicCost = 0;
+
+	public GameObject MyLand;
+
 	public enum CardState
 	{
 		Deck,
@@ -34,15 +46,15 @@ public class Card : NetworkBehaviour
 
 	public CardState currentState = CardState.Deck;
 
-	public string landTag;
-
 	public void SetState(CardState newState)
 	{
 		currentState = newState;
 	}
 
-	void Start()
+	public void Start()
 	{
+		Debug.Log("BaseCard Starting...");
+
 		if (isOwned)
 		{
 			Movable = true;
@@ -51,6 +63,9 @@ public class Card : NetworkBehaviour
 		{
 			Movable = false;
 		}
+
+		MagicText = transform.Find("Magic").GetComponent<TextMeshProUGUI>();
+		MagicText.text = MagicCost.ToString();
 	}
 
 	public bool IsOwnedByLocalPlayer()
@@ -136,7 +151,7 @@ public class Card : NetworkBehaviour
 
 		// Link them
 		landscript.AttachCard(gameObject);
-		myLand = land;
+		MyLand = land;
 
 		transform.SetParent(land.transform, true);
 		transform.localPosition = Vector2.zero;
@@ -161,5 +176,7 @@ public class Card : NetworkBehaviour
 		{
 			transform.position = currentMousePos;
 		}
+
+		// MagicText.text = MagicCost.ToString();
 	}
 }

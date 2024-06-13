@@ -15,6 +15,8 @@ public class PlayerManager : NetworkBehaviour
 	public List<GameObject> Cards1;
 	public List<GameObject> Cards2;
 
+	public int ReadyAssertions = 0;
+
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
@@ -123,7 +125,7 @@ public class PlayerManager : NetworkBehaviour
 	public void CmdDropCard(GameObject card, CardState state, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();
-		cardScript.myLand = land;
+		cardScript.MyLand = land;
 
 		if (state == CardState.Placed) 
 		{
@@ -141,7 +143,7 @@ public class PlayerManager : NetworkBehaviour
 	void RpcSetMyLand(GameObject card, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();
-		cardScript.myLand = land;
+		cardScript.MyLand = land;
 		cardScript.currentState = CardState.Placed;
 	}
 }

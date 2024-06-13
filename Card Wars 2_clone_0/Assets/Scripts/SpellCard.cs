@@ -10,6 +10,8 @@ public class SpellCard : Card
 
 	void Start()
 	{
+		base.Start();
+
 		Transform timeTextTransform = transform.Find("TimeText");
 
 		// Use the ternary operator to set ActiveSpell
@@ -18,6 +20,10 @@ public class SpellCard : Card
 		if (ActiveSpell)
 		{
 			landTag = "SpellLand";
+		}
+		else 
+		{
+			landTag = "CreatureLand";
 		}
 	}
 
