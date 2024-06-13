@@ -24,7 +24,7 @@ public class CardZoom : NetworkBehaviour
 	{
 		Canvas = GameObject.Find("GameCanvas");
 
-		deck = GameObject.Find("DeckButton");
+		deck = GameObject.Find("DrawButton");
 
 		deckButton = deck.GetComponent<Button>();
 

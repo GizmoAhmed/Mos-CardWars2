@@ -8,7 +8,10 @@ using Unity.VisualScripting;
 
 public class Card : NetworkBehaviour
 {
+	[Header("Connectors")]
 	public PlayerManager playerManager;
+	public GameObject Magic;
+	public Magic magicScript;
 
 	[Header("Card Movement")]
 	public bool Grabbed;
@@ -52,7 +55,8 @@ public class Card : NetworkBehaviour
 
 	public void Start()
 	{
-		Debug.Log("BaseCard Starting...");
+		Magic = GameObject.Find("ThisMagic");
+		magicScript = Magic.GetComponent<Magic>();
 
 		if (isOwned)
 		{
@@ -74,11 +78,14 @@ public class Card : NetworkBehaviour
 
 	protected virtual void OnTriggerStay2D(Collider2D other)
 	{
+		int currentMagic = magicScript.CurrentMagic;
+		bool EnoughMagic = MagicCost <= currentMagic;
+
 		CreatureLand landscript = other.GetComponent<CreatureLand>();
 
 		if (landscript != null)
 		{
-			if (other.CompareTag(landTag) && isOwned && landscript.Taken == false)
+			if (other.CompareTag(landTag) && isOwned && landscript.Taken == false && EnoughMagic)
 			{
 				NewDropZone = other.gameObject;
 				isOverDropZone = true;
@@ -134,6 +141,7 @@ public class Card : NetworkBehaviour
 		if (isOverDropZone)
 		{
 			PlaceCard(NewDropZone);
+			magicScript.SpendMagic(MagicCost);
 		}
 		else
 		{
@@ -175,7 +183,5 @@ public class Card : NetworkBehaviour
 		{
 			transform.position = currentMousePos;
 		}
-
-		// MagicText.text = MagicCost.ToString();
 	}
 }

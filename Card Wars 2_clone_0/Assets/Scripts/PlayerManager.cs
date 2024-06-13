@@ -6,16 +6,17 @@ using UnityEngine.UIElements;
 
 public class PlayerManager : NetworkBehaviour
 {
+	[Header("Hands")]
 	public GameObject Hand1;
 	public GameObject Hand2;
 
-	public GameObject ThisPlayer;
-	public GameObject OtherPlayer;
-
+	[Header("Decks")]
 	public List<GameObject> Cards1;
 	public List<GameObject> Cards2;
 
-	public int ReadyAssertions = 0;
+	[Header("Magic")]
+	public GameObject ThisMagic;
+	public GameObject OtherMagic;
 
 	public override void OnStartClient()
 	{
@@ -24,8 +25,8 @@ public class PlayerManager : NetworkBehaviour
 		Hand1 = GameObject.Find("Hand1");
 		Hand2 = GameObject.Find("Hand2");
 
-		ThisPlayer = GameObject.Find("ThisPlayer");
-		OtherPlayer = GameObject.Find("OtherPlayer");
+		ThisMagic = GameObject.Find("ThisMagic");
+		OtherMagic = GameObject.Find("OtherMagic");
 	}
 
 	[Server]
@@ -120,8 +121,7 @@ public class PlayerManager : NetworkBehaviour
 	 * called by clients but executed on the server.
 	 * ie: a client called into drop card, now server will call rpcs
 	 */
-
-	[Command] // 
+	[Command] 
 	public void CmdDropCard(GameObject card, CardState state, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();
@@ -133,6 +133,19 @@ public class PlayerManager : NetworkBehaviour
 		}
 
 		RpcShowCard(card, state, land);
+	}
+
+	[Command]
+	public void CmdUpdateMagic(int Magic) 
+	{
+		if (isOwned)
+		{
+			Debug.Log("Your Magic:" + Magic.ToString());
+		}
+		else 
+		{
+			Debug.Log("Not Your Magic: " + Magic.ToString());
+		}
 	}
 
 	/*

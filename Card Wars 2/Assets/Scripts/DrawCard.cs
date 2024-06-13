@@ -3,11 +3,11 @@ using TMPro;
 using UnityEngine;
 using Mirror;
 
-public class Deck : NetworkBehaviour
+public class DrawCard : NetworkBehaviour
 {
 	public PlayerManager playerManager;
 
-	public void DrawCard()
+	public void Draw()
 	{
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
 		playerManager = networkIdentity.GetComponent<PlayerManager>();
