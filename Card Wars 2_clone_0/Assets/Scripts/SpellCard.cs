@@ -8,7 +8,7 @@ public class SpellCard : Card
 {
 	public bool ActiveSpell;
 
-	void Start()
+	new void Start()
 	{
 		base.Start();
 
@@ -27,8 +27,8 @@ public class SpellCard : Card
 		}
 	}
 
-	protected override void OnTriggerStay2D(Collider2D other)
+	/*protected override void OnTriggerStay2D(Collider2D other)
 	{
 		base.OnTriggerStay2D(other);
-	}
+	}*/
 }

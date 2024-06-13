@@ -124,9 +124,13 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 17.41
       objectReference: {fileID: 0}
+    - target: {fileID: 4584136613029985643, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
+      propertyPath: MagicCost
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5669542139119279889, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_Name
-      value: Banana Hut Variant
+      value: Banana Hut
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

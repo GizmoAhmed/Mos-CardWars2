@@ -29,10 +29,9 @@ public class Card : NetworkBehaviour
 
 	[Header("Card Traits")]
 
-	//[SyncVar]
 	public TextMeshProUGUI MagicText;
 
-	//[SyncVar]
+	[SyncVar]
 	public int MagicCost = 0;
 
 	public GameObject MyLand;
