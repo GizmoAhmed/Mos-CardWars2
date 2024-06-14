@@ -3,12 +3,12 @@ using UnityEngine;
 using Mirror;
 using static Card;
 using UnityEngine.UIElements;
+using TMPro;
 
 public class PlayerManager : NetworkBehaviour
 {
-	[Header("Hands")]
-	public GameObject Hand1;
-	public GameObject Hand2;
+	private GameObject Hand1;
+	private GameObject Hand2;
 
 	[Header("Decks")]
 	public List<GameObject> Cards1;
@@ -33,19 +33,11 @@ public class PlayerManager : NetworkBehaviour
 	public override void OnStartServer()
 	{
 		base.OnStartServer();
-		// Initialize server-specific data here if needed
 	}
 
 	[Command] // Client asks server to do something
 	public void CmdDrawCard()
 	{
-		// Ensure that the command is being executed on the server
-		if (!isServer)
-		{
-			Debug.LogError("CmdDrawCard called on a client that is not the server.");
-			return;
-		}
-
 		if (isOwned)
 		{
 			DrawCardFromDeck(Cards1, connectionToClient);
@@ -110,24 +102,20 @@ public class PlayerManager : NetworkBehaviour
 					Debug.LogWarning("Land is not assigned...");
 				}
 			}
-			else 
+			else
 			{
 				Debug.Log("You placed this card...");
 			}
 		}
 	}
 
-	/* 
-	 * called by clients but executed on the server.
-	 * ie: a client called into drop card, now server will call rpcs
-	 */
-	[Command] 
+	[Command] // Client asks server to do something
 	public void CmdDropCard(GameObject card, CardState state, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();
 		cardScript.MyLand = land;
 
-		if (state == CardState.Placed) 
+		if (state == CardState.Placed)
 		{
 			RpcSetMyLand(card, land);
 		}
@@ -136,23 +124,28 @@ public class PlayerManager : NetworkBehaviour
 	}
 
 	[Command]
-	public void CmdUpdateMagic(int Magic) 
+	public void CmdUpdateMagic(int magic)
+	{
+		// Call the Rpc method to update magic for all clients
+		RpcUpdateMagic(magic);
+	}
+
+	[ClientRpc]
+	void RpcUpdateMagic(int magic)
 	{
 		if (isOwned)
 		{
-			Debug.Log("Your Magic:" + Magic.ToString());
+			Magic thisMagicScript = ThisMagic.GetComponent<Magic>();
+			thisMagicScript.ShowMagic(magic);
 		}
-		else 
+		else
 		{
-			Debug.Log("Not Your Magic: " + Magic.ToString());
+			Magic otherMagicScript = OtherMagic.GetComponent<Magic>();
+			otherMagicScript.ShowMagic(magic);
 		}
 	}
 
-	/*
-	 * called by the server and executed on all clients.
-	 * ie: all clients will see that this card is given this land
-	 */
-	[ClientRpc] 
+	[ClientRpc]
 	void RpcSetMyLand(GameObject card, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();

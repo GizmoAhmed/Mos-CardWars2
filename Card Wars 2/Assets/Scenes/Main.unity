@@ -773,6 +773,7 @@ GameObject:
   - component: {fileID: 305554902}
   - component: {fileID: 305554901}
   - component: {fileID: 305554904}
+  - component: {fileID: 305554905}
   m_Layer: 8
   m_Name: OtherMagic
   m_TagString: Untagged
@@ -930,6 +931,23 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &305554905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305554899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d5f2d95e8c94e64aa8595ddc531ffc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  magicText: {fileID: 0}
+  CurrentMagic: 2
 --- !u!1 &340143537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2563,6 +2581,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  magicText: {fileID: 0}
   CurrentMagic: 2
 --- !u!114 &1656037249
 MonoBehaviour:
@@ -5887,20 +5906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f164462b122124194c8fa9eb70e0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  lastSyncTime: 0
-  <netIdentity>k__BackingField: {fileID: 0}
-  <ComponentIndex>k__BackingField: 0
-  syncVarDirtyBits: 0
-  syncObjectDirtyBits: 0
-  syncVarHookGuard: 0
-  playerManager: {fileID: 0}
-  gameManager: {fileID: 0}
-  Magic: {fileID: 0}
-  Health: {fileID: 0}
-  ReadyButton: {fileID: 340143539}
 --- !u!224 &8540539480922311805
 RectTransform:
   m_ObjectHideFlags: 0

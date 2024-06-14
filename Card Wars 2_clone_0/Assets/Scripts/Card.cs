@@ -8,17 +8,16 @@ using Unity.VisualScripting;
 
 public class Card : NetworkBehaviour
 {
-	[Header("Connectors")]
-	public PlayerManager playerManager;
-	public GameObject Magic;
-	public Magic magicScript;
+	private PlayerManager playerManager;
+	private GameObject Magic;
+	private Magic magicScript;
 
 	[Header("Card Movement")]
 	public bool Grabbed;
 	public bool Movable = true;
 
 	public GameObject StartParent;
-	public Vector2 StartPos;
+	private Vector2 StartPos;
 	public GameObject NewDropZone;
 	public bool isOverDropZone;
 
@@ -27,12 +26,12 @@ public class Card : NetworkBehaviour
 	[Header("Zooms")]
 	public bool isZoomLocked;
 
-	public Vector2 currentMousePos;
-	public Vector2 clickSave;
+	private Vector2 currentMousePos;
+	private Vector2 clickSave;
 
 	[Header("Card Traits")]
 
-	public TextMeshProUGUI MagicText;
+	private TextMeshProUGUI MagicText;
 
 	[SyncVar]
 	public int MagicCost = 0;
