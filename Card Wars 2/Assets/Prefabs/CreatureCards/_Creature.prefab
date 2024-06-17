@@ -1033,7 +1033,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   target: {fileID: 6166145134630806594}
-  syncPosition: 0
+  syncPosition: 1
   syncRotation: 0
   syncScale: 0
   onlySyncOnChange: 1
@@ -1104,17 +1104,13 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  playerManager: {fileID: 0}
   Grabbed: 0
   Movable: 1
   StartParent: {fileID: 0}
-  StartPos: {x: 0, y: 0}
   NewDropZone: {fileID: 0}
   isOverDropZone: 0
   landTag: 
   isZoomLocked: 0
-  currentMousePos: {x: 0, y: 0}
-  clickSave: {x: 0, y: 0}
-  MagicCost: {fileID: 0}
+  MagicCost: 0
   MyLand: {fileID: 0}
   currentState: 0

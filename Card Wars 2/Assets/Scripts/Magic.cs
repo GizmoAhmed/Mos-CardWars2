@@ -11,14 +11,14 @@ public class Magic : NetworkBehaviour
 	[HideInInspector]
 	public TextMeshProUGUI magicText;
 
-	public int CurrentMagic = 2;
+	public int CurrentMagic;
 
 	// Start is called before the first frame update
 	void Start()
 	{
-		CurrentMagic = 2;
 		magicText = GetComponent<TextMeshProUGUI>();
 
+		CurrentMagic = 2;
 		ShowMagic(CurrentMagic);
 	}
 

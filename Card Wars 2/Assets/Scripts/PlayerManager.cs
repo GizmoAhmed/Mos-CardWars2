@@ -4,6 +4,7 @@ using Mirror;
 using static Card;
 using UnityEngine.UIElements;
 using TMPro;
+using UnityEditor;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -18,6 +19,10 @@ public class PlayerManager : NetworkBehaviour
 	public GameObject ThisMagic;
 	public GameObject OtherMagic;
 
+	[Header("Money")]
+	public GameObject ThisMoney;
+	public GameObject OtherMoney;
+
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
@@ -27,6 +32,9 @@ public class PlayerManager : NetworkBehaviour
 
 		ThisMagic = GameObject.Find("ThisMagic");
 		OtherMagic = GameObject.Find("OtherMagic");
+
+		ThisMoney = GameObject.Find("ThisMoney");
+		OtherMoney = GameObject.Find("OtherMoney");
 	}
 
 	[Server]
@@ -123,14 +131,21 @@ public class PlayerManager : NetworkBehaviour
 		RpcShowCard(card, state, land);
 	}
 
-	[Command]
+	[Command] // Client asks server to do something
 	public void CmdUpdateMagic(int magic)
 	{
 		// Call the Rpc method to update magic for all clients
 		RpcUpdateMagic(magic);
 	}
 
-	[ClientRpc]
+	[Command]
+	public void CmdUpdateMoney(int money) 
+	{
+		RpcUpdateMoney(money);
+
+	}
+
+	[ClientRpc] // server does something on all clients
 	void RpcUpdateMagic(int magic)
 	{
 		if (isOwned)
@@ -143,6 +158,23 @@ public class PlayerManager : NetworkBehaviour
 			Magic otherMagicScript = OtherMagic.GetComponent<Magic>();
 			otherMagicScript.ShowMagic(magic);
 		}
+	}
+
+	[ClientRpc] // server does something on all clients
+	void RpcUpdateMoney(int money) 
+	{
+		Money MoneyScript;
+
+		if (isOwned)
+		{
+			MoneyScript = ThisMoney.GetComponent<Money>();
+		}
+		else
+		{
+			MoneyScript = OtherMoney.GetComponent<Money>();
+		}
+
+		MoneyScript.ShowMoney(money);
 	}
 
 	[ClientRpc]
