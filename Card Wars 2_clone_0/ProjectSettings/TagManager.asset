@@ -10,6 +10,7 @@ TagManager:
   - Land
   - DrawButton
   - CostText
+  - ReadyButton
   layers:
   - Default
   - TransparentFX

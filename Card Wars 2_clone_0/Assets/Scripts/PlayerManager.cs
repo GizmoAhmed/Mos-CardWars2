@@ -110,10 +110,6 @@ public class PlayerManager : NetworkBehaviour
 					Debug.LogWarning("Land is not assigned...");
 				}
 			}
-			else
-			{
-				Debug.Log("You placed this card...");
-			}
 		}
 	}
 

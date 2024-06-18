@@ -5,26 +5,13 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
+	// [SyncVar]
 	public int CurrentTurn;
 
-	private void Awake()
-	{
-		CurrentTurn = 0;
-	}
+	public bool isYourTurn;
 
-	public void NextTurn() 
+	public void Ready() 
 	{
-		CurrentTurn++;
+		Debug.Log("You're Ready...");
 	}
-
-	/*public enum GameState 
-	{
-		GameInactive,
-		BothSetUp,
-		ThisPlayerSetUp,
-		OtherPlayerSetUp,
-		
-		ThisPlayerAttack,
-		OtherPlayerAttack,
-	}*/
 }

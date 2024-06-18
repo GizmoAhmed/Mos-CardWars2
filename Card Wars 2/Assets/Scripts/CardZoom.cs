@@ -36,8 +36,6 @@ public class CardZoom : NetworkBehaviour
 		// if already looking at a card
 		if (ZoomedIn) { return; }
 
-		Debug.Log("Zooming In...");
-
 		zoomedCard = Instantiate(ZoomCardPrefab, new Vector2(0,0), Quaternion.identity);
 
 		floopScript = zoomedCard.GetComponent<FloopExit>();
@@ -54,8 +52,6 @@ public class CardZoom : NetworkBehaviour
 
 	public void ZoomOut() 
 	{
-		Debug.Log("Zooming Out...");
-
 		Destroy(zoomedCard);
 
 		ZoomLock(false);
