@@ -8,9 +8,13 @@ public class Ready : NetworkBehaviour
 {
 	public GameManager gameManager;
 
-	public void OnClick() 
+	private void Start()
 	{
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+	}
+
+	public void OnClick() 
+	{
 		gameManager.Ready();
 	}
 }
