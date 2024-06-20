@@ -8,7 +8,7 @@ using Unity.VisualScripting;
 
 public class Card : NetworkBehaviour
 {
-	private PlayerManager playerManager;
+	private GameManager gameManager;
 	private GameObject Magic;
 	private Magic magicScript;
 
@@ -163,10 +163,11 @@ public class Card : NetworkBehaviour
 		transform.localPosition = Vector2.zero;
 
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		playerManager = networkIdentity.GetComponent<PlayerManager>();
+		Player player = networkIdentity.GetComponent<Player>();
 
 		SetState(CardState.Placed);
-		playerManager.CmdDropCard(gameObject, currentState, land);
+
+		player.CmdDropCard(gameObject, currentState, land);
 	}
 
 	void Update()

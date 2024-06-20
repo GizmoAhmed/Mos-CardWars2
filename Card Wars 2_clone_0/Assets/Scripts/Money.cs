@@ -6,14 +6,11 @@ using UnityEngine;
 
 public class Money : NetworkBehaviour
 {
-    private PlayerManager playerManager;
+	[HideInInspector] public GameObject DrawButton;
 
-	[HideInInspector]
-	public GameObject DrawButton;
 
-	[HideInInspector]
-	public TextMeshProUGUI moneyAmountText;
-	public TextMeshProUGUI costText;
+	[HideInInspector] public TextMeshProUGUI moneyAmountText;
+	[HideInInspector] public TextMeshProUGUI costText;
 
 	public int CurrentMoney;
     public int CurrentCost;
@@ -44,9 +41,9 @@ public class Money : NetworkBehaviour
         ShowMoney(CurrentMoney);
 
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		playerManager = networkIdentity.GetComponent<PlayerManager>();
+		Player player = networkIdentity.GetComponent<Player>();
 
-		playerManager.CmdUpdateMoney(CurrentMoney);
+		player.CmdUpdateMoney(CurrentMoney);
 	}
 
     public void ChangeCost(int newCost) 

@@ -6,10 +6,7 @@ using TMPro;
 
 public class Magic : NetworkBehaviour
 {
-	private PlayerManager playerManager;
-
-	[HideInInspector]
-	public TextMeshProUGUI magicText;
+	[HideInInspector] public TextMeshProUGUI magicText;
 
 	public int CurrentMagic;
 
@@ -34,8 +31,8 @@ public class Magic : NetworkBehaviour
 		magicText.text = CurrentMagic.ToString();
 
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		playerManager = networkIdentity.GetComponent<PlayerManager>();
+		Player player = networkIdentity.GetComponent<Player>();
 
-		playerManager.CmdUpdateMagic(CurrentMagic);
+		player.CmdUpdateMagic(CurrentMagic);
 	}
 }

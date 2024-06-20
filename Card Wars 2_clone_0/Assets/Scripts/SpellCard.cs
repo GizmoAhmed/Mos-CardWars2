@@ -14,7 +14,6 @@ public class SpellCard : Card
 
 		Transform timeTextTransform = transform.Find("TimeText");
 
-		// Use the ternary operator to set ActiveSpell
 		ActiveSpell = timeTextTransform != null ? true : false;
 
 		if (ActiveSpell)
@@ -26,9 +25,4 @@ public class SpellCard : Card
 			landTag = "CreatureLand";
 		}
 	}
-
-	/*protected override void OnTriggerStay2D(Collider2D other)
-	{
-		base.OnTriggerStay2D(other);
-	}*/
 }
