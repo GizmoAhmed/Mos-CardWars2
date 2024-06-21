@@ -2,19 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEditor.Tilemaps;
 
 public class GameManager : NetworkBehaviour
 {
 	public HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
-	// [SyncVar(hook = nameof(OnGamePhaseChanged))] public GamePhase currentPhase = GamePhase.Start;
+	[SyncVar(hook = nameof(OnGamePhaseChanged))] public GamePhase currentPhase = GamePhase.Offline;
 
 	public enum GamePhase
 	{
+		Offline,
 		Start,
 		SetUp,
 		Attack,
 		End
+	}
+	
+	[Server]
+	public override void OnStartServer()
+	{
+		base.OnStartServer();
+
+		Debug.Log("Server started, waiting for players...");
+	}
+
+	[Server]
+	public void CheckFullLobby() 
+	{
+		int numberofPlayers = NetworkServer.connections.Count;
+
+		if (numberofPlayers == 2) 
+		{
+			Debug.Log("Let the game begin!");
+		}
 	}
 
 	[Server]
@@ -24,18 +45,19 @@ public class GameManager : NetworkBehaviour
 		{
 			readyPlayers.Add(conn);
 			Debug.Log($"Player {conn.connectionId} is ready.");
-			// CheckAllPlayersReady();
+			CheckAllPlayersReady();
 		}
 	}
 
-	/*
+	
 	[Server]
 	private void CheckAllPlayersReady()
 	{
-		if (readyPlayers.Count >= 2) // Assuming a 2-player game
+		if (readyPlayers.Count >= 2)
 		{
-			AdvancePhase();
-			readyPlayers.Clear(); // Reset ready state for the next phase
+			//AdvancePhase();
+			// readyPlayers.Clear();
+			Debug.Log("Both Ready, lets move on");
 		}
 		else
 		{
@@ -73,5 +95,5 @@ public class GameManager : NetworkBehaviour
 	{
 		// Handle any client-side logic for phase change here
 	}
-	*/
+	
 }

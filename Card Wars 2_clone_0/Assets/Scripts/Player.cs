@@ -35,6 +35,14 @@ public class Player : NetworkBehaviour
 
 		ThisMoney = GameObject.Find("ThisMoney");
 		OtherMoney = GameObject.Find("OtherMoney");
+
+		if (isServer) 
+		{
+			Debug.Log($"Player {connectionToClient.connectionId} has joined.");
+
+			GameManager game = FindAnyObjectByType<GameManager>();
+			game.CheckFullLobby();
+		}
 	}
 
 	[Server]
