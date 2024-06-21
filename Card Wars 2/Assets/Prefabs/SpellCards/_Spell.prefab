@@ -671,7 +671,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   target: {fileID: 1702342668745403071}
-  syncPosition: 1
+  syncPosition: 0
   syncRotation: 0
   syncScale: 0
   onlySyncOnChange: 1

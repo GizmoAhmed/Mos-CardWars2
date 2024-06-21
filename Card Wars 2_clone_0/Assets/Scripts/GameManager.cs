@@ -1,17 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-	private List<Player> players = new List<Player>();
-	private int currentPlayerIndex = 0;
+	public HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
-	[Header("Turn and Phase Management")]
-	public int currentTurn = 1;
-	public Phase currentPhase = Phase.Start;
+	// [SyncVar(hook = nameof(OnGamePhaseChanged))] public GamePhase currentPhase = GamePhase.Start;
 
-	public enum Phase
+	public enum GamePhase
 	{
 		Start,
 		SetUp,
@@ -19,58 +17,61 @@ public class GameManager : NetworkBehaviour
 		End
 	}
 
-	public void RegisterPlayer(Player player)
+	[Server]
+	public void PlayerReady(NetworkConnectionToClient conn)
 	{
-		if (!players.Contains(player))
+		if (!readyPlayers.Contains(conn))
 		{
-			players.Add(player);
+			readyPlayers.Add(conn);
+			Debug.Log($"Player {conn.connectionId} is ready.");
+			// CheckAllPlayersReady();
 		}
 	}
 
-	public void StartNextTurn()
+	/*
+	[Server]
+	private void CheckAllPlayersReady()
 	{
-		currentPlayerIndex = (currentPlayerIndex + 1) % players.Count;
-		currentTurn++;
-		currentPhase = Phase.Start;
-
-		// Notify players of the new turn
-		foreach (var player in players)
+		if (readyPlayers.Count >= 2) // Assuming a 2-player game
 		{
-			player.TargetStartTurn(player.connectionToClient, currentTurn, currentPhase);
-		}
-	}
-
-	[ClientRpc]
-	public void RpcStartPhase(Phase newPhase)
-	{
-		currentPhase = newPhase;
-
-		// Notify all players of the phase change
-		foreach (var player in players)
-		{
-			player.TargetStartPhase(player.connectionToClient, currentPhase);
-		}
-	}
-
-	[ClientRpc]
-	public void RpcEndTurn()
-	{
-		StartNextTurn();
-	}
-
-	[Command]
-	public void CmdReadyForNextPhase(Player player)
-	{
-		// Check if all players are ready for the next phase
-		// For simplicity, we move to the next phase immediately
-		Phase nextPhase = currentPhase + 1;
-		if (nextPhase > Phase.End)
-		{
-			RpcEndTurn();
+			AdvancePhase();
+			readyPlayers.Clear(); // Reset ready state for the next phase
 		}
 		else
 		{
-			RpcStartPhase(nextPhase);
+			Debug.Log("the other guy isn't ready...");
 		}
 	}
+
+	[Server]
+	private void AdvancePhase()
+	{
+		switch (currentPhase)
+		{
+			case GamePhase.Start:
+				currentPhase = GamePhase.SetUp;
+				break;
+			case GamePhase.SetUp:
+				currentPhase = GamePhase.Attack;
+				break;
+			case GamePhase.Attack:
+				currentPhase = GamePhase.End;
+				break;
+			case GamePhase.End:
+				currentPhase = GamePhase.Start; // Loop back to Start for simplicity
+				break;
+		}
+	}
+
+	private void OnGamePhaseChanged(GamePhase oldPhase, GamePhase newPhase)
+	{
+		Debug.Log($"Game phase updated to: {newPhase}");
+		HandleGamePhaseChanged(newPhase);
+	}
+
+	private void HandleGamePhaseChanged(GamePhase newPhase)
+	{
+		// Handle any client-side logic for phase change here
+	}
+	*/
 }

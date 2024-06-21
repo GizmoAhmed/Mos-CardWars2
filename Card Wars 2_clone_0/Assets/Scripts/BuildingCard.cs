@@ -11,4 +11,9 @@ public class BuildingCard : Card
 		base.Start();
 		landTag = "BuildLand";
 	}
+
+	/*protected override void OnTriggerStay2D(Collider2D other)
+	{
+		base.OnTriggerStay2D(other);
+	}*/
 }

@@ -1033,7 +1033,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   target: {fileID: 6166145134630806594}
-  syncPosition: 1
+  syncPosition: 0
   syncRotation: 0
   syncScale: 0
   onlySyncOnChange: 1

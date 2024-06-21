@@ -1,140 +1,107 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using static Card;
+using UnityEngine.UIElements;
 using TMPro;
+using UnityEditor;
 
 public class Player : NetworkBehaviour
 {
+	private GameObject Hand1;
+	private GameObject Hand2;
+
 	[Header("Decks")]
-	public List<GameObject> Deck;
+	public List<GameObject> Cards1;
+	public List<GameObject> Cards2;
 
-	[Header("Magic and Money")]
-	[SyncVar] public int Magic;
-	[SyncVar] public int Money;
+	[Header("Magic")]
+	public GameObject ThisMagic;
+	public GameObject OtherMagic;
 
-	public GameObject ThisHand;
-	public GameObject OtherHand;
-	public GameObject ThisMagicUI;
-	public GameObject OtherMagicUI;
-	public GameObject ThisMoneyUI;
-	public GameObject OtherMoneyUI;
-
-	private GameManager gameManager;
+	[Header("Money")]
+	public GameObject ThisMoney;
+	public GameObject OtherMoney;
 
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
 
-		// Manually assign hand regions through the Inspector or through script
+		Hand1 = GameObject.Find("Hand1");
+		Hand2 = GameObject.Find("Hand2");
+
+		ThisMagic = GameObject.Find("ThisMagic");
+		OtherMagic = GameObject.Find("OtherMagic");
+
+		ThisMoney = GameObject.Find("ThisMoney");
+		OtherMoney = GameObject.Find("OtherMoney");
+	}
+
+	[Server]
+	public override void OnStartServer()
+	{
+		base.OnStartServer();
+	}
+
+	[Command] // Client asks server to do something
+	public void CmdDrawCard()
+	{
 		if (isOwned)
 		{
-			// This is "this" player's region
-			ThisHand =		GameObject.Find("ThisPlayerHand");
-			ThisMagicUI =	GameObject.Find("ThisMagic");
-			ThisMoneyUI =	GameObject.Find("ThisMoney");
-
-			// Find the other player's regions
-			OtherHand =		GameObject.Find("OtherPlayerHand");
-			OtherMagicUI =	GameObject.Find("OtherMagic");
-			OtherMoneyUI =	GameObject.Find("OtherMoney");
+			DrawCardFromDeck(Cards1, connectionToClient);
 		}
 		else
 		{
-			// This is the "other" player's region
-			ThisHand =		GameObject.Find("OtherPlayerHand");
-			ThisMagicUI =	GameObject.Find("OtherMagic");
-			ThisMoneyUI =	GameObject.Find("OtherMoney");
-
-			// Find this player's regions
-			OtherHand =		GameObject.Find("ThisPlayerHand");
-			OtherMagicUI =	GameObject.Find("ThisMagic");
-			OtherMoneyUI =	GameObject.Find("ThisMoney");
-		}
-
-		gameManager = FindObjectOfType<GameManager>();
-
-		if (isOwned)
-		{
-			gameManager.RegisterPlayer(this);
+			DrawCardFromDeck(Cards2, connectionToClient);
 		}
 	}
 
-	[Command]
-	public void CmdDrawCard()
+	private void DrawCardFromDeck(List<GameObject> cardList, NetworkConnectionToClient conn)
 	{
-		if (Deck.Count > 0)
+		if (cardList.Count > 0)
 		{
-			int randomIndex = Random.Range(0, Deck.Count);
-			GameObject cardPrefab = Deck[randomIndex];
+			int randomIndex = Random.Range(0, cardList.Count);
+			GameObject cardPrefab = cardList[randomIndex];
 
 			GameObject drawnCard = Instantiate(cardPrefab);
-			NetworkServer.Spawn(drawnCard, connectionToClient);
+			NetworkServer.Spawn(drawnCard, conn);
 
 			Card cardScript = drawnCard.GetComponent<Card>();
-			cardScript.SetState(Card.CardState.Hand);
+			cardScript.SetState(CardState.Hand);
 
-			TargetShowCard(connectionToClient, drawnCard, Card.CardState.Hand);
+			// Ensure RpcShowCard is called on the server
+			RpcShowCard(drawnCard, CardState.Hand, null);
 
-			Deck.RemoveAt(randomIndex);
+			cardList.RemoveAt(randomIndex);
 		}
 	}
 
-	[TargetRpc]
-	void TargetShowCard(NetworkConnection target, GameObject card, Card.CardState state)
+	[ClientRpc] // Server asks client(s) to do something
+	void RpcShowCard(GameObject card, CardState state, GameObject land)
 	{
-		if (state == Card.CardState.Hand)
+		if (state == CardState.Hand) // from drawing card
 		{
 			if (isOwned)
 			{
-				card.transform.SetParent(ThisHand.transform, false);
+				card.transform.SetParent(Hand1.transform, false);
 			}
 			else
 			{
-				card.transform.SetParent(OtherHand.transform, false);
+				card.transform.SetParent(Hand2.transform, false);
 				card.GetComponent<CardFlipper>().Flip();
 			}
 		}
-	}
-
-	[Command]
-	public void CmdDropCard(GameObject card, Card.CardState state, GameObject land)
-	{
-		Card cardScript = card.GetComponent<Card>();
-		cardScript.MyLand = land;
-
-		if (state == Card.CardState.Placed)
-		{
-			RpcSetMyLand(card, land);
-		}
-
-		RpcShowCard(card, state, land);
-	}
-
-	[ClientRpc]
-	void RpcShowCard(GameObject card, Card.CardState state, GameObject land)
-	{
-		Card cardScript = card.GetComponent<Card>();
-		if (state == Card.CardState.Hand)
-		{
-			if (isOwned)
-			{
-				card.transform.SetParent(ThisHand.transform, false);
-			}
-			else
-			{
-				card.transform.SetParent(OtherHand.transform, false);
-				card.GetComponent<CardFlipper>().Flip();
-			}
-		}
-		else if (state == Card.CardState.Placed)
+		else if (state == CardState.Placed) // from dropping onto drop zone
 		{
 			if (!isOwned)
 			{
 				card.GetComponent<CardFlipper>().Flip();
+
 				if (land != null)
 				{
 					CreatureLand landScript = land.GetComponent<CreatureLand>();
 					GameObject acrossLand = landScript._Across;
+
 					card.transform.SetParent(acrossLand.transform, true);
 					card.transform.localPosition = Vector2.zero;
 				}
@@ -146,69 +113,78 @@ public class Player : NetworkBehaviour
 		}
 	}
 
-	[ClientRpc]
-	public void RpcSetMyLand(GameObject card, GameObject land)
+	[Command] // Client asks server to do something
+	public void CmdDropCard(GameObject card, CardState state, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();
 		cardScript.MyLand = land;
-		cardScript.currentState = Card.CardState.Placed;
+
+		if (state == CardState.Placed)
+		{
+			RpcSetMyLand(card, land);
+		}
+
+		RpcShowCard(card, state, land);
+	}
+
+	[Command] // Client asks server to do something
+	public void CmdUpdateMagic(int magic)
+	{
+		// Call the Rpc method to update magic for all clients
+		RpcUpdateMagic(magic);
 	}
 
 	[Command]
-	public void CmdUpdateMagic(int newMagic)
+	public void CmdUpdateMoney(int money) 
 	{
-		Magic = newMagic;
-		RpcUpdateMagic(newMagic);
+		RpcUpdateMoney(money);
+
 	}
 
-	[ClientRpc]
-	void RpcUpdateMagic(int newMagic)
+	[ClientRpc] // server does something on all clients
+	void RpcUpdateMagic(int magic)
 	{
 		if (isOwned)
 		{
-			ThisMagicUI.GetComponent<Magic>().ShowMagic(newMagic);
+			Magic thisMagicScript = ThisMagic.GetComponent<Magic>();
+			thisMagicScript.ShowMagic(magic);
 		}
 		else
 		{
-			OtherMagicUI.GetComponent<Magic>().ShowMagic(newMagic);
+			Magic otherMagicScript = OtherMagic.GetComponent<Magic>();
+			otherMagicScript.ShowMagic(magic);
 		}
 	}
 
-	[Command]
-	public void CmdUpdateMoney(int newMoney)
+	[ClientRpc] // server does something on all clients
+	void RpcUpdateMoney(int money) 
 	{
-		Money = newMoney;
-		RpcUpdateMoney(newMoney);
+		Money MoneyScript;
+
+		if (isOwned)
+		{
+			MoneyScript = ThisMoney.GetComponent<Money>();
+		}
+		else
+		{
+			MoneyScript = OtherMoney.GetComponent<Money>();
+		}
+
+		MoneyScript.ShowMoney(money);
 	}
 
 	[ClientRpc]
-	void RpcUpdateMoney(int newMoney)
+	void RpcSetMyLand(GameObject card, GameObject land)
 	{
-		if (isOwned)
-		{
-			ThisMoneyUI.GetComponent<Money>().ShowMoney(newMoney);
-		}
-		else
-		{
-			OtherMoneyUI.GetComponent<Money>().ShowMoney(newMoney);
-		}
-	}
-
-	[TargetRpc]
-	public void TargetStartTurn(NetworkConnection target, int turn, GameManager.Phase phase)
-	{
-		// Handle the start of the turn for this player
-	}
-
-	[TargetRpc]
-	public void TargetStartPhase(NetworkConnection target, GameManager.Phase phase)
-	{
-		// Handle the start of the phase for this player
+		Card cardScript = card.GetComponent<Card>();
+		cardScript.MyLand = land;
+		cardScript.currentState = CardState.Placed;
 	}
 
 	[Command]
-	public void CmdReadyForNextPhase()
+	public void CmdSetReady() 
 	{
-		gameManager.CmdReadyForNextPhase(this);
+		GameManager game = FindAnyObjectByType<GameManager>();
+		game.PlayerReady(connectionToClient);
 	}
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class FloopExit : NetworkBehaviour
 {
-	public GameManager playerManager;
+	public Player playerManager;
 
 	public GameObject card;
     public CardZoom zoom;
@@ -31,7 +31,7 @@ public class FloopExit : NetworkBehaviour
 		}
 
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		playerManager = networkIdentity.GetComponent<GameManager>();
+		playerManager = networkIdentity.GetComponent<Player>();
 
 		Owned = cardScript.IsOwnedByLocalPlayer();
 

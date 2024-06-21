@@ -5,7 +5,7 @@ using Mirror;
 
 public class DrawCard : NetworkBehaviour
 {
-	public GameManager game;
+	public Player playerManager;
 	public GameObject ThisMoney;
 
 	public void Start()
@@ -26,8 +26,8 @@ public class DrawCard : NetworkBehaviour
 			moneyScript.SpendMoney();
 
 			NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-			Player player = networkIdentity.GetComponent<Player>();
-			player.CmdDrawCard();
+			playerManager = networkIdentity.GetComponent<Player>();
+			playerManager.CmdDrawCard();
 		}
 
 		
