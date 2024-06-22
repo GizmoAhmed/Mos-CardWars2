@@ -18,7 +18,7 @@ public class Magic : NetworkBehaviour
 	{
 		magicText = GetComponent<TextMeshProUGUI>();
 
-		CurrentMagic = 2;
+		CurrentMagic = 0;
 		ShowMagic(CurrentMagic);
 	}
 

@@ -1,17 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using UnityEditor.Tilemaps;
-using TMPro;
 
 public class GameManager : NetworkBehaviour
 {
 	public HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
+	[SyncVar(hook = nameof(OnPhaseChanged))]
 	public GamePhase currentPhase;
 
 	[SyncVar] public int currentTurn;
+
+	private Dictionary<GamePhase, Phase> phaseHandlers;
 
 	public enum GamePhase
 	{
@@ -21,21 +21,55 @@ public class GameManager : NetworkBehaviour
 		Attack,
 		End
 	}
-	
+
 	[Server]
 	public override void OnStartServer()
 	{
 		base.OnStartServer();
+		InitializePhases();
 		currentPhase = GamePhase.Offline;
 		Debug.Log("Server started, waiting for players...");
 	}
 
-	[Server]
-	public void CheckFullLobby() 
+	private void InitializePhases()
 	{
-		int numberofPlayers = NetworkServer.connections.Count;
+		phaseHandlers = new Dictionary<GamePhase, Phase>
+		{
+			{ GamePhase.ChooseLand, GetComponentInChildren<ChooseLand>() },
+			{ GamePhase.SetUp, GetComponentInChildren<SetUp>() },
+			{ GamePhase.Attack, GetComponentInChildren<Attack>() },
+			{ GamePhase.End, GetComponentInChildren<End>() }
+		};
 
-		if (numberofPlayers == 2) 
+		foreach (var handler in phaseHandlers.Values)
+		{
+			handler.Initialize(this);
+		}
+	}
+
+	private void OnPhaseChanged(GamePhase oldPhase, GamePhase newPhase)
+	{
+		if (phaseHandlers == null || !phaseHandlers.ContainsKey(newPhase))
+		{
+			Debug.LogError($"PhaseHandler not initialized or new phase {newPhase} is invalid.");
+			return;
+		}
+
+		if (oldPhase != GamePhase.Offline && phaseHandlers.ContainsKey(oldPhase))
+		{
+			phaseHandlers[oldPhase]?.OnExitPhase();
+		}
+
+		phaseHandlers[newPhase]?.OnEnterPhase();
+		phaseHandlers[newPhase]?.HandlePhaseLogic();
+	}
+
+	[Server]
+	public void CheckFullLobby()
+	{
+		int numberOfPlayers = NetworkServer.connections.Count;
+
+		if (numberOfPlayers == 2)
 		{
 			Debug.Log("Let the game begin!");
 			currentPhase = GamePhase.ChooseLand;
@@ -53,19 +87,18 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
-	
 	[Server]
 	private void CheckAllPlayersReady()
 	{
 		if (readyPlayers.Count >= 2)
 		{
 			readyPlayers.Clear();
-			Debug.Log("Both Ready, lets move on");
+			Debug.Log("Both players ready, moving on.");
 			NextTurn();
 		}
 		else
 		{
-			Debug.Log("the other guy isn't ready...");
+			Debug.Log("Waiting for the other player...");
 		}
 	}
 
@@ -73,8 +106,6 @@ public class GameManager : NetworkBehaviour
 	public void NextTurn()
 	{
 		currentTurn++;
-
-		/// 'var' is equvialent to 'auto'
 
 		foreach (var conn in NetworkServer.connections.Values)
 		{

@@ -27,7 +27,7 @@ public class Money : NetworkBehaviour
         GameObject costObject = GameObject.FindGameObjectWithTag("CostText");
         costText = costObject.GetComponent<TextMeshProUGUI>();
 
-        CurrentMoney = 10;
+        CurrentMoney = 0;
         CurrentCost = 2;
 
         ShowMoney(CurrentMoney);
