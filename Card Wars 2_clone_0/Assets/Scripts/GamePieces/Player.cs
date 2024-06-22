@@ -220,13 +220,13 @@ public class Player : NetworkBehaviour
 	{
 		if (isOwned)
 		{
-			land.UpdateElementColor(element);
+			land.ChangeElement(element);
 		}
 		else 
 		{
 			CreatureLand acrossScript = land._Across.GetComponent<CreatureLand>();
 
-			acrossScript.UpdateElementColor(element);
+			acrossScript.ChangeElement(element);
 		}
 	}
 }

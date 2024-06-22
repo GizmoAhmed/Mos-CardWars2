@@ -48,14 +48,10 @@ public class CreatureLand : NetworkBehaviour
 		image = GetComponent<Image>();
 	}
 
-	public void OnElementChanged(Element element)
+	public void ChangeElement(Element element)
 	{
 		currentElement = element;
-		UpdateElementColor(element);
-	}
 
-	public void UpdateElementColor(Element element)
-	{
 		Color color;
 
 		switch (element)

@@ -67,7 +67,7 @@ public class GameManager : NetworkBehaviour
 		}
 
 		phaseHandlers[newPhase]?.OnEnterPhase();
-		phaseHandlers[newPhase]?.HandlePhaseLogic();
+		// phaseHandlers[newPhase]?.HandlePhaseLogic();
 	}
 
 	[Server]
@@ -113,10 +113,18 @@ public class GameManager : NetworkBehaviour
 	{
 		currentTurn++;
 
-		foreach (var conn in NetworkServer.connections.Values)
+		if (currentPhase == GamePhase.ChooseLand)
 		{
-			var player = conn.identity.GetComponent<Player>();
-			player.RpcUpdateTurnText(currentTurn);
+			Debug.Log("Lands chosen, lets go to the next phase: setup");
+			currentPhase = GamePhase.SetUp;
+		}
+		else 
+		{
+			foreach (var conn in NetworkServer.connections.Values)
+			{
+				var player = conn.identity.GetComponent<Player>();
+				player.RpcUpdateTurnText(currentTurn);
+			}
 		}
 	}
 }

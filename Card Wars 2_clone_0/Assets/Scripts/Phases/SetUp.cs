@@ -8,7 +8,7 @@ public class SetUp : Phase
 	[ClientRpc]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Phasing Set Up...");
+		Debug.Log("Entering Set Up Phase...");
 	}
 
 	[ClientRpc]

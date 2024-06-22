@@ -16,18 +16,15 @@ public abstract class Phase : NetworkBehaviour
 	[ClientRpc]
 	public virtual void OnEnterPhase()
 	{
-		Debug.Log("Entering Phase...");
 	}
 
 	[ClientRpc]
 	public virtual void OnExitPhase()
 	{
-		Debug.Log("Exiting Phase...");
 	}
 
 	[Server]
 	public virtual void HandlePhaseLogic() 
 	{
-		Debug.Log("Handling Phase Logic...");
 	}
 }

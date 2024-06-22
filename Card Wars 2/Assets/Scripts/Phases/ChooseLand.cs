@@ -47,31 +47,5 @@ public class ChooseLand : Phase
 	public override void HandlePhaseLogic()
 	{
 		base.HandlePhaseLogic();
-		Debug.Log("Handling logic for ChooseLand phase on server...");
 	}
-
-	/*[ClientRpc]
-	public void RpcReady()
-	{
-		if (isServer)
-		{
-			foreach (var pair in selectedElements)
-			{
-				var land = pair.Key.GetComponent<CreatureLand>();
-				land.AssignElement(pair.Value);
-			}
-			selectedElements.Clear();
-		}
-		else
-		{
-			// Call the server command to notify the server the player is ready
-			CmdPlayerReady();
-		}
-	}
-
-	[Command]
-	private void CmdPlayerReady()
-	{
-		RpcReady();
-	}*/
 }
