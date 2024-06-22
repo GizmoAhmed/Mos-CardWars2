@@ -2,12 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
 
 public class CreatureLand : NetworkBehaviour
 {
+	[Header("Image")]
+	public Image image;
+
+	public enum Element 
+	{
+		Null,
+		Forge,
+		Sky,
+		Crystal,
+		Tomb,
+		School
+	}
+
+	[Header("Elemental")]
+	public Element currentElement = Element.Null;
+
+	[Header("Occupying Creature")]
 	public bool Taken;
 	public GameObject CurrentCard = null;
 
+	[Header("Neighbors")]
 	public GameObject across;
 
 	public GameObject _Across
@@ -25,6 +44,40 @@ public class CreatureLand : NetworkBehaviour
 	public void Start()
 	{
 		InitializeNeighbors();
+		currentElement = Element.Null;
+		image = GetComponent<Image>();
+	}
+
+	public void AssignElement(Element element)
+	{
+		Color color;
+
+		switch (element)
+		{
+			case Element.Null:
+				color = new Color32(173, 173, 173, 255);
+				break;
+			case Element.Forge:
+				color = new Color32(255, 86, 86, 255);
+				break;
+			case Element.Sky:
+				color = new Color32(86, 207, 255, 255);
+				break;
+			case Element.Crystal:
+				color = new Color32(255, 111, 213, 255);
+				break;
+			case Element.Tomb:
+				color = new Color32(149, 255, 111, 255);
+				break;
+			case Element.School:
+				color = new Color32(255, 255, 112, 255);
+				break;
+			default:
+				color = new Color32(173, 173, 173, 255);
+				break;
+		}
+
+		image.color = color;
 	}
 
 	void Update()

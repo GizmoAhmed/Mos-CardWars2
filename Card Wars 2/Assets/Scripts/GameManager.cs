@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEditor.Tilemaps;
+using TMPro;
 
 public class GameManager : NetworkBehaviour
 {
 	public HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
-	[SyncVar(hook = nameof(OnGamePhaseChanged))] public GamePhase currentPhase = GamePhase.Offline;
+	public GamePhase currentPhase;
+
+	[SyncVar] public int currentTurn;
 
 	public enum GamePhase
 	{
 		Offline,
-		Start,
+		ChooseLand,
 		SetUp,
 		Attack,
 		End
@@ -23,7 +26,7 @@ public class GameManager : NetworkBehaviour
 	public override void OnStartServer()
 	{
 		base.OnStartServer();
-
+		currentPhase = GamePhase.Offline;
 		Debug.Log("Server started, waiting for players...");
 	}
 
@@ -35,6 +38,7 @@ public class GameManager : NetworkBehaviour
 		if (numberofPlayers == 2) 
 		{
 			Debug.Log("Let the game begin!");
+			currentPhase = GamePhase.ChooseLand;
 		}
 	}
 
@@ -55,9 +59,9 @@ public class GameManager : NetworkBehaviour
 	{
 		if (readyPlayers.Count >= 2)
 		{
-			//AdvancePhase();
-			// readyPlayers.Clear();
+			readyPlayers.Clear();
 			Debug.Log("Both Ready, lets move on");
+			NextTurn();
 		}
 		else
 		{
@@ -66,34 +70,16 @@ public class GameManager : NetworkBehaviour
 	}
 
 	[Server]
-	private void AdvancePhase()
+	public void NextTurn()
 	{
-		switch (currentPhase)
+		currentTurn++;
+
+		/// 'var' is equvialent to 'auto'
+
+		foreach (var conn in NetworkServer.connections.Values)
 		{
-			case GamePhase.Start:
-				currentPhase = GamePhase.SetUp;
-				break;
-			case GamePhase.SetUp:
-				currentPhase = GamePhase.Attack;
-				break;
-			case GamePhase.Attack:
-				currentPhase = GamePhase.End;
-				break;
-			case GamePhase.End:
-				currentPhase = GamePhase.Start; // Loop back to Start for simplicity
-				break;
+			var player = conn.identity.GetComponent<Player>();
+			player.RpcUpdateTurnText(currentTurn);
 		}
 	}
-
-	private void OnGamePhaseChanged(GamePhase oldPhase, GamePhase newPhase)
-	{
-		Debug.Log($"Game phase updated to: {newPhase}");
-		HandleGamePhaseChanged(newPhase);
-	}
-
-	private void HandleGamePhaseChanged(GamePhase newPhase)
-	{
-		// Handle any client-side logic for phase change here
-	}
-	
 }

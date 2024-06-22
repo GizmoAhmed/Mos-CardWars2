@@ -42,7 +42,8 @@ public class Card : NetworkBehaviour
 	{
 		Deck,
 		Hand,
-		Placed
+		Placed,
+		Discard
 	}
 
 	public CardState currentState = CardState.Deck;

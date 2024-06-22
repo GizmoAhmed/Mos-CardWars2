@@ -12,7 +12,11 @@ public class ReadyButton : NetworkBehaviour
 	{
 		Debug.Log("Clicked Ready...");
 
-		player = FindAnyObjectByType<Player>();
-		player.CmdSetReady();
+		player = NetworkClient.localPlayer.GetComponent<Player>();
+
+		if (player != null)
+		{
+			player.CmdSetReady();
+		}
 	}
 }

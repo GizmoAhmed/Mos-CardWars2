@@ -138,6 +138,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -160,6 +162,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -223,6 +227,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -421,6 +427,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -619,6 +627,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -1004,6 +1014,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -1161,6 +1173,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -1183,6 +1197,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -1297,6 +1313,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -1360,6 +1378,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -1558,6 +1578,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -1715,6 +1737,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -2124,6 +2148,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -2255,6 +2281,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -2410,6 +2438,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8715112670882145595, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: syncDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: syncDirection
       value: 0
       objectReference: {fileID: 0}
@@ -2672,6 +2704,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -3082,6 +3116,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -6035,6 +6071,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
   across: {fileID: 0}
@@ -6557,7 +6595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+  m_Color: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

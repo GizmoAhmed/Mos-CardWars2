@@ -23,6 +23,8 @@ public class Player : NetworkBehaviour
 	public GameObject ThisMoney;
 	public GameObject OtherMoney;
 
+	private TextMeshProUGUI turnText;
+
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
@@ -35,6 +37,8 @@ public class Player : NetworkBehaviour
 
 		ThisMoney = GameObject.Find("ThisMoney");
 		OtherMoney = GameObject.Find("OtherMoney");
+
+		turnText = GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>();
 
 		if (isServer) 
 		{
@@ -164,7 +168,7 @@ public class Player : NetworkBehaviour
 		}
 	}
 
-	[ClientRpc] // server does something on all clients
+	[ClientRpc] // server does something on for all clients
 	void RpcUpdateMoney(int money) 
 	{
 		Money MoneyScript;
@@ -194,5 +198,14 @@ public class Player : NetworkBehaviour
 	{
 		GameManager game = FindAnyObjectByType<GameManager>();
 		game.PlayerReady(connectionToClient);
+	}
+
+	[ClientRpc]
+	public void RpcUpdateTurnText(int turn) 
+	{
+		if (turnText != null)
+		{
+			turnText.text = "Turn: " + turn;
+		}
 	}
 }
