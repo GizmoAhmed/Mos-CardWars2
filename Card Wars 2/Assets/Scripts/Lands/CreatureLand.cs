@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 using UnityEngine.UI;
+using Mirror;
+using static CreatureLand;
 
 public class CreatureLand : NetworkBehaviour
 {
+	private Player player;
+
 	[Header("Image")]
 	public Image image;
 
-	public enum Element 
+	public enum Element
 	{
 		Null,
 		Forge,
@@ -19,8 +20,7 @@ public class CreatureLand : NetworkBehaviour
 		School
 	}
 
-	[Header("Elemental")]
-	public Element currentElement = Element.Null;
+	[Header("Elemental")] public Element currentElement = Element.Null;
 
 	[Header("Occupying Creature")]
 	public bool Taken;
@@ -48,7 +48,13 @@ public class CreatureLand : NetworkBehaviour
 		image = GetComponent<Image>();
 	}
 
-	public void AssignElement(Element element)
+	public void OnElementChanged(Element element)
+	{
+		currentElement = element;
+		UpdateElementColor(element);
+	}
+
+	public void UpdateElementColor(Element element)
 	{
 		Color color;
 
@@ -77,7 +83,10 @@ public class CreatureLand : NetworkBehaviour
 				break;
 		}
 
-		image.color = color;
+		if (image != null)
+		{
+			image.color = color;
+		}
 	}
 
 	void Update()
@@ -93,19 +102,14 @@ public class CreatureLand : NetworkBehaviour
 		CurrentCard = card;
 	}
 
-	/// Thanks ChatGPT
 	protected virtual void InitializeNeighbors()
 	{
-		// Assuming that the naming convention for the lands follows the pattern
-		// p1Land1, p1Land2, etc. for player 1
-		// p2Land1, p2Land2, etc. for player 2
 		string landName = this.gameObject.name;
 
 		if (landName.StartsWith("p1Land") || landName.StartsWith("p2Land"))
 		{
-			int landNumber = int.Parse(landName.Substring(6)); // Get the number part of the land
+			int landNumber = int.Parse(landName.Substring(6));
 
-			// Set the Across field
 			if (landName.StartsWith("p1Land"))
 			{
 				_Across = GameObject.Find("p2Land" + landNumber);
@@ -115,17 +119,15 @@ public class CreatureLand : NetworkBehaviour
 				_Across = GameObject.Find("p1Land" + landNumber);
 			}
 
-			// Set the AdjacentLeft and AdjacentRight fields
 			if (landNumber > 1)
 			{
 				AdjacentLeft = GameObject.Find(landName.Substring(0, 6) + (landNumber - 1));
 			}
-			if (landNumber < 5) // Assuming there are 5 lands for simplicity
+			if (landNumber < 5)
 			{
 				AdjacentRight = GameObject.Find(landName.Substring(0, 6) + (landNumber + 1));
 			}
 
-			// Set the DiagLeft and DiagRight fields
 			if (landName.StartsWith("p1Land"))
 			{
 				if (landNumber > 1)
@@ -148,6 +150,42 @@ public class CreatureLand : NetworkBehaviour
 					DiagRight = GameObject.Find("p1Land" + (landNumber + 1));
 				}
 			}
+		}
+	}
+
+	// Methods for each button to assign an element
+	public void SelectForge()
+	{
+		SelectElement(Element.Forge);
+	}
+
+	public void SelectSky()
+	{
+		SelectElement(Element.Sky);
+	}
+
+	public void SelectCrystal()
+	{
+		SelectElement(Element.Crystal);
+	}
+
+	public void SelectTomb()
+	{
+		SelectElement(Element.Tomb);
+	}
+
+	public void SelectSchool()
+	{
+		SelectElement(Element.School);
+	}
+
+	private void SelectElement(Element element)
+	{
+		player = NetworkClient.localPlayer.GetComponent<Player>();
+
+		if (player != null)
+		{
+			player.CmdColorTheLand(this, element);
 		}
 	}
 }

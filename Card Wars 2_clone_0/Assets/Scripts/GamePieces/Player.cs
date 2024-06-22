@@ -208,4 +208,25 @@ public class Player : NetworkBehaviour
 			turnText.text = "Turn: " + turn;
 		}
 	}
+
+	[Command]
+	public void CmdColorTheLand(CreatureLand land, CreatureLand.Element element) 
+	{
+		RpcColorTheLand(land, element);
+	}
+
+	[ClientRpc]
+	public void RpcColorTheLand(CreatureLand land, CreatureLand.Element element) 
+	{
+		if (isOwned)
+		{
+			land.UpdateElementColor(element);
+		}
+		else 
+		{
+			CreatureLand acrossScript = land._Across.GetComponent<CreatureLand>();
+
+			acrossScript.UpdateElementColor(element);
+		}
+	}
 }

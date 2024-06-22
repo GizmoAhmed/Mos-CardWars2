@@ -6,12 +6,11 @@ public class GameManager : NetworkBehaviour
 {
 	public HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
-	[SyncVar(hook = nameof(OnPhaseChanged))]
-	public GamePhase currentPhase;
+	[SyncVar(hook = nameof(OnPhaseChanged))] public GamePhase currentPhase;
 
 	[SyncVar] public int currentTurn;
 
-	private Dictionary<GamePhase, Phase> phaseHandlers;
+	public Dictionary<GamePhase, Phase> phaseHandlers;
 
 	public enum GamePhase
 	{
@@ -31,6 +30,7 @@ public class GameManager : NetworkBehaviour
 		Debug.Log("Server started, waiting for players...");
 	}
 
+	[Server]
 	private void InitializePhases()
 	{
 		phaseHandlers = new Dictionary<GamePhase, Phase>
@@ -49,9 +49,15 @@ public class GameManager : NetworkBehaviour
 
 	private void OnPhaseChanged(GamePhase oldPhase, GamePhase newPhase)
 	{
-		if (phaseHandlers == null || !phaseHandlers.ContainsKey(newPhase))
+		if (phaseHandlers == null)
 		{
-			Debug.LogError($"PhaseHandler not initialized or new phase {newPhase} is invalid.");
+			Debug.LogWarning($"PhaseHandler not initialized");
+			return;
+		}
+
+		if (!phaseHandlers.ContainsKey(newPhase)) 
+		{
+			Debug.LogWarning($"new phase {newPhase} is invalid.");
 			return;
 		}
 
