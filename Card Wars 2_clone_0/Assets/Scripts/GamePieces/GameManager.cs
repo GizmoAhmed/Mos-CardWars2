@@ -41,9 +41,9 @@ public class GameManager : NetworkBehaviour
 			{ GamePhase.End, GetComponentInChildren<End>() }
 		};
 
-		foreach (var handler in phaseHandlers.Values)
+		foreach (var phase in phaseHandlers.Values)
 		{
-			handler.Initialize(this);
+			phase.Initialize(this);
 		}
 	}
 
@@ -90,6 +90,17 @@ public class GameManager : NetworkBehaviour
 			readyPlayers.Add(conn);
 			Debug.Log($"Player {conn.connectionId} is ready.");
 			CheckAllPlayersReady();
+		}
+	}
+
+	[Server]
+	public void StartingConsumables(int magic, int money) 
+	{
+		foreach (var conn in NetworkServer.connections.Values)
+		{
+			var player = conn.identity.GetComponent<Player>();
+			player.RpcUpdateMagic(magic);
+			player.RpcUpdateMoney(money);
 		}
 	}
 

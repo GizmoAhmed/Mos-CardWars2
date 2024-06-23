@@ -154,7 +154,7 @@ public class Player : NetworkBehaviour
 	}
 
 	[ClientRpc] // server does something on all clients
-	void RpcUpdateMagic(int magic)
+	public void RpcUpdateMagic(int magic)
 	{
 		if (isOwned)
 		{
@@ -169,7 +169,7 @@ public class Player : NetworkBehaviour
 	}
 
 	[ClientRpc] // server does something on for all clients
-	void RpcUpdateMoney(int money) 
+	public void RpcUpdateMoney(int money) 
 	{
 		Money MoneyScript;
 

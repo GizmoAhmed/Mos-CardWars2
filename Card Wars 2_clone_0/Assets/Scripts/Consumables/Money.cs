@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Money : NetworkBehaviour
 {
-    private Player playerManager;
+    private Player player;
 
 	[HideInInspector]
 	public GameObject DrawButton;
@@ -35,6 +35,7 @@ public class Money : NetworkBehaviour
 
     public void ShowMoney(int money) 
     {
+        CurrentMoney = money;
         moneyAmountText.text = money.ToString();
     }
 
@@ -44,9 +45,9 @@ public class Money : NetworkBehaviour
         ShowMoney(CurrentMoney);
 
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		playerManager = networkIdentity.GetComponent<Player>();
+		player = networkIdentity.GetComponent<Player>();
 
-		playerManager.CmdUpdateMoney(CurrentMoney);
+		player.CmdUpdateMoney(CurrentMoney);
 	}
 
     public void ChangeCost(int newCost) 
