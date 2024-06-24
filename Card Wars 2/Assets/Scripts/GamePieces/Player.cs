@@ -7,7 +7,7 @@ using TMPro;
 public class Player : NetworkBehaviour
 {
 	public bool local;
-	public bool myTurn;
+	[SyncVar(hook = nameof(ChangeTurns))] public bool myTurn;
 
 	private GameObject Hand1;
 	private GameObject Hand2;
@@ -42,6 +42,8 @@ public class Player : NetworkBehaviour
 		GameManager game = FindAnyObjectByType<GameManager>();
 
 		local = isOwned;
+
+		myTurn = true;
 
 		game.playersInLobby.Add(this);
 
@@ -232,5 +234,28 @@ public class Player : NetworkBehaviour
 
 			acrossScript.ChangeElement(element);
 		}
+	}
+
+	[ClientRpc]
+	public void ChangeTurns(bool initial, bool post)
+	{
+		if (post == true)
+		{
+			Card[] cards = FindObjectsOfType<Card>();
+			foreach (Card card in cards)
+			{
+				card.Movable = true;
+			}
+		}
+		else
+		{
+			Card[] cards = FindObjectsOfType<Card>();
+			foreach (Card card in cards)
+			{
+				card.Movable = false;
+			}
+		}
+
+		myTurn = post;
 	}
 }

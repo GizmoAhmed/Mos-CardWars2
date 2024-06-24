@@ -1,20 +1,30 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Attack : Phase
 {
-	[ClientRpc]
+	[Server]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Phasing Attack...");
+		Debug.Log("Phasing Attack...Disabling both players actions");
+
+		foreach (Player player in gameManager.playersInLobby)
+		{
+			player.myTurn = false;
+		}
 	}
 
 	[ClientRpc]
 	public override void OnExitPhase()
 	{
 		base.OnExitPhase();
+
+		Debug.Log("Leaving attack...enabling A player'S action");
+
+		foreach (Player player in gameManager.playersInLobby)
+		{
+			player.myTurn = true;
+		}
 	}
 
 	[Server]
