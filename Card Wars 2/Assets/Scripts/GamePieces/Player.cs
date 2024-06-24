@@ -163,12 +163,12 @@ public class Player : NetworkBehaviour
 		if (isOwned)
 		{
 			Magic thisMagicScript = ThisMagic.GetComponent<Magic>();
-			thisMagicScript.ShowMagic(magic);
+			thisMagicScript.ChangeAndShowMagic(magic);
 		}
 		else
 		{
 			Magic otherMagicScript = OtherMagic.GetComponent<Magic>();
-			otherMagicScript.ShowMagic(magic);
+			otherMagicScript.ChangeAndShowMagic(magic);
 		}
 	}
 

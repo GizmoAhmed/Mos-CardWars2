@@ -55,4 +55,10 @@ public class Money : NetworkBehaviour
         CurrentCost = newCost;
         costText.text = CurrentCost.ToString();
     }
+
+    public void NextMoney() 
+    {
+        CurrentMoney++;
+        ShowMoney(CurrentMoney);
+    }
 }

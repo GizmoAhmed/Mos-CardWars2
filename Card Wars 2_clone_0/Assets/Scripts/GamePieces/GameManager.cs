@@ -12,14 +12,17 @@ public class GameManager : NetworkBehaviour
 
 	[SyncVar] public int currentTurn;
 
+	[SyncVar] public bool hostFirst;
+
 	public Dictionary<GamePhase, Phase> phaseHandlers;
 
 	public enum GamePhase
 	{
 		Offline,
 		ChooseLand,
-		SetUp,
+		Start,
 		Attack,
+		SetUp,
 		End
 	}
 
@@ -30,6 +33,8 @@ public class GameManager : NetworkBehaviour
 		InitializePhases();
 		currentPhase = GamePhase.Offline;
 		Debug.Log("Server started, waiting for players...");
+
+		hostFirst = Random.value < 0.5f;
 	}
 
 	[Server]
@@ -38,7 +43,7 @@ public class GameManager : NetworkBehaviour
 		phaseHandlers = new Dictionary<GamePhase, Phase>
 		{
 			{ GamePhase.ChooseLand, GetComponentInChildren<ChooseLand>() },
-			{ GamePhase.SetUp, GetComponentInChildren<SetUp>() },
+			{ GamePhase.Start, GetComponentInChildren<Start>() },
 			{ GamePhase.Attack, GetComponentInChildren<Attack>() },
 			{ GamePhase.End, GetComponentInChildren<End>() }
 		};
@@ -129,14 +134,17 @@ public class GameManager : NetworkBehaviour
 		if (currentPhase == GamePhase.ChooseLand)
 		{
 			Debug.Log("Lands chosen, lets go to the next phase: setup");
-			currentPhase = GamePhase.SetUp;
+			currentPhase = GamePhase.Start;
 		}
-		else if (currentPhase == GamePhase.SetUp)
+		else if (currentPhase == GamePhase.Start)
 		{
-			Debug.Log("Set up complete");
+			Debug.Log("Start complete");
+			currentPhase = GamePhase.Attack;
 		}
 		else
 		{
+			Debug.Log("Incrementing turns");
+
 			foreach (var conn in NetworkServer.connections.Values)
 			{
 				var player = conn.identity.GetComponent<Player>();

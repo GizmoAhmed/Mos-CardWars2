@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetUp : Phase
+public class Start : Phase
 {	
 	public int startingMagic = 2;
 	public int startingMoney = 12;

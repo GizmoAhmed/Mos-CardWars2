@@ -8,8 +8,7 @@ public class Magic : NetworkBehaviour
 {
 	private Player playerManager;
 
-	[HideInInspector]
-	public TextMeshProUGUI magicText;
+	[HideInInspector] public TextMeshProUGUI magicText;
 
 	public int CurrentMagic;
 
@@ -19,10 +18,10 @@ public class Magic : NetworkBehaviour
 		magicText = GetComponent<TextMeshProUGUI>();
 
 		CurrentMagic = 0;
-		ShowMagic(CurrentMagic);
+		ChangeAndShowMagic(CurrentMagic);
 	}
 
-	public void ShowMagic(int magic)
+	public void ChangeAndShowMagic(int magic)
 	{
 		CurrentMagic = magic;
 		magicText.text = CurrentMagic.ToString();
@@ -37,5 +36,11 @@ public class Magic : NetworkBehaviour
 		playerManager = networkIdentity.GetComponent<Player>();
 
 		playerManager.CmdUpdateMagic(CurrentMagic);
+	}
+
+	public void NextMagic() 
+	{
+		CurrentMagic++;
+		ChangeAndShowMagic(CurrentMagic);
 	}
 }

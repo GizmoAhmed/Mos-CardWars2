@@ -10,8 +10,6 @@ public class ReadyButton : NetworkBehaviour
 
 	public void ReadyUp()
 	{
-		Debug.Log("Clicked Ready...");
-
 		player = NetworkClient.localPlayer.GetComponent<Player>();
 
 		if (player != null)
