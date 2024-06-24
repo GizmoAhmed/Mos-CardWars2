@@ -1,6 +1,8 @@
 using Mirror;
 using UnityEngine;
 
+ // During this phase, players are disabled, to watch the attacks go down.
+
 public class Attack : Phase
 {
 	[Server]
@@ -12,24 +14,30 @@ public class Attack : Phase
 		{
 			player.myTurn = false;
 		}
+
+		HandlePhaseLogic();
 	}
 
-	[ClientRpc]
+	[Server]
 	public override void OnExitPhase()
 	{
 		base.OnExitPhase();
 
-		Debug.Log("Leaving attack...enabling A player'S action");
+		Debug.Log("Leaving attack...enabling players");
 
 		foreach (Player player in gameManager.playersInLobby)
 		{
 			player.myTurn = true;
 		}
+
+		// the set up phase, the phase immediately after this one, should disable one player
 	}
 
 	[Server]
 	public override void HandlePhaseLogic()
 	{
-		base.HandlePhaseLogic();
+		Debug.Log("Attack scene would go down right here...");
+
+		gameManager.NextPhase();
 	}
 }

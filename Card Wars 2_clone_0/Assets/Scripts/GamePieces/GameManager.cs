@@ -45,6 +45,7 @@ public class GameManager : NetworkBehaviour
 			{ GamePhase.ChooseLand, GetComponentInChildren<ChooseLand>() },
 			{ GamePhase.Start, GetComponentInChildren<Start>() },
 			{ GamePhase.Attack, GetComponentInChildren<Attack>() },
+			{ GamePhase.SetUp, GetComponentInChildren<SetUp>() },
 			{ GamePhase.End, GetComponentInChildren<End>() }
 		};
 
@@ -58,7 +59,7 @@ public class GameManager : NetworkBehaviour
 	{
 		if (phaseHandlers == null)
 		{
-			Debug.LogWarning($"Probabily a client right? PhaseHandler not initialized");
+			Debug.LogWarning($"This client is trying to change phase");
 			return;
 		}
 
@@ -74,7 +75,6 @@ public class GameManager : NetworkBehaviour
 		}
 
 		phaseHandlers[newPhase]?.OnEnterPhase();
-		// phaseHandlers[newPhase]?.HandlePhaseLogic();
 	}
 
 	[Server]
@@ -92,12 +92,54 @@ public class GameManager : NetworkBehaviour
 	[Server]
 	public void PlayerReady(NetworkConnectionToClient conn)
 	{
-		if (!readyPlayers.Contains(conn))
+		//// Ready Button Click is contextual, it works differently when clicked in different phases
+
+		// choose land requires that both players ready up
+		if (currentPhase == GamePhase.ChooseLand || currentPhase == GamePhase.Start) 
 		{
-			readyPlayers.Add(conn);
-			Debug.Log($"Player {conn.connectionId} is ready.");
-			CheckAllPlayersReady();
+			if (!readyPlayers.Contains(conn))
+			{
+				readyPlayers.Add(conn);
+
+				if (currentPhase == GamePhase.ChooseLand)
+				{
+					Debug.Log($"Player {conn.connectionId} has chosen their lands.");
+
+				}
+				else if (currentPhase == GamePhase.Start) 
+				{
+					Debug.Log($"Player {conn.connectionId} is done with start.");
+				}
+
+				CheckAllPlayersReady();
+			}
 		}
+
+		// setup means each player needs to ready up  
+		else if (currentPhase == GamePhase.SetUp) 
+		{
+			Debug.Log($"Player {conn.connectionId} is done setting up...handing over control");
+
+			// add this connection to readyPlayers (which has been cleard by now)
+			readyPlayers.Add(conn);
+
+			/*
+			then check size
+			if (if size 1, then other player isn't ready , this player must've set up first)
+			{
+				false myTurn from the player that called this, and give it to the other guy so they can set up
+				use -> var player = conn.identity.GetComponent<Player>(); in order to switch the turn
+			}
+			
+			if (if size 2, then both players finished set up)
+			{
+				clear readyPlayers for next set up.
+				go to attack phase
+			}
+			 */
+
+		}
+
 	}
 
 	[Server]
@@ -106,12 +148,13 @@ public class GameManager : NetworkBehaviour
 		if (readyPlayers.Count >= 2)
 		{
 			readyPlayers.Clear();
-			Debug.Log("Both players ready, moving on.");
-			NextTurn();
+
+			Debug.Log("All players ready, lets move on:");
+			NextPhase();
 		}
 		else
 		{
-			Debug.Log("Waiting for the other player...");
+			Debug.Log("Waiting for the other player to ready up...");
 		}
 	}
 
@@ -127,13 +170,11 @@ public class GameManager : NetworkBehaviour
 	}
 
 	[Server]
-	public void NextTurn()
+	public void NextPhase()
 	{
 		currentTurn++;
-
-		if (currentPhase == GamePhase.ChooseLand)
+		if (currentPhase == GamePhase.ChooseLand) 
 		{
-			Debug.Log("Lands chosen, lets go to the next phase: setup");
 			currentPhase = GamePhase.Start;
 		}
 		else if (currentPhase == GamePhase.Start)
@@ -141,15 +182,31 @@ public class GameManager : NetworkBehaviour
 			Debug.Log("Start complete");
 			currentPhase = GamePhase.Attack;
 		}
-		else
+		else if (currentPhase == GamePhase.Attack)
 		{
-			Debug.Log("Incrementing turns");
+			Debug.Log("Attack complete");
+			currentPhase = GamePhase.SetUp;
+		}
+		else if (currentPhase == GamePhase.SetUp)
+		{
+			Debug.Log("Set Up Complete");
+			currentPhase = GamePhase.Attack;
+		}
+	}
 
-			foreach (var conn in NetworkServer.connections.Values)
-			{
-				var player = conn.identity.GetComponent<Player>();
-				player.RpcUpdateTurnText(currentTurn);
-			}
+	[Server]
+	public void IncrementTurn() 
+	{
+		currentTurn++;
+
+		// update all spells and building timers here
+
+		Debug.Log("Incrementing turns");
+
+		foreach (var conn in NetworkServer.connections.Values)
+		{
+			var player = conn.identity.GetComponent<Player>();
+			player.RpcUpdateTurnText(currentTurn);
 		}
 	}
 }

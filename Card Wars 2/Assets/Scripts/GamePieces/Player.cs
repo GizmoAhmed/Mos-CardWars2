@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using static Card;
+using static UnityEngine.UI.Button;
 using TMPro;
 
 public class Player : NetworkBehaviour
@@ -239,23 +240,19 @@ public class Player : NetworkBehaviour
 	[ClientRpc]
 	public void ChangeTurns(bool initial, bool post)
 	{
-		if (post == true)
+		Card[] cards = FindObjectsOfType<Card>();
+		foreach (Card card in cards)
 		{
-			Card[] cards = FindObjectsOfType<Card>();
-			foreach (Card card in cards)
-			{
-				card.Movable = true;
-			}
+			card.Movable = post;
 		}
-		else
+
+		UnityEngine.UI.Button[] buttons = FindObjectsOfType<UnityEngine.UI.Button>();
+		foreach (UnityEngine.UI.Button button in buttons)
 		{
-			Card[] cards = FindObjectsOfType<Card>();
-			foreach (Card card in cards)
-			{
-				card.Movable = false;
-			}
+			button.interactable = post;
 		}
 
 		myTurn = post;
 	}
+
 }

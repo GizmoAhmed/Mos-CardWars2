@@ -1,6 +1,4 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Start : Phase
@@ -17,7 +15,7 @@ public class Start : Phase
 	[Server]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Entering Set Up Phase...");
+		Debug.Log("Entering Start Phase...");
 		gameManager.StartingConsumables(startingMagic, startingMoney);
 	}
 
