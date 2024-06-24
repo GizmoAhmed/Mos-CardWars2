@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using static Card;
-using UnityEngine.UIElements;
 using TMPro;
-using UnityEditor;
 
 public class Player : NetworkBehaviour
 {
+	public bool local;
+	public bool myTurn;
+
 	private GameObject Hand1;
 	private GameObject Hand2;
 
@@ -15,13 +16,11 @@ public class Player : NetworkBehaviour
 	public List<GameObject> Cards1;
 	public List<GameObject> Cards2;
 
-	[Header("Magic")]
-	public GameObject ThisMagic;
-	public GameObject OtherMagic;
+	[HideInInspector] public GameObject ThisMagic;
+	[HideInInspector] public GameObject OtherMagic;
 
-	[Header("Money")]
-	public GameObject ThisMoney;
-	public GameObject OtherMoney;
+	[HideInInspector] public GameObject ThisMoney;
+	[HideInInspector] public GameObject OtherMoney;
 
 	private TextMeshProUGUI turnText;
 
@@ -40,11 +39,16 @@ public class Player : NetworkBehaviour
 
 		turnText = GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>();
 
+		GameManager game = FindAnyObjectByType<GameManager>();
+
+		local = isOwned;
+
+		game.playersInLobby.Add(this);
+
 		if (isServer) 
 		{
 			Debug.Log($"Player {connectionToClient.connectionId} has joined.");
 
-			GameManager game = FindAnyObjectByType<GameManager>();
 			game.CheckFullLobby();
 		}
 	}

@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
 public class Card : NetworkBehaviour
 {

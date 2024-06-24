@@ -4,6 +4,8 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
+	public List<Player> playersInLobby;
+
 	public HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
 	[SyncVar(hook = nameof(OnPhaseChanged))] public GamePhase currentPhase;
@@ -51,7 +53,7 @@ public class GameManager : NetworkBehaviour
 	{
 		if (phaseHandlers == null)
 		{
-			Debug.LogWarning($"PhaseHandler not initialized");
+			Debug.LogWarning($"Probabily a client right? PhaseHandler not initialized");
 			return;
 		}
 
@@ -94,17 +96,6 @@ public class GameManager : NetworkBehaviour
 	}
 
 	[Server]
-	public void StartingConsumables(int magic, int money) 
-	{
-		foreach (var conn in NetworkServer.connections.Values)
-		{
-			var player = conn.identity.GetComponent<Player>();
-			player.RpcUpdateMagic(magic);
-			player.RpcUpdateMoney(money);
-		}
-	}
-
-	[Server]
 	private void CheckAllPlayersReady()
 	{
 		if (readyPlayers.Count >= 2)
@@ -120,6 +111,17 @@ public class GameManager : NetworkBehaviour
 	}
 
 	[Server]
+	public void StartingConsumables(int magic, int money) 
+	{
+		foreach (var conn in NetworkServer.connections.Values)
+		{
+			var player = conn.identity.GetComponent<Player>();
+			player.RpcUpdateMagic(magic);
+			player.RpcUpdateMoney(money);
+		}
+	}
+
+	[Server]
 	public void NextTurn()
 	{
 		currentTurn++;
@@ -129,7 +131,11 @@ public class GameManager : NetworkBehaviour
 			Debug.Log("Lands chosen, lets go to the next phase: setup");
 			currentPhase = GamePhase.SetUp;
 		}
-		else 
+		else if (currentPhase == GamePhase.SetUp)
+		{
+			Debug.Log("Set up complete");
+		}
+		else
 		{
 			foreach (var conn in NetworkServer.connections.Values)
 			{
