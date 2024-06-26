@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using static Card;
-using static UnityEngine.UI.Button;
 using TMPro;
 
 public class Player : NetworkBehaviour
 {
 	public bool local;
+	[SyncVar] public bool canPlay = true;
 	[SyncVar(hook = nameof(ChangeTurns))] public bool myTurn;
 
 	private GameObject Hand1;
@@ -28,6 +28,8 @@ public class Player : NetworkBehaviour
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
+
+		canPlay = true;
 
 		Hand1 = GameObject.Find("Hand1");
 		Hand2 = GameObject.Find("Hand2");
@@ -239,19 +241,29 @@ public class Player : NetworkBehaviour
 
 	public void ChangeTurns(bool initial, bool post)
 	{
+		EnablePlayer(post);
+
+		myTurn = post;
+	}
+
+	// set = TRUE > means unlock/enable
+	// set = FALSE > means lock/disable
+	public void EnablePlayer(bool set) 
+	{
 		Card[] cards = FindObjectsOfType<Card>();
+
 		foreach (Card card in cards)
 		{
-			card.Movable = post;
+			card.Movable = set;
 		}
 
 		UnityEngine.UI.Button[] buttons = FindObjectsOfType<UnityEngine.UI.Button>();
 		foreach (UnityEngine.UI.Button button in buttons)
 		{
-			button.interactable = post;
+			button.interactable = set;
 		}
 
-		myTurn = post;
+		canPlay = set;
 	}
 
 }

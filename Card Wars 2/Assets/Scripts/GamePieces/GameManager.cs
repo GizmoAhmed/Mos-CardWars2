@@ -152,6 +152,7 @@ public class GameManager : NetworkBehaviour
 			readyPlayers.Clear();
 
 			Debug.Log("All players ready, lets move on:");
+
 			NextPhase();
 		}
 		else
@@ -170,6 +171,8 @@ public class GameManager : NetworkBehaviour
 			player.RpcUpdateMoney(money);
 		}
 	}
+
+
 
 	[Server]
 	public void NextPhase()

@@ -12,9 +12,12 @@ public class ReadyButton : NetworkBehaviour
 	{
 		player = NetworkClient.localPlayer.GetComponent<Player>();
 
+		
+
 		if (player != null)
 		{
 			player.CmdSetReady();
+			player.EnablePlayer(false);
 		}
 	}
 }
