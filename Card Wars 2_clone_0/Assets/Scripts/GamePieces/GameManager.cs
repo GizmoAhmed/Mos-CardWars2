@@ -14,6 +14,9 @@ public class GameManager : NetworkBehaviour
 
 	[SyncVar] public bool hostFirst;
 
+	[SyncVar] public int startingMagic = 2;
+	[SyncVar] public int startingMoney = 12;
+
 	public Dictionary<GamePhase, Phase> phaseHandlers;
 
 	public enum GamePhase
@@ -59,7 +62,6 @@ public class GameManager : NetworkBehaviour
 	{
 		if (phaseHandlers == null)
 		{
-			Debug.LogWarning($"This client is trying to change phase");
 			return;
 		}
 
@@ -159,7 +161,7 @@ public class GameManager : NetworkBehaviour
 	}
 
 	[Server]
-	public void StartingConsumables(int magic, int money) 
+	public void SetConsumables(int magic, int money) 
 	{
 		foreach (var conn in NetworkServer.connections.Values)
 		{

@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class Start : Phase
 {	
-	public int startingMagic = 2;
-	public int startingMoney = 12;
-	
-
 	public override void Initialize(GameManager gameManager)
 	{
 		base.Initialize(gameManager);
@@ -16,7 +12,7 @@ public class Start : Phase
 	public override void OnEnterPhase()
 	{
 		Debug.Log("Entering Start Phase...");
-		gameManager.StartingConsumables(startingMagic, startingMoney);
+		gameManager.SetConsumables(gameManager.startingMagic, gameManager.startingMoney);
 	}
 
 	[ClientRpc]

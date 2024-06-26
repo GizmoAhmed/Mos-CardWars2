@@ -5,31 +5,32 @@ using UnityEngine;
 
 public class Attack : Phase
 {
-	[Server]
+	public override void Initialize(GameManager gameManager)
+	{
+		base.Initialize(gameManager);
+	}
+
+	[ClientRpc]
 	public override void OnEnterPhase()
 	{
 		Debug.Log("Phasing Attack...Disabling both players actions");
 
-		foreach (Player player in gameManager.playersInLobby)
-		{
-			player.myTurn = false;
-		}
+		Player player = NetworkClient.localPlayer.GetComponent<Player>();
+		player.myTurn = false;
 
 		HandlePhaseLogic();
 	}
 
-	[Server]
+	[ClientRpc]
 	public override void OnExitPhase()
 	{
 		base.OnExitPhase();
 
 		Debug.Log("Leaving attack...enabling players");
 
-		foreach (Player player in gameManager.playersInLobby)
-		{
-			player.myTurn = true;
-		}
-
+		Player player = NetworkClient.localPlayer.GetComponent<Player>();
+		player.myTurn = true;
+		
 		// the set up phase, the phase immediately after this one, should disable one player
 	}
 
@@ -38,6 +39,6 @@ public class Attack : Phase
 	{
 		Debug.Log("Attack scene would go down right here...");
 
-		gameManager.NextPhase();
+		gameManager.currentPhase = GameManager.GamePhase.SetUp;
 	}
 }

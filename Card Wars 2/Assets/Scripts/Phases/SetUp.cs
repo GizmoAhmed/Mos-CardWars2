@@ -1,6 +1,4 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SetUp : Phase
@@ -9,9 +7,13 @@ public class SetUp : Phase
 	public override void OnEnterPhase()
 	{
 		/// disable one of the players, based on gameManager host boolean
+		Debug.Log("Entering a set up phase");
+
+		/// find a way to update the money, which +2 of whatever you had last turn
+		// gameManager.SetConsumables(gameManager.startingMagic + gameManager.currentTurn, );
 	}
 
-	[Server]
+	[Server] 
 	public override void OnExitPhase()
 	{
 		gameManager.IncrementTurn();

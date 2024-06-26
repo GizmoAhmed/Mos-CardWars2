@@ -237,7 +237,6 @@ public class Player : NetworkBehaviour
 		}
 	}
 
-	[ClientRpc]
 	public void ChangeTurns(bool initial, bool post)
 	{
 		Card[] cards = FindObjectsOfType<Card>();
