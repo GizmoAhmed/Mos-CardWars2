@@ -17,7 +17,13 @@ public class GameManager : NetworkBehaviour
 	[SyncVar] public int startingMagic = 2;
 	[SyncVar] public int startingMoney = 12;
 
-	public Dictionary<GamePhase, Phase> phaseHandlers;
+	/*foreach (var conn in NetworkServer.connections.Values)
+		{
+			var player = conn.identity.GetComponent<Player>();
+	player.EnablePlayer(true);
+		}*/
+
+public Dictionary<GamePhase, Phase> phaseHandlers;
 
 	public enum GamePhase
 	{
@@ -60,14 +66,8 @@ public class GameManager : NetworkBehaviour
 
 	private void OnPhaseChanged(GamePhase oldPhase, GamePhase newPhase)
 	{
-		if (phaseHandlers == null)
+		if (phaseHandlers == null || !phaseHandlers.ContainsKey(newPhase))
 		{
-			return;
-		}
-
-		if (!phaseHandlers.ContainsKey(newPhase)) 
-		{
-			Debug.LogWarning($"new phase {newPhase} is invalid.");
 			return;
 		}
 

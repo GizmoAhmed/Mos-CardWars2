@@ -15,8 +15,8 @@ public class Attack : Phase
 	{
 		Debug.Log("Phasing Attack...Disabling both players actions");
 
-		Player player = NetworkClient.localPlayer.GetComponent<Player>();
-		player.myTurn = false;
+		/*Player player = NetworkClient.localPlayer.GetComponent<Player>();
+		player.myTurn = false;*/
 
 		HandlePhaseLogic();
 	}
@@ -28,8 +28,8 @@ public class Attack : Phase
 
 		Debug.Log("Leaving attack...enabling players");
 
-		Player player = NetworkClient.localPlayer.GetComponent<Player>();
-		player.myTurn = true;
+		/*Player player = NetworkClient.localPlayer.GetComponent<Player>();
+		player.myTurn = true;*/
 		
 		// the set up phase, the phase immediately after this one, should disable one player
 	}

@@ -13,12 +13,6 @@ public class Start : Phase
 	{
 		Debug.Log("Entering Start Phase...");
 		gameManager.SetConsumables(gameManager.startingMagic, gameManager.startingMoney);
-
-		foreach (var conn in NetworkServer.connections.Values)
-		{
-			var player = conn.identity.GetComponent<Player>();
-			player.EnablePlayer(true);
-		}
 	}
 
 	[ClientRpc]

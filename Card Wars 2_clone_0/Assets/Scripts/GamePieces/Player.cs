@@ -241,13 +241,12 @@ public class Player : NetworkBehaviour
 
 	public void ChangeTurns(bool initial, bool post)
 	{
-		EnablePlayer(post);
+		// EnablePlayer(post);
 
 		myTurn = post;
 	}
 
-	// set = TRUE > means unlock/enable
-	// set = FALSE > means lock/disable
+	// consider if this function is rpc or command, (rpc uses is owned)
 	public void EnablePlayer(bool set) 
 	{
 		Card[] cards = FindObjectsOfType<Card>();
