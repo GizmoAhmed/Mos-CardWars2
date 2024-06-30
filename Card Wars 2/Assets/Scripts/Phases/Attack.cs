@@ -13,7 +13,7 @@ public class Attack : Phase
 	[ClientRpc]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Phasing Attack...Disabling both players actions");
+		Debug.Log("Entering Attack..");
 
 		/*Player player = NetworkClient.localPlayer.GetComponent<Player>();
 		player.myTurn = false;*/
@@ -26,7 +26,7 @@ public class Attack : Phase
 	{
 		base.OnExitPhase();
 
-		Debug.Log("Leaving attack...enabling players");
+		Debug.Log("Exiting attack...");
 
 		/*Player player = NetworkClient.localPlayer.GetComponent<Player>();
 		player.myTurn = true;*/

@@ -29,7 +29,6 @@ public Dictionary<GamePhase, Phase> phaseHandlers;
 	{
 		Offline,
 		ChooseLand,
-		Start,
 		Attack,
 		SetUp,
 		End
@@ -52,9 +51,8 @@ public Dictionary<GamePhase, Phase> phaseHandlers;
 		phaseHandlers = new Dictionary<GamePhase, Phase>
 		{
 			{ GamePhase.ChooseLand, GetComponentInChildren<ChooseLand>() },
-			{ GamePhase.Start, GetComponentInChildren<Start>() },
-			{ GamePhase.Attack, GetComponentInChildren<Attack>() },
 			{ GamePhase.SetUp, GetComponentInChildren<SetUp>() },
+			{ GamePhase.Attack, GetComponentInChildren<Attack>() },
 			{ GamePhase.End, GetComponentInChildren<End>() }
 		};
 
@@ -97,22 +95,14 @@ public Dictionary<GamePhase, Phase> phaseHandlers;
 		//// Ready Button Click is contextual, it works differently when clicked in different phases
 
 		// choose land requires that both players ready up
-		if (currentPhase == GamePhase.ChooseLand || currentPhase == GamePhase.Start) 
+		if (currentPhase == GamePhase.ChooseLand) 
 		{
 			if (!readyPlayers.Contains(conn))
 			{
 				readyPlayers.Add(conn);
 
-				if (currentPhase == GamePhase.ChooseLand)
-				{
-					Debug.Log($"Player {conn.connectionId} has chosen their lands.");
-
-				}
-				else if (currentPhase == GamePhase.Start) 
-				{
-					Debug.Log($"Player {conn.connectionId} is done with start.");
-				}
-
+				Debug.Log($"Player {conn.connectionId} has chosen their lands.");
+				
 				CheckAllPlayersReady();
 			}
 		}
@@ -178,24 +168,20 @@ public Dictionary<GamePhase, Phase> phaseHandlers;
 	public void NextPhase()
 	{
 		currentTurn++;
-		if (currentPhase == GamePhase.ChooseLand) 
+		if (currentPhase == GamePhase.ChooseLand)
 		{
-			currentPhase = GamePhase.Start;
-		}
-		else if (currentPhase == GamePhase.Start)
-		{
-			Debug.Log("Start complete");
-			currentPhase = GamePhase.Attack;
-		}
-		else if (currentPhase == GamePhase.Attack)
-		{
-			Debug.Log("Attack complete");
+			Debug.Log("ChooseLand -> Set Up");
 			currentPhase = GamePhase.SetUp;
 		}
 		else if (currentPhase == GamePhase.SetUp)
 		{
-			Debug.Log("Set Up Complete");
+			Debug.Log("Set Up -> Attack");
 			currentPhase = GamePhase.Attack;
+		}
+		else if (currentPhase == GamePhase.Attack)
+		{
+			Debug.Log("Attack -> Set Up");
+			currentPhase = GamePhase.SetUp;
 		}
 	}
 

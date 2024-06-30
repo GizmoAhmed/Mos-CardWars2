@@ -6,11 +6,9 @@ using UnityEngine.UI;
 
 public class ReadyButton : NetworkBehaviour
 {
-	private Player player;
-
 	public void ReadyUp()
 	{
-		player = NetworkClient.localPlayer.GetComponent<Player>();
+		Player player = NetworkClient.localPlayer.GetComponent<Player>();
 
 		if (player != null)
 		{
