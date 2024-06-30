@@ -246,9 +246,11 @@ public class Player : NetworkBehaviour
 		myTurn = post;
 	}
 
-	// consider if this function is rpc or command, (rpc uses is owned)
-	public void EnablePlayer(bool set) 
+	[ClientRpc]
+	public void RpcEnablePlayer(bool set) 
 	{
+		if (!isOwned) { return; }
+
 		Card[] cards = FindObjectsOfType<Card>();
 
 		foreach (Card card in cards)
@@ -264,5 +266,4 @@ public class Player : NetworkBehaviour
 
 		canPlay = set;
 	}
-
 }

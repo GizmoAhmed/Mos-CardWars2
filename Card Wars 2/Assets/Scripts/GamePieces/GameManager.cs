@@ -101,7 +101,12 @@ public Dictionary<GamePhase, Phase> phaseHandlers;
 			{
 				readyPlayers.Add(conn);
 
-				Debug.Log($"Player {conn.connectionId} has chosen their lands.");
+				Player thisPlayer = conn.identity.GetComponent<Player>();
+
+				thisPlayer.RpcEnablePlayer(false);
+
+				Debug.Log($"Player {conn.connectionId} has chosen land");
+				Debug.Log($"Disabling Player {conn.connectionId}");
 				
 				CheckAllPlayersReady();
 			}
@@ -139,6 +144,12 @@ public Dictionary<GamePhase, Phase> phaseHandlers;
 	{
 		if (readyPlayers.Count >= 2)
 		{
+			foreach (var connection in readyPlayers) 
+			{
+				var player = connection.identity.GetComponent<Player>();
+				player.RpcEnablePlayer(true);
+			}
+
 			readyPlayers.Clear();
 
 			Debug.Log("All players ready, lets move on:");

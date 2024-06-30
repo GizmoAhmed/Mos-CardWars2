@@ -13,7 +13,6 @@ public class ReadyButton : NetworkBehaviour
 		if (player != null)
 		{
 			player.CmdSetReady();
-			// player.EnablePlayer(false);
 		}
 	}
 }
