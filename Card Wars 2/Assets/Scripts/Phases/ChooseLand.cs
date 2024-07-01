@@ -3,15 +3,9 @@ using UnityEngine;
 
 public class ChooseLand : Phase
 {
-	public override void Initialize(GameManager gameManager)
-	{
-		base.Initialize(gameManager);
-	}
-
 	[ClientRpc]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Entering ChooseLand phase...");
 		GameObject[] lands = GameObject.FindGameObjectsWithTag("CreatureLand");
 
 		foreach (GameObject land in lands)
@@ -28,8 +22,6 @@ public class ChooseLand : Phase
 	{
 		base.OnExitPhase();
 
-		Debug.Log("Exiting ChooseLand phase...");
-
 		GameObject[] lands = GameObject.FindGameObjectsWithTag("CreatureLand");
 
 		foreach (GameObject land in lands)
@@ -39,11 +31,5 @@ public class ChooseLand : Phase
 				child.gameObject.SetActive(false);
 			}
 		}
-	}
-
-	[Server]
-	public override void HandlePhaseLogic()
-	{
-		base.HandlePhaseLogic();
 	}
 }

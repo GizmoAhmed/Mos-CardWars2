@@ -48,8 +48,6 @@ public class Player : NetworkBehaviour
 
 		myTurn = true;
 
-		game.playersInLobby.Add(this);
-
 		if (isServer) 
 		{
 			Debug.Log($"Player {connectionToClient.connectionId} has joined.");

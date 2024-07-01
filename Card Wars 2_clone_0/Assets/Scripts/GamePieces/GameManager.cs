@@ -4,26 +4,21 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-	public List<Player> playersInLobby;
-
 	public HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
 	[SyncVar(hook = nameof(OnPhaseChanged))] public GamePhase currentPhase;
 
 	[SyncVar] public int currentTurn;
 
+	[Tooltip("If true, the host goes first")]
 	[SyncVar] public bool hostFirst;
 
+	[Header("Starting Consumables")]
 	[SyncVar] public int startingMagic = 2;
 	[SyncVar] public int startingMoney = 12;
 
-	/*foreach (var conn in NetworkServer.connections.Values)
-		{
-			var player = conn.identity.GetComponent<Player>();
-	player.EnablePlayer(true);
-		}*/
 
-public Dictionary<GamePhase, Phase> phaseHandlers;
+	public Dictionary<GamePhase, Phase> phaseHandlers;
 
 	public enum GamePhase
 	{
@@ -86,6 +81,10 @@ public Dictionary<GamePhase, Phase> phaseHandlers;
 		{
 			Debug.Log("Let the game begin!");
 			currentPhase = GamePhase.ChooseLand;
+
+			SetUp setUpScript = GetComponentInChildren<SetUp>();
+
+			setUpScript.IdentitfyPlayers();
 		}
 	}
 
