@@ -264,4 +264,15 @@ public class Player : NetworkBehaviour
 
 		canPlay = set;
 	}
+
+	[ClientRpc]
+	public void RpcTurnMessage(bool isTurn)
+	{
+		if (isOwned) 
+		{
+			myTurn = isTurn;
+			Debug.Log(isTurn ? "It's your turn!" : "Waiting for opponent...");
+		}
+		
+	}
 }
