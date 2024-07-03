@@ -122,7 +122,8 @@ public class GameManager : NetworkBehaviour
 
 			if (readyPlayers.Count == 1)
 			{
-				GetComponentInChildren<SetUp>().ManageTurn(!conn.identity.GetComponent<Player>().myTurn);
+				// pass the player (conn) who just played...
+				GetComponentInChildren<SetUp>().ManageTurn(conn);
 			}
 			else 
 			{
@@ -171,7 +172,6 @@ public class GameManager : NetworkBehaviour
 	[Server]
 	public void NextPhase()
 	{
-		currentTurn++;
 		if (currentPhase == GamePhase.ChooseLand)
 		{
 			Debug.Log("ChooseLand -> Set Up");
@@ -192,16 +192,13 @@ public class GameManager : NetworkBehaviour
 	[Server]
 	public void IncrementTurn() 
 	{
-		currentTurn++;
-
-		// update all spells and building timers here
+		// update all spells and building timers here mabye
 
 		Debug.Log("Incrementing turns");
 
 		foreach (var conn in NetworkServer.connections.Values)
 		{
-			var player = conn.identity.GetComponent<Player>();
-			player.RpcUpdateTurnText(currentTurn);
+			conn.identity.GetComponent<Player>().RpcUpdateTurnText(currentTurn++);
 		}
 	}
 }

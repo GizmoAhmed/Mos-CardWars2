@@ -262,11 +262,9 @@ public class Player : NetworkBehaviour
 	[ClientRpc]
 	public void RpcTurnMessage(bool isTurn)
 	{
-		if (isOwned) 
-		{
-			myTurn = isTurn;
-			Debug.Log(isTurn ? "It's your turn" : "Other players turn...");
-		}
-		
+		if (!isOwned) { return; }
+
+		myTurn = isTurn;
+		Debug.Log(isTurn ? "It's your turn" : "Other players turn...");
 	}
 }

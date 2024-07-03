@@ -7,8 +7,8 @@ public class SetUp : Phase
 
 	[SyncVar] public bool alternate;
 
-	public NetworkConnectionToClient Player0;
-	public NetworkConnectionToClient Player1;
+	private NetworkConnectionToClient Player0;
+	private NetworkConnectionToClient Player1;
 
 	private Player player0;
 	private Player player1;
@@ -18,6 +18,7 @@ public class SetUp : Phase
 	{
 		this.gameManager = gameManager;
 		MagicAddOn = 0;
+		alternate = true;
 	}
 
 	[Server]
@@ -40,6 +41,12 @@ public class SetUp : Phase
 	{
 		Debug.Log("Entering a set up phase");
 
+		/*
+		 * since player knows its magic
+		 * client rpc in player for setting consumabels for every set up phase after the first
+		 * for each player, set consumables player.RpcSetConsumables
+		 */
+
 		gameManager.SetConsumables(gameManager.startingMagic + MagicAddOn, gameManager.startingMoney);
 
 		MagicAddOn++;
@@ -50,23 +57,53 @@ public class SetUp : Phase
 	[Server]
 	public override void OnExitPhase()
 	{
-
+		gameManager.IncrementTurn();
 	}
 
 	[Server]
 	public override void HandlePhaseLogic()
 	{
-		// you can say, or alternate, and then alternate the bool in someway
-		ManageTurn(gameManager.hostFirst);
+		ManageTurn(null);
 	}
 
 	[Server]
-	public void ManageTurn(bool hostTurn) 
+	public void ManageTurn(NetworkConnectionToClient conn)
 	{
-		player0.RpcTurnMessage(hostTurn); 
-		player0.RpcEnablePlayer(hostTurn);
+		// default, the first set up dictated by hostFirst.
+		if (conn == null)
+		{
+			player0.RpcTurnMessage(gameManager.hostFirst);
+			player0.RpcEnablePlayer(gameManager.hostFirst);
 
-		player1.RpcTurnMessage(!hostTurn);
-		player1.RpcEnablePlayer(!hostTurn);
+			player1.RpcTurnMessage(!gameManager.hostFirst);
+			player1.RpcEnablePlayer(!gameManager.hostFirst);
+		}
+		else 
+		{
+			Player thisPlayer = conn.identity.GetComponent<Player>();
+
+			if (thisPlayer == player0)
+			{
+				player0.RpcTurnMessage(false);
+				player0.RpcEnablePlayer(false);
+
+				player1.RpcTurnMessage(true);
+				player1.RpcEnablePlayer(true);
+			}
+			else if (thisPlayer == player1)
+			{
+				player0.RpcTurnMessage(true);
+				player0.RpcEnablePlayer(true);
+
+				player1.RpcTurnMessage(false);
+				player1.RpcEnablePlayer(false);
+			}
+			else 
+			{
+				Debug.LogError("! The Player passed isn't familiar to Set up !");
+			}
+		}
+
+		
 	}
 }
