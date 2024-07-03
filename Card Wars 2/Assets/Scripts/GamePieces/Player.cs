@@ -8,7 +8,7 @@ public class Player : NetworkBehaviour
 {
 	public bool local;
 	[SyncVar] public bool canPlay = true;
-	[SyncVar(hook = nameof(ChangeTurns))] public bool myTurn;
+	[SyncVar] public bool myTurn;
 
 	private GameObject Hand1;
 	private GameObject Hand2;
@@ -237,13 +237,6 @@ public class Player : NetworkBehaviour
 		}
 	}
 
-	public void ChangeTurns(bool initial, bool post)
-	{
-		// EnablePlayer(post);
-
-		myTurn = post;
-	}
-
 	[ClientRpc]
 	public void RpcEnablePlayer(bool set) 
 	{
@@ -265,13 +258,14 @@ public class Player : NetworkBehaviour
 		canPlay = set;
 	}
 
+	// this is simply a function meant for debugging.
 	[ClientRpc]
 	public void RpcTurnMessage(bool isTurn)
 	{
 		if (isOwned) 
 		{
 			myTurn = isTurn;
-			Debug.Log(isTurn ? "It's your turn!" : "Waiting for opponent...");
+			Debug.Log(isTurn ? "It's your turn" : "Other players turn...");
 		}
 		
 	}

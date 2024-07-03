@@ -48,10 +48,19 @@ public class SetUp : Phase
 	[Server]
 	public override void HandlePhaseLogic()
 	{
+		ManageTurn(gameManager.hostFirst);
+	}
+
+	[Server]
+	public void ManageTurn(bool hostTurn) 
+	{
 		Player player0 = Player0.identity.GetComponent<Player>();
 		Player player1 = Player1.identity.GetComponent<Player>();
 
-		player0.RpcTurnMessage(gameManager.hostFirst);
-		player1.RpcTurnMessage(!gameManager.hostFirst);
+		player0.RpcTurnMessage(hostTurn); 
+		player0.RpcEnablePlayer(hostTurn);
+
+		player1.RpcTurnMessage(!hostTurn);
+		player1.RpcEnablePlayer(!hostTurn);
 	}
 }
