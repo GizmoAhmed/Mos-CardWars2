@@ -5,8 +5,13 @@ public class SetUp : Phase
 {
 	[SyncVar] public int MagicAddOn;
 
+	[SyncVar] public bool alternate;
+
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;
+
+	private Player player0;
+	private Player player1;
 
 	[Server]
 	public override void Initialize(GameManager gameManager)
@@ -25,6 +30,9 @@ public class SetUp : Phase
 			else
 				{ Player1 = conn; }
 		}
+
+		player0 = Player0.identity.GetComponent<Player>();
+		player1 = Player1.identity.GetComponent<Player>();
 	}
 
 	[Server]
@@ -48,15 +56,13 @@ public class SetUp : Phase
 	[Server]
 	public override void HandlePhaseLogic()
 	{
+		// you can say, or alternate, and then alternate the bool in someway
 		ManageTurn(gameManager.hostFirst);
 	}
 
 	[Server]
 	public void ManageTurn(bool hostTurn) 
 	{
-		Player player0 = Player0.identity.GetComponent<Player>();
-		Player player1 = Player1.identity.GetComponent<Player>();
-
 		player0.RpcTurnMessage(hostTurn); 
 		player0.RpcEnablePlayer(hostTurn);
 

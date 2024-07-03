@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Collections;
+using System.Drawing;
 
 public class GameManager : NetworkBehaviour
 {
@@ -88,11 +90,10 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
+	//// Ready Button Click is contextual, it works differently when clicked in different phases
 	[Server]
 	public void PlayerReady(NetworkConnectionToClient conn)
-	{
-		//// Ready Button Click is contextual, it works differently when clicked in different phases
-
+	{ 
 		// choose land requires that both players ready up
 		if (currentPhase == GamePhase.ChooseLand) 
 		{
@@ -119,23 +120,16 @@ public class GameManager : NetworkBehaviour
 			// add this connection to readyPlayers (which has been cleard by now)
 			readyPlayers.Add(conn);
 
-			/*
-			then check size
-			if (if size 1, then other player isn't ready , this player must've set up first)
+			if (readyPlayers.Count == 1)
 			{
-				false myTurn from the player that called this, and give it to the other guy so they can set up
-				use -> var player = conn.identity.GetComponent<Player>(); in order to switch the turn
+				GetComponentInChildren<SetUp>().ManageTurn(!conn.identity.GetComponent<Player>().myTurn);
 			}
-			
-			if (if size 2, then both players finished set up)
+			else 
 			{
-				clear readyPlayers for next set up.
-				go to attack phase
+				readyPlayers.Clear();
+				currentPhase = GamePhase.Attack;
 			}
-			 */
-
 		}
-
 	}
 
 	[Server]

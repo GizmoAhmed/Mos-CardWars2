@@ -15,9 +15,6 @@ public class Attack : Phase
 	{
 		Debug.Log("Entering Attack..");
 
-		/*Player player = NetworkClient.localPlayer.GetComponent<Player>();
-		player.myTurn = false;*/
-
 		HandlePhaseLogic();
 	}
 
@@ -27,11 +24,6 @@ public class Attack : Phase
 		base.OnExitPhase();
 
 		Debug.Log("Exiting attack...");
-
-		/*Player player = NetworkClient.localPlayer.GetComponent<Player>();
-		player.myTurn = true;*/
-		
-		// the set up phase, the phase immediately after this one, should disable one player
 	}
 
 	[Server]
@@ -39,6 +31,6 @@ public class Attack : Phase
 	{
 		Debug.Log("Attack scene would go down right here...");
 
-		gameManager.currentPhase = GameManager.GamePhase.SetUp;
+		// gameManager.currentPhase = GameManager.GamePhase.SetUp;
 	}
 }
