@@ -18,7 +18,7 @@ public class SetUp : Phase
 	{
 		this.gameManager = gameManager;
 		MagicAddOn = 0;
-		alternate = true;
+		alternate = gameManager.hostFirst;
 	}
 
 	[Server]
@@ -69,16 +69,29 @@ public class SetUp : Phase
 	[Server]
 	public void ManageTurn(NetworkConnectionToClient conn)
 	{
-		// default, the first set up dictated by hostFirst.
+		// Determine the current player based on the 'alternate' variable
 		if (conn == null)
 		{
-			player0.RpcTurnMessage(gameManager.hostFirst);
-			player0.RpcEnablePlayer(gameManager.hostFirst);
+			if (alternate)
+			{
+				player0.RpcTurnMessage(true);
+				player0.RpcEnablePlayer(true);
 
-			player1.RpcTurnMessage(!gameManager.hostFirst);
-			player1.RpcEnablePlayer(!gameManager.hostFirst);
+				player1.RpcTurnMessage(false);
+				player1.RpcEnablePlayer(false);
+			}
+			else
+			{
+				player0.RpcTurnMessage(false);
+				player0.RpcEnablePlayer(false);
+
+				player1.RpcTurnMessage(true);
+				player1.RpcEnablePlayer(true);
+			}
+
+			alternate = !alternate;
 		}
-		else 
+		else
 		{
 			Player thisPlayer = conn.identity.GetComponent<Player>();
 
@@ -98,12 +111,10 @@ public class SetUp : Phase
 				player1.RpcTurnMessage(false);
 				player1.RpcEnablePlayer(false);
 			}
-			else 
+			else
 			{
-				Debug.LogError("! The Player passed isn't familiar to Set up !");
+				Debug.LogError("! The Player passed isn't familiar to Setup !");
 			}
-		}
-
-		
+		}		
 	}
 }

@@ -31,6 +31,6 @@ public class Attack : Phase
 	{
 		Debug.Log("Attack scene would go down right here...");
 
-		// gameManager.currentPhase = GameManager.GamePhase.SetUp;
+		gameManager.currentPhase = GameManager.GamePhase.SetUp;
 	}
 }
