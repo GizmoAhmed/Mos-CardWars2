@@ -13,6 +13,8 @@ public class CreatureCard : Card
 	[SyncVar] public int CurrentDefense;
 	[SyncVar] public int MaxDefense;
 
+	[SyncVar] public bool hasAttacked;
+
 	public enum Element
 	{
 		Forge,
@@ -38,6 +40,4 @@ public class CreatureCard : Card
 		AttackText.text = Attack.ToString();
 		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
 	}
-
-	/// pass a function to player that passes card, stat, and change
 }

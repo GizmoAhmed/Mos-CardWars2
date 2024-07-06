@@ -1,8 +1,6 @@
 using Mirror;
 using UnityEngine;
 
- // During this phase, players are disabled, to watch the attacks go down.
-
 public class Attack : Phase
 {
 	public override void Initialize(GameManager gameManager)
@@ -13,9 +11,11 @@ public class Attack : Phase
 	[ClientRpc]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Entering Attack..");
+		Debug.Log("Attack scene would go down right here...");
 
-		HandlePhaseLogic();
+		GameObject.Find("CombatManager").GetComponent<Combat>().InitializeCombat();
+
+		// gameManager.currentPhase = GameManager.GamePhase.SetUp;
 	}
 
 	[ClientRpc]
@@ -24,13 +24,5 @@ public class Attack : Phase
 		base.OnExitPhase();
 
 		Debug.Log("Exiting attack...");
-	}
-
-	[Server]
-	public override void HandlePhaseLogic()
-	{
-		Debug.Log("Attack scene would go down right here...");
-
-		gameManager.currentPhase = GameManager.GamePhase.SetUp;
 	}
 }

@@ -34,6 +34,9 @@ public class SetUp : Phase
 
 		player0 = Player0.identity.GetComponent<Player>();
 		player1 = Player1.identity.GetComponent<Player>();
+
+		// so combat.cs can use these conns later
+		GameObject.Find("CombatManager").GetComponent<Combat>().FindPlayers(Player0, Player1);
 	}
 
 	[Server]

@@ -25,6 +25,9 @@ public class Player : NetworkBehaviour
 
 	private TextMeshProUGUI turnText;
 
+	[Tooltip("List for battle-ready cards")]
+	public List<GameObject> myBattleReadyCards = new List<GameObject>();
+
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
@@ -103,11 +106,13 @@ public class Player : NetworkBehaviour
 			if (isOwned)
 			{
 				card.transform.SetParent(Hand1.transform, false);
+				card.GetComponent<Card>().Ally = true;
 			}
 			else
 			{
 				card.transform.SetParent(Hand2.transform, false);
 				card.GetComponent<CardFlipper>().Flip();
+				card.GetComponent<Card>().Ally = false;
 			}
 		}
 		else if (state == CardState.Placed) // from dropping onto drop zone
@@ -266,5 +271,26 @@ public class Player : NetworkBehaviour
 
 		myTurn = isTurn;
 		Debug.Log(isTurn ? "It's your turn" : "Other players turn...");
+	}
+
+	// Populate the SyncList with battle-ready cards
+	[ClientRpc]
+	public void RpcFindBattleCards()
+	{
+		myBattleReadyCards.Clear();
+
+		if (!isOwned) { return; }
+
+		CreatureCard[] allCreatureCards = FindObjectsOfType<CreatureCard>();
+
+		myBattleReadyCards.Clear();
+
+		foreach (CreatureCard creatureCard in allCreatureCards)
+		{
+			if (creatureCard.Ally)
+			{
+				myBattleReadyCards.Add(creatureCard.gameObject);
+			}
+		}
 	}
 }

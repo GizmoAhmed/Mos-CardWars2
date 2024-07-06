@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using System.Collections;
-using System.Drawing;
 
 public class GameManager : NetworkBehaviour
 {
@@ -16,8 +14,8 @@ public class GameManager : NetworkBehaviour
 	[SyncVar] public bool hostFirst;
 
 	[Header("Starting Consumables")]
-	[SyncVar] public int startingMagic = 2;
-	[SyncVar] public int startingMoney = 12;
+	[SyncVar] public int startingMagic = 6;
+	[SyncVar] public int startingMoney = 10;
 
 
 	public Dictionary<GamePhase, Phase> phaseHandlers;

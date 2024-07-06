@@ -6,14 +6,13 @@ using UnityEngine.UI;
 
 public class BuildingCard : Card
 {
+
+	// each building would need to check when a creatuer is placed, flooped, dies, etc.
+	// add checks for both
+
 	new void Start()
 	{
 		base.Start();
 		landTag = "BuildLand";
 	}
-
-	/*protected override void OnTriggerStay2D(Collider2D other)
-	{
-		base.OnTriggerStay2D(other);
-	}*/
 }
