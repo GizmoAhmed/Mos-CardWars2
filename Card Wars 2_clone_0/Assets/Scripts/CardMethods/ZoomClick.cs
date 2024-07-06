@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 
-public class CardZoom : NetworkBehaviour
+public class ZoomClick : NetworkBehaviour
 {
 	public GameObject ZoomCardPrefab;
 
 	public GameObject zoomedCard;
-	public FloopExit floopScript;
+	public ZoomedCard floopScript;
 
 	public GameObject Canvas;
 
@@ -38,7 +38,7 @@ public class CardZoom : NetworkBehaviour
 
 		zoomedCard = Instantiate(ZoomCardPrefab, new Vector2(0,0), Quaternion.identity);
 
-		floopScript = zoomedCard.GetComponent<FloopExit>();
+		floopScript = zoomedCard.GetComponent<ZoomedCard>();
 
 		// attach this card to the zoomedCards floop script
 		floopScript.card = gameObject;

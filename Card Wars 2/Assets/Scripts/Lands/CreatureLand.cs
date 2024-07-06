@@ -10,17 +10,17 @@ public class CreatureLand : NetworkBehaviour
 	[Header("Image")]
 	public Image image;
 
-	public enum Element
+	public enum LandElement
 	{
 		Null,
 		Forge,
-		Sky,
+		Spirit,
 		Crystal,
 		Tomb,
 		School
 	}
 
-	[Header("Elemental")] public Element currentElement = Element.Null;
+	[Header("Elemental")] public LandElement currentElement = LandElement.Null;
 
 	[Header("Occupying Creature")]
 	public bool Taken;
@@ -44,11 +44,11 @@ public class CreatureLand : NetworkBehaviour
 	public void Start()
 	{
 		InitializeNeighbors();
-		currentElement = Element.Null;
+		currentElement = LandElement.Null;
 		image = GetComponent<Image>();
 	}
 
-	public void ChangeElement(Element element)
+	public void ChangeElement(LandElement element)
 	{
 		currentElement = element;
 
@@ -56,22 +56,22 @@ public class CreatureLand : NetworkBehaviour
 
 		switch (element)
 		{
-			case Element.Null:
+			case LandElement.Null:
 				color = new Color32(173, 173, 173, 255);
 				break;
-			case Element.Forge:
+			case LandElement.Forge:
 				color = new Color32(255, 86, 86, 255);
 				break;
-			case Element.Sky:
+			case LandElement.Spirit:
 				color = new Color32(86, 207, 255, 255);
 				break;
-			case Element.Crystal:
+			case LandElement.Crystal:
 				color = new Color32(255, 111, 213, 255);
 				break;
-			case Element.Tomb:
+			case LandElement.Tomb:
 				color = new Color32(149, 255, 111, 255);
 				break;
-			case Element.School:
+			case LandElement.School:
 				color = new Color32(255, 255, 112, 255);
 				break;
 			default:
@@ -152,30 +152,30 @@ public class CreatureLand : NetworkBehaviour
 	// Methods for each button to assign an element
 	public void SelectForge()
 	{
-		SelectElement(Element.Forge);
+		SelectElement(LandElement.Forge);
 	}
 
-	public void SelectSky()
+	public void SelectSpirit()
 	{
-		SelectElement(Element.Sky);
+		SelectElement(LandElement.Spirit);
 	}
 
 	public void SelectCrystal()
 	{
-		SelectElement(Element.Crystal);
+		SelectElement(LandElement.Crystal);
 	}
 
 	public void SelectTomb()
 	{
-		SelectElement(Element.Tomb);
+		SelectElement(LandElement.Tomb);
 	}
 
 	public void SelectSchool()
 	{
-		SelectElement(Element.School);
+		SelectElement(LandElement.School);
 	}
 
-	private void SelectElement(Element element)
+	private void SelectElement(LandElement element)
 	{
 		player = NetworkClient.localPlayer.GetComponent<Player>();
 

@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
 
 
-public class FloopExit : NetworkBehaviour
+public class ZoomedCard : NetworkBehaviour
 {
 	public Player playerManager;
 
 	public GameObject card;
-    public CardZoom zoom;
+    public ZoomClick zoom;
 
 	public GameObject floopButton;
 
@@ -19,7 +17,7 @@ public class FloopExit : NetworkBehaviour
 
 	private void Start()
 	{
-		zoom = card.GetComponent<CardZoom>();
+		zoom = card.GetComponent<ZoomClick>();
 
 		Card cardScript = card.GetComponent<Card>();
 

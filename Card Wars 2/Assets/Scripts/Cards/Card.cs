@@ -97,7 +97,7 @@ public class Card : NetworkBehaviour
 
 	public void Zoom()
 	{
-		CardZoom zoom = GetComponent<CardZoom>();
+		ZoomClick zoom = GetComponent<ZoomClick>();
 
 		zoom.ZoomIn();
 	}

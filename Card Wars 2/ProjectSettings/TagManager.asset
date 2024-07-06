@@ -11,6 +11,7 @@ TagManager:
   - DrawButton
   - CostText
   - ReadyButton
+  - NameTag
   layers:
   - Default
   - TransparentFX

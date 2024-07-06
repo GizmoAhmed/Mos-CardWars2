@@ -217,13 +217,13 @@ public class Player : NetworkBehaviour
 	}
 
 	[Command]
-	public void CmdColorTheLand(CreatureLand land, CreatureLand.Element element) 
+	public void CmdColorTheLand(CreatureLand land, CreatureLand.LandElement element) 
 	{
 		RpcColorTheLand(land, element);
 	}
 
 	[ClientRpc]
-	public void RpcColorTheLand(CreatureLand land, CreatureLand.Element element) 
+	public void RpcColorTheLand(CreatureLand land, CreatureLand.LandElement element) 
 	{
 		if (isOwned)
 		{

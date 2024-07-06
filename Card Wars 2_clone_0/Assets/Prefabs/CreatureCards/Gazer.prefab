@@ -19,7 +19,7 @@ PrefabInstance:
     - target: {fileID: 1007634538234213432, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3c1a4a535a6d49c43885b9bb56f70f3c, type: 3}
+      objectReference: {fileID: 21300000, guid: 7c91cf54a519a4f40aef70ddc720cc1e, type: 3}
     - target: {fileID: 3620735959968189011, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 57.8
