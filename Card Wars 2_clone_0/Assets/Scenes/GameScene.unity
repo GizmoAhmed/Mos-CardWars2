@@ -3021,7 +3021,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1656037249}
         m_TargetAssemblyTypeName: CreatureLand, Assembly-CSharp
-        m_MethodName: SelectSky
+        m_MethodName: SelectSpirit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5070,7 +5070,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 532313917}
         m_TargetAssemblyTypeName: CreatureLand, Assembly-CSharp
-        m_MethodName: SelectSky
+        m_MethodName: SelectSpirit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5204,7 +5204,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 42256393}
         m_TargetAssemblyTypeName: CreatureLand, Assembly-CSharp
-        m_MethodName: SelectSky
+        m_MethodName: SelectSpirit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7175,7 +7175,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 950905402}
         m_TargetAssemblyTypeName: CreatureLand, Assembly-CSharp
-        m_MethodName: SelectSky
+        m_MethodName: SelectSpirit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

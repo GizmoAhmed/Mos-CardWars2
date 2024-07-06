@@ -8,12 +8,10 @@ using Unity.VisualScripting;
 
 public class CreatureCard : Card
 {
+	[Header("Stats")]
 	[SyncVar] public int Attack;
 	[SyncVar] public int CurrentDefense;
 	[SyncVar] public int MaxDefense;
-
-	private TextMeshProUGUI AttackText;
-	private TextMeshProUGUI DefenseText;
 
 	public enum Element
 	{
@@ -26,6 +24,9 @@ public class CreatureCard : Card
 
 	[SyncVar] public Element myElement;
 
+	private TextMeshProUGUI AttackText;
+	private TextMeshProUGUI DefenseText;
+
 	new void Start()
 	{
 		base.Start();
@@ -35,7 +36,7 @@ public class CreatureCard : Card
 		DefenseText = transform.Find("Defense").GetComponent<TextMeshProUGUI>();
 
 		AttackText.text = Attack.ToString();
-		DefenseText.text = DefenseText.ToString();
+		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
 	}
 
 	/// pass a function to player that passes card, stat, and change
