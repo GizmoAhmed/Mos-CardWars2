@@ -9,7 +9,7 @@ public class ZoomClick : NetworkBehaviour
 	public GameObject ZoomCardPrefab;
 
 	public GameObject zoomedCard;
-	public ZoomedCard floopScript;
+	public FloopExit floopScript;
 
 	public GameObject Canvas;
 
@@ -38,7 +38,7 @@ public class ZoomClick : NetworkBehaviour
 
 		zoomedCard = Instantiate(ZoomCardPrefab, new Vector2(0,0), Quaternion.identity);
 
-		floopScript = zoomedCard.GetComponent<ZoomedCard>();
+		floopScript = zoomedCard.GetComponent<FloopExit>();
 
 		// attach this card to the zoomedCards floop script
 		floopScript.card = gameObject;

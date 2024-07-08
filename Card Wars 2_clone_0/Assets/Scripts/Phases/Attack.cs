@@ -8,7 +8,7 @@ public class Attack : Phase
 		base.Initialize(gameManager);
 	}
 
-	[ClientRpc]
+	[Server]
 	public override void OnEnterPhase()
 	{
 		Debug.Log("Attack scene would go down right here...");
@@ -18,7 +18,7 @@ public class Attack : Phase
 		// gameManager.currentPhase = GameManager.GamePhase.SetUp;
 	}
 
-	[ClientRpc]
+	[Server]
 	public override void OnExitPhase()
 	{
 		base.OnExitPhase();

@@ -18,7 +18,7 @@ public class SetUp : Phase
 	{
 		this.gameManager = gameManager;
 		MagicAddOn = 0;
-		alternate = gameManager.hostFirst;
+		alternate = true;
 	}
 
 	[Server]
@@ -54,18 +54,6 @@ public class SetUp : Phase
 
 		MagicAddOn++;
 
-		HandlePhaseLogic();
-	}
-
-	[Server]
-	public override void OnExitPhase()
-	{
-		gameManager.IncrementTurn();
-	}
-
-	[Server]
-	public override void HandlePhaseLogic()
-	{
 		ManageTurn(null);
 	}
 
@@ -119,5 +107,11 @@ public class SetUp : Phase
 				Debug.LogError("! The Player passed isn't familiar to Setup !");
 			}
 		}		
+	}
+
+	[Server]
+	public override void OnExitPhase()
+	{
+		gameManager.IncrementTurn();
 	}
 }

@@ -4,6 +4,9 @@ using TMPro;
 
 public class Card : NetworkBehaviour
 {
+	[SyncVar] public string Name;
+	private TextMeshProUGUI NameText;
+
 	private Player playerManager;
 	private GameObject Magic;
 	private Magic magicScript;
@@ -29,10 +32,9 @@ public class Card : NetworkBehaviour
 	[Tooltip("Is this your Card?")] [SyncVar] public bool Ally;
 	private TextMeshProUGUI MagicText;
 
-	[SyncVar]
-	public int MagicCost = 0;
+	[SyncVar] public int MagicCost = 0;
 
-	public GameObject MyLand;
+	[SyncVar] public GameObject MyLand;
 
 	public enum CardState
 	{
@@ -65,6 +67,9 @@ public class Card : NetworkBehaviour
 
 		MagicText = transform.Find("Magic").GetComponent<TextMeshProUGUI>();
 		MagicText.text = MagicCost.ToString();
+
+		NameText = transform.Find("Name").GetComponent<TextMeshProUGUI>();
+		NameText.text = Name;
 	}
 
 	public bool IsOwnedByLocalPlayer()

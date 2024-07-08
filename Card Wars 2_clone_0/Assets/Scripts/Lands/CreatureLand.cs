@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
-using static CreatureLand;
 
 public class CreatureLand : NetworkBehaviour
 {

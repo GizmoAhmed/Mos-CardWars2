@@ -3,7 +3,7 @@ using Mirror;
 using UnityEngine.UI;
 
 
-public class ZoomedCard : NetworkBehaviour
+public class FloopExit : NetworkBehaviour
 {
 	public Player playerManager;
 

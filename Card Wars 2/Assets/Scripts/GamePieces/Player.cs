@@ -126,13 +126,14 @@ public class Player : NetworkBehaviour
 					CreatureLand landScript = land.GetComponent<CreatureLand>();
 					GameObject acrossLand = landScript._Across;
 
+					CreatureLand ScriptAcross = acrossLand.GetComponent<CreatureLand>();
+					ScriptAcross.CurrentCard = card;
+					ScriptAcross.Taken = true;
+
 					card.transform.SetParent(acrossLand.transform, true);
 					card.transform.localPosition = Vector2.zero;
 				}
-				else
-				{
-					Debug.LogWarning("Land is not assigned...");
-				}
+
 			}
 		}
 	}
@@ -273,23 +274,44 @@ public class Player : NetworkBehaviour
 		Debug.Log(isTurn ? "It's your turn" : "Other players turn...");
 	}
 
-	// Populate the SyncList with battle-ready cards
 	[ClientRpc]
 	public void RpcFindBattleCards()
 	{
-		myBattleReadyCards.Clear();
-
 		if (!isOwned) { return; }
 
-		CreatureCard[] allCreatureCards = FindObjectsOfType<CreatureCard>();
-
 		myBattleReadyCards.Clear();
+
+		CreatureCard[] allCreatureCards = FindObjectsOfType<CreatureCard>();
 
 		foreach (CreatureCard creatureCard in allCreatureCards)
 		{
 			if (creatureCard.Ally)
 			{
 				myBattleReadyCards.Add(creatureCard.gameObject);
+			}
+		}
+
+		AttackAcross();
+	}
+
+	// try dictionary for attack order
+	public void AttackAcross() 
+	{
+		foreach (GameObject cardOBJ in myBattleReadyCards)
+		{
+			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
+			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
+
+			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
+
+			if (acrossLand.CurrentCard == null)
+			{
+				Debug.Log(thisCard.Name + " has no one across");
+			}
+			else 
+			{
+				CreatureCard acrossCard = acrossLand.CurrentCard.GetComponent<CreatureCard>();
+				Debug.Log(thisCard.Name + " just attacked " + acrossCard.Name);
 			}
 		}
 	}

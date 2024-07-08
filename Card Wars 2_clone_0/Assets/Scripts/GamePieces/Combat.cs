@@ -22,19 +22,19 @@ public class Combat : NetworkBehaviour
     [Server]
     public void InitializeCombat()
 	{
-        if (Player0.identity.GetComponent<Player>().myTurn)
-            { DoBattle(Player0); }
+        if (Player1.identity.GetComponent<Player>().myTurn)
+            {   DoBattle(Player0);
+		        // DoBattle(Player1);
+		    }
         else 
-            { DoBattle(Player1); }
+            {   DoBattle(Player1);
+                // DoBattle(Player0); 
+            }
 	}
 
     [Server]
     public void DoBattle(NetworkConnectionToClient conn) 
     {
-        Player thisPlayer = conn.identity.GetComponent<Player>();
-
-        thisPlayer.RpcFindBattleCards();
-
-        thisPlayer.myBattleReadyCards = BattleReadyCards;
+		conn.identity.GetComponent<Player>().RpcFindBattleCards();
 	}
 }
