@@ -18,16 +18,10 @@ public class SpellLand : CreatureLand
         _Across = OtherSpellSide;
 	}
 
-    // Update is called once per frame
-    void Update()
+    public override void AttachCard(GameObject card) 
     {
-        
-    }
-
-    public void AddSpell(GameObject spell) 
-    {
-        ActiveSpells.Add(spell);
-    }
+		ActiveSpells.Add(card);
+	}
 
     public void DiscardSpell(GameObject spell) 
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Combat : NetworkBehaviour
 {
-	[SyncVar] public List<GameObject> BattleReadyCards = new List<GameObject>();
+	// private Player player;
 
 	private NetworkConnectionToClient Player0;
 	private NetworkConnectionToClient Player1;
@@ -22,7 +22,7 @@ public class Combat : NetworkBehaviour
     [Server]
     public void InitializeCombat()
 	{
-        if (Player1.identity.GetComponent<Player>().myTurn)
+        if (!Player1.identity.GetComponent<Player>().myTurn)
             {   DoBattle(Player0);
 		        // DoBattle(Player1);
 		    }
@@ -35,30 +35,11 @@ public class Combat : NetworkBehaviour
     [Server]
     public void DoBattle(NetworkConnectionToClient conn) 
     {
+
+		/*NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+		player = networkIdentity.GetComponent<Player>();*/
+
 		Player player = conn.identity.GetComponent<Player>();
 		player.RpcFindBattleCards();
-
-		if (BattleReadyCards.Count == 0) 
-		{
-			Debug.LogWarning("BattleReadyCards is empty for some reason");
-		}
-
-		foreach (GameObject cardOBJ in BattleReadyCards)
-		{
-			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
-			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
-
-			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
-
-			if (acrossLand.CurrentCard == null)
-			{
-				player.RpcAttackAcross(thisCard, null);
-			}
-			else
-			{
-				CreatureCard acrossCard = acrossLand.CurrentCard.GetComponent<CreatureCard>();
-				player.RpcAttackAcross(thisCard, acrossCard);
-			}
-		}
 	}
 }

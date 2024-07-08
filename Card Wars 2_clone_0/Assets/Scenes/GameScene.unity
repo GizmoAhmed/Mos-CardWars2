@@ -10367,6 +10367,7 @@ MonoBehaviour:
   - {fileID: 4800586785374285995, guid: c30e76337535c20478c577d415690f8e, type: 3}
   - {fileID: 1983561758811094522, guid: 64de0d4e3c95c8949b5538f3187658e3, type: 3}
   - {fileID: 8545216061768215645, guid: fa4fb6dec6eca2548b3f091485ab57f0, type: 3}
+  - {fileID: 7879420104403120485, guid: 5efb24a2cc2784d4db2d1ae8f789dec4, type: 3}
   - {fileID: 104921885069382094, guid: c7f805893aa579c449509cc0169cc67c, type: 3}
   - {fileID: 5863726776954763992, guid: daa2180d8a3fee243b0dc1cda490f925, type: 3}
   - {fileID: 2745455288065504265, guid: 07331bd8dd4fd4e4db782b67d6f38330, type: 3}
@@ -10978,6 +10979,7 @@ GameObject:
   - component: {fileID: 7474364891173038578}
   - component: {fileID: 7474364891173038577}
   - component: {fileID: 7474364891173038581}
+  - component: {fileID: 7474364891173038582}
   m_Layer: 8
   m_Name: ThisSpellLand
   m_TagString: SpellLand
@@ -12968,6 +12970,33 @@ MonoBehaviour:
   a: 2.66071
   b: 54.9679
   c: 183
+--- !u!114 &7474364891173038582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346735894945106084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89917938215d6af468be0d0e331ab489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
+  Taken: 0
+  CurrentCard: {fileID: 0}
+  across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
+  ActiveSpells: []
+  OtherSpellSide: {fileID: 0}
+  grid: {fileID: 0}
 --- !u!61 &7501632034745510305
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13139,6 +13168,7 @@ GameObject:
   - component: {fileID: 8393660402886050620}
   - component: {fileID: 8393660402886050619}
   - component: {fileID: 8393660402886050622}
+  - component: {fileID: 8393660402886050623}
   m_Layer: 0
   m_Name: OtherSpellLand
   m_TagString: Untagged
@@ -13288,6 +13318,33 @@ MonoBehaviour:
   a: 2.66071
   b: 54.9679
   c: 183
+--- !u!114 &8393660402886050623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8304505474075722016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89917938215d6af468be0d0e331ab489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  image: {fileID: 0}
+  currentElement: 0
+  Taken: 0
+  CurrentCard: {fileID: 0}
+  across: {fileID: 0}
+  AdjacentLeft: {fileID: 0}
+  AdjacentRight: {fileID: 0}
+  DiagLeft: {fileID: 0}
+  DiagRight: {fileID: 0}
+  ActiveSpells: []
+  OtherSpellSide: {fileID: 0}
+  grid: {fileID: 0}
 --- !u!224 &8525864686848175475
 RectTransform:
   m_ObjectHideFlags: 0

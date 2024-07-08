@@ -117,7 +117,12 @@ public class Player : NetworkBehaviour
 		}
 		else if (state == CardState.Placed) // from dropping onto drop zone
 		{
-			if (!isOwned)
+			if (isOwned)
+			{
+				// handled in Card.PlaceCard(),
+				// look into making PlaceCard() do the work of this section via boolean parameter of isOwned
+			}
+			else 
 			{
 				card.GetComponent<CardFlipper>().Flip();
 
@@ -127,13 +132,11 @@ public class Player : NetworkBehaviour
 					GameObject acrossLand = landScript._Across;
 
 					CreatureLand ScriptAcross = acrossLand.GetComponent<CreatureLand>();
-					ScriptAcross.CurrentCard = card;
-					ScriptAcross.Taken = true;
+					ScriptAcross.AttachCard(card);
 
 					card.transform.SetParent(acrossLand.transform, true);
 					card.transform.localPosition = Vector2.zero;
 				}
-
 			}
 		}
 	}
@@ -277,7 +280,7 @@ public class Player : NetworkBehaviour
 	[ClientRpc]
 	public void RpcFindBattleCards()
 	{
-		if (!isOwned) { return; }
+		if (!isOwned) { return; } // this guy just makes sure each player calls it indidually: If the server wasn't talking about you, don't run
 
 		myBattleReadyCards.Clear();
 
@@ -291,27 +294,31 @@ public class Player : NetworkBehaviour
 			}
 		}
 
-		Combat combatManager = GameObject.Find("CombatManager").GetComponent<Combat>();
-		combatManager.BattleReadyCards = myBattleReadyCards;
+		foreach (GameObject cardOBJ in myBattleReadyCards)
+		{
+			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
+
+			if (thisCard.MyLand == null) 
+			{
+				Debug.LogWarning(thisCard.Name + " has no land");
+				return;
+			}
+
+			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
+
+			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
+
+			if (acrossLand.CurrentCard == null)
+			{
+				Debug.Log(thisCard.Name + " has no one across");
+			}
+			else
+			{
+				CreatureCard acrossCard = acrossLand.CurrentCard.GetComponent<CreatureCard>();
+
+				Debug.Log(thisCard.Name + " just attacked " + acrossCard.Name);
+			}
+		}
 	}
 
-	[ClientRpc]
-	public void RpcAttackAcross(CreatureCard attackingCard, CreatureCard defendingCard) 
-	{
-		if (isOwned)
-		{
-			if (defendingCard == null)
-			{
-				Debug.Log(attackingCard.Name + " has no one across");
-			}
-			else 
-			{
-				Debug.Log(attackingCard.Name + " just attacked " + defendingCard.Name);
-			}
-		}
-		else 
-		{
-			Debug.Log(defendingCard.Name + " was just attacked by " + attackingCard.Name);
-		}
-	}
 }

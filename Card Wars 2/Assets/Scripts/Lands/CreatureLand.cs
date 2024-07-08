@@ -84,17 +84,10 @@ public class CreatureLand : NetworkBehaviour
 		}
 	}
 
-	void Update()
-	{
-		if (CurrentCard != null)
-		{
-			Taken = true;
-		}
-	}
-
-	public void AttachCard(GameObject card)
+	public virtual void AttachCard(GameObject card)
 	{
 		CurrentCard = card;
+		Taken = true;
 	}
 
 	protected virtual void InitializeNeighbors()
