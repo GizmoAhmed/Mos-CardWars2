@@ -291,28 +291,27 @@ public class Player : NetworkBehaviour
 			}
 		}
 
-		AttackAcross();
+		Combat combatManager = GameObject.Find("CombatManager").GetComponent<Combat>();
+		combatManager.BattleReadyCards = myBattleReadyCards;
 	}
 
-	// try dictionary for attack order
-	public void AttackAcross() 
+	[ClientRpc]
+	public void RpcAttackAcross(CreatureCard attackingCard, CreatureCard defendingCard) 
 	{
-		foreach (GameObject cardOBJ in myBattleReadyCards)
+		if (isOwned)
 		{
-			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
-			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
-
-			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
-
-			if (acrossLand.CurrentCard == null)
+			if (defendingCard == null)
 			{
-				Debug.Log(thisCard.Name + " has no one across");
+				Debug.Log(attackingCard.Name + " has no one across");
 			}
 			else 
 			{
-				CreatureCard acrossCard = acrossLand.CurrentCard.GetComponent<CreatureCard>();
-				Debug.Log(thisCard.Name + " just attacked " + acrossCard.Name);
+				Debug.Log(attackingCard.Name + " just attacked " + defendingCard.Name);
 			}
+		}
+		else 
+		{
+			Debug.Log(defendingCard.Name + " was just attacked by " + attackingCard.Name);
 		}
 	}
 }

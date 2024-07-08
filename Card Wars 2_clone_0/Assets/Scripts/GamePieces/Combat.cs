@@ -35,6 +35,30 @@ public class Combat : NetworkBehaviour
     [Server]
     public void DoBattle(NetworkConnectionToClient conn) 
     {
-		conn.identity.GetComponent<Player>().RpcFindBattleCards();
+		Player player = conn.identity.GetComponent<Player>();
+		player.RpcFindBattleCards();
+
+		if (BattleReadyCards.Count == 0) 
+		{
+			Debug.LogWarning("BattleReadyCards is empty for some reason");
+		}
+
+		foreach (GameObject cardOBJ in BattleReadyCards)
+		{
+			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
+			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
+
+			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
+
+			if (acrossLand.CurrentCard == null)
+			{
+				player.RpcAttackAcross(thisCard, null);
+			}
+			else
+			{
+				CreatureCard acrossCard = acrossLand.CurrentCard.GetComponent<CreatureCard>();
+				player.RpcAttackAcross(thisCard, acrossCard);
+			}
+		}
 	}
 }
