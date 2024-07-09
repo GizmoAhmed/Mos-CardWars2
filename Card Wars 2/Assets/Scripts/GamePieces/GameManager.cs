@@ -14,8 +14,8 @@ public class GameManager : NetworkBehaviour
 	[SyncVar] public bool hostFirst;
 
 	[Header("Starting Consumables")]
-	[SyncVar] public int startingMagic = 6;
-	[SyncVar] public int startingMoney = 10;
+	[SyncVar] public int startingMagic;
+	[SyncVar] public int startingMoney;
 
 
 	public Dictionary<GamePhase, Phase> phaseHandlers;
@@ -33,11 +33,10 @@ public class GameManager : NetworkBehaviour
 	public override void OnStartServer()
 	{
 		base.OnStartServer();
+		hostFirst = Random.value < 0.5f;
 		InitializePhases();
 		currentPhase = GamePhase.Offline;
 		Debug.Log("Server started, waiting for players...");
-
-		hostFirst = Random.value < 0.5f;
 	}
 
 	[Server]
@@ -82,9 +81,7 @@ public class GameManager : NetworkBehaviour
 			Debug.Log("Let the game begin!");
 			currentPhase = GamePhase.ChooseLand;
 
-			SetUp setUpScript = GetComponentInChildren<SetUp>();
-
-			setUpScript.IdentitfyPlayers();
+			GetComponentInChildren<SetUp>().IdentitfyPlayers();
 		}
 	}
 
@@ -146,7 +143,7 @@ public class GameManager : NetworkBehaviour
 
 			Debug.Log("All players ready, lets move on:");
 
-			NextPhase();
+			currentPhase = GamePhase.SetUp;
 		}
 		else
 		{
@@ -162,28 +159,6 @@ public class GameManager : NetworkBehaviour
 			var player = conn.identity.GetComponent<Player>();
 			player.RpcUpdateMagic(magic);
 			player.RpcUpdateMoney(money);
-		}
-	}
-
-
-
-	[Server]
-	public void NextPhase()
-	{
-		if (currentPhase == GamePhase.ChooseLand)
-		{
-			Debug.Log("ChooseLand -> Set Up");
-			currentPhase = GamePhase.SetUp;
-		}
-		else if (currentPhase == GamePhase.SetUp)
-		{
-			Debug.Log("Set Up -> Attack");
-			currentPhase = GamePhase.Attack;
-		}
-		else if (currentPhase == GamePhase.Attack)
-		{
-			Debug.Log("Attack -> Set Up");
-			currentPhase = GamePhase.SetUp;
 		}
 	}
 

@@ -11,11 +11,11 @@ public class Attack : Phase
 	[Server]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Attack scene would go down right here...");
+		Debug.Log("Attack Phase Start...");
 
 		GameObject.Find("CombatManager").GetComponent<Combat>().InitializeCombat();
 
-		// gameManager.currentPhase = GameManager.GamePhase.SetUp;
+		gameManager.currentPhase = GameManager.GamePhase.SetUp;
 	}
 
 	[Server]

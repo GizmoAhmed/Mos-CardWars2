@@ -4,7 +4,6 @@ using UnityEngine;
 public class SetUp : Phase
 {
 	[SyncVar] public int MagicAddOn;
-
 	[SyncVar] public bool alternate;
 
 	private NetworkConnectionToClient Player0;
@@ -18,18 +17,19 @@ public class SetUp : Phase
 	{
 		this.gameManager = gameManager;
 		MagicAddOn = 0;
-		alternate = true;
+		alternate = gameManager.hostFirst;
+		Debug.Log("Init: alternate = hostFirst = " + alternate.ToString());
 	}
 
 	[Server]
-	public void IdentitfyPlayers() 
+	public void IdentitfyPlayers()
 	{
 		foreach (var conn in NetworkServer.connections.Values)
 		{
 			if (Player0 is null)
-				{ Player0 = conn; }
+			{ Player0 = conn; }
 			else
-				{ Player1 = conn; }
+			{ Player1 = conn; }
 		}
 
 		player0 = Player0.identity.GetComponent<Player>();
@@ -42,7 +42,7 @@ public class SetUp : Phase
 	[Server]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Entering a set up phase");
+		Debug.Log("Entering set up phase");
 
 		/*
 		 * since player knows its magic
@@ -58,55 +58,63 @@ public class SetUp : Phase
 	}
 
 	[Server]
-	public void ManageTurn(NetworkConnectionToClient conn)
+	public void ManageTurn(NetworkConnectionToClient conn, string mode = "default")
 	{
-		// Determine the current player based on the 'alternate' variable
-		if (conn == null)
+		switch (mode)
 		{
-			if (alternate)
-			{
-				player0.RpcTurnMessage(true);
-				player0.RpcEnablePlayer(true);
+			case "disableBoth":
+				SetPlayerState(player0, false);
+				SetPlayerState(player1, false);
+				break;
+			/*case "player0":
+				SetPlayerState(player0, true);
+				SetPlayerState(player1, false);
+				break;
+			case "player1":
+				SetPlayerState(player0, false);
+				SetPlayerState(player1, true);
+				break;*/
+			default:
+				if (conn == null)
+				{
+					// start of set-up uses alternate...
+					Debug.Log("alternate changing from " + alternate.ToString());
 
-				player1.RpcTurnMessage(false);
-				player1.RpcEnablePlayer(false);
-			}
-			else
-			{
-				player0.RpcTurnMessage(false);
-				player0.RpcEnablePlayer(false);
+					SetPlayerState(player0, alternate);
+					SetPlayerState(player1, !alternate);
+					
+					// and then alternate flips so that its the opposite the next time setup starts 
+					alternate = !alternate;
 
-				player1.RpcTurnMessage(true);
-				player1.RpcEnablePlayer(true);
-			}
+					Debug.Log(" to " + (alternate).ToString());
+				}
+				else
+				{
+					Player thisPlayer = conn.identity.GetComponent<Player>();
 
-			alternate = !alternate;
+					if (thisPlayer == player0)
+					{
+						SetPlayerState(player0, false);
+						SetPlayerState(player1, true);
+					}
+					else if (thisPlayer == player1)
+					{
+						SetPlayerState(player0, true);
+						SetPlayerState(player1, false);
+					}
+					else
+					{
+						Debug.LogError("! The Player passed isn't familiar to Setup !");
+					}
+				}
+				break;
 		}
-		else
-		{
-			Player thisPlayer = conn.identity.GetComponent<Player>();
+	}
 
-			if (thisPlayer == player0)
-			{
-				player0.RpcTurnMessage(false);
-				player0.RpcEnablePlayer(false);
-
-				player1.RpcTurnMessage(true);
-				player1.RpcEnablePlayer(true);
-			}
-			else if (thisPlayer == player1)
-			{
-				player0.RpcTurnMessage(true);
-				player0.RpcEnablePlayer(true);
-
-				player1.RpcTurnMessage(false);
-				player1.RpcEnablePlayer(false);
-			}
-			else
-			{
-				Debug.LogError("! The Player passed isn't familiar to Setup !");
-			}
-		}		
+	private void SetPlayerState(Player player, bool state)
+	{
+		player.RpcTurnMessage(state);
+		player.RpcEnablePlayer(state);
 	}
 
 	[Server]

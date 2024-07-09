@@ -1,5 +1,4 @@
 using Mirror;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Combat : NetworkBehaviour
@@ -22,20 +21,23 @@ public class Combat : NetworkBehaviour
     [Server]
     public void InitializeCombat()
 	{
-        if (!Player1.identity.GetComponent<Player>().myTurn)
-            {   DoBattle(Player0);
-		        // DoBattle(Player1);
-		    }
+        if (Player0.identity.GetComponent<Player>().myTurn)
+        {
+			FindAnyObjectByType<SetUp>().ManageTurn(null, "disableBoth");
+			DoBattle(Player0);
+		    //DoBattle(Player1);
+		}
         else 
-            {   DoBattle(Player1);
-                // DoBattle(Player0); 
-            }
+        {
+			FindAnyObjectByType<SetUp>().ManageTurn(null, "disableBoth");
+			DoBattle(Player1);
+            // DoBattle(Player0); 
+        }
 	}
 
     [Server]
     public void DoBattle(NetworkConnectionToClient conn) 
     {
-
 		Debug.Log($"Player {conn.connectionId} is finding battle cards");
 
 		Player player = conn.identity.GetComponent<Player>();
