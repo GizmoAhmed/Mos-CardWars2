@@ -276,7 +276,7 @@ public class Player : NetworkBehaviour
 		if (!isOwned) { return; }
 
 		myTurn = isTurn;
-		Debug.Log(isTurn ? "It's your turn" : "Other players turn...");
+		Debug.Log(isTurn ? "Enabled" : "Disabled");
 	}
 
 	[ClientRpc]

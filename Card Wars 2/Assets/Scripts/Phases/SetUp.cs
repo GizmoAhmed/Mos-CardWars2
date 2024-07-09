@@ -18,7 +18,7 @@ public class SetUp : Phase
 		this.gameManager = gameManager;
 		MagicAddOn = 0;
 		alternate = gameManager.hostFirst;
-		Debug.Log("Init: alternate = hostFirst = " + alternate.ToString());
+		Debug.Log("SetUp.cs Init: alternate = hostFirst = " + alternate.ToString());
 	}
 
 	[Server]
@@ -45,9 +45,10 @@ public class SetUp : Phase
 		Debug.Log("Entering set up phase");
 
 		/*
-		 * since player knows its magic
-		 * client rpc in player for setting consumabels for every set up phase after the first
-		 * for each player, set consumables player.RpcSetConsumables
+		 * Since player knows its own magic, You should make a clientRpc in player for 
+		 * setting consumables for every set up phase after the first
+		 * 
+		 * For each player, set consumables player.RpcSetConsumables
 		 */
 
 		gameManager.SetConsumables(gameManager.startingMagic + MagicAddOn, gameManager.startingMoney);
@@ -63,6 +64,7 @@ public class SetUp : Phase
 		switch (mode)
 		{
 			case "disableBoth":
+				Debug.Log("Disabling Both Players");
 				SetPlayerState(player0, false);
 				SetPlayerState(player1, false);
 				break;
@@ -77,16 +79,11 @@ public class SetUp : Phase
 			default:
 				if (conn == null)
 				{
-					// start of set-up uses alternate...
-					Debug.Log("alternate changing from " + alternate.ToString());
-
 					SetPlayerState(player0, alternate);
 					SetPlayerState(player1, !alternate);
 					
-					// and then alternate flips so that its the opposite the next time setup starts 
+					// alternate flips so that its the opposite the next time setup starts 
 					alternate = !alternate;
-
-					Debug.Log(" to " + (alternate).ToString());
 				}
 				else
 				{
@@ -107,6 +104,7 @@ public class SetUp : Phase
 						Debug.LogError("! The Player passed isn't familiar to Setup !");
 					}
 				}
+
 				break;
 		}
 	}

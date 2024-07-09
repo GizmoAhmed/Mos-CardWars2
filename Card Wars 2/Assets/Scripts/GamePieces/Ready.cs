@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
 
-public class ReadyButton : NetworkBehaviour
+public class Ready : NetworkBehaviour
 {
 	public void ReadyUp()
 	{

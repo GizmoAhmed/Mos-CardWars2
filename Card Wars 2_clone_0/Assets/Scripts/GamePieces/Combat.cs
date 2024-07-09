@@ -21,15 +21,15 @@ public class Combat : NetworkBehaviour
     [Server]
     public void InitializeCombat()
 	{
-        if (Player0.identity.GetComponent<Player>().myTurn)
+		FindAnyObjectByType<SetUp>().ManageTurn(null, "disableBoth");
+
+		if (Player0.identity.GetComponent<Player>().myTurn)
         {
-			FindAnyObjectByType<SetUp>().ManageTurn(null, "disableBoth");
 			DoBattle(Player0);
-		    //DoBattle(Player1);
+            //DoBattle(Player1); 
 		}
         else 
         {
-			FindAnyObjectByType<SetUp>().ManageTurn(null, "disableBoth");
 			DoBattle(Player1);
             // DoBattle(Player0); 
         }
