@@ -36,8 +36,7 @@ public class Combat : NetworkBehaviour
     public void DoBattle(NetworkConnectionToClient conn) 
     {
 
-		/*NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		player = networkIdentity.GetComponent<Player>();*/
+		Debug.Log($"Player {conn.connectionId} is finding battle cards");
 
 		Player player = conn.identity.GetComponent<Player>();
 		player.RpcFindBattleCards();

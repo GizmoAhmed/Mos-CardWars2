@@ -136,6 +136,8 @@ public class Player : NetworkBehaviour
 
 					card.transform.SetParent(acrossLand.transform, true);
 					card.transform.localPosition = Vector2.zero;
+
+					card.GetComponent<Card>().Ally = false;
 				}
 			}
 		}
@@ -288,7 +290,7 @@ public class Player : NetworkBehaviour
 
 		foreach (CreatureCard creatureCard in allCreatureCards)
 		{
-			if (creatureCard.Ally)
+			if (creatureCard.Ally && creatureCard.currentState == CardState.Placed)
 			{
 				myBattleReadyCards.Add(creatureCard.gameObject);
 			}
