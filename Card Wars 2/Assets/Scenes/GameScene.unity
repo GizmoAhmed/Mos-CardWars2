@@ -6297,10 +6297,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
-      propertyPath: startingMagic
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 3036408251162659024, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: sceneId
       value: 1437539339
@@ -10367,7 +10363,6 @@ MonoBehaviour:
   - {fileID: 4800586785374285995, guid: c30e76337535c20478c577d415690f8e, type: 3}
   - {fileID: 1983561758811094522, guid: 64de0d4e3c95c8949b5538f3187658e3, type: 3}
   - {fileID: 8545216061768215645, guid: fa4fb6dec6eca2548b3f091485ab57f0, type: 3}
-  - {fileID: 7879420104403120485, guid: 5efb24a2cc2784d4db2d1ae8f789dec4, type: 3}
   - {fileID: 104921885069382094, guid: c7f805893aa579c449509cc0169cc67c, type: 3}
   - {fileID: 5863726776954763992, guid: daa2180d8a3fee243b0dc1cda490f925, type: 3}
   - {fileID: 2745455288065504265, guid: 07331bd8dd4fd4e4db782b67d6f38330, type: 3}
@@ -13726,7 +13721,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8670814829955801285}
-        m_TargetAssemblyTypeName: ReadyButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: Ready, Assembly-CSharp
         m_MethodName: ReadyUp
         m_Mode: 1
         m_Arguments:

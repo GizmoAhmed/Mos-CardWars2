@@ -8,17 +8,20 @@ public class GameManager : NetworkBehaviour
 
 	[SyncVar] public GamePhase currentPhase;
 
-	[SyncVar] public int currentTurn;
+	[SyncVar] public int TurnCount;
 
-	[Tooltip("If true, the host goes first")]
-	[SyncVar] public bool hostFirst;
+	[SyncVar] public bool HostGoesFirst;
 
 	[Header("Starting Consumables")]
 	[SyncVar] public int startingMagic;
 	[SyncVar] public int startingMoney;
 
+	public NetworkConnectionToClient Player0;
+	public NetworkConnectionToClient Player1;
 
 	public Dictionary<GamePhase, Phase> phaseHandlers;
+
+	public Turns turnManager;
 
 	public enum GamePhase
 	{
@@ -33,9 +36,13 @@ public class GameManager : NetworkBehaviour
 	public override void OnStartServer()
 	{
 		base.OnStartServer();
-		hostFirst = Random.value < 0.5f;
+
+		HostGoesFirst = Random.value < 0.5f;
+
 		InitializePhases();
+
 		currentPhase = GamePhase.Offline;
+
 		Debug.Log("Server started, waiting for players...");
 	}
 
@@ -54,6 +61,9 @@ public class GameManager : NetworkBehaviour
 		{
 			phase.Initialize(this);
 		}
+
+		turnManager = GetComponentInChildren<Turns>();
+		turnManager.InitializeTurns(this);
 	}
 
 	[Server]
@@ -69,7 +79,6 @@ public class GameManager : NetworkBehaviour
 			return;
 		}
 
-		// exit the old phase if is not offline
 		if (oldPhase != GamePhase.Offline)
 		{
 			phaseHandlers[oldPhase]?.OnExitPhase();
@@ -85,23 +94,37 @@ public class GameManager : NetworkBehaviour
 
 		if (numberOfPlayers == 2)
 		{
-			Debug.Log("Let the game begin!");
+			// Debug.Log("Let the game begin!");
 			ChangePhase(GamePhase.Offline, GamePhase.ChooseLand);
 
-			GetComponentInChildren<SetUp>().IdentitfyPlayers();
+			IdentitfyPlayers();
 		}
+	}
+
+	[Server]
+	public void IdentitfyPlayers()
+	{
+		foreach (var conn in NetworkServer.connections.Values)
+		{
+			if (Player0 is null)
+			{
+				Player0 = conn;
+			}
+			else
+			{
+				Player1 = conn;
+			}
+		}
+
+		Debug.Log($"ID: Player0 is {Player0.connectionId}");
+		Debug.Log($"ID: Player1 is {Player1.connectionId}");
 	}
 
 	//// Ready Button Click is contextual, it works differently when clicked in different phases
 	[Server]
 	public void PlayerReady(NetworkConnectionToClient conn)
 	{
-		if (currentPhase == GamePhase.Offline) 
-		{
-			Debug.LogWarning("Ready Button is clicked during offline, shouldn't be possible");
-		}
-		// choose land requires that both players ready up
-		else if (currentPhase == GamePhase.ChooseLand)
+		if (currentPhase == GamePhase.ChooseLand)
 		{
 			if (!readyPlayers.Contains(conn))
 			{
@@ -111,7 +134,7 @@ public class GameManager : NetworkBehaviour
 
 				thisPlayer.RpcEnablePlayer(false);
 
-				Debug.Log($"Player {conn.connectionId} has chosen land");
+				// Debug.Log($"Player {conn.connectionId} has chosen land");
 
 				CheckAllPlayersReady();
 			}
@@ -120,7 +143,7 @@ public class GameManager : NetworkBehaviour
 		// setup means each player needs to ready up  
 		else if (currentPhase == GamePhase.SetUp)
 		{
-			Debug.Log($"Player {conn.connectionId} is done setting up...handing over control");
+			// Debug.Log($"Player {conn.connectionId} is done setting up...handing over control");
 
 			// add this connection to readyPlayers (which has been cleard by now)
 			readyPlayers.Add(conn);
@@ -128,13 +151,17 @@ public class GameManager : NetworkBehaviour
 			if (readyPlayers.Count == 1)
 			{
 				// pass the player (conn) who just played...
-				GetComponentInChildren<SetUp>().ManageTurn(conn);
+				GetComponentInChildren<Turns>().ManageTurn(conn);
 			}
 			else
 			{
 				readyPlayers.Clear();
 				ChangePhase(GamePhase.SetUp, GamePhase.Attack);
 			}
+		}
+		else 
+		{
+			Debug.LogError("Ready was clicked when the phase wasn't Chooseland or SetUp");
 		}
 	}
 
@@ -143,21 +170,15 @@ public class GameManager : NetworkBehaviour
 	{
 		if (readyPlayers.Count >= 2)
 		{
-			/*foreach (var connection in readyPlayers) 
-			{
-				var player = connection.identity.GetComponent<Player>();
-				player.RpcEnablePlayer(true);
-			}*/
-
 			readyPlayers.Clear();
 
-			Debug.Log("All players ready, lets move on:");
+			// Debug.Log("All players ready, lets move on:");
 
 			ChangePhase(GamePhase.ChooseLand, GamePhase.SetUp);
 		}
 		else
 		{
-			Debug.Log("Waiting for the other player to ready up...");
+			// Debug.Log("Waiting for the other player to ready up...");
 		}
 	}
 
@@ -178,7 +199,7 @@ public class GameManager : NetworkBehaviour
 		// update all spells and building timers here mabye
 		foreach (var conn in NetworkServer.connections.Values)
 		{
-			conn.identity.GetComponent<Player>().RpcUpdateTurnText(currentTurn++);
+			conn.identity.GetComponent<Player>().RpcUpdateTurnText(TurnCount++);
 		}
 	}
 }
