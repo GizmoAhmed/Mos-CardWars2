@@ -18,9 +18,9 @@ public class Player : NetworkBehaviour
 	public List<GameObject> Cards2;
 
 	[Header("Consumables")]
-	[SyncVar(hook = nameof(RpcShowMagic))] public int Magic;
-	[SyncVar(hook = nameof(RpcShowMoney))] public int Money;
-	[SyncVar(hook = nameof(RpcShowCost))] public int Cost;
+	[SyncVar] public int Magic;
+	[SyncVar] public int Money;
+	[SyncVar] public int Cost;
 
 	private GameObject ThisMagic;
 	private GameObject OtherMagic;
@@ -58,14 +58,13 @@ public class Player : NetworkBehaviour
 
 		myTurn = true;
 
+		CmdShowConsumable(0, "magic");
+		CmdShowConsumable(0, "money");
+		CmdShowConsumable(2, "cost");
+
 		if (isServer) 
 		{
 			Debug.Log($"Player {connectionToClient.connectionId} has joined.");
-
-			Player freshPlayer = connectionToClient.identity.GetComponent<Player>(); ;
-
-			freshPlayer.Magic = freshPlayer.Money = 0; freshPlayer.Cost = 2;
-
 			game.CheckFullLobby();
 		}
 	}
@@ -168,51 +167,65 @@ public class Player : NetworkBehaviour
 		RpcShowCard(card, state, land);
 	}
 
-	[ClientRpc]
-	public void RpcShowMagic(int oldMagic, int newMagic) 
+	[Command]
+	public void CmdShowConsumable(int newAmount, string mode) 
 	{
-		TextMeshProUGUI magicText;
-
-		if (isOwned)
-		{
-			magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
-			
-		}
-		else 
-		{
-			magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
-		}
-
-		magicText.text = newMagic.ToString();
+		RpcShowConsumable(newAmount, mode);
 	}
 
 	[ClientRpc]
-	public void RpcShowMoney(int oldMoney, int newMoney)
+	public void RpcShowConsumable(int newAmount, string mode) 
 	{
-		TextMeshProUGUI moneyText;
-
-		if (isOwned)
+		switch (mode) 
 		{
-			moneyText = ThisMoney.GetComponent<TextMeshProUGUI>();
+			case "magic":
+
+				Magic = newAmount;
+
+				TextMeshProUGUI magicText;
+
+				if (isOwned)
+				{
+					magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
+				}
+				else
+				{
+					magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
+				}
+
+				magicText.text = Magic.ToString();
+
+				break;
+
+			case "money":
+				Money = newAmount;
+
+				TextMeshProUGUI moneyText;
+
+				if (isOwned)
+				{
+					moneyText = ThisMoney.GetComponent<TextMeshProUGUI>();
+				}
+				else
+				{
+					moneyText = OtherMoney.GetComponent<TextMeshProUGUI>();
+				}
+
+				moneyText.text = Money.ToString();
+
+				break;
+
+			case "cost":
+				Cost = newAmount;
+
+				CostTextObject = GameObject.Find("CostText");
+
+				TextMeshProUGUI costText = CostTextObject.GetComponent<TextMeshProUGUI>();
+
+				costText.text = Cost.ToString();
+				break;
 		}
-		else
-		{
-			moneyText = OtherMoney.GetComponent<TextMeshProUGUI>();
-		}
-
-		moneyText.text = newMoney.ToString();
 	}
-
-	[ClientRpc]
-	public void RpcShowCost(int oldCost, int newCost)
-	{
-		CostTextObject = GameObject.Find("CostText");
-
-		TextMeshProUGUI costText = CostTextObject.GetComponent<TextMeshProUGUI>();
-
-		costText.text = newCost.ToString();
-	}
-
 
 	[ClientRpc]
 	void RpcSetMyLand(GameObject card, GameObject land)

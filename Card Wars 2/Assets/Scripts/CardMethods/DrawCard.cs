@@ -16,8 +16,7 @@ public class DrawCard : NetworkBehaviour
 		}
 		else 
 		{
-			player.Money -= player.Cost;
-
+			player.CmdShowConsumable(player.Money - player.Cost,"money");
 			player.CmdDrawCard();
 		}
 	}

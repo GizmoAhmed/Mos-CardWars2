@@ -3,14 +3,25 @@ using UnityEngine;
 
 public class Turns : NetworkBehaviour
 {
-	[SyncVar] public bool alternate;
-	protected GameManager gameManager;
+	[SyncVar] public bool	alternate;
+	[SyncVar] public int	TurnCount;
+	protected GameManager	gameManager;
 
 	[Server]
 	public void InitializeTurns(GameManager gameManager)
 	{
 		this.gameManager = gameManager;
 		alternate = gameManager.HostGoesFirst;
+	}
+
+	[Server]
+	public void IncrementTurn()
+	{
+		// update all spells and building timers here mabye
+		foreach (var conn in NetworkServer.connections.Values)
+		{
+			conn.identity.GetComponent<Player>().RpcUpdateTurnText(TurnCount++);
+		}
 	}
 
 	[Server]
@@ -26,14 +37,6 @@ public class Turns : NetworkBehaviour
 				SetPlayerState(player0, false);
 				SetPlayerState(player1, false);
 				break;
-			/*case "player0":
-				SetPlayerState(player0, true);
-				SetPlayerState(player1, false);
-				break;
-			case "player1":
-				SetPlayerState(player0, false);
-				SetPlayerState(player1, true);
-				break;*/
 			default:
 				if (conn == null)
 				{

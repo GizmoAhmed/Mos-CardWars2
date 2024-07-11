@@ -140,7 +140,7 @@ public class Card : NetworkBehaviour
 		if (isOverDropZone)
 		{
 			PlaceCard(NewDropZone);
-			player.Magic -= MagicCost;
+			player.CmdShowConsumable(player.Magic - MagicCost, "magic");
 		}
 		else
 		{

@@ -4,8 +4,8 @@ using UnityEngine;
 public class SetUp : Phase
 {
 	[Header("SET IN INSPECTOR")]
-	public int MagicAddOn;
-	public int NextMoney;
+	public int NextMagic;
+	public int MoneyAddOn;
 
 	[SyncVar] public bool firstSetUp;
 
@@ -14,6 +14,8 @@ public class SetUp : Phase
 	{
 		base.Initialize(gameManager);
 		firstSetUp = true;
+		NextMagic = 0;
+		MoneyAddOn = 2;
 	}
 
 	[Server]
@@ -26,22 +28,24 @@ public class SetUp : Phase
 
 		if (firstSetUp == true)
 		{
-			player0.Magic = gameManager.firstMagic;
-			player1.Magic = gameManager.firstMagic;
+			player0.RpcShowConsumable(gameManager.firstMagic, "magic");
+			player1.RpcShowConsumable(gameManager.firstMagic, "magic");
 
-			player0.Money = gameManager.firstMoney;
-			player1.Money = gameManager.firstMoney;
+			player0.RpcShowConsumable(gameManager.firstMoney, "money");
+			player1.RpcShowConsumable(gameManager.firstMoney, "money");
+
+			firstSetUp = false;
 		}
 		else 
 		{
-			player0.Magic = gameManager.firstMagic + MagicAddOn;
-			player1.Magic = gameManager.firstMagic + MagicAddOn;
+			player0.RpcShowConsumable(gameManager.firstMagic + NextMagic, "magic");
+			player1.RpcShowConsumable(gameManager.firstMagic + NextMagic, "magic");
 
-			player0.Money += NextMoney;
-			player1.Money += NextMoney;
+			player0.RpcShowConsumable(player0.Money + MoneyAddOn, "money");
+			player1.RpcShowConsumable(player1.Money + MoneyAddOn, "money");
 		}
 
-		MagicAddOn++;
+		NextMagic++;
 
 		gameManager.turnManager.ManageTurn(null);
 	}
@@ -49,6 +53,6 @@ public class SetUp : Phase
 	[Server]
 	public override void OnExitPhase()
 	{
-		gameManager.IncrementTurn();
+		gameManager.turnManager.IncrementTurn();
 	}
 }

@@ -8,8 +8,6 @@ public class GameManager : NetworkBehaviour
 
 	[SyncVar] public GamePhase currentPhase;
 
-	[SyncVar] public int TurnCount;
-
 	[SyncVar] public bool HostGoesFirst;
 
 	[Header("Starting Consumables")]
@@ -21,7 +19,7 @@ public class GameManager : NetworkBehaviour
 
 	public Dictionary<GamePhase, Phase> phaseHandlers;
 
-	public Turns turnManager;
+	[HideInInspector] public Turns turnManager;
 
 	public enum GamePhase
 	{
@@ -115,9 +113,6 @@ public class GameManager : NetworkBehaviour
 				Player1 = conn;
 			}
 		}
-
-		Debug.Log($"ID: Player0 is {Player0.connectionId}");
-		Debug.Log($"ID: Player1 is {Player1.connectionId}");
 	}
 
 	//// Ready Button Click is contextual, it works differently when clicked in different phases
@@ -134,8 +129,6 @@ public class GameManager : NetworkBehaviour
 
 				thisPlayer.RpcEnablePlayer(false);
 
-				// Debug.Log($"Player {conn.connectionId} has chosen land");
-
 				CheckAllPlayersReady();
 			}
 		}
@@ -143,8 +136,6 @@ public class GameManager : NetworkBehaviour
 		// setup means each player needs to ready up  
 		else if (currentPhase == GamePhase.SetUp)
 		{
-			// Debug.Log($"Player {conn.connectionId} is done setting up...handing over control");
-
 			// add this connection to readyPlayers (which has been cleard by now)
 			readyPlayers.Add(conn);
 
@@ -179,16 +170,6 @@ public class GameManager : NetworkBehaviour
 		else
 		{
 			// Debug.Log("Waiting for the other player to ready up...");
-		}
-	}
-
-	[Server]
-	public void IncrementTurn() 
-	{
-		// update all spells and building timers here mabye
-		foreach (var conn in NetworkServer.connections.Values)
-		{
-			conn.identity.GetComponent<Player>().RpcUpdateTurnText(TurnCount++);
 		}
 	}
 }
