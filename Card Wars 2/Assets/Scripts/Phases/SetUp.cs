@@ -3,14 +3,17 @@ using UnityEngine;
 
 public class SetUp : Phase
 {
-	[SyncVar] public int MagicAddOn;
-	
+	[Header("SET IN INSPECTOR")]
+	public int MagicAddOn;
+	public int NextMoney;
+
+	[SyncVar] public bool firstSetUp;
 
 	[Server]
 	public override void Initialize(GameManager gameManager)
 	{
-		this.gameManager = gameManager;
-		MagicAddOn = 0;
+		base.Initialize(gameManager);
+		firstSetUp = true;
 	}
 
 	[Server]
@@ -18,14 +21,25 @@ public class SetUp : Phase
 	{
 		Debug.Log("Entering set up phase");
 
-		/*
-		 * Since player knows its own magic, You should make a clientRpc in player for 
-		 * setting consumables for every set up phase after the first
-		 * 
-		 * For each player, set consumables player.RpcSetConsumables
-		 */
+		Player player0 = gameManager.Player0.identity.GetComponent<Player>();
+		Player player1 = gameManager.Player1.identity.GetComponent<Player>();
 
-		gameManager.SetConsumables(gameManager.startingMagic + MagicAddOn, gameManager.startingMoney);
+		if (firstSetUp == true)
+		{
+			player0.Magic = gameManager.firstMagic;
+			player1.Magic = gameManager.firstMagic;
+
+			player0.Money = gameManager.firstMoney;
+			player1.Money = gameManager.firstMoney;
+		}
+		else 
+		{
+			player0.Magic = gameManager.firstMagic + MagicAddOn;
+			player1.Magic = gameManager.firstMagic + MagicAddOn;
+
+			player0.Money += NextMoney;
+			player1.Money += NextMoney;
+		}
 
 		MagicAddOn++;
 

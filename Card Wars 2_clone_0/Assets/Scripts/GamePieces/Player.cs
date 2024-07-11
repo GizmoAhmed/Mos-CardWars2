@@ -17,11 +17,18 @@ public class Player : NetworkBehaviour
 	public List<GameObject> Cards1;
 	public List<GameObject> Cards2;
 
-	[HideInInspector] public GameObject ThisMagic;
-	[HideInInspector] public GameObject OtherMagic;
+	[Header("Consumables")]
+	[SyncVar(hook = nameof(RpcShowMagic))] public int Magic;
+	[SyncVar(hook = nameof(RpcShowMoney))] public int Money;
+	[SyncVar(hook = nameof(RpcShowCost))] public int Cost;
 
-	[HideInInspector] public GameObject ThisMoney;
-	[HideInInspector] public GameObject OtherMoney;
+	private GameObject ThisMagic;
+	private GameObject OtherMagic;
+
+	private GameObject ThisMoney;
+	private GameObject OtherMoney;
+
+	private GameObject CostTextObject;
 
 	private TextMeshProUGUI turnText;
 
@@ -54,6 +61,10 @@ public class Player : NetworkBehaviour
 		if (isServer) 
 		{
 			Debug.Log($"Player {connectionToClient.connectionId} has joined.");
+
+			Player freshPlayer = connectionToClient.identity.GetComponent<Player>(); ;
+
+			freshPlayer.Magic = freshPlayer.Money = 0; freshPlayer.Cost = 2;
 
 			game.CheckFullLobby();
 		}
@@ -157,51 +168,51 @@ public class Player : NetworkBehaviour
 		RpcShowCard(card, state, land);
 	}
 
-	[Command] // Client asks server to do something
-	public void CmdUpdateMagic(int magic)
+	[ClientRpc]
+	public void RpcShowMagic(int oldMagic, int newMagic) 
 	{
-		// Call the Rpc method to update magic for all clients
-		RpcUpdateMagic(magic);
-	}
-
-	[Command]
-	public void CmdUpdateMoney(int money) 
-	{
-		RpcUpdateMoney(money);
-
-	}
-
-	[ClientRpc] // server does something on all clients
-	public void RpcUpdateMagic(int magic)
-	{
-		if (isOwned)
-		{
-			Magic thisMagicScript = ThisMagic.GetComponent<Magic>();
-			thisMagicScript.ChangeAndShowMagic(magic);
-		}
-		else
-		{
-			Magic otherMagicScript = OtherMagic.GetComponent<Magic>();
-			otherMagicScript.ChangeAndShowMagic(magic);
-		}
-	}
-
-	[ClientRpc] // server does something on for all clients
-	public void RpcUpdateMoney(int money) 
-	{
-		Money MoneyScript;
+		TextMeshProUGUI magicText;
 
 		if (isOwned)
 		{
-			MoneyScript = ThisMoney.GetComponent<Money>();
+			magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
+			
+		}
+		else 
+		{
+			magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
+		}
+
+		magicText.text = newMagic.ToString();
+	}
+
+	[ClientRpc]
+	public void RpcShowMoney(int oldMoney, int newMoney)
+	{
+		TextMeshProUGUI moneyText;
+
+		if (isOwned)
+		{
+			moneyText = ThisMoney.GetComponent<TextMeshProUGUI>();
 		}
 		else
 		{
-			MoneyScript = OtherMoney.GetComponent<Money>();
+			moneyText = OtherMoney.GetComponent<TextMeshProUGUI>();
 		}
 
-		MoneyScript.ShowMoney(money);
+		moneyText.text = newMoney.ToString();
 	}
+
+	[ClientRpc]
+	public void RpcShowCost(int oldCost, int newCost)
+	{
+		CostTextObject = GameObject.Find("CostText");
+
+		TextMeshProUGUI costText = CostTextObject.GetComponent<TextMeshProUGUI>();
+
+		costText.text = newCost.ToString();
+	}
+
 
 	[ClientRpc]
 	void RpcSetMyLand(GameObject card, GameObject land)

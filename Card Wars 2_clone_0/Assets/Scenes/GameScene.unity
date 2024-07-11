@@ -1501,7 +1501,6 @@ GameObject:
   - component: {fileID: 305554902}
   - component: {fileID: 305554901}
   - component: {fileID: 305554904}
-  - component: {fileID: 305554905}
   m_Layer: 8
   m_Name: OtherMagic
   m_TagString: Untagged
@@ -1659,23 +1658,6 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
---- !u!114 &305554905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 305554899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d5f2d95e8c94e64aa8595ddc531ffc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  magicText: {fileID: 0}
-  CurrentMagic: 2
 --- !u!1 &340910183
 GameObject:
   m_ObjectHideFlags: 0
@@ -6297,6 +6279,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 580489218591540605, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: NextMoney
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 580489218591540605, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: MagicAddOn
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 580489218591540605, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: firstSetUp
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3036408251162659024, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: sceneId
       value: 1437539339
@@ -6361,7 +6355,6 @@ GameObject:
   - component: {fileID: 1355145208}
   - component: {fileID: 1355145210}
   - component: {fileID: 1355145209}
-  - component: {fileID: 1355145213}
   - component: {fileID: 1355145212}
   m_Layer: 8
   m_Name: ThisMagic
@@ -6520,23 +6513,6 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
---- !u!114 &1355145213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1355145207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d5f2d95e8c94e64aa8595ddc531ffc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  magicText: {fileID: 0}
-  CurrentMagic: 2
 --- !u!1 &1384550206
 GameObject:
   m_ObjectHideFlags: 0
@@ -8138,7 +8114,6 @@ GameObject:
   - component: {fileID: 1780359491}
   - component: {fileID: 1780359490}
   - component: {fileID: 1780359488}
-  - component: {fileID: 1780359492}
   m_Layer: 8
   m_Name: OtherMoney
   m_TagString: Untagged
@@ -8296,26 +8271,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780359486}
   m_CullTransparentMesh: 1
---- !u!114 &1780359492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1780359486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c03aff7f629a7442bcd9eb5c9c5d130, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  DrawButton: {fileID: 0}
-  moneyAmountText: {fileID: 0}
-  costText: {fileID: 0}
-  CurrentMoney: 0
-  CurrentCost: 0
 --- !u!1 &1805411822
 GameObject:
   m_ObjectHideFlags: 0
@@ -8929,8 +8884,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  playerManager: {fileID: 0}
-  ThisMoney: {fileID: 0}
 --- !u!114 &1938591713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9312,7 +9265,6 @@ GameObject:
   - component: {fileID: 1956450631}
   - component: {fileID: 1956450630}
   - component: {fileID: 1956450628}
-  - component: {fileID: 1956450632}
   m_Layer: 8
   m_Name: ThisMoney
   m_TagString: Untagged
@@ -9470,26 +9422,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956450626}
   m_CullTransparentMesh: 1
---- !u!114 &1956450632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956450626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c03aff7f629a7442bcd9eb5c9c5d130, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  DrawButton: {fileID: 0}
-  moneyAmountText: {fileID: 0}
-  costText: {fileID: 0}
-  CurrentMoney: 0
-  CurrentCost: 0
 --- !u!1 &1960052683
 GameObject:
   m_ObjectHideFlags: 0

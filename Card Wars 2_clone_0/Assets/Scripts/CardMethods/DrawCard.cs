@@ -1,35 +1,24 @@
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using Mirror;
 
 public class DrawCard : NetworkBehaviour
 {
-	public Player playerManager;
-	public GameObject ThisMoney;
-
-	public void Start()
-	{
-		ThisMoney = GameObject.Find("ThisMoney");
-	}
-
+	private Player player;
+	
 	public void Draw()
 	{
-		Money moneyScript = ThisMoney.GetComponent<Money>();
+		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+		player = networkIdentity.GetComponent<Player>();
 
-		if (moneyScript.CurrentCost > moneyScript.CurrentMoney)
+		if (player.Cost > player.Money)
 		{
 			Debug.Log("To Expensive...");
 		}
 		else 
 		{
-			moneyScript.SpendMoney();
+			player.Money -= player.Cost;
 
-			NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-			playerManager = networkIdentity.GetComponent<Player>();
-			playerManager.CmdDrawCard();
+			player.CmdDrawCard();
 		}
-
-		
 	}
 }

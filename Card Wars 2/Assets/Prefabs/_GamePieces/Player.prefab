@@ -117,8 +117,12 @@ MonoBehaviour:
   - {fileID: 2259463501157529856, guid: aff8bc232ea9e1c48bde583a6452da3f, type: 3}
   - {fileID: 2509186087479040677, guid: 4be2706f0526a4d48bcaf7071e8e7fa1, type: 3}
   - {fileID: 4055832630173525344, guid: 424aa81381a516f4485ba5a4a0f523f0, type: 3}
+  Magic: 0
+  Money: 0
+  Cost: 0
   ThisMagic: {fileID: 0}
   OtherMagic: {fileID: 0}
   ThisMoney: {fileID: 0}
   OtherMoney: {fileID: 0}
+  CostTextObject: {fileID: 0}
   myBattleReadyCards: []

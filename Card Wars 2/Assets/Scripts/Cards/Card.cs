@@ -7,17 +7,15 @@ public class Card : NetworkBehaviour
 	[SyncVar] public string Name;
 	private TextMeshProUGUI NameText;
 
-	private Player playerManager;
-	private GameObject Magic;
-	private Magic magicScript;
+	private Player player;
 
 	[Header("Card Movement")]
 	public bool Grabbed;
 	public bool Movable = true;
 
-	public GameObject StartParent;
+	private GameObject StartParent;
 	private Vector2 StartPos;
-	public GameObject NewDropZone;
+	private GameObject NewDropZone;
 	public bool isOverDropZone;
 
 	public string landTag;
@@ -53,8 +51,8 @@ public class Card : NetworkBehaviour
 
 	public void Start()
 	{
-		Magic = GameObject.Find("ThisMagic");
-		magicScript = Magic.GetComponent<Magic>();
+		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+		player = networkIdentity.GetComponent<Player>();
 
 		if (isOwned)
 		{
@@ -79,7 +77,7 @@ public class Card : NetworkBehaviour
 
 	protected virtual void OnTriggerStay2D(Collider2D other)
 	{
-		int currentMagic = magicScript.CurrentMagic;
+		int currentMagic = player.Magic;
 		bool EnoughMagic = MagicCost <= currentMagic;
 
 		CreatureLand landscript = other.GetComponent<CreatureLand>();
@@ -142,7 +140,7 @@ public class Card : NetworkBehaviour
 		if (isOverDropZone)
 		{
 			PlaceCard(NewDropZone);
-			magicScript.SpendMagic(MagicCost);
+			player.Magic -= MagicCost;
 		}
 		else
 		{
@@ -164,11 +162,8 @@ public class Card : NetworkBehaviour
 		transform.SetParent(land.transform, true);
 		transform.localPosition = Vector2.zero;
 
-		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		playerManager = networkIdentity.GetComponent<Player>();
-
 		SetState(CardState.Placed);
-		playerManager.CmdDropCard(gameObject, currentState, land);
+		player.CmdDropCard(gameObject, currentState, land);
 	}
 
 	void Update()

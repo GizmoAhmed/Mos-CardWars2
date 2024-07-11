@@ -13,8 +13,8 @@ public class GameManager : NetworkBehaviour
 	[SyncVar] public bool HostGoesFirst;
 
 	[Header("Starting Consumables")]
-	[SyncVar] public int startingMagic;
-	[SyncVar] public int startingMoney;
+	[SyncVar] public int firstMagic = 2;
+	[SyncVar] public int firstMoney = 10;
 
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;
@@ -179,17 +179,6 @@ public class GameManager : NetworkBehaviour
 		else
 		{
 			// Debug.Log("Waiting for the other player to ready up...");
-		}
-	}
-
-	[Server]
-	public void SetConsumables(int magic, int money) 
-	{
-		foreach (var conn in NetworkServer.connections.Values)
-		{
-			var player = conn.identity.GetComponent<Player>();
-			player.RpcUpdateMagic(magic);
-			player.RpcUpdateMoney(money);
 		}
 	}
 
