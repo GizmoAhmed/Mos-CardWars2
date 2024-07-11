@@ -11,16 +11,18 @@ public class Turns : NetworkBehaviour
 	public void InitializeTurns(GameManager gameManager)
 	{
 		this.gameManager = gameManager;
+		TurnCount = 1;
 		alternate = gameManager.HostGoesFirst;
 	}
 
 	[Server]
 	public void IncrementTurn()
 	{
+		TurnCount++;
 		// update all spells and building timers here mabye
 		foreach (var conn in NetworkServer.connections.Values)
 		{
-			conn.identity.GetComponent<Player>().RpcUpdateTurnText(TurnCount++);
+			conn.identity.GetComponent<Player>().RpcUpdateTurnText(TurnCount);
 		}
 	}
 
