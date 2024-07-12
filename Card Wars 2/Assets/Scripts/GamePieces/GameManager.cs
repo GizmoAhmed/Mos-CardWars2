@@ -67,8 +67,7 @@ public class GameManager : NetworkBehaviour
 	[Server]
 	public void ChangePhase(GamePhase oldPhase, GamePhase newPhase)
 	{
-		Debug.Log(	"< Phase Change Detected > \n "
-					+ oldPhase.ToString() + " > " + newPhase.ToString());
+		Debug.Log(oldPhase.ToString() + " > " + newPhase.ToString());
 
 		currentPhase = newPhase;
 
@@ -162,14 +161,8 @@ public class GameManager : NetworkBehaviour
 		if (readyPlayers.Count >= 2)
 		{
 			readyPlayers.Clear();
-
-			// Debug.Log("All players ready, lets move on:");
-
 			ChangePhase(GamePhase.ChooseLand, GamePhase.SetUp);
 		}
-		else
-		{
-			// Debug.Log("Waiting for the other player to ready up...");
-		}
+
 	}
 }

@@ -21,8 +21,6 @@ public class SetUp : Phase
 	[Server]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Entering set up phase");
-
 		Player player0 = gameManager.Player0.identity.GetComponent<Player>();
 		Player player1 = gameManager.Player1.identity.GetComponent<Player>();
 

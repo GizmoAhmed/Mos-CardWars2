@@ -3,6 +3,7 @@ using UnityEngine;
 using Mirror;
 using static Card;
 using TMPro;
+using System.Linq;
 
 public class Player : NetworkBehaviour
 {
@@ -32,8 +33,8 @@ public class Player : NetworkBehaviour
 
 	private TextMeshProUGUI turnText;
 
-	[Tooltip("List for battle-ready cards")]
-	public List<GameObject> myBattleReadyCards = new List<GameObject>();
+	[Tooltip("Dictionary for battle-ready cards")]
+	public Dictionary<GameObject, int> myBattleReadyCards = new Dictionary<GameObject, int>();
 
 	public override void OnStartClient()
 	{
@@ -300,13 +301,13 @@ public class Player : NetworkBehaviour
 		if (!isOwned) { return; }
 
 		myTurn = isTurn;
-		Debug.Log(isTurn ? "Enabled" : "Disabled");
+		// Debug.Log(isTurn ? "I'm being Enabled" : "I'm being Disabled");
 	}
 
-	[ClientRpc]
-	public void RpcFindBattleCards()
+	[TargetRpc] // server tells a specific client do something.
+	public void FindBattleCards()
 	{
-		if (!isOwned) { return; } // this guy just makes sure each player calls it indidually: If the server wasn't talking about you, don't run
+		Debug.Log("I am attacking!");
 
 		myBattleReadyCards.Clear();
 
@@ -316,14 +317,21 @@ public class Player : NetworkBehaviour
 		{
 			if (creatureCard.Ally && creatureCard.currentState == CardState.Placed)
 			{
-				myBattleReadyCards.Add(creatureCard.gameObject);
+				// Extract the last digit from MyLand name
+				string landName = creatureCard.MyLand.name;
+				int landNumber = int.Parse(landName.Substring(landName.Length - 1));
+
+				myBattleReadyCards.Add(creatureCard.gameObject, landNumber);
 			}
 		}
 
-		foreach (GameObject cardOBJ in myBattleReadyCards)
+		List<GameObject> sortedBattleReadyCards = myBattleReadyCards.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToList();
+
+		foreach (GameObject cardOBJ in sortedBattleReadyCards)
 		{
 			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
 
+			// error check
 			if (thisCard.MyLand == null) 
 			{
 				Debug.LogWarning(thisCard.Name + " has no land");
