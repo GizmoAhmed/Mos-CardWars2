@@ -1,19 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
+
 
 public class CreatureCard : Card
 {
 	[Header("Stats")]
-	[SyncVar] public int Attack;
+	[SyncVar] public int AttackStat;
 	[SyncVar] public int CurrentDefense;
 	[SyncVar] public int MaxDefense;
-
-	[SyncVar] public bool hasAttacked;
 
 	public enum Element
 	{
@@ -37,7 +32,33 @@ public class CreatureCard : Card
 		AttackText = transform.Find("Attack").GetComponent<TextMeshProUGUI>();
 		DefenseText = transform.Find("Defense").GetComponent<TextMeshProUGUI>();
 
-		AttackText.text = Attack.ToString();
+		AttackText.text = AttackStat.ToString();
 		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
+	}
+
+	public void TakeDamage(int damage) 
+	{
+		CurrentDefense -= damage;
+
+		if (CurrentDefense <= 0 )
+		{
+			Die();
+			CurrentDefense = 0;
+		}
+		//else
+		//{
+			DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
+		//}
+		
+	}
+
+	public void Die() 
+	{
+		Debug.Log(Name + " has just died");
+	}
+
+	public void Buff(int Amount, bool buff, string stat = "default") 
+	{
+		// if buff, increase stat by amount
 	}
 }

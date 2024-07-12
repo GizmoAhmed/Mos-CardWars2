@@ -4,6 +4,7 @@ using Mirror;
 using static Card;
 using TMPro;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class Player : NetworkBehaviour
 {
@@ -301,7 +302,6 @@ public class Player : NetworkBehaviour
 		if (!isOwned) { return; }
 
 		myTurn = isTurn;
-		// Debug.Log(isTurn ? "I'm being Enabled" : "I'm being Disabled");
 	}
 
 	[TargetRpc] // server tells a specific client do something.
@@ -332,27 +332,26 @@ public class Player : NetworkBehaviour
 			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
 
 			// error check
-			if (thisCard.MyLand == null) 
+			if (thisCard.MyLand == null)
 			{
 				Debug.LogWarning(thisCard.Name + " has no land");
-				return;
-			}
-
-			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
-
-			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
-
-			if (acrossLand.CurrentCard == null)
-			{
-				Debug.Log(thisCard.Name + " has no one across");
+				
 			}
 			else
 			{
-				CreatureCard acrossCard = acrossLand.CurrentCard.GetComponent<CreatureCard>();
+				CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
 
-				Debug.Log(thisCard.Name + " just attacked " + acrossCard.Name);
+				CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
+
+				CmdCallAltercation(thisCard, acrossLand);
 			}
 		}
+	}
+
+	[Command]
+	public void CmdCallAltercation(CreatureCard attackingCard, CreatureLand defendingLand) 
+	{
+		FindAnyObjectByType<Combat>().Altercation(attackingCard, defendingLand);
 	}
 
 }

@@ -22,12 +22,6 @@ public class Attack : Phase
 		gameManager.ChangePhase(GameManager.GamePhase.Attack, GameManager.GamePhase.SetUp);
 	}
 
-	[Server]
-	public override void OnExitPhase()
-	{
-
-	}
-
 	// at the start of every attack.cs...
 	[Server]
 	public void DoBattle()
@@ -39,17 +33,19 @@ public class Attack : Phase
 
 		if (player0.myTurn)
 		{
-			Debug.Log($"Player {gameManager.Player0.connectionId} is attacking first");
 			player0.FindBattleCards();
-			Debug.Log($"...Then Player {gameManager.Player1.connectionId} attacks after");
-			//DoBattle(FindAnyObjectByType<GameManager>().Player1); 
+			player1.FindBattleCards();
 		}
 		else
 		{
-			Debug.Log($"Player {gameManager.Player1.connectionId} is attacking first...");
 			player1.FindBattleCards();
-			Debug.Log($"...Then Player {gameManager.Player0.connectionId} attacks after");
-			// DoBattle(FindAnyObjectByType<GameManager>().Player0); 
+			player0.FindBattleCards();
 		}
+	}
+
+	[Server]
+	public override void OnExitPhase()
+	{
+
 	}
 }
