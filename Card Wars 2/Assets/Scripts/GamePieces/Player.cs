@@ -34,8 +34,8 @@ public class Player : NetworkBehaviour
 
 	private TextMeshProUGUI turnText;
 
-	[Tooltip("Dictionary for battle-ready cards")]
 	public Dictionary<GameObject, int> myBattleReadyCards = new Dictionary<GameObject, int>();
+	public List<GameObject> sortedBattleReadyCards;
 
 	public override void OnStartClient()
 	{
@@ -306,6 +306,7 @@ public class Player : NetworkBehaviour
 		Debug.Log("This client is finding battle cards");
 
 		myBattleReadyCards.Clear();
+		sortedBattleReadyCards.Clear();
 
 		CreatureCard[] allCreatureCards = FindObjectsOfType<CreatureCard>();
 
@@ -326,9 +327,9 @@ public class Player : NetworkBehaviour
 			return;
 		}
 
-		List<GameObject> sortedBattleReadyCards = myBattleReadyCards.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToList();
+		sortedBattleReadyCards = myBattleReadyCards.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToList();
 
-		foreach (GameObject cardOBJ in sortedBattleReadyCards)
+		/*foreach (GameObject cardOBJ in sortedBattleReadyCards)
 		{
 			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
 
@@ -336,15 +337,7 @@ public class Player : NetworkBehaviour
 
 			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
 
-			// tell server to call interaction
-			CmdCallAltercation(thisCard, acrossLand);
-		}
-	}
-
-	[Command]
-	public void CmdCallAltercation(CreatureCard attackingCard, CreatureLand defendingLand) 
-	{
-		Debug.Log("[ Altercation Command Called ]");
-		FindAnyObjectByType<Combat>().Altercation(attackingCard, defendingLand);
+			// tell server to call an altercation
+		}*/
 	}
 }

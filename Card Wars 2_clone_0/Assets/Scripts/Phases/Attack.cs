@@ -36,8 +36,6 @@ public class Attack : Phase
 			Debug.Log("Server: Player " + player0.connectionToClient.connectionId.ToString() + " goes first");
 			player0.RpcFindBattleCards();
 
-			Debug.Log("-------------------------------------------------------------------------------");
-
 			Debug.Log("Server: Player" + player1.connectionToClient.connectionId.ToString() + " goes second, but not really for now");
 			// player1.RpcFindBattleCards();
 		}
@@ -46,16 +44,8 @@ public class Attack : Phase
 			Debug.Log("Server: Player " + player1.connectionToClient.connectionId.ToString() + " goes first");
 			player1.RpcFindBattleCards();
 
-			Debug.Log("-------------------------------------------------------------------------------");
-
 			Debug.Log("Server: Player " + player0.connectionToClient.connectionId.ToString() + " goes second, but not really for now");
 			// player0.RpcFindBattleCards();
 		}
-	}
-
-	[Server]
-	public override void OnExitPhase()
-	{
-
 	}
 }
