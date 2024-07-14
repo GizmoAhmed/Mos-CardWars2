@@ -40,16 +40,8 @@ public class CreatureCard : Card
 	{
 		CurrentDefense -= damage;
 
-		if (CurrentDefense <= 0 )
-		{
-			Die();
-			CurrentDefense = 0;
-		}
-		//else
-		//{
-			DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
-		//}
-		
+		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
+
 	}
 
 	public void Die() 

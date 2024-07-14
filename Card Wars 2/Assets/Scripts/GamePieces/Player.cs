@@ -118,13 +118,11 @@ public class Player : NetworkBehaviour
 			if (isOwned)
 			{
 				card.transform.SetParent(Hand1.transform, false);
-				card.GetComponent<Card>().Ally = true;
 			}
 			else
 			{
 				card.transform.SetParent(Hand2.transform, false);
 				card.GetComponent<CardFlipper>().Flip();
-				card.GetComponent<Card>().Ally = false;
 			}
 		}
 		else if (state == CardState.Placed) // from dropping onto drop zone
@@ -148,8 +146,6 @@ public class Player : NetworkBehaviour
 
 					card.transform.SetParent(acrossLand.transform, true);
 					card.transform.localPosition = Vector2.zero;
-
-					card.GetComponent<Card>().Ally = false;
 				}
 			}
 		}
@@ -305,9 +301,9 @@ public class Player : NetworkBehaviour
 	}
 
 	[TargetRpc] // server tells a specific client do something.
-	public void FindBattleCards()
+	public void RpcFindBattleCards()
 	{
-		Debug.Log("I am attacking!");
+		Debug.Log("This client is finding battle cards");
 
 		myBattleReadyCards.Clear();
 
@@ -315,14 +311,19 @@ public class Player : NetworkBehaviour
 
 		foreach (CreatureCard creatureCard in allCreatureCards)
 		{
-			if (creatureCard.Ally && creatureCard.currentState == CardState.Placed)
+			if (creatureCard.isOwned && creatureCard.currentState == CardState.Placed)
 			{
-				// Extract the last digit from MyLand name
 				string landName = creatureCard.MyLand.name;
 				int landNumber = int.Parse(landName.Substring(landName.Length - 1));
 
 				myBattleReadyCards.Add(creatureCard.gameObject, landNumber);
 			}
+		}
+
+		if (myBattleReadyCards.Count == 0) // no cards on the field 
+		{
+			Debug.Log("No Cards on the field for me to attack with...");
+			return;
 		}
 
 		List<GameObject> sortedBattleReadyCards = myBattleReadyCards.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToList();
@@ -331,27 +332,19 @@ public class Player : NetworkBehaviour
 		{
 			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
 
-			// error check
-			if (thisCard.MyLand == null)
-			{
-				Debug.LogWarning(thisCard.Name + " has no land");
-				
-			}
-			else
-			{
-				CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
+			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
 
-				CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
+			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
 
-				CmdCallAltercation(thisCard, acrossLand);
-			}
+			// tell server to call interaction
+			CmdCallAltercation(thisCard, acrossLand);
 		}
 	}
 
 	[Command]
 	public void CmdCallAltercation(CreatureCard attackingCard, CreatureLand defendingLand) 
 	{
+		Debug.Log("[ Altercation Command Called ]");
 		FindAnyObjectByType<Combat>().Altercation(attackingCard, defendingLand);
 	}
-
 }

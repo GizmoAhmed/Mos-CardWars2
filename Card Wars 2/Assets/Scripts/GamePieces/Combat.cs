@@ -1,31 +1,47 @@
 using Mirror;
+using UnityEngine;
 
 public class Combat : NetworkBehaviour
 {
 	[Server] // called from client via command
 	public void Altercation(CreatureCard attackingCard, CreatureLand defendingLand) 
 	{
-		CreatureCard acrossCard = defendingLand.CurrentCard.GetComponent<CreatureCard>();
+		Debug.Log("Server: Altercation called");
 
-		DealDamage(attackingCard, acrossCard);
-	}
-
-	[ClientRpc]
-	public void DealDamage(CreatureCard attackingCard, CreatureCard defendingCard) 
-	{
-		if (defendingCard == null)
+		if (defendingLand.CurrentCard == null)
 		{
-			//defendingCard: get owner of this card, and give the guap to them, mabye relative to damage dealth
+			RpcDealDamage(attackingCard, null);
 		}
 		else 
 		{
-			defendingCard.TakeDamage(attackingCard.AttackStat);
+			CreatureCard acrossCard = defendingLand.CurrentCard.GetComponent<CreatureCard>();
+
+			if (attackingCard == acrossCard) 
+			{
+				Debug.LogError(attackingCard.Name + " is attacking itself...");
+				return;
+			}
+
+			RpcDealDamage(attackingCard, acrossCard);
 		}
 	}
 
-	public void HitEmptyLand()
+	[ClientRpc]
+	public void RpcDealDamage(CreatureCard attackingCard, CreatureCard defendingCard)
 	{
+		Debug.Log("Client is dealing damage");
 
+		if (defendingCard == null)
+		{
+			Debug.Log(attackingCard.Name + " has no one across");
+		}
+		else 
+		{
+			Debug.Log(attackingCard.Name + " hit " + defendingCard.Name + " with " + 
+				attackingCard.AttackStat.ToString() + " damage");
+
+			defendingCard.TakeDamage(attackingCard.AttackStat);
+		}
 	}
 }
 

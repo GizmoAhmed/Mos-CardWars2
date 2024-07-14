@@ -26,8 +26,6 @@ public class Card : NetworkBehaviour
 	private Vector2 currentMousePos;
 	private Vector2 clickSave;
 
-	[Header("Card Traits")]
-	[Tooltip("Is this your Card?")] [SyncVar] public bool Ally;
 	private TextMeshProUGUI MagicText;
 
 	[SyncVar] public int MagicCost = 0;

@@ -35,10 +35,13 @@ public class Turns : NetworkBehaviour
 		switch (mode)
 		{
 			case "disableBoth":
-				Debug.Log("Disabling Both Players");
+
+				// Debug.Log("Disabling Both Players");
+
 				SetPlayerState(player0, false);
 				SetPlayerState(player1, false);
 				break;
+
 			default:
 				if (conn == null)
 				{

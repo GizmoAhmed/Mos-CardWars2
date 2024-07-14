@@ -8,6 +8,7 @@ public class GameManager : NetworkBehaviour
 
 	[SyncVar] public GamePhase currentPhase;
 
+	[Tooltip("Set number to the player you want to go first")] public int ChoosePlayer;
 	[SyncVar] public bool HostGoesFirst;
 
 	[Header("Starting Consumables")]
@@ -35,7 +36,11 @@ public class GameManager : NetworkBehaviour
 	{
 		base.OnStartServer();
 
-		HostGoesFirst = Random.value < 0.5f;
+		if (ChoosePlayer == 0)		{ HostGoesFirst = true; }
+
+		else if (ChoosePlayer == 1)	{ HostGoesFirst = false; }
+
+		else						{ HostGoesFirst = Random.value < 0.5f; }
 
 		InitializePhases();
 
@@ -67,7 +72,7 @@ public class GameManager : NetworkBehaviour
 	[Server]
 	public void ChangePhase(GamePhase oldPhase, GamePhase newPhase)
 	{
-		Debug.Log(oldPhase.ToString() + " > " + newPhase.ToString());
+		// Debug.Log(oldPhase.ToString() + " > " + newPhase.ToString());
 
 		currentPhase = newPhase;
 
