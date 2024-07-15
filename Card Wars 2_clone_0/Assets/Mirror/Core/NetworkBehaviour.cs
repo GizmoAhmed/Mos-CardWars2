@@ -358,7 +358,10 @@ namespace Mirror
             // other objects must have authority.
             if (!(!requiresAuthority || isLocalPlayer || isOwned))
             {
-                Debug.LogWarning($"Command {functionFullName} called on {name} without authority.", gameObject);
+                if (functionFullName != "System.Void Player::CmdShowConsumable(System.Int32,System.String)") 
+                {
+                    Debug.LogWarning($"Command {functionFullName} called on {name} without authority.", gameObject);
+                }
                 return;
             }
 

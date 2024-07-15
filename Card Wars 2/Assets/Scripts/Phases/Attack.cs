@@ -22,7 +22,6 @@ public class Attack : Phase
 		gameManager.ChangePhase(GameManager.GamePhase.Attack, GameManager.GamePhase.SetUp);
 	}
 
-	// at the start of every attack.cs...
 	[Server]
 	public void DoBattle()
 	{
@@ -33,19 +32,13 @@ public class Attack : Phase
 
 		if (player0.myTurn)
 		{
-			Debug.Log("Server: Player " + player0.connectionToClient.connectionId.ToString() + " attacks first");
 			player0.RpcFindBattleCards();
-
-			Debug.Log("Server: Player" + player1.connectionToClient.connectionId.ToString() + " attacks second");
-			// player1.RpcFindBattleCards();
+			player1.RpcFindBattleCards();
 		}
 		else
 		{
-			Debug.Log("Server: Player " + player1.connectionToClient.connectionId.ToString() + " attacks first");
 			player1.RpcFindBattleCards();
-
-			Debug.Log("Server: Player " + player0.connectionToClient.connectionId.ToString() + " attacks second");
-			// player0.RpcFindBattleCards();
+			player0.RpcFindBattleCards();
 		}
 	}
 }

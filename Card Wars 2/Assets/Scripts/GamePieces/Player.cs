@@ -4,7 +4,6 @@ using Mirror;
 using static Card;
 using TMPro;
 using System.Linq;
-using Unity.VisualScripting;
 
 public class Player : NetworkBehaviour
 {
