@@ -329,7 +329,7 @@ public class Player : NetworkBehaviour
 
 		sortedBattleReadyCards = myBattleReadyCards.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToList();
 
-		/*foreach (GameObject cardOBJ in sortedBattleReadyCards)
+		foreach (GameObject cardOBJ in sortedBattleReadyCards)
 		{
 			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
 
@@ -337,7 +337,17 @@ public class Player : NetworkBehaviour
 
 			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
 
-			// tell server to call an altercation
-		}*/
+			if (acrossLand.CurrentCard == null)
+			{
+				CmdAltercation(thisCard , null);
+			}
+			else 
+			{
+				CmdAltercation(thisCard , acrossLand.CurrentCard.GetComponent<CreatureCard>());
+			}
+		}
 	}
+
+	[Command]
+	public void CmdAltercation(CreatureCard attackingCard, CreatureCard defendingCard) { FindAnyObjectByType<Combat>().Altercation(attackingCard, defendingCard); }
 }

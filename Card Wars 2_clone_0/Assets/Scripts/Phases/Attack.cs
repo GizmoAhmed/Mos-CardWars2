@@ -33,18 +33,18 @@ public class Attack : Phase
 
 		if (player0.myTurn)
 		{
-			Debug.Log("Server: Player " + player0.connectionToClient.connectionId.ToString() + " goes first");
+			Debug.Log("Server: Player " + player0.connectionToClient.connectionId.ToString() + " attacks first");
 			player0.RpcFindBattleCards();
 
-			Debug.Log("Server: Player" + player1.connectionToClient.connectionId.ToString() + " goes second, but not really for now");
+			Debug.Log("Server: Player" + player1.connectionToClient.connectionId.ToString() + " attacks second");
 			// player1.RpcFindBattleCards();
 		}
 		else
 		{
-			Debug.Log("Server: Player " + player1.connectionToClient.connectionId.ToString() + " goes first");
+			Debug.Log("Server: Player " + player1.connectionToClient.connectionId.ToString() + " attacks first");
 			player1.RpcFindBattleCards();
 
-			Debug.Log("Server: Player " + player0.connectionToClient.connectionId.ToString() + " goes second, but not really for now");
+			Debug.Log("Server: Player " + player0.connectionToClient.connectionId.ToString() + " attacks second");
 			// player0.RpcFindBattleCards();
 		}
 	}

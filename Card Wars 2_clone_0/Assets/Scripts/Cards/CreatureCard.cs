@@ -41,7 +41,6 @@ public class CreatureCard : Card
 		CurrentDefense -= damage;
 
 		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
-
 	}
 
 	public void Die() 
