@@ -218,7 +218,7 @@ public class Player : NetworkBehaviour
 	{
 		if (turnText != null)
 		{
-			turnText.text = "Turn: " + turn;
+			turnText.text = "TURN: " + turn;
 		}
 	}
 

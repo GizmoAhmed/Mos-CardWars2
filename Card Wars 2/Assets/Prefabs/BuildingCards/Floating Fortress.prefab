@@ -102,23 +102,23 @@ PrefabInstance:
       objectReference: {fileID: 79001752490506269, guid: 23dc57ca6b6cc7145999452940129f35, type: 3}
     - target: {fileID: 2407068352017492629, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -92.6
+      value: -85.2
       objectReference: {fileID: 0}
     - target: {fileID: 3467716497971235740, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_text
-      value: Floating Fortress
+      value: FLOATING FORTRESS
       objectReference: {fileID: 0}
     - target: {fileID: 3467716497971235740, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_fontSize
-      value: 14.2
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 3467716497971235740, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_margin.z
-      value: 94.45783
+      value: 101.82265
       objectReference: {fileID: 0}
     - target: {fileID: 3467716497971235740, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_fontSizeBase
-      value: 14.2
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 4584136613029985643, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: Name
@@ -131,6 +131,10 @@ PrefabInstance:
     - target: {fileID: 5669542139119279889, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_Name
       value: Floating Fortress
+      objectReference: {fileID: 0}
+    - target: {fileID: 7688437430107656521, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
+      propertyPath: m_text
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

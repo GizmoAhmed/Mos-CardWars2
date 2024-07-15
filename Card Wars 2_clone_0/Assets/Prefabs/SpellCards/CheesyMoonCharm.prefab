@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 933317377593824254, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 36.5
+      value: 32.9
       objectReference: {fileID: 0}
     - target: {fileID: 933317377593824254, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -104,17 +104,21 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: c3db9c6a3c05f8d44ae5021341f1e51e, type: 3}
+    - target: {fileID: 3006748274154466515, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -46.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_text
-      value: Cheesy Moon Charm
+      value: CHEESY MOON CHARM
       objectReference: {fileID: 0}
     - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_fontSize
-      value: 13.5
+      value: 8.4
       objectReference: {fileID: 0}
     - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_fontSizeBase
-      value: 13.5
+      value: 8.4
       objectReference: {fileID: 0}
     - target: {fileID: 4740380502033212643, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: ZoomCardPrefab
@@ -123,6 +127,26 @@ PrefabInstance:
     - target: {fileID: 5405302373525850137, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_text
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405302373525850137, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405302373525850137, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
+    - target: {fileID: 5405302373525850137, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405302373525850137, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
+    - target: {fileID: 5405302373525850137, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6295683417579380467, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_SizeDelta.x

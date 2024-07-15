@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 933317377593824254, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 34.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 933317377593824254, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -102.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1339144178801233240, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_text
       value: 3
@@ -102,11 +110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_text
-      value: Cereberal Blood Storm
+      value: CEREBERAL BLOOD STORM
       objectReference: {fileID: 0}
     - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_fontSize
-      value: 11.68
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_margin.z
@@ -114,7 +122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4544129683579567075, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_fontSizeBase
-      value: 11.68
+      value: 6.7
       objectReference: {fileID: 0}
     - target: {fileID: 4740380502033212643, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: ZoomCardPrefab

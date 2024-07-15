@@ -110,19 +110,19 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: ede4a3d539fcebd428d09c18ece5db69, type: 3}
     - target: {fileID: 2407068352017492629, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -104.8
+      value: -94.8
       objectReference: {fileID: 0}
     - target: {fileID: 3467716497971235740, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_text
-      value: Shrine Gate
+      value: SHRINE GATE
       objectReference: {fileID: 0}
     - target: {fileID: 3467716497971235740, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_fontSize
-      value: 16.9
+      value: 8.8
       objectReference: {fileID: 0}
     - target: {fileID: 3467716497971235740, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_fontSizeBase
-      value: 16.9
+      value: 8.8
       objectReference: {fileID: 0}
     - target: {fileID: 4584136613029985643, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: Name
