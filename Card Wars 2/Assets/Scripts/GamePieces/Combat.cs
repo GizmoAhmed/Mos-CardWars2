@@ -9,15 +9,7 @@ public class Combat : NetworkBehaviour
 	[ClientRpc]
 	public void RpcBattle(CreatureCard attackingCard, CreatureCard defendingCard) 
 	{
-		/// if attackers are owned, then that is the attacking player
-		/*if (attackingCard.isOwned)
-		{
-			Debug.Log("attack cards are owned: this player found their battle cards");
-		}
-		else 
-		{
-			Debug.Log("attack cards are not owned: this player is defending");
-		}*/
+		/// if (attackingCard.isOwned) is true, then that is the attacking player
 
 		if (defendingCard == null)
 		{

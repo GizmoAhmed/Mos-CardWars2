@@ -153,8 +153,9 @@ public class Card : NetworkBehaviour
 
 		CreatureLand landscript = land.GetComponent<CreatureLand>();
 
-		// Link them
+		// Link that to this...
 		landscript.AttachCard(gameObject);
+		// ...then this to that
 		MyLand = land;
 
 		transform.SetParent(land.transform, true);

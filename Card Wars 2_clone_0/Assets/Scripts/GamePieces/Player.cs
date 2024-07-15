@@ -14,9 +14,10 @@ public class Player : NetworkBehaviour
 	private GameObject Hand1;
 	private GameObject Hand2;
 
-	[Header("Decks")]
+	/*[Header("Decks")]
 	public List<GameObject> Cards1;
-	public List<GameObject> Cards2;
+	public List<GameObject> Cards2;*/
+	public Deck deck;
 
 	[Header("Consumables")]
 	[SyncVar] public int Magic;
@@ -41,6 +42,8 @@ public class Player : NetworkBehaviour
 		base.OnStartClient();
 
 		canPlay = true;
+
+		deck = GetComponentInChildren<Deck>();
 
 		Hand1 = GameObject.Find("Hand1");
 		Hand2 = GameObject.Find("Hand2");
@@ -76,42 +79,11 @@ public class Player : NetworkBehaviour
 		base.OnStartServer();
 	}
 
-	[Command] // Client asks server to do something
-	public void CmdDrawCard()
-	{
-		if (isOwned)
-		{
-			DrawCardFromDeck(Cards1, connectionToClient);
-		}
-		else
-		{
-			DrawCardFromDeck(Cards2, connectionToClient);
-		}
-	}
-
-	private void DrawCardFromDeck(List<GameObject> cardList, NetworkConnectionToClient conn)
-	{
-		if (cardList.Count > 0)
-		{
-			int randomIndex = Random.Range(0, cardList.Count);
-			GameObject cardPrefab = cardList[randomIndex];
-
-			GameObject drawnCard = Instantiate(cardPrefab);
-			NetworkServer.Spawn(drawnCard, conn);
-
-			Card cardScript = drawnCard.GetComponent<Card>();
-			cardScript.SetState(CardState.Hand);
-
-			// Ensure RpcShowCard is called on the server
-			RpcShowCard(drawnCard, CardState.Hand, null);
-
-			cardList.RemoveAt(randomIndex);
-		}
-	}
-
 	[ClientRpc] // Server asks client(s) to do something
-	void RpcShowCard(GameObject card, CardState state, GameObject land)
+	public void RpcShowCard(GameObject card, CardState state, GameObject land)
 	{
+		Debug.Log("Finding way to show cards...");
+
 		if (state == CardState.Hand) // from drawing card
 		{
 			if (isOwned)
@@ -195,6 +167,7 @@ public class Player : NetworkBehaviour
 				break;
 
 			case "money":
+
 				Money = newAmount;
 
 				TextMeshProUGUI moneyText;
@@ -213,6 +186,7 @@ public class Player : NetworkBehaviour
 				break;
 
 			case "cost":
+
 				Cost = newAmount;
 
 				CostTextObject = GameObject.Find("CostText");

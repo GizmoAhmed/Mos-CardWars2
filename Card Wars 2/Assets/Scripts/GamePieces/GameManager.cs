@@ -4,11 +4,13 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
+	public List<GameObject> MasterDeck;
+
 	public HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
 	[SyncVar] public GamePhase currentPhase;
 
-	[Tooltip("Set number to the player you want to go first")] public int ChoosePlayer;
+	[Tooltip("Set number to who you want to go first, (2 = random)")] public int ChoosePlayer;
 	[SyncVar] public bool HostGoesFirst;
 
 	[Header("Starting Consumables")]
