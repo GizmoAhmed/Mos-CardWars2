@@ -4,7 +4,7 @@ using UnityEngine;
 public class SetUp : Phase
 {
 	[Header("SET IN INSPECTOR")]
-	public int NextMagic;
+	// public int NextMagic;
 	public int MoneyAddOn;
 
 	[SyncVar] public bool firstSetUp;
@@ -14,7 +14,7 @@ public class SetUp : Phase
 	{
 		base.Initialize(gameManager);
 		firstSetUp = true;
-		NextMagic = 0;
+		// NextMagic = 0;
 		MoneyAddOn = 2;
 	}
 
@@ -26,8 +26,8 @@ public class SetUp : Phase
 
 		if (firstSetUp == true)
 		{
-			player0.RpcShowConsumable(gameManager.firstMagic, "magic");
-			player1.RpcShowConsumable(gameManager.firstMagic, "magic");
+			player0.RpcShowConsumable(gameManager.firstMagic, "set_magic");
+			player1.RpcShowConsumable(gameManager.firstMagic, "set_magic");
 
 			player0.RpcShowConsumable(gameManager.firstMoney, "money");
 			player1.RpcShowConsumable(gameManager.firstMoney, "money");
@@ -36,14 +36,14 @@ public class SetUp : Phase
 		}
 		else 
 		{
-			player0.RpcShowConsumable(gameManager.firstMagic + NextMagic, "magic");
-			player1.RpcShowConsumable(gameManager.firstMagic + NextMagic, "magic");
+			player0.RpcShowConsumable(player0.MaxMagic, "set_magic");
+			player1.RpcShowConsumable(player1.MaxMagic, "set_magic");
 
 			player0.RpcShowConsumable(player0.Money + MoneyAddOn, "money");
 			player1.RpcShowConsumable(player1.Money + MoneyAddOn, "money");
 		}
 
-		NextMagic++;
+		// NextMagic++;
 
 		gameManager.turnManager.ManageTurn(null);
 	}

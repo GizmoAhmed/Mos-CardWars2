@@ -13,12 +13,12 @@ public class Card : NetworkBehaviour
 	public bool Grabbed;
 	public bool Movable = true;
 
-	private GameObject StartParent;
-	private Vector2 StartPos;
-	private GameObject NewDropZone;
-	public bool isOverDropZone;
+	private GameObject	StartParent;
+	private Vector2		StartPos;
+	private GameObject	NewDropZone;
+	public bool			isOverDropZone;
 
-	public string landTag;
+	public string		landTag;
 
 	[Header("Zooms")]
 	public bool isZoomLocked;
@@ -75,8 +75,7 @@ public class Card : NetworkBehaviour
 
 	protected virtual void OnTriggerStay2D(Collider2D other)
 	{
-		int currentMagic = player.Magic;
-		bool EnoughMagic = MagicCost <= currentMagic;
+		bool EnoughMagic = MagicCost <= player.CurrentMagic;
 
 		CreatureLand landscript = other.GetComponent<CreatureLand>();
 
@@ -84,8 +83,8 @@ public class Card : NetworkBehaviour
 		{
 			if (other.CompareTag(landTag) && isOwned && landscript.Taken == false && EnoughMagic)
 			{
-				NewDropZone = other.gameObject;
-				isOverDropZone = true;
+				NewDropZone		= other.gameObject;
+				isOverDropZone	= true;
 			}
 		}
 	}
@@ -138,7 +137,7 @@ public class Card : NetworkBehaviour
 		if (isOverDropZone)
 		{
 			PlaceCard(NewDropZone);
-			player.CmdShowConsumable(player.Magic - MagicCost, "magic");
+			player.CmdShowConsumable(player.CurrentMagic - MagicCost, "spend_magic");
 		}
 		else
 		{

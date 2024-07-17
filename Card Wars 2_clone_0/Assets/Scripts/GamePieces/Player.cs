@@ -17,9 +17,11 @@ public class Player : NetworkBehaviour
 	public Deck deck;
 
 	[Header("Consumables")]
-	[SyncVar] public int Magic;
+	[SyncVar] public int CurrentMagic;
+	[SyncVar] public int MaxMagic;
 	[SyncVar] public int Money;
-	[SyncVar] public int Cost;
+	[SyncVar] public int DrawCost;
+	[SyncVar] public int UpgradeCost;
 
 	private GameObject ThisMagic;
 	private GameObject OtherMagic;
@@ -58,7 +60,7 @@ public class Player : NetworkBehaviour
 
 		myTurn = true;
 
-		CmdShowConsumable(0, "magic");
+		CmdShowConsumable(0, "set_magic");
 		CmdShowConsumable(0, "money");
 		CmdShowConsumable(2, "cost");
 
@@ -141,24 +143,32 @@ public class Player : NetworkBehaviour
 	[ClientRpc]
 	public void RpcShowConsumable(int newAmount, string mode) 
 	{
+		TextMeshProUGUI magicText;
+
+		if (isOwned)
+		{
+			magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
+		}
+		else
+		{
+			magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
+		}
+
 		switch (mode) 
 		{
-			case "magic":
+			case "set_magic":
 
-				Magic = newAmount;
+				MaxMagic = CurrentMagic = newAmount;
 
-				TextMeshProUGUI magicText;
+				magicText.text = CurrentMagic.ToString() + "/" + MaxMagic.ToString();
 
-				if (isOwned)
-				{
-					magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
-				}
-				else
-				{
-					magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
-				}
+				break;
 
-				magicText.text = Magic.ToString();
+			case "spend_magic":
+
+				CurrentMagic = newAmount;
+
+				magicText.text = CurrentMagic.ToString() + "/" + MaxMagic.ToString();
 
 				break;
 
@@ -183,13 +193,14 @@ public class Player : NetworkBehaviour
 
 			case "cost":
 
-				Cost = newAmount;
+				DrawCost = newAmount;
 
 				CostTextObject = GameObject.Find("CostText");
 
 				TextMeshProUGUI costText = CostTextObject.GetComponent<TextMeshProUGUI>();
 
-				costText.text = Cost.ToString();
+				costText.text = DrawCost.ToString();
+
 				break;
 		}
 	}

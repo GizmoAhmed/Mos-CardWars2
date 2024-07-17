@@ -24,7 +24,7 @@ public class Deck : NetworkBehaviour
 
 		foreach (GameObject cardOB in game.MasterDeck) 
 		{
-			MyDeck.Add(cardOB);
+			MyDeck.Add(cardOB); MyDeck.Add(cardOB);
 		}
 
 		DeckSize = MyDeck.Count;

@@ -10,13 +10,13 @@ public class DrawCard : NetworkBehaviour
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
 		player = networkIdentity.GetComponent<Player>();
 
-		if (player.Cost > player.Money)
+		if (player.DrawCost > player.Money)
 		{
 			Debug.Log("To Expensive...");
 		}
 		else 
 		{
-			player.CmdShowConsumable(player.Money - player.Cost,"money");
+			player.CmdShowConsumable(player.Money - player.DrawCost,"money");
 			player.deck.CmdDrawCard();
 		}
 	}
