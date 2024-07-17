@@ -1,4 +1,5 @@
 using Mirror;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ChooseLand : Phase
@@ -12,19 +13,16 @@ public class ChooseLand : Phase
 	[ClientRpc]
 	public override void OnEnterPhase()
 	{
-		GameObject[] lands = GameObject.FindGameObjectsWithTag("CreatureLand");
-
-		foreach (GameObject land in lands)
-		{
-			foreach (Transform child in land.transform)
-			{
-				child.gameObject.SetActive(true);
-			}
-		}
+		ShowLandButtons(true);
 	}
 
 	[ClientRpc]
 	public override void OnExitPhase()
+	{
+		ShowLandButtons(false);
+	}
+
+	public void ShowLandButtons(bool enable)
 	{
 		GameObject[] lands = GameObject.FindGameObjectsWithTag("CreatureLand");
 
@@ -32,7 +30,7 @@ public class ChooseLand : Phase
 		{
 			foreach (Transform child in land.transform)
 			{
-				child.gameObject.SetActive(false);
+				child.gameObject.SetActive(enable);
 			}
 		}
 	}

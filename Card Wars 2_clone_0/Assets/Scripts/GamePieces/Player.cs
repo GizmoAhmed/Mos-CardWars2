@@ -14,9 +14,6 @@ public class Player : NetworkBehaviour
 	private GameObject Hand1;
 	private GameObject Hand2;
 
-	/*[Header("Decks")]
-	public List<GameObject> Cards1;
-	public List<GameObject> Cards2;*/
 	public Deck deck;
 
 	[Header("Consumables")]
@@ -34,7 +31,6 @@ public class Player : NetworkBehaviour
 
 	private TextMeshProUGUI turnText;
 
-	public Dictionary<GameObject, int> myBattleReadyCards = new Dictionary<GameObject, int>();
 	public List<GameObject> sortedBattleReadyCards;
 
 	public override void OnStartClient()
@@ -82,7 +78,7 @@ public class Player : NetworkBehaviour
 	[ClientRpc] // Server asks client(s) to do something
 	public void RpcShowCard(GameObject card, CardState state, GameObject land)
 	{
-		Debug.Log("Finding way to show cards...");
+		// Debug.Log("Finding way to show cards...");
 
 		if (state == CardState.Hand) // from drawing card
 		{
@@ -261,27 +257,20 @@ public class Player : NetworkBehaviour
 			button.interactable = set;
 		}
 
-		canPlay = set;
-	}
-
-	// this is simply a function meant for debugging.
-	[ClientRpc]
-	public void RpcTurnMessage(bool isTurn)
-	{
-		if (!isOwned) { return; }
-
-		myTurn = isTurn;
+		myTurn = canPlay = set;
+		
 	}
 
 	[TargetRpc] // server tells a specific client do something.
 	public void RpcFindBattleCards()
 	{
-		Debug.Log("This client is finding battle cards");
+		// Debug.Log("This client is finding battle cards");
 
-		myBattleReadyCards.Clear();
 		sortedBattleReadyCards.Clear();
 
 		CreatureCard[] allCreatureCards = FindObjectsOfType<CreatureCard>();
+
+		Dictionary<GameObject, int> myBattleReadyCards = new Dictionary<GameObject, int>();
 
 		foreach (CreatureCard creatureCard in allCreatureCards)
 		{

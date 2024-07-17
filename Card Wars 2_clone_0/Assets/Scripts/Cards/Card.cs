@@ -65,7 +65,7 @@ public class Card : NetworkBehaviour
 		MagicText.text = MagicCost.ToString();
 
 		NameText = transform.Find("Name").GetComponent<TextMeshProUGUI>();
-		NameText.text = Name;
+		NameText.text = Name.ToUpper();
 	}
 
 	public bool IsOwnedByLocalPlayer()

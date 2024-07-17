@@ -77,7 +77,6 @@ public class Turns : NetworkBehaviour
 
 	private void SetPlayerState(Player player, bool state)
 	{
-		player.RpcTurnMessage(state);
 		player.RpcEnablePlayer(state);
 	}
 }
