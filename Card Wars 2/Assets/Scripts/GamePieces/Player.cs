@@ -4,7 +4,7 @@ using Mirror;
 using static Card;
 using TMPro;
 using System.Linq;
-using Org.BouncyCastle.Pqc.Crypto.Lms;
+using Image = UnityEngine.UI.Image; // used in RpcEnablePlayer 
 
 public class Player : NetworkBehaviour
 {
@@ -285,7 +285,7 @@ public class Player : NetworkBehaviour
 	public void RpcEnablePlayer(bool set) 
 	{
 		if (!isOwned) { return; }
-
+		
 		Card[] cards = FindObjectsOfType<Card>();
 
 		foreach (Card card in cards)
@@ -300,7 +300,6 @@ public class Player : NetworkBehaviour
 		}
 
 		myTurn = canPlay = set;
-		
 	}
 
 	[TargetRpc] // server tells a specific client do something. (ie player0.RpcFindBattleCards)
