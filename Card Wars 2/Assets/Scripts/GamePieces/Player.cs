@@ -4,6 +4,7 @@ using Mirror;
 using static Card;
 using TMPro;
 using System.Linq;
+using Org.BouncyCastle.Pqc.Crypto.Lms;
 
 public class Player : NetworkBehaviour
 {
@@ -20,7 +21,7 @@ public class Player : NetworkBehaviour
 	public int CurrentMagic;
 	public int MaxMagic;
 	public int Money;
-	public int DrawCost;
+	public int DrawCost;	
 	public int UpgradeCost;
 
 	private GameObject ThisMagic;
@@ -28,9 +29,6 @@ public class Player : NetworkBehaviour
 
 	private GameObject ThisMoney;
 	private GameObject OtherMoney;
-
-	private GameObject DrawCostTextObject;
-	private GameObject UpgradeCostTextObject;
 
 	private TextMeshProUGUI turnText;
 
@@ -64,8 +62,8 @@ public class Player : NetworkBehaviour
 		CmdShowConsumable(0, "current_magic");
 		CmdShowConsumable(0, "max_magic");
 		CmdShowConsumable(0, "money");
-		CmdShowConsumable(2, "draw_cost");
-		CmdShowConsumable(1, "upgrade_cost");
+		CmdShowConsumable(2, "draw_cost");		// starting cost
+		CmdShowConsumable(1, "upgrade_cost");   // starting cost
 
 		if (isServer) 
 		{
@@ -190,31 +188,49 @@ public class Player : NetworkBehaviour
 					moneyText = OtherMoney.GetComponent<TextMeshProUGUI>();
 				}
 
-				moneyText.text = Money.ToString();
+				moneyText.text = newAmount.ToString();
 
 				break;
 
 			case "draw_cost":
 
-				DrawCost = newAmount;
+				GameObject DrawCostTextObject;
 
-				DrawCostTextObject = GameObject.Find("DrawCostText");
+				if (isOwned)
+				{
+					DrawCost = newAmount;
+
+					DrawCostTextObject = GameObject.Find("ThisDrawCostText");
+				}
+				else 
+				{
+					DrawCostTextObject = GameObject.Find("OtherDrawCostText");
+				}
 
 				TextMeshProUGUI drawCostText = DrawCostTextObject.GetComponent<TextMeshProUGUI>();
 
-				drawCostText.text = DrawCost.ToString();
+				drawCostText.text = newAmount.ToString();
 
 				break;
 
 			case "upgrade_cost":
 
-				UpgradeCost = newAmount;
+				GameObject UpgradeCostTextObject;
 
-				UpgradeCostTextObject = GameObject.Find("UpgradeCostText");
+				if (isOwned)
+				{
+					UpgradeCost = newAmount;
+
+					UpgradeCostTextObject = GameObject.Find("ThisUpgradeCostText");
+				}
+				else
+				{
+					UpgradeCostTextObject = GameObject.Find("OtherUpgradeCostText");
+				}
 
 				TextMeshProUGUI upgradeCostText = UpgradeCostTextObject.GetComponent<TextMeshProUGUI>();
 
-				upgradeCostText.text = UpgradeCost.ToString();
+				upgradeCostText.text = newAmount.ToString();
 
 				break;
 		}

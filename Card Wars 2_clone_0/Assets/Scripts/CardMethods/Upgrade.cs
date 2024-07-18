@@ -7,8 +7,10 @@ public class Upgrade : NetworkBehaviour
 
     public void UpgradeMagic() 
     {
-		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		player = networkIdentity.GetComponent<Player>();
+		player = NetworkClient.localPlayer.GetComponent<Player>();
+
+		/*NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+		player = networkIdentity.GetComponent<Player>();*/
 
 		if (player.UpgradeCost <= player.Money)
 		{
