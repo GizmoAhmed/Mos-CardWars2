@@ -1,22 +1,18 @@
 using UnityEngine;
 using Mirror;
 
-public class DrawCard : NetworkBehaviour
+public class Draw : NetworkBehaviour
 {
 	private Player player;
 	
-	public void Draw()
+	public void DrawCard()
 	{
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
 		player = networkIdentity.GetComponent<Player>();
 
-		if (player.DrawCost > player.Money)
+		if (player.DrawCost <= player.Money)
 		{
-			Debug.Log("To Expensive...");
-		}
-		else 
-		{
-			player.CmdShowConsumable(player.Money - player.DrawCost,"money");
+			player.CmdShowConsumable(player.Money - player.DrawCost, "money");
 			player.deck.CmdDrawCard();
 		}
 	}

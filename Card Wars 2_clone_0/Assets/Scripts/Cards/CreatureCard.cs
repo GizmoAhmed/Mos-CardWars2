@@ -43,6 +43,7 @@ public class CreatureCard : Card
 		if (CurrentDefense <= 0)
 		{
 			Die();
+			CurrentDefense = 0;
 		}
 
 		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();

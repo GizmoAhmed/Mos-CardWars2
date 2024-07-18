@@ -36,7 +36,6 @@ public class Deck : NetworkBehaviour
 		DrawCardFromDeck(MyDeck, connectionToClient);
 	}
 
-	// [Server] maybe add this
 	private void DrawCardFromDeck(List<GameObject> cardList, NetworkConnectionToClient conn)
 	{
 		if (cardList.Count > 0)

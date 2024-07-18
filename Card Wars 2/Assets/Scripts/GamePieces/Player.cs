@@ -8,20 +8,20 @@ using System.Linq;
 public class Player : NetworkBehaviour
 {
 	public bool local;
-	[SyncVar] public bool canPlay = true;
-	[SyncVar] public bool myTurn;
+	public bool canPlay = true;
+	public bool myTurn;
 
-	private GameObject Hand1;
+	private GameObject Hand1; 
 	private GameObject Hand2;
 
 	public Deck deck;
 
-	[Header("Consumables")]
-	[SyncVar] public int CurrentMagic;
-	[SyncVar] public int MaxMagic;
-	[SyncVar] public int Money;
-	[SyncVar] public int DrawCost;
-	[SyncVar] public int UpgradeCost;
+	[Header("Spendables")]
+	public int CurrentMagic;
+	public int MaxMagic;
+	public int Money;
+	public int DrawCost;
+	public int UpgradeCost;
 
 	private GameObject ThisMagic;
 	private GameObject OtherMagic;
@@ -29,7 +29,8 @@ public class Player : NetworkBehaviour
 	private GameObject ThisMoney;
 	private GameObject OtherMoney;
 
-	private GameObject CostTextObject;
+	private GameObject DrawCostTextObject;
+	private GameObject UpgradeCostTextObject;
 
 	private TextMeshProUGUI turnText;
 
@@ -60,9 +61,11 @@ public class Player : NetworkBehaviour
 
 		myTurn = true;
 
-		CmdShowConsumable(0, "set_magic");
+		CmdShowConsumable(0, "current_magic");
+		CmdShowConsumable(0, "max_magic");
 		CmdShowConsumable(0, "money");
-		CmdShowConsumable(2, "cost");
+		CmdShowConsumable(2, "draw_cost");
+		CmdShowConsumable(1, "upgrade_cost");
 
 		if (isServer) 
 		{
@@ -156,15 +159,15 @@ public class Player : NetworkBehaviour
 
 		switch (mode) 
 		{
-			case "set_magic":
+			case "max_magic":
 
-				MaxMagic = CurrentMagic = newAmount;
+				MaxMagic = newAmount;
 
 				magicText.text = CurrentMagic.ToString() + "/" + MaxMagic.ToString();
 
 				break;
 
-			case "spend_magic":
+			case "current_magic":
 
 				CurrentMagic = newAmount;
 
@@ -191,15 +194,27 @@ public class Player : NetworkBehaviour
 
 				break;
 
-			case "cost":
+			case "draw_cost":
 
 				DrawCost = newAmount;
 
-				CostTextObject = GameObject.Find("CostText");
+				DrawCostTextObject = GameObject.Find("DrawCostText");
 
-				TextMeshProUGUI costText = CostTextObject.GetComponent<TextMeshProUGUI>();
+				TextMeshProUGUI drawCostText = DrawCostTextObject.GetComponent<TextMeshProUGUI>();
 
-				costText.text = DrawCost.ToString();
+				drawCostText.text = DrawCost.ToString();
+
+				break;
+
+			case "upgrade_cost":
+
+				UpgradeCost = newAmount;
+
+				UpgradeCostTextObject = GameObject.Find("UpgradeCostText");
+
+				TextMeshProUGUI upgradeCostText = UpgradeCostTextObject.GetComponent<TextMeshProUGUI>();
+
+				upgradeCostText.text = UpgradeCost.ToString();
 
 				break;
 		}
@@ -272,7 +287,7 @@ public class Player : NetworkBehaviour
 		
 	}
 
-	[TargetRpc] // server tells a specific client do something.
+	[TargetRpc] // server tells a specific client do something. (ie player0.RpcFindBattleCards)
 	public void RpcFindBattleCards()
 	{
 		// Debug.Log("This client is finding battle cards");
