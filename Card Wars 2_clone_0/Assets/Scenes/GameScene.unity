@@ -14804,6 +14804,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2945097527673707022, guid: 2fd271686cc441d418050584881ac939, type: 3}
+      propertyPath: m_TagString
+      value: DiscardBoard
+      objectReference: {fileID: 0}
     - target: {fileID: 6272172377625055849, guid: 2fd271686cc441d418050584881ac939, type: 3}
       propertyPath: sceneId
       value: 4143211687

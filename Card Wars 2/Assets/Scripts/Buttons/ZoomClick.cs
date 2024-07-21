@@ -65,7 +65,7 @@ public class ZoomClick : NetworkBehaviour
 		{
 			card.isZoomLocked = set;
 		}
-
+		// use ActionButton tag
 		deckButton.interactable = !set;
 	}
 

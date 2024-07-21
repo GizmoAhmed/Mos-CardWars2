@@ -12,6 +12,7 @@ TagManager:
   - CostText
   - ReadyButton
   - NameTag
+  - DiscardBoard
   layers:
   - Default
   - TransparentFX

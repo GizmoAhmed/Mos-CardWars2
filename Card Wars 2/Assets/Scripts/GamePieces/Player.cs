@@ -8,6 +8,7 @@ using System.Linq;
 
 public class Player : NetworkBehaviour
 {
+	[Header("Player Traits")]
 	public bool local;
 	public bool canPlay = true;
 	public bool myTurn;
@@ -15,12 +16,15 @@ public class Player : NetworkBehaviour
 	private GameObject Hand1; 
 	private GameObject Hand2;
 
-	public Deck		deck;
-	public Discard	discard;
+	[Header("Deck & Discard")]
+	public Deck			deck;
+	public DiscardBoard	discard;
 
-	[Header("Spendables")]
+	[Header("Magic")]
 	public int CurrentMagic;
 	public int MaxMagic;
+
+	[Header("Money")]
 	public int Money;
 	public int DrawCost;	
 	public int UpgradeCost;
@@ -42,7 +46,9 @@ public class Player : NetworkBehaviour
 		canPlay = true;
 
 		deck	= GetComponentInChildren<Deck>();
-		discard	= GetComponentInChildren<Discard>();
+
+		// FindObjectOfType<Script>(bool includeInactive)
+		discard = FindObjectOfType<DiscardBoard>(true);
 
 		Hand1 = GameObject.Find("Hand1");
 		Hand2 = GameObject.Find("Hand2");
@@ -83,8 +89,6 @@ public class Player : NetworkBehaviour
 	[ClientRpc] // Server asks client(s) to do something
 	public void RpcShowCard(GameObject card, CardState state, GameObject land)
 	{
-		// Debug.Log("Finding way to show cards...");
-
 		if (state == CardState.Hand) // from drawing card
 		{
 			if (isOwned)
@@ -307,7 +311,6 @@ public class Player : NetworkBehaviour
 	[TargetRpc] // server tells a specific client do something. (ie player0.RpcFindBattleCards)
 	public void RpcFindBattleCards()
 	{
-
 		sortedBattleReadyCards.Clear();
 
 		CreatureCard[] allCreatureCards = FindObjectsOfType<CreatureCard>();
@@ -353,5 +356,6 @@ public class Player : NetworkBehaviour
 	}
 
 	[Command]
-	public void CmdAltercation(CreatureCard attackingCard, CreatureCard defendingCard) { FindAnyObjectByType<Combat>().Altercation(attackingCard, defendingCard); }
+	public void CmdAltercation(CreatureCard attackingCard, CreatureCard defendingCard)
+	{ FindAnyObjectByType<Combat>().Altercation(attackingCard, defendingCard); }
 }
