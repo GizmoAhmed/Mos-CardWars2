@@ -2,15 +2,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+// ternary operator
+// variable = (condition) ? expressionTrue :  expressionFalse;
+
 public class GameManager : NetworkBehaviour
 {
-	public List<GameObject> MasterDeck;
+	[Tooltip("1 is for master, 2 is for debug")]
+	public int chooseDeck;
 
-	public HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
+	public List<GameObject> MasterDeck;
+	public List<GameObject> debugDeck;
+
+	private HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
 	[SyncVar] public GamePhase currentPhase;
 
-	[Tooltip("Set number to who you want to go first, (2 = random)")] public int ChoosePlayer;
+	[Header("Play Order")]
+
+	[Tooltip("Set number to who you want to go first, (2 = random)")]
+	public int choosePlayer;
+
 	[SyncVar] public bool HostGoesFirst;
 
 	[Header("Starting Consumables")]
@@ -20,7 +31,7 @@ public class GameManager : NetworkBehaviour
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;
 
-	public Dictionary<GamePhase, Phase> phaseHandlers;
+	private Dictionary<GamePhase, Phase> phaseHandlers;
 
 	[HideInInspector] public Turns turnManager;
 
@@ -38,9 +49,9 @@ public class GameManager : NetworkBehaviour
 	{
 		base.OnStartServer();
 
-		if (ChoosePlayer == 0)		{ HostGoesFirst = true; }
+		if (choosePlayer == 0)		{ HostGoesFirst = true; }
 
-		else if (ChoosePlayer == 1)	{ HostGoesFirst = false; }
+		else if (choosePlayer == 1)	{ HostGoesFirst = false; }
 
 		else						{ HostGoesFirst = Random.value < 0.5f; }
 

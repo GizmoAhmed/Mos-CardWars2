@@ -10,19 +10,12 @@ public class CreatureCard : Card
 	[SyncVar] public int CurrentDefense;
 	[SyncVar] public int MaxDefense;
 
-	public enum Element
-	{
-		Forge,
-		Spirit,
-		Crystal,
-		Tomb,
-		School
-	}
-
-	[SyncVar] public Element myElement;
-
 	private TextMeshProUGUI AttackText;
 	private TextMeshProUGUI DefenseText;
+
+	public enum Element { Forge, Spirit, Crystal, Tomb, School }
+
+	[SyncVar] public Element myElement;
 
 	new void Start()
 	{
@@ -34,6 +27,7 @@ public class CreatureCard : Card
 
 		AttackText.text = AttackStat.ToString();
 		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
+		// then check strength
 	}
 
 	public void TakeDamage(int damage) 
@@ -42,20 +36,17 @@ public class CreatureCard : Card
 
 		if (CurrentDefense <= 0)
 		{
-			Die();
-			CurrentDefense = 0;
+			base.Discard();
 		}
-
-		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
-	}
-
-	public void Die() 
-	{
-		Debug.Log(Name + " has just died");
+		else 
+		{
+			DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
+		}
 	}
 
 	public void Buff(int Amount, bool buff, string stat = "default") 
 	{
 		// if buff, increase stat by amount
+		// then check strength
 	}
 }

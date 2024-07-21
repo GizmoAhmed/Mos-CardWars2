@@ -8,40 +8,27 @@ public class Deck : NetworkBehaviour
 	// for different decks, you may need to add cards from a data base in start.
 	public List<GameObject> MyDeck;
 
-	[SyncVar] public int DeckSize;
-
-	public Player player;
-
-	private void Start()
-	{
-		player = GetComponentInParent<Player>();
-	}
-
-	
 	public override void OnStartClient() 
 	{
 		GameManager game = FindAnyObjectByType<GameManager>();
 
-		foreach (GameObject cardOB in game.MasterDeck) 
-		{
-			MyDeck.Add(cardOB); MyDeck.Add(cardOB);
-		}
+		List<GameObject> deck;
 
-		DeckSize = MyDeck.Count;
+		deck = (game.chooseDeck == 1) ? game.MasterDeck : game.debugDeck; 
+
+		foreach (GameObject cardOB in deck) { MyDeck.Add(cardOB); }
 	}
 
-	[Command] 
-	public void CmdDrawCard()
-	{
-		DrawCardFromDeck(MyDeck, connectionToClient);
-	}
+	[Command] public void CmdDrawCard() { DrawCardFromDeck(connectionToClient); }
 
-	private void DrawCardFromDeck(List<GameObject> cardList, NetworkConnectionToClient conn)
+	private void DrawCardFromDeck(NetworkConnectionToClient conn)
 	{
-		if (cardList.Count > 0)
+		Player player = GetComponentInParent<Player>();
+
+		if (MyDeck.Count > 0)
 		{
-			int randomIndex = Random.Range(0, cardList.Count);
-			GameObject cardInstance = cardList[randomIndex];
+			int randomIndex = Random.Range(0, MyDeck.Count);
+			GameObject cardInstance = MyDeck[randomIndex];
 
 			GameObject drawnCard = Instantiate(cardInstance);
 			NetworkServer.Spawn(drawnCard, conn);
@@ -51,13 +38,11 @@ public class Deck : NetworkBehaviour
 
 			player.RpcShowCard(drawnCard, CardState.Hand, null);
 
-			cardList.RemoveAt(randomIndex);
+			MyDeck.RemoveAt(randomIndex);
 		}
 		else 
 		{
-			Debug.Log("Empty Deck, Can't Draw");
+			Debug.LogWarning("Empty Deck, Can't Draw");
 		}
-
-		DeckSize = MyDeck.Count;
 	}
 }

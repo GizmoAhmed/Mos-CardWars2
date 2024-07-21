@@ -90,6 +90,12 @@ public class CreatureLand : NetworkBehaviour
 		Taken = true;
 	}
 
+	public virtual void DetachCard()
+	{
+		CurrentCard = null;
+		Taken = false;
+	}
+
 	protected virtual void InitializeNeighbors()
 	{
 		string landName = this.gameObject.name;

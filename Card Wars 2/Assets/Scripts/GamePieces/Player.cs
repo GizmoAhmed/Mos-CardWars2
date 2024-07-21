@@ -4,7 +4,7 @@ using Mirror;
 using static Card;
 using TMPro;
 using System.Linq;
-using Image = UnityEngine.UI.Image; // used in RpcEnablePlayer 
+ 
 
 public class Player : NetworkBehaviour
 {
@@ -15,7 +15,8 @@ public class Player : NetworkBehaviour
 	private GameObject Hand1; 
 	private GameObject Hand2;
 
-	public Deck deck;
+	public Deck		deck;
+	public Discard	discard;
 
 	[Header("Spendables")]
 	public int CurrentMagic;
@@ -40,7 +41,8 @@ public class Player : NetworkBehaviour
 
 		canPlay = true;
 
-		deck = GetComponentInChildren<Deck>();
+		deck	= GetComponentInChildren<Deck>();
+		discard	= GetComponentInChildren<Discard>();
 
 		Hand1 = GameObject.Find("Hand1");
 		Hand2 = GameObject.Find("Hand2");
@@ -305,7 +307,6 @@ public class Player : NetworkBehaviour
 	[TargetRpc] // server tells a specific client do something. (ie player0.RpcFindBattleCards)
 	public void RpcFindBattleCards()
 	{
-		// Debug.Log("This client is finding battle cards");
 
 		sortedBattleReadyCards.Clear();
 

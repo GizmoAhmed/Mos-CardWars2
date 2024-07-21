@@ -32,13 +32,7 @@ public class Card : NetworkBehaviour
 
 	[SyncVar] public GameObject MyLand;
 
-	public enum CardState
-	{
-		Deck,
-		Hand,
-		Placed,
-		Discard
-	}
+	public enum CardState { Deck, Hand, Placed, Discard }
 
 	public CardState currentState = CardState.Deck;
 
@@ -148,30 +142,35 @@ public class Card : NetworkBehaviour
 
 	public void PlaceCard(GameObject land)
 	{
-		Movable = false;
-
 		CreatureLand landscript = land.GetComponent<CreatureLand>();
 
-		// Link that to this...
 		landscript.AttachCard(gameObject);
-		// ...then this to that
 		MyLand = land;
 
 		transform.SetParent(land.transform, true);
 		transform.localPosition = Vector2.zero;
 
 		SetState(CardState.Placed);
+		Movable = false;
+
 		player.CmdDropCard(gameObject, currentState, land);
+	}
+
+	public virtual void Discard() 
+	{
+		Debug.Log("Discarding " + Name);
+
+		SetState(CardState.Discard);
+
+		MyLand.GetComponent<CreatureLand>().DetachCard();
+		MyLand = null;
+
+		player.discard.AddtoDiscard(gameObject);
 	}
 
 	void Update()
 	{
 		currentMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-
-		if (currentState == CardState.Placed)
-		{
-			Movable = false;
-		}
 
 		if (Movable && Grabbed)
 		{
