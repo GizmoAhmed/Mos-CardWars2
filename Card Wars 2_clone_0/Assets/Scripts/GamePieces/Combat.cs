@@ -9,8 +9,6 @@ public class Combat : NetworkBehaviour
 	[ClientRpc]
 	public void RpcBattle(CreatureCard attackingCard, CreatureCard defendingCard) 
 	{
-		/// if (attackingCard.isOwned) is true, then that is the attacking player
-
 		if (defendingCard == null)
 		{
 			Debug.Log(attackingCard.Name + " has no one across");

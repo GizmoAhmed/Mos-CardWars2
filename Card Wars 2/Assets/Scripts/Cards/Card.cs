@@ -4,7 +4,7 @@ using TMPro;
 
 public class Card : NetworkBehaviour
 {
-	[SyncVar] public string Name;
+	public string Name;
 	private TextMeshProUGUI NameText;
 
 	private Player player;
@@ -16,11 +16,10 @@ public class Card : NetworkBehaviour
 	private GameObject	StartParent;
 	private Vector2		StartPos;
 	private GameObject	NewDropZone;
-	public bool			isOverDropZone;
+	private bool		isOverDropZone;
 
 	public string		landTag;
 
-	[Header("Zooms")]
 	public bool isZoomLocked;
 
 	private Vector2 currentMousePos;
@@ -36,24 +35,14 @@ public class Card : NetworkBehaviour
 
 	public CardState currentState = CardState.Deck;
 
-	public void SetState(CardState newState)
-	{
-		currentState = newState;
-	}
+	public void SetState(CardState newState) { currentState = newState; }
 
 	public void Start()
 	{
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
 		player = networkIdentity.GetComponent<Player>();
 
-		if (isOwned)
-		{
-			Movable = true;
-		}
-		else
-		{
-			Movable = false;
-		}
+		Movable = isOwned;
 
 		MagicText = transform.Find("Magic").GetComponent<TextMeshProUGUI>();
 		MagicText.text = MagicCost.ToString();
@@ -62,24 +51,18 @@ public class Card : NetworkBehaviour
 		NameText.text = Name.ToUpper();
 	}
 
-	public bool IsOwnedByLocalPlayer()
-	{
-		return isOwned;
-	}
+	public bool IsOwnedByLocalPlayer() { return isOwned; }
 
 	protected virtual void OnTriggerStay2D(Collider2D other)
 	{
 		bool EnoughMagic = MagicCost <= player.CurrentMagic;
 
 		CreatureLand landscript = other.GetComponent<CreatureLand>();
-
-		if (landscript != null)
+		
+		if (landscript != null && other.CompareTag(landTag) && isOwned && landscript.Taken == false && EnoughMagic)
 		{
-			if (other.CompareTag(landTag) && isOwned && landscript.Taken == false && EnoughMagic)
-			{
-				NewDropZone		= other.gameObject;
-				isOverDropZone	= true;
-			}
+			NewDropZone		= other.gameObject;
+			isOverDropZone	= true;
 		}
 	}
 
@@ -89,17 +72,9 @@ public class Card : NetworkBehaviour
 		isOverDropZone = false;
 	}
 
-	public void Zoom()
-	{
-		ZoomClick zoom = GetComponent<ZoomClick>();
+	public void Zoom() { GetComponent<ZoomClick>().ZoomIn(); }
 
-		zoom.ZoomIn();
-	}
-
-	public void PointerDown()
-	{
-		clickSave = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-	}
+	public void PointerDown() { clickSave = new Vector2(Input.mousePosition.x, Input.mousePosition.y); }
 
 	public void PointerUp()
 	{
@@ -163,9 +138,8 @@ public class Card : NetworkBehaviour
 		SetState(CardState.Discard);
 
 		MyLand.GetComponent<CreatureLand>().DetachCard();
-		MyLand = null;
 
-		player.discard.AddtoDiscard(gameObject);
+		player.discard.AddtoDiscard(gameObject, isOwned);
 	}
 
 	void Update()

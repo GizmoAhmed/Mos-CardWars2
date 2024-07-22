@@ -27,7 +27,6 @@ public class CreatureCard : Card
 
 		AttackText.text = AttackStat.ToString();
 		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
-		// then check strength
 	}
 
 	public void TakeDamage(int damage) 
@@ -36,6 +35,7 @@ public class CreatureCard : Card
 
 		if (CurrentDefense <= 0)
 		{
+			FullHeal();
 			base.Discard();
 		}
 		else 
@@ -48,5 +48,11 @@ public class CreatureCard : Card
 	{
 		// if buff, increase stat by amount
 		// then check strength
+	}
+
+	public void FullHeal() 
+	{
+		CurrentDefense = MaxDefense;
+		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
 	}
 }

@@ -26,15 +26,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: AttackStat
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: MaxDefense
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: CurrentDefense
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 942148944994015448, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text

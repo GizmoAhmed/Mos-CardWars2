@@ -32,13 +32,35 @@ public class Attack : Phase
 
 		if (player0.myTurn)
 		{
+			Debug.LogWarning(">>> player0 is attacking first <<<");
 			player0.RpcFindBattleCards();
-			player1.RpcFindBattleCards();
+
+			Invoke("OneBattle", 2f);
 		}
 		else
 		{
+			Debug.LogWarning(">>> player0 is attacking first <<<");
 			player1.RpcFindBattleCards();
-			player0.RpcFindBattleCards();
+
+			Invoke("ZeroBattle", 2f);
 		}
+	}
+
+	public void ZeroBattle() 
+	{
+		Debug.LogWarning("<<< player0 is attacking second >>>");
+
+		Player p0 = gameManager.Player0.identity.GetComponent<Player>();
+
+		p0.RpcFindBattleCards();
+	}
+
+	public void OneBattle()
+	{
+		Debug.LogWarning("<<< player1 is attacking second >>>");
+
+		Player p1 = gameManager.Player1.identity.GetComponent<Player>();
+
+		p1.RpcFindBattleCards();
 	}
 }

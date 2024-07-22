@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -9,9 +8,18 @@ public class DiscardBoard : NetworkBehaviour
 
 	private void Start() { gameObject.SetActive(false); }
 
-	public void AddtoDiscard(GameObject card)
+	public void AddtoDiscard(GameObject card, bool yourCard)
 	{
-		MyDiscardPile.Add(card);
-		card.transform.SetParent(transform, false);
+		card.transform.SetParent(transform, true);
+
+		if (yourCard)
+		{
+			MyDiscardPile.Add(card);
+		}
+		else 
+		{
+			Debug.Log("Not your Card");
+			card.SetActive(false);
+		}
 	}
 }

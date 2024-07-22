@@ -92,6 +92,7 @@ public class CreatureLand : NetworkBehaviour
 
 	public virtual void DetachCard()
 	{
+		CurrentCard.GetComponent<Card>().MyLand = null;
 		CurrentCard = null;
 		Taken = false;
 	}
@@ -147,7 +148,6 @@ public class CreatureLand : NetworkBehaviour
 		}
 	}
 
-	// Methods for each button to assign an element
 	public void SelectForge()
 	{
 		SelectElement(LandElement.Forge);

@@ -13,6 +13,7 @@ TagManager:
   - ReadyButton
   - NameTag
   - DiscardBoard
+  - ActionButton
   layers:
   - Default
   - TransparentFX

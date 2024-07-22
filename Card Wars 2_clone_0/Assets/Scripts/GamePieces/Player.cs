@@ -290,7 +290,7 @@ public class Player : NetworkBehaviour
 	[ClientRpc]
 	public void RpcEnablePlayer(bool set) 
 	{
-		if (!isOwned) { return; }
+		if (!isOwned) return; 
 		
 		Card[] cards = FindObjectsOfType<Card>();
 
@@ -300,6 +300,7 @@ public class Player : NetworkBehaviour
 		}
 
 		UnityEngine.UI.Button[] buttons = FindObjectsOfType<UnityEngine.UI.Button>();
+
 		foreach (UnityEngine.UI.Button button in buttons)
 		{
 			button.interactable = set;
