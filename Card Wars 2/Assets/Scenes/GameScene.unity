@@ -347,7 +347,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -580,7 +579,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -645,7 +643,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -1262,7 +1259,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -1671,7 +1667,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -2380,7 +2375,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -2539,7 +2533,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -2831,7 +2824,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -3534,7 +3526,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -5075,7 +5066,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -5275,7 +5265,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -5434,7 +5423,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -6937,7 +6925,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -7540,7 +7527,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -7828,7 +7814,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: chooseDeck
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: choosePlayer
@@ -9842,7 +9828,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -11212,7 +11197,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -11331,7 +11315,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -11841,7 +11824,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -15621,7 +15603,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
@@ -15665,7 +15646,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  image: {fileID: 0}
   currentElement: 0
   Taken: 0
   CurrentCard: {fileID: 0}
