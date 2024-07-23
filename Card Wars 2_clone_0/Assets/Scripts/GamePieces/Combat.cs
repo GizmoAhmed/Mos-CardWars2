@@ -11,7 +11,7 @@ public class Combat : NetworkBehaviour
 	{
 		if (defendingCard == null)
 		{
-			Debug.Log(attackingCard.Name + " has no one across");
+			Debug.Log(attackingCard.Name + " attacks empty lane");
 		}
 		else 
 		{

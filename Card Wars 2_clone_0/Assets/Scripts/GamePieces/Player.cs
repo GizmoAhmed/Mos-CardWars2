@@ -4,7 +4,9 @@ using Mirror;
 using static Card;
 using TMPro;
 using System.Linq;
- 
+
+// ternary operator
+// variable = (condition) ? expressionTrue :  expressionFalse;
 
 public class Player : NetworkBehaviour
 {
@@ -28,6 +30,9 @@ public class Player : NetworkBehaviour
 	public int Money;
 	public int DrawCost;	
 	public int UpgradeCost;
+
+	[Header("Health")]
+	public int Health;
 
 	private GameObject ThisMagic;
 	private GameObject OtherMagic;
@@ -67,11 +72,11 @@ public class Player : NetworkBehaviour
 
 		myTurn = true;
 
-		CmdShowConsumable(0, "current_magic");
-		CmdShowConsumable(0, "max_magic");
-		CmdShowConsumable(0, "money");
-		CmdShowConsumable(2, "draw_cost");		// starting cost
-		CmdShowConsumable(1, "upgrade_cost");   // starting cost
+		CmdShowStats(0, "current_magic");
+		CmdShowStats(0, "max_magic");
+		CmdShowStats(0, "money");
+		CmdShowStats(2, "draw_cost");		// starting cost
+		CmdShowStats(1, "upgrade_cost");   // starting cost
 
 		if (isServer) 
 		{
@@ -131,24 +136,20 @@ public class Player : NetworkBehaviour
 	public void CmdDropCard(GameObject card, CardState state, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();
-		cardScript.MyLand = land;
 
 		if (state == CardState.Placed)
 		{
-			RpcSetMyLand(card, land);
+			RpcSetLand(card, land);
 		}
 
 		RpcShowCard(card, state, land);
 	}
 
 	[Command]
-	public void CmdShowConsumable(int newAmount, string mode) 
-	{
-		RpcShowConsumable(newAmount, mode);
-	}
+	public void CmdShowStats(int newAmount, string mode) { RpcShowStats(newAmount, mode); }
 
 	[ClientRpc]
-	public void RpcShowConsumable(int newAmount, string mode) 
+	public void RpcShowStats(int newAmount, string mode) 
 	{
 		TextMeshProUGUI magicText;
 
@@ -239,38 +240,58 @@ public class Player : NetworkBehaviour
 				upgradeCostText.text = newAmount.ToString();
 
 				break;
+
+			case "health":
+
+				GameObject healthObj;
+
+				if (isOwned)
+				{
+					Health = newAmount;
+
+					healthObj = GameObject.Find("ThisHealth");
+				}
+				else
+				{
+					healthObj = GameObject.Find("OtherHealth");
+				}
+
+				healthObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();
+
+				break;
+
+			default:
+				Debug.LogError("forgot mode in ShowStats");
+				break;
 		}
 	}
 
 	[ClientRpc]
-	void RpcSetMyLand(GameObject card, GameObject land)
+	void RpcSetLand(GameObject card, GameObject land)
 	{
 		Card cardScript = card.GetComponent<Card>();
-		cardScript.MyLand = land;
+
+		if (isOwned)
+		{
+			land.GetComponent<CreatureLand>().AttachCard(card);
+		}
+		else 
+		{
+			GameObject across = land.GetComponent<CreatureLand>().across;
+			across.GetComponent<CreatureLand>().AttachCard(card);
+		}
+		
 		cardScript.currentState = CardState.Placed;
 	}
 
 	[Command]
-	public void CmdSetReady() 
-	{
-		GameManager game = FindAnyObjectByType<GameManager>();
-		game.PlayerReady(connectionToClient);
-	}
+	public void CmdSetReady() { FindAnyObjectByType<GameManager>().PlayerReady(connectionToClient); }
 
 	[ClientRpc]
-	public void RpcUpdateTurnText(int turn) 
-	{
-		if (turnText != null)
-		{
-			turnText.text = "TURN: " + turn;
-		}
-	}
+	public void RpcUpdateTurnText(int turn) { turnText.text = "TURN: " + turn; }
 
 	[Command]
-	public void CmdColorTheLand(CreatureLand land, CreatureLand.LandElement element) 
-	{
-		RpcColorTheLand(land, element);
-	}
+	public void CmdColorTheLand(CreatureLand land, CreatureLand.LandElement element) { RpcColorTheLand(land, element); }
 
 	[ClientRpc]
 	public void RpcColorTheLand(CreatureLand land, CreatureLand.LandElement element) 
@@ -287,24 +308,16 @@ public class Player : NetworkBehaviour
 		}
 	}
 
-	[ClientRpc]
+	[TargetRpc]
 	public void RpcEnablePlayer(bool set) 
-	{
-		if (!isOwned) return; 
-		
+	{		
 		Card[] cards = FindObjectsOfType<Card>();
 
-		foreach (Card card in cards)
-		{
-			card.Movable = set;
-		}
+		foreach (Card card in cards) { card.Movable = set; }
 
 		UnityEngine.UI.Button[] buttons = FindObjectsOfType<UnityEngine.UI.Button>();
 
-		foreach (UnityEngine.UI.Button button in buttons)
-		{
-			button.interactable = set;
-		}
+		foreach (UnityEngine.UI.Button button in buttons) { button.interactable = set; }
 
 		myTurn = canPlay = set;
 	}

@@ -7,10 +7,11 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-	[Tooltip("1 is for master, 2 is for debug")]
+	[Tooltip("1 is for master, 2 is for all creatures, 3 is for Greenys")]
 	public int chooseDeck;
 
 	public List<GameObject> MasterDeck;
+	public List<GameObject> allCreaturesDeck;
 	public List<GameObject> debugDeck;
 
 	private HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();

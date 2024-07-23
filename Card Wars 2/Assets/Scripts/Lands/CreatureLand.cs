@@ -6,8 +6,7 @@ public class CreatureLand : NetworkBehaviour
 {
 	private Player player;
 
-	[Header("Image")]
-	public Image image;
+	private Image image;
 
 	public enum LandElement
 	{
@@ -86,6 +85,7 @@ public class CreatureLand : NetworkBehaviour
 
 	public virtual void AttachCard(GameObject card)
 	{
+		card.GetComponent<Card>().MyLand = gameObject;
 		CurrentCard = card;
 		Taken = true;
 	}

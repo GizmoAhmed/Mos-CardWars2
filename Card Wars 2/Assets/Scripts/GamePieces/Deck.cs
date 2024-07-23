@@ -14,7 +14,18 @@ public class Deck : NetworkBehaviour
 
 		List<GameObject> deck;
 
-		deck = (game.chooseDeck == 1) ? game.MasterDeck : game.debugDeck; 
+		if (game.chooseDeck == 1)
+		{
+			deck = game.MasterDeck;
+		}
+		else if (game.chooseDeck == 2)
+		{
+			deck = game.allCreaturesDeck;
+		}
+		else
+		{
+			deck = game.debugDeck;
+		} 
 
 		foreach (GameObject cardOB in deck) { MyDeck.Add(cardOB); }
 	}

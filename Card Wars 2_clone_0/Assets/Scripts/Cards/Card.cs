@@ -7,11 +7,11 @@ public class Card : NetworkBehaviour
 	public string Name;
 	private TextMeshProUGUI NameText;
 
-	private Player player;
+	private Player		player;
 
 	[Header("Card Movement")]
-	public bool Grabbed;
-	public bool Movable = true;
+	public bool			Grabbed;
+	public bool			Movable = true;
 
 	private GameObject	StartParent;
 	private Vector2		StartPos;
@@ -20,16 +20,16 @@ public class Card : NetworkBehaviour
 
 	public string		landTag;
 
-	public bool isZoomLocked;
+	public bool			isZoomLocked;
 
-	private Vector2 currentMousePos;
-	private Vector2 clickSave;
+	private Vector2		currentMousePos;
+	private Vector2		clickSave;
 
 	private TextMeshProUGUI MagicText;
 
 	[SyncVar] public int MagicCost = 0;
 
-	[SyncVar] public GameObject MyLand;
+	public GameObject MyLand;
 
 	public enum CardState { Deck, Hand, Placed, Discard }
 
@@ -106,7 +106,7 @@ public class Card : NetworkBehaviour
 		if (isOverDropZone)
 		{
 			PlaceCard(NewDropZone);
-			player.CmdShowConsumable(player.CurrentMagic - MagicCost, "current_magic");
+			player.CmdShowStats(player.CurrentMagic - MagicCost, "current_magic");
 		}
 		else
 		{
@@ -119,9 +119,6 @@ public class Card : NetworkBehaviour
 	{
 		CreatureLand landscript = land.GetComponent<CreatureLand>();
 
-		landscript.AttachCard(gameObject);
-		MyLand = land;
-
 		transform.SetParent(land.transform, true);
 		transform.localPosition = Vector2.zero;
 
@@ -133,8 +130,6 @@ public class Card : NetworkBehaviour
 
 	public virtual void Discard() 
 	{
-		Debug.Log("Discarding " + Name);
-
 		SetState(CardState.Discard);
 
 		MyLand.GetComponent<CreatureLand>().DetachCard();
@@ -146,9 +141,6 @@ public class Card : NetworkBehaviour
 	{
 		currentMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 
-		if (Movable && Grabbed)
-		{
-			transform.position = currentMousePos;
-		}
+		if (Movable && Grabbed) { transform.position = currentMousePos; }
 	}
 }

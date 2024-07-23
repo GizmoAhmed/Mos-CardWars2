@@ -14,13 +14,13 @@ public class Upgrade : NetworkBehaviour
 
 		if (player.UpgradeCost <= player.Money)
 		{
-			player.CmdShowConsumable(player.Money - player.UpgradeCost, "money"); // spend money
+			player.CmdShowStats(player.Money - player.UpgradeCost, "money"); // spend money
 
-			player.CmdShowConsumable(player.MaxMagic + 1, "max_magic");    // raise max magic (not current)
+			player.CmdShowStats(player.MaxMagic + 1, "max_magic");    // raise max magic (not current)
 
 			player.UpgradeCost++;                                           // raise cost
 
-			player.CmdShowConsumable(player.UpgradeCost, "upgrade_cost");   // set cost
+			player.CmdShowStats(player.UpgradeCost, "upgrade_cost");   // set cost
 		}
 	}
 }

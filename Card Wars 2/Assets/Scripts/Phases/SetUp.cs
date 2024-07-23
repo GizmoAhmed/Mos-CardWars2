@@ -22,27 +22,27 @@ public class SetUp : Phase
 
 		if (firstSetUp)
 		{
-			player0.RpcShowConsumable(gameManager.firstMagic, "max_magic");
-			player1.RpcShowConsumable(gameManager.firstMagic, "max_magic");
+			player0.RpcShowStats(gameManager.firstMagic, "max_magic");
+			player1.RpcShowStats(gameManager.firstMagic, "max_magic");
 			
-			player0.RpcShowConsumable(gameManager.firstMagic, "current_magic");
-			player1.RpcShowConsumable(gameManager.firstMagic, "current_magic");
+			player0.RpcShowStats(gameManager.firstMagic, "current_magic");
+			player1.RpcShowStats(gameManager.firstMagic, "current_magic");
 
-			player0.RpcShowConsumable(gameManager.firstMoney, "money");
-			player1.RpcShowConsumable(gameManager.firstMoney, "money");
+			player0.RpcShowStats(gameManager.firstMoney, "money");
+			player1.RpcShowStats(gameManager.firstMoney, "money");
 
 			firstSetUp = false;
 		}
 		else
 		{
-			player0.RpcShowConsumable(player0.MaxMagic, "max_magic");
-			player1.RpcShowConsumable(player1.MaxMagic, "max_magic");
+			player0.RpcShowStats(player0.MaxMagic, "max_magic");
+			player1.RpcShowStats(player1.MaxMagic, "max_magic");
 
-			player0.RpcShowConsumable(player0.MaxMagic, "current_magic");
-			player1.RpcShowConsumable(player1.MaxMagic, "current_magic");
+			player0.RpcShowStats(player0.MaxMagic, "current_magic");
+			player1.RpcShowStats(player1.MaxMagic, "current_magic");
 
-			player0.RpcShowConsumable(player0.Money + MoneyAddOn, "money");
-			player1.RpcShowConsumable(player1.Money + MoneyAddOn, "money");
+			player0.RpcShowStats(player0.Money + MoneyAddOn, "money");
+			player1.RpcShowStats(player1.Money + MoneyAddOn, "money");
 		}
 
 		gameManager.turnManager.ManageTurn(null);
