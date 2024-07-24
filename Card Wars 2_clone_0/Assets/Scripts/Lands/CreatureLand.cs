@@ -18,13 +18,14 @@ public class CreatureLand : NetworkBehaviour
 		School
 	}
 
-	[Header("Elemental")] public LandElement currentElement = LandElement.Null;
+	[Header("Elemental")]
+	public LandElement currentElement = LandElement.Null;
 
-	[Header("Occupying Creature")]
+	[Header("Occupying Card")]
 	public bool Taken;
 	public GameObject CurrentCard = null;
 
-	[Header("Neighbors")]
+	[Header("Across")]
 	public GameObject across;
 
 	public GameObject _Across
@@ -33,6 +34,7 @@ public class CreatureLand : NetworkBehaviour
 		set { across = value; }
 	}
 
+	[Header("Neighbors")]
 	public GameObject AdjacentLeft;
 	public GameObject AdjacentRight;
 

@@ -288,7 +288,10 @@ public class Player : NetworkBehaviour
 	public void CmdSetReady() { FindAnyObjectByType<GameManager>().PlayerReady(connectionToClient); }
 
 	[ClientRpc]
-	public void RpcUpdateTurnText(int turn) { turnText.text = "TURN: " + turn; }
+	public void RpcUpdateTurnText(int turn) 
+	{
+		turnText.text = "TURN: " + turn;
+	}
 
 	[Command]
 	public void CmdColorTheLand(CreatureLand land, CreatureLand.LandElement element) { RpcColorTheLand(land, element); }

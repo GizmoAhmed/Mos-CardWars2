@@ -18,7 +18,6 @@ public class DiscardBoard : NetworkBehaviour
 		}
 		else 
 		{
-			Debug.Log("Not your Card");
 			card.SetActive(false);
 		}
 	}

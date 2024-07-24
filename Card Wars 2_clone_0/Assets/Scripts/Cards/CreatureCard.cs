@@ -5,7 +5,7 @@ using TMPro;
 
 public class CreatureCard : Card
 {
-	[Header("Stats")]
+	[Header("Creature Stats")]
 	[SyncVar] public int AttackStat;
 	[SyncVar] public int CurrentDefense;
 	[SyncVar] public int MaxDefense;

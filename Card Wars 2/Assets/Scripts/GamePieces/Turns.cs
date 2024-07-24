@@ -19,10 +19,18 @@ public class Turns : NetworkBehaviour
 	public void IncrementTurn()
 	{
 		TurnCount++;
-		// update all spells and building timers here mabye
+		
 		foreach (var conn in NetworkServer.connections.Values)
 		{
 			conn.identity.GetComponent<Player>().RpcUpdateTurnText(TurnCount);
+		}
+
+		foreach (BuildingCard buildingCard in FindObjectsOfType<BuildingCard>())
+		{
+			if (buildingCard.currentState == Card.CardState.Placed) 
+			{
+				buildingCard.RpcBuildTimeCheck();
+			}
 		}
 	}
 

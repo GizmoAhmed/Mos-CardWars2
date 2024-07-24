@@ -7,7 +7,7 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-	[Tooltip("1 is for master, 2 is for all creatures, 3 is for Greenys")]
+	[Header("1 is for master, 2 is for all creatures, 3 is for Debug Deck")]
 	public int chooseDeck;
 
 	public List<GameObject> MasterDeck;
@@ -18,9 +18,7 @@ public class GameManager : NetworkBehaviour
 
 	[SyncVar] public GamePhase currentPhase;
 
-	[Header("Play Order")]
-
-	[Tooltip("Set number to who you want to go first, (2 = random)")]
+	[Header("0 or 1, for the player you want to go first, else = random")]
 	public int choosePlayer;
 
 	[SyncVar] public bool HostGoesFirst;
