@@ -91,9 +91,37 @@ public class Player : NetworkBehaviour
 		base.OnStartServer();
 	}
 
-	[ClientRpc] // Server asks client(s) to do something
-	public void RpcShowCard(GameObject card, CardState state, GameObject land)
+	[Command]
+	public void CmdSetReady()
 	{
+		FindAnyObjectByType<GameManager>().PlayerReady(connectionToClient);
+	}
+
+	[TargetRpc]
+	public void RpcEnablePlayer(bool set)
+	{
+		Card[] cards = FindObjectsOfType<Card>();
+
+		foreach (Card card in cards) { card.Movable = set; }
+
+		UnityEngine.UI.Button[] buttons = FindObjectsOfType<UnityEngine.UI.Button>();
+
+		foreach (UnityEngine.UI.Button button in buttons) { button.interactable = set; }
+
+		myTurn = canPlay = set;
+	}
+
+	[Command]
+	public void CmdDropCard(GameObject card, CardState state, GameObject land)
+	{
+		RpcHandleCard(card, state, land);
+	}
+
+	[ClientRpc]
+	public void RpcHandleCard(GameObject card, CardState state, GameObject land)
+	{
+		Card cardScript = card.GetComponent<Card>();
+
 		if (state == CardState.Hand) // from drawing card
 		{
 			if (isOwned)
@@ -110,9 +138,9 @@ public class Player : NetworkBehaviour
 		{
 			if (isOwned)
 			{
-				// if owned, already handled in Card.PlaceCard(),
+				land.GetComponent<CreatureLand>().AttachCard(card);
 			}
-			else 
+			else
 			{
 				card.GetComponent<CardFlipper>().Flip();
 
@@ -121,8 +149,7 @@ public class Player : NetworkBehaviour
 					CreatureLand landScript = land.GetComponent<CreatureLand>();
 					GameObject acrossLand = landScript._Across;
 
-					CreatureLand ScriptAcross = acrossLand.GetComponent<CreatureLand>();
-					ScriptAcross.AttachCard(card);
+					acrossLand.GetComponent<CreatureLand>().AttachCard(card);
 
 					card.transform.SetParent(acrossLand.transform, true);
 					card.transform.localPosition = Vector2.zero;
@@ -131,21 +158,12 @@ public class Player : NetworkBehaviour
 		}
 	}
 
-	[Command] // Client asks server to do something
-	public void CmdDropCard(GameObject card, CardState state, GameObject land)
-	{
-		Card cardScript = card.GetComponent<Card>();
-
-		if (state == CardState.Placed)
-		{
-			RpcSetLand(card, land);
-		}
-
-		RpcShowCard(card, state, land);
-	}
 
 	[Command]
-	public void CmdShowStats(int newAmount, string mode) { RpcShowStats(newAmount, mode); }
+	public void CmdShowStats(int newAmount, string mode)
+	{
+		RpcShowStats(newAmount, mode);
+	}
 
 	[ClientRpc]
 	public void RpcShowStats(int newAmount, string mode) 
@@ -266,34 +284,16 @@ public class Player : NetworkBehaviour
 	}
 
 	[ClientRpc]
-	void RpcSetLand(GameObject card, GameObject land)
-	{
-		Card cardScript = card.GetComponent<Card>();
-
-		if (isOwned)
-		{
-			land.GetComponent<CreatureLand>().AttachCard(card);
-		}
-		else 
-		{
-			GameObject across = land.GetComponent<CreatureLand>().across;
-			across.GetComponent<CreatureLand>().AttachCard(card);
-		}
-		
-		cardScript.currentState = CardState.Placed;
-	}
-
-	[Command]
-	public void CmdSetReady() { FindAnyObjectByType<GameManager>().PlayerReady(connectionToClient); }
-
-	[ClientRpc]
 	public void RpcUpdateTurnText(int turn) 
 	{
 		turnText.text = "TURN: " + turn;
 	}
 
 	[Command]
-	public void CmdColorTheLand(CreatureLand land, CreatureLand.LandElement element) { RpcColorTheLand(land, element); }
+	public void CmdColorTheLand(CreatureLand land, CreatureLand.LandElement element)
+	{
+		RpcColorTheLand(land, element);
+	}
 
 	[ClientRpc]
 	public void RpcColorTheLand(CreatureLand land, CreatureLand.LandElement element) 
@@ -308,20 +308,6 @@ public class Player : NetworkBehaviour
 
 			acrossScript.ChangeElement(element);
 		}
-	}
-
-	[TargetRpc]
-	public void RpcEnablePlayer(bool set) 
-	{		
-		Card[] cards = FindObjectsOfType<Card>();
-
-		foreach (Card card in cards) { card.Movable = set; }
-
-		UnityEngine.UI.Button[] buttons = FindObjectsOfType<UnityEngine.UI.Button>();
-
-		foreach (UnityEngine.UI.Button button in buttons) { button.interactable = set; }
-
-		myTurn = canPlay = set;
 	}
 
 	[TargetRpc] // server tells a specific client do something. (ie player0.RpcFindBattleCards)

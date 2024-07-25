@@ -47,7 +47,7 @@ public class Deck : NetworkBehaviour
 			Card cardScript = drawnCard.GetComponent<Card>();
 			cardScript.SetState(CardState.Hand);
 
-			player.RpcShowCard(drawnCard, CardState.Hand, null);
+			player.RpcHandleCard(drawnCard, CardState.Hand, null);
 
 			MyDeck.RemoveAt(randomIndex);
 		}
