@@ -6,17 +6,7 @@ public class CreatureLand : NetworkBehaviour
 {
 	private Player player;
 
-	private Image image;
-
-	public enum LandElement
-	{
-		Null,
-		Forge,
-		Spirit,
-		Crystal,
-		Tomb,
-		School
-	}
+	public enum LandElement { Null, Forge, Spirit, Crystal, Tomb, School }
 
 	[Header("Elemental")]
 	public LandElement currentElement = LandElement.Null;
@@ -45,7 +35,6 @@ public class CreatureLand : NetworkBehaviour
 	{
 		InitializeNeighbors();
 		currentElement = LandElement.Null;
-		image = GetComponent<Image>();
 	}
 
 	public void ChangeElement(LandElement element)
@@ -79,10 +68,7 @@ public class CreatureLand : NetworkBehaviour
 				break;
 		}
 
-		if (image != null)
-		{
-			image.color = color;
-		}
+		GetComponent<Image>().color = color;
 	}
 
 	public virtual void AttachCard(GameObject card)
@@ -150,38 +136,19 @@ public class CreatureLand : NetworkBehaviour
 		}
 	}
 
-	public void SelectForge()
-	{
-		SelectElement(LandElement.Forge);
-	}
-
-	public void SelectSpirit()
-	{
-		SelectElement(LandElement.Spirit);
-	}
-
-	public void SelectCrystal()
-	{
-		SelectElement(LandElement.Crystal);
-	}
-
-	public void SelectTomb()
-	{
-		SelectElement(LandElement.Tomb);
-	}
-
-	public void SelectSchool()
-	{
-		SelectElement(LandElement.School);
-	}
-
 	private void SelectElement(LandElement element)
 	{
 		player = NetworkClient.localPlayer.GetComponent<Player>();
-
-		if (player != null)
-		{
-			player.CmdColorTheLand(this, element);
-		}
+		player.CmdColorTheLand(this, element);
 	}
+
+	public void SelectForge()	{ SelectElement(LandElement.Forge);	}
+
+	public void SelectSpirit()	{ SelectElement(LandElement.Spirit); }
+
+	public void SelectCrystal()	{ SelectElement(LandElement.Crystal); }
+
+	public void SelectTomb()	{ SelectElement(LandElement.Tomb); }
+
+	public void SelectSchool()	{ SelectElement(LandElement.School); }
 }

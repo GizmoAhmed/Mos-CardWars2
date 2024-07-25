@@ -7822,52 +7822,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 7286676530259862765, guid: 72e15e1a91d73a840836c56f0456a3b9, type: 3}
+      objectReference: {fileID: 205500197551673648, guid: 9cef1b09814e51e4fb5c86c24985fe9e, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 5306146527645564023, guid: b374dbc35710025429b0696f84e708c8, type: 3}
+      objectReference: {fileID: 7286676530259862765, guid: 72e15e1a91d73a840836c56f0456a3b9, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[2]
       value: 
-      objectReference: {fileID: 3931704693742154130, guid: 9d98a6edc49a2c442a7119c22f0b38de, type: 3}
+      objectReference: {fileID: 5306146527645564023, guid: b374dbc35710025429b0696f84e708c8, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[3]
       value: 
-      objectReference: {fileID: 3958080646198480194, guid: 499ecc09c5c142f4687e731d25eab457, type: 3}
+      objectReference: {fileID: 5961052985149569895, guid: 8ce1788de6730f445aef2eeeb2d3af60, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[4]
       value: 
-      objectReference: {fileID: 2509186087479040677, guid: 4be2706f0526a4d48bcaf7071e8e7fa1, type: 3}
+      objectReference: {fileID: 2866573148162227097, guid: 2dbe72106dde2c348bb7b3443eb7c851, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[5]
       value: 
-      objectReference: {fileID: 4800586785374285995, guid: c30e76337535c20478c577d415690f8e, type: 3}
+      objectReference: {fileID: 2481299139644654637, guid: 9dfce6691ce0c134a929ba6e5fcd080b, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[6]
       value: 
-      objectReference: {fileID: 4821161181285429414, guid: b2f389a1cafb87c4dbe322e237f3db2c, type: 3}
+      objectReference: {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[7]
       value: 
-      objectReference: {fileID: 2509186087479040677, guid: 4be2706f0526a4d48bcaf7071e8e7fa1, type: 3}
+      objectReference: {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[8]
       value: 
-      objectReference: {fileID: 2509186087479040677, guid: 4be2706f0526a4d48bcaf7071e8e7fa1, type: 3}
+      objectReference: {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[9]
       value: 
-      objectReference: {fileID: 6370985728039445924, guid: 8554e24fa663eeb44b33fe437d3c5cac, type: 3}
+      objectReference: {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[10]
       value: 
-      objectReference: {fileID: 2259463501157529856, guid: aff8bc232ea9e1c48bde583a6452da3f, type: 3}
+      objectReference: {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: allCreaturesDeck.Array.size
       value: 10
@@ -11157,7 +11157,7 @@ GameObject:
   - component: {fileID: 1926896109}
   - component: {fileID: 1926896108}
   m_Layer: 8
-  m_Name: OtherSpellLand
+  m_Name: p2SpellLand
   m_TagString: SpellLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11206,8 +11206,6 @@ MonoBehaviour:
   DiagLeft: {fileID: 0}
   DiagRight: {fileID: 0}
   ActiveSpells: []
-  OtherSpellSide: {fileID: 0}
-  grid: {fileID: 0}
 --- !u!114 &1926896109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11324,8 +11322,6 @@ MonoBehaviour:
   DiagLeft: {fileID: 0}
   DiagRight: {fileID: 0}
   ActiveSpells: []
-  OtherSpellSide: {fileID: 0}
-  grid: {fileID: 0}
 --- !u!61 &1926896114
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13190,6 +13186,9 @@ MonoBehaviour:
   - {fileID: 3958080646198480194, guid: 499ecc09c5c142f4687e731d25eab457, type: 3}
   - {fileID: 1705101116906644577, guid: 1b66712e6b35c4541aefdb96daed400b, type: 3}
   - {fileID: 2945097527673707022, guid: 2fd271686cc441d418050584881ac939, type: 3}
+  - {fileID: 2481299139644654637, guid: 9dfce6691ce0c134a929ba6e5fcd080b, type: 3}
+  - {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
+  - {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -13585,9 +13584,9 @@ RectTransform:
   - {fileID: 1951478313}
   - {fileID: 148812085}
   - {fileID: 370531260}
+  - {fileID: 1874893237}
   - {fileID: 5384364627221661784}
   - {fileID: 3010939490583133089}
-  - {fileID: 1874893237}
   - {fileID: 7474364891173038576}
   - {fileID: 1926896107}
   - {fileID: 740787820}
@@ -13762,7 +13761,7 @@ GameObject:
   - component: {fileID: 7474364891173038581}
   - component: {fileID: 7474364891173038582}
   m_Layer: 8
-  m_Name: ThisSpellLand
+  m_Name: p1SpellLand
   m_TagString: SpellLand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15612,8 +15611,6 @@ MonoBehaviour:
   DiagLeft: {fileID: 0}
   DiagRight: {fileID: 0}
   ActiveSpells: []
-  OtherSpellSide: {fileID: 0}
-  grid: {fileID: 0}
 --- !u!114 &7474364891173038581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15655,8 +15652,6 @@ MonoBehaviour:
   DiagLeft: {fileID: 0}
   DiagRight: {fileID: 0}
   ActiveSpells: []
-  OtherSpellSide: {fileID: 0}
-  grid: {fileID: 0}
 --- !u!61 &7550584000329048733
 BoxCollider2D:
   m_ObjectHideFlags: 0

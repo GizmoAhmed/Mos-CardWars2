@@ -74,6 +74,9 @@ public class Card : NetworkBehaviour
 
 	public void Zoom() { GetComponent<ZoomClick>().ZoomIn(); }
 
+	[ClientRpc]
+	public virtual void RpcDecay() { }
+
 	public void PointerDown() { clickSave = new Vector2(Input.mousePosition.x, Input.mousePosition.y); }
 
 	public void PointerUp()

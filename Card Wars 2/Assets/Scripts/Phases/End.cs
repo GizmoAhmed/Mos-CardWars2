@@ -8,7 +8,7 @@ public class End : Phase
 	[ClientRpc]
 	public override void OnEnterPhase()
 	{
-		Debug.Log("Phasing End...");
+
 	}
 
 	[ClientRpc]

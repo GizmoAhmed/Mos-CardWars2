@@ -44,15 +44,21 @@ public class CreatureCard : Card
 		}
 	}
 
+	public void FullHeal() 
+	{
+		CurrentDefense = MaxDefense;
+		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
+	}
+
 	public void Buff(int Amount, bool buff, string stat = "default") 
 	{
 		// if buff, increase stat by amount
 		// then check strength
 	}
 
-	public void FullHeal() 
+	[ClientRpc]
+	public override void RpcDecay()
 	{
-		CurrentDefense = MaxDefense;
-		DefenseText.text = CurrentDefense.ToString() + "/" + MaxDefense.ToString();
+		// does nothing
 	}
 }

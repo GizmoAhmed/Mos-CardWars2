@@ -24,7 +24,7 @@ public class FloopExit : NetworkBehaviour
 		// Check if floopButton is not assigned
 		if (floopButton == null)
 		{
-			Debug.Log("Probably a building...");
+			Debug.Log(cardScript.Name + " is probably a building or spell...");
 			return; 
 		}
 

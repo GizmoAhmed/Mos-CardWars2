@@ -3,32 +3,68 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using TMPro;
 
 public class SpellCard : Card
 {
-	public bool ActiveSpell;
+	[Header("Spell Type")]
+
+	public SpellType Type;
+	public enum SpellType { Target, Active };
+
+	[Header("Spell Stats")]
+	public int currentTime;
+	public int maxTime;
+
+	[Tooltip("Allows for spell to last an extra turn")] public bool firstTurn;
 
 	new void Start()
 	{
 		base.Start();
 
-		Transform timeTextTransform = transform.Find("TimeText");
+		Transform timeTextTransform = transform.Find("Timer");
 
-		// Use the ternary operator to set ActiveSpell
-		ActiveSpell = timeTextTransform != null ? true : false;
+		Type = timeTextTransform != null ? SpellType.Active : SpellType.Target;
 
-		if (ActiveSpell)
+		if (Type == SpellType.Active)
 		{
 			landTag = "SpellLand";
+			transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
+			firstTurn = true;
 		}
-		else 
+		else
 		{
-			landTag = "CreatureLand";
+			landTag = "TargetSpell";
+			maxTime = currentTime = 0;
 		}
 	}
 
-	/*protected override void OnTriggerStay2D(Collider2D other)
+	[ClientRpc]
+	public override void RpcDecay()
 	{
-		base.OnTriggerStay2D(other);
-	}*/
+		if (firstTurn || Type == SpellType.Target)
+		{
+			firstTurn = false;
+			return;
+		}
+
+		currentTime -= 1;
+
+		if (currentTime <= 0)
+		{
+			FillTime();
+			base.Discard();
+		}
+		else
+		{
+			transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
+		}
+	}
+
+	public void FillTime()
+	{
+		currentTime = maxTime;
+		transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
+	}
+
 }

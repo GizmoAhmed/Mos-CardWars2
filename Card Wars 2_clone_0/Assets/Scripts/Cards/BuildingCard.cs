@@ -24,7 +24,7 @@ public class BuildingCard : Card
 	}
 
 	[ClientRpc]
-	public void RpcBuildTimeCheck()
+	public override void RpcDecay()
 	{
 		if (firstTurn) 
 		{

@@ -25,11 +25,11 @@ public class Turns : NetworkBehaviour
 			conn.identity.GetComponent<Player>().RpcUpdateTurnText(TurnCount);
 		}
 
-		foreach (BuildingCard buildingCard in FindObjectsOfType<BuildingCard>())
+		foreach (Card card in FindObjectsOfType<Card>())
 		{
-			if (buildingCard.currentState == Card.CardState.Placed) 
+			if (card.currentState == Card.CardState.Placed) 
 			{
-				buildingCard.RpcBuildTimeCheck();
+				card.RpcDecay(); // uses overrides to discern between Card subclasses
 			}
 		}
 	}
@@ -43,8 +43,6 @@ public class Turns : NetworkBehaviour
 		switch (mode)
 		{
 			case "disableBoth":
-
-				// Debug.Log("Disabling Both Players");
 
 				SetPlayerState(player0, false);
 				SetPlayerState(player1, false);

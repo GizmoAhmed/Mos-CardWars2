@@ -110,8 +110,7 @@ public class Player : NetworkBehaviour
 		{
 			if (isOwned)
 			{
-				// handled in Card.PlaceCard(),
-				// look into making PlaceCard() do the work of this section via boolean parameter of isOwned
+				// if owned, already handled in Card.PlaceCard(),
 			}
 			else 
 			{
@@ -261,7 +260,7 @@ public class Player : NetworkBehaviour
 				break;
 
 			default:
-				Debug.LogError("forgot mode in ShowStats");
+				Debug.LogError("forgot mode in ShowStats call");
 				break;
 		}
 	}
