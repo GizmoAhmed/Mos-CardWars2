@@ -248,7 +248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7272186375663456577, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_Name
-      value: Frost Variant
+      value: Frost
       objectReference: {fileID: 0}
     - target: {fileID: 8356673554136141868, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: Name
@@ -268,7 +268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8356673554136141868, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: MagicCost
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8356673554136141868, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: currentTime

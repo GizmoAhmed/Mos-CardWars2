@@ -7855,7 +7855,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: chooseDeck
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: choosePlayer
@@ -7863,28 +7863,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.size
-      value: 11
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: MasterDeck.Array.size
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 5961052985149569895, guid: 8ce1788de6730f445aef2eeeb2d3af60, type: 3}
+      objectReference: {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 2866573148162227097, guid: 2dbe72106dde2c348bb7b3443eb7c851, type: 3}
+      objectReference: {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[2]
       value: 
-      objectReference: {fileID: 2481299139644654637, guid: 9dfce6691ce0c134a929ba6e5fcd080b, type: 3}
+      objectReference: {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[3]
       value: 
-      objectReference: {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
+      objectReference: {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[4]
       value: 
-      objectReference: {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
+      objectReference: {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[5]
       value: 
@@ -7909,6 +7913,18 @@ PrefabInstance:
       propertyPath: debugDeck.Array.data[10]
       value: 
       objectReference: {fileID: 4055832630173525344, guid: 424aa81381a516f4485ba5a4a0f523f0, type: 3}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: MasterDeck.Array.data[18]
+      value: 
+      objectReference: {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: MasterDeck.Array.data[19]
+      value: 
+      objectReference: {fileID: 2481299139644654637, guid: 9dfce6691ce0c134a929ba6e5fcd080b, type: 3}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: MasterDeck.Array.data[20]
+      value: 
+      objectReference: {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: allCreaturesDeck.Array.size
       value: 10
@@ -13591,10 +13607,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f6e73f611b37e49b2ad381ad088cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 3409425372337068147}
-  cardCount: 0
-  a: 2.64
-  b: 54.9679
+  a: -4.8
+  b: 50.8
   c: 183
 --- !u!114 &1481470401577126642
 MonoBehaviour:
@@ -13608,9 +13622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f6e73f611b37e49b2ad381ad088cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 3409425371771442291}
-  cardCount: 0
-  a: 2.64
+  a: -4.8
   b: 54.9679
   c: 183
 --- !u!222 &1728506595403071490
