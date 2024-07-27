@@ -78,7 +78,7 @@ public class CreatureLand : NetworkBehaviour
 		Taken = true;
 	}
 
-	public virtual void DetachCard()
+	public virtual void DetachCard(GameObject card)
 	{
 		CurrentCard.GetComponent<Card>().MyLand = null;
 		CurrentCard = null;

@@ -120,7 +120,7 @@ public class Player : NetworkBehaviour
 	[ClientRpc]
 	public void RpcHandleCard(GameObject card, CardState state, GameObject land)
 	{
-		Card cardScript = card.GetComponent<Card>();
+		card.GetComponent<Card>().SetState(state); // make sure state is shown on all clients
 
 		if (state == CardState.Hand) // from drawing card
 		{

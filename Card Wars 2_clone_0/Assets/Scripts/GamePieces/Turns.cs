@@ -5,6 +5,7 @@ public class Turns : NetworkBehaviour
 {
 	[SyncVar] public bool	alternate;
 	[SyncVar] public int	TurnCount;
+
 	protected GameManager	gameManager;
 
 	[Server]

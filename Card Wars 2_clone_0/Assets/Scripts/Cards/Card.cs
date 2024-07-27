@@ -120,22 +120,19 @@ public class Card : NetworkBehaviour
 
 	public void PlaceCard(GameObject land)
 	{
-		CreatureLand landscript = land.GetComponent<CreatureLand>();
-
 		transform.SetParent(land.transform, true);
 		transform.localPosition = Vector2.zero;
 
-		SetState(CardState.Placed);
 		Movable = false;
 
-		player.CmdDropCard(gameObject, currentState, land);
+		player.CmdDropCard(gameObject, CardState.Placed, land);
 	}
 
 	public virtual void Discard() 
 	{
 		SetState(CardState.Discard);
 
-		MyLand.GetComponent<CreatureLand>().DetachCard();
+		MyLand.GetComponent<CreatureLand>().DetachCard(gameObject);
 
 		player.discard.AddtoDiscard(gameObject, isOwned);
 	}

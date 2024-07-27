@@ -44,9 +44,6 @@ public class Deck : NetworkBehaviour
 			GameObject drawnCard = Instantiate(cardInstance);
 			NetworkServer.Spawn(drawnCard, conn);
 
-			Card cardScript = drawnCard.GetComponent<Card>();
-			cardScript.SetState(CardState.Hand);
-
 			player.RpcHandleCard(drawnCard, CardState.Hand, null);
 
 			MyDeck.RemoveAt(randomIndex);

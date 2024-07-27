@@ -36,4 +36,10 @@ public class SpellLand : CreatureLand
 		card.GetComponent<Card>().MyLand = gameObject;
 		ActiveSpells.Add(card);
 	}
+
+	public override void DetachCard(GameObject card)
+	{
+		card.GetComponent<Card>().MyLand = null;
+		ActiveSpells.Remove(card);
+	}
 }
