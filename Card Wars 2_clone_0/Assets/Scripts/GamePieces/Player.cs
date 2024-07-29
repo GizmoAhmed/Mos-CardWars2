@@ -4,19 +4,15 @@ using Mirror;
 using static Card;
 using TMPro;
 using System.Linq;
+using System.Collections;
 
 // ternary operator
 // variable = (condition) ? expressionTrue :  expressionFalse;
 
 public class Player : NetworkBehaviour
 {
-	[Header("Player Traits")]
-	public bool local;
 	public bool canPlay = true;
 	public bool myTurn;
-
-	private GameObject Hand1; 
-	private GameObject Hand2;
 
 	[Header("Deck & Discard")]
 	public Deck			deck;
@@ -34,6 +30,11 @@ public class Player : NetworkBehaviour
 	[Header("Health")]
 	public int Health;
 
+	// declared once, so they don't have to be found each time they are referenced
+	//***********************************************************************
+	private GameObject Hand1;
+	private GameObject Hand2;
+
 	private GameObject ThisMagic;
 	private GameObject OtherMagic;
 
@@ -41,6 +42,7 @@ public class Player : NetworkBehaviour
 	private GameObject OtherMoney;
 
 	private TextMeshProUGUI turnText;
+	//***********************************************************************
 
 	public List<GameObject> sortedBattleReadyCards;
 
@@ -67,8 +69,6 @@ public class Player : NetworkBehaviour
 		turnText = GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>();
 
 		GameManager game = FindAnyObjectByType<GameManager>();
-
-		local = isOwned;
 
 		myTurn = true;
 
@@ -160,13 +160,13 @@ public class Player : NetworkBehaviour
 
 
 	[Command]
-	public void CmdShowStats(int newAmount, string mode)
+	public void CmdShowStats(int newAmount, string stat)
 	{
-		RpcShowStats(newAmount, mode);
+		RpcShowStats(newAmount, stat);
 	}
 
 	[ClientRpc]
-	public void RpcShowStats(int newAmount, string mode) 
+	public void RpcShowStats(int newAmount, string stat) 
 	{
 		TextMeshProUGUI magicText;
 
@@ -179,7 +179,7 @@ public class Player : NetworkBehaviour
 			magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
 		}
 
-		switch (mode) 
+		switch (stat) 
 		{
 			case "max_magic":
 
@@ -310,8 +310,13 @@ public class Player : NetworkBehaviour
 		}
 	}
 
-	[TargetRpc] // server tells a specific client do something. (ie player0.RpcFindBattleCards)
+	[TargetRpc] // server tells a specific client to do something. (i.e., player0.RpcFindBattleCards)
 	public void RpcFindBattleCards()
+	{
+		StartCoroutine(FindBattleCardsCoroutine());
+	}
+
+	private IEnumerator FindBattleCardsCoroutine()
 	{
 		sortedBattleReadyCards.Clear();
 
@@ -332,8 +337,7 @@ public class Player : NetworkBehaviour
 
 		if (myBattleReadyCards.Count == 0) // no cards on the field 
 		{
-			Debug.Log("No Cards on the field for me to attack with...");
-			return;
+			yield break;
 		}
 
 		sortedBattleReadyCards = myBattleReadyCards.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToList();
@@ -341,19 +345,20 @@ public class Player : NetworkBehaviour
 		foreach (GameObject cardOBJ in sortedBattleReadyCards)
 		{
 			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
-
 			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
-
 			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
 
 			if (acrossLand.CurrentCard == null)
 			{
-				CmdAltercation(thisCard , null);
+				CmdAltercation(thisCard, null);
 			}
-			else 
+			else
 			{
-				CmdAltercation(thisCard , acrossLand.CurrentCard.GetComponent<CreatureCard>());
+				CmdAltercation(thisCard, acrossLand.CurrentCard.GetComponent<CreatureCard>());
 			}
+
+			// Add a pause between each iteration
+			yield return new WaitForSeconds(2.0f); 
 		}
 	}
 

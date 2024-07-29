@@ -158,7 +158,7 @@ public class GameManager : NetworkBehaviour
 			if (readyPlayers.Count == 1)
 			{
 				// pass the player (conn) who just played...
-				GetComponentInChildren<Turns>().ManageTurn(conn);
+				GetComponentInChildren<Turns>().PlayerEnabler(conn);
 			}
 			else
 			{

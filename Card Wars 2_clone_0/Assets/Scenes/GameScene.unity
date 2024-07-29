@@ -7855,15 +7855,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: chooseDeck
-      value: 1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: firstMagic
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: firstMoney
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: choosePlayer
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: MasterDeck.Array.size
@@ -7872,19 +7880,19 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
+      objectReference: {fileID: 384963183625625041, guid: aa5d7de0134edf847bfdcf57c289e630, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
+      objectReference: {fileID: 384963183625625041, guid: aa5d7de0134edf847bfdcf57c289e630, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[2]
       value: 
-      objectReference: {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
+      objectReference: {fileID: 2509186087479040677, guid: 4be2706f0526a4d48bcaf7071e8e7fa1, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[3]
       value: 
-      objectReference: {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
+      objectReference: {fileID: 2509186087479040677, guid: 4be2706f0526a4d48bcaf7071e8e7fa1, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.data[4]
       value: 
@@ -12982,7 +12990,6 @@ MonoBehaviour:
   - {fileID: 5616672752895304025, guid: 6d97fc29b5bb5be438c3e132e3b48fd9, type: 3}
   - {fileID: 8005589287177195676, guid: 423a7ca41be388d408850e10e8f46c1e, type: 3}
   - {fileID: 3245408235869771139, guid: 99420f4907b8bc540852b059cca3838b, type: 3}
-  - {fileID: 7418364694963947155, guid: f54474afdedda194799b38ea3ac8544d, type: 3}
   - {fileID: 375809184990008516, guid: c946ad2cbeeeaeb4cbaa08380798ad93, type: 3}
   - {fileID: 7209055674182303185, guid: 6cbb20490318e43458a711b9ed02a1e4, type: 3}
   - {fileID: 4532030307048073668, guid: c6a794dc90846574fa6bbf6e46d29a29, type: 3}
@@ -13020,6 +13027,7 @@ MonoBehaviour:
   - {fileID: 2481299139644654637, guid: 9dfce6691ce0c134a929ba6e5fcd080b, type: 3}
   - {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
   - {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
+  - {fileID: 384963183625625041, guid: aa5d7de0134edf847bfdcf57c289e630, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2

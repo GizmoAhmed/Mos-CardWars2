@@ -36,7 +36,7 @@ public class Turns : NetworkBehaviour
 	}
 
 	[Server]
-	public void ManageTurn(NetworkConnectionToClient conn, string mode = "default")
+	public void PlayerEnabler(NetworkConnectionToClient conn, string mode = "default")
 	{
 		Player player0 = gameManager.Player0.identity.GetComponent<Player>();
 		Player player1 = gameManager.Player1.identity.GetComponent<Player>();

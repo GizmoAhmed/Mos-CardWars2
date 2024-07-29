@@ -45,7 +45,7 @@ public class SetUp : Phase
 			player1.RpcShowStats(player1.Money + MoneyAddOn, "money");
 		}
 
-		gameManager.turnManager.ManageTurn(null);
+		gameManager.turnManager.PlayerEnabler(null);
 	}
 
 	[Server]

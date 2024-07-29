@@ -25,7 +25,7 @@ public class Attack : Phase
 	[Server]
 	public void DoBattle()
 	{
-		FindAnyObjectByType<Turns>().ManageTurn(null, "disableBoth");
+		FindAnyObjectByType<Turns>().PlayerEnabler(null, "disableBoth");
 
 		Player player0 = gameManager.Player0.identity.GetComponent<Player>();
 		Player player1 = gameManager.Player1.identity.GetComponent<Player>();

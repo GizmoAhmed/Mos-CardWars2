@@ -780,6 +780,7 @@ GameObject:
   - component: {fileID: -3213431137784594303}
   - component: {fileID: 8475197582493474884}
   - component: {fileID: -7226420207551774451}
+  - component: {fileID: -4799486639478062200}
   m_Layer: 7
   m_Name: _Creature
   m_TagString: Untagged
@@ -1107,7 +1108,6 @@ MonoBehaviour:
   Name: 
   Grabbed: 0
   Movable: 1
-  isOverDropZone: 0
   landTag: 
   isZoomLocked: 0
   MagicCost: 0
@@ -1117,3 +1117,15 @@ MonoBehaviour:
   CurrentDefense: 0
   MaxDefense: 0
   myElement: 0
+--- !u!114 &-4799486639478062200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217453708348395853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b33d97d4eea0a924eb6be9c66c1924cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -4,36 +4,36 @@ using TMPro;
 
 public class Card : NetworkBehaviour
 {
-	public string Name;
+	public string	Name;
+
 	private TextMeshProUGUI NameText;
 
-	private Player		player;
+	private Player	player;
 
-	[Header("Card Movement")]
-	public bool			Grabbed;
-	public bool			Movable = true;
+	private bool	Grabbed;
 
 	private GameObject	StartParent;
 	private Vector2		StartPos;
 	private GameObject	NewDropZone;
 	private bool		isOverDropZone;
 
-	public string		landTag;
-
-	public bool			isZoomLocked;
+	[HideInInspector] public bool	Movable = true;
+	[HideInInspector] public string	landTag;
+	[HideInInspector] public bool	isZoomLocked;
 
 	private Vector2		currentMousePos;
 	private Vector2		clickSave;
-
-	private TextMeshProUGUI MagicText;
-
-	[SyncVar] public int MagicCost = 0;
 
 	public GameObject MyLand;
 
 	public enum CardState { Deck, Hand, Placed, Discard }
 
 	public CardState currentState = CardState.Deck;
+
+	public CardAnimator Animate;
+
+	private TextMeshProUGUI MagicText;
+	[SyncVar] public int MagicCost = 0;
 
 	public void SetState(CardState newState) { currentState = newState; }
 
@@ -43,6 +43,8 @@ public class Card : NetworkBehaviour
 		player = networkIdentity.GetComponent<Player>();
 
 		Movable = isOwned;
+
+		Animate = GetComponent<CardAnimator>();
 
 		MagicText = transform.Find("Magic").GetComponent<TextMeshProUGUI>();
 		MagicText.text = MagicCost.ToString();

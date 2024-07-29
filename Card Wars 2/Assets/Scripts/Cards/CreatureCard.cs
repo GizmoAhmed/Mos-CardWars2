@@ -31,6 +31,8 @@ public class CreatureCard : Card
 
 	public void TakeDamage(int damage) 
 	{
+		Animate.Jiggle();
+
 		CurrentDefense -= damage;
 
 		if (CurrentDefense <= 0)

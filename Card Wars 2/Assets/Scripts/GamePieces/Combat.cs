@@ -9,9 +9,15 @@ public class Combat : NetworkBehaviour
 	[ClientRpc]
 	public void RpcBattle(CreatureCard attackingCard, CreatureCard defendingCard) 
 	{
+		attackingCard.Animate.Hop();
+
 		if (defendingCard == null)
 		{
-			// Debug.Log(attackingCard.Name + " attacks empty lane");
+			if (attackingCard.isOwned) 
+			{
+				Player player = NetworkClient.localPlayer.GetComponent<Player>();
+				player.CmdShowStats(player.Money + attackingCard.AttackStat, "money");
+			}
 		}
 		else 
 		{
