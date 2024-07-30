@@ -1,10 +1,11 @@
 using UnityEngine;
 using Mirror;
 using TMPro;
+using DG.Tweening;
 
 public class Card : NetworkBehaviour
 {
-	public string	Name;
+	public string	CardName;
 
 	private TextMeshProUGUI NameText;
 
@@ -50,7 +51,7 @@ public class Card : NetworkBehaviour
 		MagicText.text = MagicCost.ToString();
 
 		NameText = transform.Find("Name").GetComponent<TextMeshProUGUI>();
-		NameText.text = Name.ToUpper();
+		NameText.text = CardName.ToUpper();
 	}
 
 	public bool IsOwnedByLocalPlayer() { return isOwned; }
@@ -85,11 +86,8 @@ public class Card : NetworkBehaviour
 	{
 		CardFlipper flip = GetComponent<CardFlipper>();
 
-		// If the mouse position has not changed, zoom into the card
-		if (clickSave == currentMousePos && flip.currentFace == CardFlipper.FaceState.FaceUp && !isZoomLocked)
-		{
-			Zoom();
-		}
+		// If the mouse position has not changed, then it was a simple click, zoom into the card
+		if (clickSave == currentMousePos && flip.currentFace == CardFlipper.FaceState.FaceUp && !isZoomLocked) { Zoom(); }
 	}
 
 	public void Grab()
@@ -136,7 +134,17 @@ public class Card : NetworkBehaviour
 
 		MyLand.GetComponent<CreatureLand>().DetachCard(gameObject);
 
-		player.discard.AddtoDiscard(gameObject, isOwned);
+		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+
+		if (canvasGroup != null)
+		{
+			// Perform any additional actions once the fade-out is complete (e.g., Deactivating the card game object)
+			canvasGroup.DOFade(0, 1f).OnComplete( () => { player.discard.AddtoDiscard(gameObject, isOwned); } );
+		}
+		else
+		{
+			Debug.LogWarning("CanvasGroup component not found on " + CardName);
+		}
 	}
 
 	void Update()

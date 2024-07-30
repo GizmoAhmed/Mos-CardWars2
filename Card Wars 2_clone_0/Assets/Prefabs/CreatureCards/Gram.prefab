@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6350889495068895956
+--- !u!1001 &2846469079964415209
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,11 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: Name
-      value: Gazer
+      value: Gram Gram
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: Attack
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: CardName
+      value: GRAMGRAM
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: MagicCost
@@ -22,19 +26,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: myElement
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: AttackStat
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: MaxDefense
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: CurrentDefense
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 942148944994015448, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
@@ -46,32 +50,36 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7c91cf54a519a4f40aef70ddc720cc1e, type: 3}
     - target: {fileID: 3620735959968189011, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 65.5
+      value: 59.1
       objectReference: {fileID: 0}
     - target: {fileID: 4565312313732400333, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4624909741750717549, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 36.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4624909741750717549, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -92.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4681367567726821825, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.9960785
       objectReference: {fileID: 0}
     - target: {fileID: 4681367567726821825, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Color.g
-      value: 0.8975768
+      value: 0.8470589
       objectReference: {fileID: 0}
     - target: {fileID: 4681367567726821825, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Color.r
-      value: 0.4669811
-      objectReference: {fileID: 0}
-    - target: {fileID: 6080323965616364456, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_Type
-      value: 1
+      value: 0.007843138
       objectReference: {fileID: 0}
     - target: {fileID: 6080323965616364456, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 79b87218866d81f43aac338c197aaf6c, type: 3}
+      objectReference: {fileID: 21300000, guid: 172e2a1e8bd749a41bbd472ae9b67a70, type: 3}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -134,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -72
+      value: 143
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -154,51 +162,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
-      value: GAZER
+      value: GRAM-GRAM
       objectReference: {fileID: 0}
     - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_characterSpacing
-      value: 14.5
+      propertyPath: m_fontSize
+      value: 9.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_margin.w
+      value: 16.295494
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_margin.z
+      value: 19.328758
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 9.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7640762650242852277, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
-      value: 6/6
+      value: 7/7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342063069471296040, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: sceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342063069471296040, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: _assetId
+      value: 2218937114
       objectReference: {fileID: 0}
     - target: {fileID: 8475197582493474884, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: ZoomCardPrefab
       value: 
-      objectReference: {fileID: 2240338899283417399, guid: 91cf841b9d5e67d4a9e7f01d115f3cf0, type: 3}
+      objectReference: {fileID: 8715682350257816076, guid: 9cb828a9c1f288f47a68912398869cec, type: 3}
     - target: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Name
-      value: Gazer
+      value: Gram
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4648302768053005197}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
---- !u!1 &2866573148162227097 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-  m_PrefabInstance: {fileID: 6350889495068895956}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4648302768053005197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2866573148162227097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  _assetId: 351346555
-  serverOnly: 0
-  visibility: 0
-  hasSpawned: 0

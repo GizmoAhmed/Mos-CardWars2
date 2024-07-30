@@ -437,6 +437,7 @@ GameObject:
   - component: {fileID: -3491478722320707335}
   - component: {fileID: 4740380502033212643}
   - component: {fileID: 8356673554136141868}
+  - component: {fileID: -2858547084215412039}
   m_Layer: 7
   m_Name: _Spell
   m_TagString: Untagged
@@ -759,18 +760,30 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  Name: 
-  Grabbed: 0
+  CardName: 
   Movable: 1
   landTag: 
   isZoomLocked: 0
-  MagicCost: 0
   MyLand: {fileID: 0}
   currentState: 0
+  Animate: {fileID: 0}
+  MagicCost: 0
   Type: 0
   currentTime: 0
   maxTime: 0
   firstTurn: 0
+--- !u!225 &-2858547084215412039
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7272186375663456577}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &9018533075127916591
 GameObject:
   m_ObjectHideFlags: 0

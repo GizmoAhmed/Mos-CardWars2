@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3153726194948853914
+--- !u!1001 &8844313986111196316
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,40 +10,40 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: Name
-      value: Crystal Knight
+      value: CYCLOPS
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: Attack
-      value: 1
+      propertyPath: CardName
+      value: CYCLOPS
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: MagicCost
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: myElement
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: AttackStat
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: MaxDefense
-      value: 6
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: -7226420207551774451, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: CurrentDefense
-      value: 6
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 942148944994015448, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1007634538234213432, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a76d4b34ccd26884388497390214fad0, type: 3}
+      objectReference: {fileID: 21300000, guid: d06102b5419f6004ba21b1396b2cb4eb, type: 3}
     - target: {fileID: 1932783491009974410, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_SizeDelta.x
       value: 80
@@ -53,37 +53,37 @@ PrefabInstance:
       value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1932783491009974410, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -1
+      propertyPath: m_AnchoredPosition.y
+      value: 17.8
       objectReference: {fileID: 0}
     - target: {fileID: 4565312313732400333, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4624909741750717549, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 24
+      value: -33.1
       objectReference: {fileID: 0}
     - target: {fileID: 4624909741750717549, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -95.4
+      value: -87.4
       objectReference: {fileID: 0}
     - target: {fileID: 4681367567726821825, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Color.b
-      value: 0.8666667
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4681367567726821825, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Color.g
-      value: 0.63529414
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4681367567726821825, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.08884287
       objectReference: {fileID: 0}
     - target: {fileID: 6080323965616364456, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: d8b1dd31247df7d49b4cae30d6e26955, type: 3}
+      objectReference: {fileID: 21300000, guid: 54fcf8538a64f0b4b86ffc91a67977f9, type: 3}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -146,11 +146,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 143
+      value: -817
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -20
+      value: -560
       objectReference: {fileID: 0}
     - target: {fileID: 6166145134630806594, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -166,35 +166,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
-      value: CRYSTAL KNIGHT
+      value: CYCLOPS
       objectReference: {fileID: 0}
     - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_fontSize
-      value: 10.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_margin.w
-      value: 29.301882
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_margin.z
-      value: 30.224346
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_lineSpacing
-      value: -125.22
+      value: 14.1
       objectReference: {fileID: 0}
     - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_fontSizeBase
-      value: 10.84
-      objectReference: {fileID: 0}
-    - target: {fileID: 6340323414335196411, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: m_characterSpacing
-      value: -7.5
+      value: 14.1
       objectReference: {fileID: 0}
     - target: {fileID: 7640762650242852277, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_text
-      value: 6/6
+      value: 16/16
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640762650242852277, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
+      propertyPath: m_margin.x
+      value: -14.212837
       objectReference: {fileID: 0}
     - target: {fileID: 8342063069471296040, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: sceneId
@@ -202,15 +190,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8342063069471296040, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: _assetId
-      value: 466699222
+      value: 317725207
       objectReference: {fileID: 0}
-    - target: {fileID: 8475197582493474884, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-      propertyPath: ZoomCardPrefab
-      value: 
-      objectReference: {fileID: 5616672752895304025, guid: 6d97fc29b5bb5be438c3e132e3b48fd9, type: 3}
     - target: {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
       propertyPath: m_Name
-      value: CrystalKnight
+      value: Cyclops
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

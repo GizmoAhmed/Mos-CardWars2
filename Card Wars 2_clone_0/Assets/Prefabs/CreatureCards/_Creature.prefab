@@ -781,6 +781,7 @@ GameObject:
   - component: {fileID: 8475197582493474884}
   - component: {fileID: -7226420207551774451}
   - component: {fileID: -4799486639478062200}
+  - component: {fileID: 8697037394065972253}
   m_Layer: 7
   m_Name: _Creature
   m_TagString: Untagged
@@ -1105,7 +1106,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  Name: 
+  CardName: 
   Movable: 1
   landTag: 
   isZoomLocked: 0
@@ -1132,3 +1133,15 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+--- !u!225 &8697037394065972253
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9217453708348395853}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

@@ -129,6 +129,14 @@ PrefabInstance:
       value: Banana Hut
       objectReference: {fileID: 0}
     - target: {fileID: 4584136613029985643, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
+      propertyPath: maxTime
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4584136613029985643, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
+      propertyPath: CardName
+      value: BANANA HUT
+      objectReference: {fileID: 0}
+    - target: {fileID: 4584136613029985643, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: MagicCost
       value: 2
       objectReference: {fileID: 0}
