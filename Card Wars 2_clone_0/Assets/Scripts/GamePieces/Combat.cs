@@ -9,7 +9,7 @@ public class Combat : NetworkBehaviour
 	[ClientRpc]
 	public void RpcBattle(CreatureCard attackingCard, CreatureCard defendingCard) 
 	{
-		attackingCard.Animate.Hop();
+		attackingCard.Animate.Hop(attackingCard.isOwned);
 
 		if (defendingCard == null)
 		{

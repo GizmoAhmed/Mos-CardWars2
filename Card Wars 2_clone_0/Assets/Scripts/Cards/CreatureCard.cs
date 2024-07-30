@@ -2,7 +2,6 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 
-
 public class CreatureCard : Card
 {
 	[Header("Creature Stats")]
@@ -31,8 +30,11 @@ public class CreatureCard : Card
 
 	public void TakeDamage(int damage) 
 	{
-		Animate.Jiggle();
-
+		if (damage > 0) 
+		{
+			Animate.Jiggle();
+		}
+		
 		CurrentDefense -= damage;
 
 		if (CurrentDefense <= 0)

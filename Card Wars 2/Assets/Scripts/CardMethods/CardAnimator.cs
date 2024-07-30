@@ -6,29 +6,33 @@ public class CardAnimator : NetworkBehaviour
 {
 	private RectTransform rectTransform;
 
-	void Awake()
-	{
-		rectTransform = GetComponent<RectTransform>();
-	}
+
+	void Awake() { rectTransform = GetComponent<RectTransform>(); }
 
 	public void Jiggle()
 	{
-		Debug.Log(gameObject.GetComponent<Card>().Name + " jiggles...");
-
-		// Sequence for jiggle animation
 		Sequence jiggleSequence = DOTween.Sequence();
-		jiggleSequence.Append(rectTransform.DOShakeAnchorPos(2f, 1f, 10, 90, false, true));
-		// jiggleSequence.SetLoops(-1, LoopType.Yoyo); // Loop indefinitely
+		jiggleSequence.Append(rectTransform.DOShakeAnchorPos(0.7f, 2f, 10, 90, false, false));
 	}
 
-	public void Hop()
+	public void Hop(bool reverse)
 	{
-		Debug.Log(gameObject.GetComponent<Card>().Name + " hops...");
-
-		// Sequence for hop animation
 		Sequence hopSequence = DOTween.Sequence();
-		hopSequence.Append(rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y + 30, 0.2f).SetEase(Ease.OutQuad)); // Move up
-		hopSequence.Append(rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y, 0.2f).SetEase(Ease.InQuad));  // Move down
-		hopSequence.SetLoops(3, LoopType.Restart); // Repeat 3 times
+
+		if (reverse)
+		{
+			// Move up then down
+			hopSequence.Append(rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y + 15, 0.2f).SetEase(Ease.OutQuad));
+			hopSequence.Append(rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y, 0.2f).SetEase(Ease.InQuad));
+		}
+		else
+		{
+			// Move down then up
+			hopSequence.Append(rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y - 15, 0.2f).SetEase(Ease.OutQuad));
+			hopSequence.Append(rectTransform.DOAnchorPosY(rectTransform.anchoredPosition.y, 0.2f).SetEase(Ease.InQuad));
+		}
+
+		hopSequence.SetLoops(1, LoopType.Restart);
 	}
+
 }
