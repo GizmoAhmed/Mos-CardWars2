@@ -1,7 +1,6 @@
 using UnityEngine;
 using Mirror;
 using TMPro;
-using DG.Tweening;
 
 public class Card : NetworkBehaviour
 {
@@ -136,15 +135,7 @@ public class Card : NetworkBehaviour
 
 		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
 
-		if (canvasGroup != null)
-		{
-			// Perform any additional actions once the fade-out is complete (e.g., Deactivating the card game object)
-			canvasGroup.DOFade(0, 1f).OnComplete( () => { player.discard.AddtoDiscard(gameObject, isOwned); } );
-		}
-		else
-		{
-			Debug.LogWarning("CanvasGroup component not found on " + CardName);
-		}
+		Animate.FadeOut(canvasGroup, gameObject, player, isOwned);
 	}
 
 	void Update()

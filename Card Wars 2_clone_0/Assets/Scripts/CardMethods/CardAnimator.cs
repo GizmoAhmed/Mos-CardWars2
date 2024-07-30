@@ -12,7 +12,7 @@ public class CardAnimator : NetworkBehaviour
 	public void Jiggle()
 	{
 		Sequence jiggleSequence = DOTween.Sequence();
-		jiggleSequence.Append(rectTransform.DOShakeAnchorPos(0.7f, 2f, 10, 90, false, false));
+		jiggleSequence.Append(rectTransform.DOShakeAnchorPos(0.7f, 0.9f, 10, 90, false, false));
 	}
 
 	public void Hop(bool reverse)
@@ -33,6 +33,11 @@ public class CardAnimator : NetworkBehaviour
 		}
 
 		hopSequence.SetLoops(1, LoopType.Restart);
+	}
+
+	public void FadeOut(CanvasGroup canvasGroup, GameObject card, Player player, bool isOwned)
+	{
+		canvasGroup.DOFade(0, 1f).OnComplete(() => { player.discard.AddtoDiscard(card, isOwned); });
 	}
 
 }
