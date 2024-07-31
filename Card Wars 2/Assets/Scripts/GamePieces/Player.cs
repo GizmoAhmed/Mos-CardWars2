@@ -310,9 +310,13 @@ public class Player : NetworkBehaviour
 		}
 	}
 
-	[TargetRpc] // server tells a specific client to do something. (i.e., player0.RpcFindBattleCards)
-	public void RpcFindBattleCards()
+	[ClientRpc]
+	public IEnumerator RpcFindBattleCardsCoroutine()
 	{
+		if (isOwned) { return; }
+
+		Debug.Log("Starting RpcFindBattleCardsCoroutine");
+
 		sortedBattleReadyCards.Clear();
 
 		CreatureCard[] allCreatureCards = FindObjectsOfType<CreatureCard>();
@@ -332,15 +336,15 @@ public class Player : NetworkBehaviour
 
 		if (myBattleReadyCards.Count == 0) // no cards on the field 
 		{
-			return;
+			yield break;
 		}
 
 		sortedBattleReadyCards = myBattleReadyCards.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToList();
 
 		foreach (GameObject cardOBJ in sortedBattleReadyCards)
 		{
-			CreatureCard thisCard	= cardOBJ.GetComponent<CreatureCard>();
-			CreatureLand thisLand	= thisCard.MyLand.GetComponent<CreatureLand>();
+			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
+			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
 			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
 
 			if (acrossLand.CurrentCard == null)
@@ -351,6 +355,8 @@ public class Player : NetworkBehaviour
 			{
 				CmdAltercation(thisCard, acrossLand.CurrentCard.GetComponent<CreatureCard>());
 			}
+
+			yield return new WaitForSeconds(1f); // Pause between each iteration
 		}
 	}
 

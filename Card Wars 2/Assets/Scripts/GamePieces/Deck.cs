@@ -36,21 +36,14 @@ public class Deck : NetworkBehaviour
 	{
 		Player player = GetComponentInParent<Player>();
 
-		if (MyDeck.Count > 0)
-		{
-			int randomIndex = Random.Range(0, MyDeck.Count);
-			GameObject cardInstance = MyDeck[randomIndex];
+		int randomIndex = Random.Range(0, MyDeck.Count);
+		GameObject cardInstance = MyDeck[randomIndex];
 
-			GameObject drawnCard = Instantiate(cardInstance);
-			NetworkServer.Spawn(drawnCard, conn);
+		GameObject drawnCard = Instantiate(cardInstance);
+		NetworkServer.Spawn(drawnCard, conn);
 
-			player.RpcHandleCard(drawnCard, CardState.Hand, null);
+		player.RpcHandleCard(drawnCard, CardState.Hand, null);
 
-			MyDeck.RemoveAt(randomIndex);
-		}
-		else 
-		{
-			Debug.LogWarning("Empty Deck, Can't Draw");
-		}
+		MyDeck.RemoveAt(randomIndex);
 	}
 }
