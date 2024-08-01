@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using DG.Tweening;
 
 public class DiscardBoard : NetworkBehaviour
 {
@@ -14,6 +15,8 @@ public class DiscardBoard : NetworkBehaviour
 	public void AddtoDiscard(GameObject card, bool yourCard)
 	{
 		card.transform.SetParent(transform, true);
+
+		card.GetComponent<CanvasGroup>().DOFade(1, 0);
 
 		if (yourCard)
 		{

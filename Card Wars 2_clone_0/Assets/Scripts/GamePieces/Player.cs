@@ -45,9 +45,7 @@ public class Player : NetworkBehaviour
 	//***********************************************************************
 
 	[Header("Battle Ready Cards")]
-	[SyncVar] public bool searchComplete;
-	public List<GameObject> sortedBattleReadyCards;
-	
+	[SyncVar] public bool searchComplete;	
 
 	public override void OnStartClient()
 	{
@@ -321,32 +319,31 @@ public class Player : NetworkBehaviour
 
 	private IEnumerator FindBattleCardsCoroutine()
 	{
-		sortedBattleReadyCards.Clear();
-
-		CreatureCard[] allCreatureCards = FindObjectsOfType<CreatureCard>();
-		Dictionary<GameObject, int> myBattleReadyCards = new Dictionary<GameObject, int>();
-
-		foreach (CreatureCard creatureCard in allCreatureCards)
-		{
-			if (creatureCard.isOwned && creatureCard.currentState == CardState.Placed)
-			{
+		/// C# does not have list comprehensions like Python, 
+		/// but it has LINQ (Language Integrated Query) which provides a similar capability. 
+		/// You can use LINQ to filter and project data in a more concise manner.
+		
+		var battleReadyCards = FindObjectsOfType<CreatureCard>()
+			.Where(creatureCard => creatureCard.isOwned && creatureCard.currentState == CardState.Placed)
+			.Select(creatureCard => {
 				string landName = creatureCard.MyLand.name;
 				int landNumber = int.Parse(landName.Substring(landName.Length - 1));
+				return new KeyValuePair<GameObject, int>(creatureCard.gameObject, landNumber);
+			} ).ToList();
 
-				myBattleReadyCards.Add(creatureCard.gameObject, landNumber);
-			}
-		}
-
-		if (myBattleReadyCards.Count == 0) // no cards on the field 
+		if (battleReadyCards.Count == 0) // no cards on the field 
 		{
 			CmdSetSearch(true);
 			yield break;
 		}
 
-		sortedBattleReadyCards = myBattleReadyCards.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToList();
+		// Sort the battle-ready cards by their land number
+		battleReadyCards = battleReadyCards.OrderBy(pair => pair.Value).ToList();
 
-		foreach (GameObject cardOBJ in sortedBattleReadyCards)
+		foreach (var pair in battleReadyCards)
 		{
+			GameObject cardOBJ = pair.Key;
+
 			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
 			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
 			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
@@ -365,6 +362,7 @@ public class Player : NetworkBehaviour
 
 		CmdSetSearch(true);
 	}
+
 
 	[Command]
 	private void CmdSetSearch(bool value)

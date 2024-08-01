@@ -13,16 +13,12 @@ public class CardAnimator : NetworkBehaviour
 
 	public void Jiggle()
 	{
-		// Debug.Log(GetComponent<Card>().CardName + " jiggles");
-
 		Sequence jiggleSequence = DOTween.Sequence();
 		jiggleSequence.Append(rectTransform.DOShakeAnchorPos(0.7f, 0.9f, 10, 90, false, false));
 	}
 
 	public void Hop(bool reverse)
 	{
-		// Debug.Log(GetComponent<Card>().CardName + " hops");
-
 		Sequence hopSequence = DOTween.Sequence();
 
 		if (reverse)
