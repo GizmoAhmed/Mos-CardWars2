@@ -28,20 +28,31 @@ public class Attack : Phase
 		Player player0 = gameManager.Player0.identity.GetComponent<Player>();
 		Player player1 = gameManager.Player1.identity.GetComponent<Player>();
 
+		player0.searchComplete = player0.searchComplete = false;
+
 		if (player0.myTurn)
 		{
 			Debug.Log("player 0...");
-			yield return StartCoroutine(player0.RpcFindBattleCardsCoroutine());
-			Debug.Log("...then player 1");
-			yield return StartCoroutine(player1.RpcFindBattleCardsCoroutine()); // not running for some reason
+			player0.TargetStartBattleCardsSearch(player0.connectionToClient);
 
+			yield return new WaitUntil(() => player0.searchComplete);
+
+			Debug.Log("...then player 1");
+			player1.TargetStartBattleCardsSearch(player1.connectionToClient);
+
+			yield return new WaitUntil(() => player1.searchComplete);
 		}
 		else
 		{
 			Debug.Log("player 1...");
-			yield return StartCoroutine(player1.RpcFindBattleCardsCoroutine());
+			player1.TargetStartBattleCardsSearch(player1.connectionToClient);
+
+			yield return new WaitUntil(() => player1.searchComplete);
+
 			Debug.Log("...then player 0");
-			yield return StartCoroutine(player0.RpcFindBattleCardsCoroutine());
+			player0.TargetStartBattleCardsSearch(player0.connectionToClient);
+
+			yield return new WaitUntil(() => player0.searchComplete);
 		}
 
 		HandlePhaseLogic();

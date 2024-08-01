@@ -44,7 +44,10 @@ public class Player : NetworkBehaviour
 	private TextMeshProUGUI turnText;
 	//***********************************************************************
 
+	[Header("Battle Ready Cards")]
+	[SyncVar] public bool searchComplete;
 	public List<GameObject> sortedBattleReadyCards;
+	
 
 	public override void OnStartClient()
 	{
@@ -310,17 +313,17 @@ public class Player : NetworkBehaviour
 		}
 	}
 
-	[ClientRpc]
-	public IEnumerator RpcFindBattleCardsCoroutine()
+	[TargetRpc]
+	public void TargetStartBattleCardsSearch(NetworkConnection target)
 	{
-		if (isOwned) { return; }
+		StartCoroutine(FindBattleCardsCoroutine());
+	}
 
-		Debug.Log("Starting RpcFindBattleCardsCoroutine");
-
+	private IEnumerator FindBattleCardsCoroutine()
+	{
 		sortedBattleReadyCards.Clear();
 
 		CreatureCard[] allCreatureCards = FindObjectsOfType<CreatureCard>();
-
 		Dictionary<GameObject, int> myBattleReadyCards = new Dictionary<GameObject, int>();
 
 		foreach (CreatureCard creatureCard in allCreatureCards)
@@ -336,6 +339,7 @@ public class Player : NetworkBehaviour
 
 		if (myBattleReadyCards.Count == 0) // no cards on the field 
 		{
+			CmdSetSearch(true);
 			yield break;
 		}
 
@@ -358,9 +362,19 @@ public class Player : NetworkBehaviour
 
 			yield return new WaitForSeconds(1f); // Pause between each iteration
 		}
+
+		CmdSetSearch(true);
+	}
+
+	[Command]
+	private void CmdSetSearch(bool value)
+	{
+		searchComplete = value;
 	}
 
 	[Command]
 	public void CmdAltercation(CreatureCard attackingCard, CreatureCard defendingCard)
-	{ FindAnyObjectByType<Combat>().Altercation(attackingCard, defendingCard); }
+	{
+		FindAnyObjectByType<Combat>().Altercation(attackingCard, defendingCard);
+	}
 }
