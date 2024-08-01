@@ -5,6 +5,7 @@ using static Card;
 
 public class Deck : NetworkBehaviour
 {
+	// for different decks, you may need to add cards from a data base in start.
 	public List<GameObject> MyDeck;
 	public int MaxSize;
 
@@ -32,14 +33,11 @@ public class Deck : NetworkBehaviour
 		MaxSize = MyDeck.Count;
 	}
 
-	[Command] public void CmdDrawCard()
-	{
-		DrawCardFromDeck(connectionToClient);
-	}
+	[Command] public void CmdDrawCard() { DrawCardFromDeck(connectionToClient); }
 
-	public void DrawCardFromDeck(NetworkConnectionToClient conn)
+	private void DrawCardFromDeck(NetworkConnectionToClient conn)
 	{
-		Player player = conn.identity.GetComponent<Player>();
+		Player player = GetComponentInParent<Player>();
 
 		int randomIndex = Random.Range(0, MyDeck.Count);
 		GameObject cardInstance = MyDeck[randomIndex];
@@ -47,8 +45,8 @@ public class Deck : NetworkBehaviour
 		GameObject drawnCard = Instantiate(cardInstance);
 		NetworkServer.Spawn(drawnCard, conn);
 
-		player.RpcUpdateDeck(randomIndex);
-
 		player.RpcHandleCard(drawnCard, CardState.Hand, null);
+
+		MyDeck.RemoveAt(randomIndex);
 	}
 }

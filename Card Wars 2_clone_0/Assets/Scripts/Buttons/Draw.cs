@@ -2,11 +2,13 @@ using UnityEngine;
 using Mirror;
 
 public class Draw : NetworkBehaviour
-{	
+{
+	private Player player;
+	
 	public void DrawCard()
 	{
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		Player player = networkIdentity.GetComponent<Player>();
+		player = networkIdentity.GetComponent<Player>();
 
 		if (player.DrawCost <= player.Money && player.deck.MyDeck.Count > 0) 
 		{
