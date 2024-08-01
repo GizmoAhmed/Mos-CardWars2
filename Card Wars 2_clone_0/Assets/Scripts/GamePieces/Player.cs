@@ -124,6 +124,8 @@ public class Player : NetworkBehaviour
 	[TargetRpc]
 	public void RpcUpdateDeck(int index)
 	{
+		Debug.Log("DeckSize before removal = " + deck.MyDeck.Count.ToString());
+		Debug.Log("removing at index [" + index.ToString() + "]");
 		deck.MyDeck.RemoveAt(index);
 	}
 
