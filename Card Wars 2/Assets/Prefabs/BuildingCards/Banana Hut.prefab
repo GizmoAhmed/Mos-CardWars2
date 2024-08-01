@@ -130,7 +130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4584136613029985643, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: maxTime
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4584136613029985643, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: CardName
@@ -142,7 +142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4584136613029985643, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: currentTime
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5669542139119279889, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
       propertyPath: m_Name

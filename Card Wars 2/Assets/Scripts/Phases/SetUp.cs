@@ -31,12 +31,6 @@ public class SetUp : Phase
 			player0.RpcShowStats(gameManager.firstMoney, "money");
 			player1.RpcShowStats(gameManager.firstMoney, "money");
 
-			/*player0.CmdShowStats(player0.deck.MyDeck.Count, "cards");
-			player0.CmdShowStats(player0.deck.MyDeck.Count, "decksize");
-
-			player1.CmdShowStats(player1.deck.MyDeck.Count, "cards");
-			player1.CmdShowStats(player1.deck.MyDeck.Count, "decksize");*/
-
 			firstSetUp = false;
 		}
 		else

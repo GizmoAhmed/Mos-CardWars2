@@ -121,6 +121,12 @@ public class Player : NetworkBehaviour
 		myTurn = canPlay = set;
 	}
 
+	[TargetRpc]
+	public void RpcUpdateDeck(int index)
+	{
+		deck.MyDeck.RemoveAt(index);
+	}
+
 	[Command]
 	public void CmdDropCard(GameObject card, CardState state, GameObject land)
 	{
@@ -137,6 +143,7 @@ public class Player : NetworkBehaviour
 			if (isOwned)
 			{
 				card.transform.SetParent(Hand1.transform, false);
+
 				CardAmount = deck.MyDeck.Count;
 				deckText.text = CardAmount.ToString() + "/" + deck.MaxSize.ToString();
 			}
