@@ -17,6 +17,8 @@ public class Player : NetworkBehaviour
 	[Header("Deck & Discard")]
 	public Deck			deck;
 	public DiscardBoard	discard;
+	public int CardAmount;
+	public int DeckSize;
 
 	[Header("Magic")]
 	public int CurrentMagic;
@@ -41,6 +43,8 @@ public class Player : NetworkBehaviour
 	private GameObject ThisMoney;
 	private GameObject OtherMoney;
 
+	private TextMeshProUGUI deckText;
+
 	private TextMeshProUGUI turnText;
 	//***********************************************************************
 
@@ -53,7 +57,11 @@ public class Player : NetworkBehaviour
 
 		canPlay = true;
 
-		deck	= GetComponentInChildren<Deck>();
+		deck = GetComponentInChildren<Deck>();
+		deck.InitDeck();
+		deckText = GameObject.Find("DeckText").GetComponent<TextMeshProUGUI>();
+		CardAmount = deck.MaxSize;
+		deckText.text = CardAmount.ToString() + "/" + deck.MaxSize.ToString();
 
 		// FindObjectOfType<Script>(bool includeInactive)
 		discard = FindObjectOfType<DiscardBoard>(true);
@@ -75,9 +83,10 @@ public class Player : NetworkBehaviour
 
 		CmdShowStats(0, "current_magic");
 		CmdShowStats(0, "max_magic");
+
 		CmdShowStats(0, "money");
 		CmdShowStats(2, "draw_cost");		// starting cost
-		CmdShowStats(1, "upgrade_cost");   // starting cost
+		CmdShowStats(1, "upgrade_cost");    // starting cost
 
 		if (isServer) 
 		{
@@ -123,11 +132,13 @@ public class Player : NetworkBehaviour
 	{
 		card.GetComponent<Card>().SetState(state); // make sure state is shown on all clients
 
-		if (state == CardState.Hand) // from drawing card
+		if (state == CardState.Hand) // drawing card from deck
 		{
 			if (isOwned)
 			{
 				card.transform.SetParent(Hand1.transform, false);
+				CardAmount = deck.MyDeck.Count;
+				deckText.text = CardAmount.ToString() + "/" + deck.MaxSize.ToString();
 			}
 			else
 			{
@@ -279,7 +290,7 @@ public class Player : NetworkBehaviour
 				break;
 
 			default:
-				Debug.LogError("forgot mode in ShowStats call");
+				Debug.LogError("invalid ShowStats call");
 				break;
 		}
 	}

@@ -7,8 +7,9 @@ public class Deck : NetworkBehaviour
 {
 	// for different decks, you may need to add cards from a data base in start.
 	public List<GameObject> MyDeck;
+	public int MaxSize;
 
-	public override void OnStartClient() 
+	public void InitDeck() 
 	{
 		GameManager game = FindAnyObjectByType<GameManager>();
 
@@ -25,9 +26,11 @@ public class Deck : NetworkBehaviour
 		else
 		{
 			deck = game.debugDeck;
-		} 
+		}
 
 		foreach (GameObject cardOB in deck) { MyDeck.Add(cardOB); }
+
+		MaxSize = MyDeck.Count;
 	}
 
 	[Command] public void CmdDrawCard() { DrawCardFromDeck(connectionToClient); }
