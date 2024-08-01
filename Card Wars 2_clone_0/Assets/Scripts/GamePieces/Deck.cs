@@ -9,7 +9,7 @@ public class Deck : NetworkBehaviour
 	public List<GameObject> MyDeck;
 	public int MaxSize;
 
-	public void InitDeck() 
+	private void Start()
 	{
 		GameManager game = FindAnyObjectByType<GameManager>();
 
@@ -29,8 +29,6 @@ public class Deck : NetworkBehaviour
 		}
 
 		foreach (GameObject cardOB in deck) { MyDeck.Add(cardOB); }
-
-		MaxSize = MyDeck.Count;
 	}
 
 	[Command] public void CmdDrawCard() { DrawCardFromDeck(connectionToClient); }

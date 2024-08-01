@@ -17,8 +17,6 @@ public class Player : NetworkBehaviour
 	[Header("Deck & Discard")]
 	public Deck			deck;
 	public DiscardBoard	discard;
-	public int CardAmount;
-	public int DeckSize;
 
 	[Header("Magic")]
 	public int CurrentMagic;
@@ -34,6 +32,8 @@ public class Player : NetworkBehaviour
 
 	// declared once, so they don't have to be found each time they are referenced
 	//***********************************************************************
+	private GameManager gameManager;
+
 	private GameObject Hand1;
 	private GameObject Hand2;
 
@@ -42,8 +42,6 @@ public class Player : NetworkBehaviour
 
 	private GameObject ThisMoney;
 	private GameObject OtherMoney;
-
-	private TextMeshProUGUI deckText;
 
 	private TextMeshProUGUI turnText;
 	//***********************************************************************
@@ -58,10 +56,6 @@ public class Player : NetworkBehaviour
 		canPlay = true;
 
 		deck = GetComponentInChildren<Deck>();
-		deck.InitDeck();
-		deckText = GameObject.Find("DeckText").GetComponent<TextMeshProUGUI>();
-		CardAmount = deck.MaxSize;
-		deckText.text = CardAmount.ToString() + "/" + deck.MaxSize.ToString();
 
 		// FindObjectOfType<Script>(bool includeInactive)
 		discard = FindObjectOfType<DiscardBoard>(true);
@@ -77,7 +71,7 @@ public class Player : NetworkBehaviour
 
 		turnText = GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>();
 
-		GameManager game = FindAnyObjectByType<GameManager>();
+		gameManager = FindAnyObjectByType<GameManager>();
 
 		myTurn = true;
 
@@ -91,7 +85,7 @@ public class Player : NetworkBehaviour
 		if (isServer) 
 		{
 			Debug.Log($"Player {connectionToClient.connectionId} has joined.");
-			game.CheckFullLobby();
+			gameManager.CheckFullLobby();
 		}
 	}
 
@@ -104,7 +98,7 @@ public class Player : NetworkBehaviour
 	[Command]
 	public void CmdSetReady()
 	{
-		FindAnyObjectByType<GameManager>().PlayerReady(connectionToClient);
+		gameManager.PlayerReady(connectionToClient);
 	}
 
 	[TargetRpc]
@@ -137,8 +131,6 @@ public class Player : NetworkBehaviour
 			if (isOwned)
 			{
 				card.transform.SetParent(Hand1.transform, false);
-				CardAmount = deck.MyDeck.Count;
-				deckText.text = CardAmount.ToString() + "/" + deck.MaxSize.ToString();
 			}
 			else
 			{
