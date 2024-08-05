@@ -7,12 +7,23 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-	[Header("1 is for master, 2 is for all creatures, 3 is for Debug Deck")]
+	public enum DeckType { Player, Debug }
+
+	public DeckType deckType;
+
+	[HideInInspector] public bool p0RecievedDeck;
+
+	[Header("Player Decks")]
+	public List<GameObject> p0Deck;
+	public List<GameObject> p1Deck;
+
+	[Header("1 : master, 2 : creatures, 3 : debug")]
 	public int chooseDeck;
 
-	public List<GameObject> MasterDeck;
-	public List<GameObject> allCreaturesDeck;
-	public List<GameObject> debugDeck;
+	[Header("Debug Decks")]
+	public List<GameObject> DebugMaster;
+	public List<GameObject> DebugAllCreatures;
+	public List<GameObject> DebugMisc;
 
 	private HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
@@ -57,6 +68,8 @@ public class GameManager : NetworkBehaviour
 		InitializePhases();
 
 		currentPhase = GamePhase.Offline;
+
+		p0RecievedDeck = false;
 
 		Debug.Log("Server started, waiting for players...");
 	}

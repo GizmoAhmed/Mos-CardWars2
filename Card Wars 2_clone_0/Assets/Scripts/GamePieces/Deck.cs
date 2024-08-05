@@ -5,9 +5,7 @@ using static Card;
 
 public class Deck : NetworkBehaviour
 {
-	// for different decks, you may need to add cards from a data base in start.
 	public List<GameObject> MyDeck;
-	public int MaxSize;
 
 	private void Start()
 	{
@@ -15,17 +13,32 @@ public class Deck : NetworkBehaviour
 
 		List<GameObject> deck;
 
-		if (game.chooseDeck == 1)
+		if (game.deckType == GameManager.DeckType.Player)
 		{
-			deck = game.MasterDeck;
+			if (game.p0RecievedDeck == false)
+			{
+				deck = game.p0Deck;
+				game.p0RecievedDeck = true;
+			}
+			else 
+			{
+				deck = game.p1Deck;
+			}
 		}
-		else if (game.chooseDeck == 2)
+		else 
 		{
-			deck = game.allCreaturesDeck;
-		}
-		else
-		{
-			deck = game.debugDeck;
+			if (game.chooseDeck == 1)
+			{
+				deck = game.DebugMaster;
+			}
+			else if (game.chooseDeck == 2)
+			{
+				deck = game.DebugAllCreatures;
+			}
+			else
+			{
+				deck = game.DebugMisc;
+			}
 		}
 
 		foreach (GameObject cardOB in deck) { MyDeck.Add(cardOB); }
