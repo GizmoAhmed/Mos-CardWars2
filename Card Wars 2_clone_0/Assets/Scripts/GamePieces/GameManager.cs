@@ -10,14 +10,9 @@ public class GameManager : NetworkBehaviour
 	[Header("1 is for master, 2 is for all creatures, 3 is for Debug Deck")]
 	public int chooseDeck;
 
-	[Header("Sample Player Decks")]
-	public List<GameObject> p0Deck;
-	public List<GameObject> p1Deck;
-
-	[Header("Debug Decks")]
-	public List<GameObject> DebugMaster;
-	public List<GameObject> DebugAllCreatures;
-	public List<GameObject> DebugMisc;
+	public List<GameObject> MasterDeck;
+	public List<GameObject> allCreaturesDeck;
+	public List<GameObject> debugDeck;
 
 	private HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
@@ -89,6 +84,8 @@ public class GameManager : NetworkBehaviour
 	[Server]
 	public void ChangePhase(GamePhase oldPhase, GamePhase newPhase)
 	{
+		// Debug.Log(oldPhase.ToString() + " > " + newPhase.ToString());
+
 		currentPhase = newPhase;
 
 		if (phaseHandlers == null || !phaseHandlers.ContainsKey(newPhase))
@@ -183,5 +180,6 @@ public class GameManager : NetworkBehaviour
 			readyPlayers.Clear();
 			ChangePhase(GamePhase.ChooseLand, GamePhase.SetUp);
 		}
+
 	}
 }
