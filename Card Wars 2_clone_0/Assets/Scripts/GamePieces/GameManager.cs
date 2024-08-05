@@ -37,6 +37,7 @@ public class GameManager : NetworkBehaviour
 	[Header("Starting Consumables")]
 	[SyncVar] public int firstMagic = 2;
 	[SyncVar] public int firstMoney = 10;
+	[SyncVar] public int firstHealth = 50;
 
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;

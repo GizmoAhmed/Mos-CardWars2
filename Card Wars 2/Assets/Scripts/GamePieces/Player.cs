@@ -15,8 +15,8 @@ public class Player : NetworkBehaviour
 	public bool myTurn;
 
 	[Header("Deck & Discard")]
-	public Deck			deck;
-	public DiscardBoard	discard;
+	public Deck deck;
+	public DiscardBoard discard;
 
 	[Header("Magic")]
 	public int CurrentMagic;
@@ -24,15 +24,16 @@ public class Player : NetworkBehaviour
 
 	[Header("Money")]
 	public int Money;
-	public int DrawCost;	
+	public int DrawCost;
 	public int UpgradeCost;
 
 	[Header("Health")]
 	public int Health;
 
-	// declared once, so they don't have to be found each time they are referenced
+	// Find once instead of multiple times
 	//***********************************************************************
 	private GameManager gameManager;
+	private Combat combat;
 
 	private GameObject Hand1;
 	private GameObject Hand2;
@@ -47,7 +48,7 @@ public class Player : NetworkBehaviour
 	//***********************************************************************
 
 	[Header("Battle Ready Cards")]
-	[SyncVar] public bool searchComplete;	
+	[SyncVar] public bool searchComplete;
 
 	public override void OnStartClient()
 	{
@@ -73,16 +74,20 @@ public class Player : NetworkBehaviour
 
 		gameManager = FindAnyObjectByType<GameManager>();
 
+		combat = FindAnyObjectByType<Combat>();
+
 		myTurn = true;
 
 		CmdShowStats(0, "current_magic");
 		CmdShowStats(0, "max_magic");
 
 		CmdShowStats(0, "money");
-		CmdShowStats(2, "draw_cost");		// starting cost
+		CmdShowStats(2, "draw_cost");       // starting cost
 		CmdShowStats(1, "upgrade_cost");    // starting cost
 
-		if (isServer) 
+		CmdShowStats(gameManager.firstHealth, "health");		
+
+		if (isServer)
 		{
 			Debug.Log($"Player {connectionToClient.connectionId} has joined.");
 			gameManager.CheckFullLobby();
@@ -172,22 +177,22 @@ public class Player : NetworkBehaviour
 	[ClientRpc]
 	public void RpcShowStats(int newAmount, string stat) 
 	{
-		TextMeshProUGUI magicText;
-
-		if (isOwned)
-		{
-			magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
-		}
-		else
-		{
-			magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
-		}
-
 		switch (stat) 
 		{
 			case "max_magic":
 
 				MaxMagic = newAmount;
+
+				TextMeshProUGUI magicText;
+
+				if (isOwned)
+				{
+					magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
+				}
+				else
+				{
+					magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
+				}
 
 				magicText.text = CurrentMagic.ToString() + "/" + MaxMagic.ToString();
 
@@ -196,6 +201,15 @@ public class Player : NetworkBehaviour
 			case "current_magic":
 
 				CurrentMagic = newAmount;
+
+				if (isOwned)
+				{
+					magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
+				}
+				else
+				{
+					magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
+				}
 
 				magicText.text = CurrentMagic.ToString() + "/" + MaxMagic.ToString();
 
@@ -360,7 +374,7 @@ public class Player : NetworkBehaviour
 				CmdAltercation(thisCard, acrossLand.CurrentCard.GetComponent<CreatureCard>());
 			}
 
-			yield return new WaitForSeconds(1f); // Pause between each iteration
+			yield return new WaitForSeconds(combat.combatDelay); // Pause between each iteration
 		}
 
 		CmdSetSearch(true);
@@ -376,6 +390,6 @@ public class Player : NetworkBehaviour
 	[Command]
 	public void CmdAltercation(CreatureCard attackingCard, CreatureCard defendingCard)
 	{
-		FindAnyObjectByType<Combat>().Altercation(attackingCard, defendingCard);
+		combat.Altercation(attackingCard, defendingCard);
 	}
 }
