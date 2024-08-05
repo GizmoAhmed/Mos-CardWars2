@@ -11,6 +11,7 @@ using System.Collections;
 
 public class Player : NetworkBehaviour
 {
+	public int playerID;
 	public bool canPlay = true;
 	public bool myTurn;
 
@@ -46,16 +47,19 @@ public class Player : NetworkBehaviour
 	private TextMeshProUGUI turnText;
 	//***********************************************************************
 
-	[Header("Battle Ready Cards")]
 	[SyncVar] public bool searchComplete;	
 
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
 
+		playerID = connectionToClient.connectionId;
+
 		canPlay = true;
 
 		deck = GetComponentInChildren<Deck>();
+
+		deck.InitializeDeck(playerID);
 
 		// FindObjectOfType<Script>(bool includeInactive)
 		discard = FindObjectOfType<DiscardBoard>(true);
@@ -84,7 +88,7 @@ public class Player : NetworkBehaviour
 
 		if (isServer) 
 		{
-			Debug.Log($"Player {connectionToClient.connectionId} has joined.");
+			Debug.Log($"Player {playerID} has joined.");
 			gameManager.CheckFullLobby();
 		}
 	}

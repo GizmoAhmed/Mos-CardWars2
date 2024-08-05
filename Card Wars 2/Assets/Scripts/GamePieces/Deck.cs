@@ -5,46 +5,29 @@ using static Card;
 
 public class Deck : NetworkBehaviour
 {
-	// for different decks, you may need to add cards from a data base in start.
-	public List<GameObject> MyDeck;
-	public int MaxSize;
+	private	GameManager	game;
+	private	Player		player;
 
-	private void Start()
+	public	List<GameObject> MyDeck;
+
+	public void InitializeDeck(int ID) 
 	{
-		GameManager game = FindAnyObjectByType<GameManager>();
+		game = FindAnyObjectByType<GameManager>();
 
-		List<GameObject> deck;
+		player = GetComponentInParent<Player>();
 
-		if (game.chooseDeck == 1)
-		{
-			deck = game.MasterDeck;
-		}
-		else if (game.chooseDeck == 2)
-		{
-			deck = game.allCreaturesDeck;
-		}
-		else
-		{
-			deck = game.debugDeck;
-		}
+		List<GameObject> deck = (ID == 0) ? game.p0Deck : game.p1Deck;
 
 		foreach (GameObject cardOB in deck) { MyDeck.Add(cardOB); }
 	}
 
-	[Command] public void CmdDrawCard() { DrawCardFromDeck(connectionToClient); }
+	[Command] public void CmdDrawCard(GameObject cardInstance) { DrawCardFromDeck(cardInstance, connectionToClient); }
 
-	private void DrawCardFromDeck(NetworkConnectionToClient conn)
-	{
-		Player player = GetComponentInParent<Player>();
-
-		int randomIndex = Random.Range(0, MyDeck.Count);
-		GameObject cardInstance = MyDeck[randomIndex];
-
+	private void DrawCardFromDeck(GameObject cardInstance, NetworkConnectionToClient conn)
+	{ 
 		GameObject drawnCard = Instantiate(cardInstance);
 		NetworkServer.Spawn(drawnCard, conn);
 
 		player.RpcHandleCard(drawnCard, CardState.Hand, null);
-
-		MyDeck.RemoveAt(randomIndex);
 	}
 }

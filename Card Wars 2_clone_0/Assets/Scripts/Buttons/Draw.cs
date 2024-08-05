@@ -1,5 +1,6 @@
 using UnityEngine;
 using Mirror;
+using System.Collections.Generic;
 
 public class Draw : NetworkBehaviour
 {
@@ -13,7 +14,14 @@ public class Draw : NetworkBehaviour
 		if (player.DrawCost <= player.Money && player.deck.MyDeck.Count > 0) 
 		{
 			player.CmdShowStats(player.Money - player.DrawCost, "money");
-			player.deck.CmdDrawCard();
+			
+			int randomIndex = Random.Range(0, player.deck.MyDeck.Count);
+			GameObject cardInstance = player.deck.MyDeck[randomIndex];
+
+			player.deck.CmdDrawCard(cardInstance);
+
+			player.deck.MyDeck.RemoveAt(randomIndex);
+
 		}
 		else 
 		{
