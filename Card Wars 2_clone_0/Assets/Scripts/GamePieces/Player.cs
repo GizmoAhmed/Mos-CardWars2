@@ -183,17 +183,8 @@ public class Player : NetworkBehaviour
 
 				MaxMagic = newAmount;
 
-				TextMeshProUGUI magicText;
-
-				if (isOwned)
-				{
-					magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
-				}
-				else
-				{
-					magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
-				}
-
+				TextMeshProUGUI magicText = (isOwned) ? ThisMagic.GetComponent<TextMeshProUGUI>() :  OtherMagic.GetComponent<TextMeshProUGUI>();
+				
 				magicText.text = CurrentMagic.ToString() + "/" + MaxMagic.ToString();
 
 				break;
@@ -202,14 +193,7 @@ public class Player : NetworkBehaviour
 
 				CurrentMagic = newAmount;
 
-				if (isOwned)
-				{
-					magicText = ThisMagic.GetComponent<TextMeshProUGUI>();
-				}
-				else
-				{
-					magicText = OtherMagic.GetComponent<TextMeshProUGUI>();
-				}
+				magicText = (isOwned) ? ThisMagic.GetComponent<TextMeshProUGUI>() : OtherMagic.GetComponent<TextMeshProUGUI>();
 
 				magicText.text = CurrentMagic.ToString() + "/" + MaxMagic.ToString();
 
@@ -219,16 +203,7 @@ public class Player : NetworkBehaviour
 
 				Money = newAmount;
 
-				TextMeshProUGUI moneyText;
-
-				if (isOwned)
-				{
-					moneyText = ThisMoney.GetComponent<TextMeshProUGUI>();
-				}
-				else
-				{
-					moneyText = OtherMoney.GetComponent<TextMeshProUGUI>();
-				}
+				TextMeshProUGUI moneyText = (isOwned) ? ThisMoney.GetComponent<TextMeshProUGUI>() :  OtherMoney.GetComponent<TextMeshProUGUI>();
 
 				moneyText.text = newAmount.ToString();
 
@@ -236,18 +211,9 @@ public class Player : NetworkBehaviour
 
 			case "draw_cost":
 
-				GameObject DrawCostTextObject;
+				DrawCost = newAmount;
 
-				if (isOwned)
-				{
-					DrawCost = newAmount;
-
-					DrawCostTextObject = GameObject.Find("ThisDrawCostText");
-				}
-				else 
-				{
-					DrawCostTextObject = GameObject.Find("OtherDrawCostText");
-				}
+				GameObject DrawCostTextObject = (isOwned) ? GameObject.Find("ThisDrawCostText") :  GameObject.Find("OtherDrawCostText");
 
 				TextMeshProUGUI drawCostText = DrawCostTextObject.GetComponent<TextMeshProUGUI>();
 
@@ -257,18 +223,9 @@ public class Player : NetworkBehaviour
 
 			case "upgrade_cost":
 
-				GameObject UpgradeCostTextObject;
+				UpgradeCost = newAmount;
 
-				if (isOwned)
-				{
-					UpgradeCost = newAmount;
-
-					UpgradeCostTextObject = GameObject.Find("ThisUpgradeCostText");
-				}
-				else
-				{
-					UpgradeCostTextObject = GameObject.Find("OtherUpgradeCostText");
-				}
+				GameObject UpgradeCostTextObject = (isOwned) ? GameObject.Find("ThisUpgradeCostText") :  GameObject.Find("OtherUpgradeCostText");
 
 				TextMeshProUGUI upgradeCostText = UpgradeCostTextObject.GetComponent<TextMeshProUGUI>();
 
@@ -278,25 +235,16 @@ public class Player : NetworkBehaviour
 
 			case "health":
 
-				GameObject healthObj;
+				Health = newAmount;
 
-				if (isOwned)
-				{
-					Health = newAmount;
-
-					healthObj = GameObject.Find("ThisHealth");
-				}
-				else
-				{
-					healthObj = GameObject.Find("OtherHealth");
-				}
+				GameObject healthObj = (isOwned) ? GameObject.Find("ThisHealth") : GameObject.Find("OtherHealth");
 
 				healthObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();
 
 				break;
 
 			default:
-				Debug.LogError("invalid ShowStats call");
+				Debug.LogError(stat + " is a invalid");
 				break;
 		}
 	}
