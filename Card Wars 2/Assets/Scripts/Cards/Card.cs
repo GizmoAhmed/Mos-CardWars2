@@ -1,7 +1,7 @@
 using UnityEngine;
 using Mirror;
 using TMPro;
-
+// 0.825 is width/heigth ratio
 public class Card : NetworkBehaviour
 {
 	public string	CardName;
@@ -30,7 +30,7 @@ public class Card : NetworkBehaviour
 
 	public CardState currentState = CardState.Deck;
 
-	public CardAnimator Animate;
+	[HideInInspector] public CardAnimator Animate;
 
 	private TextMeshProUGUI MagicText;
 	[SyncVar] public int MagicCost = 0;

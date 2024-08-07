@@ -5,7 +5,7 @@ using static Card;
 
 public class Deck : NetworkBehaviour
 {
-	public List<GameObject> MyDeck;
+	 [SyncVar] public List<GameObject> MyDeck;
 
 	private void Start()
 	{
