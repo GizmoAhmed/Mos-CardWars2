@@ -15,15 +15,16 @@ public class Combat : NetworkBehaviour
 
 		if (defendingCard == null)
 		{
-			if (!attackingCard.isOwned) // attacking card is on the other side
+			if (attackingCard.isOwned) // if true, this player is attacking
 			{
 				Player player = NetworkClient.localPlayer.GetComponent<Player>();
-				player.CmdShowStats(player.Health - attackingCard.AttackStat, "health");
+				player.CmdShowStats(player.Score + attackingCard.AttackStat, "score");
 			}
 		}
 		else 
 		{
 			defendingCard.TakeDamage(attackingCard.AttackStat);
+			// if defending card's state is discard, that means it died. Give coins for it.
 		}
 	}
 }

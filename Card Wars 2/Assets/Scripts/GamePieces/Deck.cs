@@ -5,7 +5,8 @@ using static Card;
 
 public class Deck : NetworkBehaviour
 {
-	 [SyncVar] public List<GameObject> MyDeck;
+	// currently only server player gets to see updated lists
+	 public List<GameObject> MyDeck;
 
 	private void Start()
 	{

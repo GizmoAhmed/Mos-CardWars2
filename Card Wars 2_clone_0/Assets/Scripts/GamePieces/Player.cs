@@ -27,6 +27,9 @@ public class Player : NetworkBehaviour
 	public int DrawCost;
 	public int UpgradeCost;
 
+	[Header("Score")]
+	public int Score;
+
 	[Header("Health")]
 	public int Health;
 
@@ -240,6 +243,16 @@ public class Player : NetworkBehaviour
 				GameObject healthObj = (isOwned) ? GameObject.Find("ThisHealth") : GameObject.Find("OtherHealth");
 
 				healthObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();
+
+				break;
+
+			case "score":
+
+				Score = newAmount;
+
+				GameObject scoreObj = (isOwned) ? GameObject.Find("ThisScore") : GameObject.Find("OtherScore");
+
+				scoreObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();
 
 				break;
 
