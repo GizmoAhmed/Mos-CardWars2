@@ -27,13 +27,16 @@ public class Player : NetworkBehaviour
 	public int DrawCost;
 	public int UpgradeCost;
 
+	[Header("Score")]
+	public int Score;
+
 	[Header("Health")]
 	public int Health;
 
 	// Find once instead of multiple times
 	//***********************************************************************
-	private GameManager gameManager;
-	private Combat combat;
+	private GameManager	gameManager;
+	private Combat		combat;
 
 	private GameObject Hand1;
 	private GameObject Hand2;
@@ -83,7 +86,9 @@ public class Player : NetworkBehaviour
 
 		CmdChangeStats(0, "money");
 		CmdChangeStats(2, "draw_cost");       
-		CmdChangeStats(1, "upgrade_cost");    
+		CmdChangeStats(1, "upgrade_cost");
+
+		CmdChangeStats(0, "score");
 
 		CmdChangeStats(gameManager.firstHealth, "health");
 
@@ -240,6 +245,16 @@ public class Player : NetworkBehaviour
 				GameObject healthObj = (isOwned) ? GameObject.Find("ThisHealth") : GameObject.Find("OtherHealth");
 
 				healthObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();
+
+				break;
+
+			case "score":
+
+				Score = newAmount;
+
+				GameObject scoreObj = (isOwned) ? GameObject.Find("ThisScore") : GameObject.Find("OtherScore");
+
+				scoreObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();
 
 				break;
 
