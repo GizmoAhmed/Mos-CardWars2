@@ -12,7 +12,7 @@ public class Draw : NetworkBehaviour
 
 		if (player.DrawCost <= player.Money && player.deck.MyDeck.Count > 0) 
 		{
-			player.CmdShowStats(player.Money - player.DrawCost, "money");
+			player.CmdChangeStats(player.Money - player.DrawCost, "money");
 			player.deck.CmdDrawCard();
 		}
 		else 

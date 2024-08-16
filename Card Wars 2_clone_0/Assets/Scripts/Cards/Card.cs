@@ -24,7 +24,7 @@ public class Card : NetworkBehaviour
 	private Vector2		currentMousePos;
 	private Vector2		clickSave;
 
-	public GameObject MyLand;
+	public GameObject	MyLand;
 
 	public enum CardState { Deck, Hand, Placed, Discard }
 
@@ -108,7 +108,7 @@ public class Card : NetworkBehaviour
 		if (isOverDropZone)
 		{
 			PlaceCard(NewDropZone);
-			player.CmdShowStats(player.CurrentMagic - MagicCost, "current_magic");
+			player.CmdChangeStats(player.CurrentMagic - MagicCost, "current_magic");
 		}
 		else
 		{

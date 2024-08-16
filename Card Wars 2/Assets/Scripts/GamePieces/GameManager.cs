@@ -27,6 +27,7 @@ public class GameManager : NetworkBehaviour
 
 	private HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
+	[Header("Phase")]
 	[SyncVar] public GamePhase currentPhase;
 
 	[Header("0 or 1, for the player you want to go first, else = random")]

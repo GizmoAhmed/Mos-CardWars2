@@ -27,9 +27,6 @@ public class Player : NetworkBehaviour
 	public int DrawCost;
 	public int UpgradeCost;
 
-	[Header("Score")]
-	public int Score;
-
 	[Header("Health")]
 	public int Health;
 
@@ -81,14 +78,14 @@ public class Player : NetworkBehaviour
 
 		myTurn = true;
 
-		CmdShowStats(0, "current_magic");
-		CmdShowStats(0, "max_magic");
+		CmdChangeStats(0, "current_magic");
+		CmdChangeStats(0, "max_magic");
 
-		CmdShowStats(0, "money");
-		CmdShowStats(2, "draw_cost");       // starting cost
-		CmdShowStats(1, "upgrade_cost");    // starting cost
+		CmdChangeStats(0, "money");
+		CmdChangeStats(2, "draw_cost");       
+		CmdChangeStats(1, "upgrade_cost");    
 
-		CmdShowStats(gameManager.firstHealth, "health");		
+		CmdChangeStats(gameManager.firstHealth, "health");
 
 		if (isServer)
 		{
@@ -172,7 +169,7 @@ public class Player : NetworkBehaviour
 
 
 	[Command]
-	public void CmdShowStats(int newAmount, string stat)
+	public void CmdChangeStats(int newAmount, string stat)
 	{
 		RpcShowStats(newAmount, stat);
 	}
@@ -243,16 +240,6 @@ public class Player : NetworkBehaviour
 				GameObject healthObj = (isOwned) ? GameObject.Find("ThisHealth") : GameObject.Find("OtherHealth");
 
 				healthObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();
-
-				break;
-
-			case "score":
-
-				Score = newAmount;
-
-				GameObject scoreObj = (isOwned) ? GameObject.Find("ThisScore") : GameObject.Find("OtherScore");
-
-				scoreObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();
 
 				break;
 
