@@ -17,9 +17,9 @@ public class Combat : NetworkBehaviour
 		{
 			if (attackingCard.isOwned) // if true, local player is attacking, if false, they're defending
 			{
-				Player defendingPlayer = NetworkClient.localPlayer.GetComponent<Player>();
+				Player attackingPlayer = NetworkClient.localPlayer.GetComponent<Player>();
 				// defendingPlayer.CmdChangeStats(defendingPlayer.Health - attackingCard.AttackStat, "health");
-				defendingPlayer.CmdChangeStats(defendingPlayer.Score + attackingCard.AttackStat, "score");
+				attackingPlayer.CmdChangeStats(attackingPlayer.Score + attackingCard.AttackStat, "score");
 			}
 		}
 		else 

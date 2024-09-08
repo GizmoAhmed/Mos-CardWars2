@@ -12,6 +12,13 @@ public class Attack : Phase
 	[Server]
 	public override void OnEnterPhase()
 	{
+		Player player0 = gameManager.Player0.identity.GetComponent<Player>();
+		Player player1 = gameManager.Player1.identity.GetComponent<Player>();
+
+		// reset the score at the start of each attack.
+		player0.RpcShowStats(0, "score");
+		player1.RpcShowStats(0, "score");
+
 		DoBattle();
 	}
 

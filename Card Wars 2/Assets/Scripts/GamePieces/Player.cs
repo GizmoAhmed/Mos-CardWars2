@@ -90,7 +90,7 @@ public class Player : NetworkBehaviour
 
 		CmdChangeStats(0, "score");
 
-		CmdChangeStats(gameManager.firstHealth, "health");
+		// CmdChangeStats(75, "health"); already set in gameManager.IdentifyPlayers()
 
 		if (isServer)
 		{

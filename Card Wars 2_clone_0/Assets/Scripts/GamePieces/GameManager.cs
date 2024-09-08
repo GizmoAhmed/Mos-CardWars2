@@ -36,9 +36,9 @@ public class GameManager : NetworkBehaviour
 	[SyncVar] public bool HostGoesFirst;
 
 	[Header("Starting Consumables")]
-	[SyncVar] public int firstMagic = 2;
-	[SyncVar] public int firstMoney = 10;
-	[SyncVar] public int firstHealth = 50;
+	public int firstMagic = 2;
+	public int firstMoney = 10;
+	public int firstHealth = 50;
 
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;
@@ -144,6 +144,10 @@ public class GameManager : NetworkBehaviour
 				Player1 = conn;
 			}
 		}
+
+		// since everyone joined, set the health
+		Player0.identity.GetComponent<Player>().RpcShowStats(firstHealth, "health");
+		Player1.identity.GetComponent<Player>().RpcShowStats(firstHealth, "health");
 	}
 
 	//// Ready Button Click is contextual, it works differently when clicked in different phases
