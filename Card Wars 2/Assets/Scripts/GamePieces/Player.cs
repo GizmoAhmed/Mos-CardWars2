@@ -15,7 +15,7 @@ public class Player : NetworkBehaviour
 	public bool myTurn;
 
 	[Header("Deck & Discard")]
-	public Deck deck;
+	public Deck deck; 
 	public DiscardBoard discard;
 
 	[Header("Magic")]

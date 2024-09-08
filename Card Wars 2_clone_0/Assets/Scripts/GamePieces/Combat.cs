@@ -28,4 +28,13 @@ public class Combat : NetworkBehaviour
 			// if defending card's state is discard, that means it died. Give coins for it.
 		}
 	}
+
+	[Command]
+	public void CmdDealDamage(int damage) { RpcDealDamage(damage); }
+
+	[ClientRpc]
+	public void RpcDealDamage(int damage) 
+	{
+
+	}
 }

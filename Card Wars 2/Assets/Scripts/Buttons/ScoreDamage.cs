@@ -1,18 +1,23 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreDamage : MonoBehaviour
+public class ScoreDamage : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private Combat combat;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	void Start()
+	{
+		combat = FindAnyObjectByType<Combat>();
+	}
+
+	public void DealDamage()
+	{
+		Player player = NetworkClient.localPlayer.GetComponent<Player>();
+
+		Debug.Log("This player is try to deal " + player.Score + " damage");
+
+		combat.CmdDealDamage(player.Score);
+	}
 }

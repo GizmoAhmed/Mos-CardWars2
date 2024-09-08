@@ -199,6 +199,5 @@ public class GameManager : NetworkBehaviour
 			readyPlayers.Clear();
 			ChangePhase(GamePhase.ChooseLand, GamePhase.SetUp);
 		}
-
 	}
 }
