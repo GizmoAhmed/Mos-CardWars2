@@ -29,12 +29,4 @@ public class Combat : NetworkBehaviour
 		}
 	}
 
-	[Command]
-	public void CmdDealDamage(int damage) { RpcDealDamage(damage); }
-
-	[ClientRpc]
-	public void RpcDealDamage(int damage) 
-	{
-
-	}
 }

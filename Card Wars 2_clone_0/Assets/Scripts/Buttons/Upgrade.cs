@@ -9,9 +9,6 @@ public class Upgrade : NetworkBehaviour
     {
 		player = NetworkClient.localPlayer.GetComponent<Player>();
 
-		/*NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-		player = networkIdentity.GetComponent<Player>();*/
-
 		if (player.UpgradeCost <= player.Money)
 		{
 			player.CmdChangeStats(player.Money - player.UpgradeCost, "money"); // spend money

@@ -355,4 +355,32 @@ public class Player : NetworkBehaviour
 	{
 		combat.Altercation(attackingCard, defendingCard);
 	}
+
+	[Command]
+	public void CmdDealDamage(Player p)
+	{
+		Debug.Log("Server: Deal Damage");
+		RpcDealDamage(p);
+	}
+
+	[ClientRpc]
+	public void RpcDealDamage(Player p) 
+	{
+		Debug.Log("isLocalPlayer: " + p.isLocalPlayer);
+
+		if (!p.isLocalPlayer)
+		{
+			Debug.Log("I'm taking damage");
+			DealDamage(p.Score);
+		}
+		else 
+		{
+			Debug.Log("I'm dealing damage");
+		}
+	}
+
+	public void DealDamage(int damage) 
+	{
+		CmdChangeStats(Health - damage, "health");
+	}
 }
