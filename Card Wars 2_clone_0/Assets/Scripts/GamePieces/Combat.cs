@@ -13,19 +13,16 @@ public class Combat : NetworkBehaviour
 	{
 		attackingCard.Animate.Hop(attackingCard.isOwned);
 
-		if (defendingCard == null)
-		{
-			if (attackingCard.isOwned) // if true, local player is attacking, if false, they're defending
-			{
-				Player attackingPlayer = NetworkClient.localPlayer.GetComponent<Player>();
-				// defendingPlayer.CmdChangeStats(defendingPlayer.Health - attackingCard.AttackStat, "health");
-				attackingPlayer.CmdChangeStats(attackingPlayer.Score + attackingCard.AttackStat, "score");
-			}
-		}
-		else 
+		if (defendingCard != null)
 		{
 			defendingCard.TakeDamage(attackingCard.AttackStat);
-			// if defending card's state is discard, that means it died. Give coins for it.
+		}
+
+		if (attackingCard.isOwned) // if true, local player is attacking, if false, they're defending
+		{
+			Player attackingPlayer = NetworkClient.localPlayer.GetComponent<Player>();
+
+			attackingPlayer.CmdChangeStats(attackingPlayer.Score + attackingCard.AttackStat, "score");
 		}
 	}
 

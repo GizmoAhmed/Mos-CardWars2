@@ -356,7 +356,7 @@ public class Player : NetworkBehaviour
 		combat.Altercation(attackingCard, defendingCard);
 	}
 
-	[Command]
+	/*[Command]
 	public void CmdDealDamage(Player p)
 	{
 		Debug.Log("Server: Deal Damage");
@@ -381,6 +381,7 @@ public class Player : NetworkBehaviour
 
 	public void DealDamage(int damage) 
 	{
+		// not running
 		CmdChangeStats(Health - damage, "health");
-	}
+	}*/
 }
