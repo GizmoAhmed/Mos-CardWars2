@@ -5,6 +5,7 @@ using static Card;
 using TMPro;
 using System.Linq;
 using System.Collections;
+using Unity.Collections;
 
 // ternary operator
 // variable = (condition) ? expressionTrue :  expressionFalse;
@@ -356,32 +357,8 @@ public class Player : NetworkBehaviour
 		combat.Altercation(attackingCard, defendingCard);
 	}
 
-	/*[Command]
-	public void CmdDealDamage(Player p)
+	public void DealDamage(int enemyScore) 
 	{
-		Debug.Log("Server: Deal Damage");
-		RpcDealDamage(p);
+		CmdChangeStats(Health - enemyScore, "health");
 	}
-
-	[ClientRpc]
-	public void RpcDealDamage(Player p) 
-	{
-		Debug.Log("isLocalPlayer: " + p.isLocalPlayer);
-
-		if (!p.isLocalPlayer)
-		{
-			Debug.Log("I'm taking damage");
-			DealDamage(p.Score);
-		}
-		else 
-		{
-			Debug.Log("I'm dealing damage");
-		}
-	}
-
-	public void DealDamage(int damage) 
-	{
-		// not running
-		CmdChangeStats(Health - damage, "health");
-	}*/
 }

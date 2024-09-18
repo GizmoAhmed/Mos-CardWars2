@@ -15,6 +15,9 @@ public class Attack : Phase
 		Player player0 = gameManager.Player0.identity.GetComponent<Player>();
 		Player player1 = gameManager.Player1.identity.GetComponent<Player>();
 
+		player0.RpcShowStats(player0.Health - player1.Score, "health");
+		player1.RpcShowStats(player1.Health - player0.Score, "health");
+
 		// reset the score at the start of each attack.
 		player0.RpcShowStats(0, "score");
 		player1.RpcShowStats(0, "score");
