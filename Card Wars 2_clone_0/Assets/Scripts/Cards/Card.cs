@@ -6,6 +6,8 @@ public class Card : NetworkBehaviour
 {
 	public string	CardName;
 
+	public GameObject InfoSlide;
+
 	private TextMeshProUGUI NameText;
 
 	private Player	player;
@@ -49,7 +51,10 @@ public class Card : NetworkBehaviour
 		MagicText = transform.Find("Magic").GetComponent<TextMeshProUGUI>();
 		MagicText.text = MagicCost.ToString();
 
-		NameText = transform.Find("Name").GetComponent<TextMeshProUGUI>();
+		InfoSlide = gameObject.transform.Find("InfoSlide").gameObject;
+		InfoSlide.SetActive(false);
+
+		NameText = InfoSlide.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
 		NameText.text = CardName.ToUpper();
 	}
 
@@ -86,12 +91,32 @@ public class Card : NetworkBehaviour
 		CardFlipper flip = GetComponent<CardFlipper>();
 
 		// If the mouse position has not changed, then it was a simple click, zoom into the card
-		if (clickSave == currentMousePos && flip.currentFace == CardFlipper.FaceState.FaceUp && !isZoomLocked) { Zoom(); }
+		if (clickSave == currentMousePos && flip.currentFace == CardFlipper.FaceState.FaceUp && !isZoomLocked)
+		{
+			// Zoom();
+		}
+	}
+
+	public void PointerEnter() 
+	{
+		CardFlipper flip = GetComponent<CardFlipper>();
+
+		if (flip.currentFace == CardFlipper.FaceState.FaceUp) 
+		{
+			InfoSlide.SetActive(true);
+		}
+	}
+
+	public void PointerExit()
+	{
+		InfoSlide.SetActive(false);
 	}
 
 	public void Grab()
 	{
 		if (!Movable || isZoomLocked) return;
+
+		InfoSlide.SetActive(false);
 
 		Grabbed = true;
 

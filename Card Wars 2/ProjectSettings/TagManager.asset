@@ -15,6 +15,7 @@ TagManager:
   - DiscardBoard
   - ActionButton
   - TargetSpell
+  - InfoSlide
   layers:
   - Default
   - TransparentFX
