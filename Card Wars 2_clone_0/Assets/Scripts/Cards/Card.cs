@@ -103,20 +103,22 @@ public class Card : NetworkBehaviour
 
 		if (flip.currentFace == CardFlipper.FaceState.FaceUp) 
 		{
-			InfoSlide.SetActive(true);
+			ShowCardInfo(true);
 		}
 	}
 
 	public void PointerExit()
 	{
-		InfoSlide.SetActive(false);
+		ShowCardInfo(false);
 	}
+
+	public void ShowCardInfo(bool b) { InfoSlide.SetActive(b); }
 
 	public void Grab()
 	{
 		if (!Movable || isZoomLocked) return;
 
-		InfoSlide.SetActive(false);
+		ShowCardInfo(false);
 
 		Grabbed = true;
 

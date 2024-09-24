@@ -135,7 +135,10 @@ public class Player : NetworkBehaviour
 	[ClientRpc]
 	public void RpcHandleCard(GameObject card, CardState state, GameObject land)
 	{
-		card.GetComponent<Card>().SetState(state); // make sure state is shown on all clients
+		Card cardscript			= card.GetComponent<Card>();
+		CardFlipper flipscript	= card.GetComponent<CardFlipper>();
+
+		cardscript.SetState(state); // make sure state is shown on all clients
 
 		if (state == CardState.Hand) // drawing card from deck
 		{
@@ -146,7 +149,7 @@ public class Player : NetworkBehaviour
 			else
 			{
 				card.transform.SetParent(Hand2.transform, false);
-				card.GetComponent<CardFlipper>().Flip();
+				flipscript.Flip();
 			}
 		}
 		else if (state == CardState.Placed) // from dropping onto drop zone
@@ -157,7 +160,8 @@ public class Player : NetworkBehaviour
 			}
 			else
 			{
-				card.GetComponent<CardFlipper>().Flip();
+				flipscript.Flip();				// info slide turned on here
+				cardscript.ShowCardInfo(false);	// turn it back off here
 
 				if (land != null)
 				{
