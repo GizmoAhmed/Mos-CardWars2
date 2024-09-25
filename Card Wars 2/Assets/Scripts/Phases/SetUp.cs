@@ -20,6 +20,15 @@ public class SetUp : Phase
 		Player player0 = gameManager.Player0.identity.GetComponent<Player>();
 		Player player1 = gameManager.Player1.identity.GetComponent<Player>();
 
+		if (player0.Health == 0)
+		{
+			Debug.Log("player1 wins");
+		}
+		else if (player0.Health == 1) 
+		{
+			Debug.Log("player0 wins");
+		}
+
 		if (firstSetUp)
 		{
 			player0.RpcShowStats(gameManager.firstMagic, "max_magic");

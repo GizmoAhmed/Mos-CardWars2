@@ -21,10 +21,8 @@ public class Card : NetworkBehaviour
 
 	[HideInInspector] public bool	Movable = true;
 	[HideInInspector] public string	landTag;
-	[HideInInspector] public bool	isZoomLocked;
 
 	private Vector2		currentMousePos;
-	private Vector2		clickSave;
 
 	public GameObject	MyLand;
 
@@ -79,23 +77,8 @@ public class Card : NetworkBehaviour
 		isOverDropZone = false;
 	}
 
-	public void Zoom() { GetComponent<ZoomClick>().ZoomIn(); }
-
 	[ClientRpc]
 	public virtual void RpcDecay() { }
-
-	public void PointerDown() { clickSave = new Vector2(Input.mousePosition.x, Input.mousePosition.y); }
-
-	public void PointerUp()
-	{
-		CardFlipper flip = GetComponent<CardFlipper>();
-
-		// If the mouse position has not changed, then it was a simple click, zoom into the card
-		if (clickSave == currentMousePos && flip.currentFace == CardFlipper.FaceState.FaceUp && !isZoomLocked)
-		{
-			// Zoom();
-		}
-	}
 
 	public void PointerEnter() 
 	{
@@ -116,7 +99,7 @@ public class Card : NetworkBehaviour
 
 	public void Grab()
 	{
-		if (!Movable || isZoomLocked) return;
+		if (!Movable) return;
 
 		ShowCardInfo(false);
 
@@ -128,7 +111,7 @@ public class Card : NetworkBehaviour
 
 	public void LetGo()
 	{
-		if (!Movable || isZoomLocked) return;
+		if (!Movable) return;
 
 		Grabbed = false;
 
