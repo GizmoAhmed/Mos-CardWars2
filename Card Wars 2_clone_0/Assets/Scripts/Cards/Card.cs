@@ -56,8 +56,6 @@ public class Card : NetworkBehaviour
 		NameText.text = CardName.ToUpper();
 	}
 
-	public bool IsOwnedByLocalPlayer() { return isOwned; }
-
 	protected virtual void OnTriggerStay2D(Collider2D other)
 	{
 		bool EnoughMagic = MagicCost <= player.CurrentMagic;
@@ -80,13 +78,19 @@ public class Card : NetworkBehaviour
 	[ClientRpc]
 	public virtual void RpcDecay() { }
 
+	public void ShowCardInfo(bool b) { InfoSlide.SetActive(b); }
+
 	public void PointerEnter() 
 	{
 		CardFlipper flip = GetComponent<CardFlipper>();
 
-		if (flip.currentFace == CardFlipper.FaceState.FaceUp) 
+		if (flip.currentFace == CardFlipper.FaceState.FaceUp && !Grabbed)
 		{
 			ShowCardInfo(true);
+		}
+		else 
+		{
+			ShowCardInfo(false);
 		}
 	}
 
@@ -94,8 +98,6 @@ public class Card : NetworkBehaviour
 	{
 		ShowCardInfo(false);
 	}
-
-	public void ShowCardInfo(bool b) { InfoSlide.SetActive(b); }
 
 	public void Grab()
 	{
