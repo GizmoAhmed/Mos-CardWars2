@@ -10,7 +10,7 @@ public class Card : NetworkBehaviour
 
 	private TextMeshProUGUI NameText;
 
-	private Player	player;
+	[HideInInspector] public Player	player;
 
 	private bool	Grabbed;
 
@@ -72,10 +72,16 @@ public class Card : NetworkBehaviour
 		}
 		else if (landTag == "SpellLand") 
 		{
-			NewDropZone = other.gameObject;
-			isOverDropZone = true;
+			if (ValidCastPlacement(landscript)) 
+			{
+				NewDropZone = other.gameObject;
+				isOverDropZone = true;
+			}
 		}
     }
+
+	// only spell card ever reaches here, so don't worry about creature or building return false 
+	public virtual bool ValidCastPlacement(CreatureLand landscript) { return false; }
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
@@ -139,7 +145,7 @@ public class Card : NetworkBehaviour
 
 	public virtual void PlaceCard(GameObject land)
 	{
-		Debug.LogWarning(name + ", which is a normal card, is placing...");
+		// Debug.LogWarning(name + ", which is a normal card, is placing...");
 
 		transform.SetParent(land.transform, true);
 		transform.localPosition = Vector2.zero;

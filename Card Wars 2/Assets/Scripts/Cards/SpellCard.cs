@@ -13,7 +13,7 @@ public class SpellCard : Card
 			" OneTimeCast is for cards that are activated then discarded\n" +
 			" Status is for lasting cards that effect over time")]
 
-	public SpellType Type;
+	public SpellType spellType;
 	public enum SpellType { Charm, OneTimeCast, Status };
 
 	[Header("Spell Stats")]
@@ -30,7 +30,7 @@ public class SpellCard : Card
 
 		if (timeTextTransform != null)
 		{
-			Type = SpellType.Status; // there is a timer? then it lasts, call it Status
+			spellType = SpellType.Status; // there is a timer? then it lasts, call it Status
 		}
 
 		landTag = "SpellLand";
@@ -51,7 +51,7 @@ public class SpellCard : Card
 	[ClientRpc]
 	public override void RpcDecay()
 	{
-		if (firstTurn || Type == SpellType.Status)
+		if (firstTurn || spellType == SpellType.Status)
 		{
 			firstTurn = false;
 			return;
@@ -83,7 +83,33 @@ public class SpellCard : Card
 
 	public override void PlaceCard(GameObject land)
 	{
-		Debug.LogWarning(name + " Spell is trying to CAST");
+		Discard();
+		// Debug.LogWarning(name + " Spell is trying to CAST");
+	}
+
+	public override void Discard()
+	{
+		SetState(CardState.Discard);
+
+		// MyLand.GetComponent<CreatureLand>().DetachCard(gameObject); 
+
+		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+
+		Animate.FadeOut(canvasGroup, gameObject, player, isOwned);
+	}
+
+	public override bool ValidCastPlacement(CreatureLand landscript) 
+	{
+		// Debug.LogWarning("SpellCard called valid place");
+
+		if (spellType == SpellType.Charm)
+		{
+			return landscript.Taken; // add charm to the creature that takes up the land
+		}
+		else 
+		{
+			return true; // OneTime and Status can be cast anywhere
+		}
 	}
 
 }

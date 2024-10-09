@@ -299,6 +299,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8356673554136141868, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+      propertyPath: spellType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8356673554136141868, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: currentTime
       value: 8
       objectReference: {fileID: 0}
