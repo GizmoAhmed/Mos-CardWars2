@@ -61,13 +61,21 @@ public class Card : NetworkBehaviour
 		bool EnoughMagic = MagicCost <= player.CurrentMagic;
 
 		CreatureLand landscript = other.GetComponent<CreatureLand>();
-		
-		if (landscript != null && other.CompareTag(landTag) && isOwned && landscript.Taken == false && EnoughMagic)
+
+		if (landscript == null) return;
+
+		if (other.CompareTag(landTag) && isOwned && EnoughMagic)  
 		{
-			NewDropZone		= other.gameObject;
-			isOverDropZone	= true;
+			//there are only creatuere and building tagged lands, probably trying to place one of those two
+			NewDropZone = other.gameObject;
+			isOverDropZone = true;
 		}
-	}
+		else if (landTag == "SpellLand") 
+		{
+			NewDropZone = other.gameObject;
+			isOverDropZone = true;
+		}
+    }
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
@@ -129,8 +137,10 @@ public class Card : NetworkBehaviour
 		}
 	}
 
-	public void PlaceCard(GameObject land)
+	public virtual void PlaceCard(GameObject land)
 	{
+		Debug.LogWarning(name + ", which is a normal card, is placing...");
+
 		transform.SetParent(land.transform, true);
 		transform.localPosition = Vector2.zero;
 

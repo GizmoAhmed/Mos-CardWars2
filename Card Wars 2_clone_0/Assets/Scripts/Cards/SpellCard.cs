@@ -9,8 +9,12 @@ public class SpellCard : Card
 {
 	[Header("Spell Type")]
 
+	[Tooltip("Charm is placed on indivudal cards\n" +
+			" OneTimeCast is for cards that are activated then discarded\n" +
+			" Status is for lasting cards that effect over time")]
+
 	public SpellType Type;
-	public enum SpellType { Target, Active };
+	public enum SpellType { Charm, OneTimeCast, Status };
 
 	[Header("Spell Stats")]
 	public int currentTime;
@@ -24,9 +28,14 @@ public class SpellCard : Card
 
 		Transform timeTextTransform = transform.Find("Timer");
 
-		Type = timeTextTransform != null ? SpellType.Active : SpellType.Target;
+		if (timeTextTransform != null)
+		{
+			Type = SpellType.Status; // there is a timer? then it lasts, call it Status
+		}
 
-		if (Type == SpellType.Active)
+		landTag = "SpellLand";
+
+		/*if (Type == SpellType.Active)
 		{
 			landTag = "SpellLand";
 			transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
@@ -36,13 +45,13 @@ public class SpellCard : Card
 		{
 			landTag = "TargetSpell";
 			maxTime = currentTime = 0;
-		}
+		}*/
 	}
 
 	[ClientRpc]
 	public override void RpcDecay()
 	{
-		if (firstTurn || Type == SpellType.Target)
+		if (firstTurn || Type == SpellType.Status)
 		{
 			firstTurn = false;
 			return;
@@ -65,6 +74,16 @@ public class SpellCard : Card
 	{
 		currentTime = maxTime;
 		transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
+	}
+
+	public void CastSpell(GameObject land) 
+	{
+
+	}
+
+	public override void PlaceCard(GameObject land)
+	{
+		Debug.LogWarning(name + " Spell is trying to CAST");
 	}
 
 }
