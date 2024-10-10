@@ -6,11 +6,13 @@ using Mirror;
 
 public class ActiveCharm : NetworkBehaviour
 {
-    public UnityEngine.UI.Image img;
+    private UnityEngine.UI.Image img;
     public bool Active;
 
     void Start()
     {
+        Active = false;
+
         img = GetComponent<UnityEngine.UI.Image>();
 
         if (img == null)
@@ -19,10 +21,14 @@ public class ActiveCharm : NetworkBehaviour
         }
     }
 
-    public void Activate(bool activate, UnityEngine.UI.Image spell = null)
+    public void AttachCharm(GameObject spell)
     {
-        img.sprite = spell.sprite;
-        Active = activate;
-    }
+        Active = true;
+        
+        GameObject spellFaceObj = spell.transform.Find("FaceImage").gameObject;
 
+		UnityEngine.UI.Image spellImage = spellFaceObj.gameObject.GetComponent<UnityEngine.UI.Image>();
+
+		img.sprite = spellImage.sprite;
+	}
 }

@@ -76,15 +76,30 @@ public class SpellCard : Card
 		transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
 	}
 
+	public override void AttachCharmSlot() { } // does nothing, becasue its a spell with no charm slot
+
 	public void CastSpell(GameObject land) 
 	{
+		if (spellType == SpellType.Charm) 
+		{
+			CreatureLand landscript = land.GetComponent<CreatureLand>();
+			GameObject cardOnLand = landscript.CurrentCard;
+			Card cardScript = cardOnLand.GetComponent<Card>();
+			GameObject activeCharmOBJ = cardScript.Charm;
+			ActiveCharm charmSlot = activeCharmOBJ.GetComponent<ActiveCharm>();
 
+			charmSlot.AttachCharm(gameObject);
+		}
+		else
+		{
+
+		}
 	}
 
 	public override void PlaceCard(GameObject land)
 	{
+		CastSpell(land);
 		Discard();
-		// Debug.LogWarning(name + " Spell is trying to CAST");
 	}
 
 	public override void Discard()

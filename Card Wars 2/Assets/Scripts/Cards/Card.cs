@@ -8,6 +8,8 @@ public class Card : NetworkBehaviour
 
 	public GameObject InfoSlide;
 
+	public GameObject Charm;
+
 	private TextMeshProUGUI NameText;
 
 	[HideInInspector] public Player	player;
@@ -54,6 +56,13 @@ public class Card : NetworkBehaviour
 
 		NameText = InfoSlide.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
 		NameText.text = CardName.ToUpper();
+
+		AttachCharmSlot();
+	}
+
+	public virtual void AttachCharmSlot() 
+	{
+		Charm = transform.Find("ActiveCharm").gameObject; // should work for creature and building and do nothing for spells
 	}
 
 	protected virtual void OnTriggerStay2D(Collider2D other)
