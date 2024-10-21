@@ -9,18 +9,22 @@ public class SpellCard : Card
 {
 	[Header("Spell Type")]
 
-	[Tooltip("Charm is placed on indivudal cards\n" +
-			" OneTimeCast is for cards that are activated then discarded\n" +
-			" Status is for lasting cards that effect over time")]
+	[Tooltip("Target: Cast on single creature effects that creature and/ore lane " +
+		"(i.e. Stim, Volcano, Brief Power)\r\n\r\n" +
+		"Field: Cast Anywhere (creature present or not), " +
+		"a one time effect (i.e. strawberry butt, enchiridion, dagger storm)\r\n\r\n" +
+		"Status: Cast Anywhere (creature present or not), " +
+		"leaves a lasting effect in play for a time (i.e. Tempest, Frost, Drought)  ")]
 
 	public SpellType spellType;
-	public enum SpellType { Charm, OneTimeCast, Status };
+	public enum SpellType { Target, Field, Status };
 
 	[Header("Spell Stats")]
 	public int currentTime;
 	public int maxTime;
 
-	[Tooltip("Allows for spell to last an extra turn")] public bool firstTurn;
+	[Tooltip("Allows for spell to have first turn not count towards timer")]
+	public bool firstTurn;
 
 	new void Start()
 	{
@@ -28,24 +32,19 @@ public class SpellCard : Card
 
 		Transform timeTextTransform = transform.Find("Timer");
 
+		landTag = "SpellLand";
+
 		if (timeTextTransform != null)
 		{
 			spellType = SpellType.Status; // there is a timer? then it lasts, call it Status
-		}
 
-		landTag = "SpellLand";
-
-		/*if (Type == SpellType.Active)
-		{
-			landTag = "SpellLand";
 			transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
 			firstTurn = true;
 		}
 		else
 		{
-			landTag = "TargetSpell";
 			maxTime = currentTime = 0;
-		}*/
+		}
 	}
 
 	[ClientRpc]
@@ -76,24 +75,9 @@ public class SpellCard : Card
 		transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
 	}
 
-	public override void AttachCharmSlot() { } // does nothing, becasue its a spell with no charm slot
-
-	public void CastSpell(GameObject land) 
+	public virtual void CastSpell(GameObject land) 
 	{
-		if (spellType == SpellType.Charm) 
-		{
-			CreatureLand landscript = land.GetComponent<CreatureLand>();
-			GameObject cardOnLand = landscript.CurrentCard;
-			Card cardScript = cardOnLand.GetComponent<Card>();
-			GameObject activeCharmOBJ = cardScript.Charm;
-			ActiveCharm charmSlot = activeCharmOBJ.GetComponent<ActiveCharm>();
-
-			charmSlot.AttachCharm(gameObject);
-		}
-		else
-		{
-
-		}
+		Debug.Log(spellType + " spell " + gameObject.name + " was cast");
 	}
 
 	public override void PlaceCard(GameObject land)
@@ -117,7 +101,7 @@ public class SpellCard : Card
 	{
 		// Debug.LogWarning("SpellCard called valid place");
 
-		if (spellType == SpellType.Charm)
+		if (spellType == SpellType.Target)
 		{
 			return landscript.Taken; // add charm to the creature that takes up the land
 		}

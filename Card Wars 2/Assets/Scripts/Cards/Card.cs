@@ -1,20 +1,20 @@
 using UnityEngine;
 using Mirror;
 using TMPro;
+
 // 0.825 is width/heigth ratio
 public class Card : NetworkBehaviour
 {
+	[Header("Base Card Includes: ")]
 	public string	CardName;
 
 	public GameObject InfoSlide;
-
-	public GameObject Charm;
 
 	private TextMeshProUGUI NameText;
 
 	[HideInInspector] public Player	player;
 
-	private bool	Grabbed;
+	private bool		Grabbed;
 
 	private GameObject	StartParent;
 	private Vector2		StartPos;
@@ -56,13 +56,6 @@ public class Card : NetworkBehaviour
 
 		NameText = InfoSlide.transform.Find("NameText").GetComponent<TextMeshProUGUI>();
 		NameText.text = CardName.ToUpper();
-
-		AttachCharmSlot();
-	}
-
-	public virtual void AttachCharmSlot() 
-	{
-		Charm = transform.Find("ActiveCharm").gameObject; // should work for creature and building and do nothing for spells
 	}
 
 	protected virtual void OnTriggerStay2D(Collider2D other)
@@ -101,20 +94,14 @@ public class Card : NetworkBehaviour
 	[ClientRpc]
 	public virtual void RpcDecay() { }
 
-	public void ShowCardInfo(bool b) { InfoSlide.SetActive(b); }
+	public virtual void ShowCardInfo(bool b) { InfoSlide.SetActive(b); } 
 
 	public void PointerEnter() 
 	{
 		CardFlipper flip = GetComponent<CardFlipper>();
 
-		if (flip.currentFace == CardFlipper.FaceState.FaceUp && !Grabbed)
-		{
-			ShowCardInfo(true);
-		}
-		else 
-		{
-			ShowCardInfo(false);
-		}
+		ShowCardInfo(flip.currentFace == CardFlipper.FaceState.FaceUp && !Grabbed);
+
 	}
 
 	public void PointerExit()

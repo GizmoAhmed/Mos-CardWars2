@@ -938,13 +938,15 @@ MonoBehaviour:
   syncInterval: 0
   CardName: 
   InfoSlide: {fileID: 0}
+  Charm: {fileID: 0}
+  player: {fileID: 0}
   Movable: 1
   landTag: 
   MyLand: {fileID: 0}
   currentState: 0
   Animate: {fileID: 0}
   MagicCost: 0
-  Type: 0
+  spellType: 0
   currentTime: 0
   maxTime: 0
   firstTurn: 0

@@ -160,7 +160,7 @@ public class Player : NetworkBehaviour
 			}
 			else
 			{
-				flipscript.Flip();				// info slide turned on here
+				flipscript.Flip();				// info slide turned on card info 
 				cardscript.ShowCardInfo(false);	// turn it back off here
 
 				if (land != null)
