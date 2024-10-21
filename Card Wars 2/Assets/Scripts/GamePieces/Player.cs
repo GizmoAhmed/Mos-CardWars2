@@ -154,6 +154,13 @@ public class Player : NetworkBehaviour
 		}
 		else if (state == CardState.Placed) // from dropping onto drop zone
 		{
+			if (land == null) // prolly a spell
+			{
+				SpellCard spellCard = card.GetComponent<SpellCard>();
+				spellCard.Discard();
+				return;
+			}
+
 			if (isOwned)
 			{
 				land.GetComponent<CreatureLand>().AttachCard(card);
@@ -161,18 +168,15 @@ public class Player : NetworkBehaviour
 			else
 			{
 				flipscript.Flip();				// info slide turned on card info 
-				cardscript.ShowCardInfo(false);	// turn it back off here
+				cardscript.ShowCardInfo(false); // turn it back off here
 
-				if (land != null)
-				{
-					CreatureLand landScript = land.GetComponent<CreatureLand>();
-					GameObject acrossLand = landScript._Across;
+				CreatureLand landScript = land.GetComponent<CreatureLand>();
+				GameObject acrossLand = landScript._Across;
 
-					acrossLand.GetComponent<CreatureLand>().AttachCard(card);
+				acrossLand.GetComponent<CreatureLand>().AttachCard(card);
 
-					card.transform.SetParent(acrossLand.transform, true);
-					card.transform.localPosition = Vector2.zero;
-				}
+				card.transform.SetParent(acrossLand.transform, true);
+				card.transform.localPosition = Vector2.zero;
 			}
 		}
 	}

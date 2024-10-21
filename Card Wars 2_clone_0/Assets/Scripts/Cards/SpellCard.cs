@@ -83,7 +83,9 @@ public class SpellCard : Card
 	public override void PlaceCard(GameObject land)
 	{
 		CastSpell(land);
-		Discard();
+
+		// null params discerns spell from building and creature (see DropCard0
+		player.CmdDropCard(gameObject, CardState.Placed, null); 
 	}
 
 	public override void Discard()
