@@ -7,3 +7,4 @@
 Scholar
 [Wisp]([url](https://www.vecteezy.com/vector-art/22869446-8-bit-pixel-cute-fire-monster-illustration-of-pixel-art-vector-cute-creature-doodle-set))
 [fireScoreIcon]([url](https://www.pinterest.com/pin/664984701205472235/))
+[stim]([url](https://pixelworlds.fandom.com/wiki/Pet_Medicine))
