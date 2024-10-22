@@ -101,7 +101,6 @@ public class Card : NetworkBehaviour
 		CardFlipper flip = GetComponent<CardFlipper>();
 
 		ShowCardInfo(flip.currentFace == CardFlipper.FaceState.FaceUp && !Grabbed);
-
 	}
 
 	public void PointerExit()

@@ -77,7 +77,7 @@ public class SpellCard : Card
 
 	public virtual void CastSpell(GameObject land) 
 	{
-		Debug.Log(spellType + " spell " + gameObject.name + " was cast");
+		Debug.Log("base cast called: " + gameObject.name + " was cast");
 	}
 
 	public override void PlaceCard(GameObject land)
