@@ -15,6 +15,13 @@ public class Stim : SpellCard
 
 	public override void CastSpell(GameObject land)
 	{
-		Debug.LogWarning("Stim used on " + land.name);
+		CreatureLand landScript = land.GetComponent<CreatureLand>();
+		if (landScript == null) { return; }
+
+		CreatureCard creature = landScript.CurrentCard.GetComponent<CreatureCard>();
+		if (creature == null) { return; }
+
+		creature.Buff(AttackBoost, true, "attack");
+		creature.Buff(DefenseBoost, true, "defense");
 	}
 }
