@@ -26,7 +26,7 @@ public class SpellCard : Card
 	[Tooltip("Allows for spell to have first turn not count towards timer")]
 	public bool firstTurn;
 
-	new void Start()
+	protected override void Start()
 	{
 		base.Start();
 

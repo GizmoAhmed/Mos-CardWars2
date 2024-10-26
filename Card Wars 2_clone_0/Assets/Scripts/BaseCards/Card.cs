@@ -22,7 +22,8 @@ public class Card : NetworkBehaviour
 	private bool		isOverDropZone;
 
 	[HideInInspector] public bool	Movable = true;
-	[HideInInspector] public string	landTag;
+
+	public string	landTag;
 
 	private Vector2		currentMousePos;
 
@@ -39,7 +40,7 @@ public class Card : NetworkBehaviour
 
 	public void SetState(CardState newState) { currentState = newState; }
 
-	public void Start()
+	protected virtual void Start()
 	{
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
 		player = networkIdentity.GetComponent<Player>();
