@@ -9,7 +9,7 @@ public class SpellCard : Card
 {
 	[Header("Spell Type")]
 
-	[Tooltip("Target: Cast on single creature effects that creature and/ore lane " +
+	[Tooltip("Target: Cast on single creature effects that creature and/or lane " +
 		"(i.e. Stim, Volcano, Brief Power)\r\n\r\n" +
 		"Field: Cast Anywhere (creature present or not), " +
 		"a one time effect (i.e. strawberry butt, enchiridion, dagger storm)\r\n\r\n" +
@@ -75,7 +75,7 @@ public class SpellCard : Card
 		transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
 	}
 
-	public virtual void CastSpell(GameObject land) 
+	public virtual void CastSpell(GameObject land)
 	{
 		Debug.Log("base cast called: " + gameObject.name + " was cast");
 	}
@@ -85,7 +85,7 @@ public class SpellCard : Card
 		CastSpell(land);
 
 		// null params discerns spell from building and creature (see DropCard0
-		player.CmdDropCard(gameObject, CardState.Placed, null); 
+		player.CmdDropCard(gameObject, CardState.Placed, null);
 	}
 
 	public override void Discard()
@@ -99,15 +99,14 @@ public class SpellCard : Card
 		Animate.FadeOut(canvasGroup, gameObject, player, isOwned);
 	}
 
-	public override bool ValidCastPlacement(CreatureLand landscript) 
+	// override this for certain spells, ie Stim only works on creatures
+	public override bool ValidCastPlacement(CreatureLand landscript)
 	{
-		// Debug.LogWarning("SpellCard called valid place");
-
 		if (spellType == SpellType.Target)
 		{
-			return landscript.Taken; // add charm to the creature that takes up the land
+			return landscript.Taken; // cast spell on creature that takes up the land
 		}
-		else 
+		else
 		{
 			return true; // OneTime and Status can be cast anywhere
 		}

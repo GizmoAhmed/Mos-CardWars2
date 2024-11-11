@@ -168,4 +168,11 @@ public class Card : NetworkBehaviour
 
 		if (Movable && Grabbed) { transform.position = currentMousePos; }
 	}
+
+	public virtual void CardReset() 
+	{ 
+		// make card reset, aka ethans attack boost build up and a some buildings stat or something
+	}
+
+
 }

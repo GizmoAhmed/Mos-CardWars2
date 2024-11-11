@@ -21,7 +21,7 @@ public class Stim : SpellCard
 		CreatureCard creature = landScript.CurrentCard.GetComponent<CreatureCard>();
 		if (creature == null) { return; }
 
-		creature.Buff(AttackBoost, true, "attack");
-		creature.Buff(DefenseBoost, true, "defense");
+		creature.CmdBuff(AttackBoost, true, "attack");
+		creature.CmdBuff(DefenseBoost, true, "defense");
 	}
 }

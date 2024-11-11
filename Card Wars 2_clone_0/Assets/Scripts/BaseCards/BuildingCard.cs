@@ -36,7 +36,7 @@ public class BuildingCard : Card
 
 		if (currentTime <= 0)
 		{
-			FillTime();
+			CardReset();
 			base.Discard();
 		}
 		else
@@ -45,7 +45,7 @@ public class BuildingCard : Card
 		}
 	}
 
-	public void FillTime()
+	public override void CardReset()
 	{
 		currentTime = maxTime;
 		transform.Find("Timer").GetComponent<TextMeshProUGUI>().text = currentTime.ToString();
