@@ -6,28 +6,28 @@ using TMPro;
 public class Card : NetworkBehaviour
 {
 	[Header("Base Card Includes: ")]
-	public string	CardName;
+	public string CardName;
 
 	public GameObject InfoSlide;
 
 	private TextMeshProUGUI NameText;
 
-	[HideInInspector] public Player	player;
+	[HideInInspector] public Player player;
 
-	private bool		Grabbed;
+	private bool Grabbed;
 
-	private GameObject	StartParent;
-	private Vector2		StartPos;
-	private GameObject	NewDropZone;
-	private bool		isOverDropZone;
+	private GameObject StartParent;
+	private Vector2 StartPos;
+	private GameObject NewDropZone;
+	private bool isOverDropZone;
 
-	[HideInInspector] public bool	Movable = true;
+	[HideInInspector] public bool Movable = true;
 
-	public string	landTag;
+	public string landTag;
 
-	private Vector2		currentMousePos;
+	[HideInInspector] public Vector2 currentMousePos;
 
-	public GameObject	MyLand;
+	public GameObject MyLand;
 
 	public enum CardState { Deck, Hand, Placed, Discard }
 
@@ -39,6 +39,8 @@ public class Card : NetworkBehaviour
 	[SyncVar] public int MagicCost = 0;
 
 	public void SetState(CardState newState) { currentState = newState; }
+
+	[HideInInspector] public Vector2 clickSave;
 
 	protected virtual void Start()
 	{
@@ -67,21 +69,21 @@ public class Card : NetworkBehaviour
 
 		if (landscript == null) return;
 
-		if (other.CompareTag(landTag) && isOwned && EnoughMagic)  
+		if (other.CompareTag(landTag) && isOwned && EnoughMagic)
 		{
 			//there are only creatuere and building tagged lands, probably trying to place one of those two
 			NewDropZone = other.gameObject;
 			isOverDropZone = true;
 		}
-		else if (landTag == "SpellLand") 
+		else if (landTag == "SpellLand")
 		{
-			if (ValidCastPlacement(landscript)) 
+			if (ValidCastPlacement(landscript))
 			{
 				NewDropZone = other.gameObject;
 				isOverDropZone = true;
 			}
 		}
-    }
+	}
 
 	// only spell card ever reaches here, so don't worry about creature or building return false 
 	public virtual bool ValidCastPlacement(CreatureLand landscript) { return false; }
@@ -95,9 +97,9 @@ public class Card : NetworkBehaviour
 	[ClientRpc]
 	public virtual void RpcDecay() { }
 
-	public virtual void ShowCardInfo(bool b) { InfoSlide.SetActive(b); } 
+	public virtual void ShowCardInfo(bool b) { InfoSlide.SetActive(b); }
 
-	public void PointerEnter() 
+	public void PointerEnter()
 	{
 		CardFlipper flip = GetComponent<CardFlipper>();
 
@@ -109,7 +111,23 @@ public class Card : NetworkBehaviour
 		ShowCardInfo(false);
 	}
 
-	public void Grab()
+	public virtual void PointerDown()
+	{
+		clickSave = currentMousePos;
+	}
+
+	public virtual void PointerUp()
+	{
+		CardFlipper flip = GetComponent<CardFlipper>();
+
+		// If the mouse position has not changed, then it was a simple click
+		if ((currentMousePos == clickSave) && flip.currentFace == CardFlipper.FaceState.FaceUp)
+		{
+			Debug.Log("Base Card Click: " + name);
+		}
+	}
+
+	public virtual void Grab()
 	{
 		if (!Movable) return;
 
@@ -121,7 +139,7 @@ public class Card : NetworkBehaviour
 		StartPos = transform.position;
 	}
 
-	public void LetGo()
+	public virtual void LetGo()
 	{
 		if (!Movable) return;
 
@@ -151,7 +169,7 @@ public class Card : NetworkBehaviour
 		player.CmdDropCard(gameObject, CardState.Placed, land);
 	}
 
-	public virtual void Discard() 
+	public virtual void Discard()
 	{
 		SetState(CardState.Discard);
 
@@ -169,10 +187,8 @@ public class Card : NetworkBehaviour
 		if (Movable && Grabbed) { transform.position = currentMousePos; }
 	}
 
-	public virtual void CardReset() 
-	{ 
+	public virtual void CardReset()
+	{
 		// make card reset, aka ethans attack boost build up and a some buildings stat or something
 	}
-
-
 }

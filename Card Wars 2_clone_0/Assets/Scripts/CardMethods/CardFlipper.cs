@@ -48,7 +48,12 @@ public class CardFlipper : MonoBehaviour
 	{
 		foreach (Transform child in transform)
 		{
-			child.gameObject.SetActive(isActive);
+			if (child.gameObject.name == "InfoSlide" || child.gameObject.name == "UseButton") { }
+			else
+			{
+				child.gameObject.SetActive(isActive);
+			}
+			
 		}
 	}
 }

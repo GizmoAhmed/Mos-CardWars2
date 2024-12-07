@@ -168,7 +168,7 @@ public class Player : NetworkBehaviour
 			else
 			{
 				flipscript.Flip();				// info slide turned on card info 
-				cardscript.ShowCardInfo(false); // turn it back off here
+				// cardscript.ShowCardInfo(false); // turn it back off here, no longer needed tho, see card flip child iteration
 
 				CreatureLand landScript = land.GetComponent<CreatureLand>();
 				GameObject acrossLand = landScript._Across;

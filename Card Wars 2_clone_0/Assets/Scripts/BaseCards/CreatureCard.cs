@@ -20,6 +20,8 @@ public class CreatureCard : Card
 	private TextMeshProUGUI DefenseText;
 	private TextMeshProUGUI AbilityText;
 
+	private GameObject UseButton;
+
 	public enum Element { Forge, Spirit, Crystal, Tomb, School }
 
 	[SyncVar] public Element myElement;
@@ -40,6 +42,9 @@ public class CreatureCard : Card
 		Defense = MaxDefense;
 
 		UpdateStatText();
+
+		UseButton = gameObject.transform.Find("UseButton").gameObject;
+		UseButton.SetActive(false);
 	}
 
 	void UpdateStatText() 
@@ -125,6 +130,29 @@ public class CreatureCard : Card
 		}
 
 		UpdateStatText();
+	}
+
+	public override void PointerUp()
+	{
+		CardFlipper flip = GetComponent<CardFlipper>();
+
+		// If the mouse position has not changed, then it was a simple click, zoom into the card
+		if ((currentMousePos == clickSave) && flip.currentFace == CardFlipper.FaceState.FaceUp && isOwned)
+		{
+			UseButton.SetActive(!UseButton.activeSelf);
+		}
+	}
+
+	public override void Grab()
+	{
+		base.Grab();
+		UseButton.SetActive(false);
+	}
+
+	public override void LetGo()
+	{
+		base.LetGo();
+		UseButton.SetActive(false);
 	}
 
 	[ClientRpc]

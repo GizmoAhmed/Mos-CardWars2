@@ -131,11 +131,11 @@ PrefabInstance:
     - target: {fileID: 6651087119535921806, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_Delegates.Array.data[4].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2855196687961740736}
+      objectReference: {fileID: 6272289601845656873}
     - target: {fileID: 6651087119535921806, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_Delegates.Array.data[5].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2855196687961740736}
+      objectReference: {fileID: 6272289601845656873}
     - target: {fileID: 6651087119535921806, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Grab
@@ -154,11 +154,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6651087119535921806, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_Delegates.Array.data[4].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: PointerUp
       objectReference: {fileID: 0}
     - target: {fileID: 6651087119535921806, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_Delegates.Array.data[5].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: PointerDown
       objectReference: {fileID: 0}
     - target: {fileID: 7272186375663456577, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
       propertyPath: m_Name
@@ -207,10 +207,12 @@ MonoBehaviour:
   player: {fileID: 0}
   Movable: 1
   landTag: 
+  currentMousePos: {x: 0, y: 0}
   MyLand: {fileID: 0}
   currentState: 0
   Animate: {fileID: 0}
   MagicCost: 1
+  clickSave: {x: 0, y: 0}
   spellType: 0
   currentTime: 0
   maxTime: 0
