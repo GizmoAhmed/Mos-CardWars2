@@ -622,7 +622,7 @@ RectTransform:
   m_GameObject: {fileID: 7272186375663456577}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6295683417579380467}
@@ -631,10 +631,10 @@ RectTransform:
   - {fileID: 1971645678609905387}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 165, y: 200}
+  m_SizeDelta: {x: 123.75, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8297971900915386183
 CanvasRenderer:
@@ -815,7 +815,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.72989655}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -826,7 +826,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 165, y: 200}
+  m_Size: {x: 123.75, y: 150}
   m_EdgeRadius: 0
 --- !u!50 &6621378006974080712
 Rigidbody2D:
@@ -938,14 +938,15 @@ MonoBehaviour:
   syncInterval: 0
   CardName: 
   InfoSlide: {fileID: 0}
-  UseButton: {fileID: 0}
   player: {fileID: 0}
   Movable: 1
   landTag: 
+  currentMousePos: {x: 0, y: 0}
   MyLand: {fileID: 0}
   currentState: 0
   Animate: {fileID: 0}
   MagicCost: 0
+  clickSave: {x: 0, y: 0}
   spellType: 0
   currentTime: 0
   maxTime: 0
