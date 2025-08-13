@@ -136,7 +136,7 @@ public class Player : NetworkBehaviour
 	public void RpcHandleCard(GameObject card, CardState state, GameObject land)
 	{
 		Card cardscript			= card.GetComponent<Card>();
-		CardFlipper flipscript	= card.GetComponent<CardFlipper>();
+		// CardFlipper flipscript	= card.GetComponent<CardFlipper>();
 
 		cardscript.SetState(state); // make sure state is shown on all clients
 
@@ -149,7 +149,7 @@ public class Player : NetworkBehaviour
 			else
 			{
 				card.transform.SetParent(Hand2.transform, false);
-				flipscript.Flip();
+				// flipscript.Flip();
 			}
 		}
 		else if (state == CardState.Placed) // from dropping onto drop zone
@@ -167,7 +167,7 @@ public class Player : NetworkBehaviour
 			}
 			else
 			{
-				flipscript.Flip();				// info slide turned on card info 
+				// flipscript.Flip();				// info slide turned on card info 
 				// cardscript.ShowCardInfo(false); // turn it back off here, no longer needed tho, see card flip child iteration
 
 				CreatureLand landScript = land.GetComponent<CreatureLand>();

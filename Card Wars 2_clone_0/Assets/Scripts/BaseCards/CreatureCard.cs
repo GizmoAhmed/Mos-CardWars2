@@ -134,13 +134,13 @@ public class CreatureCard : Card
 
 	public override void PointerUp()
 	{
-		CardFlipper flip = GetComponent<CardFlipper>();
+		/*CardFlipper flip = GetComponent<CardFlipper>();
 
 		// If the mouse position has not changed, then it was a simple click, zoom into the card
 		if ((currentMousePos == clickSave) && flip.currentFace == CardFlipper.FaceState.FaceUp && isOwned)
 		{
 			UseButton.SetActive(!UseButton.activeSelf);
-		}
+		}*/
 	}
 
 	public override void Grab()

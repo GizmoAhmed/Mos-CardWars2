@@ -5063,11 +5063,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: deckType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: chooseDeck
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: firstMagic
@@ -5095,7 +5095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: DebugMisc.Array.size
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugDeck.Array.size
@@ -5208,15 +5208,15 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: DebugMisc.Array.data[0]
       value: 
-      objectReference: {fileID: 4821161181285429414, guid: b2f389a1cafb87c4dbe322e237f3db2c, type: 3}
+      objectReference: {fileID: 2836957975447944732, guid: e4a8f6012a5b1f248ab49f69514f445f, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: DebugMisc.Array.data[1]
       value: 
-      objectReference: {fileID: 5306146527645564023, guid: b374dbc35710025429b0696f84e708c8, type: 3}
+      objectReference: {fileID: 558969142524760432, guid: 75f7bcdd4c6de0943b190468fe8f0833, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: DebugMisc.Array.data[2]
       value: 
-      objectReference: {fileID: 2855196687961740736, guid: 4df2d6b42f1215a48a67b7d3433109da, type: 3}
+      objectReference: {fileID: 7755131462459198829, guid: 753df04014c82f94e8f992dc7939e8ae, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: DebugMisc.Array.data[3]
       value: 
@@ -8540,9 +8540,9 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
-  - {fileID: 5669542139119279889, guid: 71b7b9b83a96b8c4daebb9a1a081d42a, type: 3}
-  - {fileID: 9217453708348395853, guid: df91bece5a09dbc469523b9acbce9cf4, type: 3}
-  - {fileID: 7272186375663456577, guid: 40ac4e61e0f58674a856343e90fd55dd, type: 3}
+  - {fileID: 7755131462459198829, guid: 753df04014c82f94e8f992dc7939e8ae, type: 3}
+  - {fileID: 558969142524760432, guid: 75f7bcdd4c6de0943b190468fe8f0833, type: 3}
+  - {fileID: 2836957975447944732, guid: e4a8f6012a5b1f248ab49f69514f445f, type: 3}
   - {fileID: 7286676530259862765, guid: 72e15e1a91d73a840836c56f0456a3b9, type: 3}
   - {fileID: 4821161181285429414, guid: b2f389a1cafb87c4dbe322e237f3db2c, type: 3}
   - {fileID: 151454856385694180, guid: 7c06864a0d157c9469e8233a7202eb18, type: 3}
@@ -8562,21 +8562,6 @@ MonoBehaviour:
   - {fileID: 5306146527645564023, guid: b374dbc35710025429b0696f84e708c8, type: 3}
   - {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
   - {fileID: 5510745043124213716, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
-  - {fileID: 2866573148162227097, guid: 2dbe72106dde2c348bb7b3443eb7c851, type: 3}
-  - {fileID: 6370985728039445924, guid: 8554e24fa663eeb44b33fe437d3c5cac, type: 3}
-  - {fileID: 2509186087479040677, guid: 4be2706f0526a4d48bcaf7071e8e7fa1, type: 3}
-  - {fileID: 8584247411600538929, guid: d5c8a5a5e6786394f8ea6cb0f80c2d13, type: 3}
-  - {fileID: 4800586785374285995, guid: c30e76337535c20478c577d415690f8e, type: 3}
-  - {fileID: 5128838930341079461, guid: 4d3d08e81f20a0d4da92d3d63f62cbb9, type: 3}
-  - {fileID: 7741487559286041440, guid: 14a92b7b7c2e51a489087f122ef06bd5, type: 3}
-  - {fileID: 104921885069382094, guid: c7f805893aa579c449509cc0169cc67c, type: 3}
-  - {fileID: 5863726776954763992, guid: daa2180d8a3fee243b0dc1cda490f925, type: 3}
-  - {fileID: 2745455288065504265, guid: 07331bd8dd4fd4e4db782b67d6f38330, type: 3}
-  - {fileID: 2259463501157529856, guid: aff8bc232ea9e1c48bde583a6452da3f, type: 3}
-  - {fileID: 3931704693742154130, guid: 9d98a6edc49a2c442a7119c22f0b38de, type: 3}
-  - {fileID: 3958080646198480194, guid: 499ecc09c5c142f4687e731d25eab457, type: 3}
-  - {fileID: 4769677172861335458, guid: a6de3356dee8a894d822fadb0d91296f, type: 3}
-  - {fileID: 2855196687961740736, guid: 4df2d6b42f1215a48a67b7d3433109da, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ba4ed6dc1c95f49a983139c5b16c2a, type: 3}
+  m_Name: ToriiGate
+  m_EditorClassIdentifier: 
+  Name: Torri Gate
+  cardType: 1
+  MainImage: {fileID: 21300000, guid: ede4a3d539fcebd428d09c18ece5db69, type: 3}
+  Element: {fileID: 21300000, guid: 97e9bf81c488a8644a51418288ecfe2f, type: 3}
+  Attack: 0
+  Defense: 6
+  Magic: 4
+  description: Gain money based on creature magic upon creautre death

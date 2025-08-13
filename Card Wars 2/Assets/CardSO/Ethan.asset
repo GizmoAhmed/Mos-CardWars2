@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ba4ed6dc1c95f49a983139c5b16c2a, type: 3}
+  m_Name: Ethan
+  m_EditorClassIdentifier: 
+  Name: Ethan
+  cardType: 0
+  MainImage: {fileID: 21300000, guid: b5be9412f7c81e94a8c073463a5b1a12, type: 3}
+  Element: {fileID: 21300000, guid: 73a5b4af4470bc34881d92814f1bde20, type: 3}
+  Attack: 4
+  Defense: 3
+  Magic: 1
+  description: Gain +1 Attack

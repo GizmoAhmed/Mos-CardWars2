@@ -101,9 +101,9 @@ public class Card : NetworkBehaviour
 
 	public void PointerEnter()
 	{
-		CardFlipper flip = GetComponent<CardFlipper>();
+		/*CardFlipper flip = GetComponent<CardFlipper>();
 
-		ShowCardInfo(flip.currentFace == CardFlipper.FaceState.FaceUp && !Grabbed);
+		ShowCardInfo(flip.currentFace == CardFlipper.FaceState.FaceUp && !Grabbed);*/
 	}
 
 	public void PointerExit()
@@ -118,13 +118,13 @@ public class Card : NetworkBehaviour
 
 	public virtual void PointerUp()
 	{
-		CardFlipper flip = GetComponent<CardFlipper>();
+		/*CardFlipper flip = GetComponent<CardFlipper>();
 
 		// If the mouse position has not changed, then it was a simple click
 		if ((currentMousePos == clickSave) && flip.currentFace == CardFlipper.FaceState.FaceUp)
 		{
 			Debug.Log("Base Card Click: " + name);
-		}
+		}*/
 	}
 
 	public virtual void Grab()
