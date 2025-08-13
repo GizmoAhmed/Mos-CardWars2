@@ -6,7 +6,6 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewCard", menuName = "Cards")]
 public class CardDataSO : ScriptableObject
-
 {
     public String Name;
     public enum CardType

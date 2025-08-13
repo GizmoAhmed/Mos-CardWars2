@@ -2,7 +2,7 @@ using UnityEngine;
 using Mirror;
 using TMPro;
 
-// 0.825 is width/heigth ratio
+
 public class Card : NetworkBehaviour
 {
 	[Header("Base Card Includes: ")]
