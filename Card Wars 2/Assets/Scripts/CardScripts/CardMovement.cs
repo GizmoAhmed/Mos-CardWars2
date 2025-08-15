@@ -9,7 +9,7 @@ public class CardMovement : NetworkBehaviour
 {
     private void Start()
     {
-        Debug.Log("Card Movement Start for" + name);
+        Debug.Log("Card Movement Start for " + name);
     }
 
     public void OnPointerEnter()

@@ -10,7 +10,7 @@ public class Deck : NetworkBehaviour
 
 	private void Start()
 	{
-		GameManager game = FindAnyObjectByType<GameManager>();
+		/*GameManager game = FindAnyObjectByType<GameManager>();
 
 		List<GameObject> deck;
 
@@ -42,7 +42,7 @@ public class Deck : NetworkBehaviour
 			}
 		}
 
-		foreach (GameObject cardOB in deck) { MyDeck.Add(cardOB); }
+		foreach (GameObject cardOB in deck) { MyDeck.Add(cardOB); }*/
 	}
 
 	[Command] public void CmdDrawCard() { DrawCardFromDeck(connectionToClient); }

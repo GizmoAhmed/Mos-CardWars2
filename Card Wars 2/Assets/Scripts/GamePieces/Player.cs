@@ -74,7 +74,7 @@ public class Player : NetworkBehaviour
 		ThisMoney = GameObject.Find("ThisMoney");
 		OtherMoney = GameObject.Find("OtherMoney");
 
-		turnText = GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>();
+		// turnText = GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>();
 
 		gameManager = FindAnyObjectByType<GameManager>();
 
@@ -96,7 +96,7 @@ public class Player : NetworkBehaviour
 		if (isServer)
 		{
 			Debug.Log($"[SERVER] >>> Player {connectionToClient.connectionId} has joined.");
-			gameManager.CheckFullLobby();
+			// gameManager.CheckFullLobby();
 		}
 	}
 
