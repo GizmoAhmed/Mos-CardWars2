@@ -1,34 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CardMovement : NetworkBehaviour
 {
     private void Start()
     {
-        Debug.Log("Card Movement Start for " + name);
+        Debug.Log("Card Movement Start for " + gameObject.name);
     }
 
     public void OnPointerEnter()
     {
-        Debug.Log("OnPointerEnter");
+        Debug.Log("Pointer Entered: " + gameObject.name);
     }
 
     public void OnPointerExit()
     {
-        Debug.Log("OnPointerExit");
+        Debug.Log("OnPointerExit: " +  gameObject.name);
     }
 
     public void BeginDrag()
     {
-        Debug.Log("BeginDrag");
+        Debug.Log("BeginDrag: " + gameObject.name);
     }
 
     public void EndDrag()
     {
-        Debug.Log("EndDrag");
+        Debug.Log("EndDrag: " + gameObject.name);
     }
 }

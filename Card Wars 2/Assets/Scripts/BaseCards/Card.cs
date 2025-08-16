@@ -33,7 +33,7 @@ public class Card : NetworkBehaviour
 
 	public CardState currentState = CardState.Deck;
 
-	[HideInInspector] public CardAnimator Animate;
+	// [HideInInspector] public CardAnimator Animate;
 
 	private TextMeshProUGUI MagicText;
 	[SyncVar] public int MagicCost = 0;
@@ -49,7 +49,7 @@ public class Card : NetworkBehaviour
 
 		Movable = isOwned;
 
-		Animate = GetComponent<CardAnimator>();
+		// Animate = GetComponent<CardAnimator>();
 
 		MagicText = transform.Find("Magic").GetComponent<TextMeshProUGUI>();
 		MagicText.text = MagicCost.ToString();
@@ -177,7 +177,7 @@ public class Card : NetworkBehaviour
 
 		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
 
-		Animate.FadeOut(canvasGroup, gameObject, player, isOwned);
+		// Animate.FadeOut(canvasGroup, gameObject, player, isOwned);
 	}
 
 	void Update()

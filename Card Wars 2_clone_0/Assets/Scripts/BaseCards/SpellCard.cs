@@ -96,7 +96,7 @@ public class SpellCard : Card
 
 		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
 
-		Animate.FadeOut(canvasGroup, gameObject, player, isOwned);
+		// Animate.FadeOut(canvasGroup, gameObject, player, isOwned);
 	}
 
 	// override this for certain spells, ie Stim only works on creatures

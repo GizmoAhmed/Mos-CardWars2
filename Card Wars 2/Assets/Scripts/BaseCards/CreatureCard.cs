@@ -63,7 +63,7 @@ public class CreatureCard : Card
 	{
 		if (damage > 0) 
 		{
-			Animate.Jiggle();
+			// Animate.Jiggle();
 		}
 		
 		Defense -= damage;
