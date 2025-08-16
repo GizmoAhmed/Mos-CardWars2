@@ -79,7 +79,7 @@ public class GameManager : NetworkBehaviour
 	[Server]
 	private void InitializePhases()
 	{
-		phaseHandlers = new Dictionary<GamePhase, Phase>
+		/*phaseHandlers = new Dictionary<GamePhase, Phase>
 		{
 			{ GamePhase.ChooseLand, GetComponentInChildren<ChooseLand>() },
 			{ GamePhase.SetUp, GetComponentInChildren<SetUp>() },
@@ -93,7 +93,7 @@ public class GameManager : NetworkBehaviour
 		}
 
 		turnManager = GetComponentInChildren<Turns>();
-		turnManager.InitializeTurns(this);
+		turnManager.InitializeTurns(this);*/
 	}
 
 	[Server]
@@ -171,7 +171,7 @@ public class GameManager : NetworkBehaviour
 		// setup means each player needs to ready up  
 		else if (currentPhase == GamePhase.SetUp)
 		{
-			// add this connection to readyPlayers (which has been cleard by now)
+			// add this connection to readyPlayers (which has been cleared by now)
 			readyPlayers.Add(conn);
 
 			if (readyPlayers.Count == 1)
