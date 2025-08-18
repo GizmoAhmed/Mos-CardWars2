@@ -61,42 +61,45 @@ public class MiddleLand : NetworkBehaviour
         return found;
     }
 
-    public bool ValidPlace(CardMovement card)
-    {
-        CardDataSO cardData = card.gameObject.GetComponent<CardDisplay>().cardData;
-
-        if (cardData.cardType == CardDataSO.CardType.Building && building == null)
-        {
-            return true;
-        }
-        if (cardData.cardType == CardDataSO.CardType.Creature && creature == null)
-        {
-            return true;
-        }
-        
-        return false;
-    }
-
     public void AttachCard(GameObject card)
     {
+        CardMovement cardMovement = card.GetComponent<CardMovement>();
+        CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
+        CardDataSO cardData = cardDisplay.cardData;
+
         card.transform.SetParent(transform, true);
 
-        card.GetComponent<CardMovement>().onLand = true;
-        
-        CardDataSO cardData = card.GetComponent<CardDisplay>().cardData;
-        
         if (cardData.cardType == CardDataSO.CardType.Creature)
         {
             creature = card;
             card.transform.localPosition = Vector2.zero;
+            
+            // ensure it draws above building
+            card.transform.SetAsLastSibling();
         }
         else if (cardData.cardType == CardDataSO.CardType.Building)
         {
             building = card;
             card.transform.localPosition = new Vector3(-40, -35, 0);
+            
+            // ensure it draws below creature
+            card.transform.SetAsFirstSibling();
         }
+
+        cardDisplay.FlipCard(true);
+        cardMovement.onLand = true;
+    }
+
+    public bool ValidPlace(CardMovement card)
+    {
+        CardDataSO cardData = card.GetComponent<CardDisplay>().cardData;
         
-        // flip card back over
-        card.GetComponent<CardDisplay>().FlipCard(true);
+        if (cardData.cardType == CardDataSO.CardType.Building && building == null && (gameObject.name.EndsWith("1") || gameObject.name.EndsWith("2") || gameObject.name.EndsWith("3") || gameObject.name.EndsWith("4")) )
+            return true;
+
+        if (cardData.cardType == CardDataSO.CardType.Creature && creature == null && (gameObject.name.EndsWith("1") || gameObject.name.EndsWith("2") || gameObject.name.EndsWith("3") || gameObject.name.EndsWith("4")) )
+            return true;
+
+        return false;
     }
 }

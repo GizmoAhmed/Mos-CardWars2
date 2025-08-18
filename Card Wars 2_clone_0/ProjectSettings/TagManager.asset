@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Land
   - Land1
+  - Drag
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Face
   - Card
   - Board
-  - 
+  - Drag
   - 
   - 
   - 

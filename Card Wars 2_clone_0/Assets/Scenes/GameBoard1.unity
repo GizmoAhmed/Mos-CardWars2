@@ -602,6 +602,10 @@ MonoBehaviour:
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
+  adjacentLeft: {fileID: 0}
+  adjacentRight: {fileID: 0}
+  diagonalLeft: {fileID: 0}
+  diagonalRight: {fileID: 0}
 --- !u!50 &311369682
 Rigidbody2D:
   serializedVersion: 4
@@ -862,6 +866,10 @@ MonoBehaviour:
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
+  adjacentLeft: {fileID: 0}
+  adjacentRight: {fileID: 0}
+  diagonalLeft: {fileID: 0}
+  diagonalRight: {fileID: 0}
 --- !u!50 &505274004
 Rigidbody2D:
   serializedVersion: 4
@@ -1175,6 +1183,10 @@ MonoBehaviour:
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
+  adjacentLeft: {fileID: 0}
+  adjacentRight: {fileID: 0}
+  diagonalLeft: {fileID: 0}
+  diagonalRight: {fileID: 0}
 --- !u!50 &564382910
 Rigidbody2D:
   serializedVersion: 4
@@ -1396,6 +1408,10 @@ MonoBehaviour:
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
+  adjacentLeft: {fileID: 0}
+  adjacentRight: {fileID: 0}
+  diagonalLeft: {fileID: 0}
+  diagonalRight: {fileID: 0}
 --- !u!50 &633999444
 Rigidbody2D:
   serializedVersion: 4
@@ -1961,6 +1977,10 @@ MonoBehaviour:
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
+  adjacentLeft: {fileID: 0}
+  adjacentRight: {fileID: 0}
+  diagonalLeft: {fileID: 0}
+  diagonalRight: {fileID: 0}
 --- !u!50 &1180486817
 Rigidbody2D:
   serializedVersion: 4
@@ -2324,7 +2344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.size
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: p0Deck.Array.data[10]
@@ -2429,7 +2449,15 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[3]
       value: 
-      objectReference: {fileID: 2836957975447944732, guid: e4a8f6012a5b1f248ab49f69514f445f, type: 3}
+      objectReference: {fileID: 7648720691743005472, guid: b2ff3999d1617cf4485f95614e30db04, type: 3}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: masterDeck.Array.data[4]
+      value: 
+      objectReference: {fileID: 6412714647888874990, guid: 42a32101abd2e614f89c00545306b9fd, type: 3}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: masterDeck.Array.data[5]
+      value: 
+      objectReference: {fileID: 7916039011753716710, guid: a05f22441cdf25e4d8c4c38152bf0175, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: DebugMaster.Array.data[0]
       value: 
@@ -3070,6 +3098,10 @@ MonoBehaviour:
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
+  adjacentLeft: {fileID: 0}
+  adjacentRight: {fileID: 0}
+  diagonalLeft: {fileID: 0}
+  diagonalRight: {fileID: 0}
 --- !u!50 &1411303563
 Rigidbody2D:
   serializedVersion: 4
@@ -3759,6 +3791,10 @@ MonoBehaviour:
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
+  adjacentLeft: {fileID: 0}
+  adjacentRight: {fileID: 0}
+  diagonalLeft: {fileID: 0}
+  diagonalRight: {fileID: 0}
 --- !u!50 &1946609310
 Rigidbody2D:
   serializedVersion: 4
@@ -3786,6 +3822,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &2022051324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2022051325}
+  m_Layer: 0
+  m_Name: DragLayer
+  m_TagString: Drag
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2022051325
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022051324}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 222243665203426444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2129006737
 GameObject:
   m_ObjectHideFlags: 0
@@ -3877,9 +3948,9 @@ MonoBehaviour:
   - {fileID: 7755131462459198829, guid: 753df04014c82f94e8f992dc7939e8ae, type: 3}
   - {fileID: 558969142524760432, guid: 75f7bcdd4c6de0943b190468fe8f0833, type: 3}
   - {fileID: 2836957975447944732, guid: e4a8f6012a5b1f248ab49f69514f445f, type: 3}
-  - {fileID: 7286676530259862765, guid: 72e15e1a91d73a840836c56f0456a3b9, type: 3}
-  - {fileID: 4821161181285429414, guid: b2f389a1cafb87c4dbe322e237f3db2c, type: 3}
-  - {fileID: 151454856385694180, guid: 7c06864a0d157c9469e8233a7202eb18, type: 3}
+  - {fileID: 7648720691743005472, guid: b2ff3999d1617cf4485f95614e30db04, type: 3}
+  - {fileID: 6412714647888874990, guid: 42a32101abd2e614f89c00545306b9fd, type: 3}
+  - {fileID: 7916039011753716710, guid: a05f22441cdf25e4d8c4c38152bf0175, type: 3}
   - {fileID: 7240740577746517185, guid: 208dcc9ab8bb9e34d8e3afe318052f9b, type: 3}
   - {fileID: 4055832630173525344, guid: 424aa81381a516f4485ba5a4a0f523f0, type: 3}
   - {fileID: 6065979314295521751, guid: b18e42766f492764788be41b91e5df96, type: 3}
@@ -3896,6 +3967,8 @@ MonoBehaviour:
   - {fileID: 5306146527645564023, guid: b374dbc35710025429b0696f84e708c8, type: 3}
   - {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
   - {fileID: 5510745043124213716, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+  - {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
+  - {fileID: 8584247411600538929, guid: d5c8a5a5e6786394f8ea6cb0f80c2d13, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -3948,6 +4021,7 @@ RectTransform:
   - {fileID: 311369674}
   - {fileID: 474931977}
   - {fileID: 1030213352}
+  - {fileID: 2022051325}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4191,6 +4265,10 @@ MonoBehaviour:
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
+  adjacentLeft: {fileID: 0}
+  adjacentRight: {fileID: 0}
+  diagonalLeft: {fileID: 0}
+  diagonalRight: {fileID: 0}
 --- !u!50 &8649994479479012890
 Rigidbody2D:
   serializedVersion: 4
