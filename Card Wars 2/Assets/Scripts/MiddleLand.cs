@@ -79,11 +79,12 @@ public class MiddleLand : NetworkBehaviour
 
     public void AttachCard(GameObject card)
     {
+        card.transform.SetParent(transform, true);
+
+        card.GetComponent<CardMovement>().onLand = true;
+        
         CardDataSO cardData = card.GetComponent<CardDisplay>().cardData;
         
-        card.transform.SetParent(transform, true);
-        
-
         if (cardData.cardType == CardDataSO.CardType.Creature)
         {
             creature = card;

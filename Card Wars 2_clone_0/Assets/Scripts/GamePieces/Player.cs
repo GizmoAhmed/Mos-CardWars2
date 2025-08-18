@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using static Card;
 using TMPro;
 using System.Linq;
 using System.Collections;
@@ -113,10 +112,10 @@ public class Player : NetworkBehaviour
 	[Command]
 	public void CmdSetReady()
 	{
-		gameManager.PlayerReady(connectionToClient);
+		// gameManager.PlayerReady(connectionToClient);
 	}
 
-	[TargetRpc]
+	/*[TargetRpc]
 	public void RpcEnablePlayer(bool set)
 	{
 		Card[] cards = FindObjectsOfType<Card>();
@@ -128,64 +127,8 @@ public class Player : NetworkBehaviour
 		foreach (UnityEngine.UI.Button button in buttons) { button.interactable = set; }
 
 		myTurn = canPlay = set;
-	}
-
-	[Command]
-	public void CmdDropCard(GameObject card, CardState state, GameObject land)
-	{
-		RpcHandleCard(card, state, land);
-	}
-
-	[ClientRpc]
-	public void RpcHandleCard(GameObject card, CardState state, GameObject land)
-	{
-		Card cardscript			= card.GetComponent<Card>();
-		// CardFlipper flipscript	= card.GetComponent<CardFlipper>();
-
-		cardscript.SetState(state); // make sure state is shown on all clients
-
-		if (state == CardState.Hand) // drawing card from deck
-		{
-			if (isOwned)
-			{
-				card.transform.SetParent(Hand1.transform, false);
-			}
-			else
-			{
-				card.transform.SetParent(Hand2.transform, false);
-				// flipscript.Flip();
-			}
-		}
-		else if (state == CardState.Placed) // from dropping onto drop zone
-		{
-			if (land == null) // prolly a spell
-			{
-				SpellCard spellCard = card.GetComponent<SpellCard>();
-				spellCard.Discard();
-				return;
-			}
-
-			if (isOwned)
-			{
-				land.GetComponent<CreatureLand>().AttachCard(card);
-			}
-			else
-			{
-				// flipscript.Flip();				// info slide turned on card info 
-				// cardscript.ShowCardInfo(false); // turn it back off here, no longer needed tho, see card flip child iteration
-
-				CreatureLand landScript = land.GetComponent<CreatureLand>();
-				GameObject acrossLand = landScript._Across;
-
-				acrossLand.GetComponent<CreatureLand>().AttachCard(card);
-
-				card.transform.SetParent(acrossLand.transform, true);
-				card.transform.localPosition = Vector2.zero;
-			}
-		}
-	}
-
-
+	}*/
+	
 	[Command]
 	public void CmdChangeStats(int newAmount, string stat)
 	{
@@ -284,39 +227,20 @@ public class Player : NetworkBehaviour
 		turnText.text = "TURN: " + turn;
 	}
 
-	[Command]
-	public void CmdColorTheLand(CreatureLand land, CreatureLand.LandElement element)
-	{
-		RpcColorTheLand(land, element);
-	}
-
-	[ClientRpc]
-	public void RpcColorTheLand(CreatureLand land, CreatureLand.LandElement element) 
-	{
-		if (isOwned)
-		{
-			land.ChangeElement(element);
-		}
-		else 
-		{
-			CreatureLand acrossScript = land._Across.GetComponent<CreatureLand>();
-
-			acrossScript.ChangeElement(element);
-		}
-	}
-
-	[TargetRpc]
+	/*[TargetRpc]
 	public void TargetStartBattleCardsSearch(NetworkConnection target)
 	{
 		StartCoroutine(FindBattleCardsCoroutine());
-	}
+	}*/
 
-	private IEnumerator FindBattleCardsCoroutine()
+	/// <summary>
+	/// C# does not have list comprehensions like Python,
+	/// but it has LINQ (Language Integrated Query) which provides a similar capability. 
+	/// You can use LINQ to filter and project data in a more concise manner.
+	/// </summary>
+	/// <returns></returns>
+	/*private IEnumerator FindBattleCardsCoroutine()
 	{
-		/// C# does not have list comprehensions like Python, 
-		/// but it has LINQ (Language Integrated Query) which provides a similar capability. 
-		/// You can use LINQ to filter and project data in a more concise manner.
-		
 		var battleReadyCards = FindObjectsOfType<CreatureCard>()
 			.Where(creatureCard => creatureCard.isOwned && creatureCard.currentState == CardState.Placed)
 			.Select(creatureCard => {
@@ -355,7 +279,7 @@ public class Player : NetworkBehaviour
 		}
 
 		CmdSetSearch(true);
-	}
+	}*/
 
 
 	[Command]
@@ -364,11 +288,11 @@ public class Player : NetworkBehaviour
 		searchComplete = value;
 	}
 
-	[Command]
+	/*[Command]
 	public void CmdAltercation(CreatureCard attackingCard, CreatureCard defendingCard)
 	{
 		combat.Altercation(attackingCard, defendingCard);
-	}
+	}*/
 
 	public void DealDamage(int enemyScore) 
 	{

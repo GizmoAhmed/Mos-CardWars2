@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Combat : NetworkBehaviour
 {
-	public float combatDelay = 1f;
+	/*public float combatDelay = 1f;
 
 	[Server]
 	public void Altercation(CreatureCard attackingCard, CreatureCard defendingCard) { RpcBattle(attackingCard, defendingCard); }
@@ -24,6 +24,6 @@ public class Combat : NetworkBehaviour
 
 			attackingPlayer.CmdChangeStats(attackingPlayer.Score + attackingCard.AttackStat, "score");
 		}
-	}
+	}*/
 
 }

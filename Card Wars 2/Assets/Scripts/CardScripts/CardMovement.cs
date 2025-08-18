@@ -13,6 +13,8 @@ public class CardMovement : NetworkBehaviour
     private Vector2 StartPos;
     public GameObject NewDropZone;
 
+    public bool onLand;
+
     [Tooltip("ideally should be 12f")] public float cardSnapSpeed = 12f;
     
     private void Start()
@@ -24,6 +26,8 @@ public class CardMovement : NetworkBehaviour
         {
             Debug.LogError("player is null");
         }
+
+        onLand = false;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -62,6 +66,11 @@ public class CardMovement : NetworkBehaviour
             return;
         }
 
+        if (onLand) // can't move cards you already placed
+        {
+            return;
+        }
+
         Grabbed = true;
 
         StartParent = transform.parent.gameObject;
@@ -71,6 +80,11 @@ public class CardMovement : NetworkBehaviour
     public void EndDrag()
     {
         if (!isOwned) // can only move your own cards
+        {
+            return;
+        }
+        
+        if (onLand) // can't move cards you already placed
         {
             return;
         }

@@ -9,7 +9,7 @@ public class Attack : Phase
 		base.Initialize(gameManager);
 	}
 
-	[Server]
+	/*[Server]
 	public override void OnEnterPhase()
 	{
 		Player player0 = gameManager.Player0.identity.GetComponent<Player>();
@@ -23,15 +23,15 @@ public class Attack : Phase
 		player1.RpcShowStats(0, "score");
 
 		DoBattle();
-	}
+	}*/
 
-	[Server]
+	/*[Server]
 	public void DoBattle()
 	{
 		StartCoroutine(DoBattleCoroutine());
-	}
+	}*/
 
-	private IEnumerator DoBattleCoroutine()
+	/*private IEnumerator DoBattleCoroutine()
 	{
 		FindAnyObjectByType<Turns>().PlayerEnabler(null, "disableBoth");
 
@@ -62,7 +62,7 @@ public class Attack : Phase
 		}
 
 		HandlePhaseLogic();
-	}
+	}*/
 
 	[Server]
 	public override void HandlePhaseLogic()

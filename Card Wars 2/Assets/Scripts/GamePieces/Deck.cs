@@ -1,7 +1,6 @@
 using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
-using static Card;
 
 public class Deck : NetworkBehaviour
 {

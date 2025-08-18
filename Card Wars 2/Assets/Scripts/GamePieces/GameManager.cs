@@ -180,7 +180,7 @@ public class GameManager : NetworkBehaviour
 
 				Player thisPlayer = conn.identity.GetComponent<Player>();
 
-				thisPlayer.RpcEnablePlayer(false);
+				// thisPlayer.RpcEnablePlayer(false);
 
 				CheckAllPlayersReady();
 			}

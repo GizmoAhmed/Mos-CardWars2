@@ -19,7 +19,7 @@ public class Turns : NetworkBehaviour
 	[Server]
 	public void IncrementTurn()
 	{
-		TurnCount++;
+		/*TurnCount++;
 		
 		foreach (var conn in NetworkServer.connections.Values)
 		{
@@ -32,7 +32,7 @@ public class Turns : NetworkBehaviour
 			{
 				card.RpcDecay(); // uses overrides to discern between Card subclasses
 			}
-		}
+		}*/
 	}
 
 	[Server]
@@ -84,6 +84,6 @@ public class Turns : NetworkBehaviour
 
 	private void SetPlayerState(Player player, bool state)
 	{
-		player.RpcEnablePlayer(state);
+		// player.RpcEnablePlayer(state);
 	}
 }
