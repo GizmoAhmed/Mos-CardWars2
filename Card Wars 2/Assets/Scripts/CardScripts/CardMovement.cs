@@ -28,9 +28,25 @@ public class CardMovement : NetworkBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Land"))
+        if (other.gameObject.CompareTag("Land1"))
         {
-            NewDropZone = other.gameObject;
+            // make new drop zone, if ok to place on said drop zone
+            MiddleLand landScript = other.gameObject.GetComponent<MiddleLand>();
+        
+            if (landScript == null)
+            {
+                Debug.LogError($"landScript on {NewDropZone.name} is null");
+                return;
+            }
+
+            if (landScript.ValidPlace(this))
+            {
+                NewDropZone = other.gameObject;
+            }
+            else
+            {
+                NewDropZone = null;
+            }
         }
     }
     
@@ -41,6 +57,11 @@ public class CardMovement : NetworkBehaviour
 
     public void BeginDrag()
     {
+        if (!isOwned) // can only move your own cards
+        {
+            return;
+        }
+
         Grabbed = true;
 
         StartParent = transform.parent.gameObject;
@@ -49,16 +70,20 @@ public class CardMovement : NetworkBehaviour
 
     public void EndDrag()
     {
-        // if (!Movable) return;
+        if (!isOwned) // can only move your own cards
+        {
+            return;
+        }
 
         Grabbed = false;
-
-        if (NewDropZone)
+        
+        if (NewDropZone) // because not null, means it passed valid place check, would be null otherwise
         {
             PlaceCard(NewDropZone);
         }
         else
         {
+            // snap back
             transform.position = StartPos;
             transform.SetParent(StartParent.transform, false);
         }
@@ -66,9 +91,6 @@ public class CardMovement : NetworkBehaviour
 
     private void PlaceCard(GameObject land)
     {
-        transform.SetParent(land.transform, true);
-        transform.localPosition = Vector2.zero;
-        
         player.cardHandler.CmdDropCard(gameObject, land);
     }
     

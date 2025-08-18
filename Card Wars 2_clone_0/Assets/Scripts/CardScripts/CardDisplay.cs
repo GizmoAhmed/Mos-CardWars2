@@ -25,7 +25,7 @@ public class CardDisplay : NetworkBehaviour
     private GameObject defenseObj;
     private GameObject magicObj;
 
-    void Start()
+    void Awake()
     {
         if (cardData == null)
         {

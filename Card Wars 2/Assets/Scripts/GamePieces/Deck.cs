@@ -14,7 +14,7 @@ public class Deck : NetworkBehaviour
 	{
 		if (myDeck.Count == 0)
 		{
-			Debug.LogWarning("Empty Deck, Can't Draw");
+			Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't Draw");
 			return;
 		}
 
