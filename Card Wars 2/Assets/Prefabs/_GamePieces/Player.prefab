@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6880155680361444464}
   - component: {fileID: 3052233890437553120}
   - component: {fileID: 293716070991419786}
+  - component: {fileID: -2743666710545749402}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -184,7 +185,6 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  local: 0
   canPlay: 1
   myTurn: 0
   deck: {fileID: 0}
@@ -194,4 +194,18 @@ MonoBehaviour:
   Money: 0
   DrawCost: 0
   UpgradeCost: 0
-  sortedBattleReadyCards: []
+  Score: 0
+  Health: 0
+  searchComplete: 0
+--- !u!114 &-2743666710545749402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879420104403120485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba3612cd09eec04c8cbbd2d5d69a505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -69,6 +69,8 @@ public class CardDisplay : NetworkBehaviour
                 Hide(magicObj);
                 break;
         }
+        
+        FlipCard(true);
     }
 
     private void Hide(GameObject obj)
@@ -77,20 +79,29 @@ public class CardDisplay : NetworkBehaviour
             obj.SetActive(false);
     }
     
-    private GameObject FindPart(string childName) =>
-        transform.Find(childName)?.gameObject;  
+    private GameObject FindPart(string childName)
+    {
+        var obj = transform.Find(childName)?.gameObject;
+        if (obj == null)
+        {
+            Debug.LogError($"Missing {childName} on {gameObject.name}");
+        }
+        return obj;
+    }
+
     private void FindDisplayParts()
     {
         mainImageObj = FindPart("MainImage");
-        cardBackObj = FindPart("CardBack");
-        elementLeft = FindPart("ElementLeft");
+        cardBackObj  = FindPart("CardBack");
+        elementLeft  = FindPart("ElementLeft");
         elementRight = FindPart("ElementRight");
-        nameLeft = FindPart("NameLeft");
-        nameRight = FindPart("NameRight");
-        attackObj = FindPart("Attack");
-        defenseObj = FindPart("Defense");
-        magicObj = FindPart("Magic");
+        nameLeft     = FindPart("NameLeft");
+        nameRight    = FindPart("NameRight");
+        attackObj    = FindPart("Attack");
+        defenseObj   = FindPart("Defense");
+        magicObj     = FindPart("Magic");
     }
+
 
     private void SetImage(GameObject obj, Sprite sprite)
     {
@@ -104,70 +115,63 @@ public class CardDisplay : NetworkBehaviour
             tmp.text = text;
     }
 
-    private void FlipCard()
+    public void FlipCard(bool face_up)
     {
-        FaceUp = !FaceUp;
+        ShowCardFlip(face_up);
+        FaceUp = face_up;
+    }
 
-        if (FaceUp)
+    private void ShowCardFlip(bool faceup)
+    {
+        if (faceup)
         {
-            ShowCardFront();
+            mainImageObj.SetActive(true);
+            elementLeft.SetActive(true);
+            elementRight.SetActive(true);
+            nameLeft.SetActive(true);
+            nameRight.SetActive(true);
+
+            // Only show stats relevant to the type
+            switch (cardData.cardType)
+            {
+                case CardDataSO.CardType.Creature:
+                    attackObj.SetActive(true);
+                    defenseObj.SetActive(true);
+                    magicObj.SetActive(true);
+                    break;
+                case CardDataSO.CardType.Building:
+                    attackObj.SetActive(false);
+                    defenseObj.SetActive(true);
+                    magicObj.SetActive(true);
+                    break;
+                case CardDataSO.CardType.Spell:
+                    attackObj.SetActive(false);
+                    defenseObj.SetActive(true);
+                    magicObj.SetActive(true);
+                    break;
+                case CardDataSO.CardType.Charm:
+                    attackObj.SetActive(false);
+                    defenseObj.SetActive(false);
+                    magicObj.SetActive(false);
+                    break;
+            }
+
+            cardBackObj.SetActive(false);
         }
         else
         {
-            ShowCardBack();
+            // Hide all front elements
+            mainImageObj.SetActive(false);
+            elementLeft.SetActive(false);
+            elementRight.SetActive(false);
+            nameLeft.SetActive(false);
+            nameRight.SetActive(false);
+            attackObj.SetActive(false);
+            defenseObj.SetActive(false);
+            magicObj.SetActive(false);
+
+            // Show card back
+            cardBackObj.SetActive(true);
         }
     }
-
-    private void ShowCardFront()
-    {
-        mainImageObj.SetActive(true);
-        elementLeft.SetActive(true);
-        elementRight.SetActive(true);
-        nameLeft.SetActive(true);
-        nameRight.SetActive(true);
-
-        // Only show stats relevant to the type
-        switch (cardData.cardType)
-        {
-            case CardDataSO.CardType.Creature:
-                attackObj.SetActive(true);
-                defenseObj.SetActive(true);
-                magicObj.SetActive(true);
-                break;
-            case CardDataSO.CardType.Building:
-                attackObj.SetActive(false);
-                defenseObj.SetActive(true);
-                magicObj.SetActive(true);
-                break;
-            case CardDataSO.CardType.Spell:
-                attackObj.SetActive(false);
-                defenseObj.SetActive(true);
-                magicObj.SetActive(true);
-                break;
-            case CardDataSO.CardType.Charm:
-                attackObj.SetActive(false);
-                defenseObj.SetActive(false);
-                magicObj.SetActive(false);
-                break;
-        }
-
-        cardBackObj.SetActive(false);
-    }
-
-    private void ShowCardBack()
-    {
-        // Hide all front elements
-        mainImageObj.SetActive(false);
-        elementLeft.SetActive(false);
-        elementRight.SetActive(false);
-        nameLeft.SetActive(false);
-        nameRight.SetActive(false);
-        attackObj.SetActive(false);
-        defenseObj.SetActive(false);
-        magicObj.SetActive(false);
-
-        // Show card back
-        cardBackObj.SetActive(true);
-    }
-
 }

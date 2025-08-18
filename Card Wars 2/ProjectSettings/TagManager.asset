@@ -4,18 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BuildLand
-  - CreatureLand
-  - SpellLand
   - Land
-  - DrawButton
-  - CostText
-  - ReadyButton
-  - NameTag
-  - DiscardBoard
-  - ActionButton
-  - TargetSpell
-  - InfoSlide
   layers:
   - Default
   - TransparentFX

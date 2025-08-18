@@ -1,3 +1,4 @@
+using System;
 using Mirror;
 using UnityEngine;
 
@@ -10,27 +11,32 @@ public class CardMovement : NetworkBehaviour
 
     private GameObject StartParent;
     private Vector2 StartPos;
-    private GameObject NewDropZone;
-    private bool isOverDropZone;
+    public GameObject NewDropZone;
 
     [Tooltip("ideally should be 12f")] public float cardSnapSpeed = 12f;
     
     private void Start()
     {
-        // NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-        // player = networkIdentity.GetComponent<Player>();
-        
-        Debug.Log("woah");
+        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+        player = networkIdentity.GetComponent<Player>();
+
+        if (player == null)
+        {
+            Debug.LogError("player is null");
+        }
     }
 
-    public void OnPointerEnter()
+    private void OnTriggerStay2D(Collider2D other)
     {
-        // Debug.Log("Pointer Entered: " + gameObject.name);
+        if (other.CompareTag("Land"))
+        {
+            NewDropZone = other.gameObject;
+        }
     }
-
-    public void OnPointerExit()
+    
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        // Debug.Log("OnPointerExit: " +  gameObject.name);
+        NewDropZone = null;
     }
 
     public void BeginDrag()
@@ -43,16 +49,27 @@ public class CardMovement : NetworkBehaviour
 
     public void EndDrag()
     {
+        // if (!Movable) return;
+
         Grabbed = false;
 
-        if (isOverDropZone)
+        if (NewDropZone)
         {
-            Debug.Log("Dropping on dropzone: " + NewDropZone.name);
+            PlaceCard(NewDropZone);
         }
         else
         {
-            returningToParent = true;
+            transform.position = StartPos;
+            transform.SetParent(StartParent.transform, false);
         }
+    }
+
+    private void PlaceCard(GameObject land)
+    {
+        transform.SetParent(land.transform, true);
+        transform.localPosition = Vector2.zero;
+        
+        player.cardHandler.CmdDropCard(gameObject, land);
     }
     
     void Update()
@@ -61,15 +78,13 @@ public class CardMovement : NetworkBehaviour
 
         if (Grabbed)
         {
-            // Drag movement
             transform.position = Vector3.Lerp(transform.position, currentMousePos, Time.deltaTime * cardSnapSpeed);
         }
         else if (returningToParent)
         {
-            // Snap back to start position
             transform.position = Vector3.Lerp(transform.position, StartPos, Time.deltaTime * cardSnapSpeed);
 
-            // Optional: stop lerping when close enough
+            // stop lerping when close to parent
             if (Vector3.Distance(transform.position, StartPos) < 0.1f)
             {
                 transform.position = StartPos;

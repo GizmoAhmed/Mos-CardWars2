@@ -7,7 +7,9 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-	public enum DeckType { Player, Debug }
+	public List<GameObject> masterDeck;
+	
+	/*public enum DeckType { Player, Debug }
 
 	public DeckType deckType;
 
@@ -15,15 +17,15 @@ public class GameManager : NetworkBehaviour
 
 	[Header("Player Decks")]
 	public List<GameObject> p0Deck;
-	public List<GameObject> p1Deck;
+	public List<GameObject> p1Deck;*/
 
-	[Header("1 : master, 2 : creatures, 3 : debug")]
+	/*[Header("1 : master, 2 : creatures, 3 : debug")]
 	public int chooseDeck;
 
 	[Header("Debug Decks")]
 	public List<GameObject> DebugMaster;
 	public List<GameObject> DebugAllCreatures;
-	public List<GameObject> DebugMisc;
+	public List<GameObject> DebugMisc;*/
 
 	private HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
@@ -61,17 +63,17 @@ public class GameManager : NetworkBehaviour
 	{
 		base.OnStartServer();
 
-		if (choosePlayer == 0)		{ HostGoesFirst = true; }
+		/*if (choosePlayer == 0)		{ HostGoesFirst = true; }
 
 		else if (choosePlayer == 1)	{ HostGoesFirst = false; }
 
-		else						{ HostGoesFirst = Random.value < 0.5f; }
+		else						{ HostGoesFirst = Random.value < 0.5f; }*/
 
 		InitializePhases();
 
 		currentPhase = GamePhase.Offline;
 
-		p0RecievedDeck = false;
+		// p0RecievedDeck = false;
 
 		Debug.Log("Server started, waiting for players...");
 	}
@@ -123,13 +125,25 @@ public class GameManager : NetworkBehaviour
 
 		if (numberOfPlayers == 2)
 		{
-			// Debug.Log("Let the game begin!");
 			ChangePhase(GamePhase.Offline, GamePhase.ChooseLand);
 
+			// recog players upon connection
 			IdentitfyPlayers();
+
+			if (masterDeck.Count == 0)
+			{
+				Debug.LogWarning("copying over empty master deck to players");
+			}
+
+			// copy master to each player
+			Player0.identity.GetComponent<Player>().deck.myDeck = masterDeck;
+			Player1.identity.GetComponent<Player>().deck.myDeck = masterDeck;
 		}
 	}
 
+	/// <summary>
+	/// set players so server can recognize them
+	/// </summary>
 	[Server]
 	public void IdentitfyPlayers()
 	{
@@ -146,8 +160,8 @@ public class GameManager : NetworkBehaviour
 		}
 
 		// since everyone joined, set the health
-		Player0.identity.GetComponent<Player>().RpcShowStats(firstHealth, "health");
-		Player1.identity.GetComponent<Player>().RpcShowStats(firstHealth, "health");
+		// Player0.identity.GetComponent<Player>().RpcShowStats(firstHealth, "health");
+		// Player1.identity.GetComponent<Player>().RpcShowStats(firstHealth, "health");
 	}
 
 	//// Ready Button Click is contextual, it works differently when clicked in different phases

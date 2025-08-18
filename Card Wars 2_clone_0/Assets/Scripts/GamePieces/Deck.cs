@@ -6,59 +6,28 @@ using static Card;
 public class Deck : NetworkBehaviour
 {
 	// currently only server player gets to see updated lists
-	 public List<GameObject> MyDeck;
-
-	private void Start()
-	{
-		/*GameManager game = FindAnyObjectByType<GameManager>();
-
-		List<GameObject> deck;
-
-		if (game.deckType == GameManager.DeckType.Player)
-		{
-			if (game.p0RecievedDeck == false)
-			{
-				deck = game.p0Deck;
-				game.p0RecievedDeck = true;
-			}
-			else 
-			{
-				deck = game.p1Deck;
-			}
-		}
-		else 
-		{
-			if (game.chooseDeck == 1)
-			{
-				deck = game.DebugMaster;
-			}
-			else if (game.chooseDeck == 2)
-			{
-				deck = game.DebugAllCreatures;
-			}
-			else
-			{
-				deck = game.DebugMisc;
-			}
-		}
-
-		foreach (GameObject cardOB in deck) { MyDeck.Add(cardOB); }*/
-	}
-
+	 public List<GameObject> myDeck;
+	 
 	[Command] public void CmdDrawCard() { DrawCardFromDeck(connectionToClient); }
 
 	private void DrawCardFromDeck(NetworkConnectionToClient conn)
 	{
+		if (myDeck.Count == 0)
+		{
+			Debug.LogWarning("Empty Deck, Can't Draw");
+			return;
+		}
+
 		Player player = GetComponentInParent<Player>();
 
-		int randomIndex = Random.Range(0, MyDeck.Count);
-		GameObject cardInstance = MyDeck[randomIndex];
+		int randomIndex = Random.Range(0, myDeck.Count);
+		GameObject cardInstance = myDeck[randomIndex];
 
 		GameObject drawnCard = Instantiate(cardInstance);
 		NetworkServer.Spawn(drawnCard, conn);
 
-		player.RpcHandleCard(drawnCard, CardState.Hand, null);
+		player.cardHandler.RpcHandleCard(drawnCard,null);
 
-		MyDeck.RemoveAt(randomIndex);
+		myDeck.RemoveAt(randomIndex);
 	}
 }
