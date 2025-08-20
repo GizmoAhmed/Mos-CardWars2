@@ -149,8 +149,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294139648
-  m_fontColor: {r: 0, g: 0.37419546, b: 0.9528302, a: 1}
+    rgba: 4294944816
+  m_fontColor: {r: 0.18679237, g: 0.65715796, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -642,8 +642,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282188031
-  m_fontColor: {r: 1, g: 0, b: 0.23765755, a: 1}
+    rgba: 4286140159
+  m_fontColor: {r: 1, g: 0.3075471, b: 0.4731928, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1060,8 +1060,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294115493
-  m_fontColor: {r: 0.6489654, g: 0, b: 0.9529412, a: 1}
+    rgba: 4285311318
+  m_fontColor: {r: 0.3372549, g: 0.6627451, b: 0.42352945, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1247,7 +1247,9 @@ MonoBehaviour:
   syncInterval: 0
   player: {fileID: 0}
   NewDropZone: {fileID: 0}
-  cardSnapSpeed: 12
+  onLand: 0
+  dragLayer: {fileID: 0}
+  snapBackDuration: 0.25
 --- !u!114 &6427828413243906005
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -105,6 +105,12 @@ public class MiddleLand : NetworkBehaviour
         if (cardData.cardType == CardDataSO.CardType.Creature && creature == null && (gameObject.name.EndsWith("1") || gameObject.name.EndsWith("2") || gameObject.name.EndsWith("3") || gameObject.name.EndsWith("4")) )
             return true;
 
+        // cast spells can be placed anywhere, where they immediately discarded upon cast
+        if (cardData.spellType == CardDataSO.SpellType.Cast)
+        {
+            return true;
+        }
+
         return false;
     }
 }

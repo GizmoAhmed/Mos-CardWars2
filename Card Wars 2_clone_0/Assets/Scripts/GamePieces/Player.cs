@@ -12,6 +12,7 @@ using Unity.Collections;
 public class Player : NetworkBehaviour
 {
 	public CardHandler cardHandler;
+	public PlayerStats playerStats;
 	
 	public bool canPlay = true;
 	public bool myTurn;
@@ -64,6 +65,8 @@ public class Player : NetworkBehaviour
 		deck = GetComponentInChildren<Deck>();
 		
 		cardHandler = GetComponentInChildren<CardHandler>();
+		
+		playerStats = GetComponentInChildren<PlayerStats>();
 
 		// FindObjectOfType<Script>(bool includeInactive)
 		discard = FindObjectOfType<DiscardBoard>(true);

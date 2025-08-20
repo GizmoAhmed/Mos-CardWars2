@@ -164,8 +164,8 @@ public class GameManager : NetworkBehaviour
 		}
 
 		// since everyone joined, set the health
-		// Player0.identity.GetComponent<Player>().RpcShowStats(firstHealth, "health");
-		// Player1.identity.GetComponent<Player>().RpcShowStats(firstHealth, "health");
+		Player0.identity.GetComponent<Player>().playerStats.MagicUpdate(0, 10);
+		Player1.identity.GetComponent<Player>().playerStats.MagicUpdate(3, 8);
 	}
 
 	//// Ready Button Click is contextual, it works differently when clicked in different phases

@@ -37,6 +37,12 @@ public class SpellArea : MiddleLand
     {
         CardDataSO cardData = card.GetComponent<CardDisplay>().cardData;
         
+        // TODO Once card discard is done, swawp these to. These discerns cast and active spell types
+        
+        // only spells of the active type can be placed in the spell area
+        /*if (cardData.spellType == CardDataSO.SpellType.Active && gameObject.name.EndsWith("1"))
+            return true;*/
+        
         if (cardData.cardType == CardDataSO.CardType.Spell && gameObject.name.EndsWith("1"))
             return true;
         

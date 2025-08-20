@@ -55,7 +55,12 @@ public class CardHandler : NetworkBehaviour
         }
         else // drop card on a land since land isn't null
         {
-            // CardMovement.cs already makes sure card can actually be placed on this land
+            // TODO cast type spells can be placed anywhere and are immediately discarded (Activate spells handled in SpellArea.cs)
+            
+            // if cast, don't attach, discard. Else if Active, just continue as it is right here,
+            // since it'll treat it like a creature or building, but in the spell area.
+            
+            // CardMovement.cs already makes sure card can actually be placed on this land via ValidPlace
             if (isOwned)
             {
                 land.GetComponent<MiddleLand>().AttachCard(card);

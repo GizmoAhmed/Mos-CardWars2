@@ -82,7 +82,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  MyDeck: []
+  myDeck: []
 --- !u!1 &7879420104403120485
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 3052233890437553120}
   - component: {fileID: 293716070991419786}
   - component: {fileID: -2743666710545749402}
+  - component: {fileID: 2117301985647269402}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -185,6 +186,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  cardHandler: {fileID: 0}
   canPlay: 1
   myTurn: 0
   deck: {fileID: 0}
@@ -207,5 +209,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fba3612cd09eec04c8cbbd2d5d69a505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+--- !u!114 &2117301985647269402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879420104403120485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b76638cd0f0f04fba9f4c7a54044c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
