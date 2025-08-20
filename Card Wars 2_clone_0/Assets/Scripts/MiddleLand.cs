@@ -20,7 +20,7 @@ public class MiddleLand : NetworkBehaviour
         SetupNeighbors();
     }
 
-    private void SetupNeighbors()
+    public virtual void SetupNeighbors()
     {
         string myName = gameObject.name; // e.g. "L2"
 
@@ -61,7 +61,7 @@ public class MiddleLand : NetworkBehaviour
         return found;
     }
 
-    public void AttachCard(GameObject card)
+    public virtual void AttachCard(GameObject card)
     {
         CardMovement cardMovement = card.GetComponent<CardMovement>();
         CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
@@ -90,7 +90,12 @@ public class MiddleLand : NetworkBehaviour
         cardMovement.onLand = true;
     }
 
-    public bool ValidPlace(CardMovement card)
+    /// <summary>
+    /// If this land has an open creature slot, allow the creature to be placed. Same for building
+    /// </summary>
+    /// <param name="card"></param>
+    /// <returns></returns>
+    public virtual bool ValidPlace(CardMovement card)
     {
         CardDataSO cardData = card.GetComponent<CardDisplay>().cardData;
         
