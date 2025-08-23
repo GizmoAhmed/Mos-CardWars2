@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerStats))] 
 public class PlayerUI : NetworkBehaviour
@@ -32,6 +33,19 @@ public class PlayerUI : NetworkBehaviour
     [Header("Rounds")]
     public GameObject rounds1;
     public GameObject rounds2;
+
+    [Header("Rounds1 Children")]
+    public GameObject first1;
+    public GameObject second1;
+    public GameObject third1;
+    public GameObject fourth1;
+
+    [Header("Rounds2 Children")]
+    public GameObject first2;
+    public GameObject second2;
+    public GameObject third2;
+    public GameObject fourth2;
+
     
     [Header("Upgrade Cost")]
     public GameObject costText;
@@ -40,8 +54,7 @@ public class PlayerUI : NetworkBehaviour
 
     public void Init(PlayerStats s)
     {
-        Debug.Log("Initializing player UI");
-        stats = s; // player stats set up first, then comes here and sets it to ui, now there is an order of initialization
+        stats = s;
         FindAllUI(); 
     }
     
@@ -53,7 +66,7 @@ public class PlayerUI : NetworkBehaviour
         return obj;
     }
 
-    public void FindAllUI()
+    private void FindAllUI()
     {
         magic1    = SafeFind("Magic1");
         magic2    = SafeFind("Magic2");
@@ -61,18 +74,32 @@ public class PlayerUI : NetworkBehaviour
         money2    = SafeFind("Money2");
         health1   = SafeFind("Health1");
         health2   = SafeFind("Health2");
-        score1    =  SafeFind("Score1");
-        score2    =  SafeFind("Score2");
-        drawsLeft = SafeFind("DrawsLeft");
+        score1    = SafeFind("Score1");
+        score2    = SafeFind("Score2");
+        drawsLeft = GameObject.FindGameObjectWithTag("DrawsLeft");
         rounds1   = SafeFind("Rounds1");
         rounds2   = SafeFind("Rounds2");
         costText  = SafeFind("CostText");
         drain1    = SafeFind("Drain1");
         drain2    = SafeFind("Drain2");
-        drawsLeft = SafeFind("drawsLeft");
+
+        if (rounds1 != null)
+        {
+            first1  = rounds1.transform.Find("First1")?.gameObject;
+            second1 = rounds1.transform.Find("Second1")?.gameObject;
+            third1  = rounds1.transform.Find("Third1")?.gameObject;
+            fourth1 = rounds1.transform.Find("Fourth1")?.gameObject;
+        }
+
+        if (rounds2 != null)
+        {
+            first2  = rounds2.transform.Find("First2")?.gameObject;
+            second2 = rounds2.transform.Find("Second2")?.gameObject;
+            third2  = rounds2.transform.Find("Third2")?.gameObject;
+            fourth2 = rounds2.transform.Find("Fourth2")?.gameObject;
+        }
     }
-
-
+    
     public void MagicUIUpdate(int magic, bool current)
     {
         // magic 1 or 2
@@ -92,4 +119,74 @@ public class PlayerUI : NetworkBehaviour
 
         magicText.text = (current) ? magic + " / " + stats.maxMagic : stats.currentMagic + " / " + magic;
     }
+
+    public void MoneyUIUpdate(int newMoney)
+    {
+        TextMeshProUGUI moneyText = (isOwned) ? money1.GetComponent<TextMeshProUGUI>() : money2.GetComponent<TextMeshProUGUI>();
+        
+        moneyText.text = newMoney.ToString();
+    }
+
+    public void DrawUIUpdate(int draws)
+    {
+        if (!isOwned) return;
+        
+        TextMeshProUGUI drawText = drawsLeft.GetComponent<TextMeshProUGUI>();
+
+        drawText.text = $"DRAWS LEFT: {draws}";
+    }
+
+    public void ScoreUIUpdate(int newScore)
+    {
+        TextMeshProUGUI scoreText = (isOwned) ?  score1.GetComponent<TextMeshProUGUI>() : score2.GetComponent<TextMeshProUGUI>();
+        
+        scoreText.text = newScore.ToString();
+    }
+
+    public void HealthUIUpdate(int newHealth)
+    {
+        TextMeshProUGUI healthText = (isOwned) ?  health1.GetComponent<TextMeshProUGUI>() : health2.GetComponent<TextMeshProUGUI>();
+        
+        healthText.text = newHealth.ToString();
+    }
+
+    public void DrainUIUpdate(int newDrain)
+    {
+        TextMeshProUGUI drainText = (isOwned) ? drain1.GetComponent<TextMeshProUGUI>() : drain2.GetComponent<TextMeshProUGUI>();
+        
+        drainText.text = "- " + newDrain.ToString();
+    }
+
+    public void RoundsUIUpdate(int newRounds)
+    {
+        GameObject roundsParent = (isOwned) ? rounds1 : rounds2;
+        
+        for (int i = 0; i < roundsParent.transform.childCount; i++)
+        {
+            Transform child = roundsParent.transform.GetChild(i);
+            Image bubbleImage = child.GetComponent<Image>();
+
+            if (bubbleImage != null)
+            {
+                if (i < newRounds)
+                {
+                    bubbleImage.color = Color.green;
+                }
+                else
+                {
+                    bubbleImage.color = Color.white; 
+                }
+            }
+        }
+    }
+
+    public void UpgradeUIUpdate(int cost)
+    {
+        if (!isOwned) return;
+        
+        TextMeshProUGUI c = costText.GetComponent<TextMeshProUGUI>();
+        
+        c.text = cost.ToString();
+    }
+
 }

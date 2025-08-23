@@ -9,7 +9,7 @@ public class Upgrade : NetworkBehaviour
     {
 		player = NetworkClient.localPlayer.GetComponent<Player>();
 
-		if (player.UpgradeCost <= player.Money)
+		/*if (player.UpgradeCost <= player.Money)
 		{
 			player.CmdChangeStats(player.Money - player.UpgradeCost, "money"); // spend money
 
@@ -18,6 +18,6 @@ public class Upgrade : NetworkBehaviour
 			player.UpgradeCost++;                                           // raise cost
 
 			player.CmdChangeStats(player.UpgradeCost, "upgrade_cost");   // set cost
-		}
+		}*/
 	}
 }

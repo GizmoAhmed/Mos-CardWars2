@@ -45,7 +45,7 @@ public class GameManager : NetworkBehaviour
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;
 
-	private Dictionary<GamePhase, Phase> phaseHandlers;
+	// private Dictionary<GamePhase, Phase> phaseHandlers;
 
 	[HideInInspector] public Turns turnManager;
 
@@ -63,59 +63,9 @@ public class GameManager : NetworkBehaviour
 	{
 		base.OnStartServer();
 
-		/*if (choosePlayer == 0)		{ HostGoesFirst = true; }
-
-		else if (choosePlayer == 1)	{ HostGoesFirst = false; }
-
-		else						{ HostGoesFirst = Random.value < 0.5f; }*/
-
-		InitializePhases();
-
 		currentPhase = GamePhase.Offline;
 
-		// p0RecievedDeck = false;
-
 		Debug.Log("Server started, waiting for players...");
-	}
-
-	[Server]
-	private void InitializePhases()
-	{
-		/*phaseHandlers = new Dictionary<GamePhase, Phase>
-		{
-			{ GamePhase.ChooseLand, GetComponentInChildren<ChooseLand>() },
-			{ GamePhase.SetUp, GetComponentInChildren<SetUp>() },
-			{ GamePhase.Attack, GetComponentInChildren<Attack>() },
-			{ GamePhase.End, GetComponentInChildren<End>() }
-		};
-
-		foreach (var phase in phaseHandlers.Values)
-		{
-			phase.Initialize(this);
-		}
-
-		turnManager = GetComponentInChildren<Turns>();
-		turnManager.InitializeTurns(this);*/
-	}
-
-	[Server]
-	public void ChangePhase(GamePhase oldPhase, GamePhase newPhase)
-	{
-		// Debug.Log(oldPhase.ToString() + " > " + newPhase.ToString());
-
-		currentPhase = newPhase;
-
-		if (phaseHandlers == null || !phaseHandlers.ContainsKey(newPhase))
-		{
-			return;
-		}
-
-		if (oldPhase != GamePhase.Offline)
-		{
-			phaseHandlers[oldPhase]?.OnExitPhase();
-		}
-
-		phaseHandlers[newPhase]?.OnEnterPhase();
 	}
 
 	[Server]
@@ -125,9 +75,6 @@ public class GameManager : NetworkBehaviour
 
 		if (numberOfPlayers == 2)
 		{
-			// ChangePhase(GamePhase.Offline, GamePhase.ChooseLand);
-
-			// recog players upon connection
 			IdentitfyPlayers();
 
 			if (masterDeck.Count == 0)
@@ -163,12 +110,35 @@ public class GameManager : NetworkBehaviour
 			}
 		}
 
-		// since everyone joined, set the health
-		Player0.identity.GetComponent<PlayerStats>().currentMagic = 2;
-		Player0.identity.GetComponent<PlayerStats>().maxMagic = 10;
+		PlayerStats stats0 = Player0.identity.GetComponent<PlayerStats>();
+		PlayerStats stats1 = Player1.identity.GetComponent<PlayerStats>();
+		
+		stats0.currentMagic = 0;
+		stats0.maxMagic = 10;
 
-		Player1.identity.GetComponent<PlayerStats>().currentMagic = 3;
-		Player1.identity.GetComponent<PlayerStats>().maxMagic = 8;
+		stats1.currentMagic = 0;
+		stats1.maxMagic = 20;
+
+		stats0.money = 20;
+		stats1.money = 30;
+		
+		stats0.draws = 3;
+        stats1.draws = 4;
+
+        stats0.score = 12;
+        stats1.score = 13;
+        
+		stats0.health = 50;
+		stats1.health = 60;
+
+		stats0.drain = 5;
+		stats1.drain = 7;
+		
+		stats0.roundsWon = 2;
+		stats1.roundsWon = 3;
+
+		stats0.upgradeCost = 2;
+		stats1.upgradeCost = 3;
 	}
 
 	//// Ready Button Click is contextual, it works differently when clicked in different phases
@@ -185,7 +155,7 @@ public class GameManager : NetworkBehaviour
 
 				// thisPlayer.RpcEnablePlayer(false);
 
-				CheckAllPlayersReady();
+				// CheckAllPlayersReady();
 			}
 		}
 
@@ -203,7 +173,7 @@ public class GameManager : NetworkBehaviour
 			else
 			{
 				readyPlayers.Clear();
-				ChangePhase(GamePhase.SetUp, GamePhase.Attack);
+				// ChangePhase(GamePhase.SetUp, GamePhase.Attack);
 			}
 		}
 		else 
@@ -212,13 +182,4 @@ public class GameManager : NetworkBehaviour
 		}
 	}
 
-	[Server]
-	private void CheckAllPlayersReady()
-	{
-		if (readyPlayers.Count >= 2)
-		{
-			readyPlayers.Clear();
-			ChangePhase(GamePhase.ChooseLand, GamePhase.SetUp);
-		}
-	}
 }

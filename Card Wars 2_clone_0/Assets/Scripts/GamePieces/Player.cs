@@ -14,46 +14,14 @@ public class Player : NetworkBehaviour
 {
 	public CardHandler cardHandler;
 	public PlayerStats playerStats;
-	public PlayerUI playerUI;
 	
 	public bool canPlay = true;
 	public bool myTurn;
 
 	[Header("Deck & Discard")]
 	public Deck deck; 
-	public DiscardBoard discard;
 
-	[Header("Magic")]
-	public int CurrentMagic;
-	public int MaxMagic;
-
-	[Header("Money")]
-	public int Money;
-	public int DrawCost;
-	public int UpgradeCost;
-
-	[Header("Score")]
-	public int Score;
-
-	[Header("Health")]
-	public int Health;
-
-	// Find once instead of multiple times
-	//***********************************************************************
 	private GameManager	gameManager;
-	private Combat		combat;
-
-	private GameObject Hand1;
-	private GameObject Hand2;
-
-	private GameObject ThisMagic;
-	private GameObject OtherMagic;
-
-	private GameObject ThisMoney;
-	private GameObject OtherMoney;
-
-	private TextMeshProUGUI turnText;
-	//***********************************************************************
 
 	[Header("Battle Ready Cards")]
 	[SyncVar] public bool searchComplete;
@@ -70,41 +38,12 @@ public class Player : NetworkBehaviour
 		
 		playerStats = GetComponentInChildren<PlayerStats>();
 
-		playerStats.InitStats();
-		
-		playerUI = GetComponentInChildren<PlayerUI>();
-		
-		// FindObjectOfType<Script>(bool includeInactive)
-		discard = FindObjectOfType<DiscardBoard>(true);
-
-		Hand1 = GameObject.Find("Hand1");
-		Hand2 = GameObject.Find("Hand2");
-
-		ThisMagic = GameObject.Find("ThisMagic");
-		OtherMagic = GameObject.Find("OtherMagic");
-
-		ThisMoney = GameObject.Find("ThisMoney");
-		OtherMoney = GameObject.Find("OtherMoney");
-
-		// turnText = GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>();
+		playerStats.InitUI();
 
 		gameManager = FindAnyObjectByType<GameManager>();
-
-		combat = FindAnyObjectByType<Combat>();
-
+		
 		myTurn = true;
-
-		CmdChangeStats(0, "current_magic");
-		CmdChangeStats(0, "max_magic");
-
-		CmdChangeStats(0, "money");
-		CmdChangeStats(2, "draw_cost");       
-		CmdChangeStats(1, "upgrade_cost");
-
-		CmdChangeStats(0, "score");
-
-		// CmdChangeStats(75, "health"); already set in gameManager.IdentifyPlayers()
-
+		
 		if (isServer)
 		{
 			Debug.Log($"[SERVER] >>> Player {connectionToClient.connectionId} has joined.");
@@ -137,104 +76,6 @@ public class Player : NetworkBehaviour
 
 		myTurn = canPlay = set;
 	}*/
-	
-	[Command]
-	public void CmdChangeStats(int newAmount, string stat)
-	{
-		RpcShowStats(newAmount, stat);
-	}
-
-	[ClientRpc]
-	public void RpcShowStats(int newAmount, string stat) 
-	{
-		switch (stat) 
-		{
-			case "max_magic":
-
-				MaxMagic = newAmount;
-
-				// TextMeshProUGUI magicText = (isOwned) ? ThisMagic.GetComponent<TextMeshProUGUI>() :  OtherMagic.GetComponent<TextMeshProUGUI>();
-				
-				// magicText.text = CurrentMagic.ToString() + "/" + MaxMagic.ToString();
-
-				break;
-
-			case "current_magic":
-
-				CurrentMagic = newAmount;
-
-				// magicText = (isOwned) ? ThisMagic.GetComponent<TextMeshProUGUI>() : OtherMagic.GetComponent<TextMeshProUGUI>();
-
-				// magicText.text = CurrentMagic.ToString() + "/" + MaxMagic.ToString();
-
-				break;
-
-			case "money":
-
-				Money = newAmount;
-
-				// TextMeshProUGUI moneyText = (isOwned) ? ThisMoney.GetComponent<TextMeshProUGUI>() :  OtherMoney.GetComponent<TextMeshProUGUI>();
-
-				// moneyText.text = newAmount.ToString();
-
-				break;
-
-			case "draw_cost":
-
-				DrawCost = newAmount;
-
-				// GameObject DrawCostTextObject = (isOwned) ? GameObject.Find("ThisDrawCostText") :  GameObject.Find("OtherDrawCostText");
-
-				// TextMeshProUGUI drawCostText = DrawCostTextObject.GetComponent<TextMeshProUGUI>();
-
-				// drawCostText.text = newAmount.ToString();
-
-				break;
-
-			case "upgrade_cost":
-
-				UpgradeCost = newAmount;
-
-				/*GameObject UpgradeCostTextObject = (isOwned) ? GameObject.Find("ThisUpgradeCostText") :  GameObject.Find("OtherUpgradeCostText");
-
-				TextMeshProUGUI upgradeCostText = UpgradeCostTextObject.GetComponent<TextMeshProUGUI>();
-
-				upgradeCostText.text = newAmount.ToString();*/
-
-				break;
-
-			case "health":
-
-				Health = newAmount;
-
-				/*GameObject healthObj = (isOwned) ? GameObject.Find("ThisHealth") : GameObject.Find("OtherHealth");
-
-				healthObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();*/
-
-				break;
-
-			case "score":
-
-				Score = newAmount;
-
-				/*GameObject scoreObj = (isOwned) ? GameObject.Find("ThisScore") : GameObject.Find("OtherScore");
-
-				scoreObj.GetComponent<TextMeshProUGUI>().text = newAmount.ToString();
-				*/
-
-				break;
-
-			default:
-				Debug.LogError(stat + " is a invalid");
-				break;
-		}
-	}
-
-	[ClientRpc]
-	public void RpcUpdateTurnText(int turn) 
-	{
-		turnText.text = "TURN: " + turn;
-	}
 
 	/*[TargetRpc]
 	public void TargetStartBattleCardsSearch(NetworkConnection target)
@@ -302,9 +143,4 @@ public class Player : NetworkBehaviour
 	{
 		combat.Altercation(attackingCard, defendingCard);
 	}*/
-
-	public void DealDamage(int enemyScore) 
-	{
-		CmdChangeStats(Health - enemyScore, "health");
-	}
 }
