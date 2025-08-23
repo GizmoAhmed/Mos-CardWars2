@@ -11,7 +11,5 @@ public class Draw : NetworkBehaviour
 		player = networkIdentity.GetComponent<Player>();
 
 		player.deck.CmdDrawCard();
-		player.deck.CmdDrawCard();
-		player.deck.CmdDrawCard();
 	}
 }

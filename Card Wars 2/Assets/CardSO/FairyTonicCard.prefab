@@ -98,8 +98,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
       propertyPath: m_Name
-      value: FairyTonic
+      value: FairyTonicCard
       objectReference: {fileID: 0}
+    - target: {fileID: 7452485396451807088, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3aba282c3c771df4cb0eb665f7ac2af4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

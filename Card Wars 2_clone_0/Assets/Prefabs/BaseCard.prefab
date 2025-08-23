@@ -1138,6 +1138,7 @@ GameObject:
   - component: {fileID: 8532880174017332465}
   - component: {fileID: 5660948033436875262}
   - component: {fileID: 1000393613798720268}
+  - component: {fileID: 7452485396451807088}
   m_Layer: 5
   m_Name: BaseCard
   m_TagString: Untagged
@@ -1228,8 +1229,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  FaceUp: 0
+  faceUp: 0
   cardData: {fileID: 11400000, guid: e28f291ea4e4e0349863af710c740e59, type: 2}
+  stats: {fileID: 0}
 --- !u!114 &-2179245390006875088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1457,3 +1459,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7452485396451807088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310339964073049012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e1a865dd518ae43938cf37828cb77f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cardData: {fileID: 0}
+  magic: 0
+  attack: 0
+  defense: 0

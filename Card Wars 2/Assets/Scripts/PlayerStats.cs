@@ -15,7 +15,7 @@ public class PlayerStats : NetworkBehaviour
     [SyncVar(hook = nameof(MoneyUpdate))] public int money;
 
     [Header("Draws")]
-    [SyncVar(hook = nameof(DrawUpdate))] public int draws;
+    [SyncVar(hook = nameof(DrawUpdate))] public int drawCost;
 
     [Header("Score")]
     [SyncVar(hook = nameof(ScoreUpdate))] public int score;
@@ -35,11 +35,18 @@ public class PlayerStats : NetworkBehaviour
         ui = GetComponent<PlayerUI>();
         ui.Init(this);
     }
-
-    private void Awake()
+    
+    [Command]
+    public void CmdUpgradeMagic()
     {
-        ui = GetComponent<PlayerUI>();
+        if (money >= upgradeCost)
+        {
+            money -= upgradeCost;
+            maxMagic += 1;
+            upgradeCost += 1;
+        }
     }
+    
     private void CurrentMagicUpdate(int oldMagic, int newMagic)
     {
         ui.MagicUIUpdate(newMagic, current : true);

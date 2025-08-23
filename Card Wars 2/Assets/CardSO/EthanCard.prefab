@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EthanCard
       objectReference: {fileID: 0}
+    - target: {fileID: 7452485396451807088, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: e28f291ea4e4e0349863af710c740e59, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

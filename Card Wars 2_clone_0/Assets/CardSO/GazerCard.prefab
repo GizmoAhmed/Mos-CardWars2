@@ -100,6 +100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GazerCard
       objectReference: {fileID: 0}
+    - target: {fileID: 7452485396451807088, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
+      propertyPath: cardData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f767aeccb2330f4185dc8b3e41d53c9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

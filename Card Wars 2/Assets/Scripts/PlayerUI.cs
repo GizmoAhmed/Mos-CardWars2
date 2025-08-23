@@ -133,7 +133,7 @@ public class PlayerUI : NetworkBehaviour
         
         TextMeshProUGUI drawText = drawsLeft.GetComponent<TextMeshProUGUI>();
 
-        drawText.text = $"DRAWS LEFT: {draws}";
+        drawText.text = draws.ToString();
     }
 
     public void ScoreUIUpdate(int newScore)

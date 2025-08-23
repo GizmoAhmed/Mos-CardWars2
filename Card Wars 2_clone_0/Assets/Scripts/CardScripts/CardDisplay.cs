@@ -5,11 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Assigns all the visual stuff from CardDataSO to a card game object this script is attached to
+[RequireComponent(typeof(CardStats))]
 public class CardDisplay : NetworkBehaviour
 {
-    public bool FaceUp;
+    public bool faceUp;
     
     public CardDataSO cardData;
+    
+    public CardStats stats;
 
     private GameObject mainImageObj;
 
@@ -25,52 +28,30 @@ public class CardDisplay : NetworkBehaviour
     private GameObject defenseObj;
     private GameObject magicObj;
 
-    void Awake()
+    public void Init(CardStats s)
     {
+        Debug.Log($"Initializing Card Display for {gameObject.name}...");
+        
+        stats = s;
+        
         if (cardData == null)
         {
             Debug.LogError($"CardData is null on {gameObject.name}");
             return;
         }
-
+                  
         FindDisplayParts();
-
+                  
         // Set images
         SetImage(mainImageObj, cardData.MainImage);
         SetImage(elementLeft, cardData.Element);
         SetImage(elementRight, cardData.Element);
-
+                  
         // Set names
         SetText(nameLeft, cardData.Name);
         SetText(nameRight, cardData.Name);
-        
-        SetText(magicObj, cardData.Magic.ToString());
-
-        switch (cardData.cardType)
-        {
-            case CardDataSO.CardType.Creature:
-                SetText(attackObj, cardData.Attack.ToString());
-                SetText(defenseObj, cardData.Defense.ToString());
-                break;
-
-            case CardDataSO.CardType.Building:
-                Hide(attackObj);
-                SetText(defenseObj, cardData.Defense.ToString());
-                break;
-
-            case CardDataSO.CardType.Spell:
-                Hide(attackObj);
-                SetText(defenseObj, cardData.Defense.ToString());
-                break;
-            
-            case CardDataSO.CardType.Charm:
-                Hide(attackObj);
-                Hide(defenseObj);
-                Hide(magicObj);
-                break;
-        }
-        
-        FlipCard(true);
+                          
+        FlipCard(face : true);
     }
 
     private void Hide(GameObject obj)
@@ -86,6 +67,11 @@ public class CardDisplay : NetworkBehaviour
         {
             Debug.LogError($"Missing {childName} on {gameObject.name}");
         }
+        else
+        {
+            Debug.Log($"Found {childName} on {obj.name}");
+        }
+
         return obj;
     }
 
@@ -102,7 +88,6 @@ public class CardDisplay : NetworkBehaviour
         magicObj     = FindPart("Magic");
     }
 
-
     private void SetImage(GameObject obj, Sprite sprite)
     {
         if (obj != null && obj.TryGetComponent(out Image img))
@@ -115,15 +100,15 @@ public class CardDisplay : NetworkBehaviour
             tmp.text = text;
     }
 
-    public void FlipCard(bool face_up)
+    public void FlipCard(bool face)
     {
-        ShowCardFlip(face_up);
-        FaceUp = face_up;
+        ShowCardFlip(face);
+        faceUp = face;
     }
 
-    private void ShowCardFlip(bool faceup)
+    private void ShowCardFlip(bool f)
     {
-        if (faceup)
+        if (f)
         {
             mainImageObj.SetActive(true);
             elementLeft.SetActive(true);
@@ -160,7 +145,6 @@ public class CardDisplay : NetworkBehaviour
         }
         else
         {
-            // Hide all front elements
             mainImageObj.SetActive(false);
             elementLeft.SetActive(false);
             elementRight.SetActive(false);
@@ -172,6 +156,31 @@ public class CardDisplay : NetworkBehaviour
 
             // Show card back
             cardBackObj.SetActive(true);
+        }
+    }
+
+    public void UpdateUIMagic(int newMagic)
+    {
+        SetText(magicObj, newMagic.ToString());
+    }
+
+    public void UpdateUIAttack(int newAttack)
+    {
+        SetText(attackObj, newAttack.ToString());
+
+        if (newAttack == -1)
+        {
+            Hide(attackObj);
+        }
+    }
+    
+    public void UpdateUIDefense(int newDefense)
+    {
+        SetText(attackObj, newDefense.ToString());
+
+        if (newDefense == -1)
+        {
+            Hide(defenseObj);
         }
     }
 }

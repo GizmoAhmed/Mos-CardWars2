@@ -8,63 +8,28 @@ using Mirror;
 public class GameManager : NetworkBehaviour
 {
 	public List<GameObject> masterDeck;
-	
-	/*public enum DeckType { Player, Debug }
 
-	public DeckType deckType;
+	[Header("Starting Stats")]
+	public int maxMagic = 6;
 
-	[HideInInspector] public bool p0RecievedDeck;
-
-	[Header("Player Decks")]
-	public List<GameObject> p0Deck;
-	public List<GameObject> p1Deck;*/
-
-	/*[Header("1 : master, 2 : creatures, 3 : debug")]
-	public int chooseDeck;
-
-	[Header("Debug Decks")]
-	public List<GameObject> DebugMaster;
-	public List<GameObject> DebugAllCreatures;
-	public List<GameObject> DebugMisc;*/
+	public int money = 10;
+	public int drawCost = 1;
+	public int health = 30;
+	public int drain = 2;
+	public int roundsWon = 0;
+	public int upgradeCost = 2;
+	public int score = 0;
 
 	private HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
 
-	[Header("Phase")]
-	[SyncVar] public GamePhase currentPhase;
-
-	[Header("0 or 1, for the player you want to go first, else = random")]
-	public int choosePlayer;
-
-	[SyncVar] public bool HostGoesFirst;
-
-	[Header("Starting Consumables")]
-	public int firstMagic = 2;
-	public int firstMoney = 10;
-	public int firstHealth = 50;
-
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;
-
-	// private Dictionary<GamePhase, Phase> phaseHandlers;
-
-	[HideInInspector] public Turns turnManager;
-
-	public enum GamePhase
-	{
-		Offline,
-		ChooseLand,
-		Attack,
-		SetUp,
-		End
-	}
 
 	[Server]
 	public override void OnStartServer()
 	{
 		base.OnStartServer();
-
-		currentPhase = GamePhase.Offline;
-
+		
 		Debug.Log("Server started, waiting for players...");
 	}
 
@@ -73,9 +38,10 @@ public class GameManager : NetworkBehaviour
 	{
 		int numberOfPlayers = NetworkServer.connections.Count;
 
-		if (numberOfPlayers == 2)
+		if (numberOfPlayers == 2) // Full lobby, let's roll
 		{
-			IdentitfyPlayers();
+			AssignPlayers();
+			StartPlayerStats();
 
 			if (masterDeck.Count == 0)
 			{
@@ -96,7 +62,7 @@ public class GameManager : NetworkBehaviour
 	/// set players so server can recognize them
 	/// </summary>
 	[Server]
-	public void IdentitfyPlayers()
+	public void AssignPlayers()
 	{
 		foreach (var conn in NetworkServer.connections.Values)
 		{
@@ -109,43 +75,48 @@ public class GameManager : NetworkBehaviour
 				Player1 = conn;
 			}
 		}
+	}
 
+	[Server]
+	private void StartPlayerStats()
+	{
 		PlayerStats stats0 = Player0.identity.GetComponent<PlayerStats>();
 		PlayerStats stats1 = Player1.identity.GetComponent<PlayerStats>();
-		
+
 		stats0.currentMagic = 0;
-		stats0.maxMagic = 10;
-
 		stats1.currentMagic = 0;
-		stats1.maxMagic = 20;
-
-		stats0.money = 20;
-		stats1.money = 30;
 		
-		stats0.draws = 3;
-        stats1.draws = 4;
-
-        stats0.score = 12;
-        stats1.score = 13;
-        
-		stats0.health = 50;
-		stats1.health = 60;
-
-		stats0.drain = 5;
-		stats1.drain = 7;
+		stats0.maxMagic = maxMagic;
+		stats1.maxMagic = maxMagic;
 		
-		stats0.roundsWon = 2;
-		stats1.roundsWon = 3;
-
-		stats0.upgradeCost = 2;
-		stats1.upgradeCost = 3;
+		stats0.money = money;
+		stats1.money = money;
+		
+		stats0.health = health;
+		stats1.health = health;
+		
+		stats0.drain = drain;
+		stats1.drain = drain;
+		
+		stats0.roundsWon = roundsWon;
+		stats1.roundsWon = roundsWon;
+		
+		stats0.upgradeCost = upgradeCost;
+		stats1.upgradeCost = upgradeCost;
+		
+		stats0.drawCost = drawCost;
+		stats1.drawCost = drawCost;
+		
+		stats0.score = score;
+		stats1.score = score;
+		
 	}
 
 	//// Ready Button Click is contextual, it works differently when clicked in different phases
 	[Server]
 	public void PlayerReady(NetworkConnectionToClient conn)
 	{
-		if (currentPhase == GamePhase.ChooseLand)
+		/*if (currentPhase == GamePhase.ChooseLand)
 		{
 			if (!readyPlayers.Contains(conn))
 			{
@@ -179,7 +150,7 @@ public class GameManager : NetworkBehaviour
 		else 
 		{
 			Debug.LogError("Ready was clicked when the phase wasn't Chooseland or SetUp");
-		}
+		}*/
 	}
 
 }

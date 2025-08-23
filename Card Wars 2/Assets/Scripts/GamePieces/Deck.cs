@@ -19,14 +19,25 @@ public class Deck : NetworkBehaviour
 
 		Player player = GetComponentInParent<Player>();
 
-		int randomIndex = Random.Range(0, myDeck.Count);
-		GameObject cardInstance = myDeck[randomIndex];
+		if (player.playerStats.money >= player.playerStats.drawCost)
+		{
+			int randomIndex = Random.Range(0, myDeck.Count);
+            GameObject cardInstance = myDeck[randomIndex];
+    
+            GameObject drawnCard = Instantiate(cardInstance);
+            NetworkServer.Spawn(drawnCard, conn);
+    
+            player.cardHandler.RpcHandleCard(drawnCard,null);
+    
+            myDeck.RemoveAt(randomIndex);
+            
+            player.playerStats.money -= player.playerStats.drawCost;
+		}
+		else
+		{
+			Debug.LogWarning($"Player {connectionToClient.connectionId + 1} doesn't have enough money to Draw");
+		}
 
-		GameObject drawnCard = Instantiate(cardInstance);
-		NetworkServer.Spawn(drawnCard, conn);
 
-		player.cardHandler.RpcHandleCard(drawnCard,null);
-
-		myDeck.RemoveAt(randomIndex);
 	}
 }

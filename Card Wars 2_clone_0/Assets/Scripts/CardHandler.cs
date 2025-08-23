@@ -38,7 +38,7 @@ public class CardHandler : NetworkBehaviour
     [ClientRpc]
     public void RpcHandleCard(GameObject card, GameObject land)
     {
-        if (!land) // land was passed null, must be from deck, drawing card from deck
+        if (!land) // land was passed null, must've been drawn from deck
         {
             if (isOwned)
             {
