@@ -1,98 +1,88 @@
+using System;
 using Mirror;
-using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerUI))] 
 public class PlayerStats : NetworkBehaviour
 {
+    private PlayerUI ui;
+    
     [Header("Magic")]
-    public int CurrentMagic;
-    public int MaxMagic;
+    [SyncVar(hook = nameof(CurrentMagicUpdate))] public int currentMagic;
+    [SyncVar(hook = nameof(MaxMagicUpdate))] public int maxMagic;
 
-    public GameObject magic1;
-    public GameObject magic2;
-    
     [Header("Money")]
-    public int Money;
-    
-    public GameObject money1;
-    public GameObject money2;
-    
+    [SyncVar(hook = nameof(MoneyUpdate))] public int money;
+
     [Header("Draws")]
-    public int draws;
+    [SyncVar(hook = nameof(DrawUpdate))] public int draws;
 
-    public GameObject drawsLeft;
-    
     [Header("Score")]
-    public int Score;
-    
-    public GameObject score1;
-    public GameObject score2;
-    
+    [SyncVar(hook = nameof(ScoreUpdate))] public int score;
+
     [Header("Health")]
-    public int Health;
-    public int Drain;
-    
-    public GameObject health1;
-    public GameObject health2;
-    public GameObject drain1;
-    public GameObject drain2;
-    
+    [SyncVar(hook = nameof(HealthUpdate))] public int health;
+    [SyncVar(hook = nameof(DrainUpdate))] public int drain;
+
     [Header("Rounds")]
-    public int RoundsWon;
-    
-    public GameObject rounds1;
-    public GameObject rounds2;
-    
+    [SyncVar(hook = nameof(RoundsUpdate))] public int roundsWon;
+
     [Header("Upgrade Cost")]
-    public int UpgradeCost;
+    [SyncVar(hook = nameof(UpgradeCostUpdate))] public int upgradeCost;
     
-    public GameObject costText;
-
-    private void FindAllUI()
+    public void InitStats()
     {
-        magic1      = GameObject.Find("Magic1");
-        magic2      = GameObject.Find("Magic2");
-        money1      = GameObject.Find("Money1");
-        money2      = GameObject.Find("Money2");
-        health1     = GameObject.Find("Health1");
-        health2     = GameObject.Find("Health2");
-        rounds1     = GameObject.Find("Rounds1");
-        rounds2     = GameObject.Find("Rounds2");
-        costText    = GameObject.Find("CostText");
-        drain1      = GameObject.Find("Drain1");
-        drain2      = GameObject.Find("Drain2");
-        drawsLeft   = GameObject.Find("drawsLeft");
+        ui = GetComponent<PlayerUI>();
+        ui.Init(this);
+    }
+
+    private void Awake()
+    {
+        ui = GetComponent<PlayerUI>();
+    }
+    private void CurrentMagicUpdate(int oldMagic, int newMagic)
+    {
+        Debug.Log($"CURRENT >> {oldMagic} to {newMagic}...");
+        ui.MagicUIUpdate(newMagic, current : true);
+    }
+
+    private void MaxMagicUpdate(int oldMagic, int newMagic)
+    {
+        Debug.Log($"MAX >> {oldMagic} to {newMagic}...");
+        ui.MagicUIUpdate(newMagic, current : false);
+    }
+
+    private void MoneyUpdate(int oldMoney, int newMoney)
+    {
         
     }
 
-    // ternary operator
-    // variable = (condition) ? expressionTrue :  expressionFalse;
-    
-    [TargetRpc]
-    public void MagicUpdate(int newCurrentMagic, int newMaxMagic)
+    private void DrawUpdate(int oldDraws, int newDraws)
     {
-        TextMeshProUGUI magicText = (isOwned) ? magic1.GetComponent<TextMeshProUGUI>() : magic2.GetComponent<TextMeshProUGUI>();
         
-        if (magicText != null)
-        {
-            magicText.text = newCurrentMagic + " / " +  newMaxMagic;
-        }
-        else
-        {
-            Debug.LogError("Magic update failed, magic text is null");
-        }
     }
-    
-    [TargetRpc]
-    public void InitializeStats(
-        int startMagic, 
-        int startMoney, 
-        int startDraws,
-        int startScore,
-        int startHealth,
-        int startRounds,
-        int startHealthDrain,
-        int startUpgradeCost)
+
+    private void ScoreUpdate(int oldScore, int newScore)
+    {
+        
+    }
+
+    private void HealthUpdate(int oldHealth, int newHealth)
+    {
+        
+    }
+
+    private void DrainUpdate(int oldDrain, int newDrain)
+    {
+        
+    }
+
+    private void RoundsUpdate(int oldRounds, int newRounds)
+    {
+        
+    }
+
+    private void UpgradeCostUpdate(int oldUpgradeCost, int newUpgradeCost)
     {
         
     }

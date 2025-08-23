@@ -125,7 +125,7 @@ public class GameManager : NetworkBehaviour
 
 		if (numberOfPlayers == 2)
 		{
-			ChangePhase(GamePhase.Offline, GamePhase.ChooseLand);
+			// ChangePhase(GamePhase.Offline, GamePhase.ChooseLand);
 
 			// recog players upon connection
 			IdentitfyPlayers();
@@ -164,8 +164,11 @@ public class GameManager : NetworkBehaviour
 		}
 
 		// since everyone joined, set the health
-		Player0.identity.GetComponent<Player>().playerStats.MagicUpdate(0, 10);
-		Player1.identity.GetComponent<Player>().playerStats.MagicUpdate(3, 8);
+		Player0.identity.GetComponent<PlayerStats>().currentMagic = 2;
+		Player0.identity.GetComponent<PlayerStats>().maxMagic = 10;
+
+		Player1.identity.GetComponent<PlayerStats>().currentMagic = 3;
+		Player1.identity.GetComponent<PlayerStats>().maxMagic = 8;
 	}
 
 	//// Ready Button Click is contextual, it works differently when clicked in different phases

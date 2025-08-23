@@ -5,6 +5,7 @@ using TMPro;
 using System.Linq;
 using System.Collections;
 using Unity.Collections;
+using Unity.VisualScripting;
 
 // ternary operator
 // variable = (condition) ? expressionTrue :  expressionFalse;
@@ -13,6 +14,7 @@ public class Player : NetworkBehaviour
 {
 	public CardHandler cardHandler;
 	public PlayerStats playerStats;
+	public PlayerUI playerUI;
 	
 	public bool canPlay = true;
 	public bool myTurn;
@@ -68,6 +70,10 @@ public class Player : NetworkBehaviour
 		
 		playerStats = GetComponentInChildren<PlayerStats>();
 
+		playerStats.InitStats();
+		
+		playerUI = GetComponentInChildren<PlayerUI>();
+		
 		// FindObjectOfType<Script>(bool includeInactive)
 		discard = FindObjectOfType<DiscardBoard>(true);
 

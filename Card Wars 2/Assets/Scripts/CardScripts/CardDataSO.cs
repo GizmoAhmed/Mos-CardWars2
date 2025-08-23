@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "<RENAME>", menuName = "New CardDataSO")]
+[CreateAssetMenu(fileName = "RENAME", menuName = "New CardDataSO")]
 public class CardDataSO : ScriptableObject
 {
     public string Name;
