@@ -19,5 +19,5 @@ MonoBehaviour:
   Element: {fileID: 0}
   Attack: 0
   Defense: 0
-  Magic: -50
+  Magic: 4
   description: Gain money based on creature magic upon creautre death

@@ -52,9 +52,22 @@ public class PlayerStats : NetworkBehaviour
         if (!isServer) return;
         currentMagic += amount;
     }
-    
+
+    public void AddScore(int amount)
+    {
+        if (!isServer) return;
+        score += amount;
+    }
+
     public void CurrentMagicUpdate(int oldMagic, int newMagic)
     {
+        if (ui == null) 
+        {
+            Debug.LogError("PlayerStats UI component is null when trying to update current magic.");
+            return;
+        }
+        
+
         ui.MagicUIUpdate(newMagic, current : true);
     }
 

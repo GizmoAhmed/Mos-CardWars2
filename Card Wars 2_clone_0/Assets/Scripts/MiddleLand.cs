@@ -85,6 +85,12 @@ public class MiddleLand : NetworkBehaviour
                 creature = card;
                 card.transform.localPosition = Vector2.zero;
                 card.transform.SetAsLastSibling(); // above building
+                
+                if (cardStats?.thisCardOwner != null)
+                {
+                    int creatureScore = cardStats.attack + cardStats.defense;
+                    cardStats.thisCardOwner.AddScore(creatureScore);
+                } 
             }
             else 
             {
