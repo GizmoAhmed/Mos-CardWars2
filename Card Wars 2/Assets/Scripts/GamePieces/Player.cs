@@ -14,6 +14,7 @@ public class Player : NetworkBehaviour
 {
 	public CardHandler cardHandler;
 	public PlayerStats playerStats;
+	public MagicCounter magicCounter;
 	
 	public bool canPlay = true;
 	public bool myTurn;
@@ -39,6 +40,10 @@ public class Player : NetworkBehaviour
 		playerStats = GetComponentInChildren<PlayerStats>();
 
 		playerStats.InitUI();
+
+		magicCounter = GetComponent<MagicCounter>();
+
+		magicCounter.InitCounter();
 
 		gameManager = FindAnyObjectByType<GameManager>();
 		

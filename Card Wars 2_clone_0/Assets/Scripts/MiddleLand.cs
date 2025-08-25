@@ -15,9 +15,16 @@ public class MiddleLand : NetworkBehaviour
     public GameObject diagonalLeft;
     public GameObject diagonalRight;
 
+    public MagicCounter magicCounter;
+
     void Start()
     {
         SetupNeighbors();
+    }
+
+    public void FindMagicCounter(MagicCounter m)
+    {
+        magicCounter = m;
     }
 
     public virtual void SetupNeighbors()
@@ -66,28 +73,42 @@ public class MiddleLand : NetworkBehaviour
         CardMovement cardMovement = card.GetComponent<CardMovement>();
         CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
         CardDataSO cardData = cardDisplay.cardData;
+        CardStats cardStats = card.GetComponent<CardStats>();
 
         card.transform.SetParent(transform, true);
 
-        if (cardData.cardType == CardDataSO.CardType.Creature)
+        if (cardData.cardType == CardDataSO.CardType.Creature || 
+            cardData.cardType == CardDataSO.CardType.Building)
         {
-            creature = card;
-            card.transform.localPosition = Vector2.zero;
-            
-            // ensure it draws above building
-            card.transform.SetAsLastSibling();
-        }
-        else if (cardData.cardType == CardDataSO.CardType.Building)
-        {
-            building = card;
-            card.transform.localPosition = new Vector3(-40, -35, 0);
-            
-            // ensure it draws below creature
-            card.transform.SetAsFirstSibling();
+            if (cardData.cardType == CardDataSO.CardType.Creature)
+            {
+                creature = card;
+                card.transform.localPosition = Vector2.zero;
+                card.transform.SetAsLastSibling(); // above building
+            }
+            else 
+            {
+                building = card;
+                card.transform.localPosition = new Vector3(-40, -35, 0);
+                card.transform.SetAsFirstSibling(); // below creature
+            }
+
+            if (cardStats?.thisCardOwner != null)
+            {
+                cardStats.thisCardOwner.AddMagic(cardStats.magic);
+            }
         }
 
+
+        // playersStats.currentMagic += cardStats.magic;
+        
         cardDisplay.FlipCard(true);
         cardMovement.onLand = true;
+    }
+
+    public virtual void DetachCard(GameObject card)
+    {
+        // TODO undo all the attach stuff, also make the AddMagic function a negative so it'll subtract
     }
 
     /// <summary>

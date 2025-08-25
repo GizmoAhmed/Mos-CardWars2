@@ -26,12 +26,10 @@ public class CardDisplay : NetworkBehaviour
     
     private GameObject attackObj;
     private GameObject defenseObj;
-    private GameObject magicObj;
+    [HideInInspector] public GameObject magicObj;
 
-    public void Init(CardStats s)
+    public void InitDisplay(CardStats s)
     {
-        Debug.Log($"Initializing Card Display for {gameObject.name}...");
-        
         stats = s;
         
         if (cardData == null)
@@ -66,10 +64,6 @@ public class CardDisplay : NetworkBehaviour
         if (obj == null)
         {
             Debug.LogError($"Missing {childName} on {gameObject.name}");
-        }
-        else
-        {
-            Debug.Log($"Found {childName} on {obj.name}");
         }
 
         return obj;
@@ -126,12 +120,12 @@ public class CardDisplay : NetworkBehaviour
                     break;
                 case CardDataSO.CardType.Building:
                     attackObj.SetActive(false);
-                    defenseObj.SetActive(true);
+                    defenseObj.SetActive(false);
                     magicObj.SetActive(true);
                     break;
                 case CardDataSO.CardType.Spell:
                     attackObj.SetActive(false);
-                    defenseObj.SetActive(true);
+                    defenseObj.SetActive(false);
                     magicObj.SetActive(true);
                     break;
                 case CardDataSO.CardType.Charm:
@@ -166,21 +160,25 @@ public class CardDisplay : NetworkBehaviour
 
     public void UpdateUIAttack(int newAttack)
     {
-        SetText(attackObj, newAttack.ToString());
-
-        if (newAttack == -1)
+        if (newAttack < 0)
         {
             Hide(attackObj);
+        }
+        else
+        {
+            SetText(attackObj, newAttack.ToString());
         }
     }
     
     public void UpdateUIDefense(int newDefense)
     {
-        SetText(attackObj, newDefense.ToString());
-
-        if (newDefense == -1)
+        if (newDefense < 0)
         {
             Hide(defenseObj);
+        }
+        else
+        {
+            SetText(defenseObj, newDefense.ToString());
         }
     }
 }

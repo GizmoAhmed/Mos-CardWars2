@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ba4ed6dc1c95f49a983139c5b16c2a, type: 3}
   m_Name: FairyTonic
   m_EditorClassIdentifier: 
-  Name: Fairy Tonic
+  Name: Fairy
   cardType: 2
+  spellType: 0
   MainImage: {fileID: 21300000, guid: 378f5e422dd2bd743ab1d16ce842301e, type: 3}
   Element: {fileID: 0}
   Attack: 0

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ba4ed6dc1c95f49a983139c5b16c2a, type: 3}
   m_Name: Cyclops
   m_EditorClassIdentifier: 
-  Name: Cyclops
+  Name: Clif
   cardType: 0
+  spellType: 2
   MainImage: {fileID: 21300000, guid: 54fcf8538a64f0b4b86ffc91a67977f9, type: 3}
   Element: {fileID: 21300000, guid: d06102b5419f6004ba21b1396b2cb4eb, type: 3}
   Attack: 4

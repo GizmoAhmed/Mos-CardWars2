@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ba4ed6dc1c95f49a983139c5b16c2a, type: 3}
   m_Name: ToriiGate
   m_EditorClassIdentifier: 
-  Name: Torri Gate
+  Name: 'Torri '
   cardType: 1
+  spellType: 2
   MainImage: {fileID: 21300000, guid: ede4a3d539fcebd428d09c18ece5db69, type: 3}
-  Element: {fileID: 21300000, guid: 97e9bf81c488a8644a51418288ecfe2f, type: 3}
+  Element: {fileID: 0}
   Attack: 0
-  Defense: 6
-  Magic: 4
+  Defense: 0
+  Magic: -50
   description: Gain money based on creature magic upon creautre death

@@ -846,7 +846,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 12
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -1121,6 +1121,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!50 &311369682
 Rigidbody2D:
   serializedVersion: 4
@@ -1241,7 +1242,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -1654,6 +1655,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!1 &474931976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1807,7 +1809,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -2082,6 +2084,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!50 &505274004
 Rigidbody2D:
   serializedVersion: 4
@@ -2399,6 +2402,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!50 &564382910
 Rigidbody2D:
   serializedVersion: 4
@@ -2758,6 +2762,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!50 &633999444
 Rigidbody2D:
   serializedVersion: 4
@@ -3055,7 +3060,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0/0
+  m_text: X / X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -3365,7 +3370,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0/0
+  m_text: X / X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -3451,7 +3456,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 941026611}
-  - component: {fileID: 941026612}
   m_Layer: 8
   m_Name: Rounds2
   m_TagString: Untagged
@@ -3482,18 +3486,6 @@ RectTransform:
   m_AnchoredPosition: {x: 6, y: -520}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &941026612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941026610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bca4f5f6de549ed4d99a85e1328c9d6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &969124974
 GameObject:
   m_ObjectHideFlags: 0
@@ -3718,7 +3710,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: -5
+  m_text: -X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -3905,7 +3897,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: -5
+  m_text: -X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -4357,6 +4349,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!50 &1180486817
 Rigidbody2D:
   serializedVersion: 4
@@ -4661,7 +4654,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 12
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -5015,7 +5008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.size
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: p0Deck.Array.data[10]
@@ -5108,31 +5101,31 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 7755131462459198829, guid: 753df04014c82f94e8f992dc7939e8ae, type: 3}
+      objectReference: {fileID: 5320121183791267945, guid: 4e745e03358aeea4cb30152664bd5bf3, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 558969142524760432, guid: 75f7bcdd4c6de0943b190468fe8f0833, type: 3}
+      objectReference: {fileID: 727347807167410751, guid: 3b82e8e5976ac314a9ebdf6032ec2845, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[2]
       value: 
-      objectReference: {fileID: 2836957975447944732, guid: e4a8f6012a5b1f248ab49f69514f445f, type: 3}
+      objectReference: {fileID: 7755131462459198829, guid: 753df04014c82f94e8f992dc7939e8ae, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[3]
       value: 
-      objectReference: {fileID: 7648720691743005472, guid: b2ff3999d1617cf4485f95614e30db04, type: 3}
+      objectReference: {fileID: 2836957975447944732, guid: e4a8f6012a5b1f248ab49f69514f445f, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[4]
       value: 
-      objectReference: {fileID: 6412714647888874990, guid: 42a32101abd2e614f89c00545306b9fd, type: 3}
+      objectReference: {fileID: 727347807167410751, guid: 3b82e8e5976ac314a9ebdf6032ec2845, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[5]
       value: 
-      objectReference: {fileID: 7916039011753716710, guid: a05f22441cdf25e4d8c4c38152bf0175, type: 3}
+      objectReference: {fileID: 727347807167410751, guid: 3b82e8e5976ac314a9ebdf6032ec2845, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[6]
       value: 
-      objectReference: {fileID: 5320121183791267945, guid: 4e745e03358aeea4cb30152664bd5bf3, type: 3}
+      objectReference: {fileID: 727347807167410751, guid: 3b82e8e5976ac314a9ebdf6032ec2845, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[7]
       value: 
@@ -5446,6 +5439,7 @@ PrefabInstance:
     - {fileID: 3407632845381047504, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
     - {fileID: 8420154064855610547, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
     - {fileID: 8284593906607728586, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+    - {fileID: 4960728175236710080, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
@@ -5640,7 +5634,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 2
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -5915,6 +5909,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!50 &1411303563
 Rigidbody2D:
   serializedVersion: 4
@@ -6052,7 +6047,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -6737,6 +6732,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!50 &1946609310
 Rigidbody2D:
   serializedVersion: 4
@@ -7025,7 +7021,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -7275,7 +7271,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: X
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -7776,6 +7772,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!1001 &8061080018761520307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8033,6 +8030,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  magicCounter: {fileID: 0}
 --- !u!50 &8649994479479012890
 Rigidbody2D:
   serializedVersion: 4

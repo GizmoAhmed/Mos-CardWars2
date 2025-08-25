@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpellArea : MiddleLand
@@ -29,8 +30,15 @@ public class SpellArea : MiddleLand
         spells.Add(card);
 
         CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
-            
+        
         cardDisplay.FlipCard(true);
+        
+        CardStats cardStats = card.GetComponent<CardStats>();
+        
+        if (cardStats?.thisCardOwner != null)
+        {
+            cardStats.thisCardOwner.AddMagic(cardStats.magic);
+        }
     }
 
     public override bool ValidPlace(CardMovement card)

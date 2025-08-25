@@ -107,9 +107,8 @@ public class GameManager : NetworkBehaviour
 		stats0.drawCost = drawCost;
 		stats1.drawCost = drawCost;
 		
-		stats0.score = score;
-		stats1.score = score;
-		
+		stats0.score = 0;
+		stats1.score = 0;
 	}
 
 	//// Ready Button Click is contextual, it works differently when clicked in different phases

@@ -24,10 +24,18 @@ public class Deck : NetworkBehaviour
 			int randomIndex = Random.Range(0, myDeck.Count);
             GameObject cardInstance = myDeck[randomIndex];
     
+            // add to scene
             GameObject drawnCard = Instantiate(cardInstance);
+            
+            // set owner to player who drew it
+            CardStats cardStats = drawnCard.GetComponent<CardStats>();
+            cardStats.thisCardOwner = player.playerStats; 
+
+            // add it to the server for both players
             NetworkServer.Spawn(drawnCard, conn);
-    
-            player.cardHandler.RpcHandleCard(drawnCard,null);
+
+            player.cardHandler.RpcHandleCard(drawnCard, null);
+
     
             myDeck.RemoveAt(randomIndex);
             

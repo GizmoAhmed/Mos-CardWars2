@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ba4ed6dc1c95f49a983139c5b16c2a, type: 3}
   m_Name: Sputnik
   m_EditorClassIdentifier: 
-  Name: Sputnik
+  Name: Sput
   cardType: 1
+  spellType: 2
   MainImage: {fileID: 21300000, guid: 88087bd7425784e46822c25057c15924, type: 3}
   Element: {fileID: 0}
   Attack: 0

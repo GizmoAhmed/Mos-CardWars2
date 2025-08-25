@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Ethan
   cardType: 0
+  spellType: 2
   MainImage: {fileID: 21300000, guid: b5be9412f7c81e94a8c073463a5b1a12, type: 3}
   Element: {fileID: 21300000, guid: 73a5b4af4470bc34881d92814f1bde20, type: 3}
-  Attack: 4
-  Defense: 3
-  Magic: 1
+  Attack: 0
+  Defense: 0
+  Magic: 0
   description: Gain +1 Attack

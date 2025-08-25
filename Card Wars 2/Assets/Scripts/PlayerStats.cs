@@ -47,47 +47,53 @@ public class PlayerStats : NetworkBehaviour
         }
     }
     
-    private void CurrentMagicUpdate(int oldMagic, int newMagic)
+    public void AddMagic(int amount)
+    {
+        if (!isServer) return;
+        currentMagic += amount;
+    }
+    
+    public void CurrentMagicUpdate(int oldMagic, int newMagic)
     {
         ui.MagicUIUpdate(newMagic, current : true);
     }
 
-    private void MaxMagicUpdate(int oldMagic, int newMagic)
+    public void MaxMagicUpdate(int oldMagic, int newMagic)
     {
         ui.MagicUIUpdate(newMagic, current : false);
     }
 
-    private void MoneyUpdate(int oldMoney, int newMoney)
+    public void MoneyUpdate(int oldMoney, int newMoney)
     {
         ui.MoneyUIUpdate(newMoney);
     }
 
-    private void DrawUpdate(int oldDraws, int newDraws)
+    public void DrawUpdate(int oldDraws, int newDraws)
     {
         ui.DrawUIUpdate(newDraws);
     }
 
-    private void ScoreUpdate(int oldScore, int newScore)
+    public void ScoreUpdate(int oldScore, int newScore)
     {
         ui.ScoreUIUpdate(newScore);
     }
 
-    private void HealthUpdate(int oldHealth, int newHealth)
+    public void HealthUpdate(int oldHealth, int newHealth)
     {
         ui.HealthUIUpdate(newHealth);
     }
 
-    private void DrainUpdate(int oldDrain, int newDrain)
+    public void DrainUpdate(int oldDrain, int newDrain)
     {
         ui.DrainUIUpdate(newDrain);
     }
 
-    private void RoundsUpdate(int oldRounds, int newRounds)
+    public void RoundsUpdate(int oldRounds, int newRounds)
     {
         ui.RoundsUIUpdate(newRounds);
     }
 
-    private void UpgradeCostUpdate(int oldUpgradeCost, int newUpgradeCost)
+    public void UpgradeCostUpdate(int oldUpgradeCost, int newUpgradeCost)
     {
         ui.UpgradeUIUpdate(newUpgradeCost);
     }

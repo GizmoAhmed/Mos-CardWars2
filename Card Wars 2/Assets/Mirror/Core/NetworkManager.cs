@@ -755,7 +755,7 @@ namespace Mirror
             if (transport == null)
                 if (TryGetComponent(out Transport newTransport))
                 {
-                    Debug.LogWarning($"No Transport assigned to Network Manager - Using {newTransport} found on same object.");
+                    // Debug.LogWarning($"No Transport assigned to Network Manager - Using {newTransport} found on same object.");
                     transport = newTransport;
                 }
                 else

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: -2743666710545749402}
   - component: {fileID: 2117301985647269402}
   - component: {fileID: 5554848961364696670}
+  - component: {fileID: 6757556970198650306}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -189,17 +190,10 @@ MonoBehaviour:
   syncInterval: 0
   cardHandler: {fileID: 0}
   playerStats: {fileID: 0}
+  magicCounter: {fileID: 0}
   canPlay: 1
   myTurn: 0
   deck: {fileID: 0}
-  discard: {fileID: 0}
-  CurrentMagic: 0
-  MaxMagic: 0
-  Money: 0
-  DrawCost: 0
-  UpgradeCost: 0
-  Score: 0
-  Health: 0
   searchComplete: 0
 --- !u!114 &-2743666710545749402
 MonoBehaviour:
@@ -231,29 +225,15 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  CurrentMagic: 0
-  MaxMagic: 0
-  magic1: {fileID: 0}
-  magic2: {fileID: 0}
-  Money: 0
-  money1: {fileID: 0}
-  money2: {fileID: 0}
-  draws: 0
-  drawsLeft: {fileID: 0}
-  Score: 0
-  score1: {fileID: 0}
-  score2: {fileID: 0}
-  Health: 0
-  Drain: 0
-  health1: {fileID: 0}
-  health2: {fileID: 0}
-  drain1: {fileID: 0}
-  drain2: {fileID: 0}
-  RoundsWon: 0
-  rounds1: {fileID: 0}
-  rounds2: {fileID: 0}
-  UpgradeCost: 0
-  costText: {fileID: 0}
+  currentMagic: -1
+  maxMagic: -1
+  money: -1
+  drawCost: -1
+  score: -1
+  health: -1
+  drain: -1
+  roundsWon: -1
+  upgradeCost: -1
 --- !u!114 &5554848961364696670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,3 +246,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ab40d5cbc4e6014cbaa9eb5ec8ec289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  magic1: {fileID: 0}
+  magic2: {fileID: 0}
+  money1: {fileID: 0}
+  money2: {fileID: 0}
+  drawsLeft: {fileID: 0}
+  score1: {fileID: 0}
+  score2: {fileID: 0}
+  health1: {fileID: 0}
+  health2: {fileID: 0}
+  drain1: {fileID: 0}
+  drain2: {fileID: 0}
+  rounds1: {fileID: 0}
+  rounds2: {fileID: 0}
+  first1: {fileID: 0}
+  second1: {fileID: 0}
+  third1: {fileID: 0}
+  fourth1: {fileID: 0}
+  first2: {fileID: 0}
+  second2: {fileID: 0}
+  third2: {fileID: 0}
+  fourth2: {fileID: 0}
+  costText: {fileID: 0}
+  stats: {fileID: 0}
+--- !u!114 &6757556970198650306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7879420104403120485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe56271a496113b45bf1857de557ea76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  magicCounter: 0
