@@ -8,6 +8,7 @@ TagManager:
   - Land1
   - Drag
   - DrawsLeft
+  - DisabledButtons
   layers:
   - Default
   - TransparentFX

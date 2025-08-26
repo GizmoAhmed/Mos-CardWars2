@@ -7,6 +7,8 @@ public class MiddleLand : NetworkBehaviour
 {
     public GameObject creature;
     public GameObject building;
+    
+    // todo current active card, the one on top
 
     [Header("Neighbors")]
     public GameObject across;
@@ -14,17 +16,10 @@ public class MiddleLand : NetworkBehaviour
     public GameObject adjacentRight;
     public GameObject diagonalLeft;
     public GameObject diagonalRight;
-
-    public MagicCounter magicCounter;
-
+    
     void Start()
     {
         SetupNeighbors();
-    }
-
-    public void FindMagicCounter(MagicCounter m)
-    {
-        magicCounter = m;
     }
 
     public virtual void SetupNeighbors()
@@ -124,19 +119,33 @@ public class MiddleLand : NetworkBehaviour
     /// <returns></returns>
     public virtual bool ValidPlace(CardMovement card)
     {
+        CardStats cardStats = card.GetComponent<CardStats>();
+
+        // if not your turn, you can't place a card anywhere
+        if (cardStats.thisCardOwner != null &&
+            cardStats.thisCardOwner.GetComponent<Player>().myTurn == false)
+        {
+            return false;
+        }
+
         CardDataSO cardData = card.GetComponent<CardDisplay>().cardData;
         
-        if (cardData.cardType == CardDataSO.CardType.Building && building == null && (gameObject.name.EndsWith("1") || gameObject.name.EndsWith("2") || gameObject.name.EndsWith("3") || gameObject.name.EndsWith("4")) )
+        if (cardData.cardType == CardDataSO.CardType.Building && building == null &&
+            (gameObject.name.EndsWith("1") ||
+             gameObject.name.EndsWith("2") ||
+             gameObject.name.EndsWith("3") ||
+             gameObject.name.EndsWith("4")) )
             return true;
 
-        if (cardData.cardType == CardDataSO.CardType.Creature && creature == null && (gameObject.name.EndsWith("1") || gameObject.name.EndsWith("2") || gameObject.name.EndsWith("3") || gameObject.name.EndsWith("4")) )
+        if (cardData.cardType == CardDataSO.CardType.Creature && creature == null &&
+            (gameObject.name.EndsWith("1") ||
+             gameObject.name.EndsWith("2") ||
+             gameObject.name.EndsWith("3") ||
+             gameObject.name.EndsWith("4")) )
             return true;
 
         // cast spells can be placed anywhere, where they immediately discarded upon cast
-        if (cardData.spellType == CardDataSO.SpellType.Cast)
-        {
-            return true;
-        }
+        if (cardData.spellType == CardDataSO.SpellType.Cast) return true;
 
         return false;
     }

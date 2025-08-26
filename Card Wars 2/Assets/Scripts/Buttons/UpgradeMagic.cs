@@ -8,9 +8,11 @@ public class UpgradeMagic : NetworkBehaviour
     
     public void Upgrade()
     {
-        Debug.Log("Upgrading Magic...");
-        NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-        player = networkIdentity.GetComponent<Player>();
+        if (player == null)
+        {
+            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+            player = networkIdentity.GetComponent<Player>();
+        }
         
         player.playerStats.CmdUpgradeMagic();
     }

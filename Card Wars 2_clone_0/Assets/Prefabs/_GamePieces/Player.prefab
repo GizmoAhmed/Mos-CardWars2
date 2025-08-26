@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: -2743666710545749402}
   - component: {fileID: 2117301985647269402}
   - component: {fileID: 5554848961364696670}
-  - component: {fileID: 6757556970198650306}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -190,7 +189,6 @@ MonoBehaviour:
   syncInterval: 0
   cardHandler: {fileID: 0}
   playerStats: {fileID: 0}
-  magicCounter: {fileID: 0}
   canPlay: 1
   myTurn: 0
   deck: {fileID: 0}
@@ -272,19 +270,3 @@ MonoBehaviour:
   fourth2: {fileID: 0}
   costText: {fileID: 0}
   stats: {fileID: 0}
---- !u!114 &6757556970198650306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7879420104403120485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe56271a496113b45bf1857de557ea76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  magicCounter: 0

@@ -1,40 +1,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Unity.VisualScripting;
 
 // ternary operator
 // variable = (condition) ? expressionTrue :  expressionFalse;
 
 public class GameManager : NetworkBehaviour
 {
+	public TurnManager turnManager;
+	
+	[Tooltip("This Deck is copied to each player when both players join")]
 	public List<GameObject> masterDeck;
 
 	[Header("Starting Stats")]
-	public int maxMagic = 6;
+	public int maxMagic		= 6;
+	public int money		= 10;
+	public int drawCost		= 1;
+	public int health		= 30;
+	public int drain		= 2;
+	public int roundsWon	= 0;
+	public int upgradeCost	= 2;
+	public int score		= 0;
 
-	public int money = 10;
-	public int drawCost = 1;
-	public int health = 30;
-	public int drain = 2;
-	public int roundsWon = 0;
-	public int upgradeCost = 2;
-	public int score = 0;
-
-	private HashSet<NetworkConnectionToClient> readyPlayers = new HashSet<NetworkConnectionToClient>();
-
+	[Header("Connected Players")]
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;
+	
+	public List<NetworkConnectionToClient> players = new List<NetworkConnectionToClient>();
 
 	[Server]
 	public override void OnStartServer()
 	{
 		base.OnStartServer();
-		
-		Debug.Log("Server started, waiting for players...");
+		turnManager = GetComponentInChildren<TurnManager>();
+		turnManager.Init(this);
 	}
 
+	/// <summary>
+	/// Called by each player as they join
+	/// Once there are two players present, start the game
+	/// </summary>
 	[Server]
-	public void CheckFullLobby()
+	public void FullLobby()
 	{
 		int numberOfPlayers = NetworkServer.connections.Count;
 
@@ -45,8 +53,10 @@ public class GameManager : NetworkBehaviour
 
 			if (masterDeck.Count == 0)
 			{
-				Debug.LogWarning("copying over empty master deck to players");
+				Debug.LogWarning($"master deck on {gameObject.name} is empty, won't copy to players");
 			}
+
+			turnManager.StartGame();
 
 			 /*
 			 * 'If you want each player to get their own independent copy of the master deck,
@@ -69,11 +79,15 @@ public class GameManager : NetworkBehaviour
 			if (Player0 is null)
 			{
 				Player0 = conn;
+				turnManager.DisablePlayer(Player0, false); // disable upon arrival
 			}
 			else
 			{
 				Player1 = conn;
+				turnManager.DisablePlayer(Player1, false); // disable upon arrival
 			}
+			
+			players.Add(conn);
 		}
 	}
 
@@ -110,46 +124,5 @@ public class GameManager : NetworkBehaviour
 		stats0.score = 0;
 		stats1.score = 0;
 	}
-
-	//// Ready Button Click is contextual, it works differently when clicked in different phases
-	[Server]
-	public void PlayerReady(NetworkConnectionToClient conn)
-	{
-		/*if (currentPhase == GamePhase.ChooseLand)
-		{
-			if (!readyPlayers.Contains(conn))
-			{
-				readyPlayers.Add(conn);
-
-				Player thisPlayer = conn.identity.GetComponent<Player>();
-
-				// thisPlayer.RpcEnablePlayer(false);
-
-				// CheckAllPlayersReady();
-			}
-		}
-
-		// setup means each player needs to ready up  
-		else if (currentPhase == GamePhase.SetUp)
-		{
-			// add this connection to readyPlayers (which has been cleared by now)
-			readyPlayers.Add(conn);
-
-			if (readyPlayers.Count == 1)
-			{
-				// pass the player (conn) who just played...
-				GetComponentInChildren<Turns>().PlayerEnabler(conn);
-			}
-			else
-			{
-				readyPlayers.Clear();
-				// ChangePhase(GamePhase.SetUp, GamePhase.Attack);
-			}
-		}
-		else 
-		{
-			Debug.LogError("Ready was clicked when the phase wasn't Chooseland or SetUp");
-		}*/
-	}
-
+	
 }

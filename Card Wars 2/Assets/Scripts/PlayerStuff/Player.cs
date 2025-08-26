@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections;
 using Unity.Collections;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 // ternary operator
 // variable = (condition) ? expressionTrue :  expressionFalse;
@@ -14,45 +15,50 @@ public class Player : NetworkBehaviour
 {
 	public CardHandler cardHandler;
 	public PlayerStats playerStats;
-	public MagicCounter magicCounter;
 	
-	public bool canPlay = true;
 	public bool myTurn;
 
 	[Header("Deck & Discard")]
 	public Deck deck; 
 
 	private GameManager	gameManager;
+	
+	private TurnManager turnManager;
 
 	[Header("Battle Ready Cards")]
 	[SyncVar] public bool searchComplete;
+	
+	[Header("Buttons to disable")]
+	public Button draw;
+	public Button upgrade;
+	public Button ready;
 
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
 
-		canPlay = true;
-
-		deck = GetComponentInChildren<Deck>();
+		turnManager = FindAnyObjectByType<TurnManager>();
+		
+		deck		= GetComponentInChildren<Deck>();
 		
 		cardHandler = GetComponentInChildren<CardHandler>();
 		
 		playerStats = GetComponentInChildren<PlayerStats>();
 
 		playerStats.InitUI();
-
-		magicCounter = GetComponent<MagicCounter>();
-
-		magicCounter.InitCounter();
-
-		gameManager = FindAnyObjectByType<GameManager>();
 		
 		myTurn = true;
+
+		// find buttons
+		draw	= FindAnyObjectByType<Draw>().gameObject.GetComponent<Button>();
+		upgrade = FindAnyObjectByType<UpgradeMagic>().gameObject.GetComponent<Button>();
+		ready	= FindAnyObjectByType<Ready>().gameObject.GetComponent<Button>();
 		
 		if (isServer)
 		{
 			Debug.Log($"[SERVER] >>> Player {connectionToClient.connectionId} has joined.");
-			gameManager.CheckFullLobby();
+			gameManager = FindAnyObjectByType<GameManager>();
+			gameManager.FullLobby();
 		}
 	}
 
@@ -65,22 +71,19 @@ public class Player : NetworkBehaviour
 	[Command]
 	public void CmdSetReady()
 	{
-		// gameManager.PlayerReady(connectionToClient);
+		turnManager.PlayerReady(connectionToClient);
 	}
 
-	/*[TargetRpc]
-	public void RpcEnablePlayer(bool set)
+	
+	/// <summary>
+	/// True for enabling, false for disabling
+	/// </summary>
+	/// <param name="t"></param>
+	[TargetRpc]
+	public void Disable(bool enable)
 	{
-		Card[] cards = FindObjectsOfType<Card>();
-
-		foreach (Card card in cards) { card.Movable = set; }
-
-		UnityEngine.UI.Button[] buttons = FindObjectsOfType<UnityEngine.UI.Button>();
-
-		foreach (UnityEngine.UI.Button button in buttons) { button.interactable = set; }
-
-		myTurn = canPlay = set;
-	}*/
+		myTurn = draw.interactable = upgrade.interactable = ready.interactable = enable;
+	}
 
 	/*[TargetRpc]
 	public void TargetStartBattleCardsSearch(NetworkConnection target)
