@@ -124,5 +124,10 @@ public class GameManager : NetworkBehaviour
 		stats0.score = 0;
 		stats1.score = 0;
 	}
-	
+
+	public void GameWin(NetworkConnectionToClient winner)
+	{
+		Debug.Log($"Player {winner.connectionId} has won !!!");
+	}
+
 }

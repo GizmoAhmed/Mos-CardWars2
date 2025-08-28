@@ -68,16 +68,6 @@ public class PlayerStats : NetworkBehaviour
     {
         if (!isServer) return;
         score += amount;
-
-        if (score >= health)
-        {
-            roundsWon += 1;
-        }
-        
-        if (roundsWon == 4)
-        {
-            Debug.Log("<< SOMEONE WON >>");
-        }
     }
 
     public void CurrentMagicUpdate(int oldMagic, int newMagic)
@@ -136,6 +126,8 @@ public class PlayerStats : NetworkBehaviour
     public void RoundsUpdate(int oldRounds, int newRounds)
     {
         ui.RoundsUIUpdate(newRounds);
+        
+        // todo some kind of reset, clear the board or something
     }
 
     public void UpgradeCostUpdate(int oldUpgradeCost, int newUpgradeCost)

@@ -91,14 +91,53 @@ public class TurnManager : NetworkBehaviour
         
         DisablePlayer(gameManager.Player0, false);
         DisablePlayer(gameManager.Player1, false);
+
+        PlayerStats stats0 = gameManager.Player0.identity.GetComponent<PlayerStats>();
+        PlayerStats stats1 = gameManager.Player1.identity.GetComponent<PlayerStats>();
         
-        gameManager.Player0.identity.GetComponent<PlayerStats>().DrainHealth();
-        gameManager.Player1.identity.GetComponent<PlayerStats>().DrainHealth();
+        stats0.DrainHealth();
+        stats1.DrainHealth();
         
-        Invoke(nameof(ContinuePlay), 3f);
+        Invoke(nameof(ContinuePlay), 4.5f);
+        
+        WinCheck();
     }
-    
-    // simply testing the pause nature of things 
+
+    [Server]
+    public void WinCheck()
+    {
+        PlayerStats stats0 = gameManager.Player0.identity.GetComponent<PlayerStats>();
+        PlayerStats stats1 = gameManager.Player1.identity.GetComponent<PlayerStats>();
+
+        bool p0Cleared = stats0.score >= stats0.health;
+        bool p1Cleared = stats1.score >= stats1.health;
+
+        if (p0Cleared && p1Cleared) // both cleared
+        {
+            if (stats0.score != stats1.score) // no tie
+            {
+                (stats0.score > stats1.score ? stats0 : stats1).roundsWon++;
+            }
+            // else tie case: do nothing for now
+        }
+        else if (p0Cleared)
+        {
+            stats0.roundsWon++;
+        }
+        else if (p1Cleared)
+        {
+            stats1.roundsWon++;
+        }
+
+        // Win condition check
+        if (stats0.roundsWon == 4)
+            gameManager.GameWin(gameManager.Player0);
+        else if (stats1.roundsWon == 4)
+            gameManager.GameWin(gameManager.Player1);
+    }
+
+
+    // invoked for testing the pause nature of things 
     [Server]
     public void ContinuePlay()
     {
