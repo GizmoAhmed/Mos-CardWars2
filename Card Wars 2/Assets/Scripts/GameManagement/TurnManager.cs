@@ -92,6 +92,9 @@ public class TurnManager : NetworkBehaviour
         DisablePlayer(gameManager.Player0, false);
         DisablePlayer(gameManager.Player1, false);
         
+        gameManager.Player0.identity.GetComponent<PlayerStats>().DrainHealth();
+        gameManager.Player1.identity.GetComponent<PlayerStats>().DrainHealth();
+        
         Invoke(nameof(ContinuePlay), 3f);
     }
     

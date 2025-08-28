@@ -12,6 +12,8 @@ public class PlayerUI : NetworkBehaviour
     [Header("Magic")]
     public GameObject magic1;
     public GameObject magic2;
+    private Color _magicGreen = new Color32(87, 169, 108, 255); // 0-255 constructor
+
     
     [Header("Money")]
     public GameObject money1;
@@ -100,7 +102,7 @@ public class PlayerUI : NetworkBehaviour
         }
     }
     
-    public void MagicUIUpdate(int magic, bool current)
+    public void MagicUIUpdate(int magic, bool current_max, bool goingOver = false)
     {
         // magic 1 or 2
         TextMeshProUGUI magicText = (isOwned) ? magic1.GetComponent<TextMeshProUGUI>() : magic2.GetComponent<TextMeshProUGUI>();
@@ -117,7 +119,16 @@ public class PlayerUI : NetworkBehaviour
             return;
         }
 
-        magicText.text = (current) ? magic + " / " + stats.maxMagic : stats.currentMagic + " / " + magic;
+        magicText.text = (current_max) ? magic + " / " + stats.maxMagic : stats.currentMagic + " / " + magic;
+
+        if (goingOver)
+        {
+            magicText.color = Color.red;
+        }
+        else
+        {
+            magicText.color = _magicGreen;
+        }
     }
 
     public void MoneyUIUpdate(int newMoney)

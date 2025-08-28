@@ -46,10 +46,21 @@ public class PlayerStats : NetworkBehaviour
             upgradeCost += 1;
         }
     }
-    
+
+    public void DrainHealth()
+    {
+        health -= drain;
+    }
+
+    /// <summary>
+    /// should never reach this function if already over-magic
+    /// see ValidPlace() in middleland
+    /// </summary>
+    /// <param name="amount"></param>
     public void AddMagic(int amount)
     {
         if (!isServer) return;
+
         currentMagic += amount;
     }
 
@@ -57,6 +68,16 @@ public class PlayerStats : NetworkBehaviour
     {
         if (!isServer) return;
         score += amount;
+
+        if (score >= health)
+        {
+            roundsWon += 1;
+        }
+        
+        if (roundsWon == 4)
+        {
+            Debug.Log("<< SOMEONE WON >>");
+        }
     }
 
     public void CurrentMagicUpdate(int oldMagic, int newMagic)
@@ -66,14 +87,25 @@ public class PlayerStats : NetworkBehaviour
             Debug.LogError("PlayerStats UI component is null when trying to update current magic.");
             return;
         }
-        
 
-        ui.MagicUIUpdate(newMagic, current : true);
+        if (currentMagic > maxMagic)
+        {
+            ui.MagicUIUpdate(newMagic, current_max : true, goingOver: true);
+            return;
+        }
+        
+        ui.MagicUIUpdate(newMagic, current_max : true);
     }
 
     public void MaxMagicUpdate(int oldMagic, int newMagic)
     {
-        ui.MagicUIUpdate(newMagic, current : false);
+        if (currentMagic > maxMagic)
+        {
+            ui.MagicUIUpdate(newMagic, current_max : false, goingOver: true);
+            return;
+        }
+        
+        ui.MagicUIUpdate(newMagic, current_max : false);
     }
 
     public void MoneyUpdate(int oldMoney, int newMoney)

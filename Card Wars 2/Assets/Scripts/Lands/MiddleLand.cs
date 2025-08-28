@@ -115,20 +115,30 @@ public class MiddleLand : NetworkBehaviour
     /// <summary>
     /// If this land has an open creature slot, allow the creature to be placed. Same for building
     /// </summary>
-    /// <param name="card"></param>
+    /// <param name="cardMove"></param>
     /// <returns></returns>
-    public virtual bool ValidPlace(CardMovement card)
+    public virtual bool ValidPlace(CardMovement cardMove)
     {
-        CardStats cardStats = card.GetComponent<CardStats>();
+        CardStats cardStats = cardMove.GetComponent<CardStats>();
+
+        Player cardOwner = cardStats.thisCardOwner.gameObject.GetComponent<Player>();
 
         // if not your turn, you can't place a card anywhere
-        if (cardStats.thisCardOwner != null &&
-            cardStats.thisCardOwner.GetComponent<Player>().myTurn == false)
+        if (cardOwner != null &&
+            cardOwner.GetComponent<Player>().myTurn == false)
         {
             return false;
         }
 
-        CardDataSO cardData = card.GetComponent<CardDisplay>().cardData;
+        if (cardOwner.playerStats.currentMagic > cardOwner.playerStats.maxMagic) // can't place if over-magic
+        {
+            if (cardStats.magic != 0) // you should still be able to place stuff that cost zero 
+            {
+                return false; 
+            }
+        }
+
+        CardDataSO cardData = cardMove.GetComponent<CardDisplay>().cardData;
         
         if (cardData.cardType == CardDataSO.CardType.Building && building == null &&
             (gameObject.name.EndsWith("1") ||
@@ -144,7 +154,7 @@ public class MiddleLand : NetworkBehaviour
              gameObject.name.EndsWith("4")) )
             return true;
 
-        // cast spells can be placed anywhere, where they immediately discarded upon cast
+        // cast spells can be placed anywhere, todo where they immediately discarded upon cast
         if (cardData.spellType == CardDataSO.SpellType.Cast) return true;
 
         return false;

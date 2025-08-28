@@ -45,7 +45,5 @@ public class Deck : NetworkBehaviour
 		{
 			Debug.LogWarning($"Player {connectionToClient.connectionId + 1} doesn't have enough money to Draw");
 		}
-
-
 	}
 }

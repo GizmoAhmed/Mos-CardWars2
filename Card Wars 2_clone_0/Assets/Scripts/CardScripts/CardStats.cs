@@ -9,7 +9,7 @@ public class CardStats : NetworkBehaviour
 {
     public CardDataSO cardData;
 
-    [HideInInspector] public PlayerStats thisCardOwner;
+    [SyncVar] public PlayerStats thisCardOwner;
     
     private CardDisplay display;
 

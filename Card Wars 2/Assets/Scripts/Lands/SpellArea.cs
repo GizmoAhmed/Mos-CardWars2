@@ -41,16 +41,35 @@ public class SpellArea : MiddleLand
         }
     }
 
-    public override bool ValidPlace(CardMovement card)
+    public override bool ValidPlace(CardMovement cardMove)
     {
-        CardDataSO cardData = card.GetComponent<CardDisplay>().cardData;
+        CardStats cardStats = cardMove.GetComponent<CardStats>();
         
-        // TODO Once card discard is done, swawp these to. These discerns cast and active spell types
+        Player cardOwner = cardStats.thisCardOwner.gameObject.GetComponent<Player>();
+
+        // if not your turn, you can't place a card anywhere
+        if (cardOwner != null &&
+            cardOwner.GetComponent<Player>().myTurn == false)
+        {
+            return false;
+        }
+
+        if (cardOwner.playerStats.currentMagic > cardOwner.playerStats.maxMagic)
+        {
+            if (cardStats.magic != 0) // you should still be able to place stuff that cost zero 
+            {
+                return false; 
+            }
+        }
+        
+        CardDataSO cardData = cardMove.GetComponent<CardDisplay>().cardData;
         
         // only spells of the active type can be placed in the spell area
         /*if (cardData.spellType == CardDataSO.SpellType.Active && gameObject.name.EndsWith("1"))
             return true;*/
         
+        // TODO Once card discard is done, swap line below with above
+            
         if (cardData.cardType == CardDataSO.CardType.Spell && gameObject.name.EndsWith("1"))
             return true;
         

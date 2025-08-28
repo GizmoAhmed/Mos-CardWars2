@@ -15,10 +15,10 @@ public class GameManager : NetworkBehaviour
 
 	[Header("Starting Stats")]
 	public int maxMagic		= 6;
-	public int money		= 10;
+	public int money		= 20;
 	public int drawCost		= 1;
 	public int health		= 30;
-	public int drain		= 2;
+	public int drain		= 3;
 	public int roundsWon	= 0;
 	public int upgradeCost	= 2;
 	public int score		= 0;
@@ -110,7 +110,7 @@ public class GameManager : NetworkBehaviour
 		stats1.health = health;
 		
 		stats0.drain = drain;
-		stats1.drain = drain;
+		stats1.drain = drain + 5;
 		
 		stats0.roundsWon = roundsWon;
 		stats1.roundsWon = roundsWon;
