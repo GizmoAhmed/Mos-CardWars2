@@ -62,8 +62,8 @@ public class GameManager : NetworkBehaviour
 			 * 'If you want each player to get their own independent copy of the master deck,
 			 *  you need to clone the list instead of assigning the reference.'
 			  */
-			Player0.identity.GetComponent<Player>().deck.myDeck = new List<GameObject>(masterDeck);
-			Player1.identity.GetComponent<Player>().deck.myDeck = new List<GameObject>(masterDeck);
+			Player0.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
+			Player1.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
 
 		}
 	}

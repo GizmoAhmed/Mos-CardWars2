@@ -11,7 +11,7 @@ public class CardStats : NetworkBehaviour
 
     [SyncVar] public PlayerStats thisCardOwner;
     
-    private CardDisplay display;
+    private CardDisplay _display;
 
     [SyncVar(hook = nameof(UpdateMagic))]   public int magic;
     [SyncVar(hook = nameof(UpdateAttack))]  public int attack;
@@ -21,20 +21,23 @@ public class CardStats : NetworkBehaviour
     {
         base.OnStartClient();
     
-        display = GetComponent<CardDisplay>();
-        display.InitDisplay(this);
+        _display = GetComponent<CardDisplay>();
+        _display.InitDisplay(this);
         
-        InitCardStats();
+        RefreshCardStats();
         
         // these updates not called via hook (change in stat). 
         // that way, the stat can be zero if so desired from the CardDataSO
-        display.UpdateUIMagic(magic);
-        display.UpdateUIAttack(attack);
-        display.UpdateUIDefense(defense);
+        _display.UpdateUIMagic(magic);
+        _display.UpdateUIAttack(attack);
+        _display.UpdateUIDefense(defense);
     } 
 
+    /// <summary>
+    /// Applies the stats from the CardDataSO
+    /// </summary>
     [Command]
-    private void InitCardStats()
+    private void RefreshCardStats()
     {
         magic = cardData.Magic;
         
@@ -48,7 +51,7 @@ public class CardStats : NetworkBehaviour
             attack = -1;
             defense = cardData.Defense;
         }
-        else
+        else // spell or charm
         {
             attack = -1;
             defense = -1;
@@ -57,17 +60,17 @@ public class CardStats : NetworkBehaviour
     
     public void UpdateMagic(int oldMagic, int newMagic)
     {
-        display.UpdateUIMagic(newMagic);
+        _display.UpdateUIMagic(newMagic);
     }
 
     public void UpdateAttack(int oldAttack, int newAttack)
     {
-        display.UpdateUIAttack(newAttack);
+        _display.UpdateUIAttack(newAttack);
     }
 
     public void UpdateDefense(int oldDefense, int newDefense)
     {
-        display.UpdateUIDefense(newDefense);
+        _display.UpdateUIDefense(newDefense);
     }
 
 }

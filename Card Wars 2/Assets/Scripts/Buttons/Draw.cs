@@ -10,6 +10,6 @@ public class Draw : NetworkBehaviour
 		NetworkIdentity networkIdentity = NetworkClient.connection.identity;
 		player = networkIdentity.GetComponent<Player>();
 
-		player.deck.CmdDrawCard();
+		player.deckCollection.CmdDrawCard();
 	}
 }

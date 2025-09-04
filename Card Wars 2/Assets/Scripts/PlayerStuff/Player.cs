@@ -4,6 +4,7 @@ using Mirror;
 using TMPro;
 using System.Linq;
 using System.Collections;
+using PlayerStuff;
 using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine.UI;
@@ -19,7 +20,7 @@ public class Player : NetworkBehaviour
 	public bool myTurn;
 
 	[Header("Deck & Discard")]
-	public Deck deck; 
+	public DeckCollection deckCollection; 
 
 	private GameManager	gameManager;
 	
@@ -39,7 +40,7 @@ public class Player : NetworkBehaviour
 
 		turnManager = FindAnyObjectByType<TurnManager>();
 		
-		deck		= GetComponentInChildren<Deck>();
+		deckCollection		= GetComponentInChildren<DeckCollection>();
 		
 		cardHandler = GetComponentInChildren<CardHandler>();
 		
