@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using CardScripts;
 using UnityEngine;
 using Mirror;
+using PlayerStuff;
 using Unity.VisualScripting;
 
 // ternary operator
@@ -50,6 +52,9 @@ public class GameManager : NetworkBehaviour
 		{
 			AssignPlayers();
 			StartPlayerStats();
+			
+			Player0.identity.GetComponent<CardHandler>().TrpcHideBoards();
+			Player1.identity.GetComponent<CardHandler>().TrpcHideBoards();
 
 			if (masterDeck.Count == 0)
 			{

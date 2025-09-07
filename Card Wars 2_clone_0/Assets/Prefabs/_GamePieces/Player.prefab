@@ -189,10 +189,12 @@ MonoBehaviour:
   syncInterval: 0
   cardHandler: {fileID: 0}
   playerStats: {fileID: 0}
-  canPlay: 1
   myTurn: 0
-  deck: {fileID: 0}
+  deckCollection: {fileID: 0}
   searchComplete: 0
+  draw: {fileID: 0}
+  upgrade: {fileID: 0}
+  ready: {fileID: 0}
 --- !u!114 &-2743666710545749402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +210,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  discardVisual: {fileID: 0}
 --- !u!114 &2117301985647269402
 MonoBehaviour:
   m_ObjectHideFlags: 0

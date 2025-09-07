@@ -1,76 +1,136 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Buttons;
 using Mirror;
 using UnityEngine;
 
-public class CardHandler : NetworkBehaviour
+namespace CardScripts
 {
-    private GameObject PlayingCardGroup1;
-    private GameObject PlayingCardGroup2;
-
-    private void Start()
+    // On player object
+    public class CardHandler : NetworkBehaviour
     {
-        PlayingCardGroup1 = GameObject.Find("PlayingCardGroup1");
-        PlayingCardGroup2 = GameObject.Find("PlayingCardGroup2");
+        private GameObject _playingCardGroup1;
+        private GameObject _playingCardGroup2;
         
-        if (PlayingCardGroup1 == null || PlayingCardGroup2 == null)
+        [HideInInspector] public GameObject cardBoard1; // your cardboard
+        [HideInInspector] public GameObject cardBoard2; // opps card board
+
+        public void Init()
         {
-            Debug.LogError("PlayingCardGroup(s) were not set in editor");
+            _playingCardGroup1 = GameObject.Find("PlayingCardGroup1");
+            _playingCardGroup2 = GameObject.Find("PlayingCardGroup2");
+            
+            cardBoard1         = GameObject.Find("CardBoard1");
+            cardBoard2         = GameObject.Find("CardBoard2");
+            
+            if (_playingCardGroup1 == null || _playingCardGroup2 == null)
+            {
+                Debug.LogError("Group(s) were not set in editor and not found");
+            }
+
+            if (cardBoard1 == null)
+            {
+                Debug.LogError("Card board(s) were not found");
+                return;
+            }
+
+            if (cardBoard2 == null)
+            {
+                Debug.LogError("Card board(s) were not found");
+                return;
+            }
+            
+            Debug.Log("Card board(s) are set, hiding them now");
+            
+            foreach (DeckButton button in FindObjectsOfType<DeckButton>())
+            {
+                button.Init(cardBoard1); 
+            }
         }
-    }
 
-    [Command]
-    public void CmdDropCard(GameObject card, GameObject land)
-    {
-        RpcHandleCard(card, land);
-    }
+        [TargetRpc]
+        public void TrpcHideBoards()
+        {
+            cardBoard1.SetActive(false);
+            cardBoard2.SetActive(false);
+        }
 
-    /// <summary>
-    /// Handles cards as they are being spawned or placed
-    ///
-    /// Cards can be:
-    /// - Spawned from the deck list and put in hand
-    /// - Placing them on the field 
-    /// </summary>
-    /// <param name="card"></param>
-    /// <param name="land"></param>
-    [ClientRpc]
-    public void RpcHandleCard(GameObject card, GameObject land)
-    {
-        if (!land) // land was passed null, must've been drawn from deck
+        [Command]
+        public void CmdDropCard(GameObject card, GameObject land)
+        {
+            RpcHandleCard(card, land);
+        }
+
+        /// <summary>
+        /// Handles cards as they are being spawned or placed
+        ///
+        /// Cards can be:
+        /// - Spawned from the deck list and put in hand
+        /// - Placing them on the field 
+        /// </summary>
+        /// <param name="card"></param>
+        /// <param name="land"></param>
+        [ClientRpc]
+        public void RpcHandleCard(GameObject card, GameObject land)
+        {
+            if (!land) // land was passed null, must've been drawn from deck
+            {
+                if (isOwned)
+                {
+                    card.transform.SetParent(_playingCardGroup1.transform, false);
+                }
+                else
+                {
+                    card.transform.SetParent(_playingCardGroup2.transform, false);
+                
+                    // hide card in opps hand
+                    CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
+                    cardDisplay.FlipCard(false);
+                }
+
+                card.GetComponent<CardMovement>().cardState = CardMovement.CardState.Hand;
+            }
+            else // drop card on a land since land isn't null
+            {
+                // if (active spell) {don't attach, just activate discard}.
+                // or todo charm
+                if (card.GetComponent<CardStats>().cardData.spellType == CardDataSO.SpellType.Active)
+                {
+                    // todo activate spell on this land
+                    
+                    card.GetComponent<CardMovement>().Discard(); // ...where they are immediately discarded upon cast
+                    
+                    Debug.Log(card.name + " was cast on " + land.name);
+
+                    return; // else if (passive) {just continue since it'll treat it like a creature or building, but in the spell area.}
+                }
+                
+                // do same for charms
+
+                // CardMovement.cs already makes sure card can actually be placed on this land via ValidPlace
+                if (isOwned)
+                {
+                    land.GetComponent<MiddleLand>().AttachCard(card);
+                }
+                else
+                {
+                    MiddleLand landScript = land.GetComponent<MiddleLand>();
+                    MiddleLand acrossLand = landScript.across.GetComponent<MiddleLand>();
+                
+                    acrossLand.AttachCard(card);
+                }
+                
+                card.GetComponent<CardMovement>().cardState = CardMovement.CardState.Board;
+            }
+        }
+
+        public void MoveToDiscard(GameObject card)
         {
             if (isOwned)
             {
-                card.transform.SetParent(PlayingCardGroup1.transform, false);
+               card.transform.SetParent(cardBoard1.transform, false); 
             }
             else
             {
-                card.transform.SetParent(PlayingCardGroup2.transform, false);
-                
-                // hide card in opps hand
-                CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
-                cardDisplay.FlipCard(false);
-            }
-        }
-        else // drop card on a land since land isn't null
-        {
-            // TODO cast type spells can be placed anywhere and are immediately discarded (Activate spells handled in SpellArea.cs)
-            
-            // if cast, don't attach, discard. Else if Active, just continue as it is right here,
-            // since it'll treat it like a creature or building, but in the spell area.
-            
-            // CardMovement.cs already makes sure card can actually be placed on this land via ValidPlace
-            if (isOwned)
-            {
-                land.GetComponent<MiddleLand>().AttachCard(card);
-            }
-            else
-            {
-                MiddleLand landScript = land.GetComponent<MiddleLand>();
-                MiddleLand acrossLand = landScript.across.GetComponent<MiddleLand>();
-                
-                acrossLand.AttachCard(card);
+                card.transform.SetParent(cardBoard2.transform, false);
             }
         }
     }

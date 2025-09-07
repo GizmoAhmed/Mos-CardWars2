@@ -4,6 +4,8 @@ using Mirror;
 using TMPro;
 using System.Linq;
 using System.Collections;
+using Buttons;
+using CardScripts;
 using PlayerStuff;
 using Unity.Collections;
 using Unity.VisualScripting;
@@ -43,6 +45,8 @@ public class Player : NetworkBehaviour
 		deckCollection		= GetComponentInChildren<DeckCollection>();
 		
 		cardHandler = GetComponentInChildren<CardHandler>();
+
+		cardHandler.Init();
 		
 		playerStats = GetComponentInChildren<PlayerStats>();
 

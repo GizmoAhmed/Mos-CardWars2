@@ -21,7 +21,7 @@ public class CardDataSO : ScriptableObject
     public enum SpellType
     {
         Active,
-        Cast,
+        Passive,
         None
     }
     public SpellType spellType;
@@ -34,7 +34,7 @@ public class CardDataSO : ScriptableObject
     [TextArea]
     public string description;
 
-    // Learned something new
+    // Learned something new: OnValidate() is like start but for scriptable objects
     private void OnValidate()
     {
         // if this card isn't a Spell, force SpellType to None

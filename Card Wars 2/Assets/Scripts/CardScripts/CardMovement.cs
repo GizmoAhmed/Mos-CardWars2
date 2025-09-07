@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CardScripts;
 using Mirror;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +9,16 @@ using UnityEngine.UI;
 public class CardMovement : NetworkBehaviour
 {
     [HideInInspector] public Player player;
+
+    public enum CardState
+    {
+        Deck,
+        Hand, 
+        Board,
+        Discard
+    }
+    
+    public CardState cardState;
 
     private bool Grabbed = false;
     private GameObject StartParent;
@@ -37,6 +48,8 @@ public class CardMovement : NetworkBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        
+        cardState = CardState.Deck;
     }
 
     public void BeginDrag()
@@ -133,5 +146,14 @@ public class CardMovement : NetworkBehaviour
         // Reparent back to hand LayoutGroup
         transform.SetParent(StartParent.transform, false);
         transform.localPosition = Vector3.zero;
+    }
+    
+    public void Discard()
+    {
+        gameObject.GetComponent<CardStats>().thisCardOwner.GetComponent<CardHandler>().MoveToDiscard(gameObject);
+        
+        // todo if card type creature or building, refresh stats
+        
+        cardState = CardState.Discard;
     }
 }

@@ -154,9 +154,9 @@ public class MiddleLand : NetworkBehaviour
              gameObject.name.EndsWith("4")) )
             return true;
 
-        // cast spells can be placed anywhere, todo where they immediately discarded upon cast
-        if (cardData.spellType == CardDataSO.SpellType.Cast) return true;
-
+        // active spells can be placed anywhere...
+        if (cardData.spellType == CardDataSO.SpellType.Active) return true;
+        
         return false;
     }
 }

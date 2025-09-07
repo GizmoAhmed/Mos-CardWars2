@@ -21,6 +21,12 @@ namespace PlayerStuff
 
 			Player player = GetComponentInParent<Player>();
 
+			if (player == null)
+			{
+				Debug.LogError("Player is null, can't draw");
+				return;
+			}
+
 			if (player.playerStats.money >= player.playerStats.drawCost)
 			{
 				int randomIndex = Random.Range(0, myDeck.Count);

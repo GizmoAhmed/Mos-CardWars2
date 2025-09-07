@@ -1,21 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class DeckButton : MonoBehaviour
+namespace Buttons
 {
-    public GameObject cardBoard;
-
-    public void ShowBoard()
+    public class DeckButton : MonoBehaviour
     {
-        if (cardBoard == null)
+        public GameObject cardBoard;
+
+        public void Init(GameObject c)
         {
-            Debug.LogError("Card Board is not assigned and could not be found.");
-            return;
+            cardBoard = c;
         }
 
-        Debug.Log("Opening Deck...");
-        cardBoard.SetActive(!cardBoard.activeInHierarchy); 
-    }
+        public void ShowBoard()
+        {
+            if (cardBoard == null)
+            {
+                Debug.LogError("Card Board is null, cannot be shown.");
+                return;
+            }
+            
+            Debug.Log("Opening Deck...");
+            cardBoard.SetActive(!cardBoard.activeInHierarchy); 
+        }
 
+    }
 }
