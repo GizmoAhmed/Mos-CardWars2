@@ -10,47 +10,32 @@ namespace CardScripts
         private GameObject _playingCardGroup1;
         private GameObject _playingCardGroup2;
         
-        [HideInInspector] public GameObject cardBoard1; // your cardboard
-        [HideInInspector] public GameObject cardBoard2; // opps card board
+        private GameObject cardBoard1; // your cardboard
+        private GameObject cardBoard2; // opps card board
 
         public void Init()
         {
             _playingCardGroup1 = GameObject.Find("PlayingCardGroup1");
             _playingCardGroup2 = GameObject.Find("PlayingCardGroup2");
-            
-            cardBoard1         = GameObject.Find("CardBoard1");
-            cardBoard2         = GameObject.Find("CardBoard2");
+
+            cardBoard1 = FindObjectOfType<GameManager>().cardBoard1;
+            cardBoard2 = FindObjectOfType<GameManager>().cardBoard2;
             
             if (_playingCardGroup1 == null || _playingCardGroup2 == null)
             {
                 Debug.LogError("Group(s) were not set in editor and not found");
             }
 
-            if (cardBoard1 == null)
+            if (cardBoard1 == null || cardBoard2 == null)
             {
                 Debug.LogError("Card board(s) were not found");
                 return;
             }
-
-            if (cardBoard2 == null)
-            {
-                Debug.LogError("Card board(s) were not found");
-                return;
-            }
-            
-            Debug.Log("Card board(s) are set, hiding them now");
             
             foreach (DeckButton button in FindObjectsOfType<DeckButton>())
             {
                 button.Init(cardBoard1); 
             }
-        }
-
-        [TargetRpc]
-        public void TrpcHideBoards()
-        {
-            cardBoard1.SetActive(false);
-            cardBoard2.SetActive(false);
         }
 
         [Command]

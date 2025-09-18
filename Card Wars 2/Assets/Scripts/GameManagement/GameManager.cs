@@ -28,6 +28,10 @@ public class GameManager : NetworkBehaviour
 	[Header("Connected Players")]
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;
+
+	[Header("Card Boards")] 
+	public GameObject cardBoard1;
+	public GameObject cardBoard2;
 	
 	public List<NetworkConnectionToClient> players = new List<NetworkConnectionToClient>();
 
@@ -37,6 +41,11 @@ public class GameManager : NetworkBehaviour
 		base.OnStartServer();
 		turnManager = GetComponentInChildren<TurnManager>();
 		turnManager.Init(this);
+
+		if (cardBoard1 == null || cardBoard2 == null)
+		{
+			Debug.LogError("cardBoards were not set in editor and not found");
+		}
 	}
 
 	/// <summary>
@@ -52,9 +61,6 @@ public class GameManager : NetworkBehaviour
 		{
 			AssignPlayers();
 			StartPlayerStats();
-			
-			Player0.identity.GetComponent<CardHandler>().TrpcHideBoards();
-			Player1.identity.GetComponent<CardHandler>().TrpcHideBoards();
 
 			if (masterDeck.Count == 0)
 			{
