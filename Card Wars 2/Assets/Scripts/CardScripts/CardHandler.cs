@@ -109,13 +109,15 @@ namespace CardScripts
 
         public void MoveToDiscard(GameObject card)
         {
+            // .GetChild(0) should be DiscardVisual, as it's the first child
+            
             if (isOwned)
             {
-               card.transform.SetParent(cardBoard1.transform, false); 
+               card.transform.SetParent(cardBoard1.transform.GetChild(0), false); 
             }
             else
             {
-                card.transform.SetParent(cardBoard2.transform, false);
+                card.transform.SetParent(cardBoard2.transform.GetChild(0), false);
             }
         }
     }
