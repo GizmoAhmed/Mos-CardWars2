@@ -2113,7 +2113,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0.433, b: 0.3427917, a: 0.5254902}
+  m_BackGroundColor: {r: 0.29930225, g: 0.4274217, b: 0.4792453, a: 0.5254902}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -7426,7 +7426,7 @@ MonoBehaviour:
   autoStartServerBuild: 0
   autoConnectClientBuild: 0
   offlineScene: 
-  onlineScene: 
+  onlineScene: Assets/Scenes/GameBoardv2.unity
   transport: {fileID: 0}
   networkAddress: localhost
   maxConnections: 2
