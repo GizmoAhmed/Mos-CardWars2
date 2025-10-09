@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RENAME", menuName = "New CardDataSO")]
+[CreateAssetMenu(fileName = "~~ RENAME ME ~~", menuName = "New CardDataSO")]
 public class CardDataSO : ScriptableObject
 {
     public string Name;
@@ -44,7 +44,7 @@ public class CardDataSO : ScriptableObject
         }
         else if (cardType == CardType.Spell && spellType == SpellType.None)
         {
-            Debug.LogError($"{this} is a spell, but not spell type was set");
+            Debug.LogError($"{this} is a spell, but no spell type was set");
         }
     }
     

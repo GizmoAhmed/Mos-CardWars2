@@ -6,7 +6,7 @@ namespace PlayerStuff
     [RequireComponent(typeof(PlayerUI))] 
     public class PlayerStats : NetworkBehaviour
     {
-        private PlayerUI ui;
+        [ShowInInspector] private PlayerUI _ui;
     
         [Header("Magic")]
         [SyncVar(hook = nameof(CurrentMagicUpdate))] public int currentMagic;
@@ -33,8 +33,17 @@ namespace PlayerStuff
     
         public void InitUI()
         {
-            ui = GetComponent<PlayerUI>();
-            ui.Init(this);
+            _ui = GetComponent<PlayerUI>();
+            _ui.Init(this);
+
+            if (_ui == null)
+            {
+                Debug.LogError("[SERVER] PlayerStats UI component could not be initialized.");
+            }
+            else
+            {
+                Debug.Log("[SERVER] PlayerStats UI component initialized.");
+            }
         }
     
         [Command]
@@ -73,67 +82,73 @@ namespace PlayerStuff
 
         public void CurrentMagicUpdate(int oldMagic, int newMagic)
         {
-            if (ui == null) 
+            if (_ui == null) 
             {
-                Debug.LogError("PlayerStats UI component is null when trying to update current magic.");
+                Debug.LogWarning("PlayerStats UI component is null when trying to update current magic\n" +
+                               "Attempting to add UI Component again");
+                
+                // weirdly, after putting lobby stuff, _ui was null-ing itself for the host.
+                // Didn't know why. This seems like a band-aid solution but a solution nonetheless
+                // InitUI(); 
+                
                 return;
             }
 
             if (currentMagic > maxMagic)
             {
-                ui.MagicUIUpdate(newMagic, current_max : true, goingOver: true);
+                _ui.MagicUIUpdate(newMagic, current_max : true, goingOver: true);
                 return;
             }
         
-            ui.MagicUIUpdate(newMagic, current_max : true);
+            _ui.MagicUIUpdate(newMagic, current_max : true);
         }
 
         public void MaxMagicUpdate(int oldMagic, int newMagic)
         {
             if (currentMagic > maxMagic)
             {
-                ui.MagicUIUpdate(newMagic, current_max : false, goingOver: true);
+                _ui.MagicUIUpdate(newMagic, current_max : false, goingOver: true);
                 return;
             }
         
-            ui.MagicUIUpdate(newMagic, current_max : false);
+            _ui.MagicUIUpdate(newMagic, current_max : false);
         }
 
         public void MoneyUpdate(int oldMoney, int newMoney)
         {
-            ui.MoneyUIUpdate(newMoney);
+            _ui.MoneyUIUpdate(newMoney);
         }
 
         public void DrawUpdate(int oldDraws, int newDraws)
         {
-            ui.DrawUIUpdate(newDraws);
+            _ui.DrawUIUpdate(newDraws);
         }
 
         public void ScoreUpdate(int oldScore, int newScore)
         {
-            ui.ScoreUIUpdate(newScore);
+            _ui.ScoreUIUpdate(newScore);
         }
 
         public void HealthUpdate(int oldHealth, int newHealth)
         {
-            ui.HealthUIUpdate(newHealth);
+            _ui.HealthUIUpdate(newHealth);
         }
 
         public void DrainUpdate(int oldDrain, int newDrain)
         {
-            ui.DrainUIUpdate(newDrain);
+            _ui.DrainUIUpdate(newDrain);
         }
 
         public void RoundsUpdate(int oldRounds, int newRounds)
         {
-            ui.RoundsUIUpdate(newRounds);
+            _ui.RoundsUIUpdate(newRounds);
         
             // todo some kind of reset, clear the board or something
         }
 
         public void UpgradeCostUpdate(int oldUpgradeCost, int newUpgradeCost)
         {
-            ui.UpgradeUIUpdate(newUpgradeCost);
+            _ui.UpgradeUIUpdate(newUpgradeCost);
         }
     }
 }

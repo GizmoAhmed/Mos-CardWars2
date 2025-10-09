@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class LobbyButton : MonoBehaviour
 {
-    private MatchMaker match;
+    private Room match;
 
     void Awake()
     {
-        match = FindObjectOfType<MatchMaker>();
+        match = FindObjectOfType<Room>();
     }
 
     public void CreateLobby()

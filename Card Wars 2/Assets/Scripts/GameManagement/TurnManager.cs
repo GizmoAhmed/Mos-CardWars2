@@ -52,6 +52,11 @@ public class TurnManager : NetworkBehaviour
     [Server]
     public void DisablePlayer(NetworkConnectionToClient net, bool enable)
     {
+        if (net == null)
+        {
+            Debug.LogError($"Network connect to Client({net.connectionId}) is null right here");
+        }
+
         net.identity.GetComponent<Player>().Disable(enable);
     }
 

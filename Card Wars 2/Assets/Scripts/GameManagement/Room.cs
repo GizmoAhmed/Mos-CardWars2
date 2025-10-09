@@ -4,7 +4,7 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 
-public class MatchMaker : NetworkRoomManager
+public class Room : NetworkRoomManager
 {
     [Header("Match Maker Subclass Specifics")]
     
@@ -41,4 +41,14 @@ public class MatchMaker : NetworkRoomManager
         return System.Guid.NewGuid().ToString().Substring(0, 5).ToUpper(); 
         // short, unique code like "A1B2C"
     }
+    
+    //Create your real in-game player
+    public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
+    {
+        
+        GameObject gamePlayer = Instantiate(playerPrefab); 
+
+        return gamePlayer;
+    }
+
 }

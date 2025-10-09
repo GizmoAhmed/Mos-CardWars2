@@ -49,8 +49,7 @@ public class GameManager : NetworkBehaviour
 	}
 
 	/// <summary>
-	/// Called by each player as they join
-	/// Once there are two players present, start the game
+	/// Called by the server player once lobby is full
 	/// </summary>
 	[Server]
 	public void FullLobby()
@@ -83,7 +82,7 @@ public class GameManager : NetworkBehaviour
 	/// set players so server can recognize them
 	/// </summary>
 	[Server]
-	public void AssignPlayers()
+	private void AssignPlayers()
 	{
 		foreach (var conn in NetworkServer.connections.Values)
 		{
@@ -111,7 +110,7 @@ public class GameManager : NetworkBehaviour
 		stats0.currentMagic = 0;
 		stats1.currentMagic = 0;
 		
-		stats0.maxMagic = maxMagic;
+		stats0.maxMagic = maxMagic + 2;
 		stats1.maxMagic = maxMagic;
 		
 		stats0.money = money;

@@ -9,6 +9,12 @@ public class LobbyPlayer : NetworkRoomPlayer
     public string displayName = "Player";
 
     private static int playerCounter = 0;
+    
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        displayName = $"Player {index + 1}"; // index is built-in to NetworkRoomPlayer
+    }
 
     public override void OnStartClient()
     {

@@ -59,12 +59,21 @@ public class Player : NetworkBehaviour
 		upgrade = FindAnyObjectByType<UpgradeMagic>().gameObject.GetComponent<Button>();
 		ready	= FindAnyObjectByType<Ready>().gameObject.GetComponent<Button>();
 		
-		if (isServer)
+		if (isServer) // must be the host, the first person to join
 		{
-			Debug.Log($"[SERVER] >>> Player {connectionToClient.connectionId} has joined.");
-			gameManager = FindAnyObjectByType<GameManager>();
-			gameManager.FullLobby();
+			
 		}
+		else // the joiner, joins if there is a host, they are never alone
+		{
+			CmdCheckFullLobby();
+		}
+	}
+
+	[Command]
+	private void CmdCheckFullLobby()
+	{
+		gameManager = FindAnyObjectByType<GameManager>();
+		gameManager.FullLobby();
 	}
 
 	[Server]
