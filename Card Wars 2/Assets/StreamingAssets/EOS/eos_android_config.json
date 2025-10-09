@@ -1,0 +1,36 @@
+{
+  "GoogleLoginClientID": null,
+  "GoogleLoginNonce": null,
+  "deployment": {
+    "SandboxId": {
+      "Value": null
+    },
+    "DeploymentId": "00000000000000000000000000000000"
+  },
+  "clientCredentials": {
+    "ClientId": "xyza7891pYduCPUXJo8DSLxQorqsWBph",
+    "ClientSecret": "UpZm0w7GD29Soa2eMtNSfCACdmdvYCaU7nR3q+EFNms",
+    "EncryptionKey": "E3C5F7464A2B232D2EED2E86E08EF91C2DE224B69688D0B094E155C5B0F4D41E"
+  },
+  "isServer": false,
+  "platformOptionsFlags": "None",
+  "authScopeOptionsFlags": "NoFlags",
+  "integratedPlatformManagementFlags": 0,
+  "tickBudgetInMilliseconds": 0,
+  "taskNetworkTimeoutSeconds": 0.0,
+  "threadAffinity": {
+    "NetworkWork": 0,
+    "StorageIo": 0,
+    "WebSocketIo": 0,
+    "P2PIo": 0,
+    "HttpRequestIo": 0,
+    "RTCIo": 0,
+    "EmbeddedOverlayMainThread": 0,
+    "EmbeddedOverlayWorkerThreads": 0
+  },
+  "alwaysSendInputToOverlay": false,
+  "initialButtonDelayForOverlay": 0.0,
+  "repeatButtonDelayForOverlay": 0.0,
+  "toggleFriendsButtonCombination": "SpecialLeft",
+  "schemaVersion": "1.0"
+}

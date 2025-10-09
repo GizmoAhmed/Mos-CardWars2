@@ -82,14 +82,9 @@ namespace PlayerStuff
 
         public void CurrentMagicUpdate(int oldMagic, int newMagic)
         {
-            if (_ui == null) 
+            if (_ui == null)
             {
-                Debug.LogWarning("PlayerStats UI component is null when trying to update current magic\n" +
-                               "Attempting to add UI Component again");
-                
-                // weirdly, after putting lobby stuff, _ui was null-ing itself for the host.
-                // Didn't know why. This seems like a band-aid solution but a solution nonetheless
-                // InitUI(); 
+                Debug.LogWarning("PlayerStats UI component is null when trying to update current magic");
                 
                 return;
             }

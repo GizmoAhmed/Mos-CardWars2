@@ -1,14 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using TMPro;
-using System.Linq;
-using System.Collections;
-using Buttons;
 using CardScripts;
 using PlayerStuff;
-using Unity.Collections;
-using Unity.VisualScripting;
 using UnityEngine.UI;
 
 // ternary operator
