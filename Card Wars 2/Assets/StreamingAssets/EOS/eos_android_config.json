@@ -3,9 +3,9 @@
   "GoogleLoginNonce": null,
   "deployment": {
     "SandboxId": {
-      "Value": null
+      "Value": "818e99c89ce74cf59f3b6e0dab625576"
     },
-    "DeploymentId": "00000000000000000000000000000000"
+    "DeploymentId": "c039165fdae04e41aadd6f320354ec98"
   },
   "clientCredentials": {
     "ClientId": "xyza7891pYduCPUXJo8DSLxQorqsWBph",

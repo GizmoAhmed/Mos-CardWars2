@@ -11,14 +11,6 @@
         "EncryptionKey": "E3C5F7464A2B232D2EED2E86E08EF91C2DE224B69688D0B094E155C5B0F4D41E"
       },
       "Name": "Client"
-    },
-    {
-      "Value": {
-        "ClientId": null,
-        "ClientSecret": null,
-        "EncryptionKey": "A0725088E88851943A72CD9CC64B14A977D0BF5ACA31FD23F461FAA215693169"
-      },
-      "Name": "Client (1)"
     }
   ],
   "Environments": {
@@ -26,20 +18,11 @@
       {
         "Value": {
           "SandboxId": {
-            "Value": null
+            "Value": "818e99c89ce74cf59f3b6e0dab625576"
           },
           "DeploymentId": "c039165fdae04e41aadd6f320354ec98"
         },
         "Name": "Deployment"
-      },
-      {
-        "Value": {
-          "SandboxId": {
-            "Value": null
-          },
-          "DeploymentId": "00000000000000000000000000000000"
-        },
-        "Name": "Deployment (1)"
       }
     ],
     "Sandboxes": [
@@ -48,12 +31,6 @@
           "Value": "818e99c89ce74cf59f3b6e0dab625576"
         },
         "Name": "Sandbox"
-      },
-      {
-        "Value": {
-          "Value": null
-        },
-        "Name": "Sandbox (1)"
       }
     ]
   },
