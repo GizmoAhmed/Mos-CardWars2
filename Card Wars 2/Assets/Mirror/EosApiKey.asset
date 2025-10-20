@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2006c7a2843279e4598781ed39185dd0, type: 3}
+  m_Name: EosApiKey
+  m_EditorClassIdentifier: 
+  epicProductName: CardWars2Online
+  epicProductVersion: 1.0
+  epicProductId: ac84ed63b8d14281a40b2c54a63d1e1d
+  epicSandboxId: 818e99c89ce74cf59f3b6e0dab625576
+  epicDeploymentId: c039165fdae04e41aadd6f320354ec98
+  epicClientId: xyza7891pYduCPUXJo8DSLxQorqsWBph
+  epicClientSecret: UpZm0w7GD29Soa2eMtNSfCACdmdvYCaU7nR3q+EFNms
