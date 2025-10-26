@@ -19,8 +19,11 @@ public class LobbyButton : MonoBehaviour
     public void JoinLobby()
     {
         Debug.Log("Joining Lobby...");
-        // for now, assume localhost
+        
+        // ...this line below overrides the EOS transport’s addressing system and tries to use a raw socket, which fails since EOS isn’t involved.
+        // so comment it out
         match.networkAddress = "localhost"; 
+        
         match.StartClient();
     }
     

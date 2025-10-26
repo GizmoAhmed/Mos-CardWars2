@@ -1302,8 +1302,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1424736986}
-  - component: {fileID: 1424736985}
   - component: {fileID: 1424736984}
+  - component: {fileID: 1424736988}
+  - component: {fileID: 1424736987}
   m_Layer: 0
   m_Name: NetworkManager_0
   m_TagString: Untagged
@@ -1332,8 +1333,8 @@ MonoBehaviour:
   autoConnectClientBuild: 0
   offlineScene: Assets/Scenes/MainMenu_Offline.unity
   onlineScene: Assets/Scenes/Lobby.unity
-  transport: {fileID: 1424736985}
-  networkAddress: localhost
+  transport: {fileID: 1424736988}
+  networkAddress: 7878
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
@@ -1379,30 +1380,6 @@ MonoBehaviour:
   roomSlots: []
   clientIndex: 0
   currentMatchID: 
---- !u!114 &1424736985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1424736983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  port: 7777
-  NoDelay: 1
-  SendTimeout: 5000
-  ReceiveTimeout: 30000
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerTick: 10000
-  serverSendQueueLimitPerConnection: 10000
-  serverReceiveQueueLimitPerConnection: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerTick: 1000
-  clientSendQueueLimit: 10000
-  clientReceiveQueueLimit: 10000
 --- !u!4 &1424736986
 Transform:
   m_ObjectHideFlags: 0
@@ -1418,6 +1395,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1424736987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424736983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetX: 0
+  offsetY: 0
+--- !u!114 &1424736988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424736983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f2d307354f3ea49b3ea12e6763a9fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Channels: 0200000000000000
+  timeout: 25
+  maxFragments: 55
+  ignoreCachedMessagesAtStartUpInSeconds: 2
+  relayControl: 1
 --- !u!1 &1431997463
 GameObject:
   m_ObjectHideFlags: 0
@@ -2014,16 +2022,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apiKeys: {fileID: 11400000, guid: 4258b61613cfbe147bb6ecca4b4defb3, type: 2}
   authInterfaceLogin: 1
-  authInterfaceCredentialType: 6
+  authInterfaceCredentialType: 4
   devAuthToolPort: 7878
-  devAuthToolCredentialName: 
+  devAuthToolCredentialName: MoCred
   connectInterfaceCredentialType: 10
   deviceModel: PC Windows 64bit
   displayName: User
   epicLoggerLevel: 200
   collectPlayerMetrics: 1
   checkForEpicLauncherAndRestart: 0
-  delayedInitialization: 0
+  delayedInitialization: 1
   platformTickIntervalInSeconds: 0
   tickBudgetInMilliseconds: 0
 --- !u!1 &1770167672

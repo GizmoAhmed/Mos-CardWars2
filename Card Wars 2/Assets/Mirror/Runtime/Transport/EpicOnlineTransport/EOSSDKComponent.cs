@@ -219,6 +219,7 @@ namespace EpicTransport {
 #endif
 
             if (!delayedInitialization) {
+                Debug.Log("Initializing EOS SDK...");
                 Initialize();
             }
         }
