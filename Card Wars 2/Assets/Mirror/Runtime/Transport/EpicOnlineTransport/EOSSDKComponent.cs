@@ -144,7 +144,18 @@ namespace EpicTransport {
 
         public static void Tick() {
             instance.platformTickTimer -= Time.deltaTime;
-            instance.EOS.Tick();
+            if (instance == null)
+            {
+                Debug.LogError("instance is null");
+            }
+            else if (instance.EOS == null)
+            {
+                Debug.LogError("instance.EOS is null");
+            }
+            else
+            {
+                instance.EOS.Tick();
+            }
         }
 
         // If we're in editor, we should dynamically load and unload the SDK between play sessions.
@@ -225,6 +236,7 @@ namespace EpicTransport {
         }
 
         protected void InitializeImplementation() {
+            Debug.Log("<color=green>InitializeImplementation()</color>");
             isConnecting = true;
 
             var initializeOptions = new InitializeOptions() {
@@ -284,7 +296,7 @@ namespace EpicTransport {
                     authInterfaceCredentialToken = devAuthToolCredentialName;
                 }
 
-                // Login to Auth Interface
+                // Login to Auth Interface TODO invalid loginOptions for some reason
                 Epic.OnlineServices.Auth.LoginOptions loginOptions = new Epic.OnlineServices.Auth.LoginOptions() {
                     Credentials = new Epic.OnlineServices.Auth.Credentials() {
                         Type = authInterfaceCredentialType,
@@ -316,7 +328,8 @@ namespace EpicTransport {
         }
 
         private void OnAuthInterfaceLogin(Epic.OnlineServices.Auth.LoginCallbackInfo loginCallbackInfo) {
-            if (loginCallbackInfo.ResultCode == Result.Success) {
+            if (loginCallbackInfo.ResultCode == Result.Success) 
+            {
                 Debug.Log("Auth Interface Login succeeded");
 
                 string accountIdString;
@@ -330,7 +343,7 @@ namespace EpicTransport {
                 
                 ConnectInterfaceLogin();
             } else if(Epic.OnlineServices.Common.IsOperationComplete(loginCallbackInfo.ResultCode)){
-                Debug.Log("Login returned " + loginCallbackInfo.ResultCode);
+                Debug.LogError("<color=red>Login returned </color>" + loginCallbackInfo.ResultCode);
             }
         }
 
@@ -391,6 +404,10 @@ namespace EpicTransport {
                     localUserProductId = cb.LocalUserId;
                     ConnectInterfaceLogin();
                 });
+            }
+            else
+            {
+                Debug.LogError("<color=red>OnConnectInterfaceLogin failed, callback info says: " + loginCallbackInfo.ResultCode);
             }
         }
         
