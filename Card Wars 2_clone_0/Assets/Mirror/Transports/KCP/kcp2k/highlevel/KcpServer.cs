@@ -322,7 +322,7 @@ namespace kcp2k
                 //   from last session that we should absolutely ignore.
                 //
                 //
-                // TODO this allocates a new KcpConnection for each new
+                // this allocates a new KcpConnection for each new
                 // internet connection. not ideal, but C# UDP Receive
                 // already allocated anyway.
                 //

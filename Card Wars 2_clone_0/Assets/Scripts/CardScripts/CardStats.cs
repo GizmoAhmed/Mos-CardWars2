@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using CardScripts;
 using Mirror;
 using PlayerStuff;
 using TMPro;
@@ -17,6 +18,10 @@ public class CardStats : NetworkBehaviour
     [SyncVar(hook = nameof(UpdateMagic))]   public int magic;
     [SyncVar(hook = nameof(UpdateAttack))]  public int attack;
     [SyncVar(hook = nameof(UpdateDefense))] public int defense;
+    
+    [SyncVar(hook = nameof(UpdateCost))] public int abilityCost;
+    
+    // TODO public Charm ActiveCharm
 
     public override void OnStartClient()
     {
@@ -40,17 +45,17 @@ public class CardStats : NetworkBehaviour
     [Command]
     private void RefreshCardStats()
     {
-        magic = cardData.Magic;
+        magic = cardData.magic;
         
         if (cardData.cardType == CardDataSO.CardType.Creature)
         {
-            attack = cardData.Attack;
-            defense = cardData.Defense;
+            attack = cardData.attack;
+            defense = cardData.defense;
         }
         else if (cardData.cardType == CardDataSO.CardType.Building)
         {
             attack = -1;
-            defense = cardData.Defense;
+            defense = cardData.defense;
         }
         else // spell or charm
         {
@@ -72,5 +77,10 @@ public class CardStats : NetworkBehaviour
     public void UpdateDefense(int oldDefense, int newDefense)
     {
         _display.UpdateUIDefense(newDefense);
+    }
+
+    public void UpdateCost(int oldCost, int newCost)
+    {
+        _display.UpdateUICost(newCost);
     }
 }

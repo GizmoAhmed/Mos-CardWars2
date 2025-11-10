@@ -7,8 +7,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "~~ RENAME ME ~~", menuName = "New CardDataSO")]
 public class CardDataSO : ScriptableObject
 {
-    public string Name;
+    [Header("General")]
+    public string cardName;
 
+    public Sprite mainImage;
+    
     public enum CardType
     {
         Creature,
@@ -17,24 +20,44 @@ public class CardDataSO : ScriptableObject
         Charm
     }
     public CardType cardType;
+    
+    public int magic;
+    
+    [TextArea]
+    // EVERY card in game has this
+    public string abilityDescription;
+    
+    // public CardEffectSO cardEffect;
 
+    [Header("Spell Specific")]
+    public SpellType spellType;
     public enum SpellType
     {
         Active,
         Passive,
         None
     }
-    public SpellType spellType;
+    
+    [Header("Creature Specific")]
+    public Element element;
+    public enum Element
+    {
+        Forge,
+        Spirit,
+        Haunted,
+        Crystal,
+        Occult,
+        None
+    }
+    
+    public Sprite elementSprite;
 
-    public Sprite MainImage;
-    public Sprite Element;
-
-    public int Attack, Defense, Magic;
-
-    [TextArea]
-    public string description;
-
-    // Learned something new: OnValidate() is like start but for scriptable objects
+    public int attack, defense;
+    
+    [Tooltip("if -1, then either building, spell, or passive-ability creatures")]
+    public int abilityCost; // only some creatures have this
+    
+    /// Learned something new: OnValidate() is like start but for scriptable objects
     private void OnValidate()
     {
         // if this card isn't a Spell, force SpellType to None
@@ -44,10 +67,14 @@ public class CardDataSO : ScriptableObject
         }
         else if (cardType == CardType.Spell && spellType == SpellType.None)
         {
-            Debug.LogError($"{this} is a spell, but no spell type was set");
+            Debug.LogError($"{this} is a spell, but no spell type was set, Setting to passive by default");
+            spellType = SpellType.Passive;
+        }
+
+        if (cardType != CardType.Creature)
+        {
+            element = Element.None;
         }
     }
-    
-    // public CardEffectSO cardEffect;
 }
 

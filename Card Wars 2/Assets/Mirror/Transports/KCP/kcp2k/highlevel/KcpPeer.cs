@@ -437,7 +437,7 @@ namespace kcp2k
                     }
                 }
             }
-            // TODO KcpConnection is IO agnostic. move this to outside later.
+            // KcpConnection is IO agnostic. move this to outside later.
             catch (SocketException exception)
             {
                 // this is ok, the connection was closed
@@ -486,7 +486,7 @@ namespace kcp2k
                     }
                 }
             }
-            // TODO KcpConnection is IO agnostic. move this to outside later.
+            // KcpConnection is IO agnostic. move this to outside later.
             catch (SocketException exception)
             {
                 // this is ok, the connection was closed
@@ -620,7 +620,7 @@ namespace kcp2k
         void SendReliable(KcpHeaderReliable header, ArraySegment<byte> content)
         {
             // 1 byte header + content needs to fit into send buffer
-            if (1 + content.Count > kcpSendBuffer.Length) // TODO
+            if (1 + content.Count > kcpSendBuffer.Length) 
             {
                 // otherwise content is larger than MaxMessageSize. let user know!
                 // GetType() shows Server/ClientConn instead of just Connection.
@@ -750,7 +750,7 @@ namespace kcp2k
             {
                 SendDisconnect();
             }
-            // TODO KcpConnection is IO agnostic. move this to outside later.
+            // KcpConnection is IO agnostic. move this to outside later.
             catch (SocketException)
             {
                 // this is ok, the connection was already closed

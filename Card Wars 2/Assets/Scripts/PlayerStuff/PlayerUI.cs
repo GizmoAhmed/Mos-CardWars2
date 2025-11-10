@@ -65,7 +65,7 @@ public class PlayerUI : NetworkBehaviour
     {
         var obj = GameObject.Find(objectName);
         if (obj == null)
-            Debug.LogWarning($"UI element '{objectName}' not found!");
+            Debug.LogWarning($"UI elementSprite '{objectName}' not found!");
         return obj;
     }
 
@@ -110,7 +110,7 @@ public class PlayerUI : NetworkBehaviour
 
         if (magicText == null)
         {
-            Debug.LogError($"UI element '{magicText}' not found!");
+            Debug.LogError($"UI elementSprite '{magicText}' not found!");
             return;
         }
 
