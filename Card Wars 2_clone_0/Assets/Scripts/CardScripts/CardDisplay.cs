@@ -63,6 +63,9 @@ namespace CardScripts
             // set description
             GameObject descTextChild = _abilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
             SetText(descTextChild, cardData.abilityDescription);
+            
+            GameObject activateButtonText = _activateButton.transform.GetChild(0).gameObject;
+            SetText(activateButtonText, cardData.abilityCost.ToString());
                           
             FlipCard(face : true);
         }

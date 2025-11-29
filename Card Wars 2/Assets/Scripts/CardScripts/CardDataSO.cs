@@ -75,6 +75,12 @@ public class CardDataSO : ScriptableObject
         {
             element = Element.None;
         }
+
+        // only creatures can have ability costs, all else get -1
+        if (cardType != CardType.Creature)
+        {
+            abilityCost = -1;
+        }
     }
 }
 
