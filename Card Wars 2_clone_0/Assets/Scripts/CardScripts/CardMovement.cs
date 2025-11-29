@@ -20,16 +20,18 @@ public class CardMovement : NetworkBehaviour
     
     public CardState cardState;
 
-    private bool Grabbed = false;
-    private GameObject StartParent;
-    private Vector3 StartPos;
-    public GameObject NewDropZone;
+    private bool _grabbed = false;
+    private GameObject _startParent;
+    private Vector3 _startPos;
+    public GameObject newDropZone;
     public bool onLand = false;
 
     public Transform dragLayer; 
     [Tooltip("Seconds for snapping back")] public float snapBackDuration = 0.25f;
 
-    private CanvasGroup canvasGroup;
+    private CanvasGroup _canvasGroup;
+    
+    private CardDisplay _cardDisplay;
 
     private void Start()
     {
@@ -45,42 +47,58 @@ public class CardMovement : NetworkBehaviour
             if (dragObj != null) dragLayer = dragObj.transform;
         }
 
-        canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup == null)
-            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        _canvasGroup = GetComponent<CanvasGroup>();
+        if (_canvasGroup == null)
+            _canvasGroup = gameObject.AddComponent<CanvasGroup>();
         
         cardState = CardState.Deck;
+        
+        _cardDisplay = GetComponentInParent<CardDisplay>();
+        
+        if  (_cardDisplay == null)
+            Debug.LogError($"_cardDisplay is null ({gameObject.name})");
     }
 
     public void BeginDrag()
     {
-        if (Grabbed || onLand || !isOwned) return;
+        if (_grabbed || onLand || !isOwned) return;
 
-        Grabbed = true;
+        _grabbed = true;
 
-        StartParent = transform.parent.gameObject;
-        StartPos = transform.position;
+        _startParent = transform.parent.gameObject;
+        _startPos = transform.position;
 
         transform.SetParent(dragLayer, true); // move out of LayoutGroup
         transform.SetAsLastSibling();         // render on top
-        canvasGroup.blocksRaycasts = false;   // allow dragging through raycast
+        _canvasGroup.blocksRaycasts = false;   // allow dragging through raycast
+        
+        _cardDisplay.ToggleInfoSlide(false);
     }
 
     public void EndDrag()
     {
-        if (!Grabbed) return;
+        if (!_grabbed) return;
 
-        Grabbed = false;
-        canvasGroup.blocksRaycasts = true;
+        _grabbed = false;
+        _canvasGroup.blocksRaycasts = true;
+        
+        _cardDisplay.ToggleInfoSlide(false);
 
-        if (NewDropZone != null)
+        if (newDropZone != null)
         {
-            PlaceCard(NewDropZone);
+            PlaceCard(newDropZone);
         }
         else
         {
             StartCoroutine(SnapBackToHand());
         }
+    }
+
+    public void OnClick()
+    {
+        Debug.Log($"Clicked on: {gameObject.name}");
+        
+        _cardDisplay.ToggleInfoSlide();
     }
 
     private void PlaceCard(GameObject land)
@@ -90,28 +108,26 @@ public class CardMovement : NetworkBehaviour
 
     private void Update()
     {
-        if (Grabbed)
+        if (_grabbed)
         {
             Vector2 mousePos = Input.mousePosition;
             transform.position = Vector3.Lerp(transform.position, mousePos, Time.deltaTime * 12f);
 
-            // Get the land under the mouse
+            // Get the land under the mouse, no need for colliders anymore
             MiddleLand landComponent = GetUIElementUnderPointer<MiddleLand>();
 
             // Only assign if it's a valid place for this card
             if (landComponent != null && landComponent.ValidPlace(this))
             {
-                NewDropZone = landComponent.gameObject;
+                newDropZone = landComponent.gameObject;
             }
             else
             {
-                NewDropZone = null; // snap back if invalid
+                newDropZone = null; // snap back if invalid
             }
         }
     }
-
-
-
+    
     private T GetUIElementUnderPointer<T>() where T : MonoBehaviour
     {
         PointerEventData pointerData = new PointerEventData(EventSystem.current);
@@ -132,7 +148,7 @@ public class CardMovement : NetworkBehaviour
     private IEnumerator SnapBackToHand()
     {
         Vector3 start = transform.position;
-        Vector3 end = StartPos;
+        Vector3 end = _startPos;
         float t = 0f;
         
         // scuffed lerp
@@ -144,7 +160,7 @@ public class CardMovement : NetworkBehaviour
         }
 
         // Reparent back to hand LayoutGroup
-        transform.SetParent(StartParent.transform, false);
+        transform.SetParent(_startParent.transform, false);
         transform.localPosition = Vector3.zero;
     }
     

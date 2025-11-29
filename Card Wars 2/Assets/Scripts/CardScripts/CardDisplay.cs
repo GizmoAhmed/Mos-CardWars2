@@ -68,12 +68,20 @@ namespace CardScripts
             SetText(activateButtonText, cardData.abilityCost.ToString());
                           
             FlipCard(face : true);
+            
+            Hide(_infoObj); // initially hide the info card
         }
 
         private void Hide(GameObject obj)
         {
             if (obj != null)
+            {
                 obj.SetActive(false);
+            }
+            else
+            {
+                Debug.LogError($"Can't hide null on {gameObject.name}");
+            }
         }
     
         private GameObject FindPart(string childName, Transform parent = null)
@@ -195,6 +203,27 @@ namespace CardScripts
 
                 // Show card back
                 _cardBackObj.SetActive(true);
+            }
+        }
+
+        /// <summary>
+        /// Show this cards info slide
+        /// TODO this is where you would include things like showing the charm and/or the ability button
+        /// 
+        /// </summary>
+        public void ToggleInfoSlide(bool toggle = true)
+        {
+            if (_infoObj == null)
+            {
+                Debug.LogError($"The info card for this card is null ({gameObject.name})");
+                return;
+            }
+
+            if (toggle) // just switch
+                _infoObj.SetActive(!_infoObj.activeInHierarchy);
+            else // explicitly set 
+            {
+                _infoObj.SetActive(false);
             }
         }
 

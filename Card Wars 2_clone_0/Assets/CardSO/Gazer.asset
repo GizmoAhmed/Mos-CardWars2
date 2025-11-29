@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ba4ed6dc1c95f49a983139c5b16c2a, type: 3}
   m_Name: Gazer
   m_EditorClassIdentifier: 
-  Name: Gazer
+  cardName: Gazer
+  mainImage: {fileID: 21300000, guid: 79b87218866d81f43aac338c197aaf6c, type: 3}
   cardType: 0
-  MainImage: {fileID: 21300000, guid: 79b87218866d81f43aac338c197aaf6c, type: 3}
-  Element: {fileID: 21300000, guid: 7c91cf54a519a4f40aef70ddc720cc1e, type: 3}
-  Attack: 1
-  Defense: 6
-  Magic: 1
-  description: Draw 1 Card
+  magic: 1
+  abilityDescription: Draw 1 Card
+  spellType: 2
+  element: 1
+  elementSprite: {fileID: 21300000, guid: 7c91cf54a519a4f40aef70ddc720cc1e, type: 3}
+  attack: 1
+  defense: 6
+  abilityCost: 1
