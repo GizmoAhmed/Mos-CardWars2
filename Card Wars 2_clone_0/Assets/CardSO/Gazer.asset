@@ -22,4 +22,4 @@ MonoBehaviour:
   elementSprite: {fileID: 21300000, guid: 7c91cf54a519a4f40aef70ddc720cc1e, type: 3}
   attack: 1
   defense: 6
-  abilityCost: 1
+  abilityCost: -1

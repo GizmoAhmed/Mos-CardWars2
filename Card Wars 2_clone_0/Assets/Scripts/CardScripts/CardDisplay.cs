@@ -42,31 +42,38 @@ namespace CardScripts
         public void InitDisplay(CardStats s)
         {
             stats = s;
-        
+
             if (cardData == null)
             {
                 Debug.LogError($"CardData is null on {gameObject.name}");
                 return;
             }
-                  
+
             // find all object variables above
             FindDisplayParts();
-                  
+
             // Set images
             SetImage(_mainImageObj, cardData.mainImage);
             SetImage(_elementLeft, cardData.elementSprite);
             SetImage(_elementRight, cardData.elementSprite);
-                  
+
             // Set names
             SetText(_nameTop, cardData.cardName);
             SetText(_nameBottom, cardData.cardName);
-            
+
             // set description
             GameObject descTextChild = abilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
             SetText(descTextChild, cardData.abilityDescription);
             
-            GameObject activateButtonText = activateButton.transform.GetChild(0).gameObject;
-            SetText(activateButtonText, cardData.abilityCost.ToString());
+            if (cardData.abilityCost == -1) // passive ability creature
+            {
+                Destroy(activateButton); // don't need it
+            }
+            else
+            {
+                GameObject activateButtonText = activateButton.transform.GetChild(0).gameObject;
+                SetText(activateButtonText, cardData.abilityCost.ToString()); 
+            }
                           
             FlipCard(face : true);
             
