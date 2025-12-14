@@ -1942,6 +1942,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3952861472326014535}
   - {fileID: 9157190824811683565}
   - {fileID: 7006996992505307320}
   - {fileID: 1234166446613489004}
@@ -1953,7 +1954,6 @@ RectTransform:
   - {fileID: 415023191104406587}
   - {fileID: 1902189619426145381}
   - {fileID: 5776919708544870943}
-  - {fileID: 3952861472326014535}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2018,10 +2018,10 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: e28f291ea4e4e0349863af710c740e59, type: 2}
   stats: {fileID: 0}
   magicObj: {fileID: 0}
-  _infoObj: {fileID: 5302920638131824670}
-  _infoRight: {fileID: 7220699571623259635}
-  _abilityDesc: {fileID: 6364040441541677829}
-  _activateButton: {fileID: 1333483121238513018}
+  infoObj: {fileID: 0}
+  infoRight: {fileID: 0}
+  abilityDesc: {fileID: 0}
+  activateButton: {fileID: 0}
 --- !u!114 &-2179245390006875088
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,11 +32,12 @@ namespace CardScripts
         [HideInInspector] public GameObject magicObj;
     
         // ~~~ Stuff shown on left and right info cards ~~~
-        public GameObject _infoObj; // parent of next line ▼
-        public GameObject _infoRight; // ▼
-        public GameObject _abilityDesc;
-        public GameObject _activateButton;
+        public GameObject infoObj; // parent of next line ▼
+        public GameObject infoRight; // ▼
+        public GameObject abilityDesc;
+        public GameObject activateButton;
     
+        private CardInfoHandler cardInfoHandler;
 
         public void InitDisplay(CardStats s)
         {
@@ -61,15 +62,17 @@ namespace CardScripts
             SetText(_nameBottom, cardData.cardName);
             
             // set description
-            GameObject descTextChild = _abilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
+            GameObject descTextChild = abilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
             SetText(descTextChild, cardData.abilityDescription);
             
-            GameObject activateButtonText = _activateButton.transform.GetChild(0).gameObject;
+            GameObject activateButtonText = activateButton.transform.GetChild(0).gameObject;
             SetText(activateButtonText, cardData.abilityCost.ToString());
                           
             FlipCard(face : true);
             
-            Hide(_infoObj); // initially hide the info card
+            Hide(infoObj); // initially hide the info card
+            
+            cardInfoHandler = FindObjectOfType<CardInfoHandler>();
         }
 
         private void Hide(GameObject obj)
@@ -111,18 +114,18 @@ namespace CardScripts
             magicObj      = FindPart("Magic");
             
             // info right + left
-            _infoObj        = FindPart("Info");
+            infoObj        = FindPart("Info");
             
             // some cascading logic here, if infoObj is find, you can find the rest and so on
-            if (_infoObj != null)
+            if (infoObj != null)
             {
-                _infoRight      = FindPart("InfoRight", _infoObj.transform);
-                _abilityDesc    = FindPart("AbilityDesc", _infoRight.transform);
-                _activateButton = FindPart("ActivateButton", _infoRight.transform);
+                infoRight      = FindPart("InfoRight", infoObj.transform);
+                abilityDesc    = FindPart("AbilityDesc", infoRight.transform);
+                activateButton = FindPart("ActivateButton", infoRight.transform);
             }
             else
             {
-                Debug.LogWarning($"Missing {_infoObj.name}, can't find the rest of the info");
+                Debug.LogWarning($"Missing {infoObj.name}, can't find the rest of the info");
             }
         }
 
@@ -213,18 +216,24 @@ namespace CardScripts
         /// </summary>
         public void ToggleInfoSlide(bool toggle = true)
         {
-            if (_infoObj == null)
+            if (!faceUp) // if faced down
+                return;
+
+            if (infoObj == null)
             {
                 Debug.LogError($"The info card for this card is null ({gameObject.name})");
                 return;
             }
 
             if (toggle) // just switch
-                _infoObj.SetActive(!_infoObj.activeInHierarchy);
+                infoObj.SetActive(!infoObj.activeInHierarchy);
             else // explicitly set 
             {
-                _infoObj.SetActive(false);
+                infoObj.SetActive(false);
             }
+
+            if (infoObj.activeInHierarchy) // toggle on
+                cardInfoHandler.SaveInfo(gameObject);
         }
 
         public void UpdateUIMagic(int newMagic)
