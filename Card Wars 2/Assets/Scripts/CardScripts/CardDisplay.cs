@@ -233,7 +233,19 @@ namespace CardScripts
             }
 
             if (infoObj.activeInHierarchy) // toggle on
+            {
                 cardInfoHandler.SaveInfo(gameObject);
+                
+                // place buildings and creatures in front of each other
+                if (GetComponentInParent<CardMovement>().cardState == CardMovement.CardState.Field
+                    && (GetComponentInParent<CardStats>().cardData.cardType == CardDataSO.CardType.Creature
+                        || GetComponentInParent<CardStats>().cardData.cardType == CardDataSO.CardType.Building)) // on a land and a creature/building
+                {
+                    gameObject.transform.SetAsLastSibling();
+                }
+            }
+            
+            gameObject.GetComponent<Canvas>().overrideSorting = infoObj.activeInHierarchy; // visually move card to front if info is on
         }
 
         public void UpdateUIMagic(int newMagic)

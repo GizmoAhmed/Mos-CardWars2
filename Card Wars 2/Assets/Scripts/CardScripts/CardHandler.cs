@@ -103,7 +103,7 @@ namespace CardScripts
                     acrossLand.AttachCard(card);
                 }
                 
-                card.GetComponent<CardMovement>().cardState = CardMovement.CardState.Board;
+                card.GetComponent<CardMovement>().cardState = CardMovement.CardState.Field;
             }
         }
 

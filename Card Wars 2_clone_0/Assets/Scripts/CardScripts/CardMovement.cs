@@ -14,7 +14,7 @@ public class CardMovement : NetworkBehaviour
     {
         Deck,
         Hand, 
-        Board,
+        Field,
         Discard
     }
     

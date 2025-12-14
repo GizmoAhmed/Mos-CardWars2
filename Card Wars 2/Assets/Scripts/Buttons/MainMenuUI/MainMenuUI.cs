@@ -11,7 +11,7 @@ namespace Buttons.MainMenuUI
         {
             if (join == null)
             {
-                Debug.LogError("Missing Join Board - Set in Inspector");
+                Debug.LogError("Missing Join Field - Set in Inspector");
             }
             
             join.SetActive(true);

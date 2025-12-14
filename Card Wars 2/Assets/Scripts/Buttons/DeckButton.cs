@@ -16,7 +16,7 @@ namespace Buttons
         {
             if (cardBoard == null)
             {
-                Debug.LogError("Card Board is null, cannot be shown.");
+                Debug.LogError("Card Field is null, cannot be shown.");
                 return;
             }
             
