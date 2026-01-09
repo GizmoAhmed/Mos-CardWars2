@@ -164,7 +164,7 @@ public class MiddleLand : NetworkBehaviour
              gameObject.name.EndsWith("4")) )
             return true;
 
-        if (cardData.cardType == CardDataSO.CardType.Spell) return true; // active spells can be placed anywhere
+        if (cardData.cardType == CardDataSO.CardType.Spell) return true; // Spells can be placed anywhere
         
         return false;
     }
