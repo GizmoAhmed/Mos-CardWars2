@@ -103,7 +103,7 @@ public class PlayerUI : NetworkBehaviour
         }
     }
     
-    public void MagicUIUpdate(int magic, bool current_max, bool goingOver = false)
+    public void MagicUIUpdate(int magic, bool current_max, bool goingUnder = false)
     {
         // magic 1 or 2
         TextMeshProUGUI magicText = (isOwned) ? magic1.GetComponent<TextMeshProUGUI>() : magic2.GetComponent<TextMeshProUGUI>();
@@ -122,7 +122,7 @@ public class PlayerUI : NetworkBehaviour
 
         magicText.text = (current_max) ? magic + " / " + stats.maxMagic : stats.currentMagic + " / " + magic;
 
-        if (goingOver)
+        if (goingUnder)
         {
             magicText.color = Color.red;
         }

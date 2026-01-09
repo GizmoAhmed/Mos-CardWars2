@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CardScripts;
 using Mirror;
+using PlayerStuff;
 using UnityEngine;
 
 public class MiddleLand : NetworkBehaviour
@@ -97,7 +98,7 @@ public class MiddleLand : NetworkBehaviour
 
             if (cardStats?.thisCardOwner != null)
             {
-                cardStats.thisCardOwner.AddMagic(cardStats.magic);
+                cardStats.thisCardOwner.UseMagic(cardStats.magic);
             }
         }
 
@@ -110,7 +111,7 @@ public class MiddleLand : NetworkBehaviour
 
     public virtual void DetachCard(GameObject card)
     {
-        // TODO undo all the attach stuff, also make the AddMagic function a negative so it'll subtract
+        // TODO undo all the attach stuff, also make the UseMagic function a negative so it'll subtract
     }
 
     /// <summary>
@@ -131,14 +132,16 @@ public class MiddleLand : NetworkBehaviour
             return false;
         }
 
-        if (cardOwner.playerStats.currentMagic > cardOwner.playerStats.maxMagic) // can't place if over-magic
+        if (cardStats.magic == 0) // you should still be able to place stuff that cost zero 
         {
-            if (cardStats.magic != 0) // you should still be able to place stuff that cost zero 
-            {
-                return false; 
-            }
+            return true;
         }
-
+        
+        if (cardStats.magic > cardOwner.GetComponent<PlayerStats>().currentMagic) // need to have enough magic for active spells
+        {
+            return false;
+        }
+        
         CardDataSO cardData = cardMove.GetComponent<CardDisplay>().cardData;
         
         if (cardData.cardType == CardDataSO.CardType.Building && building == null &&

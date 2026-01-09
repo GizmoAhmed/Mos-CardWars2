@@ -53,6 +53,7 @@ namespace PlayerStuff
             {
                 money -= upgradeCost;
                 maxMagic += 1;
+                currentMagic += 1;
                 upgradeCost += 1;
             }
         }
@@ -67,11 +68,11 @@ namespace PlayerStuff
         /// see ValidPlace() in middleland
         /// </summary>
         /// <param name="amount"></param>
-        public void AddMagic(int amount)
+        public void UseMagic(int amount)
         {
             if (!isServer) return;
 
-            currentMagic += amount;
+            currentMagic -= amount;
         }
 
         public void AddScore(int amount)
@@ -94,9 +95,9 @@ namespace PlayerStuff
                 return;
             }
 
-            if (currentMagic > maxMagic)
+            if (currentMagic < 0)
             {
-                _ui.MagicUIUpdate(newMagic, current_max : true, goingOver: true);
+                _ui.MagicUIUpdate(newMagic, current_max : true, goingUnder: true);
                 return;
             }
         
@@ -107,7 +108,7 @@ namespace PlayerStuff
         {
             if (currentMagic > maxMagic)
             {
-                _ui.MagicUIUpdate(newMagic, current_max : false, goingOver: true);
+                _ui.MagicUIUpdate(newMagic, current_max : false, goingUnder: true);
                 return;
             }
         

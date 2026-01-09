@@ -38,7 +38,7 @@ public class SpellArea : MiddleLand
         
         if (cardStats?.thisCardOwner != null)
         {
-            cardStats.thisCardOwner.AddMagic(cardStats.magic);
+            cardStats.thisCardOwner.UseMagic(cardStats.magic);
         }
     }
 
@@ -55,7 +55,7 @@ public class SpellArea : MiddleLand
             return false;
         }
 
-        if (cardOwner.playerStats.currentMagic > cardOwner.playerStats.maxMagic)
+        if (cardOwner.playerStats.currentMagic < 1)
         {
             if (cardStats.magic != 0) // you should still be able to place stuff that cost zero 
             {

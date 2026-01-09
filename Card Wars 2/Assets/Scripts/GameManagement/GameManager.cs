@@ -106,12 +106,9 @@ public class GameManager : NetworkBehaviour
 	{
 		PlayerStats stats0 = Player0.identity.GetComponent<PlayerStats>();
 		PlayerStats stats1 = Player1.identity.GetComponent<PlayerStats>();
-
-		stats0.currentMagic = 0;
-		stats1.currentMagic = 0;
 		
-		stats0.maxMagic = maxMagic + 2;
-		stats1.maxMagic = maxMagic;
+		stats0.currentMagic = stats0.maxMagic = maxMagic + 2;
+		stats1.currentMagic = stats1.maxMagic = maxMagic;
 		
 		stats0.money = money;
 		stats1.money = money;
