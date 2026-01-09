@@ -11,36 +11,36 @@ namespace CardScripts
     public class CardDisplay : NetworkBehaviour
     {
         public bool faceUp;
-    
+
         public CardDataSO cardData;
-    
+
         [HideInInspector] public CardStats stats;
 
         // ~~~ Main Stuff shown on backdrop ~~~
         private GameObject _mainImageObj;
 
         private GameObject _cardBackObj;
-    
+
         private GameObject _elementLeft;
         private GameObject _elementRight;
-    
+
         private GameObject _nameTop;
-    
+
         private GameObject _attackObj;
         private GameObject _defenseObj;
-        [HideInInspector] public GameObject magicObj;
-    
+        [HideInInspector] public GameObject _magicObj;
+
         // ~~~ Stuff shown on left and right info cards ~~~
         public GameObject infoObj; // parent of next line ▼
-        
+
         public GameObject infoRight; // ▼
         public GameObject abilityDesc;
         public GameObject activateButton;
         public GameObject abilityCost;
-        
+
         public GameObject infoLeft; // ▼
         public GameObject burnObj;
-        
+
         private CardInfoHandler cardInfoHandler;
 
         public void InitDisplay(CardStats s)
@@ -67,21 +67,22 @@ namespace CardScripts
             // set description
             GameObject descTextChild = abilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
             SetText(descTextChild, cardData.abilityDescription);
-            
-            if (cardData.abilityCost == -1) // passive ability creature
+
+            if (cardData.cardType !=
+                CardDataSO.CardType.Creature) // if not a creature, it doens't have an ability button
             {
                 Destroy(activateButton); // don't need it
             }
             else
             {
                 GameObject activateButtonText = activateButton.transform.GetChild(0).gameObject;
-                SetText(activateButtonText, cardData.abilityCost.ToString()); 
+                SetText(activateButtonText, cardData.abilityCost.ToString());
             }
-                          
-            FlipCard(face : true);
-            
+
+            FlipCard(face: true);
+
             Hide(infoObj); // initially hide the info card
-            
+
             cardInfoHandler = FindObjectOfType<CardInfoHandler>();
         }
 
@@ -96,7 +97,7 @@ namespace CardScripts
                 Debug.LogError($"Can't hide null on {gameObject.name}");
             }
         }
-    
+
         private GameObject FindPart(string childName, Transform parent = null)
         {
             var searchRoot = parent ?? transform;
@@ -114,42 +115,40 @@ namespace CardScripts
         {
             // main
             _mainImageObj = FindPart("MainImage");
-            _cardBackObj  = FindPart("CardBack");
-            
-            _elementLeft  = FindPart("ElementLeft");
+            _cardBackObj = FindPart("CardBack");
+
+            _elementLeft = FindPart("ElementLeft");
             _elementRight = FindPart("ElementRight");
-            
-            _attackObj    = FindPart("Attack");
-            _defenseObj   = FindPart("Defense");
-            magicObj      = FindPart("Magic");
-            
+
+            _attackObj = FindPart("Attack");
+            _defenseObj = FindPart("Defense");
+            _magicObj = FindPart("Magic");
+
             // info right + left
-            infoObj        = FindPart("Info");
-            
+            infoObj = FindPart("Info");
+
             // some cascading logic here, if infoObj is find, you can find the rest and so on
             if (infoObj != null)
             {
                 GameObject nameBackDrop = FindPart("NameBackDrop", infoObj.transform);
-                _nameTop     = FindPart("NameTop", nameBackDrop.transform);
-                
+                _nameTop = FindPart("NameTop", nameBackDrop.transform);
+
                 // right >
-                infoRight      = FindPart("InfoRight", infoObj.transform);
-                abilityDesc    = FindPart("AbilityDesc", infoRight.transform);
+                infoRight = FindPart("InfoRight", infoObj.transform);
+                abilityDesc = FindPart("AbilityDesc", infoRight.transform);
                 activateButton = FindPart("ActivateButton", infoRight.transform);
-                
+
                 abilityCost = FindPart("AbilityCostText", activateButton.transform);
-                
+
                 // left <
-                infoLeft      = FindPart("InfoLeft", infoObj.transform);
+                infoLeft = FindPart("InfoLeft", infoObj.transform);
                 GameObject burnButton = FindPart("BurnButton", infoLeft.transform);
-                burnObj       = FindPart("BurnCostText", burnButton.transform);
+                burnObj = FindPart("BurnCostText", burnButton.transform);
             }
             else
             {
                 Debug.LogWarning($"Missing {infoObj.name}, can't find the rest of the info");
             }
-            
-            
         }
 
         private void SetImage(GameObject obj, Sprite sprite)
@@ -157,13 +156,13 @@ namespace CardScripts
             if (obj != null && obj.TryGetComponent(out Image img))
                 img.sprite = sprite;
         }
-        
+
         private void SetText(GameObject obj, string text, bool isStatText = false)
         {
             if (obj != null && obj.TryGetComponent(out TextMeshProUGUI tmp))
             {
                 tmp.text = text.ToUpper();
-                
+
                 if (!isStatText) // stat text just stays whatever color is on the card, things like description would remain black
                     tmp.color = Color.black; // red text means error
             }
@@ -188,31 +187,25 @@ namespace CardScripts
                 _elementRight.SetActive(true);
                 _nameTop.SetActive(true);
 
-                // Only show stats relevant to the type
-                switch (cardData.cardType)
+                if (cardData.cardType == CardDataSO.CardType.Creature)
                 {
-                    case CardDataSO.CardType.Creature:
-                        _attackObj.SetActive(true);
-                        _defenseObj.SetActive(true);
-                        magicObj.SetActive(true);
-                        break;
-                    case CardDataSO.CardType.Building:
-                        _attackObj.SetActive(false);
-                        _defenseObj.SetActive(false);
-                        magicObj.SetActive(true);
-                        break;
-                    case CardDataSO.CardType.Spell:
-                        _attackObj.SetActive(false);
-                        _defenseObj.SetActive(false);
-                        magicObj.SetActive(true);
-                        break;
-                    case CardDataSO.CardType.Charm:
-                        _attackObj.SetActive(false);
-                        _defenseObj.SetActive(false);
-                        magicObj.SetActive(false);
-                        break;
+                    _attackObj.SetActive(true);
+                    _defenseObj.SetActive(true);
+                    _magicObj.SetActive(true);
                 }
-
+                else if (cardData.cardType == CardDataSO.CardType.Rune)
+                {
+                    _attackObj.SetActive(false);
+                    _defenseObj.SetActive(false);
+                    _magicObj.SetActive(false);
+                }
+                else // building, spell, and charm
+                {
+                    _attackObj.SetActive(false);
+                    _defenseObj.SetActive(false);
+                    _magicObj.SetActive(true);
+                }
+                
                 _cardBackObj.SetActive(false);
             }
             else
@@ -223,7 +216,7 @@ namespace CardScripts
                 _nameTop.SetActive(false);
                 _attackObj.SetActive(false);
                 _defenseObj.SetActive(false);
-                magicObj.SetActive(false);
+                _magicObj.SetActive(false);
 
                 // Show card back
                 _cardBackObj.SetActive(true);
@@ -256,46 +249,34 @@ namespace CardScripts
             if (infoObj.activeInHierarchy) // toggle on
             {
                 cardInfoHandler.SaveInfo(gameObject);
-                
+
                 // place buildings and creatures in front of each other
                 if (GetComponentInParent<CardMovement>().cardState == CardMovement.CardState.Field
                     && (GetComponentInParent<CardStats>().cardData.cardType == CardDataSO.CardType.Creature
-                        || GetComponentInParent<CardStats>().cardData.cardType == CardDataSO.CardType.Building)) // on a land and a creature/building
+                        || GetComponentInParent<CardStats>().cardData.cardType ==
+                        CardDataSO.CardType.Building)) // on a land and a creature/building
                 {
                     gameObject.transform.SetAsLastSibling();
                 }
             }
-            
-            gameObject.GetComponent<Canvas>().overrideSorting = infoObj.activeInHierarchy; // visually move card to front if info is on
+
+            gameObject.GetComponent<Canvas>().overrideSorting =
+                infoObj.activeInHierarchy; // visually move card to front if info is on
         }
 
         public void UpdateUIMagic(int newMagic)
         {
-            SetText(magicObj, newMagic.ToString(), true);
+            SetText(_magicObj, newMagic.ToString(), true);
         }
 
         public void UpdateUIAttack(int newAttack)
         {
-            if (newAttack < 0)
-            {
-                Hide(_attackObj);
-            }
-            else
-            {
-                SetText(_attackObj, newAttack.ToString(), true);
-            }
+            SetText(_attackObj, newAttack.ToString(), true);
         }
-    
+
         public void UpdateUIDefense(int newDefense)
         {
-            if (newDefense < 0)
-            {
-                Hide(_defenseObj);
-            }
-            else
-            {
-                SetText(_defenseObj, newDefense.ToString(), true);
-            }
+            SetText(_defenseObj, newDefense.ToString(), true);
         }
 
         public void UpdateUI_AbilityCost(int newCost)

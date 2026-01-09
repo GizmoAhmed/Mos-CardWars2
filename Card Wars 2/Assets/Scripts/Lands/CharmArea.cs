@@ -5,7 +5,7 @@ using Mirror;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SpellArea : MiddleLand
+public class CharmArea : MiddleLand
 {
     List<GameObject> spells = new List<GameObject>();
 
@@ -65,8 +65,8 @@ public class SpellArea : MiddleLand
         
         CardDataSO cardData = cardMove.GetComponent<CardDisplay>().cardData;
         
-        // only spells of the passive type can be placed in the spell area
-        if (cardData.spellType == CardDataSO.SpellType.Passive && gameObject.name.EndsWith("1")) // SpellGroup1
+        // only Carhms can be placed in charm area
+        if (cardData.cardType == CardDataSO.CardType.Charm && gameObject.name.EndsWith("1")) // SpellGroup1
             return true;
         
         return false;

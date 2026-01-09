@@ -57,12 +57,7 @@ public class CardStats : NetworkBehaviour
             attack = cardData.attack;
             defense = cardData.defense;
         }
-        else if (cardData.cardType == CardDataSO.CardType.Building)
-        {
-            attack = -1;
-            defense = cardData.defense;
-        }
-        else // spell or charm
+        else 
         {
             attack = -1;
             defense = -1;

@@ -136,13 +136,19 @@ public class MiddleLand : NetworkBehaviour
         {
             return true;
         }
-        
-        if (cardStats.magic > cardOwner.GetComponent<PlayerStats>().currentMagic) // need to have enough magic for active spells
+
+        if (cardOwner.GetComponent<PlayerStats>().currentMagic <= 0) // if magic is negative, can't place
         {
             return false;
         }
-        
+
         CardDataSO cardData = cardMove.GetComponent<CardDisplay>().cardData;
+        
+        // need to have enough magic for active spells
+        if (cardData.cardType == CardDataSO.CardType.Spell && cardStats.magic > cardOwner.GetComponent<PlayerStats>().currentMagic) 
+        {
+            return false;
+        }
         
         if (cardData.cardType == CardDataSO.CardType.Building && building == null &&
             (gameObject.name.EndsWith("1") ||
@@ -158,8 +164,7 @@ public class MiddleLand : NetworkBehaviour
              gameObject.name.EndsWith("4")) )
             return true;
 
-        // active spells can be placed anywhere...
-        if (cardData.spellType == CardDataSO.SpellType.Active) return true;
+        if (cardData.cardType == CardDataSO.CardType.Spell) return true; // active spells can be placed anywhere
         
         return false;
     }

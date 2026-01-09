@@ -75,9 +75,9 @@ namespace CardScripts
             }
             else // drop card on a land since land isn't null
             {
-                // if (active spell) {don't attach, just activate discard}.
-                // or todo charm
-                if (card.GetComponent<CardStats>().cardData.spellType == CardDataSO.SpellType.Active)
+                // if (spell) {don't attach, just activate discard}.
+                // or todo Rune
+                if (card.GetComponent<CardStats>().cardData.cardType == CardDataSO.CardType.Spell)
                 {
                     // todo activate spell on this land
                     
@@ -88,7 +88,7 @@ namespace CardScripts
                     return; // else if (passive) {just continue since it'll treat it like a creature or building, but in the spell area.}
                 }
                 
-                // do same for charms
+                // do same for Runes
 
                 // CardMovement.cs already makes sure card can actually be placed on this land via ValidPlace
                 if (isOwned)
