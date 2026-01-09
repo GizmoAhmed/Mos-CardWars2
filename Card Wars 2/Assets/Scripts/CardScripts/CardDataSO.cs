@@ -56,6 +56,8 @@ public class CardDataSO : ScriptableObject
     
     [Tooltip("if -1, then either building, spell, or passive-ability creatures")]
     public int abilityCost; // only some creatures have this
+
+    public int burnCost = 2;
     
     /// Learned something new: OnValidate() is like start but for scriptable objects
     private void OnValidate()

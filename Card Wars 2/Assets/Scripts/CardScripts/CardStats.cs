@@ -19,7 +19,9 @@ public class CardStats : NetworkBehaviour
     [SyncVar(hook = nameof(UpdateAttack))]  public int attack;
     [SyncVar(hook = nameof(UpdateDefense))] public int defense;
     
-    [SyncVar(hook = nameof(UpdateCost))] public int abilityCost;
+    [SyncVar(hook = nameof(UpdateAbilityCost))] public int abilityCost;
+
+    [SyncVar(hook = nameof(UpdateBurnCost))] public int burnCost = 2;
     
     // TODO public Charm ActiveCharm
 
@@ -37,6 +39,8 @@ public class CardStats : NetworkBehaviour
         _display.UpdateUIMagic(magic);
         _display.UpdateUIAttack(attack);
         _display.UpdateUIDefense(defense);
+        
+        _display.UpdateUI_BurnCost(burnCost);
     } 
 
     /// <summary>
@@ -46,6 +50,7 @@ public class CardStats : NetworkBehaviour
     private void RefreshCardStats()
     {
         magic = cardData.magic;
+        burnCost = cardData.burnCost;
         
         if (cardData.cardType == CardDataSO.CardType.Creature)
         {
@@ -79,8 +84,13 @@ public class CardStats : NetworkBehaviour
         _display.UpdateUIDefense(newDefense);
     }
 
-    public void UpdateCost(int oldCost, int newCost)
+    public void UpdateAbilityCost(int oldCost, int newCost)
     {
-        _display.UpdateUICost(newCost);
+        _display.UpdateUI_AbilityCost(newCost);
+    }
+
+    public void UpdateBurnCost(int oldCost, int newCost)
+    {
+        _display.UpdateUI_BurnCost(newCost);
     }
 }

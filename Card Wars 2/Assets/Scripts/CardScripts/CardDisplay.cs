@@ -25,7 +25,6 @@ namespace CardScripts
         private GameObject _elementRight;
     
         private GameObject _nameTop;
-        private GameObject _nameBottom;
     
         private GameObject _attackObj;
         private GameObject _defenseObj;
@@ -33,10 +32,15 @@ namespace CardScripts
     
         // ~~~ Stuff shown on left and right info cards ~~~
         public GameObject infoObj; // parent of next line ▼
+        
         public GameObject infoRight; // ▼
         public GameObject abilityDesc;
         public GameObject activateButton;
-    
+        public GameObject abilityCost;
+        
+        public GameObject infoLeft; // ▼
+        public GameObject burnObj;
+        
         private CardInfoHandler cardInfoHandler;
 
         public void InitDisplay(CardStats s)
@@ -59,7 +63,6 @@ namespace CardScripts
 
             // Set names
             SetText(_nameTop, cardData.cardName);
-            SetText(_nameBottom, cardData.cardName);
 
             // set description
             GameObject descTextChild = abilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
@@ -112,10 +115,10 @@ namespace CardScripts
             // main
             _mainImageObj = FindPart("MainImage");
             _cardBackObj  = FindPart("CardBack");
+            
             _elementLeft  = FindPart("ElementLeft");
             _elementRight = FindPart("ElementRight");
-            _nameTop     = FindPart("NameTop");
-            _nameBottom    = FindPart("NameBottom");
+            
             _attackObj    = FindPart("Attack");
             _defenseObj   = FindPart("Defense");
             magicObj      = FindPart("Magic");
@@ -126,14 +129,27 @@ namespace CardScripts
             // some cascading logic here, if infoObj is find, you can find the rest and so on
             if (infoObj != null)
             {
+                GameObject nameBackDrop = FindPart("NameBackDrop", infoObj.transform);
+                _nameTop     = FindPart("NameTop", nameBackDrop.transform);
+                
+                // right >
                 infoRight      = FindPart("InfoRight", infoObj.transform);
                 abilityDesc    = FindPart("AbilityDesc", infoRight.transform);
                 activateButton = FindPart("ActivateButton", infoRight.transform);
+                
+                abilityCost = FindPart("AbilityCostText", activateButton.transform);
+                
+                // left <
+                infoLeft      = FindPart("InfoLeft", infoObj.transform);
+                GameObject burnButton = FindPart("BurnButton", infoLeft.transform);
+                burnObj       = FindPart("BurnCostText", burnButton.transform);
             }
             else
             {
                 Debug.LogWarning($"Missing {infoObj.name}, can't find the rest of the info");
             }
+            
+            
         }
 
         private void SetImage(GameObject obj, Sprite sprite)
@@ -142,13 +158,13 @@ namespace CardScripts
                 img.sprite = sprite;
         }
         
-        private void SetText(GameObject obj, string text, bool statText = false)
+        private void SetText(GameObject obj, string text, bool isStatText = false)
         {
             if (obj != null && obj.TryGetComponent(out TextMeshProUGUI tmp))
             {
                 tmp.text = text.ToUpper();
                 
-                if (!statText) // stat text just stays whatever color is on the card, things like description would remain black
+                if (!isStatText) // stat text just stays whatever color is on the card, things like description would remain black
                     tmp.color = Color.black; // red text means error
             }
             else
@@ -171,7 +187,6 @@ namespace CardScripts
                 _elementLeft.SetActive(true);
                 _elementRight.SetActive(true);
                 _nameTop.SetActive(true);
-                _nameBottom.SetActive(true);
 
                 // Only show stats relevant to the type
                 switch (cardData.cardType)
@@ -206,7 +221,6 @@ namespace CardScripts
                 _elementLeft.SetActive(false);
                 _elementRight.SetActive(false);
                 _nameTop.SetActive(false);
-                _nameBottom.SetActive(false);
                 _attackObj.SetActive(false);
                 _defenseObj.SetActive(false);
                 magicObj.SetActive(false);
@@ -284,9 +298,14 @@ namespace CardScripts
             }
         }
 
-        public void UpdateUICost(int newCost)
+        public void UpdateUI_AbilityCost(int newCost)
         {
-            
+            SetText(abilityCost, newCost.ToString(), true);
+        }
+
+        public void UpdateUI_BurnCost(int newCost)
+        {
+            SetText(burnObj, newCost.ToString(), true);
         }
     }
 }
