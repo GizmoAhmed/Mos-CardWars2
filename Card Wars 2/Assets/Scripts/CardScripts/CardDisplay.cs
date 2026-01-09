@@ -259,6 +259,10 @@ namespace CardScripts
                     gameObject.transform.SetAsLastSibling();
                 }
             }
+            else
+            {
+                cardInfoHandler.ClearSavedCard();
+            }
 
             gameObject.GetComponent<Canvas>().overrideSorting =
                 infoObj.activeInHierarchy; // visually move card to front if info is on

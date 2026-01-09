@@ -21,4 +21,9 @@ public class CardInfoHandler : MonoBehaviour
 
         currentCard = card.GetComponent<CardDisplay>();   
     }
+
+    public void ClearSavedCard()
+    {
+        currentCard = null;
+    }
 }
