@@ -1243,7 +1243,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -8787084603578760986}
         m_TargetAssemblyTypeName: CardScripts.CardButtons, Assembly-CSharp
-        m_MethodName: Burn
+        m_MethodName: BurnButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2301,13 +2301,6 @@ MonoBehaviour:
   cardData: {fileID: 11400000, guid: e28f291ea4e4e0349863af710c740e59, type: 2}
   stats: {fileID: 0}
   _magicObj: {fileID: 0}
-  infoObj: {fileID: 0}
-  infoRight: {fileID: 0}
-  abilityDesc: {fileID: 0}
-  activateButton: {fileID: 0}
-  abilityCost: {fileID: 0}
-  infoLeft: {fileID: 0}
-  burnObj: {fileID: 0}
 --- !u!114 &-2179245390006875088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2324,6 +2317,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   player: {fileID: 0}
+  cardStats: {fileID: 0}
   cardState: 0
   newDropZone: {fileID: 0}
   onLand: 0
@@ -2557,6 +2551,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaf6202021b1685498e8650c3ebce4ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &8639750868841354561
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,9 +17,12 @@ public class CardMovement : NetworkBehaviour
         Field,
         Discard
     }
+
+    public CardStats cardStats;
     
     public CardState cardState;
 
+    [Header("Placement Debugging")]
     private bool _grabbed = false;
     private GameObject _startParent;
     private Vector3 _startPos;
@@ -37,6 +40,8 @@ public class CardMovement : NetworkBehaviour
     {
         NetworkIdentity networkIdentity = NetworkClient.connection.identity;
         player = networkIdentity.GetComponent<Player>();
+        
+        cardStats = GetComponent<CardStats>();
 
         if (player == null)
             Debug.LogError("player is null");
@@ -166,10 +171,12 @@ public class CardMovement : NetworkBehaviour
     
     public void Discard()
     {
+        if (cardState == CardState.Field)
+        {
+            cardStats.thisCardOwner.currentMagic += cardStats.magic; // give magic back if on field
+        }
+        
         gameObject.GetComponent<CardStats>().thisCardOwner.GetComponent<CardHandler>().MoveToDiscard(gameObject);
-        
-        // todo if card type creature or building, refresh stats
-        
         cardState = CardState.Discard;
     }
 }

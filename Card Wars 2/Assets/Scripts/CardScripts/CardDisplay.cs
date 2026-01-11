@@ -31,15 +31,15 @@ namespace CardScripts
         [HideInInspector] public GameObject _magicObj;
 
         // ~~~ Stuff shown on left and right info cards ~~~
-        public GameObject infoObj; // parent of next line ▼
+        private GameObject infoObj; // parent of next line ▼
 
-        public GameObject infoRight; // ▼
-        public GameObject abilityDesc;
-        public GameObject activateButton;
-        public GameObject abilityCost;
+        private GameObject infoRight; // ▼
+        private GameObject abilityDesc;
+        private GameObject activateButton;
+        private GameObject abilityCost;
 
-        public GameObject infoLeft; // ▼
-        public GameObject burnObj;
+        private GameObject infoLeft; // ▼
+        private GameObject burnObj;
 
         private CardInfoHandler cardInfoHandler;
 

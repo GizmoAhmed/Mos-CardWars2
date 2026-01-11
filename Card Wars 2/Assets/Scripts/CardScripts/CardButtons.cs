@@ -1,33 +1,27 @@
 using System;
+using Mirror;
 using UnityEngine;
 
 namespace CardScripts
 {
-    public class CardButtons : MonoBehaviour
+    public class CardButtons : NetworkBehaviour
     {
         private CardStats cardStats;
         private CardMovement cardMove;
+        private bool burned;
 
         private void Start()
         {
             cardStats = GetComponent<CardStats>();
             cardMove = GetComponent<CardMovement>();
+            
+            burned = false;
         }
 
-        public void Burn() 
+        
+        public void BurnButton() 
         {
-            Debug.Log($"Burning... {gameObject.name}");
-
-            if (cardStats.thisCardOwner.money >= cardStats.burnCost) // enough money?
-            {
-                cardMove.Discard();
-                cardStats.thisCardOwner.money -= cardStats.burnCost;
-                Debug.Log($"Burned: {gameObject.name}");
-            }
-            else
-            {
-                Debug.LogWarning($"Not enough money to burn {gameObject.name}");
-            }
+            
         }
 
         public void CreatureAbility()

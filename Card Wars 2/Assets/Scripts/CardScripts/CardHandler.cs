@@ -79,8 +79,6 @@ namespace CardScripts
                 // or todo Rune
                 if (card.GetComponent<CardStats>().cardData.cardType == CardDataSO.CardType.Spell)
                 {
-                    // todo activate spell on this land
-                    
                     card.GetComponent<CardMovement>().Discard(); // ...where they are immediately discarded upon cast
                     
                     Debug.Log(card.name + " was cast on " + land.name);

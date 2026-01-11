@@ -66,7 +66,7 @@ public class CardStats : NetworkBehaviour
     
     public void UpdateMagic(int oldMagic, int newMagic)
     {
-        _display.UpdateUIMagic(newMagic);
+        _display.UpdateUIMagic(newMagic); // todo also change the players max magic
     }
 
     public void UpdateAttack(int oldAttack, int newAttack)
