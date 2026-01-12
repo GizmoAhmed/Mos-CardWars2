@@ -7,21 +7,17 @@ namespace CardScripts
     public class CardButtons : NetworkBehaviour
     {
         private CardStats cardStats;
-        private CardMovement cardMove;
-        private bool burned;
 
         private void Start()
         {
             cardStats = GetComponent<CardStats>();
-            cardMove = GetComponent<CardMovement>();
-            
-            burned = false;
         }
 
         
-        public void BurnButton() 
+        public void BurnButton()
         {
-            
+            Debug.Log($"Player {cardStats.thisCardOwner.gameObject.name} is burning {gameObject.name}...");
+            cardStats.thisCardOwner.CmdBurn(gameObject);
         }
 
         public void CreatureAbility()

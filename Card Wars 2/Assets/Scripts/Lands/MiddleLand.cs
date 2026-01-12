@@ -101,17 +101,26 @@ public class MiddleLand : NetworkBehaviour
                 cardStats.thisCardOwner.UseMagic(cardStats.magic);
             }
         }
-
-
-        // playersStats.currentMagic += cardStats.magic;
         
         cardDisplay.FlipCard(true);
-        cardMovement.onLand = true;
+        cardMovement.currentLand = this;
     }
 
     public virtual void DetachCard(GameObject card)
     {
-        // TODO undo all the attach stuff, also make the UseMagic function a negative so it'll subtract
+        CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
+        CardDataSO cardData = cardDisplay.cardData;
+
+        if ((cardData.cardType == CardDataSO.CardType.Creature)&& (card == creature)) // if the detaching card is the attached card, then we are in the right place
+        {
+            // so subsequent creatures can be placed here
+            creature = null;
+        }
+        else if (cardData.cardType == CardDataSO.CardType.Building && card == building)
+        {
+            building = null;
+        }
+
     }
 
     /// <summary>

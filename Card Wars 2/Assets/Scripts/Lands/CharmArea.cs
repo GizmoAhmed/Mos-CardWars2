@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class CharmArea : MiddleLand
 {
-    List<GameObject> spells = new List<GameObject>();
+    List<GameObject> InUseCharms = new List<GameObject>();
 
     public override void SetupNeighbors()
     {
@@ -28,7 +28,7 @@ public class CharmArea : MiddleLand
     {
         card.transform.SetParent(transform, true);
         
-        spells.Add(card);
+        InUseCharms.Add(card);
 
         CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
         
@@ -39,6 +39,21 @@ public class CharmArea : MiddleLand
         if (cardStats?.thisCardOwner != null)
         {
             cardStats.thisCardOwner.UseMagic(cardStats.magic);
+        }
+        
+        CardMovement cardMovement = card.GetComponent<CardMovement>();
+        cardMovement.currentLand = this;
+    }
+
+    public override void DetachCard(GameObject card)
+    {
+        if (InUseCharms.Contains(card))
+        {
+            InUseCharms.Remove(card);
+        }
+        else
+        {
+            Debug.LogError("attempted to detach a charm that isn't listed in the charm list");
         }
     }
 

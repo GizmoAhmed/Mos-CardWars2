@@ -58,6 +58,30 @@ namespace PlayerStuff
             }
         }
 
+        [Command]
+        public void CmdBurn(GameObject cardToBurn)
+        {
+            CardStats cardStats = cardToBurn.GetComponent<CardStats>();
+
+            if (money >= cardStats.burnCost) // enough money to burn, then burn
+            {
+                money -= cardStats.burnCost; // spend to burn
+                
+                CardMovement cardMove =  cardToBurn.GetComponent<CardMovement>();
+                
+                if (cardMove.cardState == CardMovement.CardState.Field)
+                {
+                    currentMagic += cardStats.magic; // give back magic
+                }
+                
+                cardMove.RpcDiscard();
+            }
+            else
+            {
+                Debug.Log("Insufficient funds to burn");
+            }
+        }
+
         public void DrainHealth()
         {
             health -= drain;

@@ -17,19 +17,19 @@ public class CardMovement : NetworkBehaviour
         Field,
         Discard
     }
-
-    public CardStats cardStats;
     
     public CardState cardState;
 
-    [Header("Placement Debugging")]
+    public CardStats cardStats;
+
+    [HideInInspector] public MiddleLand currentLand = null;
+    
     private bool _grabbed = false;
     private GameObject _startParent;
     private Vector3 _startPos;
-    public GameObject newDropZone;
-    public bool onLand = false;
+    private GameObject _newDropZone;
 
-    public Transform dragLayer; 
+    private Transform _dragLayer; 
     [Tooltip("Seconds for snapping back")] public float snapBackDuration = 0.25f;
 
     private CanvasGroup _canvasGroup;
@@ -46,10 +46,10 @@ public class CardMovement : NetworkBehaviour
         if (player == null)
             Debug.LogError("player is null");
 
-        if (dragLayer == null)
+        if (_dragLayer == null)
         {
             GameObject dragObj = GameObject.FindWithTag("Drag");
-            if (dragObj != null) dragLayer = dragObj.transform;
+            if (dragObj != null) _dragLayer = dragObj.transform;
         }
 
         _canvasGroup = GetComponent<CanvasGroup>();
@@ -66,14 +66,14 @@ public class CardMovement : NetworkBehaviour
 
     public void BeginDrag()
     {
-        if (_grabbed || onLand || !isOwned) return;
+        if (_grabbed || currentLand != null || !isOwned) return;
 
         _grabbed = true;
 
         _startParent = transform.parent.gameObject;
         _startPos = transform.position;
 
-        transform.SetParent(dragLayer, true); // move out of LayoutGroup
+        transform.SetParent(_dragLayer, true); // move out of LayoutGroup
         transform.SetAsLastSibling();         // render on top
         _canvasGroup.blocksRaycasts = false;   // allow dragging through raycast
         
@@ -89,9 +89,9 @@ public class CardMovement : NetworkBehaviour
         
         _cardDisplay.ToggleInfoSlide(false);
 
-        if (newDropZone != null)
+        if (_newDropZone != null)
         {
-            PlaceCard(newDropZone);
+            PlaceCard(_newDropZone);
         }
         else
         {
@@ -124,11 +124,11 @@ public class CardMovement : NetworkBehaviour
             // Only assign if it's a valid place for this card
             if (landComponent != null && landComponent.ValidPlace(this))
             {
-                newDropZone = landComponent.gameObject;
+                _newDropZone = landComponent.gameObject;
             }
             else
             {
-                newDropZone = null; // snap back if invalid
+                _newDropZone = null; // snap back if invalid
             }
         }
     }
@@ -169,14 +169,20 @@ public class CardMovement : NetworkBehaviour
         transform.localPosition = Vector3.zero;
     }
     
+    // use if separate rpc function needs a discard (ie CardHandler)
     public void Discard()
     {
-        if (cardState == CardState.Field)
-        {
-            cardStats.thisCardOwner.currentMagic += cardStats.magic; // give magic back if on field
-        }
-        
         gameObject.GetComponent<CardStats>().thisCardOwner.GetComponent<CardHandler>().MoveToDiscard(gameObject);
+        
+        if (cardState == CardState.Field) currentLand.DetachCard(gameObject); // detach from its land if on the field
+        
         cardState = CardState.Discard;
+    }
+
+    // use when cards themselves call to discard, requiring server-issued call, (ie burn)
+    [ClientRpc]
+    public void RpcDiscard()
+    {
+        Discard();
     }
 }
