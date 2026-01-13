@@ -7,60 +7,40 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerStats))] 
+[RequireComponent(typeof(PlayerStats))]
 public class PlayerUI : NetworkBehaviour
 {
-    [Header("Magic")]
-    public GameObject magic1;
-    public GameObject magic2;
-    private Color _magicGreen = new Color32(87, 169, 108, 255); // 0-255 constructor
+    [Header("Magic")] private GameObject _magic1;
+    private GameObject _magic2;
+    private readonly Color _magicGreen = new Color32(87, 169, 108, 255); // 0-255 constructor
 
-    
-    [Header("Money")]
-    public GameObject money1;
-    public GameObject money2;
-    
-    [Header("Draws")]
-    public GameObject drawsLeft;
-    
-    [Header("Score")]
-    public GameObject score1;
-    public GameObject score2;
-    
-    [Header("Health")]
-    public GameObject health1;
-    public GameObject health2;
-    public GameObject drain1;
-    public GameObject drain2;
-    
-    [Header("Rounds")]
-    public GameObject rounds1;
-    public GameObject rounds2;
+    [Header("Money")] private GameObject _money1;
+    private GameObject _money2;
 
-    [Header("Rounds1 Children")]
-    public GameObject first1;
-    public GameObject second1;
-    public GameObject third1;
-    public GameObject fourth1;
+    [Header("Draws")] private GameObject _drawsLeft;
 
-    [Header("Rounds2 Children")]
-    public GameObject first2;
-    public GameObject second2;
-    public GameObject third2;
-    public GameObject fourth2;
+    [Header("Score")] private GameObject _score1;
+    private GameObject _score2;
 
-    
-    [Header("Upgrade Cost")]
-    public GameObject costText;
-    
-    public PlayerStats stats;
+    [Header("Health")] private GameObject _health1;
+    private GameObject _health2;
+    private GameObject _drain1;
+    private GameObject _drain2;
+
+    [Header("Rounds")] private GameObject _rounds1;
+    private GameObject _rounds2;
+    public GameObject winDotSprite;
+
+    [Header("Upgrade Cost")] private GameObject _costText;
+
+    private PlayerStats stats;
 
     public void Init(PlayerStats s)
     {
         stats = s;
-        FindAllUI(); 
+        FindAllUI();
     }
-    
+
     private GameObject SafeFind(string objectName)
     {
         var obj = GameObject.Find(objectName);
@@ -71,42 +51,27 @@ public class PlayerUI : NetworkBehaviour
 
     private void FindAllUI()
     {
-        magic1    = SafeFind("Magic1");
-        magic2    = SafeFind("Magic2");
-        money1    = SafeFind("Money1");
-        money2    = SafeFind("Money2");
-        health1   = SafeFind("Health1");
-        health2   = SafeFind("Health2");
-        score1    = SafeFind("Score1");
-        score2    = SafeFind("Score2");
-        drawsLeft = GameObject.FindGameObjectWithTag("DrawsLeft");
-        rounds1   = SafeFind("Rounds1");
-        rounds2   = SafeFind("Rounds2");
-        costText  = SafeFind("CostText");
-        drain1    = SafeFind("Drain1");
-        drain2    = SafeFind("Drain2");
-
-        if (rounds1 != null)
-        {
-            first1  = rounds1.transform.Find("First1")?.gameObject;
-            second1 = rounds1.transform.Find("Second1")?.gameObject;
-            third1  = rounds1.transform.Find("Third1")?.gameObject;
-            fourth1 = rounds1.transform.Find("Fourth1")?.gameObject;
-        }
-
-        if (rounds2 != null)
-        {
-            first2  = rounds2.transform.Find("First2")?.gameObject;
-            second2 = rounds2.transform.Find("Second2")?.gameObject;
-            third2  = rounds2.transform.Find("Third2")?.gameObject;
-            fourth2 = rounds2.transform.Find("Fourth2")?.gameObject;
-        }
+        _magic1 = SafeFind("Magic1");
+        _magic2 = SafeFind("Magic2");
+        _money1 = SafeFind("Money1");
+        _money2 = SafeFind("Money2");
+        _health1 = SafeFind("Health1");
+        _health2 = SafeFind("Health2");
+        _score1 = SafeFind("Score1");
+        _score2 = SafeFind("Score2");
+        _drawsLeft = GameObject.FindGameObjectWithTag("DrawsLeft");
+        _rounds1 = SafeFind("Rounds1");
+        _rounds2 = SafeFind("Rounds2");
+        _costText = SafeFind("CostText");
+        _drain1 = SafeFind("Drain1");
+        _drain2 = SafeFind("Drain2");
     }
-    
+
     public void MagicUIUpdate(int magic, bool current_max, bool goingUnder = false)
     {
         // magic 1 or 2
-        TextMeshProUGUI magicText = (isOwned) ? magic1.GetComponent<TextMeshProUGUI>() : magic2.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI magicText =
+            (isOwned) ? _magic1.GetComponent<TextMeshProUGUI>() : _magic2.GetComponent<TextMeshProUGUI>();
 
         if (magicText == null)
         {
@@ -134,45 +99,49 @@ public class PlayerUI : NetworkBehaviour
 
     public void MoneyUIUpdate(int newMoney)
     {
-        TextMeshProUGUI moneyText = (isOwned) ? money1.GetComponent<TextMeshProUGUI>() : money2.GetComponent<TextMeshProUGUI>();
-        
+        TextMeshProUGUI moneyText =
+            (isOwned) ? _money1.GetComponent<TextMeshProUGUI>() : _money2.GetComponent<TextMeshProUGUI>();
+
         moneyText.text = newMoney.ToString();
     }
 
     public void DrawUIUpdate(int draws)
     {
         if (!isOwned) return;
-        
-        TextMeshProUGUI drawText = drawsLeft.GetComponent<TextMeshProUGUI>();
+
+        TextMeshProUGUI drawText = _drawsLeft.GetComponent<TextMeshProUGUI>();
 
         drawText.text = draws.ToString();
     }
 
     public void ScoreUIUpdate(int newScore)
     {
-        TextMeshProUGUI scoreText = (isOwned) ?  score1.GetComponent<TextMeshProUGUI>() : score2.GetComponent<TextMeshProUGUI>();
-        
+        TextMeshProUGUI scoreText =
+            (isOwned) ? _score1.GetComponent<TextMeshProUGUI>() : _score2.GetComponent<TextMeshProUGUI>();
+
         scoreText.text = newScore.ToString();
     }
 
     public void HealthUIUpdate(int newHealth)
     {
-        TextMeshProUGUI healthText = (isOwned) ?  health1.GetComponent<TextMeshProUGUI>() : health2.GetComponent<TextMeshProUGUI>();
-        
+        TextMeshProUGUI healthText =
+            (isOwned) ? _health1.GetComponent<TextMeshProUGUI>() : _health2.GetComponent<TextMeshProUGUI>();
+
         healthText.text = newHealth.ToString();
     }
 
     public void DrainUIUpdate(int newDrain)
     {
-        TextMeshProUGUI drainText = (isOwned) ? drain1.GetComponent<TextMeshProUGUI>() : drain2.GetComponent<TextMeshProUGUI>();
-        
+        TextMeshProUGUI drainText =
+            (isOwned) ? _drain1.GetComponent<TextMeshProUGUI>() : _drain2.GetComponent<TextMeshProUGUI>();
+
         drainText.text = "- " + newDrain.ToString();
     }
 
     public void RoundsUIUpdate(int newRounds)
     {
-        GameObject roundsParent = (isOwned) ? rounds1 : rounds2;
-        
+        GameObject roundsParent = (isOwned) ? _rounds1 : _rounds2;
+
         for (int i = 0; i < roundsParent.transform.childCount; i++)
         {
             Transform child = roundsParent.transform.GetChild(i);
@@ -186,7 +155,7 @@ public class PlayerUI : NetworkBehaviour
                 }
                 else
                 {
-                    bubbleImage.color = Color.white; 
+                    bubbleImage.color = Color.white;
                 }
             }
         }
@@ -195,10 +164,34 @@ public class PlayerUI : NetworkBehaviour
     public void UpgradeUIUpdate(int cost)
     {
         if (!isOwned) return;
-        
-        TextMeshProUGUI c = costText.GetComponent<TextMeshProUGUI>();
-        
+
+        TextMeshProUGUI c = _costText.GetComponent<TextMeshProUGUI>();
+
         c.text = cost.ToString();
     }
 
+    public void PopulateWinDots(int numberOfRoundsToWin)
+    {
+        if (winDotSprite == null)
+        {
+            Debug.LogError("Win sprite object not set on player UI");
+            return;
+        }
+
+        foreach (Transform child in _rounds1.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Transform child in _rounds2.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < numberOfRoundsToWin; i++)
+        {
+            Instantiate(winDotSprite, _rounds1.transform);
+            Instantiate(winDotSprite, _rounds2.transform);
+        }
+    }
 }

@@ -21,13 +21,16 @@ public class GameManager : NetworkBehaviour
 	public int drawCost		= 1;
 	public int health		= 30;
 	public int drain		= 3;
-	public int roundsWon	= 0;
 	public int upgradeCost	= 2;
-	public int score		= 0;
+
+	public int roundsToWin = 4;
 
 	[Header("Connected Players")]
 	public NetworkConnectionToClient Player0;
 	public NetworkConnectionToClient Player1;
+
+	public PlayerStats stats0;
+	public PlayerStats stats1;
 
 	[Header("Card Boards")] 
 	public GameObject cardBoard1;
@@ -104,8 +107,8 @@ public class GameManager : NetworkBehaviour
 	[Server]
 	private void StartPlayerStats()
 	{
-		PlayerStats stats0 = Player0.identity.GetComponent<PlayerStats>();
-		PlayerStats stats1 = Player1.identity.GetComponent<PlayerStats>();
+		stats0 = Player0.identity.GetComponent<PlayerStats>();
+		stats1 = Player1.identity.GetComponent<PlayerStats>();
 		
 		stats0.currentMagic = stats0.maxMagic = maxMagic + 2;
 		stats1.currentMagic = stats1.maxMagic = maxMagic;
@@ -119,9 +122,6 @@ public class GameManager : NetworkBehaviour
 		stats0.drain = drain;
 		stats1.drain = drain + 5;
 		
-		stats0.roundsWon = roundsWon;
-		stats1.roundsWon = roundsWon;
-		
 		stats0.upgradeCost = upgradeCost;
 		stats1.upgradeCost = upgradeCost;
 		
@@ -130,11 +130,50 @@ public class GameManager : NetworkBehaviour
 		
 		stats0.score = 0;
 		stats1.score = 0;
+		
+		stats0.roundsRequired = roundsToWin;
+		stats1.roundsRequired = roundsToWin - 1;
 	}
 
 	public void GameWin(NetworkConnectionToClient winner)
 	{
 		Debug.Log($"Player {winner.connectionId} has won !!!");
+	}
+	
+	[ContextMenu("TEST: Player 1 Wins Round")]
+	private void Test_Player1Win()
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("Must be server to run round win");
+			return;
+		}
+
+		RoundWin_Player1();
+	}
+
+	[ContextMenu("TEST: Player 2 Wins Round")]
+	private void Test_Player2Win()
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("Must be server to run round win");
+			return;
+		}
+
+		RoundWin_Player2();
+	}
+
+	[Server]
+	private void RoundWin_Player1()
+	{
+		stats0.roundsWon++;
+	}
+
+	[Server]
+	private void RoundWin_Player2()
+	{
+		stats1.roundsWon++;
 	}
 
 }

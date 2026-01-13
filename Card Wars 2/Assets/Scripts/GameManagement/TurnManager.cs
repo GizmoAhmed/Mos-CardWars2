@@ -136,9 +136,9 @@ public class TurnManager : NetworkBehaviour
         }
 
         // Win condition check
-        if (stats0.roundsWon == 4)
+        if (stats0.roundsWon == gameManager.roundsToWin)
             gameManager.GameWin(gameManager.Player0);
-        else if (stats1.roundsWon == 4)
+        else if (stats1.roundsWon == gameManager.roundsToWin)
             gameManager.GameWin(gameManager.Player1);
     }
 

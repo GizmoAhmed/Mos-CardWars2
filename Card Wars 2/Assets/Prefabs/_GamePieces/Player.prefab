@@ -250,29 +250,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  magic1: {fileID: 0}
-  magic2: {fileID: 0}
-  money1: {fileID: 0}
-  money2: {fileID: 0}
-  drawsLeft: {fileID: 0}
-  score1: {fileID: 0}
-  score2: {fileID: 0}
-  health1: {fileID: 0}
-  health2: {fileID: 0}
-  drain1: {fileID: 0}
-  drain2: {fileID: 0}
-  rounds1: {fileID: 0}
-  rounds2: {fileID: 0}
-  first1: {fileID: 0}
-  second1: {fileID: 0}
-  third1: {fileID: 0}
-  fourth1: {fileID: 0}
-  first2: {fileID: 0}
-  second2: {fileID: 0}
-  third2: {fileID: 0}
-  fourth2: {fileID: 0}
-  costText: {fileID: 0}
-  stats: {fileID: 0}
+  winDotSprite: {fileID: 6919808201303249341, guid: b851bbff88a29c14bb88d9e9f8f837ff, type: 3}
 --- !u!114 &4098157812031972868
 MonoBehaviour:
   m_ObjectHideFlags: 0
