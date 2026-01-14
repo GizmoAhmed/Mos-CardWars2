@@ -178,20 +178,16 @@ public class PlayerUI : NetworkBehaviour
             return;
         }
 
-        foreach (Transform child in _rounds1.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        foreach (Transform child in _rounds2.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
         for (int i = 0; i < numberOfRoundsToWin; i++)
         {
-            Instantiate(winDotSprite, _rounds1.transform);
-            Instantiate(winDotSprite, _rounds2.transform);
+            if (isOwned)
+            {
+                Instantiate(winDotSprite, _rounds1.transform);
+            }
+            else
+            {
+                Instantiate(winDotSprite, _rounds2.transform);
+            }
         }
     }
 }

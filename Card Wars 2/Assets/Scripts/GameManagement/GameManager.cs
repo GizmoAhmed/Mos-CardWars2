@@ -131,6 +131,9 @@ public class GameManager : NetworkBehaviour
 		stats0.score = 0;
 		stats1.score = 0;
 		
+		stats0.roundsWon = 0;
+		stats1.roundsWon = 0;
+		
 		stats0.roundsRequired = roundsToWin;
 		stats1.roundsRequired = roundsToWin - 1;
 	}
