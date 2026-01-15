@@ -10,173 +10,152 @@ using Unity.VisualScripting;
 
 public class GameManager : NetworkBehaviour
 {
-	public TurnManager turnManager;
-	
-	[Tooltip("This Deck is copied to each player when both players join")]
-	public List<GameObject> masterDeck;
+    public TurnManager turnManager;
 
-	[Header("Starting Stats")]
-	public int maxMagic		= 6;
-	public int money		= 20;
-	public int drawCost		= 1;
-	public int health		= 30;
-	public int drain		= 3;
-	public int upgradeCost	= 2;
+    [Tooltip("This Deck is copied to each player when both players join")]
+    public List<GameObject> masterDeck;
 
-	public int roundsToWin = 4;
+    [Header("Starting Stats")] public int maxMagic = 6;
+    public int money = 20;
+    public int drawCost = 1;
+    public int health = 30;
+    public int drain = 3;
+    public int upgradeCost = 2;
 
-	[Header("Connected Players")]
-	public NetworkConnectionToClient Player0;
-	public NetworkConnectionToClient Player1;
+    public int roundsToWin = 4;
 
-	public PlayerStats stats0;
-	public PlayerStats stats1;
+    [Header("Connected Players")] public NetworkConnectionToClient Player0;
+    public NetworkConnectionToClient Player1;
 
-	[Header("Card Boards")] 
-	public GameObject cardBoard1;
-	public GameObject cardBoard2;
-	
-	public List<NetworkConnectionToClient> players = new List<NetworkConnectionToClient>();
+    public PlayerStats stats0;
+    public PlayerStats stats1;
 
-	[Server]
-	public override void OnStartServer()
-	{
-		base.OnStartServer();
-		turnManager = GetComponentInChildren<TurnManager>();
-		turnManager.Init(this);
+    [Header("Card Boards")] public GameObject cardBoard1;
+    public GameObject cardBoard2;
 
-		if (cardBoard1 == null || cardBoard2 == null)
-		{
-			Debug.LogError("cardBoards were not set in editor and not found");
-		}
-	}
+    public List<NetworkConnectionToClient> players = new List<NetworkConnectionToClient>();
 
-	/// <summary>
-	/// Called by the server player once lobby is full
-	/// </summary>
-	[Server]
-	public void FullLobby()
-	{
-		int numberOfPlayers = NetworkServer.connections.Count;
+    [Server]
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        turnManager = GetComponentInChildren<TurnManager>();
+        turnManager.Init(this);
 
-		if (numberOfPlayers == 2) // Full lobby, let's roll
-		{
-			AssignPlayers();
-			StartPlayerStats();
+        if (cardBoard1 == null || cardBoard2 == null)
+        {
+            Debug.LogError("cardBoards were not set in editor and not found");
+        }
+    }
 
-			if (masterDeck.Count == 0)
-			{
-				Debug.LogWarning($"master deck on {gameObject.name} is empty, won't copy to players");
-			}
+    /// <summary>
+    /// Called by the server player once lobby is full
+    /// </summary>
+    [Server]
+    public void FullLobby()
+    {
+        int numberOfPlayers = NetworkServer.connections.Count;
 
-			turnManager.StartGame();
+        if (numberOfPlayers == 2) // Full lobby, let's roll
+        {
+            AssignPlayers();
+            StartPlayerStats();
 
-			 /*
-			 * 'If you want each player to get their own independent copy of the master deck,
-			 *  you need to clone the list instead of assigning the reference.'
-			  */
-			Player0.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
-			Player1.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
+            if (masterDeck.Count == 0)
+            {
+                Debug.LogWarning($"master deck on {gameObject.name} is empty, won't copy to players");
+            }
 
-		}
-	}
+            turnManager.StartGame();
 
-	/// <summary>
-	/// set players so server can recognize them
-	/// </summary>
-	[Server]
-	private void AssignPlayers()
-	{
-		foreach (var conn in NetworkServer.connections.Values)
-		{
-			if (Player0 is null)
-			{
-				Player0 = conn;
-				turnManager.DisablePlayer(Player0, false); // disable upon arrival
-			}
-			else
-			{
-				Player1 = conn;
-				turnManager.DisablePlayer(Player1, false); // disable upon arrival
-			}
-			
-			players.Add(conn);
-		}
-	}
+            /*
+             * 'If you want each player to get their own independent copy of the master deck,
+             *  you need to clone the list instead of assigning the reference.'
+             */
+            Player0.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
+            Player1.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
+        }
+    }
 
-	[Server]
-	private void StartPlayerStats()
-	{
-		stats0 = Player0.identity.GetComponent<PlayerStats>();
-		stats1 = Player1.identity.GetComponent<PlayerStats>();
-		
-		stats0.currentMagic = stats0.maxMagic = maxMagic + 2;
-		stats1.currentMagic = stats1.maxMagic = maxMagic;
-		
-		stats0.money = money;
-		stats1.money = money;
-		
-		stats0.health = health;
-		stats1.health = health;
-		
-		stats0.drain = drain;
-		stats1.drain = drain + 5;
-		
-		stats0.upgradeCost = upgradeCost;
-		stats1.upgradeCost = upgradeCost;
-		
-		stats0.drawCost = drawCost;
-		stats1.drawCost = drawCost;
-		
-		stats0.score = 0;
-		stats1.score = 0;
-		
-		stats0.roundsWon = 0;
-		stats1.roundsWon = 0;
-		
-		stats0.roundsRequired = roundsToWin;
-		stats1.roundsRequired = roundsToWin - 1;
-	}
+    /// <summary>
+    /// set players so server can recognize them
+    /// </summary>
+    [Server]
+    private void AssignPlayers()
+    {
+        foreach (var conn in NetworkServer.connections.Values)
+        {
+            if (Player0 is null)
+            {
+                Player0 = conn;
+                turnManager.DisablePlayer(Player0, false); // disable upon arrival
+            }
+            else
+            {
+                Player1 = conn;
+                turnManager.DisablePlayer(Player1, false); // disable upon arrival
+            }
 
-	public void GameWin(NetworkConnectionToClient winner)
-	{
-		Debug.Log($"Player {winner.connectionId} has won !!!");
-	}
-	
-	[ContextMenu("TEST: Player 1 Wins Round")]
-	private void Test_Player1Win()
-	{
-		if (!NetworkServer.active)
-		{
-			Debug.LogWarning("Must be server to run round win");
-			return;
-		}
+            players.Add(conn);
+        }
+    }
 
-		RoundWin_Player1();
-	}
+    [Server]
+    private void StartPlayerStats()
+    {
+        stats0 = Player0.identity.GetComponent<PlayerStats>();
+        stats1 = Player1.identity.GetComponent<PlayerStats>();
 
-	[ContextMenu("TEST: Player 2 Wins Round")]
-	private void Test_Player2Win()
-	{
-		if (!NetworkServer.active)
-		{
-			Debug.LogWarning("Must be server to run round win");
-			return;
-		}
+        stats0.currentMagic = stats0.maxMagic = maxMagic + 2;
+        stats1.currentMagic = stats1.maxMagic = maxMagic;
 
-		RoundWin_Player2();
-	}
+        stats0.money = money;
+        stats1.money = money;
 
-	[Server]
-	private void RoundWin_Player1()
-	{
-		stats0.roundsWon++;
-	}
+        stats0.health = health;
+        stats1.health = health;
 
-	[Server]
-	private void RoundWin_Player2()
-	{
-		stats1.roundsWon++;
-	}
+        stats0.drain = drain;
+        stats1.drain = drain;
 
+        stats0.upgradeCost = upgradeCost;
+        stats1.upgradeCost = upgradeCost;
+
+        stats0.drawCost = drawCost;
+        stats1.drawCost = drawCost;
+
+        stats0.score = 0;
+        stats1.score = 0;
+
+        stats0.roundsWon = 0;
+        stats1.roundsWon = 0;
+
+        stats0.roundsRequired = roundsToWin;
+        stats1.roundsRequired = roundsToWin;
+    }
+
+    public void RoundWin(PlayerStats winningPlayer)
+    {
+        Debug.Log($"...Player {winningPlayer.netId} won this round");
+        
+        winningPlayer.roundsWon++;
+        
+        Purge();
+
+        // reset health
+        stats0.health = health + 10; // +10 for now since we aren't purging
+        stats1.health = health + 10;
+    }
+
+    public void GameWin(NetworkConnectionToClient winner)
+    {
+        Debug.Log($"Player {winner.connectionId} has won the whole game !!!");
+    }
+
+    public void Purge()
+    {
+        Debug.Log($"Purging creatures and buildings");
+
+        // todo find object of type, run discard on each
+    }
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 public class TurnManager : NetworkBehaviour
 {
     public GameManager gameManager;
-    
+
     [SyncVar(hook = nameof(OnTurnChanged))]
     public int _currentTurn = -1;
 
@@ -22,14 +22,14 @@ public class TurnManager : NetworkBehaviour
 
     [Tooltip("True (P0 goes first)\nFalse (P1 goes first)")]
     public bool whoFirst;
-    
+
     public void Init(GameManager gm)
     {
         gameManager = gm;
-        
+
         turnUI = turnObj.GetComponent<TextMeshProUGUI>();
-        
-        _currentTurn = _readyHit = 0; 
+
+        _currentTurn = _readyHit = 0;
 
         if (turnUI == null) Debug.LogError($"Make sure to set turnUI in inspector on {gameObject.name}");
     }
@@ -65,16 +65,17 @@ public class TurnManager : NetworkBehaviour
     {
         DisablePlayer(gameManager.Player0, whoFirst);
         DisablePlayer(gameManager.Player1, !whoFirst);
-        
-        _currentTurn = 1; turnUI.text = "TURN: " + _currentTurn;
+
+        _currentTurn = 1;
+        turnUI.text = "TURN: " + _currentTurn;
     }
-    
+
     public void PlayerReady(NetworkConnectionToClient net)
     {
-        int currentIndex = net.connectionId;        // 0 or 1
-        int otherIndex   = (currentIndex == 0) ? 1 : 0;
+        int currentIndex = net.connectionId; // 0 or 1
+        int otherIndex = (currentIndex == 0) ? 1 : 0;
 
-        if (_readyHit == 0)  // first player to hit ready
+        if (_readyHit == 0) // first player to hit ready
         {
             _readyHit = 1;
 
@@ -94,61 +95,70 @@ public class TurnManager : NetworkBehaviour
     public void SwapPhase()
     {
         _lastPlayed = gameManager.Player0.identity.GetComponent<Player>().myTurn ? 0 : 1;
-        
+
         DisablePlayer(gameManager.Player0, false);
         DisablePlayer(gameManager.Player1, false);
 
         PlayerStats stats0 = gameManager.Player0.identity.GetComponent<PlayerStats>();
         PlayerStats stats1 = gameManager.Player1.identity.GetComponent<PlayerStats>();
-        
+
         stats0.DrainHealth();
         stats1.DrainHealth();
+
+        // todo ActivePhase(), everyone does there stuff, like watching the cards in balatro tick away when you play a hand
         
-        Invoke(nameof(ContinuePlay), 4.5f);
-        
-        WinCheck();
+        CheckScore();
+
+        Invoke(nameof(ContinuePlay), 4.5f); // invoked in time for testing the pausing nature of the ActivePhase
     }
 
     [Server]
-    public void WinCheck()
+    public void CheckScore()
     {
+        Debug.Log("Checking Scores...");
+        
         PlayerStats stats0 = gameManager.Player0.identity.GetComponent<PlayerStats>();
         PlayerStats stats1 = gameManager.Player1.identity.GetComponent<PlayerStats>();
 
         bool p0Cleared = stats0.score >= stats0.health;
         bool p1Cleared = stats1.score >= stats1.health;
 
-        if (p0Cleared && p1Cleared) // both cleared
+        if (p0Cleared && p1Cleared) // both cleared, tie
         {
-            if (stats0.score != stats1.score) // no tie
+            if (stats0.score > stats1.score) // both cleared but someone has the higher score
             {
-                (stats0.score > stats1.score ? stats0 : stats1).roundsWon++;
+                gameManager.RoundWin(stats0);
             }
-            // else tie case: do nothing for now
+            else if (stats1.score > stats0.health)
+            {
+                gameManager.RoundWin(stats1);
+            }
+            else
+            {
+                // else tie case: do nothing for now
+            }
         }
         else if (p0Cleared)
         {
-            stats0.roundsWon++;
+            gameManager.RoundWin(stats0);
         }
         else if (p1Cleared)
         {
-            stats1.roundsWon++;
+            gameManager.RoundWin(stats1);
         }
 
-        // Win condition check
+        // Game Win condition check
         if (stats0.roundsWon == gameManager.roundsToWin)
             gameManager.GameWin(gameManager.Player0);
         else if (stats1.roundsWon == gameManager.roundsToWin)
             gameManager.GameWin(gameManager.Player1);
     }
 
-
-    // invoked for testing the pause nature of things 
     [Server]
     public void ContinuePlay()
     {
-        _currentTurn++; 
-        
+        _currentTurn++;
+
         if (_lastPlayed == 0)
         {
             DisablePlayer(gameManager.Player0, true);
