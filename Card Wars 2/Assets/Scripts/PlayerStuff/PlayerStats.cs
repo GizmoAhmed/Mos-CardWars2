@@ -1,3 +1,4 @@
+using CardScripts;
 using Mirror;
 using UnityEngine;
 
@@ -75,6 +76,7 @@ namespace PlayerStuff
                 if (cardMove.cardState == CardMovement.CardState.Field)
                 {
                     currentMagic += cardStats.magic; // give back magic
+                    score -= (cardStats.attack + cardStats.defense);
                 }
                 
                 cardMove.RpcDiscard();
