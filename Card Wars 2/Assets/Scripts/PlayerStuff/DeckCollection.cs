@@ -43,9 +43,8 @@ namespace PlayerStuff
 				// add it to the server for both players
 				NetworkServer.Spawn(drawnCard, conn);
 
-				player.cardHandler.RpcHandleCard(drawnCard, null);
-
-    
+				player.cardHandler.MoveCardToHand(drawnCard);
+				
 				myDeck.RemoveAt(randomIndex);
             
 				player.playerStats.money -= player.playerStats.drawCost;

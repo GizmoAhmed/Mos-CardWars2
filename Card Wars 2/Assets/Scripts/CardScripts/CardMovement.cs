@@ -91,7 +91,7 @@ public class CardMovement : NetworkBehaviour
 
         if (_newDropZone != null)
         {
-            PlaceCard(_newDropZone);
+            player.cardHandler.CmdDropCard(gameObject, _newDropZone);
         }
         else
         {
@@ -105,12 +105,7 @@ public class CardMovement : NetworkBehaviour
         
         _cardDisplay.ToggleInfoSlide();
     }
-
-    private void PlaceCard(GameObject land)
-    {
-        player.cardHandler.CmdDropCard(gameObject, land);
-    }
-
+    
     private void Update()
     {
         if (_grabbed)

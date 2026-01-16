@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3cb668679d4066244b26629707e67b0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b7012da4ebf9008458abc3ef9a741f3c, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2317,11 +2317,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   player: {fileID: 0}
-  cardStats: {fileID: 0}
   cardState: 0
-  newDropZone: {fileID: 0}
-  onLand: 0
-  dragLayer: {fileID: 0}
+  cardStats: {fileID: 0}
+  currentLand: {fileID: 0}
   snapBackDuration: 0.25
 --- !u!114 &6427828413243906005
 MonoBehaviour:
