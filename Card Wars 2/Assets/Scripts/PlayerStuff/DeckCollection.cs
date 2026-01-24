@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CardScripts;
+using CardScripts.CardStatss;
 using Mirror;
 using UnityEngine;
 
@@ -30,7 +31,7 @@ namespace PlayerStuff
 
 			if (player.playerStats.money >= player.playerStats.drawCost)
 			{
-				int randomIndex = Random.Range(0, myDeck.Count);
+				int randomIndex = 0;
 				GameObject cardInstance = myDeck[randomIndex];
     
 				// add to scene

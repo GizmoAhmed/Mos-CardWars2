@@ -1,4 +1,5 @@
 using System;
+using CardScripts.CardStatss;
 using Mirror;
 using UnityEngine;
 

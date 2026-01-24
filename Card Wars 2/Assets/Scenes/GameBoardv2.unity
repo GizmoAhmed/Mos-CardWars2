@@ -1026,6 +1026,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
@@ -1584,6 +1585,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
@@ -1591,6 +1593,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  InUseCharms: []
 --- !u!1 &474931976
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,6 +1961,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
@@ -2240,6 +2244,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
@@ -2564,6 +2569,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
@@ -3939,6 +3945,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
@@ -4542,7 +4549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.size
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: p0Deck.Array.data[10]
@@ -4635,15 +4642,15 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 7648720691743005472, guid: b2ff3999d1617cf4485f95614e30db04, type: 3}
+      objectReference: {fileID: 202376185365910407, guid: c20b1e2dde59de74f868d54aa676eaa0, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 2836957975447944732, guid: e4a8f6012a5b1f248ab49f69514f445f, type: 3}
+      objectReference: {fileID: 7648720691743005472, guid: b2ff3999d1617cf4485f95614e30db04, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[2]
       value: 
-      objectReference: {fileID: 727347807167410751, guid: 3b82e8e5976ac314a9ebdf6032ec2845, type: 3}
+      objectReference: {fileID: 2836957975447944732, guid: e4a8f6012a5b1f248ab49f69514f445f, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[3]
       value: 
@@ -4655,23 +4662,23 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[5]
       value: 
-      objectReference: {fileID: 7916039011753716710, guid: a05f22441cdf25e4d8c4c38152bf0175, type: 3}
+      objectReference: {fileID: 8436703412735708844, guid: c58201556c04a37499d4b37de35f7a59, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[6]
       value: 
-      objectReference: {fileID: 5320121183791267945, guid: 4e745e03358aeea4cb30152664bd5bf3, type: 3}
+      objectReference: {fileID: 2276958938062784721, guid: 01f785b9c8891a84e9f0b46ad68a4735, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[7]
       value: 
-      objectReference: {fileID: 7755131462459198829, guid: 753df04014c82f94e8f992dc7939e8ae, type: 3}
+      objectReference: {fileID: 8806856440700427110, guid: 5e60617214491a446a6c8e0449a4dbb0, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[8]
       value: 
-      objectReference: {fileID: 7755131462459198829, guid: 753df04014c82f94e8f992dc7939e8ae, type: 3}
+      objectReference: {fileID: 1871136345291479400, guid: 2dbd9bf52dd014f42b8060286c98873a, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[9]
       value: 
-      objectReference: {fileID: 7755131462459198829, guid: 753df04014c82f94e8f992dc7939e8ae, type: 3}
+      objectReference: {fileID: 3973950709939614923, guid: 458f423dfb0beb94b9a71d2c7599a417, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: DebugMaster.Array.data[0]
       value: 
@@ -5584,6 +5591,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
@@ -6345,6 +6353,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
@@ -6922,30 +6931,24 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
-  - {fileID: 7755131462459198829, guid: 753df04014c82f94e8f992dc7939e8ae, type: 3}
   - {fileID: 558969142524760432, guid: 75f7bcdd4c6de0943b190468fe8f0833, type: 3}
   - {fileID: 2836957975447944732, guid: e4a8f6012a5b1f248ab49f69514f445f, type: 3}
   - {fileID: 7648720691743005472, guid: b2ff3999d1617cf4485f95614e30db04, type: 3}
   - {fileID: 6412714647888874990, guid: 42a32101abd2e614f89c00545306b9fd, type: 3}
-  - {fileID: 7916039011753716710, guid: a05f22441cdf25e4d8c4c38152bf0175, type: 3}
-  - {fileID: 5320121183791267945, guid: 4e745e03358aeea4cb30152664bd5bf3, type: 3}
-  - {fileID: 7916039011753716710, guid: a05f22441cdf25e4d8c4c38152bf0175, type: 3}
-  - {fileID: 375809184990008516, guid: c946ad2cbeeeaeb4cbaa08380798ad93, type: 3}
-  - {fileID: 2945097527673707022, guid: 2fd271686cc441d418050584881ac939, type: 3}
-  - {fileID: 7209055674182303185, guid: 6cbb20490318e43458a711b9ed02a1e4, type: 3}
-  - {fileID: 7542387904219371395, guid: 0c9fae4b6df188d4e8b09e6c631839d7, type: 3}
-  - {fileID: 8509794995364783619, guid: 5c29913d8cb4afb48b9648fc94acce26, type: 3}
-  - {fileID: 5961052985149569895, guid: 8ce1788de6730f445aef2eeeb2d3af60, type: 3}
-  - {fileID: 205500197551673648, guid: 9cef1b09814e51e4fb5c86c24985fe9e, type: 3}
-  - {fileID: 2481299139644654637, guid: 9dfce6691ce0c134a929ba6e5fcd080b, type: 3}
-  - {fileID: 5306146527645564023, guid: b374dbc35710025429b0696f84e708c8, type: 3}
-  - {fileID: 6032355045815336424, guid: c89eaaa7de91c1f498011308a35de5f2, type: 3}
   - {fileID: 5510745043124213716, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
   - {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   - {fileID: 8584247411600538929, guid: d5c8a5a5e6786394f8ea6cb0f80c2d13, type: 3}
-  - {fileID: 727347807167410751, guid: 3b82e8e5976ac314a9ebdf6032ec2845, type: 3}
-  - {fileID: 5320121183791267945, guid: 4e745e03358aeea4cb30152664bd5bf3, type: 3}
-  - {fileID: 8595016790468304296, guid: 0348a7b3474af9d4c88ceec1e4cb029e, type: 3}
+  - {fileID: 2276958938062784721, guid: 01f785b9c8891a84e9f0b46ad68a4735, type: 3}
+  - {fileID: 8806856440700427110, guid: 5e60617214491a446a6c8e0449a4dbb0, type: 3}
+  - {fileID: 1871136345291479400, guid: 2dbd9bf52dd014f42b8060286c98873a, type: 3}
+  - {fileID: 3973950709939614923, guid: 458f423dfb0beb94b9a71d2c7599a417, type: 3}
+  - {fileID: 202376185365910407, guid: c20b1e2dde59de74f868d54aa676eaa0, type: 3}
+  - {fileID: 8436703412735708844, guid: c58201556c04a37499d4b37de35f7a59, type: 3}
+  - {fileID: 533458406535889531, guid: 4a4cd53e70d999d41b0444c67f04ad27, type: 3}
+  - {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}
+  - {fileID: 1243263642205161095, guid: b1efdd37bf1fd294ebafc7890a269737, type: 3}
+  - {fileID: 659507761811515719, guid: b943eed949e10dc4fa7b81f23cb0d28c, type: 3}
+  - {fileID: 5473283833520736551, guid: 197ad043ed2b6e345929eda49e5660e4, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -7773,6 +7776,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}
@@ -7780,6 +7784,7 @@ MonoBehaviour:
   adjacentRight: {fileID: 0}
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
+  InUseCharms: []
 --- !u!114 &7881014250334252995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8057,6 +8062,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}
   across: {fileID: 0}

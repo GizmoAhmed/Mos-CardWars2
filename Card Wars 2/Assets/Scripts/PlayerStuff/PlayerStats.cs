@@ -1,4 +1,6 @@
 using CardScripts;
+using CardScripts.CardMovements;
+using CardScripts.CardStatss;
 using Mirror;
 using UnityEngine;
 
@@ -71,15 +73,9 @@ namespace PlayerStuff
             {
                 money -= cardStats.burnCost; // spend to burn
                 
-                CardMovement cardMove =  cardToBurn.GetComponent<CardMovement>();
+                BaseMovement baseMove =  cardToBurn.GetComponent<BaseMovement>();
                 
-                if (cardMove.cardState == CardMovement.CardState.Field)
-                {
-                    currentMagic += cardStats.magic; // give back magic
-                    score -= (cardStats.attack + cardStats.defense);
-                }
-                
-                cardMove.RpcDiscard();
+                baseMove.RpcDiscard(); // discard the card, it (Discard) will handle the rest
             }
             else
             {
@@ -93,8 +89,8 @@ namespace PlayerStuff
         }
 
         /// <summary>
-        /// should never reach this function if already over-magic
-        /// see ValidPlace() in middleland
+        /// should never reach this function if already over-magicUse
+        /// see ValidPlacement() in each card move child class
         /// </summary>
         /// <param name="amount"></param>
         public void UseMagic(int amount)
@@ -114,7 +110,7 @@ namespace PlayerStuff
         {
             if (ui == null) 
             {
-                Debug.LogWarning("PlayerStats UI component is null when trying to update current magic\n" +
+                Debug.LogWarning("PlayerStats UI component is null when trying to update current magicUse\n" +
                                "Attempting to add UI Component again");
                 
                 // weirdly, after putting lobby stuff, _ui was null-ing itself for the host.
