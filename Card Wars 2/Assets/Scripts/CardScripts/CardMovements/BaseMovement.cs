@@ -45,6 +45,8 @@ namespace CardScripts.CardMovements
 
         private CardDisplay _cardDisplay;
 
+        private CardInfoHandler _cardInfoHandler;
+
         private const int CLICKABLE_RECT_WIDTH = 147;
 
         protected virtual void Start()
@@ -74,6 +76,8 @@ namespace CardScripts.CardMovements
             cardState = CardState.Deck;
 
             _cardDisplay = GetComponentInParent<CardDisplay>();
+            
+            _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
 
             if (_cardDisplay == null)
                 Debug.LogError($"_cardDisplay is null ({gameObject.name})");
@@ -92,7 +96,7 @@ namespace CardScripts.CardMovements
             transform.SetAsLastSibling(); // render on top
             _canvasGroup.blocksRaycasts = false; // allow dragging through raycast
 
-            _cardDisplay.ToggleInfoSlide(false);
+            _cardInfoHandler.CloseAnyOpenInfo();
         }
 
         public void EndDrag()
@@ -101,9 +105,7 @@ namespace CardScripts.CardMovements
 
             _grabbed = false;
             _canvasGroup.blocksRaycasts = true;
-
-            _cardDisplay.ToggleInfoSlide(false);
-
+            
             if (_newDropZone != null)
             {
                 // player.cardHandler.CmdDropCard(gameObject, _newDropZone);
@@ -138,7 +140,7 @@ namespace CardScripts.CardMovements
         {
             Debug.Log($"Clicked on: {gameObject.name}");
 
-            _cardDisplay.ToggleInfoSlide();
+            _cardDisplay.OnCardClicked();
         }
 
         private void Update()
@@ -229,7 +231,7 @@ namespace CardScripts.CardMovements
         {
             gameObject.GetComponent<CardStats>().thisCardOwner.GetComponent<CardHandler>().MoveToDiscard(gameObject);
 
-            _cardDisplay.ToggleInfoSlide(false);
+            // _cardDisplay.ToggleInfoSlide(false);
             
             if (cardState == CardState.Field) DetachFromTile();
 

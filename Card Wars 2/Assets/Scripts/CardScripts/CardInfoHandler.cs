@@ -1,30 +1,38 @@
 using CardScripts.CardDisplays;
 using UnityEngine;
 
-namespace CardScripts
+public class CardInfoHandler : MonoBehaviour
 {
-    public class CardInfoHandler : MonoBehaviour
+    private CardDisplay current;
+
+    public void HandleCardClick(CardDisplay cardClicked)
     {
-        public CardDisplay currentCard;
-    
-        void Start()
+        // Case 1: Clicking the currently open card → close it
+        if (current == cardClicked)
         {
-            currentCard = null;
+            current.ToggleInfoSlide(false);
+            current = null;
+            return;
         }
 
-        public void SaveInfo(GameObject card)
+        // Case 2: Another card is open → close it
+        if (current != null)
         {
-            if (currentCard != null)
-            {
-                currentCard.ToggleInfoSlide(false); // turn off the one already in there
-            }
-
-            currentCard = card.GetComponent<CardDisplay>();   
+            current.ToggleInfoSlide(false);
         }
 
-        public void ClearSavedCard() // kinda redundant but whatever
-        {
-            currentCard = null;
-        }
+        // Case 3: Open the clicked card
+        current = cardClicked;
+        current.ToggleInfoSlide(true);
     }
+    
+    public void CloseAnyOpenInfo()
+    {
+        if (current == null)
+            return;
+
+        current.ToggleInfoSlide(false);
+        current = null;
+    }
+
 }

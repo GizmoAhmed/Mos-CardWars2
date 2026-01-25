@@ -155,42 +155,26 @@ namespace CardScripts.CardDisplays
             _cardBackObj.SetActive(!up);
         }
 
-        /// <summary>
-        /// Show this cards info slide
-        /// TODO this is where you would include things like showing the charm and/or the ability button
-        /// 
-        /// </summary>
-        public virtual void ToggleInfoSlide(bool toggle = true)
+        public void OnCardClicked()
         {
-            if (!faceUp) // if faced down
+            if (!faceUp)
                 return;
 
-            if (infoObj == null)
-            {
-                Debug.LogError($"The info card for this card is null ({gameObject.name})");
-                return;
-            }
-
-            if (toggle) // just switch
-                infoObj.SetActive(!infoObj.activeInHierarchy);
-            else // explicitly set 
-            {
-                infoObj.SetActive(false);
-            }
-
-            if (infoObj.activeInHierarchy) // toggle on
-            {
-                cardInfoHandler.SaveInfo(gameObject);
-            }
-            else
-            {
-                cardInfoHandler.ClearSavedCard();
-            }
-
-            gameObject.GetComponent<Canvas>().overrideSorting =
-                infoObj.activeInHierarchy; // visually move card to front if info is on
+            cardInfoHandler.HandleCardClick(this);
         }
+        
+        public virtual void ToggleInfoSlide(bool show)
+        {
+            if (!faceUp || infoObj == null)
+                return;
 
+            infoObj.SetActive(show);
+            
+            // move card to front, so other stuff can't cover the info
+            gameObject.GetComponent<Canvas>().overrideSorting =
+                infoObj.activeInHierarchy;
+        }
+        
         public void UpdateUIMagic(int newMagic)
         {
             SetText(_magicObj, newMagic.ToString(), true);

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CardScripts.CardData
 {
-    [CreateAssetMenu(fileName = "_____ Data", menuName = "New CardDataSO")]
+    [CreateAssetMenu(fileName = "RENAME:_____Data", menuName = "New CardDataSO")]
     public class CardDataSO : ScriptableObject
     {
         [Header("General")]

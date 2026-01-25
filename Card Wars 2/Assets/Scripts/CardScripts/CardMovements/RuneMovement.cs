@@ -13,7 +13,7 @@ namespace CardScripts.CardMovements
                 return false;
 
             // todo, if over-runed?
-            return land.creature != null; // return, if the land has a creature on it
+            return land.tileOwner && land.creature != null; // return, if the land has a creature on it
         }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not
@@ -24,12 +24,12 @@ namespace CardScripts.CardMovements
             // todo bind/apply the rune...
             if (isOwned)
             {
-                Debug.LogWarning($"Activating {gameObject.name} Rune on {tileObj.name}"); // activate ability, then...
+                Debug.LogWarning($"Binding {gameObject.name} on {tileObj.name}"); // activate ability, then...
             }
             else
             {
                 Debug.LogWarning(
-                    $"Activating {gameObject.name} Rune on {tileObj.GetComponent<MiddleLand>().across.name}");
+                    $"Binding {gameObject.name} on {tileObj.GetComponent<MiddleLand>().across.name}");
             }
             
             // ...then discard
