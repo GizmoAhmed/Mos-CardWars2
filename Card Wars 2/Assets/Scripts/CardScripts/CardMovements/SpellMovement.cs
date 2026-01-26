@@ -19,8 +19,6 @@ namespace CardScripts.CardMovements
         [ClientRpc] // assume valid, so don't worry about ok to place or not
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {
-            base.RpcPlaceCardOnTile(tileObj);
-            
             // todo activate the ability
             if (isOwned)
             {

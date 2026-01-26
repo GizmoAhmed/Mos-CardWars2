@@ -27,7 +27,7 @@ namespace CardScripts.CardMovements
         protected CardStats cardStats;
         public CardStats CardStats => cardStats;
 
-        public PlayerStats thisPlayersStats;
+        [HideInInspector] public PlayerStats thisPlayersStats;
 
         private Player cardOwner;
 

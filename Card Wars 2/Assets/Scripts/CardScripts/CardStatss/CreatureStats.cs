@@ -1,5 +1,6 @@
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
+using CardScripts.CardStatss.Runes;
 using Mirror;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ namespace CardScripts.CardStatss
     {
         public CreatureDataSO creatureData => cardData as CreatureDataSO;
         
-        public CreatureDisplay creatureDisplay;
+        [HideInInspector] public CreatureDisplay creatureDisplay;
+        
+        [Header("Creature Specific Stats")]
         
         [SyncVar(hook = nameof(UpdateAttack))] public int attack;
 
@@ -19,7 +22,13 @@ namespace CardScripts.CardStatss
         
         [SyncVar(hook = nameof(UpdateAbilityCost))] public int abilityCost;
         
-        // TODO public Charm ActiveCharm
+        [Header("Rune Stuff")]
+        
+        [SyncVar(hook = nameof(RuneChange))] public RuneBase currentRune1;
+        
+        public bool overRuneable;
+        
+        [SyncVar(hook = nameof(RuneChange))] public RuneBase currentRune2;
         
         public override void OnStartClient()
         {
@@ -73,6 +82,23 @@ namespace CardScripts.CardStatss
         public void UpdateScore(int oldScore, int newScore)
         {
             creatureDisplay.UpdateUI_Score(newScore);
+        }
+
+        public void BindRune(RuneBase rune)
+        {
+            if (currentRune1 == null) // empty
+            {
+                currentRune1 = rune; // goes to RuneChange
+            }
+            else if (currentRune2 == null && overRuneable)
+            {
+                currentRune2 = rune; // goes to RuneChange
+            }
+        }
+
+        public void RuneChange(RuneBase oldRune, RuneBase newRune)
+        {
+            creatureDisplay.DisplayRune(newRune);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace CardScripts.CardDisplays
         protected GameObject infoRight; // ▼
         protected GameObject abilityDesc;
 
-        private GameObject infoLeft; // ▼
+        protected GameObject infoLeft; // ▼
         private GameObject burnObj;
 
         protected CardInfoHandler cardInfoHandler;

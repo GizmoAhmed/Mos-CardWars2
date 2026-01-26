@@ -9,7 +9,7 @@ namespace CardScripts.CardStatss
     public class CardStats : NetworkBehaviour
     {
         [SerializeField]
-        protected CardDataSO cardData;
+        [HideInInspector] public CardDataSO cardData;
 
         public CardDataSO CardData => cardData;
 
