@@ -29,19 +29,32 @@ namespace CardScripts.CardMovements
         [ClientRpc] // dw, already asked if valid placement above
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {
-            if (isOwned)
-            {
-                // the creature on this land
-                CreatureStats creature = tileObj.GetComponent<MiddleLand>().creature.GetComponent<CreatureStats>();
+            MiddleLand tileScript = tileObj.GetComponent<MiddleLand>();
 
-                Debug.LogWarning(
-                    $"Binding {gameObject.name} to {creature.gameObject.name} on {tileObj.name}"); // activate ability, then...
-
-                creature.BindRune(GetComponent<RuneBase>());
-            }
-
+            GameObject creatureOnTile = isOwned ? 
+                tileScript.creature :
+                tileScript.across.GetComponent<MiddleLand>().creature;
+            
+            CmdBindRune(creatureOnTile);
+            
             // ...then discard
             Discard();
+        }
+
+        [Command]
+        public void CmdBindRune(GameObject creatureOnTile)
+        {
+            // the creature on this land
+            CreatureStats creature = creatureOnTile.GetComponent<CreatureStats>();
+
+            if (creature.currentRune1 == null) // empty
+            {
+                creature.currentRune1 = GetComponent<RuneBase>(); // goes to RuneChange
+            }
+            else if (creature.currentRune2 == null && creature.overRuneable)
+            {
+                creature.currentRune2 = GetComponent<RuneBase>(); // goes to RuneChange
+            }
         }
     }
 }

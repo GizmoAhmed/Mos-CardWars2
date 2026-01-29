@@ -31,8 +31,8 @@ namespace CardScripts.CardDisplays
         private GameObject _runeName2;
         private GameObject _runeIcon2;
         
-        private GameObject _currentRune1;
-        private GameObject _currentRune2;
+        private GameObject _currentRuneIcon1;
+        private GameObject _currentRuneIcon2;
 
         private CreatureStats _creatureStats;
 
@@ -113,8 +113,8 @@ namespace CardScripts.CardDisplays
 
             if (CurrentRunes != null)
             {
-                _currentRune1 = FindPart("CurrentRune1", CurrentRunes.transform);
-                _currentRune2 = FindPart("CurrentRune2", CurrentRunes.transform);
+                _currentRuneIcon1 = FindPart("CurrentRune1", CurrentRunes.transform);
+                _currentRuneIcon2 = FindPart("CurrentRune2", CurrentRunes.transform);
             }
         }
 
@@ -191,37 +191,34 @@ namespace CardScripts.CardDisplays
 
             if (_creatureStats.currentRune2 != null)
             {
-                _currentRune2.GetComponent<Image>().sprite = // current rune icon on face
-                    runeData.mainImage;
+                SetImage(_currentRuneIcon2, runeData.mainImage); // current rune icon on face
+                // _currentRuneIcon2.GetComponent<Image>().sprite = runeData.mainImage;
                 
-                _currentRune2.SetActive(true);
+                _currentRuneIcon2.SetActive(true);
                 
                 // the info text
-                _runeText2.GetComponent<TextMeshProUGUI>().text = runeData.abilityDescription.ToUpper();
-                _runeText2.GetComponent<TextMeshProUGUI>().color = Color.black; // remove error color
+                SetText(_runeText2, runeData.abilityDescription);
+                // _runeText2.GetComponent<TextMeshProUGUI>().text = runeData.abilityDescription.ToUpper();
                 
-                _runeName2.GetComponent<TextMeshProUGUI>().text = runeData.cardName.ToUpper();
-                _runeName2.GetComponent<TextMeshProUGUI>().color = Color.black; // remove error color
+                SetText(_runeName2, runeData.cardName);
                 
-                _runeIcon2.GetComponent<Image>().sprite = runeData.mainImage;
+                SetImage(_runeIcon2, runeData.mainImage);
 
                 return;
             }
 
-            if (_creatureStats.currentRune1 != null) // if rune one is bound
+            if (_creatureStats.currentRune1 != null)
             {
-                _currentRune1.GetComponent<Image>().sprite =
-                    runeData.mainImage;
+                SetImage(_currentRuneIcon1, runeData.mainImage); // current rune icon on face
                 
-                _currentRune1.SetActive(true);
+                _currentRuneIcon1.SetActive(true);
                 
-                _runeText1.GetComponent<TextMeshProUGUI>().text = runeData.abilityDescription.ToUpper();
-                _runeText1.GetComponent<TextMeshProUGUI>().color = Color.black; // remove error color
-
-                _runeName1.GetComponent<TextMeshProUGUI>().text = runeData.cardName.ToUpper();
-                _runeName1.GetComponent<TextMeshProUGUI>().color = Color.black; // remove error color
-
-                _runeIcon1.GetComponent<Image>().sprite = runeData.mainImage;
+                // the info text
+                SetText(_runeText1, runeData.abilityDescription);
+                
+                SetText(_runeName1, runeData.cardName);
+                
+                SetImage(_runeIcon1, runeData.mainImage);
             }
         }
     }

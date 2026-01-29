@@ -84,18 +84,6 @@ namespace CardScripts.CardStatss
             creatureDisplay.UpdateUI_Score(newScore);
         }
 
-        public void BindRune(RuneBase rune)
-        {
-            if (currentRune1 == null) // empty
-            {
-                currentRune1 = rune; // goes to RuneChange
-            }
-            else if (currentRune2 == null && overRuneable)
-            {
-                currentRune2 = rune; // goes to RuneChange
-            }
-        }
-
         public void RuneChange(RuneBase oldRune, RuneBase newRune)
         {
             creatureDisplay.DisplayRune(newRune);
