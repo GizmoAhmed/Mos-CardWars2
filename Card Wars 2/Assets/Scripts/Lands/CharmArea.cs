@@ -15,6 +15,8 @@ public class CharmArea : MiddleLand
     [SyncVar]
     public List<GameObject> InUseCharms = new List<GameObject>();
 
+    public override bool IsOccupied => true; 
+    
     public override void SetupNeighbors()
     {
         if (across == null) // then I guess lets just set it here

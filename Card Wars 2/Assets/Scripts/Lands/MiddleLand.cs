@@ -14,6 +14,8 @@ namespace Lands
 
         public GameObject creature;
         public GameObject building;
+        
+        public virtual bool IsOccupied => creature != null; 
 
         // todo current active card, the one on top
 

@@ -14,9 +14,8 @@ namespace CardScripts.CardMovements
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(land))
                 return false;
-            // todo you can place creatures in charm area
-            // return true if one of your own lands, the close ones
-            return land.tileOwner && land.creature == null;
+            
+            return land.tileOwner && land.creature == null && !land.IsOccupied;
         }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not

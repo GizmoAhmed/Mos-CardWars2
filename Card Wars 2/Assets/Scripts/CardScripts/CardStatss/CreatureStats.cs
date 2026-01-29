@@ -29,6 +29,8 @@ namespace CardScripts.CardStatss
         public bool overRuneable;
         
         [SyncVar(hook = nameof(RuneChange))] public RuneBase currentRune2;
+
+        public bool CanBeRuned => (currentRune1 == null) || (overRuneable && currentRune2 == null);
         
         public override void OnStartClient()
         {
