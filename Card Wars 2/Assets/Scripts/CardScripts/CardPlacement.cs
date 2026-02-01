@@ -12,26 +12,26 @@ namespace CardScripts
     // On player object
     public class CardHandler : NetworkBehaviour
     {
-        private GameObject _playingCardGroup1;
-        private GameObject _playingCardGroup2;
+        private GameObject _handGroup1;
+        private GameObject _handGroup2;
 
-        private GameObject _cardBoard1; // your cardboard
-        private GameObject _cardBoard2; // opps card board
+        private GameObject _discardsBoard1; // your cardboard
+        private GameObject _discardsBoard2; // opps card board
 
         public void Init()
         {
-            _playingCardGroup1 = GameObject.Find("PlayingCardGroup1");
-            _playingCardGroup2 = GameObject.Find("PlayingCardGroup2");
+            _handGroup1 = GameObject.Find("Hand1");
+            _handGroup2 = GameObject.Find("Hand2");
 
-            _cardBoard1 = FindObjectOfType<GameManager>().cardBoard1;
-            _cardBoard2 = FindObjectOfType<GameManager>().cardBoard2;
+            _discardsBoard1 = FindObjectOfType<GameManager>().discardsBoardp1;
+            _discardsBoard2 = FindObjectOfType<GameManager>().discardsBoardp2;
 
-            if (_playingCardGroup1 == null || _playingCardGroup2 == null)
+            if (_handGroup1 == null || _handGroup2 == null)
             {
                 Debug.LogError("Group(s) were not set in editor and not found");
             }
 
-            if (_cardBoard1 == null || _cardBoard2 == null)
+            if (_discardsBoard1 == null || _discardsBoard2 == null)
             {
                 Debug.LogError("Card board(s) were not found");
                 return;
@@ -39,7 +39,7 @@ namespace CardScripts
 
             foreach (DeckButton button in FindObjectsOfType<DeckButton>())
             {
-                button.Init(_cardBoard1);
+                button.Init(_discardsBoard1);
             }
         }
 
@@ -48,11 +48,11 @@ namespace CardScripts
         {
             if (isOwned)
             {
-                card.transform.SetParent(_playingCardGroup1.transform, false);
+                card.transform.SetParent(_handGroup1.transform, false);
             }
             else
             {
-                card.transform.SetParent(_playingCardGroup2.transform, false);
+                card.transform.SetParent(_handGroup2.transform, false);
 
                 // hide card in opps hand
                 CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
@@ -66,11 +66,11 @@ namespace CardScripts
         {
             if (isOwned)
             {
-                card.transform.SetParent(_cardBoard1.transform.GetChild(0), false);
+                card.transform.SetParent(_discardsBoard1.transform.GetChild(0), false);
             }
             else
             {
-                card.transform.SetParent(_cardBoard2.transform.GetChild(0), false);
+                card.transform.SetParent(_discardsBoard2.transform.GetChild(0), false);
             }
         }
     }

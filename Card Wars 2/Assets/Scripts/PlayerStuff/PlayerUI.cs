@@ -109,9 +109,11 @@ public class PlayerUI : NetworkBehaviour
     {
         if (!isOwned) return;
 
-        TextMeshProUGUI drawText = _drawsLeft.GetComponent<TextMeshProUGUI>();
+        // Debug.LogWarning("~~ Attempting to update draw cost UI, but we aren't going through with that anymore ~~");
+        
+        // TextMeshProUGUI drawText = _drawsLeft.GetComponent<TextMeshProUGUI>();
 
-        drawText.text = draws.ToString();
+        // drawText.text = draws.ToString();
     }
 
     public void ScoreUIUpdate(int newScore)

@@ -19,7 +19,7 @@ namespace PlayerStuff
         [SyncVar(hook = nameof(MoneyUpdate))] public int money;
 
         [Header("Draws")]
-        [SyncVar(hook = nameof(DrawUpdate))] public int drawCost;
+        [SyncVar(hook = nameof(DrawCostUpdate))] public int drawCost;
 
         [Header("Score")]
         [SyncVar(hook = nameof(ScoreUpdate))] public int score;
@@ -145,7 +145,7 @@ namespace PlayerStuff
             ui.MoneyUIUpdate(newMoney);
         }
 
-        public void DrawUpdate(int oldDraws, int newDraws)
+        public void DrawCostUpdate(int oldDraws, int newDraws)
         {
             ui.DrawUIUpdate(newDraws);
         }

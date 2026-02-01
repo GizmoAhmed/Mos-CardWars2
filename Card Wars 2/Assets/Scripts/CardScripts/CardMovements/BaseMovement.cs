@@ -17,6 +17,7 @@ namespace CardScripts.CardMovements
         public enum CardState
         {
             Deck,
+            Drawing,
             Hand,
             Field,
             Discard

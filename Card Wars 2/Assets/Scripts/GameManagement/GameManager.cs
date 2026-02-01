@@ -30,8 +30,9 @@ public class GameManager : NetworkBehaviour
     public PlayerStats stats0;
     public PlayerStats stats1;
 
-    [Header("Card Boards")] public GameObject cardBoard1;
-    public GameObject cardBoard2;
+    [Header("Card Boards < SET IN EDITOR >")] 
+    public GameObject discardsBoardp1;
+    public GameObject discardsBoardp2;
 
     public List<NetworkConnectionToClient> players = new List<NetworkConnectionToClient>();
 
@@ -42,7 +43,7 @@ public class GameManager : NetworkBehaviour
         turnManager = GetComponentInChildren<TurnManager>();
         turnManager.Init(this);
 
-        if (cardBoard1 == null || cardBoard2 == null)
+        if (discardsBoardp1 == null || discardsBoardp2 == null)
         {
             Debug.LogError("cardBoards were not set in editor and not found");
         }
