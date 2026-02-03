@@ -139,7 +139,7 @@ namespace CardScripts.CardMovements
 
         public void OnClick()
         {
-            Debug.Log($"Clicked on: {gameObject.name}");
+            // Debug.Log($"Clicked on: {gameObject.name}");
 
             _cardDisplay.OnCardClicked();
         }

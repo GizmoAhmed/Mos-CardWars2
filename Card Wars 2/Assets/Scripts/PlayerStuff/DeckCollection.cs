@@ -6,54 +6,59 @@ using UnityEngine;
 
 namespace PlayerStuff
 {
-	public class DeckCollection : NetworkBehaviour
-	{
-		// currently only server player gets to see updated lists
-		public List<GameObject> myDeck;
-	 
-		[Command] public void CmdDrawCard() { DrawCardFromDeck(connectionToClient); }
+    public class DeckCollection : NetworkBehaviour
+    {
+        // currently only server player gets to see updated lists
+        public List<GameObject> myDeck;
 
-		private void DrawCardFromDeck(NetworkConnectionToClient conn)
-		{
-			if (myDeck.Count == 0)
-			{
-				Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't Draw");
-				return;
-			}
+        [Command]
+        public void CmdDrawCard()
+        {
+            DrawCardFromDeck(connectionToClient);
+        }
 
-			Player player = GetComponentInParent<Player>();
+        private void DrawCardFromDeck(NetworkConnectionToClient conn)
+        {
+            if (myDeck.Count == 0)
+            {
+                Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't DrawButton");
+                return;
+            }
 
-			if (player == null)
-			{
-				Debug.LogError("Player is null, can't draw");
-				return;
-			}
+            Player player = GetComponentInParent<Player>();
 
-			if (player.playerStats.money >= player.playerStats.drawCost)
-			{
-				int randomIndex = 0;
-				GameObject cardInstance = myDeck[randomIndex];
-    
-				// add to scene
-				GameObject drawnCard = Instantiate(cardInstance);
+            if (player == null)
+            {
+                Debug.LogError("Player is null, can't draw");
+                return;
+            }
+
+            /*if (!(player.playerStats.money >= player.playerStats.drawCost))
+            {
+                Debug.LogWarning(
+                    $"Player {connectionToClient.connectionId + 1} doesn't have enough money to DrawButton");
+                return;
+            }*/
             
-				// set owner to player who drew it
-				CardStats cardStats = drawnCard.GetComponent<CardStats>();
-				cardStats.thisCardOwner = player.playerStats; 
+            int randomIndex = 0;
+            GameObject cardInstance = myDeck[randomIndex];
 
-				// add it to the server for both players
-				NetworkServer.Spawn(drawnCard, conn);
+            // add to scene
+            GameObject drawnCard = Instantiate(cardInstance);
 
-				player.cardHandler.MoveCardToHand(drawnCard);
-				
-				myDeck.RemoveAt(randomIndex);
-            
-				player.playerStats.money -= player.playerStats.drawCost;
-			}
-			else
-			{
-				Debug.LogWarning($"Player {connectionToClient.connectionId + 1} doesn't have enough money to Draw");
-			}
-		}
-	}
+            // set owner to player who drew it
+            CardStats cardStats = drawnCard.GetComponent<CardStats>();
+            cardStats.thisCardOwner = player.playerStats;
+
+            // add it to the server for both players
+            NetworkServer.Spawn(drawnCard, conn);
+
+            player.cardHandler.MoveCardToHand(drawnCard);
+
+            myDeck.RemoveAt(randomIndex);
+
+            // spend money
+            // player.playerStats.money -= player.playerStats.drawCost;
+        }
+    }
 }

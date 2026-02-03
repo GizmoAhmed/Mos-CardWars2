@@ -18,13 +18,16 @@ public class GameManager : NetworkBehaviour
     [Header("Starting Stats")] public int maxMagic = 6;
     public int money = 20;
     public int drawCost = 1;
+    public int drawChoice = 1;
+    public int drawOffering = 3;
     public int health = 30;
     public int drain = 3;
     public int upgradeCost = 2;
 
     public int roundsToWin = 4;
 
-    [Header("Connected Players")] public NetworkConnectionToClient Player0;
+    [Header("Connected Players")]
+    public NetworkConnectionToClient Player0;
     public NetworkConnectionToClient Player1;
 
     public PlayerStats stats0;
@@ -33,6 +36,7 @@ public class GameManager : NetworkBehaviour
     [Header("Card Boards < SET IN EDITOR >")] 
     public GameObject discardsBoardp1;
     public GameObject discardsBoardp2;
+    public GameObject drawModal;
 
     public List<NetworkConnectionToClient> players = new List<NetworkConnectionToClient>();
 
@@ -124,6 +128,12 @@ public class GameManager : NetworkBehaviour
 
         stats0.drawCost = drawCost;
         stats1.drawCost = drawCost;
+
+        stats0.cardsChosen = drawChoice;
+        stats1.cardsChosen = drawChoice;
+        
+        stats0.cardsOffered = drawOffering;
+        stats1.cardsOffered = drawOffering;
 
         stats0.score = 0;
         stats1.score = 0;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Buttons;
 using Mirror;
 using PlayerStuff;
 using TMPro;
@@ -18,6 +19,7 @@ public class PlayerUI : NetworkBehaviour
     private GameObject _money2;
 
     [Header("Draws")] private GameObject _drawsLeft;
+    private GameObject _drawModalUI;
 
     [Header("Score")] private GameObject _score1;
     private GameObject _score2;
@@ -65,6 +67,13 @@ public class PlayerUI : NetworkBehaviour
         _costText = SafeFind("CostText");
         _drain1 = SafeFind("Drain1");
         _drain2 = SafeFind("Drain2");
+        
+        _drawModalUI = FindObjectOfType<DrawButton>().drawModalObj;
+
+        if (_drawModalUI == null)
+        {
+            Debug.LogError("_drawModalUI is null");
+        }
     }
 
     public void MagicUIUpdate(int magic, bool current_max, bool goingUnder = false)
@@ -81,7 +90,7 @@ public class PlayerUI : NetworkBehaviour
 
         if (stats == null)
         {
-            Debug.LogError($"Stats component not found on this UI component!");
+            Debug.LogError("Stats component not found on this UI component!");
             return;
         }
 
@@ -110,10 +119,54 @@ public class PlayerUI : NetworkBehaviour
         if (!isOwned) return;
 
         // Debug.LogWarning("~~ Attempting to update draw cost UI, but we aren't going through with that anymore ~~");
-        
+
         // TextMeshProUGUI drawText = _drawsLeft.GetComponent<TextMeshProUGUI>();
 
         // drawText.text = draws.ToString();
+    }
+
+    public void ChoiceUIUpdate(int choice)
+    {
+        if(!isOwned) return;
+
+        if (!_drawModalUI.activeInHierarchy) return; // drawModal active?
+
+        if (_drawModalUI == null)
+        {
+            Debug.LogError("_drawModalUI is null");
+        }
+
+        GameObject choiceTextObj = _drawModalUI.transform.Find("ChoiceText").gameObject;
+        
+        if (choiceTextObj == null)
+        {
+            Debug.LogError($"choiceText gameObject couldn't be found on {_drawModalUI.name}");            
+        }
+        
+        TextMeshProUGUI choiceText = choiceTextObj.GetComponent<TextMeshProUGUI>();
+
+        if (choiceText == null)
+        {
+            Debug.LogError($"choiceText couldn't be found on {choiceTextObj.name}");            
+        }
+
+        choiceText.text = choice.ToString();    
+    }
+    
+    public void OfferUIUpdate(int offer)
+    {
+        if(!isOwned) return;
+        
+        if (!_drawModalUI.activeInHierarchy) return; // drawModal active?
+
+        TextMeshProUGUI offerText = _drawModalUI.transform.Find("OfferText").GetComponent<TextMeshProUGUI>();
+    
+        if (offerText == null)
+        {
+            Debug.LogError($"choiceText couldn't be found on {_drawModalUI.name}");            
+        }
+        
+        offerText.text = offer.ToString();    
     }
 
     public void ScoreUIUpdate(int newScore)

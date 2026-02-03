@@ -5,24 +5,23 @@ namespace Buttons
 {
     public class DeckButton : MonoBehaviour
     {
-        public GameObject cardBoard;
+        public GameObject discardBoard;
 
-        public void Init(GameObject c)
+        public void InitDiscardToggle(GameObject c)
         {
-            cardBoard = c;
+            discardBoard = c;
         }
 
         public void ShowBoard()
         {
-            if (cardBoard == null)
+            if (discardBoard == null)
             {
                 Debug.LogError("Card Field is null, cannot be shown.");
                 return;
             }
             
             Debug.Log("Opening Deck...");
-            cardBoard.SetActive(!cardBoard.activeInHierarchy); 
+            discardBoard.SetActive(!discardBoard.activeInHierarchy); 
         }
-
     }
 }

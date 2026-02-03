@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class DiscardButton : NetworkBehaviour
 {
-    public GameObject DiscardBoard;
+    public GameObject discardBoard;
 
-    public void ShowBoard() { DiscardBoard.SetActive(true); }
-    public void HideBoard() { DiscardBoard.SetActive(false); }
+    public void ShowBoard() { discardBoard.SetActive(true); }
+    public void HideBoard() { discardBoard.SetActive(false); }
 }

@@ -18,6 +18,8 @@ namespace CardScripts
         private GameObject _discardsBoard1; // your cardboard
         private GameObject _discardsBoard2; // opps card board
 
+        private GameObject _drawModal;
+
         public void Init()
         {
             _handGroup1 = GameObject.Find("Hand1");
@@ -25,6 +27,8 @@ namespace CardScripts
 
             _discardsBoard1 = FindObjectOfType<GameManager>().discardsBoardp1;
             _discardsBoard2 = FindObjectOfType<GameManager>().discardsBoardp2;
+            
+            _drawModal = FindObjectOfType<GameManager>().drawModal;
 
             if (_handGroup1 == null || _handGroup2 == null)
             {
@@ -39,7 +43,12 @@ namespace CardScripts
 
             foreach (DeckButton button in FindObjectsOfType<DeckButton>())
             {
-                button.Init(_discardsBoard1);
+                button.InitDiscardToggle(_discardsBoard1);
+            }
+
+            foreach (DrawButton draw in FindObjectsOfType<DrawButton>())
+            {
+                draw.InitDrawModal(_drawModal);
             }
         }
 

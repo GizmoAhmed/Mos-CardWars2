@@ -11325,7 +11325,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1938591712}
         m_TargetAssemblyTypeName: Draw, Assembly-CSharp
-        m_MethodName: DrawCard
+        m_MethodName: DrawCardOnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

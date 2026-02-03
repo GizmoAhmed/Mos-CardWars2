@@ -55,7 +55,7 @@ public class Player : NetworkBehaviour
 		myTurn = true;
 
 		// find buttons
-		draw	= FindAnyObjectByType<Draw>().gameObject.GetComponent<Button>();
+		draw	= FindAnyObjectByType<DrawButton>().gameObject.GetComponent<Button>();
 		upgrade = FindAnyObjectByType<UpgradeMagic>().gameObject.GetComponent<Button>();
 		ready	= FindAnyObjectByType<Ready>().gameObject.GetComponent<Button>();
 		

@@ -1,3 +1,4 @@
+using Buttons;
 using CardScripts;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
@@ -18,9 +19,6 @@ namespace PlayerStuff
         [Header("Money")]
         [SyncVar(hook = nameof(MoneyUpdate))] public int money;
 
-        [Header("Draws")]
-        [SyncVar(hook = nameof(DrawCostUpdate))] public int drawCost;
-
         [Header("Score")]
         [SyncVar(hook = nameof(ScoreUpdate))] public int score;
 
@@ -37,6 +35,11 @@ namespace PlayerStuff
         [Header("Upgrade Cost")]
         [SyncVar(hook = nameof(UpgradeCostUpdate))] public int upgradeCost;
     
+        [Header("DrawButton Parameters")]
+        [SyncVar(hook = nameof(DrawCostUpdate))] public int drawCost;
+        [SyncVar(hook = nameof(ChoiceUpdate))] public int cardsChosen;
+        [SyncVar(hook = nameof(OfferUpdate))] public int cardsOffered;
+        
         public void InitUI()
         {
             ui = GetComponent<PlayerUI>();
@@ -50,6 +53,11 @@ namespace PlayerStuff
             {
                 Debug.Log("[SERVER] PlayerStats UI component initialized.");
             }
+
+            /*foreach (DrawParamsButton buttons in FindObjectsOfType<DrawParamsButton>())
+            {
+                buttons.Init(this);
+            }*/
         }
     
         [Command]
@@ -148,6 +156,16 @@ namespace PlayerStuff
         public void DrawCostUpdate(int oldDraws, int newDraws)
         {
             ui.DrawUIUpdate(newDraws);
+        }
+
+        public void ChoiceUpdate(int old, int n)
+        {
+            ui.ChoiceUIUpdate(n);
+        }
+
+        public void OfferUpdate(int o, int n)
+        {
+            ui.OfferUIUpdate(n);
         }
 
         public void ScoreUpdate(int oldScore, int newScore)
