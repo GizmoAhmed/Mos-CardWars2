@@ -6,21 +6,12 @@ namespace Buttons
 {
     public class DrawParamsButton : NetworkBehaviour
     {
-        // private PlayerStats _player;
+        private DrawModal drawModal;
         
-        // if increasing or decreasing choice or offer respectively to where,
-        // offer <= choice, don't do it
-        /*private bool CanChangeSelectionParams => !(_player.cardsOffered - 1 <= _player.cardsChosen);
-
-        public void Init(PlayerStats player)
+        public void InitButton(DrawModal d)
         {
-            _player = player;
-            
-            if (_player == null)
-            {
-                Debug.LogError("Tried to init with a PlayerStats, but it was null");
-            }
-        }*/
+            drawModal = d;
+        }
 
         public void IncreaseOffering()
         {

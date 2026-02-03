@@ -56,7 +56,7 @@ namespace PlayerStuff
 
             /*foreach (DrawParamsButton buttons in FindObjectsOfType<DrawParamsButton>())
             {
-                buttons.Init(this);
+                buttons.InitButton(this);
             }*/
         }
     

@@ -23,8 +23,9 @@ namespace Buttons
                 Debug.LogError("DrawModal is null, must've not been set in the GameManager");
                 return;
             }
-            
-            drawModalObj.SetActive(!drawModalObj.activeInHierarchy);
+
+            if (!drawModalObj.activeInHierarchy) drawModalObj.GetComponent<DrawModal>().OnOpen();
+            else                                drawModalObj.GetComponent<DrawModal>().OnClose();
         }
 
         public void DrawCardOnClick()
