@@ -63,8 +63,8 @@ public class TurnManager : NetworkBehaviour
     [Server]
     public void StartGame()
     {
-        DisablePlayer(gameManager.Player0, whoFirst);
-        DisablePlayer(gameManager.Player1, !whoFirst);
+        DisablePlayer(gameManager.Player1, whoFirst);
+        DisablePlayer(gameManager.Player2, !whoFirst);
 
         _currentTurn = 1;
         turnUI.text = "TURN: " + _currentTurn;
@@ -94,13 +94,13 @@ public class TurnManager : NetworkBehaviour
     [Server]
     public void SwapPhase()
     {
-        _lastPlayed = gameManager.Player0.identity.GetComponent<Player>().myTurn ? 0 : 1;
+        _lastPlayed = gameManager.Player1.identity.GetComponent<Player>().myTurn ? 0 : 1;
 
-        DisablePlayer(gameManager.Player0, false);
         DisablePlayer(gameManager.Player1, false);
+        DisablePlayer(gameManager.Player2, false);
 
-        PlayerStats stats0 = gameManager.Player0.identity.GetComponent<PlayerStats>();
-        PlayerStats stats1 = gameManager.Player1.identity.GetComponent<PlayerStats>();
+        PlayerStats stats0 = gameManager.Player1.identity.GetComponent<PlayerStats>();
+        PlayerStats stats1 = gameManager.Player2.identity.GetComponent<PlayerStats>();
 
         stats0.DrainHealth();
         stats1.DrainHealth();
@@ -117,8 +117,8 @@ public class TurnManager : NetworkBehaviour
     {
         Debug.Log("Checking Scores...");
         
-        PlayerStats stats0 = gameManager.Player0.identity.GetComponent<PlayerStats>();
-        PlayerStats stats1 = gameManager.Player1.identity.GetComponent<PlayerStats>();
+        PlayerStats stats0 = gameManager.Player1.identity.GetComponent<PlayerStats>();
+        PlayerStats stats1 = gameManager.Player2.identity.GetComponent<PlayerStats>();
 
         bool p0Cleared = stats0.score >= stats0.health;
         bool p1Cleared = stats1.score >= stats1.health;
@@ -149,9 +149,9 @@ public class TurnManager : NetworkBehaviour
 
         // Game Win condition check
         if (stats0.roundsWon == gameManager.roundsToWin)
-            gameManager.GameWin(gameManager.Player0);
-        else if (stats1.roundsWon == gameManager.roundsToWin)
             gameManager.GameWin(gameManager.Player1);
+        else if (stats1.roundsWon == gameManager.roundsToWin)
+            gameManager.GameWin(gameManager.Player2);
     }
 
     [Server]
@@ -161,13 +161,13 @@ public class TurnManager : NetworkBehaviour
 
         if (_lastPlayed == 0)
         {
-            DisablePlayer(gameManager.Player0, true);
-            DisablePlayer(gameManager.Player1, false);
+            DisablePlayer(gameManager.Player1, true);
+            DisablePlayer(gameManager.Player2, false);
         }
         else
         {
-            DisablePlayer(gameManager.Player0, false);
-            DisablePlayer(gameManager.Player1, true);
+            DisablePlayer(gameManager.Player1, false);
+            DisablePlayer(gameManager.Player2, true);
         }
     }
 }

@@ -946,7 +946,7 @@ GameObject:
   - component: {fileID: 173112105}
   - component: {fileID: 173112104}
   m_Layer: 8
-  m_Name: ChooseXOfYCardsText
+  m_Name: FREE_ChooseXOfYCardsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2479,7 +2479,7 @@ GameObject:
   - component: {fileID: 473185085}
   - component: {fileID: 473185084}
   m_Layer: 8
-  m_Name: OfferText
+  m_Name: FreeOfferText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9102,6 +9102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freeDrawsLeftTextObj: {fileID: 194793680}
+  freeChoiceTextObj: {fileID: 1967649468}
+  freeOfferTextObj: {fileID: 473185082}
 --- !u!1 &1900669664
 GameObject:
   m_ObjectHideFlags: 0
@@ -9708,7 +9710,7 @@ GameObject:
   - component: {fileID: 1967649471}
   - component: {fileID: 1967649470}
   m_Layer: 8
-  m_Name: ChoiceText
+  m_Name: FreeChoiceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

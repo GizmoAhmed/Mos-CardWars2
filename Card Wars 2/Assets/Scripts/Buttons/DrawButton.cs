@@ -11,9 +11,6 @@ namespace Buttons
         public void InitDrawModal(GameObject d)
         {
             drawModalObj = d;
-
-            // NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-            // _player = networkIdentity.GetComponent<Player>();
         }
 
         public void ToggleDrawModal()
@@ -24,8 +21,8 @@ namespace Buttons
                 return;
             }
 
-            if (!drawModalObj.activeInHierarchy) drawModalObj.GetComponent<DrawModal>().OnOpen();
-            else                                drawModalObj.GetComponent<DrawModal>().OnClose();
+            if (!drawModalObj.activeInHierarchy)    drawModalObj.GetComponent<DrawModal>().OpenDrawModal();
+            else                                    drawModalObj.GetComponent<DrawModal>().CloseDrawModal();
         }
 
         public void DrawCardOnClick()

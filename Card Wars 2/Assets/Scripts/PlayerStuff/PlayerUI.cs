@@ -127,48 +127,30 @@ public class PlayerUI : NetworkBehaviour
         _drawModalUI.GetComponent<DrawModal>().SetFreeDrawsLeft(draws);
     }
 
-    public void ChoiceUIUpdate(int choice)
+    public void FreeChoiceUIUpdate(int choice)
     {
-        /*if(!isOwned) return;
-
-        if (!_drawModalUI.activeInHierarchy) return; // drawModal active?
+        if(!isOwned) return;
 
         if (_drawModalUI == null)
         {
-            Debug.LogError("_drawModalUI is null");
+            Debug.LogError("_drawModalUI is null for some reason");
+            return;
         }
 
-        GameObject choiceTextObj = _drawModalUI.transform.Find("ChoiceText").gameObject;
-        
-        if (choiceTextObj == null)
-        {
-            Debug.LogError($"choiceText gameObject couldn't be found on {_drawModalUI.name}");            
-        }
-        
-        TextMeshProUGUI choiceText = choiceTextObj.GetComponent<TextMeshProUGUI>();
-
-        if (choiceText == null)
-        {
-            Debug.LogError($"choiceText couldn't be found on {choiceTextObj.name}");            
-        }
-
-        choiceText.text = choice.ToString();  */  
+        _drawModalUI.GetComponent<DrawModal>().SetFreeChoice(choice);
     }
     
-    public void OfferUIUpdate(int offer)
+    public void FreeOfferUIUpdate(int offer)
     {
-        /*if(!isOwned) return;
-        
-        if (!_drawModalUI.activeInHierarchy) return; // drawModal active?
+        if(!isOwned) return;
 
-        TextMeshProUGUI offerText = _drawModalUI.transform.Find("OfferText").GetComponent<TextMeshProUGUI>();
-    
-        if (offerText == null)
+        if (_drawModalUI == null)
         {
-            Debug.LogError($"choiceText couldn't be found on {_drawModalUI.name}");            
+            Debug.LogError("_drawModalUI is null for some reason");
+            return;
         }
-        
-        offerText.text = offer.ToString(); */   
+
+        _drawModalUI.GetComponent<DrawModal>().SetFreeOffer(offer);   
     }
 
     public void ScoreUIUpdate(int newScore)

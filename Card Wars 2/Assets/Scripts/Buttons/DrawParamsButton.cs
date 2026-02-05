@@ -35,7 +35,7 @@ namespace Buttons
         public void DecreaseChoice()
         {
             // can't have zero choices
-            // if (_player.cardsChosen == 1) return;
+            // if (_player.freeCardsChosen == 1) return;
 
             CmdUpdateChoice(-1);
         }
@@ -49,7 +49,7 @@ namespace Buttons
                 return;
             }
             
-            // _player.cardsChosen += i;
+            // _player.freeCardsChosen += i;
         }
         
         [Command]
@@ -61,7 +61,7 @@ namespace Buttons
                 return;
             }
             
-            //_player.cardsOffered += i;
+            //_player.freeCardsOffered += i;
         }
     }
 }

@@ -37,8 +37,8 @@ namespace PlayerStuff
     
         [Header("Free Draw Parameters")]
         [SyncVar(hook = nameof(FreeDrawsLeftUpdate))] public int freeDrawsLeft;
-        [SyncVar(hook = nameof(ChoiceUpdate))] public int cardsChosen;
-        [SyncVar(hook = nameof(OfferUpdate))] public int cardsOffered;
+        [SyncVar(hook = nameof(ChoiceUpdate))] public int freeCardsChosen;
+        [SyncVar(hook = nameof(OfferUpdate))] public int freeCardsOffered;
         
         public void InitUI()
         {
@@ -160,12 +160,12 @@ namespace PlayerStuff
 
         public void ChoiceUpdate(int old, int n)
         {
-            // ui.ChoiceUIUpdate(n);
+            ui.FreeChoiceUIUpdate(n);
         }
 
         public void OfferUpdate(int o, int n)
         {
-            // ui.OfferUIUpdate(n);
+            ui.FreeOfferUIUpdate(n);
         }
 
         public void ScoreUpdate(int oldScore, int newScore)

@@ -27,11 +27,11 @@ public class GameManager : NetworkBehaviour
     public int roundsToWin = 4;
 
     [Header("Connected Players")]
-    public NetworkConnectionToClient Player0;
     public NetworkConnectionToClient Player1;
+    public NetworkConnectionToClient Player2;
 
-    public PlayerStats stats0;
     public PlayerStats stats1;
+    public PlayerStats stats2;
 
     [Header("Card Boards < SET IN EDITOR >")] 
     public GameObject discardsBoardp1;
@@ -77,8 +77,8 @@ public class GameManager : NetworkBehaviour
              * 'If you want each player to get their own independent copy of the master deck,
              *  you need to clone the list instead of assigning the reference.'
              */
-            Player0.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
             Player1.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
+            Player2.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
         }
     }
 
@@ -90,15 +90,15 @@ public class GameManager : NetworkBehaviour
     {
         foreach (var conn in NetworkServer.connections.Values)
         {
-            if (Player0 is null)
-            {
-                Player0 = conn;
-                turnManager.DisablePlayer(Player0, false); // disable upon arrival
-            }
-            else
+            if (Player1 is null)
             {
                 Player1 = conn;
                 turnManager.DisablePlayer(Player1, false); // disable upon arrival
+            }
+            else
+            {
+                Player2 = conn;
+                turnManager.DisablePlayer(Player2, false); // disable upon arrival
             }
 
             players.Add(conn);
@@ -108,41 +108,41 @@ public class GameManager : NetworkBehaviour
     [Server]
     private void StartPlayerStats()
     {
-        stats0 = Player0.identity.GetComponent<PlayerStats>();
         stats1 = Player1.identity.GetComponent<PlayerStats>();
+        stats2 = Player2.identity.GetComponent<PlayerStats>();
 
-        stats0.currentMagic = stats0.maxMagic = maxMagic + 2;
-        stats1.currentMagic = stats1.maxMagic = maxMagic;
+        stats1.currentMagic = stats1.maxMagic = maxMagic + 2;
+        stats2.currentMagic = stats2.maxMagic = maxMagic;
 
-        stats0.money = money;
         stats1.money = money;
+        stats2.money = money;
 
-        stats0.health = health;
         stats1.health = health;
+        stats2.health = health;
 
-        stats0.drain = drain;
         stats1.drain = drain;
+        stats2.drain = drain;
 
-        stats0.upgradeCost = upgradeCost;
         stats1.upgradeCost = upgradeCost;
+        stats2.upgradeCost = upgradeCost;
 
-        stats0.freeDrawsLeft = defaultFreeDraws;
         stats1.freeDrawsLeft = defaultFreeDraws;
+        stats2.freeDrawsLeft = defaultFreeDraws;
 
-        stats0.cardsChosen = defaultDrawChoices;
-        stats1.cardsChosen = defaultDrawChoices;
+        stats1.freeCardsChosen = defaultDrawChoices;
+        stats2.freeCardsChosen = defaultDrawChoices;
         
-        stats0.cardsOffered = defaultDrawOffering;
-        stats1.cardsOffered = defaultDrawOffering;
+        stats1.freeCardsOffered = defaultDrawOffering;
+        stats2.freeCardsOffered = defaultDrawOffering;
 
-        stats0.score = 0;
         stats1.score = 0;
+        stats2.score = 0;
 
-        stats0.roundsWon = 0;
         stats1.roundsWon = 0;
+        stats2.roundsWon = 0;
 
-        stats0.roundsRequired = roundsToWin;
         stats1.roundsRequired = roundsToWin;
+        stats2.roundsRequired = roundsToWin;
     }
 
     public void RoundWin(PlayerStats winningPlayer)
@@ -154,8 +154,8 @@ public class GameManager : NetworkBehaviour
         Purge();
 
         // reset health
-        stats0.health = health + 10; // +10 for now since we aren't purging
-        stats1.health = health + 10;
+        stats1.health = health + 10; // +10 for now since we aren't purging
+        stats2.health = health + 10;
     }
 
     public void GameWin(NetworkConnectionToClient winner)
@@ -168,5 +168,29 @@ public class GameManager : NetworkBehaviour
         Debug.Log($"Purging creatures and buildings");
 
         // todo find object of type, run discard on each
+    }
+
+    [ContextMenu("Increase Player 1 Choice")]
+    public void IncreasePlayer1Choice()
+    {
+        stats1.freeCardsChosen += 1;
+    }
+    
+    [ContextMenu("Increase Player 1 Offer")]
+    public void IncreasePlayer1Offer()
+    {
+        stats1.freeCardsOffered += 1;
+    }
+    
+    [ContextMenu("Increase Player 2 Choice")]
+    public void IncreasePlayer2Choice()
+    {
+        stats2.freeCardsChosen += 1;
+    }
+    
+    [ContextMenu("Increase Player 2 Offer")]
+    public void IncreasePlayer2Offer()
+    {
+        stats2.freeCardsOffered += 1;
     }
 }

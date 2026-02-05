@@ -7,8 +7,10 @@ namespace PlayerStuff
     public class DrawModal : MonoBehaviour
     {
         public GameObject freeDrawsLeftTextObj;
+        public GameObject freeChoiceTextObj;
+        public GameObject freeOfferTextObj;
         
-        // private bool CanChangeSelectionParams => !(_player.cardsOffered - 1 <= _player.cardsChosen);
+        // private bool CanChangeSelectionParams => !(_player.freeCardsOffered - 1 <= _player.freeCardsChosen);
     
         void Start()
         {
@@ -23,17 +25,25 @@ namespace PlayerStuff
             {
                 Debug.LogError($"freeDrawsLeftTextObj is null, make sure to set on {gameObject.name} in the inspector");
             }
+
+            if (freeChoiceTextObj == null)
+            {
+                Debug.LogError($"freeChoiceTextObj is null, make sure to set on {gameObject.name}");
+            }
+
+            if (freeOfferTextObj == null)
+            {
+                Debug.LogError($"freeOfferTextObj is null, make sure to set on {gameObject.name}");
+            }
         }
 
-        public void OnOpen()
+        public void OpenDrawModal()
         {
-            // Debug.Log($"Opening {gameObject.name}...");
             gameObject.SetActive(true);
         }
 
-        public void OnClose()
+        public void CloseDrawModal()
         {
-            // Debug.Log($"Closing {gameObject.name}...");
             gameObject.SetActive(false);
         }
 
@@ -46,6 +56,28 @@ namespace PlayerStuff
             }
             
             freeDrawsLeftTextObj.GetComponent<TextMeshProUGUI>().text = draws.ToString();
+        }
+
+        public void SetFreeChoice(int choice)
+        {
+            if (freeChoiceTextObj == null)
+            {
+                Debug.LogError("freeChoiceTextObj is null");
+                return;
+            }
+            
+            freeChoiceTextObj.GetComponent<TextMeshProUGUI>().text = choice.ToString();
+        }
+
+        public void SetFreeOffer(int offer)
+        {
+            if (freeOfferTextObj == null)
+            {
+                Debug.LogError("freeOfferTextObj is null");
+                return;
+            }
+            
+            freeOfferTextObj.GetComponent<TextMeshProUGUI>().text = offer.ToString();
         }
     }
 }
