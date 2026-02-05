@@ -34,7 +34,7 @@ namespace PlayerStuff
 
         [Header("Upgrade Cost")]
         [SyncVar(hook = nameof(UpgradeCostUpdate))] public int upgradeCost;
-    
+
         [Header("Free Draw Parameters")]
         [SyncVar(hook = nameof(FreeDrawsLeftUpdate))] public int freeDrawsLeft;
         [SyncVar(hook = nameof(ChoiceUpdate))] public int freeCardsChosen;
@@ -53,11 +53,6 @@ namespace PlayerStuff
             {
                 Debug.Log("[SERVER] PlayerStats UI component initialized.");
             }
-
-            /*foreach (DrawParamsButton buttons in FindObjectsOfType<DrawParamsButton>())
-            {
-                buttons.InitButton(this);
-            }*/
         }
     
         [Command]
@@ -112,6 +107,27 @@ namespace PlayerStuff
         {
             if (!isServer) return;
             score += amount;
+        }
+
+        [Command]
+        public void CmdRequestFreeDraw()
+        {
+            if (freeDrawsLeft <= 0)
+            {
+                Debug.LogWarning($"{gameObject.name} tried to free-draw with no draws left");
+                return;
+            }
+
+            freeDrawsLeft--;
+            
+            TargetGenerateFreeCards(connectionToClient);
+        }
+
+        [TargetRpc]
+        private void TargetGenerateFreeCards(NetworkConnection target)
+        {
+            DrawModal modal = FindObjectOfType<DrawModal>();
+            modal.GenerateFreeCards();
         }
 
         public void CurrentMagicUpdate(int oldMagic, int newMagic)

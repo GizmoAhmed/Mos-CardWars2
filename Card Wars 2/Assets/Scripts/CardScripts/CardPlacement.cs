@@ -28,7 +28,7 @@ namespace CardScripts
             _discardsBoard1 = FindObjectOfType<GameManager>().discardsBoardp1;
             _discardsBoard2 = FindObjectOfType<GameManager>().discardsBoardp2;
             
-            _drawModal = FindObjectOfType<GameManager>().drawModal;
+            _drawModal = FindObjectOfType<GameManager>().gmVisibleDrawModal;
 
             if (_handGroup1 == null || _handGroup2 == null)
             {

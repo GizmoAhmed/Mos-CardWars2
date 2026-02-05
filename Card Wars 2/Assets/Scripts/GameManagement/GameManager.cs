@@ -30,13 +30,13 @@ public class GameManager : NetworkBehaviour
     public NetworkConnectionToClient Player1;
     public NetworkConnectionToClient Player2;
 
-    public PlayerStats stats1;
-    public PlayerStats stats2;
+    private PlayerStats _stats1;
+    private PlayerStats _stats2;
 
-    [Header("Card Boards < SET IN EDITOR >")] 
+    [Header("Modals < SET IN EDITOR >")] 
     public GameObject discardsBoardp1;
     public GameObject discardsBoardp2;
-    public GameObject drawModal;
+    public GameObject gmVisibleDrawModal;
 
     public List<NetworkConnectionToClient> players = new List<NetworkConnectionToClient>();
 
@@ -50,6 +50,11 @@ public class GameManager : NetworkBehaviour
         if (discardsBoardp1 == null || discardsBoardp2 == null)
         {
             Debug.LogError("cardBoards were not set in editor and not found");
+        }
+
+        if (gmVisibleDrawModal == null)
+        {
+            Debug.LogError("gmVisibleDrawModal was not set in editor and therefore not found");
         }
     }
 
@@ -79,6 +84,10 @@ public class GameManager : NetworkBehaviour
              */
             Player1.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
             Player2.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
+
+            // give players there draw modals
+            // Player1.identity.GetComponent<PlayerStats>().drawModal = gmVisibleDrawModal.GetComponent<DrawModal>();
+            // Player2.identity.GetComponent<PlayerStats>().drawModal = gmVisibleDrawModal.GetComponent<DrawModal>();
         }
     }
 
@@ -108,41 +117,41 @@ public class GameManager : NetworkBehaviour
     [Server]
     private void StartPlayerStats()
     {
-        stats1 = Player1.identity.GetComponent<PlayerStats>();
-        stats2 = Player2.identity.GetComponent<PlayerStats>();
+        _stats1 = Player1.identity.GetComponent<PlayerStats>();
+        _stats2 = Player2.identity.GetComponent<PlayerStats>();
 
-        stats1.currentMagic = stats1.maxMagic = maxMagic + 2;
-        stats2.currentMagic = stats2.maxMagic = maxMagic;
+        _stats1.currentMagic = _stats1.maxMagic = maxMagic + 2;
+        _stats2.currentMagic = _stats2.maxMagic = maxMagic;
 
-        stats1.money = money;
-        stats2.money = money;
+        _stats1.money = money;
+        _stats2.money = money;
 
-        stats1.health = health;
-        stats2.health = health;
+        _stats1.health = health;
+        _stats2.health = health;
 
-        stats1.drain = drain;
-        stats2.drain = drain;
+        _stats1.drain = drain;
+        _stats2.drain = drain;
 
-        stats1.upgradeCost = upgradeCost;
-        stats2.upgradeCost = upgradeCost;
+        _stats1.upgradeCost = upgradeCost;
+        _stats2.upgradeCost = upgradeCost;
 
-        stats1.freeDrawsLeft = defaultFreeDraws;
-        stats2.freeDrawsLeft = defaultFreeDraws;
+        _stats1.freeDrawsLeft = defaultFreeDraws;
+        _stats2.freeDrawsLeft = defaultFreeDraws;
 
-        stats1.freeCardsChosen = defaultDrawChoices;
-        stats2.freeCardsChosen = defaultDrawChoices;
+        _stats1.freeCardsChosen = defaultDrawChoices;
+        _stats2.freeCardsChosen = defaultDrawChoices;
         
-        stats1.freeCardsOffered = defaultDrawOffering;
-        stats2.freeCardsOffered = defaultDrawOffering;
+        _stats1.freeCardsOffered = defaultDrawOffering;
+        _stats2.freeCardsOffered = defaultDrawOffering;
 
-        stats1.score = 0;
-        stats2.score = 0;
+        _stats1.score = 0;
+        _stats2.score = 0;
 
-        stats1.roundsWon = 0;
-        stats2.roundsWon = 0;
+        _stats1.roundsWon = 0;
+        _stats2.roundsWon = 0;
 
-        stats1.roundsRequired = roundsToWin;
-        stats2.roundsRequired = roundsToWin;
+        _stats1.roundsRequired = roundsToWin;
+        _stats2.roundsRequired = roundsToWin;
     }
 
     public void RoundWin(PlayerStats winningPlayer)
@@ -154,8 +163,8 @@ public class GameManager : NetworkBehaviour
         Purge();
 
         // reset health
-        stats1.health = health + 10; // +10 for now since we aren't purging
-        stats2.health = health + 10;
+        _stats1.health = health + 10; // +10 for now since we aren't purging
+        _stats2.health = health + 10;
     }
 
     public void GameWin(NetworkConnectionToClient winner)
@@ -173,24 +182,36 @@ public class GameManager : NetworkBehaviour
     [ContextMenu("Increase Player 1 Choice")]
     public void IncreasePlayer1Choice()
     {
-        stats1.freeCardsChosen += 1;
+        _stats1.freeCardsChosen += 1;
     }
     
     [ContextMenu("Increase Player 1 Offer")]
     public void IncreasePlayer1Offer()
     {
-        stats1.freeCardsOffered += 1;
+        _stats1.freeCardsOffered += 1;
     }
     
     [ContextMenu("Increase Player 2 Choice")]
     public void IncreasePlayer2Choice()
     {
-        stats2.freeCardsChosen += 1;
+        _stats2.freeCardsChosen += 1;
     }
     
     [ContextMenu("Increase Player 2 Offer")]
     public void IncreasePlayer2Offer()
     {
-        stats2.freeCardsOffered += 1;
+        _stats2.freeCardsOffered += 1;
+    }
+    
+    [ContextMenu("Increase Player 1 draws left")]
+    public void IncreasePlayer1DrawsLeft()
+    {
+        _stats1.freeDrawsLeft += 1;
+    }
+    
+    [ContextMenu("Increase Player 2 draws left")]
+    public void IncreasePlayer2DrawsLeft()
+    {
+        _stats2.freeDrawsLeft += 1;
     }
 }

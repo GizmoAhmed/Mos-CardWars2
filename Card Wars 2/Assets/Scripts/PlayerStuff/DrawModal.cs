@@ -1,4 +1,5 @@
 using Buttons;
+using Mirror;
 using TMPro;
 using UnityEngine;
 
@@ -7,8 +8,16 @@ namespace PlayerStuff
     public class DrawModal : MonoBehaviour
     {
         public GameObject freeDrawsLeftTextObj;
+        
         public GameObject freeChoiceTextObj;
+        private int _freeChoice;
+        
         public GameObject freeOfferTextObj;
+        private int _freeOffer;
+        
+        private int _drawCost;
+        private int _paidChoice;
+        private int _paidOffer;
         
         // private bool CanChangeSelectionParams => !(_player.freeCardsOffered - 1 <= _player.freeCardsChosen);
     
@@ -18,7 +27,7 @@ namespace PlayerStuff
             foreach (DrawParamsButton button in transform.GetComponentsInChildren<DrawParamsButton>())
             {
                 button.InitButton(this);
-                Debug.Log($"{button.name} initialized with {gameObject.name}");
+                // Debug.Log($"{button.name} initialized with {gameObject.name}");
             }
 
             if (freeDrawsLeftTextObj == null)
@@ -45,9 +54,10 @@ namespace PlayerStuff
         public void CloseDrawModal()
         {
             gameObject.SetActive(false);
+            // R*E*S*E*T
         }
 
-        public void SetFreeDrawsLeft(int draws)
+        public void SetFreeDrawsLeft(int drawsPlayerStat)
         {
             if (freeDrawsLeftTextObj == null)
             {
@@ -55,10 +65,10 @@ namespace PlayerStuff
                 return;
             }
             
-            freeDrawsLeftTextObj.GetComponent<TextMeshProUGUI>().text = draws.ToString();
+            freeDrawsLeftTextObj.GetComponent<TextMeshProUGUI>().text = drawsPlayerStat.ToString();
         }
 
-        public void SetFreeChoice(int choice)
+        public void SetFreeChoice(int choicePlayerStat)
         {
             if (freeChoiceTextObj == null)
             {
@@ -66,10 +76,11 @@ namespace PlayerStuff
                 return;
             }
             
-            freeChoiceTextObj.GetComponent<TextMeshProUGUI>().text = choice.ToString();
+            freeChoiceTextObj.GetComponent<TextMeshProUGUI>().text = choicePlayerStat.ToString();
+            _freeChoice = choicePlayerStat;
         }
 
-        public void SetFreeOffer(int offer)
+        public void SetFreeOffer(int offerPlayerStat)
         {
             if (freeOfferTextObj == null)
             {
@@ -77,7 +88,19 @@ namespace PlayerStuff
                 return;
             }
             
-            freeOfferTextObj.GetComponent<TextMeshProUGUI>().text = offer.ToString();
+            freeOfferTextObj.GetComponent<TextMeshProUGUI>().text = offerPlayerStat.ToString();
+            _freeOffer = offerPlayerStat;
+        }
+
+        // draws left math already decided in PlayerStats.CmdRequestFreeDraw()
+        public void GenerateFreeCards()
+        {
+            Debug.Log($"Generating: Please choose {_freeChoice} of {_freeOffer} cards");
+        }
+        
+        public void GeneratePaidCards()
+        {
+            
         }
     }
 }
