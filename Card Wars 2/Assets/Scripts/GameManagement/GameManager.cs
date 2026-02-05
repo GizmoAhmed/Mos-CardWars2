@@ -17,9 +17,9 @@ public class GameManager : NetworkBehaviour
 
     [Header("Starting Stats")] public int maxMagic = 6;
     public int money = 20;
-    public int drawCost = 1;
-    public int drawChoice = 1;
-    public int drawOffering = 3;
+    public int defaultFreeDraws = 1;
+    public int defaultDrawChoices = 1;
+    public int defaultDrawOffering = 3;
     public int health = 30;
     public int drain = 3;
     public int upgradeCost = 2;
@@ -126,14 +126,14 @@ public class GameManager : NetworkBehaviour
         stats0.upgradeCost = upgradeCost;
         stats1.upgradeCost = upgradeCost;
 
-        stats0.drawCost = drawCost;
-        stats1.drawCost = drawCost;
+        stats0.freeDrawsLeft = defaultFreeDraws;
+        stats1.freeDrawsLeft = defaultFreeDraws;
 
-        stats0.cardsChosen = drawChoice;
-        stats1.cardsChosen = drawChoice;
+        stats0.cardsChosen = defaultDrawChoices;
+        stats1.cardsChosen = defaultDrawChoices;
         
-        stats0.cardsOffered = drawOffering;
-        stats1.cardsOffered = drawOffering;
+        stats0.cardsOffered = defaultDrawOffering;
+        stats1.cardsOffered = defaultDrawOffering;
 
         stats0.score = 0;
         stats1.score = 0;

@@ -35,8 +35,8 @@ namespace PlayerStuff
         [Header("Upgrade Cost")]
         [SyncVar(hook = nameof(UpgradeCostUpdate))] public int upgradeCost;
     
-        [Header("DrawButton Parameters")]
-        [SyncVar(hook = nameof(DrawCostUpdate))] public int drawCost;
+        [Header("Free Draw Parameters")]
+        [SyncVar(hook = nameof(FreeDrawsLeftUpdate))] public int freeDrawsLeft;
         [SyncVar(hook = nameof(ChoiceUpdate))] public int cardsChosen;
         [SyncVar(hook = nameof(OfferUpdate))] public int cardsOffered;
         
@@ -153,19 +153,19 @@ namespace PlayerStuff
             ui.MoneyUIUpdate(newMoney);
         }
 
-        public void DrawCostUpdate(int oldDraws, int newDraws)
+        public void FreeDrawsLeftUpdate(int oldDraws, int newDraws)
         {
-            ui.DrawUIUpdate(newDraws);
+            ui.FreeDrawsUpdate(newDraws);
         }
 
         public void ChoiceUpdate(int old, int n)
         {
-            ui.ChoiceUIUpdate(n);
+            // ui.ChoiceUIUpdate(n);
         }
 
         public void OfferUpdate(int o, int n)
         {
-            ui.OfferUIUpdate(n);
+            // ui.OfferUIUpdate(n);
         }
 
         public void ScoreUpdate(int oldScore, int newScore)

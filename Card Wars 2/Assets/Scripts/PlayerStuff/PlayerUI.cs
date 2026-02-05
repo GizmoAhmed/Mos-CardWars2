@@ -114,20 +114,22 @@ public class PlayerUI : NetworkBehaviour
         moneyText.text = newMoney.ToString();
     }
 
-    public void DrawUIUpdate(int draws)
+    public void FreeDrawsUpdate(int draws)
     {
         if (!isOwned) return;
+        
+        if (_drawModalUI == null)
+        {
+            Debug.LogError("_drawModalUI is null for some reason");
+            return;
+        }
 
-        // Debug.LogWarning("~~ Attempting to update draw cost UI, but we aren't going through with that anymore ~~");
-
-        // TextMeshProUGUI drawText = _drawsLeft.GetComponent<TextMeshProUGUI>();
-
-        // drawText.text = draws.ToString();
+        _drawModalUI.GetComponent<DrawModal>().SetFreeDrawsLeft(draws);
     }
 
     public void ChoiceUIUpdate(int choice)
     {
-        if(!isOwned) return;
+        /*if(!isOwned) return;
 
         if (!_drawModalUI.activeInHierarchy) return; // drawModal active?
 
@@ -150,12 +152,12 @@ public class PlayerUI : NetworkBehaviour
             Debug.LogError($"choiceText couldn't be found on {choiceTextObj.name}");            
         }
 
-        choiceText.text = choice.ToString();    
+        choiceText.text = choice.ToString();  */  
     }
     
     public void OfferUIUpdate(int offer)
     {
-        if(!isOwned) return;
+        /*if(!isOwned) return;
         
         if (!_drawModalUI.activeInHierarchy) return; // drawModal active?
 
@@ -166,7 +168,7 @@ public class PlayerUI : NetworkBehaviour
             Debug.LogError($"choiceText couldn't be found on {_drawModalUI.name}");            
         }
         
-        offerText.text = offer.ToString();    
+        offerText.text = offer.ToString(); */   
     }
 
     public void ScoreUIUpdate(int newScore)

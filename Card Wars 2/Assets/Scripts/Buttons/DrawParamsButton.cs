@@ -6,11 +6,11 @@ namespace Buttons
 {
     public class DrawParamsButton : NetworkBehaviour
     {
-        private DrawModal drawModal;
+        private DrawModal _drawModal;
         
         public void InitButton(DrawModal d)
         {
-            drawModal = d;
+            _drawModal = d;
         }
 
         public void IncreaseOffering()
