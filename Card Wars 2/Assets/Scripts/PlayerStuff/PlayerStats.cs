@@ -7,39 +7,43 @@ using UnityEngine;
 
 namespace PlayerStuff
 {
-    [RequireComponent(typeof(PlayerUI))] 
+    [RequireComponent(typeof(PlayerUI))]
     public class PlayerStats : NetworkBehaviour
     {
         public PlayerUI ui;
-    
-        [Header("Magic")]
-        [SyncVar(hook = nameof(CurrentMagicUpdate))] public int currentMagic;
-        [SyncVar(hook = nameof(MaxMagicUpdate))] public int maxMagic;
 
-        [Header("Money")]
-        [SyncVar(hook = nameof(MoneyUpdate))] public int money;
+        [Header("Magic")] [SyncVar(hook = nameof(CurrentMagicUpdate))]
+        public int currentMagic;
 
-        [Header("Score")]
-        [SyncVar(hook = nameof(ScoreUpdate))] public int score;
+        [SyncVar(hook = nameof(MaxMagicUpdate))]
+        public int maxMagic;
 
-        [Header("Health")]
-        [SyncVar(hook = nameof(HealthUpdate))] public int health;
+        [Header("Money")] [SyncVar(hook = nameof(MoneyUpdate))]
+        public int money;
+
+        [Header("Score")] [SyncVar(hook = nameof(ScoreUpdate))]
+        public int score;
+
+        [Header("Health")] [SyncVar(hook = nameof(HealthUpdate))]
+        public int health;
+
         [SyncVar(hook = nameof(DrainUpdate))] public int drain;
 
-        [Header("Rounds Won")]
-        [SyncVar(hook = nameof(RoundsWonUpdate))] public int roundsWon;
-        
-        [Header("Rounds Required")]
-        [SyncVar(hook = nameof(RoundsRequiredUpdate))] public int roundsRequired;
+        [Header("Rounds Won")] [SyncVar(hook = nameof(RoundsWonUpdate))]
+        public int roundsWon;
 
-        [Header("Upgrade Cost")]
-        [SyncVar(hook = nameof(UpgradeCostUpdate))] public int upgradeCost;
+        [Header("Rounds Required")] [SyncVar(hook = nameof(RoundsRequiredUpdate))]
+        public int roundsRequired;
 
-        [Header("Free Draw Parameters")]
-        [SyncVar(hook = nameof(FreeDrawsLeftUpdate))] public int freeDrawsLeft;
+        [Header("Upgrade Cost")] [SyncVar(hook = nameof(UpgradeCostUpdate))]
+        public int upgradeCost;
+
+        [Header("Free Draw Parameters")] [SyncVar(hook = nameof(FreeDrawsLeftUpdate))]
+        public int freeDrawsLeft;
+
         [SyncVar(hook = nameof(ChoiceUpdate))] public int freeCardsChosen;
         [SyncVar(hook = nameof(OfferUpdate))] public int freeCardsOffered;
-        
+
         public void InitUI()
         {
             ui = GetComponent<PlayerUI>();
@@ -54,7 +58,7 @@ namespace PlayerStuff
                 Debug.Log("[SERVER] PlayerStats UI component initialized.");
             }
         }
-    
+
         [Command]
         public void CmdUpgradeMagic()
         {
@@ -75,9 +79,9 @@ namespace PlayerStuff
             if (money >= cardStats.burnCost) // enough money to burn, then burn
             {
                 money -= cardStats.burnCost; // spend to burn
-                
-                BaseMovement baseMove =  cardToBurn.GetComponent<BaseMovement>();
-                
+
+                BaseMovement baseMove = cardToBurn.GetComponent<BaseMovement>();
+
                 baseMove.RpcDiscard(); // discard the card, it (Discard) will handle the rest
             }
             else
@@ -119,7 +123,7 @@ namespace PlayerStuff
             }
 
             freeDrawsLeft--;
-            
+
             TargetGenerateFreeCards(connectionToClient);
         }
 
@@ -129,19 +133,27 @@ namespace PlayerStuff
             DrawModal modal = FindObjectOfType<DrawModal>();
             modal.GenerateFreeCards();
         }
-        
-        [Command]
-        public void CmdRequestPaidDraw()
-        {
-            DrawModal modal = FindObjectOfType<DrawModal>();
 
-            if (money >= modal.drawCost)
+        [Command]
+        public void CmdRequestPaidDraw(int choice, int offer)
+        {
+            // validate input
+            if (choice < 1) return;
+            if (offer <= choice) return;
+
+            int drawCost = choice * 2 + offer;
+
+            if (money < drawCost)
             {
-                money -= modal.drawCost;
-                TargetGeneratePaidCards(connectionToClient);
+                Debug.Log("Not enough money");
+                return;
             }
+
+            money -= drawCost;
+
+            TargetGeneratePaidCards(connectionToClient);
         }
-        
+
         [TargetRpc]
         private void TargetGeneratePaidCards(NetworkConnection target)
         {
@@ -149,38 +161,39 @@ namespace PlayerStuff
             modal.GeneratePaidCards();
         }
 
+
         public void CurrentMagicUpdate(int oldMagic, int newMagic)
         {
-            if (ui == null) 
+            if (ui == null)
             {
                 Debug.LogWarning("PlayerStats UI component is null when trying to update current magicUse\n" +
-                               "Attempting to add UI Component again");
-                
+                                 "Attempting to add UI Component again");
+
                 // weirdly, after putting lobby stuff, _ui was null-ing itself for the host.
                 // Didn't know why. This seems like a band-aid solution but a solution nonetheless
                 // InitUI(); 
-                
+
                 return;
             }
 
             if (currentMagic < 0)
             {
-                ui.MagicUIUpdate(newMagic, current_max : true, goingUnder: true);
+                ui.MagicUIUpdate(newMagic, current_max: true, goingUnder: true);
                 return;
             }
-        
-            ui.MagicUIUpdate(newMagic, current_max : true);
+
+            ui.MagicUIUpdate(newMagic, current_max: true);
         }
 
         public void MaxMagicUpdate(int oldMagic, int newMagic)
         {
             if (currentMagic > maxMagic)
             {
-                ui.MagicUIUpdate(newMagic, current_max : false, goingUnder: true);
+                ui.MagicUIUpdate(newMagic, current_max: false, goingUnder: true);
                 return;
             }
-        
-            ui.MagicUIUpdate(newMagic, current_max : false);
+
+            ui.MagicUIUpdate(newMagic, current_max: false);
         }
 
         public void MoneyUpdate(int oldMoney, int newMoney)
@@ -221,7 +234,7 @@ namespace PlayerStuff
         public void RoundsWonUpdate(int oldRounds, int newRounds)
         {
             ui.RoundsUIUpdate(newRounds);
-        
+
             // todo some kind of reset, clear the board or something
         }
 

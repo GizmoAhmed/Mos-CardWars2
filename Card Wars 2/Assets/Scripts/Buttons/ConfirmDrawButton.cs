@@ -37,7 +37,7 @@ namespace Buttons
 
             Debug.LogWarning($"{player.name} wants to pay to draw draw");
             
-            stats.CmdRequestPaidDraw();
+            stats.CmdRequestPaidDraw(_drawModal.paidChoice, _drawModal.paidOffer);
         }
     }
 }
