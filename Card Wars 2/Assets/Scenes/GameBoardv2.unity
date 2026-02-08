@@ -3892,6 +3892,7 @@ GameObject:
   - component: {fileID: 640884330}
   - component: {fileID: 640884329}
   - component: {fileID: 640884328}
+  - component: {fileID: 640884331}
   m_Layer: 8
   m_Name: ConfirmButton
   m_TagString: DisabledButtons
@@ -3941,10 +3942,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.13396227, g: 0.72520596, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_PressedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_SelectedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
+    m_NormalColor: {r: 0.12641507, g: 0.6557529, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.57169807, g: 0.83098406, b: 1, a: 1}
+    m_PressedColor: {r: 0.57254905, g: 0.8313726, b: 1, a: 1}
+    m_SelectedColor: {r: 0.1254902, g: 0.654902, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3963,7 +3964,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 640884329}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 640884331}
+        m_TargetAssemblyTypeName: Buttons.ConfirmDrawButton, Assembly-CSharp
+        m_MethodName: OnPaidDrawConfirm
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &640884329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4002,6 +4015,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640884325}
   m_CullTransparentMesh: 1
+--- !u!114 &640884331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640884325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d3d1727c482fb499c0781855923a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &676063828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4197,10 +4222,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0, g: 0.84654045, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_PressedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_SelectedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
+    m_NormalColor: {r: 0.12641507, g: 0.6557529, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.57169807, g: 0.83098406, b: 1, a: 1}
+    m_PressedColor: {r: 0.57254905, g: 0.8313726, b: 1, a: 1}
+    m_SelectedColor: {r: 0.1254902, g: 0.654902, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4221,7 +4246,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 681345726}
-        m_TargetAssemblyTypeName: Buttons.DrawSelectionButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: Buttons.DrawParamsButton, Assembly-CSharp
         m_MethodName: IncreaseOffering
         m_Mode: 1
         m_Arguments:
@@ -5599,10 +5624,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0, g: 0.84654045, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_PressedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_SelectedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
+    m_NormalColor: {r: 0.12641507, g: 0.6557529, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.57169807, g: 0.83098406, b: 1, a: 1}
+    m_PressedColor: {r: 0.57254905, g: 0.8313726, b: 1, a: 1}
+    m_SelectedColor: {r: 0.1254902, g: 0.654902, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5623,7 +5648,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1072038368}
-        m_TargetAssemblyTypeName: Buttons.DrawSelectionButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: Buttons.DrawParamsButton, Assembly-CSharp
         m_MethodName: DecreaseChoice
         m_Mode: 1
         m_Arguments:
@@ -6700,10 +6725,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0, g: 0.84654045, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_PressedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_SelectedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
+    m_NormalColor: {r: 0.12641507, g: 0.6557529, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.57169807, g: 0.83098406, b: 1, a: 1}
+    m_PressedColor: {r: 0.57254905, g: 0.8313726, b: 1, a: 1}
+    m_SelectedColor: {r: 0.1254902, g: 0.654902, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6724,7 +6749,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1308469703}
-        m_TargetAssemblyTypeName: Buttons.DrawSelectionButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: Buttons.DrawParamsButton, Assembly-CSharp
         m_MethodName: DecreaseOffering
         m_Mode: 1
         m_Arguments:
@@ -6846,10 +6871,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0, g: 0.84654045, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_PressedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_SelectedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
+    m_NormalColor: {r: 0.12641507, g: 0.6557529, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.57169807, g: 0.83098406, b: 1, a: 1}
+    m_PressedColor: {r: 0.57254905, g: 0.8313726, b: 1, a: 1}
+    m_SelectedColor: {r: 0.1254902, g: 0.654902, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -6870,7 +6895,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1310763677}
-        m_TargetAssemblyTypeName: Buttons.DrawSelectionButton, Assembly-CSharp
+        m_TargetAssemblyTypeName: Buttons.DrawParamsButton, Assembly-CSharp
         m_MethodName: IncreaseChoice
         m_Mode: 1
         m_Arguments:
@@ -8716,10 +8741,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.13396227, g: 0.72520596, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_PressedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
-    m_SelectedColor: {r: 0, g: 0.8470589, b: 1, a: 1}
+    m_NormalColor: {r: 0.12641507, g: 0.6557529, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.57169807, g: 0.83098406, b: 1, a: 1}
+    m_PressedColor: {r: 0.57254905, g: 0.8313726, b: 1, a: 1}
+    m_SelectedColor: {r: 0.1254902, g: 0.654902, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -8896,6 +8921,10 @@ MonoBehaviour:
   freeDrawsLeftTextObj: {fileID: 194793680}
   freeChoiceTextObj: {fileID: 1967649468}
   freeOfferTextObj: {fileID: 473185082}
+  drawCostTextObj: {fileID: 2145244733}
+  drawCost: 0
+  paidChoiceTextObj: {fileID: 877416425}
+  paidOfferTextObj: {fileID: 1763978804}
 --- !u!1 &1900669664
 GameObject:
   m_ObjectHideFlags: 0

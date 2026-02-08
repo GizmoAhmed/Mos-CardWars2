@@ -28,5 +28,16 @@ namespace Buttons
             
             stats.CmdRequestFreeDraw();
         }
+        
+        public void OnPaidDrawConfirm()
+        {
+            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+            Player player = networkIdentity.GetComponent<Player>();
+            PlayerStats stats = player.GetComponent<PlayerStats>();
+
+            Debug.LogWarning($"{player.name} wants to pay to draw draw");
+            
+            stats.CmdRequestPaidDraw();
+        }
     }
 }

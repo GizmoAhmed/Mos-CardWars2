@@ -129,6 +129,25 @@ namespace PlayerStuff
             DrawModal modal = FindObjectOfType<DrawModal>();
             modal.GenerateFreeCards();
         }
+        
+        [Command]
+        public void CmdRequestPaidDraw()
+        {
+            DrawModal modal = FindObjectOfType<DrawModal>();
+
+            if (money >= modal.drawCost)
+            {
+                money -= modal.drawCost;
+                TargetGeneratePaidCards(connectionToClient);
+            }
+        }
+        
+        [TargetRpc]
+        private void TargetGeneratePaidCards(NetworkConnection target)
+        {
+            DrawModal modal = FindObjectOfType<DrawModal>();
+            modal.GeneratePaidCards();
+        }
 
         public void CurrentMagicUpdate(int oldMagic, int newMagic)
         {

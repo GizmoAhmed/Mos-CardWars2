@@ -15,9 +15,14 @@ namespace PlayerStuff
         public GameObject freeOfferTextObj;
         private int _freeOffer;
         
-        private int _drawCost;
-        private int _paidChoice;
-        private int _paidOffer;
+        public GameObject drawCostTextObj;
+        public int drawCost;
+
+        public GameObject paidChoiceTextObj;
+        public int paidChoice;
+        
+        public GameObject paidOfferTextObj;
+        public int paidOffer;
         
         // private bool CanChangeSelectionParams => !(_player.freeCardsOffered - 1 <= _player.freeCardsChosen);
     
@@ -27,7 +32,6 @@ namespace PlayerStuff
             foreach (DrawParamsButton button in transform.GetComponentsInChildren<DrawParamsButton>())
             {
                 button.InitButton(this);
-                // Debug.Log($"{button.name} initialized with {gameObject.name}");
             }
 
             if (freeDrawsLeftTextObj == null)
@@ -44,6 +48,29 @@ namespace PlayerStuff
             {
                 Debug.LogError($"freeOfferTextObj is null, make sure to set on {gameObject.name}");
             }
+
+            if (paidChoiceTextObj == null)
+            {
+                Debug.LogError($"paidChoiceTextObj is null, make sure to set on {gameObject.name}");
+            }
+
+            if (paidOfferTextObj == null)
+            {
+                Debug.LogError($"paidOfferTextObj is null, make sure to set on {gameObject.name}");
+            }
+
+            if (drawCostTextObj == null)
+            {
+                Debug.LogError($"drawCostTextObj is null, make sure to set on {gameObject.name}");
+            }
+
+            GameManager gameManager = FindObjectOfType<GameManager>();
+
+            paidChoice = gameManager.defaultPaidDrawChoices;
+            paidOffer = gameManager.defaultPaidDrawOffering;
+            paidChoiceTextObj.GetComponent<TextMeshProUGUI>().text = paidChoice.ToString();
+            paidOfferTextObj.GetComponent<TextMeshProUGUI>().text = paidOffer.ToString();
+            UpdateDrawCostText();
         }
 
         public void OpenDrawModal()
@@ -56,7 +83,7 @@ namespace PlayerStuff
             gameObject.SetActive(false);
             // R*E*S*E*T
         }
-
+        
         public void SetFreeDrawsLeft(int drawsPlayerStat)
         {
             if (freeDrawsLeftTextObj == null)
@@ -91,6 +118,38 @@ namespace PlayerStuff
             freeOfferTextObj.GetComponent<TextMeshProUGUI>().text = offerPlayerStat.ToString();
             _freeOffer = offerPlayerStat;
         }
+        
+        private void UpdateDrawCostText()
+        {
+            drawCost = paidChoice * 2 + paidOffer;
+            drawCostTextObj.GetComponent<TextMeshProUGUI>().text = drawCost.ToString();
+        }
+
+        public void UpdatePaidChoice(int i)
+        {
+            int toBeChoice = paidChoice + i;
+
+            if (toBeChoice < 1) return;
+
+            if (toBeChoice >= paidOffer) return;
+
+            paidChoice += i;
+            paidChoiceTextObj.GetComponent<TextMeshProUGUI>().text = paidChoice.ToString();
+            UpdateDrawCostText();
+        }
+
+        public void UpdatePaidOffer(int i)
+        {
+            int toBeOffer = paidOffer + i;
+            
+            if (toBeOffer < 1) return;
+            
+            if (toBeOffer <= paidChoice) return;
+            
+            paidOffer += i;
+            paidOfferTextObj.GetComponent<TextMeshProUGUI>().text = paidOffer.ToString();
+            UpdateDrawCostText();
+        }
 
         // draws left math already decided in PlayerStats.CmdRequestFreeDraw()
         public void GenerateFreeCards()
@@ -100,7 +159,7 @@ namespace PlayerStuff
         
         public void GeneratePaidCards()
         {
-            
+            Debug.Log($"Thanks for the {drawCost} money! Generating: {paidChoice} of {paidOffer} cards");
         }
     }
 }

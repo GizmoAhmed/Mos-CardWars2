@@ -18,13 +18,15 @@ public class GameManager : NetworkBehaviour
     [Header("Starting Stats")] public int maxMagic = 6;
     public int money = 20;
     public int defaultFreeDraws = 1;
-    public int defaultDrawChoices = 1;
-    public int defaultDrawOffering = 3;
+    public int defaultFreeDrawChoices = 1;
+    public int defaultFreeDrawOffering = 3;
     public int health = 30;
     public int drain = 3;
     public int upgradeCost = 2;
 
     public int roundsToWin = 4;
+    public int defaultPaidDrawChoices = 1;
+    public int defaultPaidDrawOffering = 3;
 
     [Header("Connected Players")]
     public NetworkConnectionToClient Player1;
@@ -138,11 +140,11 @@ public class GameManager : NetworkBehaviour
         _stats1.freeDrawsLeft = defaultFreeDraws;
         _stats2.freeDrawsLeft = defaultFreeDraws;
 
-        _stats1.freeCardsChosen = defaultDrawChoices;
-        _stats2.freeCardsChosen = defaultDrawChoices;
+        _stats1.freeCardsChosen = defaultFreeDrawChoices;
+        _stats2.freeCardsChosen = defaultFreeDrawChoices;
         
-        _stats1.freeCardsOffered = defaultDrawOffering;
-        _stats2.freeCardsOffered = defaultDrawOffering;
+        _stats1.freeCardsOffered = defaultFreeDrawOffering;
+        _stats2.freeCardsOffered = defaultFreeDrawOffering;
 
         _stats1.score = 0;
         _stats2.score = 0;
