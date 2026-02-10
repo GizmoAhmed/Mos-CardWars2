@@ -12,8 +12,6 @@ namespace CardScripts.CardMovements
 {
     public class BaseMovement : NetworkBehaviour
     {
-        [HideInInspector] public Player player;
-
         public enum CardState
         {
             Deck,
@@ -27,14 +25,12 @@ namespace CardScripts.CardMovements
 
         protected CardStats cardStats;
         public CardStats CardStats => cardStats;
-
-        [HideInInspector] public PlayerStats thisPlayersStats;
-
-        private Player _cardOwner;
+        
+        [SyncVar] public PlayerStats thisCardOwnerPlayerStats;
 
         [HideInInspector] public MiddleLand currentLand = null;
 
-        private bool _grabbed = false;
+        private bool _grabbed;
         private GameObject _startParent;
         private Vector3 _startPos;
         private GameObject _newDropZone;
@@ -52,17 +48,7 @@ namespace CardScripts.CardMovements
 
         protected virtual void Start()
         {
-            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
-            player = networkIdentity.GetComponent<Player>();
-
             cardStats = GetComponent<CardStats>();
-
-            _cardOwner = cardStats.thisCardOwner.gameObject.GetComponent<Player>();
-
-            thisPlayersStats = cardStats.thisCardOwner.gameObject.GetComponent<PlayerStats>();
-
-            if (player == null)
-                Debug.LogError("player is null");
 
             if (_dragLayer == null)
             {
@@ -82,6 +68,12 @@ namespace CardScripts.CardMovements
 
             if (_cardDisplay == null)
                 Debug.LogError($"_cardDisplay is null ({gameObject.name})");
+        }
+
+        [Server]
+        public void SetOwningPlayer(PlayerStats stats)
+        {
+            thisCardOwnerPlayerStats = stats;
         }
 
         public void BeginDrag()
@@ -168,15 +160,18 @@ namespace CardScripts.CardMovements
 
         protected virtual bool ValidPlacement(MiddleLand land)
         {
+            
+            Player cardsPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();
+            
             // if not your turn, you can't place a card anywhere
-            if (_cardOwner != null &&
-                _cardOwner.myTurn == false)
+            if (cardsPlayer != null &&
+                cardsPlayer.myTurn == false)
             {
                 return false;
             }
-
+            
             // if player has negative magicUse and this card cost something, can't place
-            if (cardStats.magicUse > 0 & thisPlayersStats.currentMagic <= 0)
+            if (cardStats.magicUse > 0 & thisCardOwnerPlayerStats.currentMagic <= 0)
             {
                 return false;
             }
@@ -230,7 +225,7 @@ namespace CardScripts.CardMovements
         // use if separate rpc function needs a discard (ie CardHandler)
         protected virtual void Discard()
         {
-            gameObject.GetComponent<CardStats>().thisCardOwner.GetComponent<CardHandler>().MoveToDiscard(gameObject);
+            thisCardOwnerPlayerStats.GetComponent<CardHandler>().MoveToDiscard(gameObject);
 
             // _cardDisplay.ToggleInfoSlide(false);
             

@@ -11,9 +11,7 @@ namespace CardScripts.CardStatss
         public CardDataSO cardData;
 
         public CardDataSO CardData => cardData;
-
-        [SyncVar] public PlayerStats thisCardOwner;
-
+        
         private CardDisplay _display;
 
         [SyncVar(hook = nameof(UpdateMagic))] public int magicUse;

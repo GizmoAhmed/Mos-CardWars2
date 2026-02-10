@@ -25,15 +25,7 @@ namespace PlayerStuff
                 Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't DrawButton");
                 return;
             }
-
-            Player player = GetComponentInParent<Player>();
-
-            if (player == null)
-            {
-                Debug.LogError("Player is null, can't draw");
-                return;
-            }
-
+            
             int randomIndex = 0;
             GameObject cardInstance = myDeck[randomIndex];
 
@@ -41,12 +33,21 @@ namespace PlayerStuff
             GameObject drawnCard = Instantiate(cardInstance);
 
             // set owner to player who drew it
-            CardStats cardStats = drawnCard.GetComponent<CardStats>();
-            cardStats.thisCardOwner = player.playerStats;
+            BaseMovement move = drawnCard.GetComponent<BaseMovement>();
+            PlayerStats stats = GetComponentInParent<PlayerStats>();
+            move.SetOwningPlayer(stats);
 
             // add it to the server for both players
             NetworkServer.Spawn(drawnCard, conn);
 
+            Player player = GetComponentInParent<Player>();
+            
+            if (player == null)
+            {
+                Debug.LogError("Player is null, can't draw");
+                return;
+            }
+            
             player.cardPlacer.MoveCardToHand(drawnCard);
 
             myDeck.RemoveAt(randomIndex);

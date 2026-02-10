@@ -1,5 +1,6 @@
 using Lands;
 using Mirror;
+using PlayerStuff;
 using UnityEngine;
 
 namespace CardScripts.CardMovements
@@ -31,10 +32,10 @@ namespace CardScripts.CardMovements
 
             transform.SetParent(tileObj.transform, true);
             charmAreaScript.InUseCharms.Add(gameObject);
-
-            if (cardStats?.thisCardOwner != null)
+            
+            if (thisCardOwnerPlayerStats != null)
             {
-                cardStats.thisCardOwner.UseMagic(cardStats.magicUse);
+                thisCardOwnerPlayerStats.UseMagic(cardStats.magicUse);
             }
 
             currentLand = charmAreaScript;
@@ -54,7 +55,7 @@ namespace CardScripts.CardMovements
         [Command]
         private void ReturnMagic()
         {
-            cardStats.thisCardOwner.currentMagic += cardStats.magicUse; // give back magicUse
+            thisCardOwnerPlayerStats.currentMagic += cardStats.magicUse; // give back magicUse
         }
 
         protected override void DetachFromTile()

@@ -1,24 +1,31 @@
 using System;
+using CardScripts.CardMovements;
 using CardScripts.CardStatss;
 using Mirror;
+using PlayerStuff;
 using UnityEngine;
 
 namespace CardScripts
 {
     public class CardButtons : NetworkBehaviour
     {
-        private CardStats cardStats;
+        private BaseMovement _move;
 
         private void Start()
         {
-            cardStats = GetComponent<CardStats>();
+            _move = GetComponent<BaseMovement>();
         }
 
         
         public void BurnButton()
         {
-            Debug.Log($"Player {cardStats.thisCardOwner.gameObject.name} is burning {gameObject.name}...");
-            cardStats.thisCardOwner.CmdBurn(gameObject);
+            if (_move == null)
+            {
+                Debug.LogError($"Move script on {gameObject.name} is null");
+                return;
+            }
+
+            _move.thisCardOwnerPlayerStats.CmdBurn(gameObject);
         }
 
         public void CreatureAbility()

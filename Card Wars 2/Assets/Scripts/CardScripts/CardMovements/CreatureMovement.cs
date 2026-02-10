@@ -1,6 +1,7 @@
 using CardScripts.CardStatss;
 using Lands;
 using Mirror;
+using PlayerStuff;
 using UnityEngine;
 
 namespace CardScripts.CardMovements
@@ -36,17 +37,13 @@ namespace CardScripts.CardMovements
             transform.SetParent(tileObj.transform, false); // set card as child of tile
             transform.localPosition = Vector3.zero; // a little off
             transform.SetAsFirstSibling(); // above building
-
-            if (CreatureStats?.thisCardOwner != null)
+            
+            if (thisCardOwnerPlayerStats != null)
             {
-                CreatureStats.thisCardOwner.AddScore(CreatureStats.score);
+                thisCardOwnerPlayerStats.AddScore(CreatureStats.score);
+                thisCardOwnerPlayerStats.UseMagic(CreatureStats.magicUse);
             }
-
-            if (CreatureStats?.thisCardOwner != null)
-            {
-                CreatureStats.thisCardOwner.UseMagic(CreatureStats.magicUse);
-            }
-
+            
             currentLand = tileScript;
         }
 
@@ -64,8 +61,8 @@ namespace CardScripts.CardMovements
         [Command]
         private void ReturnMagicAndScore()
         {
-            CreatureStats.thisCardOwner.currentMagic += cardStats.magicUse; // give back magicUse
-            CreatureStats.thisCardOwner.score -= CreatureStats.score; // give back score
+            thisCardOwnerPlayerStats.currentMagic += cardStats.magicUse; // give back magicUse
+            thisCardOwnerPlayerStats.score -= CreatureStats.score; // give back score
         }
 
         protected override void DetachFromTile()

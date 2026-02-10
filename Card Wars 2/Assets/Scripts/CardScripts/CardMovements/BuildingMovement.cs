@@ -1,5 +1,6 @@
 using Lands;
 using Mirror;
+using PlayerStuff;
 using UnityEngine;
 
 namespace CardScripts.CardMovements
@@ -22,9 +23,7 @@ namespace CardScripts.CardMovements
             base.RpcPlaceCardOnTile(tileObj);
 
             MiddleLand tileScript = tileObj.GetComponent<MiddleLand>();
-
-            var x = cardStats.thisCardOwner;
-
+            
             if (!isOwned)
             {
                 tileObj = tileScript.across;
@@ -36,10 +35,10 @@ namespace CardScripts.CardMovements
             transform.SetParent(tileObj.transform, false); // set card as child of tile
             transform.localPosition = new Vector3(-40, -35, 0); // a little off
             transform.SetAsFirstSibling(); // below creature
-
-            if (cardStats?.thisCardOwner != null)
+            
+            if (thisCardOwnerPlayerStats != null)
             {
-                cardStats.thisCardOwner.UseMagic(cardStats.magicUse);
+                thisCardOwnerPlayerStats.UseMagic(cardStats.magicUse);
             }
 
             currentLand = tileScript;
@@ -59,7 +58,7 @@ namespace CardScripts.CardMovements
         [Command]
         private void ReturnMagic()
         {
-            cardStats.thisCardOwner.currentMagic += cardStats.magicUse; // give back magicUse
+            thisCardOwnerPlayerStats.currentMagic += cardStats.magicUse; // give back magicUse
         }
 
         protected override void DetachFromTile()

@@ -1,5 +1,6 @@
 using Lands;
 using Mirror;
+using PlayerStuff;
 using UnityEngine;
 
 namespace CardScripts.CardMovements
@@ -11,9 +12,9 @@ namespace CardScripts.CardMovements
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(land))
                 return false;
-
+            
             // if have enough magic to use spell. notice the lack of tile checks todo well actually, prolly have to expand this for certain spells
-            return cardStats.magicUse <= thisPlayersStats.currentMagic;
+            return cardStats.magicUse <= thisCardOwnerPlayerStats.currentMagic;
         }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not
