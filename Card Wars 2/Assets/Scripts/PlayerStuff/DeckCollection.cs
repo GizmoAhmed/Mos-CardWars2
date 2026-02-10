@@ -9,8 +9,8 @@ namespace PlayerStuff
 {
     public class DeckCollection : NetworkBehaviour
     {
-        // currently only server player gets to see updated lists
-        public List<GameObject> myDeck;
+        // acts exactly like sync var, changes made to this on server reflect on each client
+        public SyncList<GameObject> MyDeck =  new SyncList<GameObject>();
 
         [Command]
         public void CmdDrawCard()
@@ -20,14 +20,14 @@ namespace PlayerStuff
 
         private void DrawCardFromDeck(NetworkConnectionToClient conn)
         {
-            if (myDeck.Count == 0)
+            if (MyDeck.Count == 0)
             {
                 Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't DrawButton");
                 return;
             }
             
             int randomIndex = 0;
-            GameObject cardInstance = myDeck[randomIndex];
+            GameObject cardInstance = MyDeck[randomIndex];
 
             // add to scene
             GameObject drawnCard = Instantiate(cardInstance);
@@ -50,7 +50,7 @@ namespace PlayerStuff
             
             player.cardPlacer.MoveCardToHand(drawnCard);
 
-            myDeck.RemoveAt(randomIndex);
+            MyDeck.RemoveAt(randomIndex);
         }
         
         [Server]
@@ -63,7 +63,7 @@ namespace PlayerStuff
 
         private List<int> GetRandomUniqueIndices(int count)
         {
-            int maxExclusive = myDeck.Count;
+            int maxExclusive = MyDeck.Count;
 
             if (count > maxExclusive)
                 throw new System.ArgumentException("Count cannot be greater than range size");
@@ -92,7 +92,7 @@ namespace PlayerStuff
 
             foreach (int index in cardIndices)
             {
-                GameObject prefab = deck.myDeck[index];
+                GameObject prefab = deck.MyDeck[index];
 
                 GameObject previewCard = Instantiate(prefab, modal.cardGroupTransform, false);
             }

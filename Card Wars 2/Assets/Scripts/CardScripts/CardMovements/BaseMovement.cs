@@ -21,7 +21,7 @@ namespace CardScripts.CardMovements
             Discard
         }
 
-        public CardState cardState;
+        [SyncVar] public CardState cardState;
 
         protected CardStats cardStats;
         public CardStats CardStats => cardStats;
@@ -60,7 +60,7 @@ namespace CardScripts.CardMovements
             if (_canvasGroup == null)
                 _canvasGroup = gameObject.AddComponent<CanvasGroup>();
 
-            cardState = CardState.Deck;
+            // CmdSetCardState(CardState.Deck);
 
             _cardDisplay = GetComponentInParent<CardDisplay>();
             
@@ -74,6 +74,17 @@ namespace CardScripts.CardMovements
         public void SetOwningPlayer(PlayerStats stats)
         {
             thisCardOwnerPlayerStats = stats;
+        }
+
+        [Command]
+        public void CmdSetCardState(CardState newState)
+        {
+            SetCardState(newState);
+        }
+
+        private void SetCardState(CardState newState)
+        {
+            cardState = newState;
         }
 
         public void BeginDrag()
@@ -126,7 +137,7 @@ namespace CardScripts.CardMovements
                     rectTransform.sizeDelta.y); // consistent clickable area size, when dropped on field
 
             _cardDisplay.FlipCard(true); // now on field, show to both players
-            cardState = CardState.Field;
+            CmdSetCardState(CardState.Field);
         }
 
         public void OnClick()
@@ -233,7 +244,7 @@ namespace CardScripts.CardMovements
 
             cardStats.RefreshCardStats();
 
-            cardState = CardState.Discard;
+            CmdSetCardState(CardState.Discard);
         }
 
         protected virtual void DetachFromTile()

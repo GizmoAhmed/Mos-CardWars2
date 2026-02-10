@@ -3,6 +3,7 @@ using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
+using GameManagement;
 using Lands;
 using Mirror;
 using PlayerStuff;
@@ -69,7 +70,7 @@ namespace CardScripts
                 cardDisplay.FlipCard(false);
             }
 
-            card.GetComponent<BaseMovement>().cardState = BaseMovement.CardState.Hand;
+            card.GetComponent<BaseMovement>().CmdSetCardState(BaseMovement.CardState.Hand);
         }
 
         public void MoveToDiscard(GameObject card)
