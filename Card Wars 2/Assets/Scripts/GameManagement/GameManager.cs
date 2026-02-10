@@ -86,10 +86,6 @@ public class GameManager : NetworkBehaviour
              */
             Player1.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
             Player2.identity.GetComponent<Player>().deckCollection.myDeck = new List<GameObject>(masterDeck);
-
-            // give players there draw modals
-            // Player1.identity.GetComponent<PlayerStats>().drawModal = gmVisibleDrawModal.GetComponent<DrawModal>();
-            // Player2.identity.GetComponent<PlayerStats>().drawModal = gmVisibleDrawModal.GetComponent<DrawModal>();
         }
     }
 

@@ -30,7 +30,7 @@ namespace CardScripts.CardMovements
 
         [HideInInspector] public PlayerStats thisPlayersStats;
 
-        private Player cardOwner;
+        private Player _cardOwner;
 
         [HideInInspector] public MiddleLand currentLand = null;
 
@@ -57,7 +57,7 @@ namespace CardScripts.CardMovements
 
             cardStats = GetComponent<CardStats>();
 
-            cardOwner = cardStats.thisCardOwner.gameObject.GetComponent<Player>();
+            _cardOwner = cardStats.thisCardOwner.gameObject.GetComponent<Player>();
 
             thisPlayersStats = cardStats.thisCardOwner.gameObject.GetComponent<PlayerStats>();
 
@@ -109,7 +109,7 @@ namespace CardScripts.CardMovements
             
             if (_newDropZone != null)
             {
-                // player.cardHandler.CmdDropCard(gameObject, _newDropZone);
+                // player.cardPlacer.CmdDropCard(gameObject, _newDropZone);
                 CmdPlaceCardOnTile(_newDropZone);
             }
             else
@@ -169,8 +169,8 @@ namespace CardScripts.CardMovements
         protected virtual bool ValidPlacement(MiddleLand land)
         {
             // if not your turn, you can't place a card anywhere
-            if (cardOwner != null &&
-                cardOwner.myTurn == false)
+            if (_cardOwner != null &&
+                _cardOwner.myTurn == false)
             {
                 return false;
             }

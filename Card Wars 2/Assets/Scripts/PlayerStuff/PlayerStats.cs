@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Buttons;
 using CardScripts;
 using CardScripts.CardMovements;
@@ -131,13 +132,12 @@ namespace PlayerStuff
         private void TargetGenerateFreeCards(NetworkConnection target)
         {
             DrawModal modal = FindObjectOfType<DrawModal>();
-            modal.GenerateFreeCards();
+            // modal.GenerateFreeCards(GetComponent<Player>().deckCollection);
         }
 
         [Command]
         public void CmdRequestPaidDraw(int choice, int offer)
         {
-            // validate input
             if (choice < 1) return;
             if (offer <= choice) return;
 
@@ -151,17 +151,9 @@ namespace PlayerStuff
 
             money -= drawCost;
 
-            TargetGeneratePaidCards(connectionToClient);
+            GetComponentInChildren<DeckCollection>().PreviewOfferedCards(connectionToClient, offer);
         }
-
-        [TargetRpc]
-        private void TargetGeneratePaidCards(NetworkConnection target)
-        {
-            DrawModal modal = FindObjectOfType<DrawModal>();
-            modal.GeneratePaidCards();
-        }
-
-
+        
         public void CurrentMagicUpdate(int oldMagic, int newMagic)
         {
             if (ui == null)

@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using Buttons;
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace PlayerStuff
 {
@@ -23,9 +25,9 @@ namespace PlayerStuff
         
         public GameObject paidOfferTextObj;
         public int paidOffer;
+
+        [HideInInspector] public Transform cardGroupTransform;
         
-        // private bool CanChangeSelectionParams => !(_player.freeCardsOffered - 1 <= _player.freeCardsChosen);
-    
         void Start()
         {
             // tell the buttons this class object exists
@@ -62,6 +64,13 @@ namespace PlayerStuff
             if (drawCostTextObj == null)
             {
                 Debug.LogError($"drawCostTextObj is null, make sure to set on {gameObject.name}");
+            }
+            
+            cardGroupTransform = GetComponentInChildren<HorizontalLayoutGroup>().transform;
+
+            if (cardGroupTransform == null)
+            {
+                Debug.LogError($"_cardGroupTransform is null");
             }
 
             GameManager gameManager = FindObjectOfType<GameManager>();
@@ -149,17 +158,6 @@ namespace PlayerStuff
             paidOffer += i;
             paidOfferTextObj.GetComponent<TextMeshProUGUI>().text = paidOffer.ToString();
             UpdateDrawCostText();
-        }
-
-        // draws left math already decided in PlayerStats.CmdRequestFreeDraw()
-        public void GenerateFreeCards()
-        {
-            Debug.Log($"Generating: Please choose {_freeChoice} of {_freeOffer} cards");
-        }
-        
-        public void GeneratePaidCards()
-        {
-            Debug.Log($"Thanks for the {drawCost} money! Generating: {paidChoice} of {paidOffer} cards");
         }
     }
 }

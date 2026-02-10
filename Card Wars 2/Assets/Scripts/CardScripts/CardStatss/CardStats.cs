@@ -8,8 +8,7 @@ namespace CardScripts.CardStatss
 {
     public class CardStats : NetworkBehaviour
     {
-        [SerializeField]
-        [HideInInspector] public CardDataSO cardData;
+        public CardDataSO cardData;
 
         public CardDataSO CardData => cardData;
 
