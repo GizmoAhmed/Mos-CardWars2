@@ -81,9 +81,9 @@ namespace PlayerStuff
             {
                 money -= cardStats.burnCost; // spend to burn
 
-                BaseMovement baseMove = cardToBurn.GetComponent<BaseMovement>();
+                CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
 
-                baseMove.RpcDiscard(); // discard the card, it (Discard) will handle the rest
+                cardMove.RpcDiscard(); // discard the card, it (Discard) will handle the rest
             }
             else
             {

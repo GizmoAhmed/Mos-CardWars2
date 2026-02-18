@@ -33,7 +33,7 @@ namespace CardScripts.CardDisplays
 
         protected CardInfoHandler cardInfoHandler;
 
-        public virtual void InitDisplay(CardStats s)
+        public virtual void InitDisplayWithData(CardStats s)
         {
             cardData = s.CardData;    
             

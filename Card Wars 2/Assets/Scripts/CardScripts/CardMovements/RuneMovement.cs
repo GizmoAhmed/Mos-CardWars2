@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CardScripts.CardMovements
 {
-    public class RuneMovement : BaseMovement
+    public class RuneMovement : CardMovement
     {
         protected override bool ValidPlacement(MiddleLand land)
         {

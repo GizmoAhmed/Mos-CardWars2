@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using System.Reflection;
 using CardScripts;
+using CardScripts.CardData;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
+using GameManagement;
 using Mirror;
 using UnityEngine;
 
@@ -9,8 +12,7 @@ namespace PlayerStuff
 {
     public class DeckCollection : NetworkBehaviour
     {
-        // acts exactly like sync var, changes made to this on server reflect on each client
-        public SyncList<GameObject> MyDeck =  new SyncList<GameObject>();
+        public List<CardDataSO> myDeck;
 
         [Command]
         public void CmdDrawCard()
@@ -20,25 +22,26 @@ namespace PlayerStuff
 
         private void DrawCardFromDeck(NetworkConnectionToClient conn)
         {
-            if (MyDeck.Count == 0)
+            if (myDeck.Count == 0)
             {
-                Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't DrawButton");
+                Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't draw");
                 return;
             }
             
             int randomIndex = 0;
-            GameObject cardInstance = MyDeck[randomIndex];
+            CardDataSO drawnCardData = myDeck[randomIndex];
 
             // add to scene
-            GameObject drawnCard = Instantiate(cardInstance);
+            // GameObject drawnCard = Instantiate(drawnCardData);
+            GameObject cardObj = CreateCard(drawnCardData);
 
             // set owner to player who drew it
-            BaseMovement move = drawnCard.GetComponent<BaseMovement>();
+            /*CardMovement move = drawnCard.GetComponent<CardMovement>();
             PlayerStats stats = GetComponentInParent<PlayerStats>();
-            move.SetOwningPlayer(stats);
+            move.SetOwningPlayer(stats);*/
 
             // add it to the server for both players
-            NetworkServer.Spawn(drawnCard, conn);
+            NetworkServer.Spawn(cardObj, conn);
 
             Player player = GetComponentInParent<Player>();
             
@@ -48,22 +51,51 @@ namespace PlayerStuff
                 return;
             }
             
-            player.cardPlacer.MoveCardToHand(drawnCard);
+            player.cardPlacer.MoveCardToHand(cardObj);
 
-            MyDeck.RemoveAt(randomIndex);
+            myDeck.RemoveAt(randomIndex);
         }
-        
+
+        private GameObject CreateCard(CardDataSO data)
+        {
+            GameObject card;
+            
+            GameManager gm = FindObjectOfType<GameManager>();
+
+            if      (data is CreatureDataSO) card = gm.creatureCard;
+            else if (data is BuildingDataSO) card = gm.buildingCard;
+            else if (data is SpellDataSO) card = gm.spellCard;
+            else if (data is CharmDataSO) card = gm.charmCard;
+            else if (data is RuneDataSO) card = gm.runeCard;
+            else
+            {
+                Debug.LogError($"{data.GetType()}: card data is null or the base class. Can't create card");
+                return null;
+            }
+            
+            GameObject cardInstance = Instantiate(card);
+            
+            cardInstance.GetComponent<CardStats>().InitializeCard(data);
+            
+            // set owner to player who drew it
+            CardMovement move = cardInstance.GetComponent<CardMovement>();
+            PlayerStats stats = GetComponentInParent<PlayerStats>();
+            move.SetOwningPlayer(stats);
+            
+            return cardInstance;
+        }
+
         [Server]
         public void PreviewOfferedCards(NetworkConnectionToClient target, int offer)
         {
             List<int> randomIndices = GetRandomUniqueIndices(offer);
 
-            TargetShowCardPreviews(target, randomIndices.ToArray());
+            // TargetShowCardPreviews(target, randomIndices.ToArray());
         }
 
         private List<int> GetRandomUniqueIndices(int count)
         {
-            int maxExclusive = MyDeck.Count;
+            int maxExclusive = myDeck.Count;
 
             if (count > maxExclusive)
                 throw new System.ArgumentException("Count cannot be greater than range size");
@@ -84,7 +116,7 @@ namespace PlayerStuff
             return result;
         }
         
-        [TargetRpc]
+        /*[TargetRpc]
         private void TargetShowCardPreviews(NetworkConnection target, int[] cardIndices)
         {
             DrawModal modal = FindObjectOfType<DrawModal>();
@@ -92,10 +124,14 @@ namespace PlayerStuff
 
             foreach (int index in cardIndices)
             {
-                GameObject prefab = deck.MyDeck[index];
+                GameObject prefab = deck.myDeck[index];
 
                 GameObject previewCard = Instantiate(prefab, modal.cardGroupTransform, false);
+                
+                CardMovement move = previewCard.GetComponent<CardMovement>();
+                PlayerStats stats = GetComponentInParent<PlayerStats>();
+                move.SetOwningPlayer(stats);
             }
-        }
+        }*/
     }
 }

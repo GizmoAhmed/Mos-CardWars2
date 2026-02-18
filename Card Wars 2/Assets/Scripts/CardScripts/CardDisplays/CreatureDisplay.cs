@@ -36,7 +36,7 @@ namespace CardScripts.CardDisplays
 
         private CreatureStats _creatureStats;
 
-        public override void InitDisplay(CardStats s)
+        public override void InitDisplayWithData(CardStats s)
         {
             cardData = s.CardData as CreatureDataSO;
 
@@ -138,7 +138,7 @@ namespace CardScripts.CardDisplays
             base.ToggleInfoSlide(toggle);
 
             if (infoObj.activeInHierarchy &&
-                GetComponentInParent<BaseMovement>().cardState == BaseMovement.CardState.Field)
+                GetComponentInParent<CardMovement>().cardState == CardMovement.CardState.Field)
             {
                 gameObject.transform.SetAsLastSibling();
             }

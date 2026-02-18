@@ -19,6 +19,6 @@ MonoBehaviour:
   burnCost: 2
   element: 0
   elementSprite: {fileID: 21300000, guid: 73a5b4af4470bc34881d92814f1bde20, type: 3}
-  abilityCost: 1
+  abilityCost: 67
   attack: 1
   defense: 6

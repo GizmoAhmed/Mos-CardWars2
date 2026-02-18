@@ -70,7 +70,7 @@ namespace CardScripts
                 cardDisplay.FlipCard(false);
             }
 
-            card.GetComponent<BaseMovement>().CmdSetCardState(BaseMovement.CardState.Hand);
+            card.GetComponent<CardMovement>().CmdSetCardState(CardMovement.CardState.Hand);
         }
 
         public void MoveToDiscard(GameObject card)

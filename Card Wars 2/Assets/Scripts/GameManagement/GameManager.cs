@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CardScripts.CardData;
 using Mirror;
 using PlayerStuff;
 using UnityEngine;
@@ -12,8 +13,15 @@ namespace GameManagement
     {
         public TurnManager turnManager;
 
-        [Tooltip("This Deck is copied to each player when both players join")]
-        public List<GameObject> masterDeck;
+        [Header("The Deck")]
+        public List<CardDataSO> masterDeck;
+
+        [Header("Base Card GameObjects")]
+        public GameObject creatureCard;
+        public GameObject buildingCard;
+        public GameObject spellCard;
+        public GameObject runeCard;
+        public GameObject charmCard;
 
         [Header("Starting Stats")] public int maxMagic = 6;
         public int money = 20;
@@ -79,9 +87,19 @@ namespace GameManagement
                 }
 
                 turnManager.StartGame();
-                
-                Player1.identity.GetComponent<Player>().deckCollection.MyDeck = new SyncList<GameObject>(masterDeck);
-                Player2.identity.GetComponent<Player>().deckCollection.MyDeck = new SyncList<GameObject>(masterDeck);
+
+                if (creatureCard == null || 
+                    buildingCard == null || 
+                    spellCard == null || 
+                    runeCard == null || 
+                    charmCard == null)
+                {
+                    Debug.LogError($"Base Cards were not set on {gameObject.name} in the editor");
+                    return;
+                }
+
+                Player1.identity.GetComponent<Player>().deckCollection.myDeck = new List<CardDataSO>(masterDeck);
+                Player2.identity.GetComponent<Player>().deckCollection.myDeck = new List<CardDataSO>(masterDeck);
             }
         }
 

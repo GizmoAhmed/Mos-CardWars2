@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CardScripts.CardMovements
 {
-    public class CreatureMovement : BaseMovement // these are creatures and buildings
+    public class CreatureMovement : CardMovement // these are creatures and buildings
     {
         private CreatureStats CreatureStats => cardStats as CreatureStats;
 

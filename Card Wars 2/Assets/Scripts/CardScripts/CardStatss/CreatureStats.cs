@@ -31,14 +31,14 @@ namespace CardScripts.CardStatss
         [SyncVar(hook = nameof(RuneChange))] public RuneBase currentRune2;
 
         public bool CanBeRuned => (currentRune1 == null) || (overRuneable && currentRune2 == null);
-        
+
         public override void OnStartClient()
         {
             base.OnStartClient();
 
             creatureDisplay = GetComponent<CreatureDisplay>();
             
-            creatureDisplay.InitDisplay(this);
+            creatureDisplay.InitDisplayWithData(this);
 
             creatureDisplay.UpdateUIAttack(attack);
             creatureDisplay.UpdateUIDefense(defense);
@@ -52,12 +52,20 @@ namespace CardScripts.CardStatss
         public override void RefreshCardStats()
         {
             base.RefreshCardStats();
-            
-            attack = creatureData.attack;
-            defense = creatureData.defense;
-            score = attack + defense;
-            
-            abilityCost = creatureData.abilityCost;
+            CreatureDataSO cData = cardData as CreatureDataSO;
+
+            if (cData != null)
+            {
+                attack = cData.attack;
+                defense = cData.defense;
+                score = attack + defense;
+
+                abilityCost = cData.abilityCost;
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name}: card data is passed null here");
+            }
         }
         
         public void UpdateAttack(int oldAttack, int newAttack)

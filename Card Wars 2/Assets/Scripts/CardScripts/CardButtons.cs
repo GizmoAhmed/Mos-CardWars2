@@ -9,13 +9,12 @@ namespace CardScripts
 {
     public class CardButtons : NetworkBehaviour
     {
-        private BaseMovement _move;
+        private CardMovement _move;
 
         private void Start()
         {
-            _move = GetComponent<BaseMovement>();
+            _move = GetComponent<CardMovement>();
         }
-
         
         public void BurnButton()
         {

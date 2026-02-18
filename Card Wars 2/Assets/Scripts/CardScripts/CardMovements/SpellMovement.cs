@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CardScripts.CardMovements
 {
-    public class SpellMovement : BaseMovement
+    public class SpellMovement : CardMovement
     {
         protected override bool ValidPlacement(MiddleLand land)
         {
