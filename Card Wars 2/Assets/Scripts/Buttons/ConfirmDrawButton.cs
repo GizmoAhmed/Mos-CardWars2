@@ -24,7 +24,7 @@ namespace Buttons
             Player player = networkIdentity.GetComponent<Player>();
             PlayerStats stats = player.GetComponent<PlayerStats>();
 
-            // Debug.LogWarning($"{player.name} wants a free draw");
+            // Debug.LogWarning($"{player.name} wants a FREE draw");
             
             stats.CmdRequestFreeDraw();
         }
@@ -35,6 +35,8 @@ namespace Buttons
             Player player = networkIdentity.GetComponent<Player>();
             PlayerStats stats = player.GetComponent<PlayerStats>();
 
+            // Debug.LogWarning($"{player.name} wants a PAID draw");
+            
             stats.CmdRequestPaidDraw(
                 _drawModal.paidChoice,
                 _drawModal.paidOffer

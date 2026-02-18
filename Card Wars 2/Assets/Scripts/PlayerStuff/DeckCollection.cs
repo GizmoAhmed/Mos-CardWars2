@@ -1,18 +1,22 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using CardScripts;
 using CardScripts.CardData;
+using CardScripts.CardDisplays;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
 using GameManagement;
 using Mirror;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PlayerStuff
 {
     public class DeckCollection : NetworkBehaviour
     {
         public List<CardDataSO> myDeck;
+        [HideInInspector] public DrawModal drawModal;
 
         [Command]
         public void CmdDrawCard()
@@ -27,7 +31,7 @@ namespace PlayerStuff
                 Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't draw");
                 return;
             }
-            
+
             int randomIndex = 0;
             CardDataSO drawnCardData = myDeck[randomIndex];
 
@@ -35,22 +39,17 @@ namespace PlayerStuff
             // GameObject drawnCard = Instantiate(drawnCardData);
             GameObject cardObj = CreateCard(drawnCardData);
 
-            // set owner to player who drew it
-            /*CardMovement move = drawnCard.GetComponent<CardMovement>();
-            PlayerStats stats = GetComponentInParent<PlayerStats>();
-            move.SetOwningPlayer(stats);*/
-
             // add it to the server for both players
             NetworkServer.Spawn(cardObj, conn);
 
             Player player = GetComponentInParent<Player>();
-            
+
             if (player == null)
             {
                 Debug.LogError("Player is null, can't draw");
                 return;
             }
-            
+
             player.cardPlacer.MoveCardToHand(cardObj);
 
             myDeck.RemoveAt(randomIndex);
@@ -59,10 +58,10 @@ namespace PlayerStuff
         private GameObject CreateCard(CardDataSO data)
         {
             GameObject card;
-            
+
             GameManager gm = FindObjectOfType<GameManager>();
 
-            if      (data is CreatureDataSO) card = gm.creatureCard;
+            if (data is CreatureDataSO) card = gm.creatureCard;
             else if (data is BuildingDataSO) card = gm.buildingCard;
             else if (data is SpellDataSO) card = gm.spellCard;
             else if (data is CharmDataSO) card = gm.charmCard;
@@ -72,25 +71,46 @@ namespace PlayerStuff
                 Debug.LogError($"{data.GetType()}: card data is null or the base class. Can't create card");
                 return null;
             }
-            
+
             GameObject cardInstance = Instantiate(card);
-            
+
             cardInstance.GetComponent<CardStats>().InitializeCard(data);
-            
+
             // set owner to player who drew it
             CardMovement move = cardInstance.GetComponent<CardMovement>();
             PlayerStats stats = GetComponentInParent<PlayerStats>();
             move.SetOwningPlayer(stats);
-            
+
             return cardInstance;
         }
 
-        [Server]
-        public void PreviewOfferedCards(NetworkConnectionToClient target, int offer)
+        [Client]
+        public void PreviewFreeCards()
         {
-            List<int> randomIndices = GetRandomUniqueIndices(offer);
+            if (drawModal == null)
+            {
+                Debug.LogError($"No DrawModal attached to {gameObject.name}, aborting card preview");
+                return;
+            }
 
-            // TargetShowCardPreviews(target, randomIndices.ToArray());
+            PlayerStats stats = GetComponentInParent<PlayerStats>();
+
+            int cardsToShow = stats.freeCardsOffered;
+
+            List<int> indices = GetRandomUniqueIndices(cardsToShow);
+
+            foreach (int i in indices)
+            {
+                CardDataSO cardData = myDeck[i];
+                GameObject previewCard = CreateCard(cardData);
+
+                previewCard.transform.SetParent(drawModal.cardGroupTransform, false);
+                previewCard.GetComponent<CardStats>().OnStartClient();
+                
+                CardDisplay cardDisplay = previewCard.GetComponent<CardDisplay>();
+                cardDisplay.FlipCard(true);
+                previewCard.GetComponent<CardMovement>().CmdSetCardState(CardMovement.CardState.Preview);
+            }
         }
 
         private List<int> GetRandomUniqueIndices(int count)
@@ -98,7 +118,7 @@ namespace PlayerStuff
             int maxExclusive = myDeck.Count;
 
             if (count > maxExclusive)
-                throw new System.ArgumentException("Count cannot be greater than range size");
+                throw new ArgumentException("Count cannot be greater than range size");
 
             List<int> pool = new List<int>();
             for (int i = 0; i < maxExclusive; i++)
@@ -115,23 +135,5 @@ namespace PlayerStuff
 
             return result;
         }
-        
-        /*[TargetRpc]
-        private void TargetShowCardPreviews(NetworkConnection target, int[] cardIndices)
-        {
-            DrawModal modal = FindObjectOfType<DrawModal>();
-            DeckCollection deck = GetComponent<DeckCollection>();
-
-            foreach (int index in cardIndices)
-            {
-                GameObject prefab = deck.myDeck[index];
-
-                GameObject previewCard = Instantiate(prefab, modal.cardGroupTransform, false);
-                
-                CardMovement move = previewCard.GetComponent<CardMovement>();
-                PlayerStats stats = GetComponentInParent<PlayerStats>();
-                move.SetOwningPlayer(stats);
-            }
-        }*/
     }
 }

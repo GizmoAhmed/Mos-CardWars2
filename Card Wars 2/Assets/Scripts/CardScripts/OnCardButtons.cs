@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CardScripts
 {
-    public class CardButtons : NetworkBehaviour
+    public class OnCardButtons : NetworkBehaviour
     {
         private CardMovement _move;
 

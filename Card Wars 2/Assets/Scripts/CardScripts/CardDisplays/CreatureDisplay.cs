@@ -53,20 +53,20 @@ namespace CardScripts.CardDisplays
             FindDisplayParts();
 
             // Set images
-            SetImage(_mainImageObj, cardData.mainImage);
+            SetImage(MainImageObj, cardData.mainImage);
 
             // Set names
-            SetText(_nameTop, cardData.cardName);
+            SetText(NameTop, cardData.cardName);
 
             // set description
-            GameObject descTextChild = abilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
+            GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
             SetText(descTextChild, cardData.abilityDescription);
 
             FlipCard(face: true);
 
-            Hide(infoObj); // initially hide the info card
+            Hide(InfoObj); // initially hide the info card
 
-            cardInfoHandler = FindObjectOfType<CardInfoHandler>();
+            CardInfoHandler = FindObjectOfType<CardInfoHandler>();
             // -----------------------------------------------------
 
             CreatureDataSO creatureData = s.CardData as CreatureDataSO;
@@ -88,13 +88,13 @@ namespace CardScripts.CardDisplays
 
             GameObject CurrentRunes = FindPart("CurrentRunes");
 
-            if (infoObj != null)
+            if (InfoObj != null)
             {
-                activateButton = FindPart("ActivateButton", infoRight.transform);
+                activateButton = FindPart("ActivateButton", InfoRight.transform);
                 abilityCost = FindPart("AbilityCostText", activateButton.transform);
 
-                _runeTab1 = FindPart("RuneTab1", infoLeft.transform);
-                _runeTab2 = FindPart("RuneTab2", infoLeft.transform);
+                _runeTab1 = FindPart("RuneTab1", InfoLeft.transform);
+                _runeTab2 = FindPart("RuneTab2", InfoLeft.transform);
 
                 if (_runeTab1 != null)
                 {
@@ -128,16 +128,16 @@ namespace CardScripts.CardDisplays
             _defenseObj.SetActive(up);
             _scoreObj.SetActive(up);
 
-            _magicObj.SetActive(up);
+            magicObj.SetActive(up);
 
-            _cardBackObj.SetActive(!up);
+            CardBackObj.SetActive(!up);
         }
 
         public override void ToggleInfoSlide(bool toggle = true)
         {
             base.ToggleInfoSlide(toggle);
 
-            if (infoObj.activeInHierarchy &&
+            if (InfoObj.activeInHierarchy &&
                 GetComponentInParent<CardMovement>().cardState == CardMovement.CardState.Field)
             {
                 gameObject.transform.SetAsLastSibling();

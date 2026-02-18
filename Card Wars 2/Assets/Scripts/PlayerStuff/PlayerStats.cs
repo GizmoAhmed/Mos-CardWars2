@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Buttons;
 using CardScripts;
+using CardScripts.CardData;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
 using Mirror;
@@ -131,8 +132,7 @@ namespace PlayerStuff
         [TargetRpc]
         private void TargetGenerateFreeCards(NetworkConnection target)
         {
-            DrawModal modal = FindObjectOfType<DrawModal>();
-            // modal.GenerateFreeCards(GetComponent<Player>().deckCollection);
+            GetComponent<Player>().deckCollection.PreviewFreeCards();
         }
 
         [Command]
@@ -151,7 +151,7 @@ namespace PlayerStuff
 
             money -= drawCost;
 
-            GetComponentInChildren<DeckCollection>().PreviewOfferedCards(connectionToClient, offer);
+            // GetComponentInChildren<DeckCollection>().PreviewOfferedCards(connectionToClient, offer);
         }
         
         public void CurrentMagicUpdate(int oldMagic, int newMagic)

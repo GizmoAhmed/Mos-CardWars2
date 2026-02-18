@@ -39,7 +39,7 @@ namespace CardScripts.CardMovements
         }
 
         [Command]
-        public void CmdBindRune(GameObject creatureOnTile)
+        private void CmdBindRune(GameObject creatureOnTile)
         {
             // the creature on this land
             CreatureStats creature = creatureOnTile.GetComponent<CreatureStats>();

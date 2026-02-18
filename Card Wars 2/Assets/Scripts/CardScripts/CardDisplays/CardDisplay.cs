@@ -15,23 +15,23 @@ namespace CardScripts.CardDisplays
         public CardDataSO cardData;
 
         // ~~~ Main Stuff shown on backdrop ~~~
-        protected GameObject _mainImageObj;
-        protected GameObject _cardBackObj;
+        protected GameObject MainImageObj;
+        protected GameObject CardBackObj;
 
-        protected GameObject _nameTop;
+        protected GameObject NameTop;
 
-        [HideInInspector] public GameObject _magicObj;
+        [HideInInspector] public GameObject magicObj;
 
         // ~~~ Stuff shown on left and right info cards ~~~
-        protected GameObject infoObj; // parent of next line ▼
+        protected GameObject InfoObj; // parent of next line ▼
 
-        protected GameObject infoRight; // ▼
-        protected GameObject abilityDesc;
+        protected GameObject InfoRight; // ▼
+        protected GameObject AbilityDesc;
 
-        protected GameObject infoLeft; // ▼
-        private GameObject burnObj;
+        protected GameObject InfoLeft; // ▼
+        private GameObject _burnObj;
 
-        protected CardInfoHandler cardInfoHandler;
+        protected CardInfoHandler CardInfoHandler;
 
         public virtual void InitDisplayWithData(CardStats s)
         {
@@ -47,20 +47,20 @@ namespace CardScripts.CardDisplays
             FindDisplayParts();
 
             // Set images
-            SetImage(_mainImageObj, cardData.mainImage);
+            SetImage(MainImageObj, cardData.mainImage);
 
             // Set names
-            SetText(_nameTop, cardData.cardName);
+            SetText(NameTop, cardData.cardName);
 
             // set description
-            GameObject descTextChild = abilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
+            GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
             SetText(descTextChild, cardData.abilityDescription);
 
             FlipCard(face: true);
 
-            Hide(infoObj); // initially hide the info card
+            Hide(InfoObj); // initially hide the info card
 
-            cardInfoHandler = FindObjectOfType<CardInfoHandler>();
+            CardInfoHandler = FindObjectOfType<CardInfoHandler>();
         }
 
         protected void Hide(GameObject obj)
@@ -91,32 +91,32 @@ namespace CardScripts.CardDisplays
         protected virtual void FindDisplayParts()
         {
             // main
-            _mainImageObj = FindPart("MainImage");
-            _cardBackObj = FindPart("CardBack");
+            MainImageObj = FindPart("MainImage");
+            CardBackObj = FindPart("CardBack");
             
-            _magicObj = FindPart("Magic");
+            magicObj = FindPart("Magic");
 
             // info right + left
-            infoObj = FindPart("Info");
+            InfoObj = FindPart("Info");
 
             // some cascading logic here, if infoObj is find, you can find the rest and so on
-            if (infoObj != null)
+            if (InfoObj != null)
             {
-                GameObject nameBackDrop = FindPart("NameBackDrop", infoObj.transform);
-                _nameTop = FindPart("NameTop", nameBackDrop.transform);
+                GameObject nameBackDrop = FindPart("NameBackDrop", InfoObj.transform);
+                NameTop = FindPart("NameTop", nameBackDrop.transform);
 
                 // right >
-                infoRight = FindPart("InfoRight", infoObj.transform);
-                abilityDesc = FindPart("AbilityDesc", infoRight.transform);
+                InfoRight = FindPart("InfoRight", InfoObj.transform);
+                AbilityDesc = FindPart("AbilityDesc", InfoRight.transform);
                 
                 // left <
-                infoLeft = FindPart("InfoLeft", infoObj.transform);
-                GameObject burnButton = FindPart("BurnButton", infoLeft.transform);
-                burnObj = FindPart("BurnCostText", burnButton.transform);
+                InfoLeft = FindPart("InfoLeft", InfoObj.transform);
+                GameObject burnButton = FindPart("BurnButton", InfoLeft.transform);
+                _burnObj = FindPart("BurnCostText", burnButton.transform);
             }
             else
             {
-                Debug.LogWarning($"Missing {infoObj.name}, can't find the rest of the info");
+                Debug.LogWarning($"Missing {InfoObj.name}, can't find the rest of the info");
             }
         }
 
@@ -149,10 +149,10 @@ namespace CardScripts.CardDisplays
 
         protected virtual void ShowCardFlip(bool up)
         {
-            _mainImageObj.SetActive(up);
-            _nameTop.SetActive(up);
-            _magicObj.SetActive(up);
-            _cardBackObj.SetActive(!up);
+            MainImageObj.SetActive(up);
+            NameTop.SetActive(up);
+            magicObj.SetActive(up);
+            CardBackObj.SetActive(!up);
         }
 
         public void OnCardClicked()
@@ -160,29 +160,29 @@ namespace CardScripts.CardDisplays
             if (!faceUp)
                 return;
 
-            cardInfoHandler.HandleCardClick(this);
+            CardInfoHandler.HandleCardClick(this);
         }
         
         public virtual void ToggleInfoSlide(bool show)
         {
-            if (!faceUp || infoObj == null)
+            if (!faceUp || InfoObj == null)
                 return;
 
-            infoObj.SetActive(show);
+            InfoObj.SetActive(show);
             
             // move card to front, so other stuff can't cover the info
             gameObject.GetComponent<Canvas>().overrideSorting =
-                infoObj.activeInHierarchy;
+                InfoObj.activeInHierarchy;
         }
         
         public void UpdateUIMagic(int newMagic)
         {
-            SetText(_magicObj, newMagic.ToString(), true);
+            SetText(magicObj, newMagic.ToString(), true);
         }
 
         public void UpdateUI_BurnCost(int newCost)
         {
-            SetText(burnObj, newCost.ToString(), true);
+            SetText(_burnObj, newCost.ToString(), true);
         }
     }
 }

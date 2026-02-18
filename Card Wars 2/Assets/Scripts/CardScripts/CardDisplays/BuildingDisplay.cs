@@ -8,7 +8,7 @@ namespace CardScripts.CardDisplays
         {
             base.ToggleInfoSlide(toggle);
 
-            if (infoObj.activeInHierarchy && GetComponentInParent<CardMovement>().cardState == CardMovement.CardState.Field) 
+            if (InfoObj.activeInHierarchy && GetComponentInParent<CardMovement>().cardState == CardMovement.CardState.Field) 
             {
                 gameObject.transform.SetAsLastSibling();
             }
