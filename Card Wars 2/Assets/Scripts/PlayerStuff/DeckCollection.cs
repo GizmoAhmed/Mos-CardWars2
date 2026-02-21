@@ -36,7 +36,6 @@ namespace PlayerStuff
             CardDataSO drawnCardData = myDeck[randomIndex];
 
             // add to scene
-            // GameObject drawnCard = Instantiate(drawnCardData);
             GameObject cardObj = CreateCard(drawnCardData);
 
             // add it to the server for both players
@@ -61,11 +60,11 @@ namespace PlayerStuff
 
             GameManager gm = FindObjectOfType<GameManager>();
 
-            if (data is CreatureDataSO) card = gm.creatureCard;
-            else if (data is BuildingDataSO) card = gm.buildingCard;
-            else if (data is SpellDataSO) card = gm.spellCard;
-            else if (data is CharmDataSO) card = gm.charmCard;
-            else if (data is RuneDataSO) card = gm.runeCard;
+            if (data is CreatureDataSO)         card = gm.creatureCard;
+            else if (data is BuildingDataSO)    card = gm.buildingCard;
+            else if (data is SpellDataSO)       card = gm.spellCard;
+            else if (data is CharmDataSO)       card = gm.charmCard;
+            else if (data is RuneDataSO)        card = gm.runeCard;
             else
             {
                 Debug.LogError($"{data.GetType()}: card data is null or the base class. Can't create card");
@@ -74,7 +73,7 @@ namespace PlayerStuff
 
             GameObject cardInstance = Instantiate(card);
 
-            cardInstance.GetComponent<CardStats>().InitializeCard(data);
+            cardInstance.GetComponent<CardStats>().SetCardData(data);
 
             // set owner to player who drew it
             CardMovement move = cardInstance.GetComponent<CardMovement>();
@@ -105,7 +104,7 @@ namespace PlayerStuff
                 GameObject previewCard = CreateCard(cardData);
 
                 previewCard.transform.SetParent(drawModal.cardGroupTransform, false);
-                previewCard.GetComponent<CardStats>().OnStartClient();
+                previewCard.GetComponent<CardStats>().InitializeCard();
                 
                 CardDisplay cardDisplay = previewCard.GetComponent<CardDisplay>();
                 cardDisplay.FlipCard(true);

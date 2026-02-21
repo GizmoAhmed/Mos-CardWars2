@@ -22,7 +22,7 @@ namespace CardScripts.CardStatss
         
         [SyncVar(hook = nameof(UpdateBurnCost))] public int burnCost = 2;
 
-        public void InitializeCard(CardDataSO data)
+        public void SetCardData(CardDataSO data)
         {   
             cardData = data;
             GameManager gm = FindObjectOfType<GameManager>();
@@ -44,6 +44,11 @@ namespace CardScripts.CardStatss
         {
             base.OnStartClient();
 
+            InitializeCard();
+        }
+
+        public virtual void InitializeCard()
+        {
             if (cardData == null)
             {
                 Debug.LogError($"cardData on {gameObject.name} is null");
@@ -55,14 +60,12 @@ namespace CardScripts.CardStatss
             _display = GetComponent<CardDisplay>();
             _display.InitDisplayWithData(this);
         
-            RefreshCardStats(); // TEXTURE ERROR HERE, Doesn't enter function
-        
-            // these updates not called via hook (change in stat). 
-            // that way, the stat can be zero if so desired from the CardDataSO
+            RefreshCardStats(); 
+            
             _display.UpdateUIMagic(magicUse);
 
             _display.UpdateUI_BurnCost(burnCost);
-        } 
+        }
 
         /// <summary>
         /// Applies the stats from the CardDataSO

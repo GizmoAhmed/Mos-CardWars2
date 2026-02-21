@@ -31,11 +31,11 @@ namespace CardScripts.CardStatss
         [SyncVar(hook = nameof(RuneChange))] public RuneBase currentRune2;
 
         public bool CanBeRuned => (currentRune1 == null) || (overRuneable && currentRune2 == null);
-
-        public override void OnStartClient()
+        
+        public override void InitializeCard()
         {
-            base.OnStartClient();
-
+            base.InitializeCard();
+            
             creatureDisplay = GetComponent<CreatureDisplay>();
             
             creatureDisplay.InitDisplayWithData(this);
