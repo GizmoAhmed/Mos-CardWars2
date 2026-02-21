@@ -101,11 +101,8 @@ namespace GameManagement
                 Player p1 = Player1.identity.GetComponent<Player>();
                 Player p2 = Player2.identity.GetComponent<Player>();
                 
-                p1.deckCollection.myDeck = new List<CardDataSO>(masterDeck);
-                p2.deckCollection.myDeck = new List<CardDataSO>(masterDeck);
-                
-                // set draw modals to each deck, as draw modal is inactive on start where deck can't see them
-                p1.deckCollection.drawModal = p2.deckCollection.drawModal = gmVisibleDrawModal.GetComponent<DrawModal>();
+                p1.deckCollection.InitializeDeck(masterDeck);
+                p2.deckCollection.InitializeDeck(masterDeck);
             }
         }
 

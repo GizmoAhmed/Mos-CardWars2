@@ -51,14 +51,7 @@ namespace PlayerStuff
             ui = GetComponent<PlayerUI>();
             ui.Init(this);
 
-            if (ui == null)
-            {
-                Debug.LogError("[SERVER] PlayerStats UI component could not be initialized.");
-            }
-            else
-            {
-                Debug.Log("[SERVER] PlayerStats UI component initialized.");
-            }
+            if (ui == null) Debug.LogError("PlayerStats UI component could not be initialized.");
         }
 
         [Command]
@@ -150,8 +143,6 @@ namespace PlayerStuff
             }
 
             money -= drawCost;
-
-            // GetComponentInChildren<DeckCollection>().PreviewOfferedCards(connectionToClient, offer);
         }
         
         public void CurrentMagicUpdate(int oldMagic, int newMagic)

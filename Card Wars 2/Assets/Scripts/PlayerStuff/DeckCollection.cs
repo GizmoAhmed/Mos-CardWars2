@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using CardScripts;
 using CardScripts.CardData;
@@ -15,10 +16,49 @@ namespace PlayerStuff
 {
     public class DeckCollection : NetworkBehaviour
     {
-        public List<CardDataSO> myDeck;
-        [HideInInspector] public DrawModal drawModal;
+        // holds the indices of cards in relation to the master deck
+        // so player 1 might have [0,1,2,3,4] then when a card gets removed from the deck...
+        // ... lets say 1, then it looks for gameManager.masterDeck[1],
+        // takes that card, does it what it does with it, then removes 1 from here...
+        // [0,2,3,4]
+        public readonly SyncList<int> MyDeckIndices = new SyncList<int>();
 
-        [Command]
+        private List<CardDataSO> MyDeckCards
+        {
+            get
+            {
+                GameManager gm = FindObjectOfType<GameManager>();
+                return MyDeckIndices.Select(index => gm.masterDeck[index]).ToList();
+            }
+        }
+        
+        [Server]
+        public void InitializeDeck(List<CardDataSO> deck)
+        {
+            GameManager gm = FindObjectOfType<GameManager>();
+            MyDeckIndices.Clear();
+
+            int i = 0;
+            foreach (CardDataSO card in deck)
+            {
+                MyDeckIndices.Add(i);
+                i++;
+            }
+        }
+
+        public DrawModal drawModal;
+        
+        void Start()
+        {
+            drawModal = FindObjectOfType<GameManager>().gmVisibleDrawModal.GetComponent<DrawModal>();
+
+            if (drawModal == null)
+            {
+                Debug.LogError($"DrawModal is null on {gameObject.name}");
+            }
+        }
+        
+        [Command] 
         public void CmdDrawCard()
         {
             DrawCardFromDeck(connectionToClient);
@@ -26,23 +66,28 @@ namespace PlayerStuff
 
         private void DrawCardFromDeck(NetworkConnectionToClient conn)
         {
-            if (myDeck.Count == 0)
+            if (MyDeckIndices.Count == 0)
             {
                 Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't draw");
                 return;
             }
 
-            int randomIndex = 0;
-            CardDataSO drawnCardData = myDeck[randomIndex];
+            // just the top of deck for now 
+            int randomIndex = 0; // todo randomize deck at start, then you can just draw from top. that way you only random once
+        
+            GameManager gm = FindObjectOfType<GameManager>();
+            CardDataSO drawnCardData = gm.masterDeck[MyDeckIndices[randomIndex]];
 
-            // add to scene
             GameObject cardObj = CreateCard(drawnCardData);
-
-            // add it to the server for both players
+            
+            // set owner to player who drew it
+            CardMovement move = cardObj.GetComponent<CardMovement>();
+            PlayerStats stats = GetComponentInParent<PlayerStats>();
+            move.SetOwningPlayer(stats);
+            
             NetworkServer.Spawn(cardObj, conn);
 
             Player player = GetComponentInParent<Player>();
-
             if (player == null)
             {
                 Debug.LogError("Player is null, can't draw");
@@ -51,7 +96,7 @@ namespace PlayerStuff
 
             player.cardPlacer.MoveCardToHand(cardObj);
 
-            myDeck.RemoveAt(randomIndex);
+            MyDeckIndices.RemoveAt(randomIndex);
         }
 
         private GameObject CreateCard(CardDataSO data)
@@ -74,12 +119,7 @@ namespace PlayerStuff
             GameObject cardInstance = Instantiate(card);
 
             cardInstance.GetComponent<CardStats>().SetCardData(data);
-
-            // set owner to player who drew it
-            CardMovement move = cardInstance.GetComponent<CardMovement>();
-            PlayerStats stats = GetComponentInParent<PlayerStats>();
-            move.SetOwningPlayer(stats);
-
+            
             return cardInstance;
         }
 
@@ -93,19 +133,20 @@ namespace PlayerStuff
             }
 
             PlayerStats stats = GetComponentInParent<PlayerStats>();
-
             int cardsToShow = stats.freeCardsOffered;
 
             List<int> indices = GetRandomUniqueIndices(cardsToShow);
+            GameManager gm = FindObjectOfType<GameManager>();
 
             foreach (int i in indices)
             {
-                CardDataSO cardData = myDeck[i];
+                int deckIndex = MyDeckIndices[i];
+                CardDataSO cardData = gm.masterDeck[deckIndex];
                 GameObject previewCard = CreateCard(cardData);
 
                 previewCard.transform.SetParent(drawModal.cardGroupTransform, false);
                 previewCard.GetComponent<CardStats>().InitializeCard();
-                
+            
                 CardDisplay cardDisplay = previewCard.GetComponent<CardDisplay>();
                 cardDisplay.FlipCard(true);
                 previewCard.GetComponent<CardMovement>().CmdSetCardState(CardMovement.CardState.Preview);
@@ -114,7 +155,7 @@ namespace PlayerStuff
 
         private List<int> GetRandomUniqueIndices(int count)
         {
-            int maxExclusive = myDeck.Count;
+            int maxExclusive = MyDeckIndices.Count;
 
             if (count > maxExclusive)
                 throw new ArgumentException("Count cannot be greater than range size");
