@@ -22,7 +22,6 @@ namespace Buttons
             }
 
             if (!drawModalObj.activeInHierarchy)    drawModalObj.GetComponent<DrawModal>().OpenDrawModal();
-            else                                    drawModalObj.GetComponent<DrawModal>().CloseDrawModal();
         }
 
         public void DrawCardOnClick()

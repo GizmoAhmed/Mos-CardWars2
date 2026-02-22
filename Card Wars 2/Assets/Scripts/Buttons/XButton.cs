@@ -1,16 +1,22 @@
+using PlayerStuff;
 using UnityEngine;
 
-public class XButton : MonoBehaviour
+namespace Buttons
 {
-    private GameObject _parent;
-    
-    void Start()
+    public class XButton : MonoBehaviour
     {
-        _parent = transform.parent.gameObject;
-    }
+        private GameObject _parent;
     
-    public void ExitOnClick()
-    {
-        _parent.SetActive(false);
+        void Start()
+        {
+            _parent = transform.parent.gameObject;
+        }
+    
+        public void ExitOnClick()
+        {
+            IModal modal = _parent.GetComponent<IModal>();
+            
+            modal.CloseModal();
+        }
     }
 }

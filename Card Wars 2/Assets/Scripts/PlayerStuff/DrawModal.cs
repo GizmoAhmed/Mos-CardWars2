@@ -8,27 +8,27 @@ using UnityEngine.UI;
 
 namespace PlayerStuff
 {
-    public class DrawModal : MonoBehaviour
+    public class DrawModal : MonoBehaviour, IModal
     {
         public GameObject freeDrawsLeftTextObj;
-        
+
         public GameObject freeChoiceTextObj;
         private int _freeChoice;
-        
+
         public GameObject freeOfferTextObj;
         private int _freeOffer;
-        
+
         public GameObject drawCostTextObj;
         public int drawCost;
 
         public GameObject paidChoiceTextObj;
         public int paidChoice;
-        
+
         public GameObject paidOfferTextObj;
         public int paidOffer;
 
         [HideInInspector] public Transform cardGroupTransform;
-        
+
         void Start()
         {
             // tell the buttons this class object exists
@@ -66,7 +66,7 @@ namespace PlayerStuff
             {
                 Debug.LogError($"drawCostTextObj is null, make sure to set on {gameObject.name}");
             }
-            
+
             cardGroupTransform = GetComponentInChildren<HorizontalLayoutGroup>().transform;
 
             if (cardGroupTransform == null)
@@ -88,12 +88,18 @@ namespace PlayerStuff
             gameObject.SetActive(true);
         }
 
+        //IModal
+        public void CloseModal()
+        {
+            CloseDrawModal();
+        }
+
         public void CloseDrawModal()
         {
+            ClearPreviewCards();
             gameObject.SetActive(false);
-            // R*E*S*E*T
         }
-        
+
         public void SetFreeDrawsLeft(int drawsPlayerStat)
         {
             if (freeDrawsLeftTextObj == null)
@@ -101,7 +107,7 @@ namespace PlayerStuff
                 Debug.LogError("freeDrawsLeftTextObj is null");
                 return;
             }
-            
+
             freeDrawsLeftTextObj.GetComponent<TextMeshProUGUI>().text = drawsPlayerStat.ToString();
         }
 
@@ -112,7 +118,7 @@ namespace PlayerStuff
                 Debug.LogError("freeChoiceTextObj is null");
                 return;
             }
-            
+
             freeChoiceTextObj.GetComponent<TextMeshProUGUI>().text = choicePlayerStat.ToString();
             _freeChoice = choicePlayerStat;
         }
@@ -124,11 +130,11 @@ namespace PlayerStuff
                 Debug.LogError("freeOfferTextObj is null");
                 return;
             }
-            
+
             freeOfferTextObj.GetComponent<TextMeshProUGUI>().text = offerPlayerStat.ToString();
             _freeOffer = offerPlayerStat;
         }
-        
+
         private void UpdateDrawCostText()
         {
             drawCost = paidChoice * 2 + paidOffer;
@@ -151,14 +157,24 @@ namespace PlayerStuff
         public void UpdatePaidOffer(int i)
         {
             int toBeOffer = paidOffer + i;
-            
+
             if (toBeOffer < 1) return;
-            
+
             if (toBeOffer <= paidChoice) return;
-            
+
             paidOffer += i;
             paidOfferTextObj.GetComponent<TextMeshProUGUI>().text = paidOffer.ToString();
             UpdateDrawCostText();
+        }
+
+        [Client]
+        public void ClearPreviewCards()
+        {
+            // Destroy all children of the card group
+            foreach (Transform card in cardGroupTransform)
+            {
+                Destroy(card.gameObject);
+            }
         }
     }
 }

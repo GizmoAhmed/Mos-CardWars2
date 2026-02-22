@@ -131,11 +131,13 @@ namespace PlayerStuff
                 Debug.LogError($"No DrawModal attached to {gameObject.name}, aborting card preview");
                 return;
             }
+            
+            drawModal.ClearPreviewCards(); // clear cards if anyone for this set of new ones
 
             PlayerStats stats = GetComponentInParent<PlayerStats>();
             int cardsToShow = stats.freeCardsOffered;
 
-            List<int> indices = new List<int> {0,1,2}; // GetRandomUniqueIndices(cardsToShow);
+            List<int> indices = GetRandomUniqueIndices(cardsToShow);
             GameManager gm = FindObjectOfType<GameManager>();
 
             foreach (int i in indices)
