@@ -1,4 +1,4 @@
-namespace PlayerStuff
+namespace Modal
 {
     public interface IModal
     {

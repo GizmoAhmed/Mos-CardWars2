@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using CardScripts.CardDisplays;
 using CardScripts.CardStatss;
-using Lands;
 using Mirror;
 using PlayerStuff;
+using Tiles;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -28,7 +28,7 @@ namespace CardScripts.CardMovements
         
         [SyncVar] public PlayerStats thisCardOwnerPlayerStats;
 
-        [HideInInspector] public MiddleLand currentLand = null;
+        [HideInInspector] public Tile currentLand = null;
 
         private bool _grabbed;
         private GameObject _startParent;
@@ -153,7 +153,7 @@ namespace CardScripts.CardMovements
                 transform.position = Vector3.Lerp(transform.position, mousePos, Time.deltaTime * 12f);
 
                 // Get the land under the mouse, no need for colliders anymore
-                MiddleLand landComponent = GetUIElementUnderPointer<MiddleLand>();
+                Tile landComponent = GetUIElementUnderPointer<Tile>();
 
                 // Only assign if it's a valid place for this card
                 if (landComponent != null && ValidPlacement(landComponent))
@@ -167,7 +167,7 @@ namespace CardScripts.CardMovements
             }
         }
 
-        protected virtual bool ValidPlacement(MiddleLand land)
+        protected virtual bool ValidPlacement(Tile land)
         {
             
             Player cardsPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();

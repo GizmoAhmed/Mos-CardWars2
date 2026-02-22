@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Buttons;
 using GameManagement;
 using Mirror;
@@ -6,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PlayerStuff
+namespace Modal
 {
     public class DrawModal : MonoBehaviour, IModal
     {

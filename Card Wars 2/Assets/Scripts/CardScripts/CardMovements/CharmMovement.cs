@@ -1,13 +1,13 @@
-using Lands;
 using Mirror;
 using PlayerStuff;
+using Tiles;
 using UnityEngine;
 
 namespace CardScripts.CardMovements
 {
     public class CharmMovement : CardMovement
     {
-        protected override bool ValidPlacement(MiddleLand land)
+        protected override bool ValidPlacement(Tile land)
         {
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(land))
@@ -22,23 +22,23 @@ namespace CardScripts.CardMovements
         {
             base.RpcPlaceCardOnTile(tileObj);
 
-            CharmArea charmAreaScript = tileObj.GetComponent<CharmArea>();
+            CharmTile charmTileScript = tileObj.GetComponent<CharmTile>();
 
             if (!isOwned)
             {
-                tileObj = charmAreaScript.across;
-                charmAreaScript = tileObj.GetComponent<CharmArea>();
+                tileObj = charmTileScript.across;
+                charmTileScript = tileObj.GetComponent<CharmTile>();
             }
 
             transform.SetParent(tileObj.transform, true);
-            charmAreaScript.InUseCharms.Add(gameObject);
+            charmTileScript.InUseCharms.Add(gameObject);
             
             if (thisCardOwnerPlayerStats != null)
             {
                 thisCardOwnerPlayerStats.UseMagic(cardStats.magicUse);
             }
 
-            currentLand = charmAreaScript;
+            currentLand = charmTileScript;
         }
 
         protected override void Discard()
@@ -60,11 +60,11 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            CharmArea charmAreaScript = currentLand.GetComponent<CharmArea>();
+            CharmTile charmTileScript = currentLand.GetComponent<CharmTile>();
 
-            if (charmAreaScript.InUseCharms.Contains(gameObject))
+            if (charmTileScript.InUseCharms.Contains(gameObject))
             {
-                charmAreaScript.InUseCharms.Remove(gameObject);
+                charmTileScript.InUseCharms.Remove(gameObject);
             }
             else
             {

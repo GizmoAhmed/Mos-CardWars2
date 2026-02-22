@@ -9,6 +9,7 @@ using CardScripts.CardMovements;
 using CardScripts.CardStatss;
 using GameManagement;
 using Mirror;
+using Modal;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

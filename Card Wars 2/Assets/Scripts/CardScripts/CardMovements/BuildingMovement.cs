@@ -1,13 +1,13 @@
-using Lands;
 using Mirror;
 using PlayerStuff;
+using Tiles;
 using UnityEngine;
 
 namespace CardScripts.CardMovements
 {
     public class BuildingMovement : CardMovement
     {
-        protected override bool ValidPlacement(MiddleLand land)
+        protected override bool ValidPlacement(Tile land)
         {
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(land))
@@ -22,12 +22,12 @@ namespace CardScripts.CardMovements
         {
             base.RpcPlaceCardOnTile(tileObj);
 
-            MiddleLand tileScript = tileObj.GetComponent<MiddleLand>();
+            Tile tileScript = tileObj.GetComponent<Tile>();
             
             if (!isOwned)
             {
                 tileObj = tileScript.across;
-                tileScript = tileObj.GetComponent<MiddleLand>();
+                tileScript = tileObj.GetComponent<Tile>();
             }
 
             tileScript.building = gameObject; // set tiles building as this

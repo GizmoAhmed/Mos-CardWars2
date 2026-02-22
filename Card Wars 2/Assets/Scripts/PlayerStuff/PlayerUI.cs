@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Buttons;
 using Mirror;
+using Modal;
 using PlayerStuff;
 using TMPro;
 using UnityEngine;

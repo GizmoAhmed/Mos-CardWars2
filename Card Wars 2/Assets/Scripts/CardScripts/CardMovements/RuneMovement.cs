@@ -1,14 +1,14 @@
 using CardScripts.CardStatss;
 using CardScripts.CardStatss.Runes;
-using Lands;
 using Mirror;
+using Tiles;
 using UnityEngine;
 
 namespace CardScripts.CardMovements
 {
     public class RuneMovement : CardMovement
     {
-        protected override bool ValidPlacement(MiddleLand land)
+        protected override bool ValidPlacement(Tile land)
         {
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(land))
@@ -26,11 +26,11 @@ namespace CardScripts.CardMovements
         [ClientRpc] // dw, already asked if valid placement above
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {
-            MiddleLand tileScript = tileObj.GetComponent<MiddleLand>();
+            Tile tileScript = tileObj.GetComponent<Tile>();
 
             GameObject creatureOnTile = isOwned ? 
                 tileScript.creature :
-                tileScript.across.GetComponent<MiddleLand>().creature;
+                tileScript.across.GetComponent<Tile>().creature;
             
             CmdBindRune(creatureOnTile);
             

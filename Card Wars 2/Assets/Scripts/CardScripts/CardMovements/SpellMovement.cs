@@ -1,13 +1,13 @@
-using Lands;
 using Mirror;
 using PlayerStuff;
+using Tiles;
 using UnityEngine;
 
 namespace CardScripts.CardMovements
 {
     public class SpellMovement : CardMovement
     {
-        protected override bool ValidPlacement(MiddleLand land)
+        protected override bool ValidPlacement(Tile land)
         {
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(land))
@@ -28,7 +28,7 @@ namespace CardScripts.CardMovements
             else
             {
                 Debug.LogWarning(
-                    $"Activating {gameObject.name} Spell on {tileObj.GetComponent<MiddleLand>().across.name}");
+                    $"Activating {gameObject.name} Spell on {tileObj.GetComponent<Tile>().across.name}");
             }
 
             Discard();

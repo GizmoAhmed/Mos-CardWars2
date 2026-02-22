@@ -4,7 +4,6 @@ using CardScripts.CardDisplays;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
 using GameManagement;
-using Lands;
 using Mirror;
 using PlayerStuff;
 using UnityEngine;

@@ -1,13 +1,9 @@
-using CardScripts.CardData;
-using CardScripts.CardDisplays;
-using CardScripts.CardMovements;
-using CardScripts.CardStatss;
 using Mirror;
 using UnityEngine;
 
-namespace Lands
+namespace Tiles
 {
-    public class MiddleLand : NetworkBehaviour
+    public class Tile : NetworkBehaviour
     {
         [Tooltip("True, if this players, false if the other side")]
         public bool tileOwner;
@@ -43,27 +39,27 @@ namespace Lands
 
                 // Across (same column, other row)
                 int acrossNum = isBottom ? num + 4 : num - 4;
-                across = FindLand("L" + acrossNum);
+                across = FindTileByName("L" + acrossNum);
 
                 // Adjacent left
                 if (col > 0)
-                    adjacentLeft = FindLand("L" + (num - 1));
+                    adjacentLeft = FindTileByName("L" + (num - 1));
 
                 // Adjacent right
                 if (col < 3)
-                    adjacentRight = FindLand("L" + (num + 1));
+                    adjacentRight = FindTileByName("L" + (num + 1));
 
                 // Diagonal left
                 if (col > 0)
-                    diagonalLeft = FindLand("L" + (acrossNum - 1));
+                    diagonalLeft = FindTileByName("L" + (acrossNum - 1));
 
                 // Diagonal right
                 if (col < 3)
-                    diagonalRight = FindLand("L" + (acrossNum + 1));
+                    diagonalRight = FindTileByName("L" + (acrossNum + 1));
             }
         }
 
-        private GameObject FindLand(string name)
+        private GameObject FindTileByName(string name)
         {
             var found = GameObject.Find(name);
             if (found == null)

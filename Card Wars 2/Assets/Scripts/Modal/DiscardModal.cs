@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PlayerStuff
+namespace Modal
 {
     public class DiscardModal : MonoBehaviour, IModal
     {
