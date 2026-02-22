@@ -125,7 +125,7 @@ namespace PlayerStuff
         }
 
         [Client]
-        public void PreviewFreeCards()
+        public void OfferCardsPreview(int offering)
         {
             if (drawModal == null)
             {
@@ -133,12 +133,9 @@ namespace PlayerStuff
                 return;
             }
             
-            drawModal.ClearPreviewCards(); // clear cards if anyone for this set of new ones
-
-            PlayerStats stats = GetComponentInParent<PlayerStats>();
-            int cardsToShow = stats.freeCardsOffered;
-
-            List<int> indices = GetRandomUniqueIndices(cardsToShow);
+            drawModal.ClearPreviewCards(); // clear current offering
+            
+            List<int> indices = GetRandomUniqueIndices(offering);
             GameManager gm = FindObjectOfType<GameManager>();
 
             foreach (int i in indices)

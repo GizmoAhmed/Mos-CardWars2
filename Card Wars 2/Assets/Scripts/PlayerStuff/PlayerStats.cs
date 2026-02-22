@@ -108,7 +108,7 @@ namespace PlayerStuff
             score += amount;
         }
 
-        [Command] // client clicks button that calls this function
+        [Command]
         public void CmdRequestFreeDraw()
         {
             if (freeDrawsLeft <= 0)
@@ -119,15 +119,9 @@ namespace PlayerStuff
 
             freeDrawsLeft--;
 
-            TargetGenerateFreeCards(connectionToClient);
+            TargetOfferCardsOnModal(connectionToClient, freeCardsOffered);
         }
-
-        [TargetRpc]
-        private void TargetGenerateFreeCards(NetworkConnection target)
-        {
-            GetComponent<Player>().deckCollection.PreviewFreeCards();
-        }
-
+        
         [Command]
         public void CmdRequestPaidDraw(int choice, int offer)
         {
@@ -138,13 +132,21 @@ namespace PlayerStuff
 
             if (money < drawCost)
             {
-                Debug.Log("Not enough money");
+                Debug.LogWarning($"{gameObject.name} tried a paid draw with no money");
                 return;
             }
 
             money -= drawCost;
+            
+            TargetOfferCardsOnModal(connectionToClient, offer);
         }
         
+        [TargetRpc]
+        private void TargetOfferCardsOnModal(NetworkConnection target, int cardsToOffer)
+        {
+            GetComponent<Player>().deckCollection.OfferCardsPreview(cardsToOffer);
+        }
+
         public void CurrentMagicUpdate(int oldMagic, int newMagic)
         {
             if (ui == null)
