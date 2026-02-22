@@ -240,7 +240,7 @@ namespace CardScripts.CardMovements
             
             if (cardState == CardState.Field) DetachFromTile();
             
-            cardStats.RefreshCardStats();
+            cardStats.CmdRefreshCardStats();
 
             CmdSetCardState(CardState.Discard);
         }

@@ -23,8 +23,6 @@ namespace Buttons
             NetworkIdentity networkIdentity = NetworkClient.connection.identity;
             Player player = networkIdentity.GetComponent<Player>();
             PlayerStats stats = player.GetComponent<PlayerStats>();
-
-            // Debug.LogWarning($"{player.name} wants a FREE draw");
             
             stats.CmdRequestFreeDraw();
         }

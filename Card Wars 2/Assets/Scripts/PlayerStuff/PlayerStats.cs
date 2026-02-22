@@ -108,7 +108,7 @@ namespace PlayerStuff
             score += amount;
         }
 
-        [Command]
+        [Command] // client clicks button that calls this function
         public void CmdRequestFreeDraw()
         {
             if (freeDrawsLeft <= 0)

@@ -59,11 +59,20 @@ namespace CardScripts.CardStatss
             
             _display = GetComponent<CardDisplay>();
             _display.InitDisplayWithData(this);
-        
-            RefreshCardStats(); 
-            
-            _display.UpdateUIMagic(magicUse);
 
+            // Check if this is a networked object or client-only
+            if (!netIdentity || netIdentity.netId == 0)
+            {
+                // non-networked: set directly
+                LocallyRefreshCardStats();
+            }
+            else 
+            {
+                CmdRefreshCardStats();
+            }
+
+            // CmdRefreshCardStats(); 
+            _display.UpdateUIMagic(magicUse);
             _display.UpdateUI_BurnCost(burnCost);
         }
 
@@ -71,12 +80,18 @@ namespace CardScripts.CardStatss
         /// Applies the stats from the CardDataSO
         /// </summary>
         [Command]
-        public virtual void RefreshCardStats()
+        public virtual void CmdRefreshCardStats()
         {
             magicUse = cardData.magic;
             burnCost = cardData.burnCost;
         }
-    
+
+        protected virtual void LocallyRefreshCardStats()
+        {
+            magicUse = cardData.magic;
+            burnCost = cardData.burnCost;
+        }
+
         public void UpdateMagic(int oldMagic, int newMagic)
         {
             _display.UpdateUIMagic(newMagic); // todo also change the players max magicUse

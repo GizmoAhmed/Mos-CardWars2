@@ -34,9 +34,9 @@ namespace CardScripts.CardStatss
         
         public override void InitializeCard()
         {
-            base.InitializeCard();
-            
             creatureDisplay = GetComponent<CreatureDisplay>();
+            
+            base.InitializeCard();
             
             creatureDisplay.InitDisplayWithData(this);
 
@@ -49,9 +49,29 @@ namespace CardScripts.CardStatss
         }
 
         [Command]
-        public override void RefreshCardStats()
+        public override void CmdRefreshCardStats()
         {
-            base.RefreshCardStats();
+            base.CmdRefreshCardStats();
+            CreatureDataSO cData = cardData as CreatureDataSO;
+
+            if (cData != null)
+            {
+                attack = cData.attack;
+                defense = cData.defense;
+                score = attack + defense;
+
+                abilityCost = cData.abilityCost;
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name}: card data is passed null here");
+            }
+        }
+
+        protected override void LocallyRefreshCardStats()
+        {
+            base.LocallyRefreshCardStats();
+            
             CreatureDataSO cData = cardData as CreatureDataSO;
 
             if (cData != null)

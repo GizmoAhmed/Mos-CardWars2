@@ -58,7 +58,7 @@ namespace PlayerStuff
             }
         }
         
-        [Command] 
+        [Command] // called from in-scene button click
         public void CmdDrawCard()
         {
             DrawCardFromDeck(connectionToClient);
@@ -135,12 +135,13 @@ namespace PlayerStuff
             PlayerStats stats = GetComponentInParent<PlayerStats>();
             int cardsToShow = stats.freeCardsOffered;
 
-            List<int> indices = GetRandomUniqueIndices(cardsToShow);
+            List<int> indices = new List<int> {0,1,2}; // GetRandomUniqueIndices(cardsToShow);
             GameManager gm = FindObjectOfType<GameManager>();
 
             foreach (int i in indices)
             {
                 int deckIndex = MyDeckIndices[i];
+                
                 CardDataSO cardData = gm.masterDeck[deckIndex];
                 GameObject previewCard = CreateCard(cardData);
 
