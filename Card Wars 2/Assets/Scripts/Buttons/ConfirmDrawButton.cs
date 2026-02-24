@@ -35,7 +35,7 @@ namespace Buttons
             PlayerStats stats = player.GetComponent<PlayerStats>();
             
             stats.CmdRequestPaidDraw(
-                _drawModal.paidChoice,
+                _drawModal.paidPicks,
                 _drawModal.paidOffer
             );
         }

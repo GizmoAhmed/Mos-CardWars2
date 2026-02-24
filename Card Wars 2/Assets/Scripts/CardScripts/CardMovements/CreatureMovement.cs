@@ -10,13 +10,13 @@ namespace CardScripts.CardMovements
     {
         private CreatureStats CreatureStats => cardStats as CreatureStats;
 
-        protected override bool ValidPlacement(Tile land)
+        protected override bool ValidPlacement(Tile tile)
         {
             // if can't get passed global checks, abort
-            if (!base.ValidPlacement(land))
+            if (!base.ValidPlacement(tile))
                 return false;
             
-            return land.tileOwner && land.creature == null && !land.IsOccupied;
+            return tile.tileOwner && tile.creature == null && !tile.IsOccupied;
         }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not

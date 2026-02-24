@@ -23,6 +23,8 @@ namespace PlayerStuff
         // takes that card, does it what it does with it, then removes 1 from here...
         // [0,2,3,4]
         public readonly SyncList<int> MyDeckIndices = new SyncList<int>();
+        
+        public DrawModal drawModal;
 
         private List<CardDataSO> MyDeckCards
         {
@@ -46,8 +48,6 @@ namespace PlayerStuff
                 i++;
             }
         }
-
-        public DrawModal drawModal;
         
         void Start()
         {
@@ -125,7 +125,7 @@ namespace PlayerStuff
         }
 
         [Client]
-        public void OfferCardsPreview(int offering)
+        public void OfferCardsPreview(int choice, int offering)
         {
             if (drawModal == null)
             {
@@ -137,6 +137,8 @@ namespace PlayerStuff
             
             List<int> indices = GetRandomUniqueIndices(offering);
             GameManager gm = FindObjectOfType<GameManager>();
+            
+            drawModal.UpdatePicksLeft(choice);
 
             foreach (int i in indices)
             {
@@ -150,7 +152,7 @@ namespace PlayerStuff
             
                 CardDisplay cardDisplay = previewCard.GetComponent<CardDisplay>();
                 cardDisplay.FlipCard(true);
-                previewCard.GetComponent<CardMovement>().CmdSetCardState(CardMovement.CardState.Preview);
+                previewCard.GetComponent<CardMovement>().cardState = CardMovement.CardState.Preview;
             }
         }
 

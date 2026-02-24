@@ -8,19 +8,19 @@ namespace CardScripts.CardMovements
 {
     public class RuneMovement : CardMovement
     {
-        protected override bool ValidPlacement(Tile land)
+        protected override bool ValidPlacement(Tile tile)
         {
             // if can't get passed global checks, abort
-            if (!base.ValidPlacement(land))
+            if (!base.ValidPlacement(tile))
                 return false;
 
-            if (!land.creature) return false; // there's no creature on this land? nope can't place here
+            if (!tile.creature) return false; // there's no creature on this tile? nope can't place here
 
-            CreatureStats creature = land.creature.GetComponent<CreatureStats>();
+            CreatureStats creature = tile.creature.GetComponent<CreatureStats>();
             
-            return land.tileOwner &&
-                   land.creature != null &&
-                   (creature.CanBeRuned); // return, if the land has a creature on it and creature can be runed
+            return tile.tileOwner &&
+                   tile.creature != null &&
+                   (creature.CanBeRuned); // return, if the tile has a creature on it and creature can be runed
         }
 
         [ClientRpc] // dw, already asked if valid placement above

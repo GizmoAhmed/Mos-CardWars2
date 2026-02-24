@@ -7,10 +7,10 @@ namespace CardScripts.CardMovements
 {
     public class SpellMovement : CardMovement
     {
-        protected override bool ValidPlacement(Tile land)
+        protected override bool ValidPlacement(Tile tile)
         {
             // if can't get passed global checks, abort
-            if (!base.ValidPlacement(land))
+            if (!base.ValidPlacement(tile))
                 return false;
             
             // if have enough magic to use spell. notice the lack of tile checks todo well actually, prolly have to expand this for certain spells

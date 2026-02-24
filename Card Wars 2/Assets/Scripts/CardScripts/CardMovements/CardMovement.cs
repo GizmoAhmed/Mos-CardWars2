@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CardScripts.CardDisplays;
 using CardScripts.CardStatss;
 using Mirror;
+using Modal;
 using PlayerStuff;
 using Tiles;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace CardScripts.CardMovements
 
         protected CardStats cardStats;
         public CardStats CardStats => cardStats;
-        
+
         [SyncVar] public PlayerStats thisCardOwnerPlayerStats;
 
         [HideInInspector] public Tile currentLand = null;
@@ -34,6 +35,8 @@ namespace CardScripts.CardMovements
         private GameObject _startParent;
         private Vector3 _startPos;
         private GameObject _newDropZone;
+
+        private bool _outsideDrawModal; // for previewed cards
 
         private Transform _dragLayer;
         [Tooltip("Seconds for snapping back")] public float snapBackDuration = 0.25f;
@@ -59,12 +62,12 @@ namespace CardScripts.CardMovements
             _canvasGroup = GetComponent<CanvasGroup>();
             if (_canvasGroup == null)
                 _canvasGroup = gameObject.AddComponent<CanvasGroup>();
-            
+
             _cardDisplay = GetComponentInParent<CardDisplay>();
-            
+
             if (_cardDisplay == null)
                 Debug.LogError($"_cardDisplay is null ({gameObject.name})");
-            
+
             _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
         }
 
@@ -87,7 +90,16 @@ namespace CardScripts.CardMovements
 
         public void BeginDrag()
         {
-            if (_grabbed || currentLand != null || !isOwned) return;
+            if (cardState == CardState.Preview)
+            {
+                // cards in the draw modal preview are draggable
+            }
+            else
+            {
+                // DON'T allow to be grabbed if:
+                // already being grabbed, is already on a land, or is not your card to grab 
+                if (_grabbed || currentLand != null || !isOwned) return;
+            }
 
             _grabbed = true;
 
@@ -107,16 +119,47 @@ namespace CardScripts.CardMovements
 
             _grabbed = false;
             _canvasGroup.blocksRaycasts = true;
-            
+
+
+            if (cardState == CardState.Preview && _outsideDrawModal)
+            {
+                if (CanPickFromPreview()) 
+                {
+                    // CanPickFromPreview, if true, subtracts from the picks left in draw modal
+                    
+                }
+            }
+
             if (_newDropZone != null)
             {
-                // player.cardPlacer.CmdDropCard(gameObject, _newDropZone);
                 CmdPlaceCardOnTile(_newDropZone);
             }
             else
             {
                 StartCoroutine(SnapBackToHand());
             }
+        }
+
+        private bool CanPickFromPreview()
+        {
+            Debug.Log($"Player choosing {gameObject.name} to draw");
+            DrawModal drawModal = FindObjectOfType<DrawModal>();
+
+            if (drawModal == null)
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the drawModal");
+                return false;
+            }
+
+            if (drawModal.picksLeft != 0) // there are picks left
+            {
+                Debug.Log($"Player picks {gameObject.name} to draw, as there are enough picks");
+                drawModal.UpdatePicksLeft(drawModal.picksLeft -= 1);
+                return true;
+            }
+            
+            Debug.LogWarning($"Player could NOT pick {gameObject.name} as they have no picks left");
+            return false;
         }
 
         [Command] // placing this card (this gameObject) on the tile (_newDropZone) it's over 
@@ -149,8 +192,27 @@ namespace CardScripts.CardMovements
         {
             if (_grabbed)
             {
+                // follow mouse
                 Vector2 mousePos = Input.mousePosition;
                 transform.position = Vector3.Lerp(transform.position, mousePos, Time.deltaTime * 12f);
+
+                if (cardState == CardState.Preview)
+                {
+                    DrawModal? drawModal = GetUIElementUnderPointer<DrawModal>();
+
+                    if (drawModal != null)
+                    {
+                        // Debug.LogWarning($"{gameObject.name} is above {drawModal}");
+                        _outsideDrawModal = false;
+                    }
+                    else
+                    {
+                        // Debug.Log($"{gameObject.name} is not above the draw modal");
+                        _outsideDrawModal = true;
+                    }
+
+                    return;
+                }
 
                 // Get the land under the mouse, no need for colliders anymore
                 Tile landComponent = GetUIElementUnderPointer<Tile>();
@@ -167,18 +229,23 @@ namespace CardScripts.CardMovements
             }
         }
 
-        protected virtual bool ValidPlacement(Tile land)
+        protected virtual bool ValidPlacement(Tile tile)
         {
-            
+            if (cardState == CardState.Preview)
+            {
+                // Debug.LogWarning($"Preview Card {gameObject.name} is asking about valid placement on {tile.gameObject.name}");
+                return false;
+            }
+
             Player cardsPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();
-            
+
             // if not your turn, you can't place a card anywhere
             if (cardsPlayer != null &&
                 cardsPlayer.myTurn == false)
             {
                 return false;
             }
-            
+
             // if player has negative magicUse and this card cost something, can't place
             if (cardStats.magicUse > 0 & thisCardOwnerPlayerStats.currentMagic <= 0)
             {
@@ -237,9 +304,9 @@ namespace CardScripts.CardMovements
             thisCardOwnerPlayerStats.GetComponent<CardHandler>().MoveToDiscard(gameObject);
 
             // _cardDisplay.ToggleInfoSlide(false);
-            
+
             if (cardState == CardState.Field) DetachFromTile();
-            
+
             cardStats.CmdRefreshCardStats();
 
             CmdSetCardState(CardState.Discard);

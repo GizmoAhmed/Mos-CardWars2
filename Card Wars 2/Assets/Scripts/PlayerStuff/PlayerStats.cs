@@ -119,7 +119,7 @@ namespace PlayerStuff
 
             freeDrawsLeft--;
 
-            TargetOfferCardsOnModal(connectionToClient, freeCardsOffered);
+            TargetOfferCardsOnModal(connectionToClient, freeCardsChosen, freeCardsOffered);
         }
         
         [Command]
@@ -138,13 +138,13 @@ namespace PlayerStuff
 
             money -= drawCost;
             
-            TargetOfferCardsOnModal(connectionToClient, offer);
+            TargetOfferCardsOnModal(connectionToClient, choice, offer);
         }
         
         [TargetRpc]
-        private void TargetOfferCardsOnModal(NetworkConnection target, int cardsToOffer)
+        private void TargetOfferCardsOnModal(NetworkConnection target, int cardsToChoose, int cardsToOffer)
         {
-            GetComponent<Player>().deckCollection.OfferCardsPreview(cardsToOffer);
+            GetComponent<Player>().deckCollection.OfferCardsPreview(cardsToChoose, cardsToOffer);
         }
 
         public void CurrentMagicUpdate(int oldMagic, int newMagic)

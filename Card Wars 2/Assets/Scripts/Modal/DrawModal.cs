@@ -9,10 +9,12 @@ namespace Modal
 {
     public class DrawModal : MonoBehaviour, IModal
     {
+        [HideInInspector] public Transform cardGroupTransform;
+        
         public GameObject freeDrawsLeftTextObj;
 
         public GameObject freeChoiceTextObj;
-        private int _freeChoice;
+        private int _freePicks;
 
         public GameObject freeOfferTextObj;
         private int _freeOffer;
@@ -21,12 +23,13 @@ namespace Modal
         public int drawCost;
 
         public GameObject paidChoiceTextObj;
-        public int paidChoice;
+        public int paidPicks;
 
         public GameObject paidOfferTextObj;
         public int paidOffer;
 
-        [HideInInspector] public Transform cardGroupTransform;
+        public GameObject picksLeftTextObj;
+        public int picksLeft;
 
         void Start()
         {
@@ -65,19 +68,24 @@ namespace Modal
             {
                 Debug.LogError($"drawCostTextObj is null, make sure to set on {gameObject.name}");
             }
+            
+            if (picksLeftTextObj == null)
+            {
+                Debug.LogError($"picksLeftTextObj is null, make sure to set on {gameObject.name}");
+            }
 
             cardGroupTransform = GetComponentInChildren<HorizontalLayoutGroup>().transform;
 
             if (cardGroupTransform == null)
             {
-                Debug.LogError($"_cardGroupTransform is null");
+                Debug.LogError("_cardGroupTransform couldn't be found and is null");
             }
-
+            
             GameManager gameManager = FindObjectOfType<GameManager>();
 
-            paidChoice = gameManager.defaultPaidDrawChoices;
+            paidPicks = gameManager.defaultPaidDrawChoices;
             paidOffer = gameManager.defaultPaidDrawOffering;
-            paidChoiceTextObj.GetComponent<TextMeshProUGUI>().text = paidChoice.ToString();
+            paidChoiceTextObj.GetComponent<TextMeshProUGUI>().text = paidPicks.ToString();
             paidOfferTextObj.GetComponent<TextMeshProUGUI>().text = paidOffer.ToString();
             UpdateDrawCostText();
         }
@@ -93,7 +101,7 @@ namespace Modal
             CloseDrawModal();
         }
 
-        public void CloseDrawModal()
+        private void CloseDrawModal()
         {
             ClearPreviewCards();
             gameObject.SetActive(false);
@@ -119,7 +127,7 @@ namespace Modal
             }
 
             freeChoiceTextObj.GetComponent<TextMeshProUGUI>().text = choicePlayerStat.ToString();
-            _freeChoice = choicePlayerStat;
+            _freePicks = choicePlayerStat;
         }
 
         public void SetFreeOffer(int offerPlayerStat)
@@ -133,23 +141,17 @@ namespace Modal
             freeOfferTextObj.GetComponent<TextMeshProUGUI>().text = offerPlayerStat.ToString();
             _freeOffer = offerPlayerStat;
         }
-
-        private void UpdateDrawCostText()
-        {
-            drawCost = paidChoice * 2 + paidOffer;
-            drawCostTextObj.GetComponent<TextMeshProUGUI>().text = drawCost.ToString();
-        }
-
+        
         public void UpdatePaidChoice(int i)
         {
-            int toBeChoice = paidChoice + i;
+            int toBeChoice = paidPicks + i;
 
             if (toBeChoice < 1) return;
 
             if (toBeChoice >= paidOffer) return;
 
-            paidChoice += i;
-            paidChoiceTextObj.GetComponent<TextMeshProUGUI>().text = paidChoice.ToString();
+            paidPicks += i;
+            paidChoiceTextObj.GetComponent<TextMeshProUGUI>().text = paidPicks.ToString();
             UpdateDrawCostText();
         }
 
@@ -159,11 +161,17 @@ namespace Modal
 
             if (toBeOffer < 1) return;
 
-            if (toBeOffer <= paidChoice) return;
+            if (toBeOffer <= paidPicks) return;
 
             paidOffer += i;
             paidOfferTextObj.GetComponent<TextMeshProUGUI>().text = paidOffer.ToString();
             UpdateDrawCostText();
+        }
+        
+        private void UpdateDrawCostText()
+        {
+            drawCost = paidPicks * 2 + paidOffer;
+            drawCostTextObj.GetComponent<TextMeshProUGUI>().text = drawCost.ToString();
         }
 
         [Client]
@@ -174,6 +182,12 @@ namespace Modal
             {
                 Destroy(card.gameObject);
             }
+        }
+
+        public void UpdatePicksLeft(int picks)
+        {
+            picksLeft = picks;
+            picksLeftTextObj.GetComponent<TextMeshProUGUI>().text = picks.ToString();
         }
     }
 }

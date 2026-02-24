@@ -7,14 +7,14 @@ namespace CardScripts.CardMovements
 {
     public class BuildingMovement : CardMovement
     {
-        protected override bool ValidPlacement(Tile land)
+        protected override bool ValidPlacement(Tile tile)
         {
             // if can't get passed global checks, abort
-            if (!base.ValidPlacement(land))
+            if (!base.ValidPlacement(tile))
                 return false;
 
             // return true if one of your own lands, the close ones
-            return land.tileOwner && land.building == null;
+            return tile.tileOwner && tile.building == null;
         }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not
