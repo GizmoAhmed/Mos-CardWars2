@@ -5,8 +5,8 @@ namespace CardScripts.CardData
     [CreateAssetMenu(fileName = "_____ Creature Data", menuName = "New Creature")]
     public class CreatureDataSO : CardDataSO
     {
+        [Header("Creature Specific Data")]
         public Element element;
-
         public enum Element
         {
             Forge,

@@ -13,8 +13,10 @@ namespace GameManagement
     {
         public TurnManager turnManager;
 
-        [Header("The Deck")]
+        [Header("All Cards: The Master Deck")]
         public List<CardDataSO> masterDeck;
+        
+        private Dictionary<string, CardDataSO> _cardDatabase;
 
         [Header("Base Card GameObjects")]
         public GameObject creatureCard;
@@ -48,7 +50,7 @@ namespace GameManagement
         public GameObject discardsBoardp2;
         public GameObject gmVisibleDrawModal;
 
-        public List<NetworkConnectionToClient> players = new List<NetworkConnectionToClient>();
+        public List<NetworkConnectionToClient> playersConnections = new List<NetworkConnectionToClient>();
 
         [Server]
         public override void OnStartServer()
@@ -67,6 +69,34 @@ namespace GameManagement
                 Debug.LogError("gmVisibleDrawModal was not set in editor and therefore not found");
             }
         }
+        
+        private void BuildCardDatabase()
+        {
+            _cardDatabase = new Dictionary<string, CardDataSO>();
+        
+            foreach (CardDataSO card in masterDeck)
+            {
+                if (!_cardDatabase.ContainsKey(card.cardID))
+                {
+                    _cardDatabase.Add(card.cardID, card);
+                }
+                else
+                {
+                    Debug.LogWarning($"Duplicate card ID: {card.cardID}");
+                }
+            }
+        }
+
+        public CardDataSO GetCardByID(string cardID)
+        {
+            if (_cardDatabase.TryGetValue(cardID, out CardDataSO card))
+            {
+                return card;
+            }
+        
+            Debug.LogError($"Card not found: {cardID}");
+            return null;
+        }
 
         /// <summary>
         /// Called by the server player once lobby is full
@@ -84,6 +114,10 @@ namespace GameManagement
                 if (masterDeck.Count == 0)
                 {
                     Debug.LogWarning($"master deck on {gameObject.name} is empty, won't copy to players");
+                }
+                else
+                {
+                    BuildCardDatabase();
                 }
 
                 turnManager.StartGame();
@@ -125,7 +159,7 @@ namespace GameManagement
                     turnManager.DisablePlayer(Player2, false); // disable upon arrival
                 }
 
-                players.Add(conn);
+                playersConnections.Add(conn);
             }
         }
 

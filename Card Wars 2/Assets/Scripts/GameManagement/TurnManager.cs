@@ -81,8 +81,8 @@ public class TurnManager : NetworkBehaviour
             _readyHit = 1;
 
             // disable current player, enable the other
-            DisablePlayer(gameManager.players[currentIndex], false);
-            DisablePlayer(gameManager.players[otherIndex], true);
+            DisablePlayer(gameManager.playersConnections[currentIndex], false);
+            DisablePlayer(gameManager.playersConnections[otherIndex], true);
         }
         else // both players went, swap phase
         {

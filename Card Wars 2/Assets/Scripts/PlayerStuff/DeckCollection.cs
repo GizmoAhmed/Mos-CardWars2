@@ -17,38 +17,21 @@ namespace PlayerStuff
 {
     public class DeckCollection : NetworkBehaviour
     {
-        // holds the indices of cards in relation to the master deck
-        // so player 1 might have [0,1,2,3,4] then when a card gets removed from the deck...
-        // ... lets say 1, then it looks for gameManager.masterDeck[1],
-        // takes that card, does it what it does with it, then removes 1 from here...
-        // [0,2,3,4]
-        public readonly SyncList<int> MyDeckIndices = new SyncList<int>();
-        
+        public readonly SyncList<string> myDeckCardIDs = new SyncList<string>();
+
         public DrawModal drawModal;
 
-        private List<CardDataSO> MyDeckCards
-        {
-            get
-            {
-                GameManager gm = FindObjectOfType<GameManager>();
-                return MyDeckIndices.Select(index => gm.masterDeck[index]).ToList();
-            }
-        }
-        
         [Server]
         public void InitializeDeck(List<CardDataSO> deck)
         {
-            GameManager gm = FindObjectOfType<GameManager>();
-            MyDeckIndices.Clear();
+            myDeckCardIDs.Clear();
 
-            int i = 0;
             foreach (CardDataSO card in deck)
             {
-                MyDeckIndices.Add(i);
-                i++;
+                myDeckCardIDs.Add(card.cardID);
             }
         }
-        
+
         void Start()
         {
             drawModal = FindObjectOfType<GameManager>().gmVisibleDrawModal.GetComponent<DrawModal>();
@@ -59,45 +42,55 @@ namespace PlayerStuff
             }
         }
         
-        [Command] // called from in-scene button click
-        public void CmdDrawCard()
+        [Server]
+        private void DrawSpawnCard_ByID(string cardID)
         {
-            DrawCardFromDeck(connectionToClient);
-        }
+            int index = myDeckCardIDs.IndexOf(cardID);
 
-        private void DrawCardFromDeck(NetworkConnectionToClient conn)
-        {
-            if (MyDeckIndices.Count == 0)
+            if (index < 0)
             {
-                Debug.LogWarning($"Empty Deck, Player {connectionToClient.connectionId + 1} Can't draw");
+                Debug.LogWarning($"Card {cardID} not in deck");
                 return;
             }
 
-            // just the top of deck for now 
-            int randomIndex = 0; // todo randomize deck at start, then you can just draw from top. that way you only random once
-        
             GameManager gm = FindObjectOfType<GameManager>();
-            CardDataSO drawnCardData = gm.masterDeck[MyDeckIndices[randomIndex]];
+            CardDataSO cardData = gm.GetCardByID(cardID);
 
-            GameObject cardObj = CreateCard(drawnCardData);
-            
-            // set owner to player who drew it
+            GameObject cardObj = CreateCard(cardData);
+
             CardMovement move = cardObj.GetComponent<CardMovement>();
             PlayerStats stats = GetComponentInParent<PlayerStats>();
             move.SetOwningPlayer(stats);
-            
-            NetworkServer.Spawn(cardObj, conn);
+
+            NetworkServer.Spawn(cardObj, connectionToClient);
 
             Player player = GetComponentInParent<Player>();
-            if (player == null)
+            if (player != null)
             {
-                Debug.LogError("Player is null, can't draw");
-                return;
+                player.cardPlacer.MoveCardToHand(cardObj);
             }
 
-            player.cardPlacer.MoveCardToHand(cardObj);
+            myDeckCardIDs.RemoveAt(index);
+        }
 
-            MyDeckIndices.RemoveAt(randomIndex);
+        [Command] // called from in-scene button click
+        public void CmdDrawCard()
+        {
+            DrawTopCardFromDeck(connectionToClient);
+        }
+
+        [Server]
+        private void DrawTopCardFromDeck(NetworkConnectionToClient conn)
+        {
+            if (myDeckCardIDs.Count == 0)
+            {
+                Debug.LogWarning("Empty Deck");
+                return;
+            }
+            
+            string cardID = myDeckCardIDs[0];
+
+            DrawSpawnCard_ByID(cardID);
         }
 
         private GameObject CreateCard(CardDataSO data)
@@ -106,11 +99,11 @@ namespace PlayerStuff
 
             GameManager gm = FindObjectOfType<GameManager>();
 
-            if (data is CreatureDataSO)         card = gm.creatureCard;
-            else if (data is BuildingDataSO)    card = gm.buildingCard;
-            else if (data is SpellDataSO)       card = gm.spellCard;
-            else if (data is CharmDataSO)       card = gm.charmCard;
-            else if (data is RuneDataSO)        card = gm.runeCard;
+            if (data is CreatureDataSO) card = gm.creatureCard;
+            else if (data is BuildingDataSO) card = gm.buildingCard;
+            else if (data is SpellDataSO) card = gm.spellCard;
+            else if (data is CharmDataSO) card = gm.charmCard;
+            else if (data is RuneDataSO) card = gm.runeCard;
             else
             {
                 Debug.LogError($"{data.GetType()}: card data is null or the base class. Can't create card");
@@ -120,7 +113,7 @@ namespace PlayerStuff
             GameObject cardInstance = Instantiate(card);
 
             cardInstance.GetComponent<CardStats>().SetCardData(data);
-            
+
             return cardInstance;
         }
 
@@ -132,48 +125,65 @@ namespace PlayerStuff
                 Debug.LogError($"No DrawModal attached to {gameObject.name}, aborting card preview");
                 return;
             }
-            
+
             drawModal.ClearPreviewCards(); // clear current offering
-            
-            List<int> indices = GetRandomUniqueIndices(offering);
+
+            // Get random card names from the deck
+            List<string> randomCardNames = GetRandomUniqueCardNames(offering);
             GameManager gm = FindObjectOfType<GameManager>();
-            
+
             drawModal.UpdatePicksLeft(choice);
 
-            foreach (int i in indices)
+            foreach (string cardName in randomCardNames)
             {
-                int deckIndex = MyDeckIndices[i];
-                
-                CardDataSO cardData = gm.masterDeck[deckIndex];
+                CardDataSO cardData = gm.GetCardByID(cardName);
+
+                if (cardData == null)
+                {
+                    Debug.LogError($"Card not found: {cardName}");
+                    continue;
+                }
+
                 GameObject previewCard = CreateCard(cardData);
 
                 previewCard.transform.SetParent(drawModal.cardGroupTransform, false);
                 previewCard.GetComponent<CardStats>().InitializeCard();
-            
+
                 CardDisplay cardDisplay = previewCard.GetComponent<CardDisplay>();
                 cardDisplay.FlipCard(true);
                 previewCard.GetComponent<CardMovement>().cardState = CardMovement.CardState.Preview;
             }
         }
 
-        private List<int> GetRandomUniqueIndices(int count)
+        /// <summary>
+        /// Get random unique card names from the deck
+        /// </summary>
+        private List<string> GetRandomUniqueCardNames(int count)
         {
-            int maxExclusive = MyDeckIndices.Count;
+            int maxCount = myDeckCardIDs.Count;
 
-            if (count > maxExclusive)
-                throw new ArgumentException("Count cannot be greater than range size");
+            if (count > maxCount)
+            {
+                Debug.LogWarning($"Requested {count} cards but only {maxCount} available in deck");
+                count = maxCount;
+            }
 
-            List<int> pool = new List<int>();
-            for (int i = 0; i < maxExclusive; i++)
-                pool.Add(i);
+            // Create a pool of indices (we still randomize by index position)
+            List<int> indexPool = new List<int>();
+            for (int i = 0; i < maxCount; i++)
+                indexPool.Add(i);
 
-            List<int> result = new List<int>();
+            List<string> result = new List<string>();
 
             for (int i = 0; i < count; i++)
             {
-                int index = Random.Range(0, pool.Count);
-                result.Add(pool[index]);
-                pool.RemoveAt(index);
+                int randomIndex = Random.Range(0, indexPool.Count);
+                int deckIndex = indexPool[randomIndex];
+
+                // Get the card name at this index
+                result.Add(myDeckCardIDs[deckIndex]);
+
+                indexPool.RemoveAt(randomIndex);
             }
 
             return result;

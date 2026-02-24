@@ -104,6 +104,7 @@ namespace Modal
         private void CloseDrawModal()
         {
             ClearPreviewCards();
+            UpdatePicksLeft(0);
             gameObject.SetActive(false);
         }
 
