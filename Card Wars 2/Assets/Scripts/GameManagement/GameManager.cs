@@ -52,6 +52,12 @@ namespace GameManagement
 
         public List<NetworkConnectionToClient> playersConnections = new List<NetworkConnectionToClient>();
 
+        void Start()
+        {
+            Debug.Log("<<< Starting GameManager >>>");
+            BuildCardDatabase();
+        }
+
         [Server]
         public override void OnStartServer()
         {
@@ -89,6 +95,12 @@ namespace GameManagement
 
         public CardDataSO GetCardByID(string cardID)
         {
+            if (_cardDatabase == null)
+            {
+                Debug.LogError("CardDatabase is null here");
+                return null;
+            }
+
             if (_cardDatabase.TryGetValue(cardID, out CardDataSO card))
             {
                 return card;
@@ -114,10 +126,6 @@ namespace GameManagement
                 if (masterDeck.Count == 0)
                 {
                     Debug.LogWarning($"master deck on {gameObject.name} is empty, won't copy to players");
-                }
-                else
-                {
-                    BuildCardDatabase();
                 }
 
                 turnManager.StartGame();

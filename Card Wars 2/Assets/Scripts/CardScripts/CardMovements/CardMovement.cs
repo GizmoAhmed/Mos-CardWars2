@@ -29,6 +29,9 @@ namespace CardScripts.CardMovements
 
         [SyncVar] public PlayerStats thisCardOwnerPlayerStats;
 
+        // For preview cards only (client-side reference)
+        private DeckCollection _owningDeck;
+        
         [HideInInspector] public Tile currentLand = null;
 
         private bool _grabbed;
@@ -75,6 +78,14 @@ namespace CardScripts.CardMovements
         public void SetOwningPlayer(PlayerStats stats)
         {
             thisCardOwnerPlayerStats = stats;
+        }
+        
+        /// <summary>
+        /// Set which deck this preview card came from (client-side only)
+        /// </summary>
+        public void SetOwningDeck(DeckCollection deck)
+        {
+            _owningDeck = deck;
         }
 
         [Command]
@@ -123,10 +134,9 @@ namespace CardScripts.CardMovements
 
             if (cardState == CardState.Preview && _outsideDrawModal)
             {
-                if (CanPickFromPreview()) 
+                if (CanPickFromPreview())
                 {
-                    // CanPickFromPreview, if true, subtracts from the picks left in draw modal
-                    
+                    SpawnThisCardFromPreview();
                 }
             }
 
@@ -137,6 +147,24 @@ namespace CardScripts.CardMovements
             else
             {
                 StartCoroutine(SnapBackToHand());
+            }
+        }
+
+        private void SpawnThisCardFromPreview()
+        {
+            CardStats stats = GetComponent<CardStats>();
+                
+            if (stats != null && stats.cardData != null && _owningDeck != null)
+            {
+                // Tell the deck to spawn this card
+                _owningDeck.CmdDrawCardByID(stats.cardData.cardID);
+                    
+                // Destroy the preview card
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.LogError("Missing card data or owning deck!");
             }
         }
 

@@ -116,6 +116,15 @@ namespace PlayerStuff
 
             return cardInstance;
         }
+        
+        /// <summary>
+        /// Draw a specific card by ID (called when player selects from preview)
+        /// </summary>
+        [Command(requiresAuthority = false)]
+        public void CmdDrawCardByID(string cardID, NetworkConnectionToClient sender = null)
+        {
+            DrawSpawnCard_ByID(cardID);
+        }
 
         [Client]
         public void OfferCardsPreview(int choice, int offering)
@@ -143,15 +152,25 @@ namespace PlayerStuff
                     Debug.LogError($"Card not found: {cardName}");
                     continue;
                 }
-
+                
+                // creature card
                 GameObject previewCard = CreateCard(cardData);
 
+                // move to drawmodal
                 previewCard.transform.SetParent(drawModal.cardGroupTransform, false);
+                
+                // init card
                 previewCard.GetComponent<CardStats>().InitializeCard();
 
+                // flip card up
                 CardDisplay cardDisplay = previewCard.GetComponent<CardDisplay>();
                 cardDisplay.FlipCard(true);
-                previewCard.GetComponent<CardMovement>().cardState = CardMovement.CardState.Preview;
+                
+                CardMovement move = previewCard.GetComponent<CardMovement>();
+                
+                // change state
+                move.cardState = CardMovement.CardState.Preview;
+                move.SetOwningDeck(this);
             }
         }
 
