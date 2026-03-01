@@ -1,5 +1,6 @@
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
+using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss.Runes;
 using Mirror;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace CardScripts.CardStatss
         
         [Header("Creature Specific Stats")]
         
-        [SyncVar(hook = nameof(UpdateAttack))] public int attack;
+        [SyncVar(hook = nameof(UpdateAttack))] public int strength;
 
         [SyncVar(hook = nameof(UpdateDefense))] public int defense;
         
@@ -40,11 +41,11 @@ namespace CardScripts.CardStatss
             
             creatureDisplay.InitDisplayWithData(this);
 
-            creatureDisplay.UpdateUIAttack(attack);
+            creatureDisplay.UpdateUIStrength(strength);
             creatureDisplay.UpdateUIDefense(defense);
             creatureDisplay.UpdateUI_AbilityCost(abilityCost);
             
-            score = attack + defense;
+            score = strength + defense;
             creatureDisplay.UpdateUI_Score(score);
         }
 
@@ -52,33 +53,26 @@ namespace CardScripts.CardStatss
         public override void CmdRefreshCardStats()
         {
             base.CmdRefreshCardStats();
-            CreatureDataSO cData = cardData as CreatureDataSO;
-
-            if (cData != null)
-            {
-                attack = cData.attack;
-                defense = cData.defense;
-                score = attack + defense;
-
-                abilityCost = cData.abilityCost;
-            }
-            else
-            {
-                Debug.LogError($"{gameObject.name}: card data is passed null here");
-            }
+            ApplyStatsFromData();
         }
 
         protected override void LocallyRefreshCardStats()
         {
             base.LocallyRefreshCardStats();
+            ApplyStatsFromData();
+        }
+
+        protected override void ApplyStatsFromData()
+        {
+            base.ApplyStatsFromData();
             
             CreatureDataSO cData = cardData as CreatureDataSO;
 
             if (cData != null)
             {
-                attack = cData.attack;
+                strength = cData.attack;
                 defense = cData.defense;
-                score = attack + defense;
+                score = strength + defense;
 
                 abilityCost = cData.abilityCost;
             }
@@ -87,12 +81,51 @@ namespace CardScripts.CardStatss
                 Debug.LogError($"{gameObject.name}: card data is passed null here");
             }
         }
-        
+
+        [Server]
+        public void ChangeStrength(int amount, bool buff)
+        {
+            if (buff)
+            {
+                strength += amount;
+            }
+            else
+            {
+                strength -= amount;
+            }
+        }
+
+        [Command]
+        public void CmdChangeDefense(int amount, bool buff)
+        {
+            if (buff)
+            {
+                defense += amount;
+            }
+            else
+            {
+                defense -= amount;
+            }
+        }
+
+        [Command]
+        public void CmdChangeAbilityCost(int amount, bool buff)
+        {
+            if (buff)
+            {
+                abilityCost -= amount;
+            }
+            else
+            {
+                abilityCost += amount;
+            }
+        }
+
         public void UpdateAttack(int oldAttack, int newAttack)
         {
-            creatureDisplay.UpdateUIAttack(newAttack);
+            creatureDisplay.UpdateUIStrength(newAttack);
             
-            score = attack + defense;
+            score = strength + defense;
             creatureDisplay.UpdateUI_Score(score);
         }
 
@@ -100,7 +133,7 @@ namespace CardScripts.CardStatss
         {
             creatureDisplay.UpdateUIDefense(newDefense);
             
-            score = attack + defense;
+            score = strength + defense;
             creatureDisplay.UpdateUI_Score(score);
         }
 

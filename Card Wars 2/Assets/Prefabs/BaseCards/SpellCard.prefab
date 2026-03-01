@@ -1705,7 +1705,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3991019096879594961}
         m_TargetAssemblyTypeName: CardScripts.CardButtons, Assembly-CSharp
-        m_MethodName: BurnButton
+        m_MethodName: OnClickBurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

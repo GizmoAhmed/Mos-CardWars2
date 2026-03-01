@@ -1,5 +1,6 @@
 using CardScripts.CardData;
 using CardScripts.CardMovements;
+using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using CardScripts.CardStatss.Runes;
 using TMPro;
@@ -12,7 +13,7 @@ namespace CardScripts.CardDisplays
     {
         private GameObject _element;
 
-        private GameObject _attackObj;
+        private GameObject _strengthObj;
         private GameObject _defenseObj;
         private GameObject _scoreObj;
 
@@ -82,7 +83,7 @@ namespace CardScripts.CardDisplays
             base.FindDisplayParts();
 
             _elementObj = FindPart("Element");
-            _attackObj = FindPart("Attack");
+            _strengthObj = FindPart("Attack");
             _defenseObj = FindPart("Defense");
             _scoreObj = FindPart("Score");
 
@@ -124,7 +125,7 @@ namespace CardScripts.CardDisplays
 
             _elementObj.SetActive(up);
 
-            _attackObj.SetActive(up);
+            _strengthObj.SetActive(up);
             _defenseObj.SetActive(up);
             _scoreObj.SetActive(up);
 
@@ -163,9 +164,9 @@ namespace CardScripts.CardDisplays
             }
         }
 
-        public void UpdateUIAttack(int newAttack)
+        public void UpdateUIStrength(int newAttack)
         {
-            SetText(_attackObj, newAttack.ToString(), true);
+            SetText(_strengthObj, newAttack.ToString(), true);
         }
 
         public void UpdateUIDefense(int newDefense)

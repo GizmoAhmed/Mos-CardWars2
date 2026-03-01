@@ -673,9 +673,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -8787084603578760986}
-        m_TargetAssemblyTypeName: CardScripts.CardButtons, Assembly-CSharp
-        m_MethodName: CreatureAbility
+      - m_Target: {fileID: 2475366819963107678}
+        m_TargetAssemblyTypeName: CardScripts.CardButtons.CreatureAbilityButton,
+          Assembly-CSharp
+        m_MethodName: OnAbilityClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1511,7 +1512,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -8787084603578760986}
         m_TargetAssemblyTypeName: CardScripts.CardButtons, Assembly-CSharp
-        m_MethodName: BurnButton
+        m_MethodName: OnClickBurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2684,6 +2685,7 @@ GameObject:
   - component: {fileID: -2852168523518557750}
   - component: {fileID: 1947104413682151867}
   - component: {fileID: 6426264086484934529}
+  - component: {fileID: 2475366819963107678}
   m_Layer: 5
   m_Name: CreatureCard
   m_TagString: Untagged
@@ -2976,11 +2978,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   cardData: {fileID: 0}
-  thisCardOwner: {fileID: 0}
-  magicUse: 0
+  soulUse: 0
   burnCost: 2
   creatureDisplay: {fileID: 0}
-  attack: 0
+  strength: 0
   defense: 0
   score: 0
   abilityCost: 0
@@ -3004,7 +3005,7 @@ MonoBehaviour:
   syncInterval: 0
   faceUp: 0
   cardData: {fileID: 0}
-  _magicObj: {fileID: 0}
+  magicObj: {fileID: 0}
 --- !u!114 &6426264086484934529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3020,11 +3021,25 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  player: {fileID: 0}
   cardState: 0
-  thisPlayersStats: {fileID: 0}
+  thisCardOwnerPlayerStats: {fileID: 0}
   currentLand: {fileID: 0}
   snapBackDuration: 0.25
+--- !u!114 &2475366819963107678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310339964073049012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ede4b55cc1c844ca4d5654788d160b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &7754454831407693559
 GameObject:
   m_ObjectHideFlags: 0

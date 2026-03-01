@@ -2,28 +2,28 @@ using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using GameManagement;
 using Mirror;
-using PlayerStuff;
 using UnityEngine;
 
-namespace CardScripts.CardStatss
+namespace CardScripts.CardStats_Folder
 {
     public class CardStats : NetworkBehaviour
     {
         public CardDataSO cardData;
 
         public CardDataSO CardData => cardData;
-        
+
         [SyncVar(hook = nameof(OnCardDataChanged))]
         private int _cardDataIndex = -1;
-        
+
         private CardDisplay _display;
 
-        [SyncVar(hook = nameof(UpdateMagic))] public int magicUse;
-        
-        [SyncVar(hook = nameof(UpdateBurnCost))] public int burnCost = 2;
+        [SyncVar(hook = nameof(UpdateMagic))] public int soulUse;
+
+        [SyncVar(hook = nameof(UpdateBurnCost))]
+        public int burnCost = 2;
 
         public void SetCardData(CardDataSO data)
-        {   
+        {
             cardData = data;
             GameManager gm = FindObjectOfType<GameManager>();
             _cardDataIndex = gm.masterDeck.IndexOf(data);
@@ -32,7 +32,7 @@ namespace CardScripts.CardStatss
         private void OnCardDataChanged(int oldIndex, int newIndex)
         {
             if (newIndex < 0) return;
-    
+
             GameManager gm = FindObjectOfType<GameManager>();
             if (newIndex < gm.masterDeck.Count && cardData == null)
             {
@@ -56,7 +56,7 @@ namespace CardScripts.CardStatss
             }
 
             gameObject.name = cardData.cardName + "CardObj";
-            
+
             _display = GetComponent<CardDisplay>();
             _display.InitDisplayWithData(this);
 
@@ -66,13 +66,13 @@ namespace CardScripts.CardStatss
                 // non-networked: set directly
                 LocallyRefreshCardStats();
             }
-            else 
+            else
             {
                 CmdRefreshCardStats();
             }
 
             // CmdRefreshCardStats(); 
-            _display.UpdateUIMagic(magicUse);
+            _display.UpdateUIMagic(soulUse);
             _display.UpdateUI_BurnCost(burnCost);
         }
 
@@ -82,19 +82,49 @@ namespace CardScripts.CardStatss
         [Command]
         public virtual void CmdRefreshCardStats()
         {
-            magicUse = cardData.magic;
-            burnCost = cardData.burnCost;
+            ApplyStatsFromData();
         }
 
         protected virtual void LocallyRefreshCardStats()
         {
-            magicUse = cardData.magic;
+            ApplyStatsFromData();
+        }
+
+        protected virtual void ApplyStatsFromData()
+        {
+            soulUse = cardData.magic;
             burnCost = cardData.burnCost;
+        }
+
+        [Command] // change either burn cost or soul use
+        public void CmdChangeSoulUse(int amount, bool buff)
+        {
+            if (buff)
+            {
+                soulUse -= amount;
+            }
+            else
+            {
+                soulUse += amount;
+            }
+        }
+        
+        [Command] // change either burn cost or soul use
+        public void CmdChangeBurnCost(int amount, bool buff)
+        {
+            if (buff)
+            {
+                burnCost -= amount;
+            }
+            else
+            {
+                burnCost += amount;
+            }
         }
 
         public void UpdateMagic(int oldMagic, int newMagic)
         {
-            _display.UpdateUIMagic(newMagic); // todo also change the players max magicUse
+            _display.UpdateUIMagic(newMagic); // todo also change the players max soulUse
         }
 
         public void UpdateBurnCost(int oldCost, int newCost)

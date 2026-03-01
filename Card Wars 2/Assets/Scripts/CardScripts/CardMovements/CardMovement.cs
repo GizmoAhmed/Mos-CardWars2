@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using CardScripts.CardDisplays;
+using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Mirror;
 using Modal;
@@ -32,7 +33,7 @@ namespace CardScripts.CardMovements
         // For preview cards only (client-side reference)
         private DeckCollection _owningDeck;
         
-        [HideInInspector] public Tile currentLand = null;
+        [HideInInspector] public Tile currentTile = null;
 
         private bool _grabbed;
         private GameObject _startParent;
@@ -109,7 +110,7 @@ namespace CardScripts.CardMovements
             {
                 // DON'T allow to be grabbed if:
                 // already being grabbed, is already on a land, or is not your card to grab 
-                if (_grabbed || currentLand != null || !isOwned) return;
+                if (_grabbed || currentTile != null || !isOwned) return;
             }
 
             _grabbed = true;
@@ -274,8 +275,8 @@ namespace CardScripts.CardMovements
                 return false;
             }
 
-            // if player has negative magicUse and this card cost something, can't place
-            if (cardStats.magicUse > 0 & thisCardOwnerPlayerStats.currentMagic <= 0)
+            // if player has negative soulUse and this card cost something, can't place
+            if (cardStats.soulUse > 0 & thisCardOwnerPlayerStats.currentMagic <= 0)
             {
                 return false;
             }
@@ -342,7 +343,7 @@ namespace CardScripts.CardMovements
 
         protected virtual void DetachFromTile()
         {
-            currentLand = null;
+            currentTile = null;
         }
     }
 }

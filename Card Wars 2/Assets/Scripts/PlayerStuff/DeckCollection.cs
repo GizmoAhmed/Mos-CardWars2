@@ -6,6 +6,7 @@ using CardScripts;
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using CardScripts.CardMovements;
+using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using GameManagement;
 using Mirror;

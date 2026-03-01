@@ -79,7 +79,7 @@ public class PlayerUI : NetworkBehaviour
 
     public void MagicUIUpdate(int magic, bool current_max, bool goingUnder = false)
     {
-        // magicUse 1 or 2
+        // soulUse 1 or 2
         TextMeshProUGUI magicText =
             (isOwned) ? _magic1.GetComponent<TextMeshProUGUI>() : _magic2.GetComponent<TextMeshProUGUI>();
 

@@ -14,7 +14,7 @@ namespace CardScripts.CardMovements
                 return false;
             
             // if have enough magic to use spell. notice the lack of tile checks todo well actually, prolly have to expand this for certain spells
-            return cardStats.magicUse <= thisCardOwnerPlayerStats.currentMagic;
+            return cardStats.soulUse <= thisCardOwnerPlayerStats.currentMagic;
         }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not

@@ -1,3 +1,4 @@
+using CardScripts.Abilities;
 using UnityEngine;
 
 namespace CardScripts.CardData
@@ -16,6 +17,7 @@ namespace CardScripts.CardData
         public string abilityDescription;
         
         public int burnCost = 2;
+
+        public CardAbilitySO ability;
     }
 }
-

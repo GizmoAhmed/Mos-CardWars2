@@ -35,10 +35,10 @@ namespace CardScripts.CardMovements
             
             if (thisCardOwnerPlayerStats != null)
             {
-                thisCardOwnerPlayerStats.UseMagic(cardStats.magicUse);
+                thisCardOwnerPlayerStats.UseMagic(cardStats.soulUse);
             }
 
-            currentLand = charmTileScript;
+            currentTile = charmTileScript;
         }
 
         protected override void Discard()
@@ -55,12 +55,12 @@ namespace CardScripts.CardMovements
         [Command]
         private void ReturnMagic()
         {
-            thisCardOwnerPlayerStats.currentMagic += cardStats.magicUse; // give back magicUse
+            thisCardOwnerPlayerStats.currentMagic += cardStats.soulUse; // give back soulUse
         }
 
         protected override void DetachFromTile()
         {
-            CharmTile charmTileScript = currentLand.GetComponent<CharmTile>();
+            CharmTile charmTileScript = currentTile.GetComponent<CharmTile>();
 
             if (charmTileScript.InUseCharms.Contains(gameObject))
             {

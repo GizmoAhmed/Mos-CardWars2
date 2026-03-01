@@ -1,13 +1,10 @@
-using System;
 using CardScripts.CardMovements;
-using CardScripts.CardStatss;
 using Mirror;
-using PlayerStuff;
 using UnityEngine;
 
-namespace CardScripts
+namespace CardScripts.CardButtons
 {
-    public class OnCardButtons : NetworkBehaviour
+    public class BurnButton : NetworkBehaviour
     {
         private CardMovement _move;
 
@@ -16,20 +13,14 @@ namespace CardScripts
             _move = GetComponent<CardMovement>();
         }
         
-        public void BurnButton()
+        public void OnClickBurn()
         {
             if (_move == null)
             {
                 Debug.LogError($"Move script on {gameObject.name} is null");
                 return;
             }
-
             _move.thisCardOwnerPlayerStats.CmdBurn(gameObject);
-        }
-
-        public void CreatureAbility()
-        {
-            Debug.Log($"Creature Ability-ing...{gameObject.name}");
         }
     }
 }

@@ -3,6 +3,7 @@ using Buttons;
 using CardScripts;
 using CardScripts.CardData;
 using CardScripts.CardMovements;
+using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Mirror;
 using UnityEngine;
@@ -85,13 +86,33 @@ namespace PlayerStuff
             }
         }
 
+        [Command]
+        public void CmdActivateCreatureAbility(GameObject creatureToActivate)
+        {
+            Debug.Log($"Counting Shards for ability activation on {creatureToActivate.name}...");
+            
+            CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
+            int cost = creatureStats.abilityCost;
+            
+            if (money >= cost)
+            {
+                money -= cost;
+                Debug.Log($"...Spending shards ({cost}) to activate {creatureToActivate.name} ability");
+                creatureStats.cardData.ability.Execute(creatureToActivate);
+            }
+            else
+            {
+                Debug.LogWarning($"...Insufficient shards ({money}) to activate {creatureToActivate.name} ({cost})");
+            }
+        }
+
         public void DrainHealth()
         {
             health -= drain;
         }
 
         /// <summary>
-        /// should never reach this function if already over-magicUse
+        /// should never reach this function if already over-soulUse
         /// see ValidPlacement() in each card move child class
         /// </summary>
         /// <param name="amount"></param>
@@ -132,7 +153,7 @@ namespace PlayerStuff
 
             if (money < drawCost)
             {
-                Debug.LogWarning($"{gameObject.name} tried a paid draw with no money");
+                Debug.LogWarning($"{gameObject.name} tried a paid draw ({drawCost}) with insufficient shards ({money})");
                 return;
             }
 
@@ -151,7 +172,7 @@ namespace PlayerStuff
         {
             if (ui == null)
             {
-                Debug.LogWarning("PlayerStats UI component is null when trying to update current magicUse\n" +
+                Debug.LogWarning("PlayerStats UI component is null when trying to update current soulUse\n" +
                                  "Attempting to add UI Component again");
 
                 // weirdly, after putting lobby stuff, _ui was null-ing itself for the host.
