@@ -169,7 +169,7 @@ namespace CardScripts.CardDisplays
             SetText(_strengthObj, newAttack.ToString(), true);
         }
 
-        public void UpdateUIDefense(int newDefense)
+        public void UpdateCardUIDefense(int newDefense)
         {
             SetText(_defenseObj, newDefense.ToString(), true);
         }
@@ -179,7 +179,7 @@ namespace CardScripts.CardDisplays
             SetText(abilityCost, newCost.ToString(), true);
         }
 
-        public void UpdateUI_Score(int newScore)
+        public void UpdateCardUI_Score(int newScore)
         {
             SetText(_scoreObj, newScore.ToString(), true);
         }

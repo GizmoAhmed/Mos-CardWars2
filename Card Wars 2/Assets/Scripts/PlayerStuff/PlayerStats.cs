@@ -24,8 +24,8 @@ namespace PlayerStuff
         [Header("Money")] [SyncVar(hook = nameof(MoneyUpdate))]
         public int money;
 
-        [Header("Score")] [SyncVar(hook = nameof(ScoreUpdate))]
-        public int score;
+        [Header("Score")] [SyncVar(hook = nameof(PlayerScoreStatUpdate))]
+        public int playerTotalScore;
 
         [Header("Health")] [SyncVar(hook = nameof(HealthUpdate))]
         public int health;
@@ -51,7 +51,7 @@ namespace PlayerStuff
         {
             ui = GetComponent<PlayerUI>();
             ui.Init(this);
-
+            
             if (ui == null) Debug.LogError("PlayerStats UI component could not be initialized.");
         }
 
@@ -123,10 +123,10 @@ namespace PlayerStuff
             currentMagic -= amount;
         }
 
-        public void AddScore(int amount)
+        public void AddPlayerScore(int amount)
         {
             if (!isServer) return;
-            score += amount;
+            playerTotalScore += amount;
         }
 
         [Command]
@@ -222,9 +222,9 @@ namespace PlayerStuff
             ui.FreeOfferUIUpdate(n);
         }
 
-        public void ScoreUpdate(int oldScore, int newScore)
+        public void PlayerScoreStatUpdate(int oldScore, int newScore)
         {
-            ui.ScoreUIUpdate(newScore);
+            ui.PlayerScoreUIUpdate(newScore);
         }
 
         public void HealthUpdate(int oldHealth, int newHealth)

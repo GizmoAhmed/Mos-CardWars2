@@ -181,7 +181,7 @@ namespace GameManagement
             _stats2.currentMagic = _stats2.maxMagic = maxMagic;
 
             _stats1.money = money;
-            _stats2.money = money;
+            _stats2.money = money + 1;
 
             _stats1.health = health;
             _stats2.health = health;
@@ -201,11 +201,14 @@ namespace GameManagement
             _stats1.freeCardsOffered = defaultFreeDrawOffering;
             _stats2.freeCardsOffered = defaultFreeDrawOffering;
 
-            _stats1.score = 0;
-            _stats2.score = 0;
+            if (_stats1.playerTotalScore == 0 || _stats2.playerTotalScore == 0)
+                Debug.LogWarning($"Player {gameObject.name} has default score set to 0 in editor. GameManger can't update UI from here");
 
-            _stats1.roundsWon = 0;
-            _stats2.roundsWon = 0;
+            _stats1.playerTotalScore = 0;
+            _stats2.playerTotalScore = 0;
+
+            _stats1.roundsWon = -1;
+            _stats2.roundsWon = -1;
 
             _stats1.roundsRequired = roundsToWin;
             _stats2.roundsRequired = roundsToWin;

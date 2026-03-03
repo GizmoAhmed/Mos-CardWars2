@@ -1,5 +1,6 @@
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
+using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss.Runes;
 using Mirror;
@@ -10,43 +11,43 @@ namespace CardScripts.CardStatss
     public class CreatureStats : CardStats
     {
         public CreatureDataSO creatureData => cardData as CreatureDataSO;
-        
-        [HideInInspector] public CreatureDisplay creatureDisplay;
-        
-        [Header("Creature Specific Stats")]
-        
-        [SyncVar(hook = nameof(UpdateAttack))] public int strength;
 
-        [SyncVar(hook = nameof(UpdateDefense))] public int defense;
-        
+        [HideInInspector] public CreatureDisplay creatureDisplay;
+
+        [Header("Creature Specific Stats")] [SyncVar(hook = nameof(Hook_UpdateCreatureStrength))]
+        public int strength;
+
+        [SyncVar(hook = nameof(UpdateDefense))]
+        public int defense;
+
         [SyncVar(hook = nameof(UpdateScore))] public int score;
-        
-        [SyncVar(hook = nameof(UpdateAbilityCost))] public int abilityCost;
-        
-        [Header("Rune Stuff")]
-        
-        [SyncVar(hook = nameof(RuneChange))] public RuneBase currentRune1;
-        
+
+        [SyncVar(hook = nameof(UpdateAbilityCost))]
+        public int abilityCost;
+
+        [Header("Rune Stuff")] [SyncVar(hook = nameof(RuneChange))]
+        public RuneBase currentRune1;
+
         public bool overRuneable;
-        
+
         [SyncVar(hook = nameof(RuneChange))] public RuneBase currentRune2;
 
         public bool CanBeRuned => (currentRune1 == null) || (overRuneable && currentRune2 == null);
-        
+
         public override void InitializeCard()
         {
             creatureDisplay = GetComponent<CreatureDisplay>();
-            
+
             base.InitializeCard();
-            
+
             creatureDisplay.InitDisplayWithData(this);
 
             creatureDisplay.UpdateUIStrength(strength);
-            creatureDisplay.UpdateUIDefense(defense);
+            creatureDisplay.UpdateCardUIDefense(defense);
             creatureDisplay.UpdateUI_AbilityCost(abilityCost);
-            
+
             score = strength + defense;
-            creatureDisplay.UpdateUI_Score(score);
+            creatureDisplay.UpdateCardUI_Score(score);
         }
 
         [Command]
@@ -65,7 +66,7 @@ namespace CardScripts.CardStatss
         protected override void ApplyStatsFromData()
         {
             base.ApplyStatsFromData();
-            
+
             CreatureDataSO cData = cardData as CreatureDataSO;
 
             if (cData != null)
@@ -82,8 +83,8 @@ namespace CardScripts.CardStatss
             }
         }
 
-        [Server]
-        public void ChangeStrength(int amount, bool buff)
+        [Server] // called from inside a command
+        public void ChangeCreatureStrength(int amount, bool buff)
         {
             if (buff)
             {
@@ -93,10 +94,11 @@ namespace CardScripts.CardStatss
             {
                 strength -= amount;
             }
+            score = strength + defense;
         }
 
-        [Command]
-        public void CmdChangeDefense(int amount, bool buff)
+        [Server]
+        public void ChangeDefense(int amount, bool buff)
         {
             if (buff)
             {
@@ -106,10 +108,11 @@ namespace CardScripts.CardStatss
             {
                 defense -= amount;
             }
+            score = strength + defense;
         }
 
-        [Command]
-        public void CmdChangeAbilityCost(int amount, bool buff)
+        [Server]
+        public void ChangeAbilityCost(int amount, bool buff)
         {
             if (buff)
             {
@@ -121,30 +124,52 @@ namespace CardScripts.CardStatss
             }
         }
 
-        public void UpdateAttack(int oldAttack, int newAttack)
+        public void Hook_UpdateCreatureStrength(int old, int newStrength)
         {
-            creatureDisplay.UpdateUIStrength(newAttack);
-            
-            score = strength + defense;
-            creatureDisplay.UpdateUI_Score(score);
+            creatureDisplay.UpdateUIStrength(newStrength);
+
+            CreatureMovement move = GetComponent<CreatureMovement>();
+
+            // FIELD: only update player score for cards on the field (ie placing and stats change)
+            // DISCARD: discard says to refresh stats, so don't mess with player score when resetting via discard since they are not on the board anymore
+            if (move.cardState == CardMovement.CardState.Field)
+            {
+                int oldScore = score;
+                int newScore = strength + defense;
+
+                int diffScore = newScore - oldScore;
+
+                // update player score accordingly
+                GetComponent<CardMovement>().thisCardOwnerPlayerStats.AddPlayerScore(diffScore);
+            }
         }
 
         public void UpdateDefense(int oldDefense, int newDefense)
         {
-            creatureDisplay.UpdateUIDefense(newDefense);
-            
-            score = strength + defense;
-            creatureDisplay.UpdateUI_Score(score);
+            creatureDisplay.UpdateCardUIDefense(newDefense);
+            CreatureMovement move = GetComponent<CreatureMovement>();
+
+            // only update player score for cards on the field (ie placing and stats change)
+            if (move.cardState == CardMovement.CardState.Field)
+            {
+                int oldScore = score;
+                int newScore = strength + defense;
+
+                int diffScore = newScore - oldScore;
+
+                // update player score accordingly
+                GetComponent<CardMovement>().thisCardOwnerPlayerStats.AddPlayerScore(diffScore);
+            }
         }
 
         public void UpdateAbilityCost(int oldCost, int newCost)
         {
             creatureDisplay.UpdateUI_AbilityCost(newCost);
         }
-        
+
         public void UpdateScore(int oldScore, int newScore)
         {
-            creatureDisplay.UpdateUI_Score(newScore);
+            creatureDisplay.UpdateCardUI_Score(newScore);
         }
 
         public void RuneChange(RuneBase oldRune, RuneBase newRune)

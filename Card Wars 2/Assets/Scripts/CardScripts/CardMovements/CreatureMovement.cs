@@ -40,7 +40,7 @@ namespace CardScripts.CardMovements
             
             if (thisCardOwnerPlayerStats != null)
             {
-                thisCardOwnerPlayerStats.AddScore(CreatureStats.score);
+                thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
                 thisCardOwnerPlayerStats.UseMagic(CreatureStats.soulUse);
             }
             
@@ -62,7 +62,7 @@ namespace CardScripts.CardMovements
         private void ReturnMagicAndScore()
         {
             thisCardOwnerPlayerStats.currentMagic += cardStats.soulUse; // give back soulUse
-            thisCardOwnerPlayerStats.score -= CreatureStats.score; // give back score
+            thisCardOwnerPlayerStats.playerTotalScore -= CreatureStats.score; // give back score
         }
 
         protected override void DetachFromTile()

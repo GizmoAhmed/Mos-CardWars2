@@ -154,7 +154,7 @@ public class PlayerUI : NetworkBehaviour
         _drawModalUI.GetComponent<DrawModal>().SetFreeOffer(offer);   
     }
 
-    public void ScoreUIUpdate(int newScore)
+    public void PlayerScoreUIUpdate(int newScore)
     {
         TextMeshProUGUI scoreText =
             (isOwned) ? _score1.GetComponent<TextMeshProUGUI>() : _score2.GetComponent<TextMeshProUGUI>();

@@ -335,10 +335,10 @@ namespace CardScripts.CardMovements
             // _cardDisplay.ToggleInfoSlide(false);
 
             if (cardState == CardState.Field) DetachFromTile();
+            
+            CmdSetCardState(CardState.Discard);
 
             cardStats.CmdRefreshCardStats();
-
-            CmdSetCardState(CardState.Discard);
         }
 
         protected virtual void DetachFromTile()

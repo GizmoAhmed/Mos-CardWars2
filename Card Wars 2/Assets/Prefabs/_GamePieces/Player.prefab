@@ -82,7 +82,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  myDeck: []
+  drawModal: {fileID: 0}
 --- !u!1 &7879420104403120485
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  cardHandler: {fileID: 0}
+  cardPlacer: {fileID: 0}
   playerStats: {fileID: 0}
   myTurn: 0
   deckCollection: {fileID: 0}
@@ -226,15 +226,19 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  ui: {fileID: 0}
   currentMagic: -1
   maxMagic: -1
   money: -1
-  drawCost: -1
-  score: -1
+  playerTotalScore: -1
   health: -1
   drain: -1
   roundsWon: -1
+  roundsRequired: 0
   upgradeCost: -1
+  freeDrawsLeft: 0
+  freeCardsChosen: 0
+  freeCardsOffered: 0
 --- !u!114 &5554848961364696670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,4 +267,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513c5450da1f01546868b8e293dfe746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCard: {fileID: 0}

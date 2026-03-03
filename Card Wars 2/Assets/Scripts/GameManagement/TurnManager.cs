@@ -121,16 +121,16 @@ public class TurnManager : NetworkBehaviour
         PlayerStats stats0 = gameManager.Player1.identity.GetComponent<PlayerStats>();
         PlayerStats stats1 = gameManager.Player2.identity.GetComponent<PlayerStats>();
 
-        bool p0Cleared = stats0.score >= stats0.health;
-        bool p1Cleared = stats1.score >= stats1.health;
+        bool p0Cleared = stats0.playerTotalScore >= stats0.health;
+        bool p1Cleared = stats1.playerTotalScore >= stats1.health;
 
         if (p0Cleared && p1Cleared) // both cleared, tie
         {
-            if (stats0.score > stats1.score) // both cleared but someone has the higher score
+            if (stats0.playerTotalScore > stats1.playerTotalScore) // both cleared but someone has the higher score
             {
                 gameManager.RoundWin(stats0);
             }
-            else if (stats1.score > stats0.health)
+            else if (stats1.playerTotalScore > stats0.health)
             {
                 gameManager.RoundWin(stats1);
             }
