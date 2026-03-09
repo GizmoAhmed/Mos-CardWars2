@@ -1,9 +1,10 @@
+using AbilityEvents;
 using CardScripts.CardStatss;
 using UnityEngine;
 
 namespace CardScripts.Abilities.CreatureAbilities.Script
 {
-    [CreateAssetMenu(fileName = "SelfBuffStrength", menuName = "Abilities/Self Buff Strength")]
+    [CreateAssetMenu(fileName = "SelfBuffStrength", menuName = "Abilities/Creature/Self Buff Strength")]
     public class SelfBuffStrength : CardAbilitySO
     {
         public int baseStrengthBuffAmount;
@@ -13,7 +14,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Script
             return true; // no condition todo unless there is some kind of ability block
         }
 
-        public override void Execute(GameObject thisCard)
+        public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
             Debug.Log($"Self buffing strength (+{baseStrengthBuffAmount}) on {thisCard.name}");
             CreatureStats creatureStats = thisCard.GetComponent<CreatureStats>();

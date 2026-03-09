@@ -98,7 +98,7 @@ namespace PlayerStuff
             {
                 money -= cost;
                 Debug.Log($"...Spending shards ({cost}) to activate {creatureToActivate.name} ability");
-                creatureStats.cardData.ability.Execute(creatureToActivate);
+                creatureStats.cardData.ability.ExecuteAbility(creatureToActivate, null);
             }
             else
             {

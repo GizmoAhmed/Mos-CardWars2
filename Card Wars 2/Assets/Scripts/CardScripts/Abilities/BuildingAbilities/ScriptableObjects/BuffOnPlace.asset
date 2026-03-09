@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e48c6431288f4c59aa07253b9ade2f76, type: 3}
-  m_Name: SelfBuffStrength
+  m_Script: {fileID: 11500000, guid: 008deca034da4d9d913b4195d4daa402, type: 3}
+  m_Name: BuffOnPlace
   m_EditorClassIdentifier: 
-  baseStrengthBuffAmount: 1
+  isPassive: 1
+  triggeringEvents: 01000000
+  baseStrengthBuffAmount: 2
+  baseDefenseBuffAmount: 2

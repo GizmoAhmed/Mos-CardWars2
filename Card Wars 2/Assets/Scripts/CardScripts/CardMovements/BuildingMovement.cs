@@ -40,8 +40,6 @@ namespace CardScripts.CardMovements
             {
                 thisCardOwnerPlayerStats.UseMagic(cardStats.soulUse);
             }
-
-            currentTile = tileScript;
         }
 
         protected override void Discard()

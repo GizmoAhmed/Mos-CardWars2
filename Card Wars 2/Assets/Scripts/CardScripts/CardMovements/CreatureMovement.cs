@@ -32,7 +32,7 @@ namespace CardScripts.CardMovements
                 tileScript = tileObj.GetComponent<Tile>();
             }
 
-            tileScript.creature = gameObject; // set tiles creature as this
+            tileScript.creature = gameObject; // set tiles creature as this creature
 
             transform.SetParent(tileObj.transform, false); // set card as child of tile
             transform.localPosition = Vector3.zero; // a little off
@@ -43,8 +43,6 @@ namespace CardScripts.CardMovements
                 thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
                 thisCardOwnerPlayerStats.UseMagic(CreatureStats.soulUse);
             }
-            
-            currentTile = tileScript;
         }
 
         protected override void Discard()

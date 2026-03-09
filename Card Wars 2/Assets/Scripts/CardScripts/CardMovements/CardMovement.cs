@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using AbilityEvents;
 using CardScripts.CardDisplays;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
@@ -32,14 +33,14 @@ namespace CardScripts.CardMovements
 
         // For preview cards only (client-side reference)
         private DeckCollection _owningDeck;
-        
-        [HideInInspector] public Tile currentTile = null;
+
+        [SyncVar] public Tile currentTile;
 
         private bool _grabbed;
         private GameObject _startParent;
         private Vector3 _startPos;
-        private GameObject _newDropZone;
-
+        private GameObject _newDropZone; 
+        
         private bool _outsideDrawModal; // for previewed cards
 
         private Transform _dragLayer;
@@ -80,7 +81,7 @@ namespace CardScripts.CardMovements
         {
             thisCardOwnerPlayerStats = stats;
         }
-        
+
         /// <summary>
         /// Set which deck this preview card came from (client-side only)
         /// </summary>
@@ -154,12 +155,12 @@ namespace CardScripts.CardMovements
         private void SpawnThisCardFromPreview()
         {
             CardStats stats = GetComponent<CardStats>();
-                
+
             if (stats != null && stats.cardData != null && _owningDeck != null)
             {
                 // Tell the deck to spawn this card
                 _owningDeck.CmdDrawCardByID(stats.cardData.cardID);
-                    
+
                 // Destroy the preview card
                 Destroy(gameObject);
             }
@@ -186,15 +187,46 @@ namespace CardScripts.CardMovements
                 drawModal.UpdatePicksLeft(drawModal.picksLeft -= 1);
                 return true;
             }
-            
+
             Debug.LogWarning($"Player could NOT pick {gameObject.name} as they have no picks left");
             return false;
         }
 
         [Command] // placing this card (this gameObject) on the tile (_newDropZone) it's over 
-        private void CmdPlaceCardOnTile(GameObject tile)
+        protected virtual void CmdPlaceCardOnTile(GameObject tile)
         {
+            currentTile = tile.GetComponent<Tile>(); // sync on both clients
+            
             RpcPlaceCardOnTile(tile);
+
+            // register ability in ability manager as a listener
+            RegisterToEventManagerInStats();
+
+            // tell event manager to broadcast that a card was placed
+            BroadcastPlacement();
+        }
+
+        private void RegisterToEventManagerInStats()
+        {
+            CardStats stats = GetComponent<CardStats>();
+            stats.RegisterPassiveAbility();
+        }
+
+        private void BroadcastPlacement()
+        {
+            if (AbilityEventManager.AbilityManagerInstance != null)
+            {
+                AbilityEventData cardPlaceData = new AbilityEventData(
+                    AbilityEventType.CardPlaced,
+                    gameObject
+                );
+                
+                AbilityEventManager.AbilityManagerInstance.TriggerEvent(cardPlaceData);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
         }
 
         [ClientRpc]
@@ -335,7 +367,7 @@ namespace CardScripts.CardMovements
             // _cardDisplay.ToggleInfoSlide(false);
 
             if (cardState == CardState.Field) DetachFromTile();
-            
+
             CmdSetCardState(CardState.Discard);
 
             cardStats.CmdRefreshCardStats();

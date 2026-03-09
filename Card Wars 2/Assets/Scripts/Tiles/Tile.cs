@@ -26,7 +26,7 @@ namespace Tiles
             SetupNeighbors();
         }
 
-        public virtual void SetupNeighbors()
+        protected virtual void SetupNeighbors()
         {
             string myName = gameObject.name; // e.g. "L2"
 
@@ -59,11 +59,11 @@ namespace Tiles
             }
         }
 
-        private GameObject FindTileByName(string name)
+        private GameObject FindTileByName(string tileName)
         {
-            var found = GameObject.Find(name);
+            var found = GameObject.Find(tileName);
             if (found == null)
-                Debug.LogWarning($"Could not find {name} for {gameObject.name}");
+                Debug.LogWarning($"Could not find {tileName} for {gameObject.name}");
             return found;
         }
     }

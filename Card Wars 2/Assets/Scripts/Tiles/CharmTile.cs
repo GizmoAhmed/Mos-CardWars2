@@ -9,9 +9,9 @@ namespace Tiles
         [SyncVar]
         public List<GameObject> InUseCharms = new List<GameObject>();
 
-        public override bool IsOccupied => true; 
-    
-        public override void SetupNeighbors()
+        public override bool IsOccupied => true;
+
+        protected override void SetupNeighbors()
         {
             if (across == null) // then I guess lets just set it here
             {

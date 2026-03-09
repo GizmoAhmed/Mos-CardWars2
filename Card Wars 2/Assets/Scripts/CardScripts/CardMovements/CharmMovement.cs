@@ -16,6 +16,12 @@ namespace CardScripts.CardMovements
             // return true if one of your own tile, the close ones
             return tile.tileOwner;
         }
+        
+        [Command]
+        protected override void CmdPlaceCardOnTile(GameObject tile)
+        {
+            base.CmdPlaceCardOnTile(tile);
+        }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
@@ -31,14 +37,12 @@ namespace CardScripts.CardMovements
             }
 
             transform.SetParent(tileObj.transform, true);
-            charmTileScript.InUseCharms.Add(gameObject);
+            charmTileScript.InUseCharms.Add(gameObject); // add to charms in use todo prolly gonna get deprecated
             
             if (thisCardOwnerPlayerStats != null)
             {
                 thisCardOwnerPlayerStats.UseMagic(cardStats.soulUse);
             }
-
-            currentTile = charmTileScript;
         }
 
         protected override void Discard()

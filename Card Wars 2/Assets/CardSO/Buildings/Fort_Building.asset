@@ -17,3 +17,4 @@ MonoBehaviour:
   magic: 1
   abilityDescription: Creature's placed on this tile gain +1 str and +1 def
   burnCost: 2
+  ability: {fileID: 11400000, guid: d3cf7058761f58146bbca35f06e9ef36, type: 2}

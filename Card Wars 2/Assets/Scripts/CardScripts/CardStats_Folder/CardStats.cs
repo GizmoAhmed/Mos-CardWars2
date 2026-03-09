@@ -1,3 +1,4 @@
+using AbilityEvents;
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using GameManagement;
@@ -96,7 +97,47 @@ namespace CardScripts.CardStats_Folder
             burnCost = cardData.burnCost;
         }
 
-        [Command] // change either burn cost or soul use
+        // called from command in CardMovement.cs
+        public void RegisterPassiveAbility()
+        {
+            if (AbilityEventManager.AbilityManagerInstance == null)
+            {
+                Debug.LogError("AbilityEventManager not found in scene!");
+                return;
+            }
+
+            if (cardData.ability == null)
+            {
+                Debug.LogError($"{gameObject.name} doesn't have an ability on it");
+                return;
+            }
+
+            if (!cardData.ability.isPassive) // if not passive then we don't care
+            {
+                return;
+            }
+
+            AbilityEventType[] events = cardData.ability.triggeringEvents;
+            
+            foreach (AbilityEventType eventType in events)
+            {
+                // Create a callback for this event type
+                void Callback(AbilityEventData eventData)
+                {
+                    // Only execute on server
+                    if (!isServer) return;
+
+                    // add execution to callback, this function is called when event manager broadcasts the type
+                    cardData.ability.ExecuteAbility(gameObject, eventData);
+                }
+
+                AbilityEventManager.AbilityManagerInstance.Subscribe(eventType, Callback);
+                
+                Debug.Log($"{cardData.cardName} subscribed to {eventType} events");
+            }
+        }
+
+        [Command] 
         public void CmdChangeSoulUse(int amount, bool buff)
         {
             if (buff)
@@ -109,7 +150,7 @@ namespace CardScripts.CardStats_Folder
             }
         }
         
-        [Command] // change either burn cost or soul use
+        [Command] 
         public void CmdChangeBurnCost(int amount, bool buff)
         {
             if (buff)

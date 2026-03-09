@@ -98,7 +98,7 @@ namespace CardScripts.CardStatss
         }
 
         [Server]
-        public void ChangeDefense(int amount, bool buff)
+        public void ChangeCreatureDefense(int amount, bool buff)
         {
             if (buff)
             {
