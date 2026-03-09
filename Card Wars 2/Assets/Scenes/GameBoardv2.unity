@@ -1883,6 +1883,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
@@ -2844,6 +2847,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
@@ -3221,6 +3227,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}
@@ -3504,6 +3513,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
@@ -3963,6 +3975,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}
@@ -6521,6 +6536,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}
@@ -7591,7 +7609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.size
-      value: 3
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: p0Deck.Array.data[10]
@@ -7692,11 +7710,11 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
+      objectReference: {fileID: 11400000, guid: b219a1ad426ba37488d99279652f4123, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 2d46760cca5f82f4f891a705b17d354a, type: 2}
+      objectReference: {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[4]
       value: 
@@ -7704,19 +7722,19 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: 8d80d28c7163de84f9dc2bc03ae0d88e, type: 2}
+      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[6]
       value: 
-      objectReference: {fileID: 11400000, guid: 56443d9793e54a549a833690afc23d7c, type: 2}
+      objectReference: {fileID: 11400000, guid: 134fe0cbdac16cc449dca3276067c915, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[7]
       value: 
-      objectReference: {fileID: 11400000, guid: e6f90f058cdbb8141bac8c509df0fb5d, type: 2}
+      objectReference: {fileID: 11400000, guid: 2d46760cca5f82f4f891a705b17d354a, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[8]
       value: 
-      objectReference: {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
+      objectReference: {fileID: 11400000, guid: ba9e4ef06007f9e4192c1aa3c21e23b0, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[9]
       value: 
@@ -8527,6 +8545,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
@@ -10019,6 +10040,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 0
   creature: {fileID: 0}
   building: {fileID: 0}
@@ -11844,6 +11868,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}
@@ -12156,6 +12183,9 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  row: 0
+  column: 0
+  playerSide: 0
   tileOwner: 1
   creature: {fileID: 0}
   building: {fileID: 0}

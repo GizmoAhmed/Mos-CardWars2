@@ -67,7 +67,7 @@ namespace PlayerStuff
             }
         }
 
-        [Command]
+        [Command] // called from in game button click
         public void CmdBurn(GameObject cardToBurn)
         {
             CardStats cardStats = cardToBurn.GetComponent<CardStats>();

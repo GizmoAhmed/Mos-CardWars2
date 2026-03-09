@@ -108,7 +108,7 @@ namespace CardScripts.CardStats_Folder
 
             if (cardData.ability == null)
             {
-                Debug.LogError($"{gameObject.name} doesn't have an ability on it");
+                Debug.LogWarning($"{gameObject.name} doesn't have an ability on it");
                 return;
             }
 

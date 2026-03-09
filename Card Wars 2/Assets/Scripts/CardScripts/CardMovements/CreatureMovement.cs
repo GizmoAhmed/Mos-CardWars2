@@ -25,19 +25,23 @@ namespace CardScripts.CardMovements
             base.RpcPlaceCardOnTile(tileObj);
 
             Tile tileScript = tileObj.GetComponent<Tile>();
+            Tile visualTile = tileScript;
 
+            // VISUAL MIRRORING: If this is opponent's card, show on mirrored tile
             if (!isOwned)
             {
-                tileObj = tileScript.across;
-                tileScript = tileObj.GetComponent<Tile>();
+                visualTile = tileScript.across.GetComponent<Tile>();
             }
 
-            tileScript.creature = gameObject; // set tiles creature as this creature
-
-            transform.SetParent(tileObj.transform, false); // set card as child of tile
-            transform.localPosition = Vector3.zero; // a little off
-            transform.SetAsFirstSibling(); // above building
-            
+            // Visual positioning
+            visualTile.creature = gameObject;
+            transform.SetParent(visualTile.transform, false);
+            transform.localPosition = Vector3.zero;
+            transform.SetAsFirstSibling();
+        
+            // Update visual reference
+            currentTileVisual = visualTile;
+        
             if (thisCardOwnerPlayerStats != null)
             {
                 thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
@@ -65,7 +69,7 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            currentTile.creature = null;
+            currentTileVisual.creature = null;
             base.DetachFromTile();
         }
     }

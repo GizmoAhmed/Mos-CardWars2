@@ -21,26 +21,33 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
         {
             if (thisCard == eventData.CardOfOrigin)
             {
-                Debug.LogWarning($"{thisCard.name} is trying to buff itself");
-                return;
+                return; // Don't buff self
             }
 
-            Debug.Log($"{eventData.CardOfOrigin} was placed on {thisCard.name}, attempting to buff {eventData.CardOfOrigin}");
-            
-            CreatureStats creatureStatsToBuff = eventData.CardOfOrigin.GetComponent<CreatureStats>();
-
-            if (creatureStatsToBuff == null)
+            CreatureStats creatureStats = eventData.CardOfOrigin.GetComponent<CreatureStats>();
+            if (creatureStats == null)
             {
-                Debug.LogWarning($"Couldn't find CreatureStats component on {eventData.CardOfOrigin.name}");
-                return;
+                return; // Not a creature
             }
 
-            CardMovement move = thisCard.GetComponent<BuildingMovement>();
-            CardMovement move2 = creatureStatsToBuff.GetComponent<CardMovement>();
-            
-            // check if both cards are on the same tile
-            /*creatureStatsToBuff.ChangeCreatureStrength(baseStrengthBuffAmount, buff:true);
-            creatureStatsToBuff.ChangeCreatureDefense(baseDefenseBuffAmount, buff:true);*/
+            // Get LOGICAL positions (same on server and all clients!)
+            CardMovement buildingMovement = thisCard.GetComponent<CardMovement>();
+            CardMovement creatureMovement = eventData.CardOfOrigin.GetComponent<CardMovement>();
+    
+            // Compare logical positions
+            bool sameTile = 
+                buildingMovement.logicalRow == creatureMovement.logicalRow &&
+                buildingMovement.logicalColumn == creatureMovement.logicalColumn &&
+                buildingMovement.logicalPlayerSide == creatureMovement.logicalPlayerSide;
+    
+            if (sameTile)
+            {
+                Debug.Log($"Building buffs creature! Both at Row={buildingMovement.logicalRow}, " +
+                          $"Col={buildingMovement.logicalColumn}");
+        
+                creatureStats.ChangeCreatureStrength(baseStrengthBuffAmount, buff: true);
+                creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
+            }
         }
 
         public override void OnValidate()

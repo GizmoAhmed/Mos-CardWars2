@@ -23,23 +23,31 @@ namespace CardScripts.CardMovements
             base.RpcPlaceCardOnTile(tileObj);
 
             Tile tileScript = tileObj.GetComponent<Tile>();
-            
+            Tile visualTile = tileScript;
+
+            // VISUAL MIRRORING: If this is opponent's card, show on mirrored tile
             if (!isOwned)
             {
-                tileObj = tileScript.across;
-                tileScript = tileObj.GetComponent<Tile>();
+                visualTile = tileScript.across.GetComponent<Tile>();
             }
 
-            tileScript.building = gameObject; // set tiles building as this
+            // Visual positioning
+            visualTile.building = gameObject;
+            transform.SetParent(visualTile.transform, false);
+            transform.localPosition = new Vector3(-40,-35,0);
+            transform.SetAsFirstSibling();
 
-            transform.SetParent(tileObj.transform, false); // set card as child of tile
-            transform.localPosition = new Vector3(-40, -35, 0); // a little off
-            transform.SetAsFirstSibling(); // below creature
-            
+            // Update visual reference
+            currentTileVisual = visualTile;
+
+            // Player-specific logic
             if (thisCardOwnerPlayerStats != null)
             {
                 thisCardOwnerPlayerStats.UseMagic(cardStats.soulUse);
             }
+
+            Debug.Log($"Client: Visual tile = {visualTile.gameObject.name}, " +
+                      $"Logical position = Row {logicalRow}, Col {logicalColumn}");
         }
 
         protected override void Discard()
@@ -47,7 +55,7 @@ namespace CardScripts.CardMovements
             if (cardState == CardState.Field)
             {
                 // change player sync vars requires server call
-                ReturnMagic(); 
+                ReturnMagic();
             }
 
             base.Discard();
@@ -61,7 +69,7 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            currentTile.building = null;
+            currentTileVisual.building = null;
             base.DetachFromTile();
         }
     }

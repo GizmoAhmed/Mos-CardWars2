@@ -29,16 +29,23 @@ namespace CardScripts.CardMovements
             base.RpcPlaceCardOnTile(tileObj);
 
             CharmTile charmTileScript = tileObj.GetComponent<CharmTile>();
+            CharmTile visualCharmTile = charmTileScript;
 
+            // VISUAL MIRRORING: If opponent's charm, show on their charm zone
             if (!isOwned)
             {
-                tileObj = charmTileScript.across;
-                charmTileScript = tileObj.GetComponent<CharmTile>();
+                GameObject acrossTile = charmTileScript.across;
+                visualCharmTile = acrossTile.GetComponent<CharmTile>();
             }
 
-            transform.SetParent(tileObj.transform, true);
-            charmTileScript.InUseCharms.Add(gameObject); // add to charms in use todo prolly gonna get deprecated
-            
+            // Visual positioning (keep world space for charms)
+            transform.SetParent(visualCharmTile.transform, true);
+            visualCharmTile.InUseCharms.Add(gameObject);
+        
+            // Update visual reference
+            currentTileVisual = visualCharmTile;
+        
+            // Use magic
             if (thisCardOwnerPlayerStats != null)
             {
                 thisCardOwnerPlayerStats.UseMagic(cardStats.soulUse);
@@ -64,7 +71,7 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            CharmTile charmTileScript = currentTile.GetComponent<CharmTile>();
+            CharmTile charmTileScript = currentTileVisual.GetComponent<CharmTile>();
 
             if (charmTileScript.InUseCharms.Contains(gameObject))
             {

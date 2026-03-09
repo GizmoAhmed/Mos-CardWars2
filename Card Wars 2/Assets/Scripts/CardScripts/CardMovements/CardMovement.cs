@@ -34,8 +34,14 @@ namespace CardScripts.CardMovements
         // For preview cards only (client-side reference)
         private DeckCollection _owningDeck;
 
-        [SyncVar] public Tile currentTile;
-
+        [Header("Logical Position (Server Authority - Game Logic)")]
+        [SyncVar] public int logicalRow = -1;
+        [SyncVar] public int logicalColumn = -1;
+        [SyncVar] public int logicalPlayerSide = -1;
+    
+        [Header("Visual Reference (Client-side - Rendering Only)")]
+        public Tile currentTileVisual = null; 
+        
         private bool _grabbed;
         private GameObject _startParent;
         private Vector3 _startPos;
@@ -111,7 +117,7 @@ namespace CardScripts.CardMovements
             {
                 // DON'T allow to be grabbed if:
                 // already being grabbed, is already on a land, or is not your card to grab 
-                if (_grabbed || currentTile != null || !isOwned) return;
+                if (_grabbed || currentTileVisual != null || !isOwned) return;
             }
 
             _grabbed = true;
@@ -195,7 +201,14 @@ namespace CardScripts.CardMovements
         [Command] // placing this card (this gameObject) on the tile (_newDropZone) it's over 
         protected virtual void CmdPlaceCardOnTile(GameObject tile)
         {
-            currentTile = tile.GetComponent<Tile>(); // sync on both clients
+            Tile tileScript = tile.GetComponent<Tile>();
+        
+            // SERVER: Store LOGICAL position (authoritative game state)
+            logicalRow = tileScript.row;
+            logicalColumn = tileScript.column;
+            logicalPlayerSide = tileScript.playerSide;
+        
+            Debug.Log($"Server: Card placed at logical position Row={logicalRow}, Col={logicalColumn}, Side={logicalPlayerSide}");
             
             RpcPlaceCardOnTile(tile);
 
@@ -240,6 +253,9 @@ namespace CardScripts.CardMovements
 
             _cardDisplay.FlipCard(true); // now on field, show to both players
             CmdSetCardState(CardState.Field);
+            
+            // todo Store visual tile reference (for animations, UI, etc.)
+            currentTileVisual = tileObj.GetComponent<Tile>();
         }
 
         public void OnClick()
@@ -375,7 +391,51 @@ namespace CardScripts.CardMovements
 
         protected virtual void DetachFromTile()
         {
-            currentTile = null;
+            // VISUAL: Clear visual tile reference
+            if (currentTileVisual != null)
+            {
+                RemoveFromVisualTile(currentTileVisual);
+                currentTileVisual = null;
+            }
+    
+            // LOGICAL: Clear logical position
+            if (isServer)
+            {
+                // If we're on server, clear directly
+                ClearLogicalPositionServer();
+            }
+            else
+            {
+                // If we're on client, ask server to clear
+                CmdClearLogicalPosition();
+            }
+        }
+        
+        [Command]
+        private void CmdClearLogicalPosition()
+        {
+            ClearLogicalPositionServer();
+        }
+
+        [Server]
+        private void ClearLogicalPositionServer()
+        {
+            // Reset to "not placed" values
+            logicalRow = -1;
+            logicalColumn = -1;
+            logicalPlayerSide = -1;
+        }
+
+        private void RemoveFromVisualTile(Tile tile)
+        {
+            if (tile.creature == gameObject)
+            {
+                tile.creature = null;
+            }
+            else if (tile.building == gameObject)
+            {
+                tile.building = null;
+            }
         }
     }
 }
