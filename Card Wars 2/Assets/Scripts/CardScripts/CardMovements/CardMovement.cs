@@ -212,7 +212,7 @@ namespace CardScripts.CardMovements
             
             RpcPlaceCardOnTile(tile);
 
-            // register ability in ability manager as a listener
+            // register ability (IF PASSSIVE) in ability manager as a listener
             RegisterToEventManagerInStats();
 
             // tell event manager to broadcast that a card was placed

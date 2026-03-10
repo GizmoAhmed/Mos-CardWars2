@@ -17,3 +17,4 @@ MonoBehaviour:
   magic: 1
   abilityDescription: Place on creature to give it +1 strength and +1 defense.
   burnCost: 2
+  ability: {fileID: 11400000, guid: 65fa6fad89da52c42bdb8aef0c13371c, type: 2}

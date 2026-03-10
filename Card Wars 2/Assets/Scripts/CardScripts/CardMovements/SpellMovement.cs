@@ -17,19 +17,32 @@ namespace CardScripts.CardMovements
             return cardStats.soulUse <= thisCardOwnerPlayerStats.currentMagic;
         }
 
+        [Command]
+        protected override void CmdPlaceCardOnTile(GameObject tile)
+        {
+            Debug.Log($"Spell move CMDPlace override called. Casting {gameObject.name} on {tile.name}");
+            
+            // todo listener for spell being casted
+            
+            Tile tileScript = tile.GetComponent<Tile>();
+        
+            // SERVER: Store LOGICAL position (authoritative game state)
+            logicalRow = tileScript.row;
+            logicalColumn = tileScript.column;
+            logicalPlayerSide = tileScript.playerSide;
+        
+            Debug.LogWarning($"Command on Server: Spell casted at logical position Row={logicalRow}, Col={logicalColumn}, Side={logicalPlayerSide}");
+            
+            RpcPlaceCardOnTile(tile);
+        }
+
         [ClientRpc] // assume valid, so don't worry about ok to place or not
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {
             // todo activate the ability
-            if (isOwned)
-            {
-                Debug.LogWarning($"Activating {gameObject.name} Spell on {tileObj.name}"); // activate ability, then...
-            }
-            else
-            {
-                Debug.LogWarning(
-                    $"Activating {gameObject.name} Spell on {tileObj.GetComponent<Tile>().across.name}");
-            }
+            /*Debug.LogWarning(isOwned
+                ? $"Activating {gameObject.name} Spell on {tileObj.name}"
+                : $"Activating {gameObject.name} Spell on {tileObj.GetComponent<Tile>().across.name}");*/
 
             Discard();
         }

@@ -19,12 +19,12 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            if (thisCard == eventData.CardOfOrigin)
+            if (thisCard == eventData.sourceCard)
             {
                 return; // Don't buff self
             }
 
-            CreatureStats creatureStats = eventData.CardOfOrigin.GetComponent<CreatureStats>();
+            CreatureStats creatureStats = eventData.sourceCard.GetComponent<CreatureStats>();
             if (creatureStats == null)
             {
                 return; // Not a creature
@@ -32,7 +32,7 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
 
             // Get LOGICAL positions (same on server and all clients!)
             CardMovement buildingMovement = thisCard.GetComponent<CardMovement>();
-            CardMovement creatureMovement = eventData.CardOfOrigin.GetComponent<CardMovement>();
+            CardMovement creatureMovement = eventData.sourceCard.GetComponent<CardMovement>();
     
             // Compare logical positions
             bool sameTile = 

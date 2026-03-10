@@ -6,12 +6,12 @@ namespace AbilityEvents
     public class AbilityEventData
     {
         public readonly AbilityEventType EventType;
-        public GameObject CardOfOrigin;
+        public GameObject sourceCard;
     
-        public AbilityEventData(AbilityEventType type, GameObject cardOfOrigin)
+        public AbilityEventData(AbilityEventType type, GameObject card)
         {
             EventType = type;
-            CardOfOrigin = cardOfOrigin;
+            sourceCard = card;
         }
     }
 }

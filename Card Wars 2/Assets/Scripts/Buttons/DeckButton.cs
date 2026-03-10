@@ -20,7 +20,7 @@ namespace Buttons
                 return;
             }
             
-            Debug.Log("Opening Deck...");
+            // Debug.Log("Opening Deck...");
             discardBoard.SetActive(!discardBoard.activeInHierarchy); 
         }
     }
