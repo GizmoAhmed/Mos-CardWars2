@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e750a59b3c04381a5ded240f6921f4e, type: 3}
   m_Name: BuffOnCast
   m_EditorClassIdentifier: 
-  isPassive: 0
-  triggeringEvents: 
+  castRequirementType: 4
+  yourSide: 1
   baseStrengthBuffAmount: 2
   baseDefenseBuffAmount: 2

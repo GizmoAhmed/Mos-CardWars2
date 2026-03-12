@@ -62,11 +62,11 @@ namespace Tiles
                 // For now, you can determine it from tileOwner
                 playerSide = tileOwner ? 0 : 1;
                 
-                Debug.Log($"{myName}: Row={row}, Column={column}, PlayerSide={playerSide}");
+                // Debug.Log($"{myName}: Row={row}, Column={column}, PlayerSide={playerSide}");
             }
             else
             {
-                Debug.LogError($"Tile {myName} doesn't follow L# naming convention!");
+                // Debug.LogError($"Tile {myName} doesn't follow L# naming convention!");
             }
         }
 

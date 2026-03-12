@@ -17,6 +17,15 @@ namespace CardScripts.CardMovements
             return tile.tileOwner && tile.building == null;
         }
 
+        [Command]
+        protected override void CmdPlaceCardOnTile(GameObject tile)
+        {
+            base.CmdPlaceCardOnTile(tile);
+            
+            // register cards passive ability in ability manager as a listener when placed
+            RegisterPassiveAbilityToEventManagerInStats();
+        }
+
         [ClientRpc] // assume valid, so don't worry about ok to place or not
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {

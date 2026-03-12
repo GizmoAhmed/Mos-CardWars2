@@ -4,15 +4,12 @@ using UnityEngine;
 
 namespace CardScripts.Abilities.CreatureAbilities.Script
 {
-    [CreateAssetMenu(fileName = "SelfBuffStrength", menuName = "Abilities/Creature/Self Buff Strength")]
-    public class SelfBuffStrength : CardAbilitySO
+    [CreateAssetMenu(fileName = "SelfBuffStrength", menuName = "Abilities/Active Abilities/Self Buff Strength")]
+    public class SelfBuffStrength : ActiveAbilitySO
     {
         public int baseStrengthBuffAmount;
-
-        public override bool Condition()
-        {
-            return true; // no condition todo unless there is some kind of ability block
-        }
+        
+        // public bool Target todo creature abilities that lets players choose which tile to effect
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {

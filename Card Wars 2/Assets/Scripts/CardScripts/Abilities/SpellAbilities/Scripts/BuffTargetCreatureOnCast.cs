@@ -3,27 +3,22 @@ using UnityEngine;
 
 namespace CardScripts.Abilities.SpellAbilities.Scripts
 {
-    [CreateAssetMenu(fileName = "BuffOnCast", menuName = "Abilities/Spell/Buff On Cast")]
-    public class BuffOnCast : CardAbilitySO
+    [CreateAssetMenu(fileName = "BuffTargetCreatureOnCast", menuName = "Abilities/Spell/BuffTargetCreatureOnCast")]
+    public class BuffTargetCreatureOnCast : CastAbilitySO
     {
         public int baseStrengthBuffAmount;
         public int baseDefenseBuffAmount;
-
-        public override bool Condition()
-        {
-            return true;
-        }
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
             Debug.Log($"Executing {name}...");
         }
 
-        public override void OnValidate()
+        public void OnValidate()
         {
-            if (isPassive)
+            if (castRequirementType != CastRequirementType.OnCreature)
             {
-                Debug.LogError($"{name} shouldn't be passive");
+                Debug.LogError($"{name} should have cast type {CastRequirementType.OnCreature}");
             }
         }
     }

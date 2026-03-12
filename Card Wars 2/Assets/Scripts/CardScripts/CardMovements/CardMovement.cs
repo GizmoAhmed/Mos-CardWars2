@@ -211,30 +211,27 @@ namespace CardScripts.CardMovements
             Debug.Log($"Server: Card placed at logical position Row={logicalRow}, Col={logicalColumn}, Side={logicalPlayerSide}");
             
             RpcPlaceCardOnTile(tile);
-
-            // register ability (IF PASSSIVE) in ability manager as a listener
-            RegisterToEventManagerInStats();
-
+            
             // tell event manager to broadcast that a card was placed
-            BroadcastPlacement();
+            BroadcastCardPlacement();
         }
 
-        private void RegisterToEventManagerInStats()
+        protected void RegisterPassiveAbilityToEventManagerInStats()
         {
             CardStats stats = GetComponent<CardStats>();
             stats.RegisterPassiveAbility();
         }
 
-        private void BroadcastPlacement()
+        private void BroadcastCardPlacement()
         {
             if (AbilityEventManager.AbilityManagerInstance != null)
             {
                 AbilityEventData cardPlaceData = new AbilityEventData(
-                    AbilityEventType.CardPlaced,
+                    AbilityEventType.FieldCardPlaced,
                     gameObject
                 );
                 
-                AbilityEventManager.AbilityManagerInstance.TriggerEvent(cardPlaceData);
+                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(cardPlaceData); // tell event manager to tell everyone (that cares) that this card was placed
             }
             else
             {

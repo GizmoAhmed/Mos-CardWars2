@@ -1,3 +1,4 @@
+using System.Linq;
 using AbilityEvents;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
@@ -7,15 +8,10 @@ using UnityEngine;
 namespace CardScripts.Abilities.BuildingAbilities.Script
 {
     [CreateAssetMenu(fileName = "BuffOnPlace", menuName = "Abilities/Building/BuffOnPlace")]
-    public class BuffOnPlace : CardAbilitySO
+    public class BuffOnPlace : PassiveAbilitySO
     {
         public int baseStrengthBuffAmount;
         public int baseDefenseBuffAmount;
-
-        public override bool Condition()
-        {
-            return true; // no condition
-        }
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
@@ -27,7 +23,7 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
             CreatureStats creatureStats = eventData.sourceCard.GetComponent<CreatureStats>();
             if (creatureStats == null)
             {
-                return; // Not a creature
+                return; // Not a creature, todo more ability event types (ie SpellCasted) would remove this if statement
             }
 
             // Get LOGICAL positions (same on server and all clients!)
@@ -50,13 +46,13 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
             }
         }
 
-        public override void OnValidate()
+        public void OnValidate()
         {
             base.OnValidate();
             
-            if (isPassive == false || triggeringEvents == null)
+            if (!eventsThatTriggerThisAbility.Contains(AbilityEventType.FieldCardPlaced))
             {
-                Debug.LogError($"{name} should be passive and/or have triggering events");
+                Debug.LogError($"{name} isn't listening to card placements");
             }
         }
     }

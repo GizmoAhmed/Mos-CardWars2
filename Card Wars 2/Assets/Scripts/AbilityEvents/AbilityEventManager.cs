@@ -41,7 +41,7 @@ namespace AbilityEvents
             }
         }
     
-        public void TriggerEvent(AbilityEventData eventData)
+        public void TriggerEvents_ForAllSubscribersOfType(AbilityEventData eventData)
         {
             if (_listeners.TryGetValue(eventData.EventType, out var listener))
             {

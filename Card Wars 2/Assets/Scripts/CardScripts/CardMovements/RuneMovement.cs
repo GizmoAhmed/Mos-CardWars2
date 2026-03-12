@@ -22,6 +22,15 @@ namespace CardScripts.CardMovements
                    tile.creature != null &&
                    (creature.CanBeRuned); // return, if the tile has a creature on it and creature can be runed
         }
+        
+        [Command]
+        protected override void CmdPlaceCardOnTile(GameObject tile)
+        {
+            base.CmdPlaceCardOnTile(tile);
+            
+            // register cards passive ability in ability manager as a listener when placed
+            RegisterPassiveAbilityToEventManagerInStats();
+        }
 
         [ClientRpc] // dw, already asked if valid placement above
         protected override void RpcPlaceCardOnTile(GameObject tileObj)

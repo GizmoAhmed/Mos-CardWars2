@@ -1,4 +1,5 @@
 using AbilityEvents;
+using CardScripts.Abilities;
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using GameManagement;
@@ -97,7 +98,7 @@ namespace CardScripts.CardStats_Folder
             burnCost = cardData.burnCost;
         }
 
-        // called from command in CardMovement.cs
+        // called from command in CardMovement.cs // todo a function that creature and spell will never use, yet it has the function
         public void RegisterPassiveAbility()
         {
             if (AbilityEventManager.AbilityManagerInstance == null)
@@ -112,28 +113,26 @@ namespace CardScripts.CardStats_Folder
                 return;
             }
 
-            if (!cardData.ability.isPassive) // if not passive then we don't care
+            if (cardData.ability is PassiveAbilitySO passiveAbility)
             {
-                return;
-            }
-
-            AbilityEventType[] events = cardData.ability.triggeringEvents;
-            
-            foreach (AbilityEventType eventType in events)
-            {
-                // Create a callback for this event type
-                void Callback(AbilityEventData eventData)
-                {
-                    // Only execute on server
-                    if (!isServer) return;
-
-                    // add execution to callback, this function is called when event manager broadcasts the type
-                    cardData.ability.ExecuteAbility(gameObject, eventData);
-                }
-
-                AbilityEventManager.AbilityManagerInstance.Subscribe(eventType, Callback);
+                AbilityEventType[] events = passiveAbility.eventsThatTriggerThisAbility;
                 
-                Debug.Log($"{cardData.cardName} subscribed to {eventType} events");
+                foreach (AbilityEventType eventType in events)
+                {
+                    // Create a callback for this event type
+                    void Callback(AbilityEventData eventData)
+                    {
+                        // Only execute on server
+                        if (!isServer) return;
+
+                        // add execution to callback, this function is called when event manager broadcasts the type
+                        cardData.ability.ExecuteAbility(gameObject, eventData);
+                    }
+
+                    AbilityEventManager.AbilityManagerInstance.Subscribe(eventType, Callback);
+
+                    Debug.Log($"{cardData.cardName} subscribed to {eventType} events");
+                }
             }
         }
 

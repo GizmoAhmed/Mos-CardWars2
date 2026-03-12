@@ -19,6 +19,12 @@ namespace CardScripts.CardMovements
             return tile.tileOwner && tile.creature == null && !tile.IsOccupied;
         }
 
+        /*[Command] // not needed...todo for now
+        protected override void CmdPlaceCardOnTile(GameObject tile)
+        {
+            base.CmdPlaceCardOnTile(tile); // notice no passive ability registration
+        }*/
+
         [ClientRpc] // assume valid, so don't worry about ok to place or not
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {

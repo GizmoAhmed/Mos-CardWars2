@@ -3,8 +3,9 @@ namespace AbilityEvents
     public enum AbilityEventType
     {
         AddCardToHand,
-        CardPlaced,
+        FieldCardPlaced,
         CreatureAbilityActivated,
+        CardCasted,
         CardBurned
     }
 }
