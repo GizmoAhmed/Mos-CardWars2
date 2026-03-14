@@ -121,6 +121,9 @@ namespace GameManagement
             if (numberOfPlayers == 2) // Full lobby, let's roll
             {
                 AssignPlayers();
+                
+                TileManager.Instance.InitializeTiles(); 
+                
                 StartPlayerStats();
 
                 if (masterDeck.Count == 0)

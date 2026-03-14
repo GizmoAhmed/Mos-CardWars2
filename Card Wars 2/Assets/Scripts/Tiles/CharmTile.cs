@@ -9,7 +9,7 @@ namespace Tiles
         [SyncVar]
         public List<GameObject> InUseCharms = new List<GameObject>();
 
-        public override bool IsOccupiedByCreature => true; // Always "occupied" but can hold multiple charms
+        public override bool IsOccupied => true; // Always "occupied" but can hold multiple charms
 
         void Awake()
         {

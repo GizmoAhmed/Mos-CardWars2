@@ -1889,6 +1889,8 @@ MonoBehaviour:
   tileOwner: 0
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -2853,6 +2855,8 @@ MonoBehaviour:
   tileOwner: 0
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -3233,6 +3237,8 @@ MonoBehaviour:
   tileOwner: 1
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -3519,6 +3525,8 @@ MonoBehaviour:
   tileOwner: 0
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -3981,6 +3989,8 @@ MonoBehaviour:
   tileOwner: 1
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -6542,6 +6552,8 @@ MonoBehaviour:
   tileOwner: 1
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -6591,6 +6603,53 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!1 &1183004019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1183004021}
+  - component: {fileID: 1183004020}
+  m_Layer: 0
+  m_Name: TileManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1183004020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183004019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7f5b2ebe4439a64099978c91ccb105b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allTiles: []
+  player1CharmTile: {fileID: 0}
+  player2CharmTile: {fileID: 0}
+--- !u!4 &1183004021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183004019}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 892.33734, y: 589.77545, z: -5.370101}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1189285676
 GameObject:
   m_ObjectHideFlags: 0
@@ -7609,7 +7668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.size
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: p0Deck.Array.data[10]
@@ -7710,31 +7769,31 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: e6f90f058cdbb8141bac8c509df0fb5d, type: 2}
+      objectReference: {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
+      objectReference: {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
+      objectReference: {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
+      objectReference: {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[6]
       value: 
-      objectReference: {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
+      objectReference: {fileID: 11400000, guid: b219a1ad426ba37488d99279652f4123, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[7]
       value: 
-      objectReference: {fileID: 11400000, guid: b219a1ad426ba37488d99279652f4123, type: 2}
+      objectReference: {fileID: 11400000, guid: ba9e4ef06007f9e4192c1aa3c21e23b0, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[8]
       value: 
-      objectReference: {fileID: 11400000, guid: ba9e4ef06007f9e4192c1aa3c21e23b0, type: 2}
+      objectReference: {fileID: 11400000, guid: 2d46760cca5f82f4f891a705b17d354a, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[9]
       value: 
@@ -8551,6 +8610,8 @@ MonoBehaviour:
   tileOwner: 0
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -10046,6 +10107,8 @@ MonoBehaviour:
   tileOwner: 0
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -10857,11 +10920,11 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
+  - {fileID: 8584247411600538929, guid: d5c8a5a5e6786394f8ea6cb0f80c2d13, type: 3}
+  - {fileID: 5510745043124213716, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+  - {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   - {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}
   - {fileID: 1243263642205161095, guid: b1efdd37bf1fd294ebafc7890a269737, type: 3}
-  - {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
-  - {fileID: 5510745043124213716, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
-  - {fileID: 8584247411600538929, guid: d5c8a5a5e6786394f8ea6cb0f80c2d13, type: 3}
   - {fileID: 659507761811515719, guid: b943eed949e10dc4fa7b81f23cb0d28c, type: 3}
   - {fileID: 5473283833520736551, guid: 197ad043ed2b6e345929eda49e5660e4, type: 3}
   exceptionsDisconnect: 1
@@ -11874,6 +11937,8 @@ MonoBehaviour:
   tileOwner: 1
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -12189,6 +12254,8 @@ MonoBehaviour:
   tileOwner: 1
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
+  logicalCreature: {fileID: 0}
+  logicalBuilding: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -12288,3 +12355,4 @@ SceneRoots:
   - {fileID: 2129006741}
   - {fileID: 1317981241}
   - {fileID: 4052159343950108583}
+  - {fileID: 1183004021}

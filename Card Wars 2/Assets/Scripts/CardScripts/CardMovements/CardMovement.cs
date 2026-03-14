@@ -4,6 +4,7 @@ using AbilityEvents;
 using CardScripts.CardDisplays;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
+using GameManagement;
 using Mirror;
 using Modal;
 using PlayerStuff;
@@ -34,19 +35,20 @@ namespace CardScripts.CardMovements
         // For preview cards only (client-side reference)
         private DeckCollection _owningDeck;
 
-        [Header("Logical Position (Server Authority - Game Logic)")]
-        [SyncVar] public int logicalRow = -1;
+        [Header("Logical Position (Server Authority - Game Logic)")] [SyncVar]
+        public int logicalRow = -1;
+
         [SyncVar] public int logicalColumn = -1;
         [SyncVar] public int logicalPlayerSide = -1;
-    
+
         [Header("Visual Reference (Client-side - Rendering Only)")]
-        public Tile currentTileVisual = null; 
-        
+        public Tile currentTileVisual = null;
+
         private bool _grabbed;
         private GameObject _startParent;
         private Vector3 _startPos;
-        private GameObject _newDropZone; 
-        
+        private GameObject _newDropZone;
+
         private bool _outsideDrawModal; // for previewed cards
 
         private Transform _dragLayer;
@@ -202,20 +204,28 @@ namespace CardScripts.CardMovements
         protected virtual void CmdPlaceCardOnTile(GameObject tile)
         {
             Tile tileScript = tile.GetComponent<Tile>();
-        
+
             // SERVER: Store LOGICAL position (authoritative game state)
             logicalRow = tileScript.row;
             logicalColumn = tileScript.column;
             logicalPlayerSide = tileScript.playerSide;
-        
-            // Debug.Log($"Server: Card placed at logical position Row={logicalRow}, Col={logicalColumn}, Side={logicalPlayerSide}");
+
+            // SERVER: Set logical reference on tile
+            SetLogicalReferenceOnTile(tileScript);
             
             RpcPlaceCardOnTile(tile);
-            
+
             // tell event manager to broadcast that a FIELD card was placed.
             // Field card is capitalized because cards that don't get fielded (Runes and Spells) have overrides...
             // ...for this function and therefore don't run this one specifically
             BroadcastCardPlacement();
+        }
+        
+        [Server]
+        protected virtual void SetLogicalReferenceOnTile(Tile tile)
+        {
+            // Override in child classes (CreatureMovement, BuildingMovement, etc.)
+            Debug.LogError("SetLogicalReferenceOnTile not overridden!");
         }
 
         protected void RegisterPassiveAbilityToEventManagerInStats()
@@ -232,9 +242,9 @@ namespace CardScripts.CardMovements
                     AbilityEventType.FieldCardPlaced,
                     gameObject
                 );
-                
+
                 // tell event manager to tell everyone (that cares) that this card was placed
-                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(cardPlaceData); 
+                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(cardPlaceData);
             }
             else
             {
@@ -253,7 +263,7 @@ namespace CardScripts.CardMovements
 
             _cardDisplay.FlipCard(true); // now on field, show to both players
             CmdSetCardState(CardState.Field);
-            
+
             // todo Store visual tile reference (for animations, UI, etc.)
             currentTileVisual = tileObj.GetComponent<Tile>();
         }
@@ -397,7 +407,7 @@ namespace CardScripts.CardMovements
                 RemoveFromVisualTile(currentTileVisual);
                 currentTileVisual = null;
             }
-    
+
             // LOGICAL: Clear logical position
             if (isServer)
             {
@@ -410,7 +420,7 @@ namespace CardScripts.CardMovements
                 CmdClearLogicalPosition();
             }
         }
-        
+
         [Command]
         private void CmdClearLogicalPosition()
         {
@@ -420,10 +430,41 @@ namespace CardScripts.CardMovements
         [Server]
         private void ClearLogicalPositionServer()
         {
+            // Clear tile's reference to this card
+            Tile logicalTile = GetLogicalTile();
+            if (logicalTile != null)
+            {
+                ClearLogicalReferenceOnTile(logicalTile);
+            }
+            
             // Reset to "not placed" values
             logicalRow = -1;
             logicalColumn = -1;
             logicalPlayerSide = -1;
+        }
+        
+        [Server]
+        protected virtual void ClearLogicalReferenceOnTile(Tile tile)
+        {
+            // Override in child classes
+            Debug.LogError("ClearLogicalReferenceOnTile not overridden!");
+        }
+
+        /// <summary>
+        /// Get the logical tile based on logical position
+        /// </summary>
+        private Tile GetLogicalTile()
+        {
+            if (logicalRow < 0 || logicalColumn < 0 || logicalPlayerSide < 0)
+                return null;
+    
+            // Use TileManager if available
+            if (TileManager.Instance != null)
+            {
+                return TileManager.Instance.GetTile(logicalPlayerSide, logicalRow, logicalColumn);
+            }
+    
+            return null;
         }
 
         private void RemoveFromVisualTile(Tile tile)

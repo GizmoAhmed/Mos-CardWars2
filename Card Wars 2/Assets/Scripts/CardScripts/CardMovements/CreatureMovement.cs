@@ -15,16 +15,35 @@ namespace CardScripts.CardMovements
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(tile))
                 return false;
-            
+
             // to place, you have to own this tile and the tile can't already have creature on it
-            return tile.tileOwner && tile.creatureVisual == null && !tile.IsOccupiedByCreature;
+            return tile.tileOwner && tile.creatureVisual == null;
         }
 
-        /*[Command] // not needed...todo for now
+        [Command] // not needed...todo for now
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
             base.CmdPlaceCardOnTile(tile); // notice no passive ability registration
-        }*/
+        }
+
+        [Server]
+        protected override void SetLogicalReferenceOnTile(Tile tile)
+        {
+            tile.logicalCreature = gameObject;
+            Debug.Log(
+                $"Set logical creature ({gameObject.name}) on tile [{tile.playerSide}][{tile.row},{tile.column}]");
+        }
+
+        [Server]
+        protected override void ClearLogicalReferenceOnTile(Tile tile)
+        {
+            if (tile.logicalCreature == gameObject)
+            {
+                tile.logicalCreature = null;
+                Debug.Log(
+                    $"Cleared logical creature ({gameObject.name}) from tile [{tile.playerSide}][{tile.row},{tile.column}]");
+            }
+        }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
@@ -45,10 +64,10 @@ namespace CardScripts.CardMovements
             transform.SetParent(visualTile.transform, false);
             transform.localPosition = Vector3.zero;
             transform.SetAsFirstSibling();
-        
+
             // Update visual reference
             currentTileVisual = visualTile;
-        
+
             if (thisCardOwnerPlayerStats != null)
             {
                 thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
@@ -61,7 +80,7 @@ namespace CardScripts.CardMovements
             if (cardState == CardState.Field)
             {
                 // change player sync vars requires server call, 
-                ReturnMagicAndScore(); 
+                ReturnMagicAndScore();
             }
 
             base.Discard();

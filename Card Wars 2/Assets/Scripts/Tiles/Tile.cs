@@ -23,8 +23,15 @@ namespace Tiles
         public GameObject creatureVisual;
         public GameObject buildingVisual;
         
-        public virtual bool IsOccupiedByCreature => creatureVisual != null || buildingVisual != null;
-
+        [Header("Logical Occupancy (Server Authority - Game Logic)")]
+        [Tooltip("Logical reference to creature - same on server and all clients")]
+        [SyncVar] public GameObject logicalCreature;
+        
+        [Tooltip("Logical reference to building - same on server and all clients")]
+        [SyncVar] public GameObject logicalBuilding;
+        
+        public virtual bool IsOccupied => logicalCreature != null || logicalBuilding != null;
+        
         [Header("Visual Neighbors (for rendering/mirroring)")]
         public GameObject across;
         public GameObject adjacentLeft;

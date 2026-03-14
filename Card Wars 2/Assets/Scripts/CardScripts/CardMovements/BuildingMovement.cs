@@ -25,6 +25,23 @@ namespace CardScripts.CardMovements
             // register cards passive ability in ability manager as a listener when placed
             RegisterPassiveAbilityToEventManagerInStats();
         }
+        
+        [Server]
+        protected override void SetLogicalReferenceOnTile(Tile tile)
+        {
+            tile.logicalBuilding = gameObject;
+            Debug.Log($"Set logical building ({gameObject.name}) on tile [{tile.playerSide}][{tile.row},{tile.column}]");
+        }
+    
+        [Server]
+        protected override void ClearLogicalReferenceOnTile(Tile tile)
+        {
+            if (tile.logicalCreature == gameObject)
+            {
+                tile.logicalBuilding = null;
+                Debug.Log($"Cleared logical building ({gameObject.name}) from tile [{tile.playerSide}][{tile.row},{tile.column}]");
+            }
+        }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not
         protected override void RpcPlaceCardOnTile(GameObject tileObj)

@@ -90,8 +90,6 @@ namespace CardScripts.CardMovements
         {
             // base.CmdPlaceCardOnTile(tile);
             
-            Tile tileScript = tile.GetComponent<Tile>();
-            
             AbilityEventData spellData = new AbilityEventData(
                 AbilityEventType.CardCasted,
                 tile); // pass tile as cardToBeEffected, some spells will use it, some won't
