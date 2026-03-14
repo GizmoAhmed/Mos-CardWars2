@@ -208,11 +208,13 @@ namespace CardScripts.CardMovements
             logicalColumn = tileScript.column;
             logicalPlayerSide = tileScript.playerSide;
         
-            Debug.Log($"Server: Card placed at logical position Row={logicalRow}, Col={logicalColumn}, Side={logicalPlayerSide}");
+            // Debug.Log($"Server: Card placed at logical position Row={logicalRow}, Col={logicalColumn}, Side={logicalPlayerSide}");
             
             RpcPlaceCardOnTile(tile);
             
-            // tell event manager to broadcast that a card was placed
+            // tell event manager to broadcast that a FIELD card was placed.
+            // Field card is capitalized because cards that don't get fielded (Runes and Spells) have overrides...
+            // ...for this function and therefore don't run this one specifically
             BroadcastCardPlacement();
         }
 
@@ -222,7 +224,7 @@ namespace CardScripts.CardMovements
             stats.RegisterPassiveAbility();
         }
 
-        private void BroadcastCardPlacement()
+        protected virtual void BroadcastCardPlacement()
         {
             if (AbilityEventManager.AbilityManagerInstance != null)
             {
@@ -231,7 +233,8 @@ namespace CardScripts.CardMovements
                     gameObject
                 );
                 
-                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(cardPlaceData); // tell event manager to tell everyone (that cares) that this card was placed
+                // tell event manager to tell everyone (that cares) that this card was placed
+                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(cardPlaceData); 
             }
             else
             {
@@ -425,13 +428,13 @@ namespace CardScripts.CardMovements
 
         private void RemoveFromVisualTile(Tile tile)
         {
-            if (tile.creature == gameObject)
+            if (tile.creatureVisual == gameObject)
             {
-                tile.creature = null;
+                tile.creatureVisual = null;
             }
-            else if (tile.building == gameObject)
+            else if (tile.buildingVisual == gameObject)
             {
-                tile.building = null;
+                tile.buildingVisual = null;
             }
         }
     }

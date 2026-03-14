@@ -6,6 +6,11 @@ namespace AbilityEvents
         FieldCardPlaced,
         CreatureAbilityActivated,
         CardCasted,
-        CardBurned
+        CardBurned,
+        RuneBinded,
+        BuffCreatureStrength,
+        BuffCreatureDefense,
+        DebuffCreatureStrength,
+        DebuffCreatureDefense
     }
 }

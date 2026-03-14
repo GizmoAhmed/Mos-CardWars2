@@ -1,5 +1,6 @@
+using AbilityEvents;
+using CardScripts.CardStats_Folder.Runes;
 using CardScripts.CardStatss;
-using CardScripts.CardStatss.Runes;
 using Mirror;
 using Tiles;
 using UnityEngine;
@@ -14,41 +15,56 @@ namespace CardScripts.CardMovements
             if (!base.ValidPlacement(tile))
                 return false;
 
-            if (!tile.creature) return false; // there's no creature on this tile? nope can't place here
+            if (!tile.creatureVisual) return false; // there's no creature on this tile? nope, can't place here
 
-            CreatureStats creature = tile.creature.GetComponent<CreatureStats>();
-            
+            CreatureStats creature = tile.creatureVisual.GetComponent<CreatureStats>();
+
             return tile.tileOwner &&
-                   tile.creature != null &&
-                   (creature.CanBeRuned); // return, if the tile has a creature on it and creature can be runed
+                   tile.creatureVisual != null &&
+                   (creature.CanBeRuned); // return true if the tile has a creature on it and creature can be runed
         }
-        
+
         [Command]
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
-            base.CmdPlaceCardOnTile(tile);
+            // base.CmdPlaceCardOnTile(tile);
+
+            Tile tileScript = tile.GetComponent<Tile>();
+
+            GameObject creatureOnTile = tileScript.creatureVisual;
+
+            BindRune(creatureOnTile);
             
+            //Broadcast rune binding
+            BroadcastCardPlacement();
+
             // register cards passive ability in ability manager as a listener when placed
             RegisterPassiveAbilityToEventManagerInStats();
+            
+            base.RpcDiscard(); // discard on both clients via base call
         }
 
-        [ClientRpc] // dw, already asked if valid placement above
-        protected override void RpcPlaceCardOnTile(GameObject tileObj)
+        //broadcast the bind, who knows, there might be a card that listens to this
+        protected override void BroadcastCardPlacement()
         {
-            Tile tileScript = tileObj.GetComponent<Tile>();
-
-            GameObject creatureOnTile = isOwned ? 
-                tileScript.creature :
-                tileScript.across.GetComponent<Tile>().creature;
-            
-            CmdBindRune(creatureOnTile);
-            
-            // ...then discard
-            Discard();
+            if (AbilityEventManager.AbilityManagerInstance != null)
+            {
+                AbilityEventData runeBindData = new AbilityEventData(
+                    AbilityEventType.RuneBinded,
+                    gameObject
+                );
+                
+                // tell event manager to tell everyone (that cares) that this rune was binded
+                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(runeBindData); 
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
         }
 
-        [Command]
-        private void CmdBindRune(GameObject creatureOnTile)
+        [Server]
+        private void BindRune(GameObject creatureOnTile)
         {
             // the creature on this land
             CreatureStats creature = creatureOnTile.GetComponent<CreatureStats>();

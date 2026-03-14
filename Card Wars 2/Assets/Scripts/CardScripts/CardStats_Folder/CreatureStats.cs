@@ -1,8 +1,9 @@
+using AbilityEvents;
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
-using CardScripts.CardStatss.Runes;
+using CardScripts.CardStats_Folder.Runes;
 using Mirror;
 using UnityEngine;
 
@@ -86,29 +87,60 @@ namespace CardScripts.CardStatss
         [Server] // called from inside a command
         public void ChangeCreatureStrength(int amount, bool buff)
         {
+            AbilityEventData statData;
+            
             if (buff)
             {
                 strength += amount;
+
+                statData = new AbilityEventData(
+                    AbilityEventType.BuffCreatureStrength,
+                    gameObject,
+                    amount);
             }
             else
             {
                 strength -= amount;
+                
+                statData = new AbilityEventData(
+                    AbilityEventType.DebuffCreatureStrength,
+                    gameObject,
+                    amount);
             }
             score = strength + defense;
+            
+            // tell everyone who cares about Buff/Debuff Strength about how this creature got there stats changed
+            // the people who care are those who subscribed through AbilityManager.Subscribed(AbilityEventType, ExecutionCallback),
+            // see Register passive in CardStats.cs
+            AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(statData); 
         }
 
         [Server]
         public void ChangeCreatureDefense(int amount, bool buff)
         {
+            AbilityEventData statData;
+            
             if (buff)
             {
                 defense += amount;
+                
+                statData = new AbilityEventData(
+                    AbilityEventType.BuffCreatureDefense,
+                    gameObject,
+                    amount);
             }
             else
             {
                 defense -= amount;
+                
+                statData = new AbilityEventData(
+                    AbilityEventType.DebuffCreatureDefense,
+                    gameObject,
+                    amount);
             }
             score = strength + defense;
+            
+            AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(statData); 
         }
 
         [Server]

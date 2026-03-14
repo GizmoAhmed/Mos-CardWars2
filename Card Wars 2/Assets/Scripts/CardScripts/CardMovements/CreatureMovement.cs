@@ -16,7 +16,8 @@ namespace CardScripts.CardMovements
             if (!base.ValidPlacement(tile))
                 return false;
             
-            return tile.tileOwner && tile.creature == null && !tile.IsOccupied;
+            // to place, you have to own this tile and the tile can't already have creature on it
+            return tile.tileOwner && tile.creatureVisual == null && !tile.IsOccupiedByCreature;
         }
 
         /*[Command] // not needed...todo for now
@@ -40,7 +41,7 @@ namespace CardScripts.CardMovements
             }
 
             // Visual positioning
-            visualTile.creature = gameObject;
+            visualTile.creatureVisual = gameObject;
             transform.SetParent(visualTile.transform, false);
             transform.localPosition = Vector3.zero;
             transform.SetAsFirstSibling();
@@ -75,7 +76,7 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            currentTileVisual.creature = null;
+            currentTileVisual.creatureVisual = null;
             base.DetachFromTile();
         }
     }

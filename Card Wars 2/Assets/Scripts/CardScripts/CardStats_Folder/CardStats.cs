@@ -125,10 +125,12 @@ namespace CardScripts.CardStats_Folder
                         // Only execute on server
                         if (!isServer) return;
 
-                        // add execution to callback, this function is called when event manager broadcasts the type
+                        // add execution to callback, this function (ExecuteAbility) is called when event manager broadcasts the type
                         cardData.ability.ExecuteAbility(gameObject, eventData);
                     }
 
+                    // this card says: hey event manager, let me know when this event (event data)...
+                    // ...happens (happens ==> TriggerEvents_ForAllSubscribersOfType), so I can run my execution
                     AbilityEventManager.AbilityManagerInstance.Subscribe(eventType, Callback);
 
                     Debug.Log($"{cardData.cardName} subscribed to {eventType} events");

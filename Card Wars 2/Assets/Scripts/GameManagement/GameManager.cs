@@ -54,7 +54,7 @@ namespace GameManagement
 
         void Start()
         {
-            Debug.Log("<<< Starting GameManager >>>");
+            // Debug.Log("<<< Starting GameManager >>>");
             BuildCardDatabase();
         }
 

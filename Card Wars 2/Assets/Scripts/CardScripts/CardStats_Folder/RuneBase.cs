@@ -1,6 +1,6 @@
 using Mirror;
 
-namespace CardScripts.CardStatss.Runes
+namespace CardScripts.CardStats_Folder.Runes
 {
     public class RuneBase : NetworkBehaviour
     {

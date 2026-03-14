@@ -15,12 +15,12 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            if (thisCard == eventData.sourceCard)
+            if (thisCard == eventData.cardToBeAffected)
             {
                 return; // Don't buff self
             }
 
-            CreatureStats creatureStats = eventData.sourceCard.GetComponent<CreatureStats>();
+            CreatureStats creatureStats = eventData.cardToBeAffected.GetComponent<CreatureStats>();
             if (creatureStats == null)
             {
                 return; // Not a creature, todo more ability event types (ie SpellCasted) would remove this if statement
@@ -28,7 +28,7 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
 
             // Get LOGICAL positions (same on server and all clients!)
             CardMovement buildingMovement = thisCard.GetComponent<CardMovement>();
-            CardMovement creatureMovement = eventData.sourceCard.GetComponent<CardMovement>();
+            CardMovement creatureMovement = eventData.cardToBeAffected.GetComponent<CardMovement>();
     
             // Compare logical positions
             bool sameTile = 

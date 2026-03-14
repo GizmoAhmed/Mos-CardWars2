@@ -17,3 +17,4 @@ MonoBehaviour:
   magic: 0
   abilityDescription: Double Buffs received. Increase Soul cost by X per Y buff
   burnCost: 2
+  ability: {fileID: 11400000, guid: 17df292691ffe7d4489bcc7f177e193f, type: 2}

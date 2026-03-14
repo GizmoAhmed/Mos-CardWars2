@@ -1887,8 +1887,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 0
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -2851,8 +2851,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 0
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -3231,8 +3231,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 1
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -3517,8 +3517,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 0
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -3979,8 +3979,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 1
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -6540,8 +6540,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 1
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -7702,11 +7702,11 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
+      objectReference: {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
+      objectReference: {fileID: 11400000, guid: e6f90f058cdbb8141bac8c509df0fb5d, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[2]
       value: 
@@ -7714,7 +7714,7 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: b219a1ad426ba37488d99279652f4123, type: 2}
+      objectReference: {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[4]
       value: 
@@ -7722,19 +7722,19 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
+      objectReference: {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[6]
       value: 
-      objectReference: {fileID: 11400000, guid: ba9e4ef06007f9e4192c1aa3c21e23b0, type: 2}
+      objectReference: {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[7]
       value: 
-      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+      objectReference: {fileID: 11400000, guid: b219a1ad426ba37488d99279652f4123, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[8]
       value: 
-      objectReference: {fileID: 11400000, guid: 134fe0cbdac16cc449dca3276067c915, type: 2}
+      objectReference: {fileID: 11400000, guid: ba9e4ef06007f9e4192c1aa3c21e23b0, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[9]
       value: 
@@ -7830,7 +7830,7 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[10]
       value: 
-      objectReference: {fileID: 11400000, guid: 2d46760cca5f82f4f891a705b17d354a, type: 2}
+      objectReference: {fileID: 11400000, guid: e6f90f058cdbb8141bac8c509df0fb5d, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[11]
       value: 
@@ -8549,8 +8549,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 0
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -10044,8 +10044,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 0
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -11872,8 +11872,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 1
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}
@@ -12187,8 +12187,8 @@ MonoBehaviour:
   column: 0
   playerSide: 0
   tileOwner: 1
-  creature: {fileID: 0}
-  building: {fileID: 0}
+  creatureVisual: {fileID: 0}
+  buildingVisual: {fileID: 0}
   across: {fileID: 0}
   adjacentLeft: {fileID: 0}
   adjacentRight: {fileID: 0}

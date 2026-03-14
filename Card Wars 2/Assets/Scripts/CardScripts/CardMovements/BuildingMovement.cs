@@ -14,7 +14,7 @@ namespace CardScripts.CardMovements
                 return false;
 
             // return true if one of your own lands, the close ones
-            return tile.tileOwner && tile.building == null;
+            return tile.tileOwner && tile.buildingVisual == null;
         }
 
         [Command]
@@ -41,7 +41,7 @@ namespace CardScripts.CardMovements
             }
 
             // Visual positioning
-            visualTile.building = gameObject;
+            visualTile.buildingVisual = gameObject;
             transform.SetParent(visualTile.transform, false);
             transform.localPosition = new Vector3(-40,-35,0);
             transform.SetAsFirstSibling();
@@ -78,7 +78,7 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            currentTileVisual.building = null;
+            currentTileVisual.buildingVisual = null;
             base.DetachFromTile();
         }
     }

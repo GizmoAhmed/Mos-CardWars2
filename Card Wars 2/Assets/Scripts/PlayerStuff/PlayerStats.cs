@@ -89,7 +89,7 @@ namespace PlayerStuff
         [Command]
         public void CmdActivateCreatureAbility(GameObject creatureToActivate)
         {
-            Debug.Log($"Counting Shards for ability activation on {creatureToActivate.name}...");
+            // Debug.Log($"Counting Shards for ability activation on {creatureToActivate.name}...");
             
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
             int cost = creatureStats.abilityCost;

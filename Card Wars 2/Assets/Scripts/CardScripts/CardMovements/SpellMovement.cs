@@ -1,3 +1,4 @@
+using AbilityEvents;
 using CardScripts.Abilities;
 using Mirror;
 using Tiles;
@@ -13,7 +14,7 @@ namespace CardScripts.CardMovements
             if (!base.ValidPlacement(tile))
                 return false;
 
-            // Check if the ability is a CastAbilitySO and get the cast requirement
+            // Check if the ability is a CastAbilitySO (which it should) and get the cast requirement
             if (cardStats.cardData.ability is CastAbilitySO castAbility)
             {
                 CastAbilitySO.CastRequirementType castType = castAbility.castRequirementType;
@@ -24,6 +25,7 @@ namespace CardScripts.CardMovements
                     // Check if side matches requirement
                     if (castAbility.yourSide != tile.tileOwner)
                     {
+                        Debug.LogWarning($"Can't place {gameObject.name} on this side");
                         return false; // Wrong side!
                     }
                 }
@@ -59,23 +61,23 @@ namespace CardScripts.CardMovements
 
                 case CastAbilitySO.CastRequirementType.AnywhereOccupied:
                     // Tile must have something on it (creature or building)
-                    return tile.creature != null || tile.building != null;
+                    return tile.creatureVisual != null || tile.buildingVisual != null;
 
                 case CastAbilitySO.CastRequirementType.OnCreature:
                     // Tile must have a creature
-                    return tile.creature != null;
+                    return tile.creatureVisual != null;
 
                 case CastAbilitySO.CastRequirementType.OnBuilding:
                     // Tile must have a building
-                    return tile.building != null;
+                    return tile.buildingVisual != null;
 
                 case CastAbilitySO.CastRequirementType.OnCharm:
                     // This is a charm tile and has at least one charm
                     return tile is CharmTile charmTile && charmTile.InUseCharms.Count > 0;
-                
+
                 case CastAbilitySO.CastRequirementType.CreatureAndOrBuilding:
                     // Tile has creature and/or building (at least one)
-                    return tile.creature != null || tile.building != null;
+                    return tile.creatureVisual != null || tile.buildingVisual != null;
 
                 default:
                     Debug.LogWarning($"Unknown cast requirement: {requirement}");
@@ -86,27 +88,37 @@ namespace CardScripts.CardMovements
         [Command]
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
-            base.CmdPlaceCardOnTile(
-                tile); // todo see in base func that spell cast counts as card placement, due to change
+            // base.CmdPlaceCardOnTile(tile);
+            
+            Tile tileScript = tile.GetComponent<Tile>();
+            
+            AbilityEventData spellData = new AbilityEventData(
+                AbilityEventType.CardCasted,
+                tile); // pass tile as cardToBeEffected, some spells will use it, some won't
 
-            Debug.Log($"Spell move CMDPlace override called. Casting {gameObject.name} on {tile.name}");
-
-            // todo listener for spell being casted
-
-            Debug.LogWarning(
-                $"Command on Server: Spell casted at logical position Row={logicalRow}, Col={logicalColumn}, Side={logicalPlayerSide}");
+            cardStats.cardData.ability.ExecuteAbility(gameObject, spellData); // use the spell...
+            
+            BroadcastCardPlacement(); // ...then tell everyone you used this spell
+            
+            base.RpcDiscard(); // discard on both clients via base call
         }
 
-        [ClientRpc] // assume valid, so don't worry about ok to place or not
-        protected override void RpcPlaceCardOnTile(GameObject tileObj)
+        // broadcast the cast, who knows, there might be a card that listens to this
+        protected override void BroadcastCardPlacement()
         {
-            // todo activate the ability
-            /*Debug.LogWarning(isOwned
-                ? $"Activating {gameObject.name} Spell on {tileObj.name}"
-                : $"Activating {gameObject.name} Spell on {tileObj.GetComponent<Tile>().across.name}");*/
-
-            Debug.Log($"Client RPC: {gameObject.name} runs RpcPlaceCardOnTile(), discarding {gameObject.name}...");
-            Discard();
+            if (AbilityEventManager.AbilityManagerInstance != null)
+            {
+                AbilityEventData castData = new AbilityEventData(
+                    AbilityEventType.CardCasted,
+                    gameObject
+                );
+                // tell event manager to tell everyone (that cares) that this rune was binded
+                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(castData);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
         }
     }
 }

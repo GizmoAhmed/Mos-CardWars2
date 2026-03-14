@@ -1,4 +1,6 @@
 using AbilityEvents;
+using CardScripts.CardStatss;
+using Tiles;
 using UnityEngine;
 
 namespace CardScripts.Abilities.SpellAbilities.Scripts
@@ -11,7 +13,21 @@ namespace CardScripts.Abilities.SpellAbilities.Scripts
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            Debug.Log($"Executing {name}...");
+            Tile tile = eventData.cardToBeAffected.GetComponent<Tile>();
+            GameObject creatureOnTile = tile.creatureVisual;
+
+            if (creatureOnTile == null)
+            {
+                Debug.LogError($"Could not find creature on tile {tile.gameObject.name}");
+                return;
+            }
+            
+            CreatureStats creatureStats = creatureOnTile.GetComponent<CreatureStats>();
+            
+            creatureStats.ChangeCreatureStrength(baseStrengthBuffAmount, buff: true);
+            creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
+            
+            Debug.LogWarning($"...{creatureStats.gameObject.name}: + {baseStrengthBuffAmount} strength and + {baseDefenseBuffAmount} defense");
         }
 
         public void OnValidate()

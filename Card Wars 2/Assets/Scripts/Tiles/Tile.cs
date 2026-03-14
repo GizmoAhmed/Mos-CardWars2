@@ -20,10 +20,10 @@ namespace Tiles
         public bool tileOwner;
 
         [Header("Occupancy")]
-        public GameObject creature;
-        public GameObject building;
+        public GameObject creatureVisual;
+        public GameObject buildingVisual;
         
-        public virtual bool IsOccupied => creature != null; 
+        public virtual bool IsOccupiedByCreature => creatureVisual != null || buildingVisual != null;
 
         [Header("Visual Neighbors (for rendering/mirroring)")]
         public GameObject across;
