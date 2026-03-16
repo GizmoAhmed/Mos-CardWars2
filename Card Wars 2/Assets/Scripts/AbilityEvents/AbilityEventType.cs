@@ -14,8 +14,8 @@ namespace AbilityEvents
         AnyCardPlaced,
         
         // === TILE EVENTS (happen on specific tiles, broadcast locally) ===
-        CardPlacedOnTile,       // Card placed on THIS tile
-        CreatureBurnedOnTile,   // Creature on THIS tile burned
+        CardPlacedOnTile,       
+        CreatureBurnedOnTile,   
         BuffCreatureStrengthOnTile,
         BuffCreatureDefenseOnTile,
         DebuffCreatureStrengthOnTile,

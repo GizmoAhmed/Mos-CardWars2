@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameManagement;
+using Mirror;
 using UnityEngine;
 
 namespace AbilityEvents
@@ -52,6 +53,53 @@ namespace AbilityEvents
                     callback?.Invoke(eventData); // invoke that callback, aka, run execute on all cards that are listening to this particular event
                 }
             }
+        }
+
+        // tell everyone who cares about Buff/Debuff Strength about how this creature got there stats changed
+        // the people who care are those who subscribed through AbilityManager.Subscribed(AbilityEventType, ExecutionCallback),
+        // see Register passive in CardStats.cs
+        [Server]
+        public void OnAnyCreatureStrengthBuffed(GameObject creature, int amount)
+        {
+            AbilityEventData statData = new AbilityEventData(
+                AbilityEventType.BuffCreatureStrengthOnTile,
+                creature,
+                amount);
+            
+            TriggerEvents_ForAllSubscribersOfType(statData);
+        }
+
+        [Server]
+        public void OnAnyCreatureStrengthNerfed(GameObject creature, int amount)
+        {
+            AbilityEventData statData = new AbilityEventData(
+                AbilityEventType.DebuffCreatureStrengthOnTile,
+                creature,
+                amount);
+            
+            TriggerEvents_ForAllSubscribersOfType(statData);
+        }
+
+        [Server]
+        public void OnAnyCreatureDefenseBuffed(GameObject creature, int amount)
+        {
+            AbilityEventData statData = new AbilityEventData(
+                AbilityEventType.BuffCreatureDefenseOnTile,
+                creature,
+                amount);
+            
+            TriggerEvents_ForAllSubscribersOfType(statData);
+        }
+
+        [Server]
+        public void OnAnyCreatureDefenseNerfed(GameObject creature, int amount)
+        {
+            AbilityEventData statData = new AbilityEventData(
+                AbilityEventType.DebuffCreatureDefenseOnTile,
+                creature,
+                amount);
+            
+            TriggerEvents_ForAllSubscribersOfType(statData);
         }
     }
 }

@@ -4,6 +4,7 @@ using CardScripts.CardDisplays;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
 using Mirror;
+using Tiles;
 using UnityEngine;
 
 namespace CardScripts.CardStatss
@@ -86,60 +87,55 @@ namespace CardScripts.CardStatss
         [Server] // called from inside a command
         public void ChangeCreatureStrength(int amount, bool buff)
         {
-            AbilityEventData statData;
-            
+            // Get the tile this card is on
+            Tile tile = GetComponent<CardMovement>().GetLogicalTile();
+            TileEventManager tileEventManager = tile.GetComponent<TileEventManager>();
+
             if (buff)
             {
                 strength += amount;
 
-                statData = new AbilityEventData(
-                    AbilityEventType.BuffCreatureStrengthOnTile,
-                    gameObject,
-                    amount);
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureStrengthBuffed(gameObject, amount);
+
+                // tell the tile the creature is on that it just got buffed, so the tile can tell other things on itself that
+                tileEventManager.OnBuffCreatureStrengthOnTile(gameObject, amount);
             }
             else
             {
                 strength -= amount;
-                
-                statData = new AbilityEventData(
-                    AbilityEventType.DebuffCreatureStrengthOnTile,
-                    gameObject,
-                    amount);
+
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureStrengthNerfed(gameObject, amount);
+                tileEventManager.OnNerfCreatureStrengthOnTile(gameObject, amount);
             }
+
             score = strength + defense;
-            
-            // tell everyone who cares about Buff/Debuff Strength about how this creature got there stats changed
-            // the people who care are those who subscribed through AbilityManager.Subscribed(AbilityEventType, ExecutionCallback),
-            // see Register passive in CardStats.cs
-            GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(statData); 
         }
 
         [Server]
         public void ChangeCreatureDefense(int amount, bool buff)
         {
-            AbilityEventData statData;
+            // Get the tile this card is on
+            Tile tile = GetComponent<CardMovement>().GetLogicalTile();
+            TileEventManager tileEventManager = tile.GetComponent<TileEventManager>();
             
             if (buff)
             {
                 defense += amount;
-                
-                statData = new AbilityEventData(
-                    AbilityEventType.BuffCreatureDefenseOnTile,
-                    gameObject,
-                    amount);
+
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseBuffed(gameObject, amount);
+
+                // tell the tile the creature is on that it just got buffed, so the tile can tell other things on itself that
+                tileEventManager.OnBuffCreatureDefenseOnTile(gameObject, amount);
             }
             else
             {
                 defense -= amount;
                 
-                statData = new AbilityEventData(
-                    AbilityEventType.DebuffCreatureDefenseOnTile,
-                    gameObject,
-                    amount);
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, amount);
+                tileEventManager.OnNerfCreatureDefenseOnTile(gameObject, amount);
             }
+
             score = strength + defense;
-            
-            GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(statData); 
         }
 
         [Server]

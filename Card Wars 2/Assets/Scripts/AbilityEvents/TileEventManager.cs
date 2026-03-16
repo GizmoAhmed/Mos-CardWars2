@@ -75,5 +75,49 @@ namespace AbilityEvents
             
             TriggerTileEvent(eventData);
         }
+
+        [Server]
+        public void OnBuffCreatureStrengthOnTile(GameObject creature, int amount)
+        {
+            AbilityEventData statData = new AbilityEventData(
+                AbilityEventType.BuffCreatureStrengthOnTile,
+                creature,
+                amount);
+            
+            TriggerTileEvent(statData);
+        }
+
+        [Server]
+        public void OnNerfCreatureStrengthOnTile(GameObject nerfCreature, int amount)
+        {
+            AbilityEventData statData = new AbilityEventData(
+                AbilityEventType.DebuffCreatureStrengthOnTile,
+                nerfCreature,
+                amount);
+            
+            TriggerTileEvent(statData);
+        }
+        
+        [Server]
+        public void OnBuffCreatureDefenseOnTile(GameObject creature, int amount)
+        {
+            AbilityEventData statData = new AbilityEventData(
+                AbilityEventType.BuffCreatureDefenseOnTile,
+                creature,
+                amount);
+            
+            TriggerTileEvent(statData);
+        }
+
+        [Server]
+        public void OnNerfCreatureDefenseOnTile(GameObject nerfCreature, int amount)
+        {
+            AbilityEventData statData = new AbilityEventData(
+                AbilityEventType.DebuffCreatureDefenseOnTile,
+                nerfCreature,
+                amount);
+            
+            TriggerTileEvent(statData);
+        }
     }
 }
