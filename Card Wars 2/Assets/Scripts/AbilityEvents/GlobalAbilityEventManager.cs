@@ -34,7 +34,7 @@ namespace AbilityEvents
             _globalListeners[eventType].Add(callback);
         }
     
-        public void Unsubscribe(AbilityEventType eventType, System.Action<AbilityEventData> callback)
+        public void GlobalUnsubscribe(AbilityEventType eventType, System.Action<AbilityEventData> callback)
         {
             if (_globalListeners.ContainsKey(eventType))
             {

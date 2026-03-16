@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.CardData;
@@ -14,6 +15,16 @@ namespace CardScripts.CardStats_Folder
     {
         public CardDataSO cardData;
 
+        // For global events
+        private Dictionary<AbilityEventType, System.Action<AbilityEventData>> _globalCallbacks = 
+            new Dictionary<AbilityEventType, System.Action<AbilityEventData>>();
+    
+        // For tile events
+        private Dictionary<AbilityEventType, System.Action<AbilityEventData>> _tileCallbacks = 
+            new Dictionary<AbilityEventType, System.Action<AbilityEventData>>();
+        
+        private Tile _subscribedTile;
+        
         public CardDataSO CardData => cardData;
 
         [SyncVar(hook = nameof(OnCardDataChanged))]
@@ -128,23 +139,6 @@ namespace CardScripts.CardStats_Folder
                 {
                     RegisterTileListener(passiveAbility, events);
                 }
-                
-                /*foreach (AbilityEventType eventType in events)
-                {
-                    void Callback(AbilityEventData eventData)
-                    {
-                        // Only execute on server
-                        if (!isServer) return;
-
-                        // add execution to callback, this function (ExecuteAbility) is called when event manager broadcasts the type
-                        cardData.ability.ExecuteAbility(gameObject, eventData);
-                    }
-
-                    
-                    GlobalAbilityEventManager.GlobalAbilityManagerInstance.Subscribe(eventType, Callback);
-
-                    Debug.Log($"{cardData.cardName} subscribed to {eventType} events");
-                }*/
             }
         }
         
@@ -164,6 +158,8 @@ namespace CardScripts.CardStats_Folder
                     if (!isServer) return;
                     ability.ExecuteAbility(gameObject, eventData);
                 }
+                
+                _globalCallbacks[eventType] = Callback; // cards owns this call back, once discarded, remove it from manager
 
                 // this card says: hey event manager, let me know (subscription) when this event (event data)...
                 // ...happens (happens ==> TriggerEvents_ForAllSubscribersOfType), so I can run my execution
@@ -212,10 +208,38 @@ namespace CardScripts.CardStats_Folder
                     ability.ExecuteAbility(gameObject, eventData);
                 }
 
+                _tileCallbacks[eventType] = Callback; 
+                
                 tileEventManager.SubscribeToTileEvent(eventType, Callback);
             
-                Debug.Log($"{cardData.cardName} subscribed to TILE [{tile.playerSide}][{tile.row},{tile.column}] for {eventType}");
+                _subscribedTile = tile;
             }
+        }
+        
+        public void UnsubscribeThisCardFromListening()
+        {
+            // Unsubscribe from global events
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                foreach (var kvp in _globalCallbacks)
+                {
+                    GlobalAbilityEventManager.GlobalAbilityManagerInstance.GlobalUnsubscribe(kvp.Key, kvp.Value);
+                }
+            }
+        
+            // Unsubscribe from tile events
+            if (_subscribedTile != null)
+            {
+                TileEventManager tileEventManager = _subscribedTile.GetComponent<TileEventManager>();
+                
+                foreach (var kvp in _tileCallbacks)
+                {
+                    tileEventManager.UnsubscribeFromTileEvent(kvp.Key, kvp.Value);
+                }
+            }
+        
+            _globalCallbacks.Clear();
+            _tileCallbacks.Clear();
         }
 
         [Command] 

@@ -407,6 +407,15 @@ namespace CardScripts.CardMovements
             CmdSetCardState(CardState.Discard);
 
             cardStats.CmdRefreshCardStats();
+
+            if (isServer)
+            {
+                UnSubThisCardViaStats();
+            }
+            else
+            {
+                CmdUnSubThisCardViaStats();
+            }
         }
 
         protected virtual void DetachFromTile()
@@ -458,6 +467,18 @@ namespace CardScripts.CardMovements
         {
             // Override in child classes
             Debug.LogError("ClearLogicalReferenceOnTile not overridden!");
+        }
+
+        [Command]
+        private void CmdUnSubThisCardViaStats()
+        {
+            UnSubThisCardViaStats();
+        }
+
+        [Server]
+        private void UnSubThisCardViaStats()
+        {
+            cardStats.UnsubscribeThisCardFromListening();
         }
 
         /// <summary>
