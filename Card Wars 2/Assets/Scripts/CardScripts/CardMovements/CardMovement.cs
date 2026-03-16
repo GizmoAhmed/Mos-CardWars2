@@ -35,9 +35,8 @@ namespace CardScripts.CardMovements
         // For preview cards only (client-side reference)
         private DeckCollection _owningDeck;
 
-        [Header("Logical Position (Server Authority - Game Logic)")] [SyncVar]
-        public int logicalRow = -1;
-
+        [Header("Logical Position (Server Authority - Game Logic)")] 
+        [SyncVar] public int logicalRow = -1;
         [SyncVar] public int logicalColumn = -1;
         [SyncVar] public int logicalPlayerSide = -1;
 
@@ -215,10 +214,11 @@ namespace CardScripts.CardMovements
             
             RpcPlaceCardOnTile(tile);
 
-            // tell event manager to broadcast that a FIELD card was placed.
-            // Field card is capitalized because cards that don't get fielded (Runes and Spells) have overrides...
-            // ...for this function and therefore don't run this one specifically
-            BroadcastCardPlacement();
+            // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
+            GlobalBroadcastCardPlacement();
+            
+            // you tell the tile manager of this creature about how you placed a card on it, not everyone
+            LocalWhisperCardPlacement();
         }
         
         [Server]
@@ -234,22 +234,32 @@ namespace CardScripts.CardMovements
             stats.RegisterPassiveAbility();
         }
 
-        protected virtual void BroadcastCardPlacement()
+        // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
+        protected virtual void GlobalBroadcastCardPlacement()
         {
-            if (AbilityEventManager.AbilityManagerInstance != null)
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {
                 AbilityEventData cardPlaceData = new AbilityEventData(
-                    AbilityEventType.FieldCardPlaced,
+                    AbilityEventType.AnyFieldCardPlaced,
                     gameObject
                 );
 
                 // tell event manager to tell everyone (that cares) that this card was placed
-                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(cardPlaceData);
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(cardPlaceData);
             }
             else
             {
                 Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
             }
+        }
+
+        // you tell the tile manager of this creature about how you placed a card on it, not everyone. then tile, will execute abilities of its subscribers
+        protected virtual void LocalWhisperCardPlacement()
+        {
+            Tile tileThisCardIsOn = GetLogicalTile();
+            TileEventManager tileEventManager = tileThisCardIsOn.gameObject.GetComponent<TileEventManager>();
+            
+            tileEventManager.OnCardPlacedOnTile(gameObject); // tileManager handles creating and broadcasting the AbilityEventData
         }
 
         [ClientRpc]
@@ -453,7 +463,7 @@ namespace CardScripts.CardMovements
         /// <summary>
         /// Get the logical tile based on logical position
         /// </summary>
-        private Tile GetLogicalTile()
+        public Tile GetLogicalTile()
         {
             if (logicalRow < 0 || logicalColumn < 0 || logicalPlayerSide < 0)
                 return null;

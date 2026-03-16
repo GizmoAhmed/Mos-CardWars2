@@ -30,8 +30,7 @@ namespace CardScripts.CardMovements
         protected override void SetLogicalReferenceOnTile(Tile tile)
         {
             tile.logicalCreature = gameObject;
-            Debug.Log(
-                $"Set logical creature ({gameObject.name}) on tile [{tile.playerSide}][{tile.row},{tile.column}]");
+            // Debug.Log($"Set logical creature ({gameObject.name}) on tile [{tile.playerSide}][{tile.row},{tile.column}]");
         }
 
         [Server]

@@ -20,9 +20,10 @@ namespace CardScripts.CardMovements
         [Command]
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
-            base.CmdPlaceCardOnTile(tile);
+            base.CmdPlaceCardOnTile(tile); 
             
             // register cards passive ability in ability manager as a listener when placed
+            // if ability is global tell global instance, if not tell local tile 
             RegisterPassiveAbilityToEventManagerInStats();
         }
         
@@ -72,8 +73,8 @@ namespace CardScripts.CardMovements
                 thisCardOwnerPlayerStats.UseMagic(cardStats.soulUse);
             }
 
-            Debug.Log($"Client: Visual tile = {visualTile.gameObject.name}, " +
-                      $"Logical position = Row {logicalRow}, Col {logicalColumn}");
+            /*Debug.Log($"Client: Visual tile = {visualTile.gameObject.name}, " +
+                      $"Logical position = Row {logicalRow}, Col {logicalColumn}");*/
         }
 
         protected override void Discard()

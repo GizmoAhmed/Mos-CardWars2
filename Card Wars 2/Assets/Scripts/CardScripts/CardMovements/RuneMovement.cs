@@ -1,5 +1,5 @@
 using AbilityEvents;
-using CardScripts.CardStats_Folder.Runes;
+using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Mirror;
 using Tiles;
@@ -34,33 +34,11 @@ namespace CardScripts.CardMovements
             GameObject creatureOnTile = tileScript.creatureVisual;
 
             BindRune(creatureOnTile);
-            
-            //Broadcast rune binding
-            BroadcastCardPlacement();
 
             // register cards passive ability in ability manager as a listener when placed
             RegisterPassiveAbilityToEventManagerInStats();
             
             base.RpcDiscard(); // discard on both clients via base call
-        }
-
-        //broadcast the bind, who knows, there might be a card that listens to this
-        protected override void BroadcastCardPlacement()
-        {
-            if (AbilityEventManager.AbilityManagerInstance != null)
-            {
-                AbilityEventData runeBindData = new AbilityEventData(
-                    AbilityEventType.RuneBinded,
-                    gameObject
-                );
-                
-                // tell event manager to tell everyone (that cares) that this rune was binded
-                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(runeBindData); 
-            }
-            else
-            {
-                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
-            }
         }
 
         [Server]

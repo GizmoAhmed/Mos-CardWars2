@@ -1,3 +1,4 @@
+using AbilityEvents;
 using Mirror;
 using UnityEngine;
 
@@ -43,6 +44,7 @@ namespace Tiles
         {
             // Extract row and column from name (L1-L8)
             InitializeLogicalPosition();
+            GetComponent<TileEventManager>().InitTileEventManager(this);
         }
 
         void Start()

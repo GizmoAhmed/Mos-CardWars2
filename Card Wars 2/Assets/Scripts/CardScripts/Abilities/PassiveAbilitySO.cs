@@ -13,6 +13,10 @@ namespace CardScripts.Abilities
         [Tooltip("The events that trigger Execute ability on this SO")]
         public AbilityEventType[] eventsThatTriggerThisAbility;
         
+        [Header("Event Scope")]
+        [Tooltip("True = Listen globally (events anywhere)\nFalse = Listen locally (events on same tile only)")]
+        public bool isGlobalListener = true;
+        
         public abstract override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData);
 
         public void OnValidate()

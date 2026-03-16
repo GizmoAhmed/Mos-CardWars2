@@ -1,7 +1,6 @@
 using CardScripts.CardData;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
-using CardScripts.CardStats_Folder.Runes;
 using CardScripts.CardStatss;
 using UnityEngine;
 

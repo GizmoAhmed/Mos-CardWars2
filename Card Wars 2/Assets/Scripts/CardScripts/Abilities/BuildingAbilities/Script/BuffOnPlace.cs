@@ -13,6 +13,12 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
         public int baseStrengthBuffAmount;
         public int baseDefenseBuffAmount;
 
+        private BuffOnPlace() // constructor
+        {
+            isGlobalListener = false;
+            eventsThatTriggerThisAbility = new AbilityEventType[] { AbilityEventType.CardPlacedOnTile };
+        }
+
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
             if (thisCard == eventData.cardToBeAffected)
@@ -25,34 +31,23 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
             {
                 return; // Not a creature, todo more ability event types (ie SpellCasted) would remove this if statement
             }
-
-            // Get LOGICAL positions (same on server and all clients!)
-            CardMovement buildingMovement = thisCard.GetComponent<CardMovement>();
-            CardMovement creatureMovement = eventData.cardToBeAffected.GetComponent<CardMovement>();
-    
-            // Compare logical positions
-            bool sameTile = 
-                buildingMovement.logicalRow == creatureMovement.logicalRow &&
-                buildingMovement.logicalColumn == creatureMovement.logicalColumn &&
-                buildingMovement.logicalPlayerSide == creatureMovement.logicalPlayerSide;
-    
-            if (sameTile)
-            {
-                Debug.Log($"Building buffs creature! Both at Row={buildingMovement.logicalRow}, " +
-                          $"Col={buildingMovement.logicalColumn}");
-        
-                creatureStats.ChangeCreatureStrength(baseStrengthBuffAmount, buff: true);
-                creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
-            }
+            
+            creatureStats.ChangeCreatureStrength(baseStrengthBuffAmount, buff: true);
+            creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
         }
 
         public void OnValidate()
         {
             base.OnValidate();
-            
-            if (!eventsThatTriggerThisAbility.Contains(AbilityEventType.FieldCardPlaced))
+
+            if (!eventsThatTriggerThisAbility.Contains(AbilityEventType.CardPlacedOnTile))
             {
-                Debug.LogError($"{name} isn't listening to card placements");
+                Debug.LogError($"{name} isn't listening to tile card placements");
+            }
+
+            if (isGlobalListener == true)
+            {
+                Debug.LogError($"{name} shouldn't be listening globally");
             }
         }
     }

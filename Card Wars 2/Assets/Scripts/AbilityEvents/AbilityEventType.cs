@@ -2,15 +2,23 @@ namespace AbilityEvents
 {
     public enum AbilityEventType
     {
-        AddCardToHand,
-        FieldCardPlaced,
-        CreatureAbilityActivated,
-        CardCasted,
-        CardBurned,
-        RuneBinded,
-        BuffCreatureStrength,
-        BuffCreatureDefense,
-        DebuffCreatureStrength,
-        DebuffCreatureDefense
+        // === GLOBAL EVENTS (happen anywhere, broadcast globally) ===
+        AnyTurnStart,
+        AnyTurnEnd,
+        AnyAddCardToHand,
+        AnyShardsGained,
+        AnyCreatureKilled,         
+        AnyCardDrawn,            
+        AnySpellCasted,
+        AnyFieldCardPlaced,
+        AnyCardPlaced,
+        
+        // === TILE EVENTS (happen on specific tiles, broadcast locally) ===
+        CardPlacedOnTile,       // Card placed on THIS tile
+        CreatureBurnedOnTile,   // Creature on THIS tile burned
+        BuffCreatureStrengthOnTile,
+        BuffCreatureDefenseOnTile,
+        DebuffCreatureStrengthOnTile,
+        DebuffCreatureDefenseOnTile,
     }
 }

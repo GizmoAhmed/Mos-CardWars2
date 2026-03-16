@@ -5,7 +5,7 @@ namespace AbilityEvents
 {
     public class AbilityEventData
     {
-        public readonly AbilityEventType EventType; // ie AddCardToHand, FieldCardPlaced
+        public readonly AbilityEventType EventType; // ie AddCardToHand, AnyFieldCardPlaced
         public GameObject cardToBeAffected;
         public int value;                           // keep track of things like buffs
         

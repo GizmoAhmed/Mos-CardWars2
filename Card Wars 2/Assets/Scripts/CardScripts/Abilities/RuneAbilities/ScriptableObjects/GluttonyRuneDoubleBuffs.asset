@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da02308ddc7f48b2bbe936f0a791377f, type: 3}
   m_Name: GluttonyRuneDoubleBuffs
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 06000000070000000800000009000000
+  eventsThatTriggerThisAbility: 
+  isGlobalListener: 0
   buffMultiplier: 2

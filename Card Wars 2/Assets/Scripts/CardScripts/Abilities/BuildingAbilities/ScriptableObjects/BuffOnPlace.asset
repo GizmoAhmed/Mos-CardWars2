@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008deca034da4d9d913b4195d4daa402, type: 3}
   m_Name: BuffOnPlace
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 01000000
+  eventsThatTriggerThisAbility: 09000000
+  isGlobalListener: 0
   baseStrengthBuffAmount: 2
   baseDefenseBuffAmount: 2

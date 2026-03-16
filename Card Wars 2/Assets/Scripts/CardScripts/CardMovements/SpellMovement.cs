@@ -91,27 +91,27 @@ namespace CardScripts.CardMovements
             // base.CmdPlaceCardOnTile(tile);
             
             AbilityEventData spellData = new AbilityEventData(
-                AbilityEventType.CardCasted,
+                AbilityEventType.AnySpellCasted,
                 tile); // pass tile as cardToBeEffected, some spells will use it, some won't
 
             cardStats.cardData.ability.ExecuteAbility(gameObject, spellData); // use the spell...
             
-            BroadcastCardPlacement(); // ...then tell everyone you used this spell
+            GlobalBroadcastCardPlacement(); // ...then tell everyone you used this spell
             
             base.RpcDiscard(); // discard on both clients via base call
         }
 
         // broadcast the cast, who knows, there might be a card that listens to this
-        protected override void BroadcastCardPlacement()
+        protected override void GlobalBroadcastCardPlacement()
         {
-            if (AbilityEventManager.AbilityManagerInstance != null)
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {
                 AbilityEventData castData = new AbilityEventData(
-                    AbilityEventType.CardCasted,
+                    AbilityEventType.AnySpellCasted,
                     gameObject
                 );
                 // tell event manager to tell everyone (that cares) that this rune was binded
-                AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(castData);
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(castData);
             }
             else
             {

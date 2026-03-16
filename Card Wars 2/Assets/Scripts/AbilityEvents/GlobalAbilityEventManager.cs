@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace AbilityEvents
 {
-    public class AbilityEventManager : MonoBehaviour
+    public class GlobalAbilityEventManager : MonoBehaviour
     {
-        public static AbilityEventManager AbilityManagerInstance { get; private set; }
+        public static GlobalAbilityEventManager GlobalAbilityManagerInstance { get; private set; }
         
-        private Dictionary<AbilityEventType, List<System.Action<AbilityEventData>>> _listeners;
+        private Dictionary<AbilityEventType, List<System.Action<AbilityEventData>>> _globalListeners;
     
         void Awake()
         {
-            if (AbilityManagerInstance == null)
+            if (GlobalAbilityManagerInstance == null)
             {
-                AbilityManagerInstance = this;
-                _listeners = new Dictionary<AbilityEventType, List<System.Action<AbilityEventData>>>();
+                GlobalAbilityManagerInstance = this;
+                _globalListeners = new Dictionary<AbilityEventType, List<System.Action<AbilityEventData>>>();
             }
             else
             {
@@ -25,25 +25,25 @@ namespace AbilityEvents
         
         public void Subscribe(AbilityEventType eventType, System.Action<AbilityEventData> callback)
         {
-            if (!_listeners.ContainsKey(eventType))
+            if (!_globalListeners.ContainsKey(eventType))
             {
-                _listeners[eventType] = new List<System.Action<AbilityEventData>>();
+                _globalListeners[eventType] = new List<System.Action<AbilityEventData>>();
             }
         
-            _listeners[eventType].Add(callback);
+            _globalListeners[eventType].Add(callback);
         }
     
         public void Unsubscribe(AbilityEventType eventType, System.Action<AbilityEventData> callback)
         {
-            if (_listeners.ContainsKey(eventType))
+            if (_globalListeners.ContainsKey(eventType))
             {
-                _listeners[eventType].Remove(callback);
+                _globalListeners[eventType].Remove(callback);
             }
         }
     
         public void TriggerEvents_ForAllSubscribersOfType(AbilityEventData eventData)
         {
-            if (_listeners.TryGetValue(eventData.EventType, out var listener))
+            if (_globalListeners.TryGetValue(eventData.EventType, out var listener))
             {
                 List<System.Action<AbilityEventData>> callbacks = new List<System.Action<AbilityEventData>>(listener);
             

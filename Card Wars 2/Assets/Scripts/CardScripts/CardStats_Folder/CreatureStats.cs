@@ -3,7 +3,6 @@ using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
-using CardScripts.CardStats_Folder.Runes;
 using Mirror;
 using UnityEngine;
 
@@ -94,7 +93,7 @@ namespace CardScripts.CardStatss
                 strength += amount;
 
                 statData = new AbilityEventData(
-                    AbilityEventType.BuffCreatureStrength,
+                    AbilityEventType.BuffCreatureStrengthOnTile,
                     gameObject,
                     amount);
             }
@@ -103,7 +102,7 @@ namespace CardScripts.CardStatss
                 strength -= amount;
                 
                 statData = new AbilityEventData(
-                    AbilityEventType.DebuffCreatureStrength,
+                    AbilityEventType.DebuffCreatureStrengthOnTile,
                     gameObject,
                     amount);
             }
@@ -112,7 +111,7 @@ namespace CardScripts.CardStatss
             // tell everyone who cares about Buff/Debuff Strength about how this creature got there stats changed
             // the people who care are those who subscribed through AbilityManager.Subscribed(AbilityEventType, ExecutionCallback),
             // see Register passive in CardStats.cs
-            AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(statData); 
+            GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(statData); 
         }
 
         [Server]
@@ -125,7 +124,7 @@ namespace CardScripts.CardStatss
                 defense += amount;
                 
                 statData = new AbilityEventData(
-                    AbilityEventType.BuffCreatureDefense,
+                    AbilityEventType.BuffCreatureDefenseOnTile,
                     gameObject,
                     amount);
             }
@@ -134,13 +133,13 @@ namespace CardScripts.CardStatss
                 defense -= amount;
                 
                 statData = new AbilityEventData(
-                    AbilityEventType.DebuffCreatureDefense,
+                    AbilityEventType.DebuffCreatureDefenseOnTile,
                     gameObject,
                     amount);
             }
             score = strength + defense;
             
-            AbilityEventManager.AbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(statData); 
+            GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(statData); 
         }
 
         [Server]
