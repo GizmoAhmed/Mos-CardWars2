@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using AbilityEvents;
+using CardScripts.Abilities;
 using CardScripts.CardDisplays;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
@@ -9,6 +11,7 @@ using Mirror;
 using Modal;
 using PlayerStuff;
 using Tiles;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -35,8 +38,9 @@ namespace CardScripts.CardMovements
         // For preview cards only (client-side reference)
         private DeckCollection _owningDeck;
 
-        [Header("Logical Position (Server Authority - Game Logic)")] 
-        [SyncVar] public int logicalRow = -1;
+        [Header("Logical Position (Server Authority - Game Logic)")] [SyncVar]
+        public int logicalRow = -1;
+
         [SyncVar] public int logicalColumn = -1;
         [SyncVar] public int logicalPlayerSide = -1;
 
@@ -211,16 +215,16 @@ namespace CardScripts.CardMovements
 
             // SERVER: Set logical reference on tile
             SetLogicalReferenceOnTile(tileScript);
-            
+
             RpcPlaceCardOnTile(tile);
 
             // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
             GlobalBroadcastCardPlacement();
-            
+
             // you tell the tile manager of this creature about how you placed a card on it, not everyone
             LocalWhisperCardPlacement();
         }
-        
+
         [Server]
         protected virtual void SetLogicalReferenceOnTile(Tile tile)
         {
@@ -245,7 +249,8 @@ namespace CardScripts.CardMovements
                 );
 
                 // tell event manager to tell everyone (that cares) that this card was placed
-                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(cardPlaceData);
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
+                    cardPlaceData);
             }
             else
             {
@@ -258,8 +263,9 @@ namespace CardScripts.CardMovements
         {
             Tile tileThisCardIsOn = GetLogicalTile();
             TileEventManager tileEventManager = tileThisCardIsOn.gameObject.GetComponent<TileEventManager>();
-            
-            tileEventManager.OnCardPlacedOnTile(gameObject); // tileManager handles creating and broadcasting the AbilityEventData
+
+            tileEventManager
+                .OnCardPlacedOnTile(gameObject); // tileManager handles creating and broadcasting the AbilityEventData
         }
 
         [ClientRpc]
@@ -455,13 +461,13 @@ namespace CardScripts.CardMovements
             {
                 ClearLogicalReferenceOnTile(logicalTile);
             }
-            
+
             // Reset to "not placed" values
             logicalRow = -1;
             logicalColumn = -1;
             logicalPlayerSide = -1;
         }
-        
+
         [Server]
         protected virtual void ClearLogicalReferenceOnTile(Tile tile)
         {
@@ -479,6 +485,27 @@ namespace CardScripts.CardMovements
         private void UnSubThisCardViaStats()
         {
             cardStats.UnsubscribeThisCardFromListening();
+
+            // undo execute for place abilities
+            if (cardStats.cardData.ability is PlaceAbilitySO placeAbility)
+            {
+                AbilityEventData data = PrepareDataForPlaceAbility(placeAbility);
+
+                placeAbility.UndoExecution(gameObject, data);
+            }
+        }
+
+        public AbilityEventData PrepareDataForPlaceAbility(PlaceAbilitySO placeAbility)
+        {
+            AbilityEventData data = new AbilityEventData(
+                AbilityEventType.CardPlacedOnTile,
+                gameObject, 
+                customData: new Dictionary<string, object>()
+            );
+
+            data.CustomData["tile"] = GetLogicalTile(); // {tile: Tile}
+
+            return data;
         }
 
         /// <summary>
@@ -488,13 +515,13 @@ namespace CardScripts.CardMovements
         {
             if (logicalRow < 0 || logicalColumn < 0 || logicalPlayerSide < 0)
                 return null;
-    
+
             // Use TileManager if available
             if (TileManager.Instance != null)
             {
                 return TileManager.Instance.GetTile(logicalPlayerSide, logicalRow, logicalColumn);
             }
-    
+
             return null;
         }
 

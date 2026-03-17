@@ -126,6 +126,16 @@ namespace CardScripts.CardStats_Folder
                 return;
             }
 
+            // if ability is the passive place ability, trigger its ability like a cast when placed
+            if (cardData.ability is PlaceAbilitySO placeAbility)
+            {
+                CardMovement move = GetComponent<CardMovement>();
+
+                AbilityEventData data = move.PrepareDataForPlaceAbility(placeAbility);
+                
+                placeAbility.ExecuteAbility(gameObject, data);
+            }
+
             if (cardData.ability is PassiveAbilitySO passiveAbility)
             {
                 AbilityEventType[] events = passiveAbility.eventsThatTriggerThisAbility;

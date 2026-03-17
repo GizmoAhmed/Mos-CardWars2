@@ -31,7 +31,7 @@ namespace CardScripts.CardMovements
         protected override void SetLogicalReferenceOnTile(Tile tile)
         {
             tile.logicalBuilding = gameObject;
-            Debug.Log($"Set logical building ({gameObject.name}) on tile [{tile.playerSide}][{tile.row},{tile.column}]");
+            // Debug.Log($"Set logical building ({gameObject.name}) on tile [{tile.playerSide}][{tile.row},{tile.column}]");
         }
     
         [Server]

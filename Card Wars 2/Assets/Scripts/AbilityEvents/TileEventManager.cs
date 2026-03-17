@@ -26,7 +26,7 @@ namespace AbilityEvents
             }
             
             _localListeners[eventType].Add(callback);
-            Debug.Log($"Tile [{_tile.playerSide}][{_tile.row},{_tile.column}]: Subscribed to {eventType}");
+            // Debug.Log($"Tile [{_tile.playerSide}][{_tile.row},{_tile.column}]: Subscribed to {eventType}");
         }
         
         public void UnsubscribeFromTileEvent(AbilityEventType eventType, Action<AbilityEventData> callback)

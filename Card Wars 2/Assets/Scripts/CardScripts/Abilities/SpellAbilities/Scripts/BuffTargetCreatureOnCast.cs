@@ -13,7 +13,7 @@ namespace CardScripts.Abilities.SpellAbilities.Scripts
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            Tile tile = eventData.cardToBeAffected.GetComponent<Tile>();
+            Tile tile = eventData.CardToBeAffected.GetComponent<Tile>();
             GameObject creatureOnTile = tile.logicalCreature;
 
             if (creatureOnTile == null)

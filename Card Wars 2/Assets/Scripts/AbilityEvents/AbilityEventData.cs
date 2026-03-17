@@ -6,19 +6,17 @@ namespace AbilityEvents
     public class AbilityEventData
     {
         public readonly AbilityEventType EventType; // ie AddCardToHand, AnyFieldCardPlaced
-        public GameObject cardToBeAffected;
-        public int value;                           // keep track of things like buffs
+        public GameObject CardToBeAffected;
+        public int Value;                           // keep track of things like buffs
         
-        // this is also worth looking into
-        // public Dictionary<string, object> customData; // Flexible extra data
-        // eventData.customData["buff"] = int, string, or etc.;
-
+        public Dictionary<string, object> CustomData; 
         
-        public AbilityEventData(AbilityEventType type, GameObject card = null, int v = 0)
+        public AbilityEventData(AbilityEventType type, GameObject card = null, int v = 0, Dictionary<string, object> customData = null)
         {
             EventType = type;
-            cardToBeAffected = card; // optional, some spells ie don't affect cards
-            value = v; // optional, pass param for things like buffs
+            CardToBeAffected = card;    // optional, some spells ie don't affect cards
+            Value = v;                  // optional, pass param for things like buffs
+            CustomData = customData;         // also optional
         }
     }
 }
