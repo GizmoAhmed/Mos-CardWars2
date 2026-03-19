@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using AbilityEvents;
 using CardScripts.Abilities;
+using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
@@ -232,11 +233,11 @@ namespace CardScripts.CardMovements
             Debug.LogError("SetLogicalReferenceOnTile not overridden!");
         }
 
-        protected void RegisterPassiveAbilityToEventManagerInStats()
+        /*protected void RegisterPassiveAbilityToEventManagerInStats()
         {
             CardStats stats = GetComponent<CardStats>();
             stats.RegisterPassiveAbility();
-        }
+        }*/
 
         // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
         protected virtual void GlobalBroadcastCardPlacement()
@@ -413,14 +414,18 @@ namespace CardScripts.CardMovements
             CmdSetCardState(CardState.Discard);
 
             cardStats.CmdRefreshCardStats();
-
+            
+            PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
+            
+            if (listen == null) return; // if listener not found, then this card is not a passive one
+            
             if (isServer)
             {
-                UnSubThisCardViaStats();
+                listen.UnsubscribeThisCardFromListening();
             }
             else
             {
-                CmdUnSubThisCardViaStats();
+                listen.CmdUnsubscribeThisCardFromListening();
             }
         }
 
@@ -473,39 +478,6 @@ namespace CardScripts.CardMovements
         {
             // Override in child classes
             Debug.LogError("ClearLogicalReferenceOnTile not overridden!");
-        }
-
-        [Command]
-        private void CmdUnSubThisCardViaStats()
-        {
-            UnSubThisCardViaStats();
-        }
-
-        [Server]
-        private void UnSubThisCardViaStats()
-        {
-            cardStats.UnsubscribeThisCardFromListening();
-
-            // undo execute for place abilities
-            if (cardStats.cardData.ability is PlaceAbilitySO placeAbility)
-            {
-                AbilityEventData data = PrepareDataForPlaceAbility(placeAbility);
-
-                placeAbility.UndoExecution(gameObject, data);
-            }
-        }
-
-        public AbilityEventData PrepareDataForPlaceAbility(PlaceAbilitySO placeAbility)
-        {
-            AbilityEventData data = new AbilityEventData(
-                AbilityEventType.CardPlacedOnTile,
-                gameObject, 
-                customData: new Dictionary<string, object>()
-            );
-
-            data.CustomData["tile"] = GetLogicalTile(); // {tile: Tile}
-
-            return data;
         }
 
         /// <summary>

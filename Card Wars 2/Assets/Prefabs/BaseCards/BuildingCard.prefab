@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 3391379119177400920}
   - component: {fileID: 8929765285980066993}
   - component: {fileID: 3767732708076579739}
+  - component: {fileID: 8479530343306784276}
   m_Layer: 5
   m_Name: BuildingCard
   m_TagString: Untagged
@@ -256,8 +257,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   cardData: {fileID: 0}
-  thisCardOwner: {fileID: 0}
-  magicUse: 0
+  soulUse: 0
   burnCost: 2
 --- !u!114 &-775661273244998113
 MonoBehaviour:
@@ -276,7 +276,7 @@ MonoBehaviour:
   syncInterval: 0
   faceUp: 0
   cardData: {fileID: 0}
-  _magicObj: {fileID: 0}
+  magicObj: {fileID: 0}
 --- !u!114 &1952038854839325957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,11 +478,25 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  player: {fileID: 0}
   cardState: 0
-  thisPlayersStats: {fileID: 0}
-  currentLand: {fileID: 0}
+  thisCardOwnerPlayerStats: {fileID: 0}
+  logicalRow: -1
+  logicalColumn: -1
+  logicalPlayerSide: -1
+  currentTileVisual: {fileID: 0}
   snapBackDuration: 0.25
+--- !u!114 &8479530343306784276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259850269640685191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430ba0e5f439adb4090bdeef7d4dcb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &480858451546583628
 GameObject:
   m_ObjectHideFlags: 0

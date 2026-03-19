@@ -16,8 +16,16 @@ namespace CardScripts.Abilities
         [Header("Event Scope")]
         [Tooltip("True = Listen globally (events anywhere)\nFalse = Listen locally (events on same tile only)")]
         public bool isGlobalListener = true;
+
+        [Tooltip("Executes its ability on place (like a spell), along with passively listening")]
+        public bool isExecutableOnPlaced = false;
         
         public abstract override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData);
+
+        public virtual void UndoExecution(GameObject thisCard, AbilityEventData eventData)
+        {
+            Debug.LogError($"Called base.UndoExecution on {name} when should be using child override");
+        }
 
         public void OnValidate()
         {

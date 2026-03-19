@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CardScripts.Abilities.BuildingAbilities.Script
 {
     [CreateAssetMenu(fileName = "BuffOnPlace", menuName = "Abilities/Building/BuffOnPlace")]
-    public class BuffOnPlace : PlaceAbilitySO
+    public class BuffOnPlace : PassiveAbilitySO
     {
         public int baseStrengthBuffAmount;
         public int baseDefenseBuffAmount;
@@ -27,6 +27,14 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
         {
             // Debug.Log("Does nothing....");
+        }
+
+        public void OnValidate()
+        {
+            if (isGlobalListener && !isExecutableOnPlaced)
+            {
+                Debug.LogError($"{name} needs to be executable on place and a tile listener");
+            }
         }
     }
 }

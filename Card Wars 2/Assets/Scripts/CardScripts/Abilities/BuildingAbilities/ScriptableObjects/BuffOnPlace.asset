@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 09000000
   isGlobalListener: 0
+  isExecutableOnPlaced: 1
   baseStrengthBuffAmount: 2
   baseDefenseBuffAmount: 2

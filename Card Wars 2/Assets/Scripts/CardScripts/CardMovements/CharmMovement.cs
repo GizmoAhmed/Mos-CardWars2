@@ -1,3 +1,4 @@
+using CardScripts.CardData;
 using Mirror;
 using PlayerStuff;
 using Tiles;
@@ -21,9 +22,17 @@ namespace CardScripts.CardMovements
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
             base.CmdPlaceCardOnTile(tile);
-            
+
+            PassiveListenerCard listener = GetComponent<PassiveListenerCard>();
+
+            if (listener == null)
+            {
+                Debug.LogError($"No listener found on {gameObject.name}");
+                return;
+            }
+
             // register cards passive ability in ability manager as a listener when placed
-            RegisterPassiveAbilityToEventManagerInStats();
+            listener.RegisterPassiveAbility();
         }
         
         [ClientRpc] // assume valid, so don't worry about ok to place or not

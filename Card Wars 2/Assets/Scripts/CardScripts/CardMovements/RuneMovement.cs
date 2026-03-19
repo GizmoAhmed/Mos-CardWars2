@@ -1,4 +1,5 @@
 using AbilityEvents;
+using CardScripts.CardData;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Mirror;
@@ -35,8 +36,16 @@ namespace CardScripts.CardMovements
 
             BindRune(creatureOnTile);
 
+            PassiveListenerCard listener = GetComponent<PassiveListenerCard>();
+            
+            if (listener == null)
+            {
+                Debug.LogError($"No listener found on {gameObject.name}");
+                return;
+            }
+
             // register cards passive ability in ability manager as a listener when placed
-            RegisterPassiveAbilityToEventManagerInStats();
+            listener.RegisterPassiveAbility();
             
             base.RpcDiscard(); // discard on both clients via base call
         }

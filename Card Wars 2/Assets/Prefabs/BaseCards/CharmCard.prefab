@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 7945441782047710781}
   - component: {fileID: -7445801736710256903}
   - component: {fileID: -1237447297937807966}
+  - component: {fileID: -7316469908674188732}
   m_Layer: 5
   m_Name: CharmCard
   m_TagString: Untagged
@@ -259,7 +260,7 @@ MonoBehaviour:
   syncInterval: 0
   faceUp: 0
   cardData: {fileID: 0}
-  _magicObj: {fileID: 0}
+  magicObj: {fileID: 0}
 --- !u!114 &7177929760799130277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,10 +477,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  player: {fileID: 0}
   cardState: 0
-  thisPlayersStats: {fileID: 0}
-  currentLand: {fileID: 0}
+  thisCardOwnerPlayerStats: {fileID: 0}
+  logicalRow: -1
+  logicalColumn: -1
+  logicalPlayerSide: -1
+  currentTileVisual: {fileID: 0}
   snapBackDuration: 0.25
 --- !u!114 &-1237447297937807966
 MonoBehaviour:
@@ -497,9 +500,20 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   cardData: {fileID: 0}
-  thisCardOwner: {fileID: 0}
-  magicUse: 0
+  soulUse: 0
   burnCost: 2
+--- !u!114 &-7316469908674188732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243263642205161095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430ba0e5f439adb4090bdeef7d4dcb23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1353088727235028194
 GameObject:
   m_ObjectHideFlags: 0

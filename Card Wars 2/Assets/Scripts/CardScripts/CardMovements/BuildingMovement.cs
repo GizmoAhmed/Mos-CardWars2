@@ -1,3 +1,4 @@
+using CardScripts.CardData;
 using Mirror;
 using PlayerStuff;
 using Tiles;
@@ -22,9 +23,16 @@ namespace CardScripts.CardMovements
         {
             base.CmdPlaceCardOnTile(tile); 
             
+            PassiveListenerCard listener = GetComponent<PassiveListenerCard>();
+            
+            if (listener == null)
+            {
+                Debug.LogError($"No listener found on {gameObject.name}");
+                return;
+            }
+
             // register cards passive ability in ability manager as a listener when placed
-            // if ability is global tell global instance, if not tell local tile 
-            RegisterPassiveAbilityToEventManagerInStats();
+            listener.RegisterPassiveAbility();
         }
         
         [Server]
