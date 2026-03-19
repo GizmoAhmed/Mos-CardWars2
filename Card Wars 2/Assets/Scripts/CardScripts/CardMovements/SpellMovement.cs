@@ -36,7 +36,15 @@ namespace CardScripts.CardMovements
 
                 if (!meetsRequirement)
                 {
-                    Debug.Log($"Spell placement invalid: requires {castType}");
+                    Debug.LogWarning($"{gameObject.name} cast invalid: requires {castType}");
+                    return false;
+                }
+                
+                // check more specific spell condition
+                bool specificReqsMet = castAbility.SpecificSpellPlacementConditions(tile);
+                if (!specificReqsMet)
+                {
+                    Debug.LogWarning($"{gameObject.name} wasn't cast under under it's more specific conditions, see castAbility.SpecificSpellPlacementConditions();");
                     return false;
                 }
 

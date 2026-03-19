@@ -1,5 +1,6 @@
 using System;
 using AbilityEvents;
+using Tiles;
 using UnityEngine;
 
 namespace CardScripts.Abilities
@@ -26,5 +27,11 @@ namespace CardScripts.Abilities
         public bool yourSide; 
         
         public abstract override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData);
+
+        // deeper specification for a spell that can't be captured with the above cast requirements. Ie creature needs be a of a certain element or player needs to have x soul left over
+        public virtual bool SpecificSpellPlacementConditions(Tile tile)
+        {
+            return true; // by default, true just means it has not conditions
+        }
     }
 }
