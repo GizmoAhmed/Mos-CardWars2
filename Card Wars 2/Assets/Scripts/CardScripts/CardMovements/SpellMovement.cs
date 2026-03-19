@@ -15,6 +15,7 @@ namespace CardScripts.CardMovements
                 return false;
 
             // Check if the ability is a CastAbilitySO (which it should) and get the cast requirement
+            // todo also get the cast condition in here, ie if creature is of element, buff XYZ
             if (cardStats.cardData.ability is CastAbilitySO castAbility)
             {
                 CastAbilitySO.CastRequirementType castType = castAbility.castRequirementType;

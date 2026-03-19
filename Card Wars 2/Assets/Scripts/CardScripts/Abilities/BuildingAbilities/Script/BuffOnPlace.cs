@@ -15,46 +15,18 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            Debug.Log("Executing BuffOnPlace");
+            CreatureStats creatureStats = GetCreature_FromTileInEventData(thisCard, eventData);
 
-            CreatureStats creatureStats;
-            
-            if (eventData.CustomData != null) // passed from the passive side, automatic trigger event call doesn't pass event data
+            if (creatureStats != null)
             {
-                Tile placedOnTile = eventData.CustomData["tile"] as Tile;   // execution from placement
-                
-                if (placedOnTile.logicalCreature != null)               // tile has creature
-                {
-                    creatureStats = placedOnTile.logicalCreature.GetComponent<CreatureStats>();
-                }
-                else
-                {
-                    return; // no creature to buff 
-                }
+                creatureStats.ChangeCreatureStrength(baseStrengthBuffAmount, buff: true);
+                creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
             }
-            else
-            {
-                if (thisCard == eventData.CardToBeAffected)
-                {
-                    return; // Don't buff self
-                }
-                
-                creatureStats = eventData.CardToBeAffected.GetComponent<CreatureStats>();
-                
-                // CreatureStats 
-                if (creatureStats == null)
-                {
-                    return; // Not a creature, todo more ability event types (ie SpellCasted) would remove this if statement
-                }
-            }
-            
-            creatureStats.ChangeCreatureStrength(baseStrengthBuffAmount, buff: true);
-            creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
         }
 
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
         {
-            Debug.Log("Undoing BuffOnPlace...");
+            // Debug.Log("Does nothing....");
         }
     }
 }
