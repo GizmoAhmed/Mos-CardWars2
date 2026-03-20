@@ -42,11 +42,9 @@ namespace Tiles
             {
                 Debug.LogWarning($"Unknown charm tile: {myName}");
             }
-
-            // Debug.Log($"{myName}: CharmTile - Row={row}, Column={column}, PlayerSide={playerSide}");
         }
 
-        protected override void SetupNeighbors()
+        /*protected override void SetupNeighbors()
         {
             // Setup visual mirroring
             if (across == null)
@@ -60,6 +58,6 @@ namespace Tiles
                     across = GameObject.Find("SpellGroup1");
                 }
             }
-        }
+        }*/
     }
 }

@@ -12,7 +12,7 @@ namespace CardScripts.CardData
     public class PassiveListenerCard : NetworkBehaviour
     {
         public CardStats cardStats;
-        public PassiveAbilitySO passAbility;
+        public PassiveAbilitySO passiveAbility;
         public bool isExecutedOnPlace = false;
 
         // For global events
@@ -36,7 +36,7 @@ namespace CardScripts.CardData
                 return;
             }
 
-            passAbility = p;
+            passiveAbility = p;
             isExecutedOnPlace = p.isExecutableOnPlaced;
         }
 
@@ -52,19 +52,19 @@ namespace CardScripts.CardData
             {
                 AbilityEventData data = PrepareDataForExecution();
 
-                passAbility.ExecuteAbility(gameObject, data);
+                passiveAbility.ExecuteAbility(gameObject, data);
             }
 
-            AbilityEventType[] events = passAbility.eventsThatTriggerThisAbility;
+            AbilityEventType[] events = passiveAbility.eventsThatTriggerThisAbility;
 
             // Register based on scope (global vs tile)
-            if (passAbility.isGlobalListener)
+            if (passiveAbility.isGlobalListener)
             {
-                RegisterGlobalListener(passAbility, events);
+                RegisterGlobalListener(passiveAbility, events);
             }
             else
             {
-                RegisterTileListener(passAbility, events);
+                RegisterTileListener(passiveAbility, events);
             }
         }
 
@@ -175,7 +175,7 @@ namespace CardScripts.CardData
 
             AbilityEventData data = PrepareDataForExecution();
 
-            passAbility.UndoExecution(gameObject, data);
+            passiveAbility.UndoExecution(gameObject, data);
         }
 
         private AbilityEventData PrepareDataForExecution()

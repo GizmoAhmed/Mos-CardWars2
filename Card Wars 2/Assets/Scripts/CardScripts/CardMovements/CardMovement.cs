@@ -230,14 +230,8 @@ namespace CardScripts.CardMovements
         protected virtual void SetLogicalReferenceOnTile(Tile tile)
         {
             // Override in child classes (CreatureMovement, BuildingMovement, etc.)
-            Debug.LogError("SetLogicalReferenceOnTile not overridden!");
+            Debug.LogWarning("SetLogicalReferenceOnTile not overridden!");
         }
-
-        /*protected void RegisterPassiveAbilityToEventManagerInStats()
-        {
-            CardStats stats = GetComponent<CardStats>();
-            stats.RegisterPassiveAbility();
-        }*/
 
         // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
         protected virtual void GlobalBroadcastCardPlacement()

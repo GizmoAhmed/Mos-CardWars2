@@ -2716,6 +2716,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3114582350779565785, guid: 6ff19c187e92441438751c827e569ae6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 473391598}
+    - targetCorrespondingSourceObject: {fileID: 3114582350779565785, guid: 6ff19c187e92441438751c827e569ae6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 473391602}
   m_SourcePrefab: {fileID: 100100000, guid: 6ff19c187e92441438751c827e569ae6, type: 3}
 --- !u!224 &473391592 stripped
 RectTransform:
@@ -2879,6 +2882,21 @@ MonoBehaviour:
   diagonalLeft: {fileID: 0}
   diagonalRight: {fileID: 0}
   InUseCharms: []
+--- !u!114 &473391602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473391593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea8b9f197844bc5898e9aa44bf2330e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &474931976
 GameObject:
   m_ObjectHideFlags: 0
@@ -7752,7 +7770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: p0Deck.Array.data[10]
@@ -7845,15 +7863,15 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
+      objectReference: {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
+      objectReference: {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
+      objectReference: {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[3]
       value: 
@@ -7861,7 +7879,7 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
+      objectReference: {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[5]
       value: 
@@ -12079,6 +12097,21 @@ MonoBehaviour:
   serverOnly: 0
   visibility: 0
   hasSpawned: 0
+--- !u!114 &7881014250334252999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7881014250334252986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea8b9f197844bc5898e9aa44bf2330e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1001 &8061080018761520307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12187,6 +12220,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3114582350779565785, guid: 6ff19c187e92441438751c827e569ae6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7881014250334252995}
+    - targetCorrespondingSourceObject: {fileID: 3114582350779565785, guid: 6ff19c187e92441438751c827e569ae6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7881014250334252999}
   m_SourcePrefab: {fileID: 100100000, guid: 6ff19c187e92441438751c827e569ae6, type: 3}
 --- !u!1 &8097989068376741313
 GameObject:

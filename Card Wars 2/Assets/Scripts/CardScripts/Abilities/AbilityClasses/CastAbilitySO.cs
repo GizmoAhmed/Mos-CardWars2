@@ -1,9 +1,8 @@
-using System;
 using AbilityEvents;
 using Tiles;
 using UnityEngine;
 
-namespace CardScripts.Abilities
+namespace CardScripts.Abilities.AbilityClasses
 {
     /// <summary>
     /// This for spells, castable cards that can be applied to any tile (empty or not)...
