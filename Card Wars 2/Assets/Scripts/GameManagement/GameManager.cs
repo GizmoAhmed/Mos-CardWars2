@@ -202,7 +202,7 @@ namespace GameManagement
             _stats2.freeCardsChosen = defaultFreeDrawChoices;
         
             _stats1.freeCardsOffered = defaultFreeDrawOffering;
-            _stats2.freeCardsOffered = defaultFreeDrawOffering;
+            _stats2.freeCardsOffered = defaultFreeDrawOffering + 2;
 
             if (_stats1.playerTotalScore == 0 || _stats2.playerTotalScore == 0)
                 Debug.LogWarning($"Player {gameObject.name} has default score set to 0 in editor. GameManger can't update UI from here");

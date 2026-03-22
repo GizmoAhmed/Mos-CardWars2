@@ -57,6 +57,8 @@ namespace CardScripts.CardData
 
             AbilityEventType[] events = passiveAbility.eventsThatTriggerThisAbility;
 
+            if (events.Length == 0) return; // don't register anything if it has no triggering events
+            
             // Register based on scope (global vs middleTile)
             if (passiveAbility.isGlobalListener)
             {
@@ -175,6 +177,7 @@ namespace CardScripts.CardData
 
             AbilityEventData data = PrepareDataForExecution();
 
+            Debug.LogWarning($"Unsubscribing {gameObject.name}: << UNDO EXECUTION >>");
             passiveAbility.UndoExecution(gameObject, data);
         }
 

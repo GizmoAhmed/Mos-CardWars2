@@ -1,4 +1,7 @@
 using AbilityEvents;
+using CardScripts.CardMovements;
+using CardScripts.CardStats_Folder;
+using PlayerStuff;
 using UnityEngine;
 
 namespace CardScripts.Abilities.CharmAbilities.Scripts
@@ -10,12 +13,20 @@ namespace CardScripts.Abilities.CharmAbilities.Scripts
         
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            // give player offering
+            PlayerStats playerStats = thisCard.GetComponent<CharmMovement>().thisCardOwnerPlayerStats;
+            
+            playerStats.freeCardsOffered += offeringsGiven;
+            
+            Debug.Log($"{name} is giving player {playerStats.gameObject.name} + {offeringsGiven} offering. Player {playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings");
         }
 
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
         {
-            // remove offering
+            PlayerStats playerStats = thisCard.GetComponent<CharmMovement>().thisCardOwnerPlayerStats;
+
+            playerStats.freeCardsOffered -= offeringsGiven;
+            
+            Debug.Log($"{name} is removing player {playerStats.gameObject.name} - {offeringsGiven} offering. Player {playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings");
         }
 
         public void OnValidate()

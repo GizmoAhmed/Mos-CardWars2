@@ -84,7 +84,6 @@ namespace Tiles
             {
                 Debug.LogError($"Attempt to remove {charm} from charms list failed because {charm} isn't present in the list for some reason.");
             }
-
         }
     }
 }
