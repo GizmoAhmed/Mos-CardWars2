@@ -9,11 +9,11 @@ namespace CardScripts.Abilities.CreatureAbilities.Script
     {
         public int baseStrengthBuffAmount;
         
-        // public bool Target todo creature abilities that lets players choose which tile to effect
+        // public bool Target todo creature abilities that lets players choose which middleTile to effect
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            Debug.Log($"Self buffing strength (+{baseStrengthBuffAmount}) on {thisCard.name}");
+            // Debug.Log($"Self buffing strength (+{baseStrengthBuffAmount}) on {thisCard.name}");
             CreatureStats creatureStats = thisCard.GetComponent<CreatureStats>();
 
             if (creatureStats == null)

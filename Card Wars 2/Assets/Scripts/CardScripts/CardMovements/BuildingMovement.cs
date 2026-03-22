@@ -13,9 +13,12 @@ namespace CardScripts.CardMovements
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(tile))
                 return false;
+            
+            if (!(tile is MiddleTile midTile)) // has to be middle tile
+                return false;
 
             // return true if one of your own lands, the close ones
-            return tile.tileOwner && tile.buildingVisual == null;
+            return midTile.tileOwner && midTile.logicalBuilding == null;
         }
 
         [Command]
@@ -38,17 +41,21 @@ namespace CardScripts.CardMovements
         [Server]
         protected override void SetLogicalReferenceOnTile(Tile tile)
         {
-            tile.logicalBuilding = gameObject;
-            // Debug.Log($"Set logical building ({gameObject.name}) on tile [{tile.playerSide}][{tile.row},{tile.column}]");
+            MiddleTile middleTile = tile as MiddleTile;
+
+            
+            middleTile.logicalBuilding = gameObject;
+            // Debug.Log($"Set logical building ({gameObject.name}) on Tile [{Tile.playerSide}][{Tile.row},{Tile.column}]");
         }
     
         [Server]
         protected override void ClearLogicalReferenceOnTile(Tile tile)
         {
-            if (tile.logicalCreature == gameObject)
+            MiddleTile middleTile = tile as MiddleTile;
+            
+            if (middleTile.logicalBuilding == gameObject)
             {
-                tile.logicalBuilding = null;
-                Debug.Log($"Cleared logical building ({gameObject.name}) from tile [{tile.playerSide}][{tile.row},{tile.column}]");
+                middleTile.logicalBuilding = null;
             }
         }
 
@@ -57,13 +64,13 @@ namespace CardScripts.CardMovements
         {
             base.RpcPlaceCardOnTile(tileObj);
 
-            Tile tileScript = tileObj.GetComponent<Tile>();
-            Tile visualTile = tileScript;
+            MiddleTile midTileScript = tileObj.GetComponent<MiddleTile>();
+            MiddleTile visualTile = midTileScript;
 
-            // VISUAL MIRRORING: If this is opponent's card, show on mirrored tile
+            // VISUAL MIRRORING: If this is opponent's card, show on mirrored Tile
             if (!isOwned)
             {
-                visualTile = tileScript.across.GetComponent<Tile>();
+                visualTile = midTileScript.across.GetComponent<MiddleTile>();
             }
 
             // Visual positioning
@@ -80,9 +87,6 @@ namespace CardScripts.CardMovements
             {
                 thisCardOwnerPlayerStats.UseMagic(cardStats.soulUse);
             }
-
-            /*Debug.Log($"Client: Visual tile = {visualTile.gameObject.name}, " +
-                      $"Logical position = Row {logicalRow}, Col {logicalColumn}");*/
         }
 
         protected override void Discard()
@@ -104,7 +108,7 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            currentTileVisual.buildingVisual = null;
+            ((MiddleTile)currentTileVisual).buildingVisual = null;
             base.DetachFromTile();
         }
     }

@@ -16,8 +16,11 @@ namespace CardScripts.CardMovements
             if (!base.ValidPlacement(tile))
                 return false;
 
-            // to place, you have to own this tile and the tile can't already have creature on it
-            return tile.tileOwner && tile.creatureVisual == null;
+            if (!(tile is MiddleTile midTile)) // has to be middle tile
+                return false;
+            
+            // to place, you have to own this Tile and the Tile can't already have creature on it
+            return midTile.tileOwner && midTile.logicalCreature == null;
         }
 
         [Command] // not needed...todo for now
@@ -29,18 +32,20 @@ namespace CardScripts.CardMovements
         [Server]
         protected override void SetLogicalReferenceOnTile(Tile tile)
         {
-            tile.logicalCreature = gameObject;
-            // Debug.Log($"Set logical creature ({gameObject.name}) on tile [{tile.playerSide}][{tile.row},{tile.column}]");
+            MiddleTile middleTile = tile as MiddleTile;
+            
+            middleTile.logicalCreature = gameObject;
+            // Debug.Log($"Set logical creature ({gameObject.name}) on Tile [{Tile.playerSide}][{Tile.row},{Tile.column}]");
         }
 
         [Server]
         protected override void ClearLogicalReferenceOnTile(Tile tile)
         {
-            if (tile.logicalCreature == gameObject)
+            MiddleTile middleTile = tile as MiddleTile;
+            
+            if (middleTile.logicalCreature == gameObject)
             {
-                tile.logicalCreature = null;
-                Debug.Log(
-                    $"Cleared logical creature ({gameObject.name}) from tile [{tile.playerSide}][{tile.row},{tile.column}]");
+                middleTile.logicalCreature = null;
             }
         }
 
@@ -49,13 +54,13 @@ namespace CardScripts.CardMovements
         {
             base.RpcPlaceCardOnTile(tileObj);
 
-            Tile tileScript = tileObj.GetComponent<Tile>();
-            Tile visualTile = tileScript;
+            MiddleTile midTileScript = tileObj.GetComponent<MiddleTile>();
+            MiddleTile visualTile = midTileScript;
 
-            // VISUAL MIRRORING: If this is opponent's card, show on mirrored tile
+            // VISUAL MIRRORING: If this is opponent's card, show on mirrored Tile
             if (!isOwned)
             {
-                visualTile = tileScript.across.GetComponent<Tile>();
+                visualTile = midTileScript.across.GetComponent<MiddleTile>();
             }
 
             // Visual positioning
@@ -94,7 +99,7 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            currentTileVisual.creatureVisual = null;
+            ((MiddleTile)currentTileVisual).creatureVisual = null;
             base.DetachFromTile();
         }
     }

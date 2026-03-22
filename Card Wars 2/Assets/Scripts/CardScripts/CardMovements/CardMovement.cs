@@ -223,11 +223,11 @@ namespace CardScripts.CardMovements
             GlobalBroadcastCardPlacement();
 
             // you tell the tile manager of this creature about how you placed a card on it, not everyone
-            LocalWhisperCardPlacement();
+            LocalWhisperCardPlacement(tileScript);
         }
 
         [Server]
-        protected virtual void SetLogicalReferenceOnTile(Tile tile)
+        protected virtual void SetLogicalReferenceOnTile(Tile tileScript)
         {
             // Override in child classes (CreatureMovement, BuildingMovement, etc.)
             Debug.LogWarning("SetLogicalReferenceOnTile not overridden!");
@@ -254,13 +254,12 @@ namespace CardScripts.CardMovements
         }
 
         // you tell the tile manager of this creature about how you placed a card on it, not everyone. then tile, will execute abilities of its subscribers
-        protected virtual void LocalWhisperCardPlacement()
+        protected virtual void LocalWhisperCardPlacement(Tile tile)
         {
-            Tile tileThisCardIsOn = GetLogicalTile();
-            TileEventManager tileEventManager = tileThisCardIsOn.gameObject.GetComponent<TileEventManager>();
+            TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
 
-            tileEventManager
-                .OnCardPlacedOnTile(gameObject); // tileManager handles creating and broadcasting the AbilityEventData
+            // tileManager handles creating and broadcasting the AbilityEventData
+            tileEventManager.OnCardPlacedOnTile(gameObject);
         }
 
         [ClientRpc]
@@ -408,11 +407,11 @@ namespace CardScripts.CardMovements
             CmdSetCardState(CardState.Discard);
 
             cardStats.CmdRefreshCardStats();
-            
+
             PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
-            
+
             if (listen == null) return; // if listener not found, then this card is not a passive one
-            
+
             if (isServer)
             {
                 listen.UnsubscribeThisCardFromListening();
@@ -428,7 +427,7 @@ namespace CardScripts.CardMovements
             // VISUAL: Clear visual tile reference
             if (currentTileVisual != null)
             {
-                RemoveFromVisualTile(currentTileVisual);
+                // RemoveFromVisualTile(currentTileVisual);
                 currentTileVisual = null;
             }
 
@@ -491,7 +490,7 @@ namespace CardScripts.CardMovements
             return null;
         }
 
-        private void RemoveFromVisualTile(Tile tile)
+        /*private void RemoveFromVisualTile(Tile tile)
         {
             if (tile.creatureVisual == gameObject)
             {
@@ -501,6 +500,6 @@ namespace CardScripts.CardMovements
             {
                 tile.buildingVisual = null;
             }
-        }
+        }*/
     }
 }

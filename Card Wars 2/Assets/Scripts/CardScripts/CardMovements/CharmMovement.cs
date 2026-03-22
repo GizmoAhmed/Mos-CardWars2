@@ -14,9 +14,12 @@ namespace CardScripts.CardMovements
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(tile))
                 return false;
+            
+            if (!(tile is CharmTile charmTile)) // has to be middle tile
+                return false;
 
             // return true if one of your own tile, the close ones
-            return tile.tileOwner;
+            return charmTile.tileOwner;
         }
         
         [Command]
@@ -35,7 +38,15 @@ namespace CardScripts.CardMovements
             // register cards passive ability in ability manager as a listener when placed
             listener.RegisterPassiveAbility();
         }
-        
+
+        [Server]
+        protected override void SetLogicalReferenceOnTile(Tile tile)
+        {
+            CharmTile charmTile = tile as CharmTile;
+
+            charmTile.AddCharm(gameObject);
+        }
+
         [ClientRpc] // assume valid, so don't worry about ok to place or not
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {
@@ -53,7 +64,6 @@ namespace CardScripts.CardMovements
 
             // Visual positioning (keep world space for charms)
             transform.SetParent(visualCharmTile.transform, true);
-            visualCharmTile.InUseCharms.Add(gameObject);
         
             // Update visual reference
             currentTileVisual = visualCharmTile;
@@ -84,16 +94,10 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
+            // todo prolly shouldn't be using the visual here
             CharmTile charmTileScript = currentTileVisual.GetComponent<CharmTile>();
 
-            if (charmTileScript.InUseCharms.Contains(gameObject))
-            {
-                charmTileScript.InUseCharms.Remove(gameObject);
-            }
-            else
-            {
-                Debug.LogError("attempted to detach a charm that isn't listed in the charm list");
-            }
+            charmTileScript.RemoveCharm(gameObject);
 
             base.DetachFromTile();
         }

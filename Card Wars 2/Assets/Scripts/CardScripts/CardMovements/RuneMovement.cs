@@ -15,24 +15,27 @@ namespace CardScripts.CardMovements
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(tile))
                 return false;
+            
+            if (!(tile is MiddleTile midTile)) // has to be middle tile
+                return false;
 
-            if (!tile.creatureVisual) return false; // there's no creature on this tile? nope, can't place here
+            if (!midTile.logicalCreature) return false; // there's no creature on this middleTile? nope, can't place here
 
-            CreatureStats creature = tile.creatureVisual.GetComponent<CreatureStats>();
+            CreatureStats creature = midTile.logicalCreature.GetComponent<CreatureStats>();
 
-            return tile.tileOwner &&
-                   tile.creatureVisual != null &&
-                   (creature.CanBeRuned); // return true if the tile has a creature on it and creature can be runed
+            return midTile.tileOwner &&
+                   midTile.logicalCreature != null &&
+                   (creature.CanBeRuned); // return true if the middleTile has a creature on it and creature can be runed
         }
 
         [Command]
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
-            // base.CmdPlaceCardOnTile(tile);
+            // base.CmdPlaceCardOnTile(middleTile);
 
-            Tile tileScript = tile.GetComponent<Tile>();
+            MiddleTile middleTileScript = tile.GetComponent<MiddleTile>();
 
-            GameObject creatureOnTile = tileScript.creatureVisual;
+            GameObject creatureOnTile = middleTileScript.creatureVisual;
 
             BindRune(creatureOnTile);
 

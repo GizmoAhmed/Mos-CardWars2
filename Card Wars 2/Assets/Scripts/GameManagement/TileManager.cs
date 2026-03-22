@@ -62,7 +62,7 @@ namespace GameManagement
                     
                     if (_tileMap.ContainsKey(key))
                     {
-                        Debug.LogWarning($"Duplicate tile found at position {key}! " +
+                        Debug.LogWarning($"Duplicate Tile found at position {key}! " +
                                        $"Existing: {_tileMap[key].gameObject.name}, " +
                                        $"New: {tile.gameObject.name}");
                     }
@@ -84,10 +84,6 @@ namespace GameManagement
                     }
                 }
             }
-            
-            // Debug.Log($"TileManager initialized with {allTiles.Count} grid tiles");
-            // Debug.Log($"Player 1 charm tile: {(player1CharmTile != null ? player1CharmTile.gameObject.name : "Not found")}");
-            // Debug.Log($"Player 2 charm tile: {(player2CharmTile != null ? player2CharmTile.gameObject.name : "Not found")}");
         }
         
         /// <summary>
@@ -102,17 +98,17 @@ namespace GameManagement
                 return tile;
             }
             
-            Debug.LogWarning($"No tile found at position [Side:{playerSide}][Row:{row}][Col:{column}]");
+            Debug.LogWarning($"No Tile found at position [Side:{playerSide}][Row:{row}][Col:{column}]");
             return null;
         }
         
-        /// <summary>
+        /*/// <summary>
         /// Get the creature at a specific logical position
         /// </summary>
         public GameObject GetCreatureAtPosition(int playerSide, int row, int column)
         {
-            Tile tile = GetTile(playerSide, row, column);
-            return tile?.logicalCreature;
+            Tile middleTile = GetTile(playerSide, row, column);
+            return middleTile?.logicalCreature;
         }
         
         /// <summary>
@@ -120,27 +116,27 @@ namespace GameManagement
         /// </summary>
         public GameObject GetBuildingAtPosition(int playerSide, int row, int column)
         {
-            Tile tile = GetTile(playerSide, row, column);
-            return tile?.logicalBuilding;
+            MiddleTile middleTile = GetTile(playerSide, row, column);
+            return middleTile?.logicalBuilding;
         }
         
         /// <summary>
-        /// Check if a tile is occupied (has creature or building)
+        /// Check if a middleTile is occupied (has creature or building)
         /// </summary>
         public bool IsTileOccupied(int playerSide, int row, int column)
         {
-            Tile tile = GetTile(playerSide, row, column);
-            return tile != null && tile.IsOccupied;
+            MiddleTile middleTile = GetTile(playerSide, row, column);
+            return middleTile != null && middleTile.IsOccupied;
         }
         
         /// <summary>
         /// Get all tiles for a specific player
         /// </summary>
-        public List<Tile> GetTilesForPlayer(int playerSide)
+        public List<MiddleTile> GetTilesForPlayer(int playerSide)
         {
-            List<Tile> playerTiles = new List<Tile>();
+            List<MiddleTile> playerTiles = new List<MiddleTile>();
             
-            foreach (Tile tile in allTiles)
+            foreach (MiddleTile tile in allTiles)
             {
                 if (tile.playerSide == playerSide)
                 {
@@ -154,24 +150,24 @@ namespace GameManagement
         /// <summary>
         /// Get adjacent tiles (left, right, up, down)
         /// </summary>
-        public List<Tile> GetAdjacentTiles(int playerSide, int row, int column)
+        public List<MiddleTile> GetAdjacentTiles(int playerSide, int row, int column)
         {
-            List<Tile> adjacent = new List<Tile>();
+            List<MiddleTile> adjacent = new List<MiddleTile>();
             
             // Left
-            Tile left = GetTile(playerSide, row, column - 1);
+            MiddleTile left = GetTile(playerSide, row, column - 1);
             if (left != null) adjacent.Add(left);
             
             // Right
-            Tile right = GetTile(playerSide, row, column + 1);
+            MiddleTile right = GetTile(playerSide, row, column + 1);
             if (right != null) adjacent.Add(right);
             
             // Up (higher row)
-            Tile up = GetTile(playerSide, row + 1, column);
+            MiddleTile up = GetTile(playerSide, row + 1, column);
             if (up != null) adjacent.Add(up);
             
             // Down (lower row)
-            Tile down = GetTile(playerSide, row - 1, column);
+            MiddleTile down = GetTile(playerSide, row - 1, column);
             if (down != null) adjacent.Add(down);
             
             return adjacent;
@@ -180,24 +176,24 @@ namespace GameManagement
         /// <summary>
         /// Get diagonal tiles
         /// </summary>
-        public List<Tile> GetDiagonalTiles(int playerSide, int row, int column)
+        public List<MiddleTile> GetDiagonalTiles(int playerSide, int row, int column)
         {
-            List<Tile> diagonal = new List<Tile>();
+            List<MiddleTile> diagonal = new List<MiddleTile>();
             
             // Top-left
-            Tile topLeft = GetTile(playerSide, row + 1, column - 1);
+            MiddleTile topLeft = GetTile(playerSide, row + 1, column - 1);
             if (topLeft != null) diagonal.Add(topLeft);
             
             // Top-right
-            Tile topRight = GetTile(playerSide, row + 1, column + 1);
+            MiddleTile topRight = GetTile(playerSide, row + 1, column + 1);
             if (topRight != null) diagonal.Add(topRight);
             
             // Bottom-left
-            Tile bottomLeft = GetTile(playerSide, row - 1, column - 1);
+            MiddleTile bottomLeft = GetTile(playerSide, row - 1, column - 1);
             if (bottomLeft != null) diagonal.Add(bottomLeft);
             
             // Bottom-right
-            Tile bottomRight = GetTile(playerSide, row - 1, column + 1);
+            MiddleTile bottomRight = GetTile(playerSide, row - 1, column + 1);
             if (bottomRight != null) diagonal.Add(bottomRight);
             
             return diagonal;
@@ -206,18 +202,18 @@ namespace GameManagement
         /// <summary>
         /// Get all tiles surrounding a position (adjacent + diagonal)
         /// </summary>
-        public List<Tile> GetSurroundingTiles(int playerSide, int row, int column)
+        public List<MiddleTile> GetSurroundingTiles(int playerSide, int row, int column)
         {
-            List<Tile> surrounding = new List<Tile>();
+            List<MiddleTile> surrounding = new List<MiddleTile>();
             surrounding.AddRange(GetAdjacentTiles(playerSide, row, column));
             surrounding.AddRange(GetDiagonalTiles(playerSide, row, column));
             return surrounding;
         }
         
         /// <summary>
-        /// Get the tile across from this position (opponent's mirror)
+        /// Get the middleTile across from this position (opponent's mirror)
         /// </summary>
-        public Tile GetAcrossTile(int playerSide, int row, int column)
+        public MiddleTile GetAcrossTile(int playerSide, int row, int column)
         {
             // Mirror to opponent's side, same row/column
             int opponentSide = playerSide == 0 ? 1 : 0;
@@ -231,7 +227,7 @@ namespace GameManagement
         {
             List<GameObject> creatures = new List<GameObject>();
             
-            foreach (Tile tile in allTiles)
+            foreach (MiddleTile tile in allTiles)
             {
                 if (tile.logicalCreature != null)
                 {
@@ -249,7 +245,7 @@ namespace GameManagement
         {
             List<GameObject> buildings = new List<GameObject>();
             
-            foreach (Tile tile in allTiles)
+            foreach (MiddleTile tile in allTiles)
             {
                 if (tile.logicalBuilding != null)
                 {
@@ -267,7 +263,7 @@ namespace GameManagement
         {
             List<GameObject> creatures = new List<GameObject>();
             
-            foreach (Tile tile in allTiles)
+            foreach (MiddleTile tile in allTiles)
             {
                 if (tile.playerSide == playerSide && tile.logicalCreature != null)
                 {
@@ -279,60 +275,11 @@ namespace GameManagement
         }
         
         /// <summary>
-        /// Get charm tile for a player
+        /// Get charm middleTile for a player
         /// </summary>
         public CharmTile GetCharmTile(int playerSide)
         {
-            return playerSide == 0 ? player1CharmTile : player2CharmTile;
-        }
-        
-        /*/// <summary>
-        /// Debug: Print board state
-        /// </summary>
-        [ContextMenu("Debug Print Board State")]
-        public void DebugPrintBoardState()
-        {
-            Debug.Log("===== BOARD STATE =====");
-            
-            for (int side = 0; side <= 1; side++)
-            {
-                Debug.Log($"\n--- Player {side + 1} Side ---");
-                
-                // Assuming 2 rows, 4 columns
-                for (int row = 1; row >= 0; row--)
-                {
-                    string rowString = "";
-                    for (int col = 0; col < 4; col++)
-                    {
-                        Tile tile = GetTile(side, row, col);
-                        
-                        if (tile != null)
-                        {
-                            string occupant = "Empty";
-                            
-                            if (tile.logicalCreature != null)
-                            {
-                                CreatureStats creature = tile.logicalCreature.GetComponent<CreatureStats>();
-                                occupant = creature != null ? $"C:{creature.cardData.cardName}" : "C:?";
-                            }
-                            else if (tile.logicalBuilding != null)
-                            {
-                                BuildingStats building = tile.logicalBuilding.GetComponent<BuildingStats>();
-                                occupant = building != null ? $"B:{building.cardData.cardName}" : "B:?";
-                            }
-                            
-                            rowString += $"[{tile.gameObject.name}:{occupant}] ";
-                        }
-                        else
-                        {
-                            rowString += "[NULL] ";
-                        }
-                    }
-                    Debug.Log(rowString);
-                }
-            }
-            
-            Debug.Log("======================");
+            return playerSide == 0 ? player1CharmMiddleTile : player2CharmMiddleTile;
         }*/
     }
 }

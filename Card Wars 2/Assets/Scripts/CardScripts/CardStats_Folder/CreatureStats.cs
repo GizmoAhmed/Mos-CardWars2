@@ -87,9 +87,9 @@ namespace CardScripts.CardStatss
         [Server] // called from inside a command
         public void ChangeCreatureStrength(int amount, bool buff)
         {
-            // Get the tile this card is on
-            Tile tile = GetComponent<CardMovement>().GetLogicalTile();
-            TileEventManager tileEventManager = tile.GetComponent<TileEventManager>();
+            // Get the middleTile this card is on
+            Tile middleTile = GetComponent<CardMovement>().GetLogicalTile();
+            TileEventManager tileEventManager = middleTile.GetComponent<TileEventManager>();
 
             if (buff)
             {
@@ -97,7 +97,7 @@ namespace CardScripts.CardStatss
 
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureStrengthBuffed(gameObject, amount);
 
-                // tell the tile the creature is on that it just got buffed, so the tile can tell other things on itself that
+                // tell the middleTile the creature is on that it just got buffed, so the middleTile can tell other things on itself that
                 tileEventManager.OnBuffCreatureStrengthOnTile(gameObject, amount);
             }
             else
@@ -114,9 +114,9 @@ namespace CardScripts.CardStatss
         [Server]
         public void ChangeCreatureDefense(int amount, bool buff)
         {
-            // Get the tile this card is on
-            Tile tile = GetComponent<CardMovement>().GetLogicalTile();
-            TileEventManager tileEventManager = tile.GetComponent<TileEventManager>();
+            // Get the middleTile this card is on
+            Tile middleTile = GetComponent<CardMovement>().GetLogicalTile();
+            TileEventManager tileEventManager = middleTile.GetComponent<TileEventManager>();
             
             if (buff)
             {
@@ -124,7 +124,7 @@ namespace CardScripts.CardStatss
 
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseBuffed(gameObject, amount);
 
-                // tell the tile the creature is on that it just got buffed, so the tile can tell other things on itself that
+                // tell the middleTile the creature is on that it just got buffed, so the middleTile can tell other things on itself that
                 tileEventManager.OnBuffCreatureDefenseOnTile(gameObject, amount);
             }
             else

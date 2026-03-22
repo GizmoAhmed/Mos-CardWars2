@@ -19,11 +19,11 @@ namespace CardScripts.CardData
         private Dictionary<AbilityEventType, System.Action<AbilityEventData>> _globalCallbacks =
             new Dictionary<AbilityEventType, System.Action<AbilityEventData>>();
 
-        // For tile events
+        // For middleTile events
         private Dictionary<AbilityEventType, System.Action<AbilityEventData>> _tileCallbacks =
             new Dictionary<AbilityEventType, System.Action<AbilityEventData>>();
 
-        private Tile _subscribedTile;
+        private Tile _subscribedMiddleTile;
 
         public void InitializePassiveListener(CardStats stats, PassiveAbilitySO p)
         {
@@ -57,7 +57,7 @@ namespace CardScripts.CardData
 
             AbilityEventType[] events = passiveAbility.eventsThatTriggerThisAbility;
 
-            // Register based on scope (global vs tile)
+            // Register based on scope (global vs middleTile)
             if (passiveAbility.isGlobalListener)
             {
                 RegisterGlobalListener(passiveAbility, events);
@@ -101,27 +101,27 @@ namespace CardScripts.CardData
                 Debug.LogError("AbilityEventManager not found!");
             }
 
-            // Get the tile this card is on
+            // Get the middleTile this card is on
             CardMovement movement = GetComponent<CardMovement>();
 
             if (movement == null)
             {
-                Debug.LogError("CardMovement not found - can't register tile listener!");
+                Debug.LogError("CardMovement not found - can't register middleTile listener!");
                 return;
             }
 
-            Tile tile = movement.GetLogicalTile();
-            TileEventManager tileEventManager = tile.GetComponent<TileEventManager>();
+            Tile middleTile = movement.GetLogicalTile();
+            TileEventManager tileEventManager = middleTile.GetComponent<TileEventManager>();
 
-            if (tile == null)
+            if (middleTile == null)
             {
-                Debug.LogWarning($"{gameObject.name} not on a tile yet - can't register tile listener");
+                Debug.LogWarning($"{gameObject.name} not on a middleTile yet - can't register middleTile listener");
                 return;
             }
 
             if (tileEventManager == null)
             {
-                Debug.LogError($"This tile ({tile.gameObject.name}) doesn't have a tile listener)");
+                Debug.LogError($"This middleTile ({middleTile.gameObject.name}) doesn't have a middleTile listener)");
                 return;
             }
 
@@ -137,7 +137,7 @@ namespace CardScripts.CardData
 
                 tileEventManager.SubscribeToTileEvent(eventType, Callback);
 
-                _subscribedTile = tile;
+                _subscribedMiddleTile = middleTile;
             }
         }
 
@@ -159,10 +159,10 @@ namespace CardScripts.CardData
                 }
             }
 
-            // Unsubscribe from tile events
-            if (_subscribedTile != null)
+            // Unsubscribe from middleTile events
+            if (_subscribedMiddleTile != null)
             {
-                TileEventManager tileEventManager = _subscribedTile.GetComponent<TileEventManager>();
+                TileEventManager tileEventManager = _subscribedMiddleTile.GetComponent<TileEventManager>();
 
                 foreach (var kvp in _tileCallbacks)
                 {
@@ -188,7 +188,7 @@ namespace CardScripts.CardData
 
             CardMovement cardMove = GetComponent<CardMovement>();
 
-            data.CustomData["tile"] = cardMove.GetLogicalTile(); // {tile: Tile}
+            data.CustomData["middleTile"] = cardMove.GetLogicalTile(); // {middleTile: MiddleTile}
 
             return data;
         }

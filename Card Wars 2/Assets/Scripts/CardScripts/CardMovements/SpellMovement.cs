@@ -37,7 +37,7 @@ namespace CardScripts.CardMovements
 
                 if (!meetsRequirement)
                 {
-                    Debug.LogWarning($"{gameObject.name} cast invalid: requires {castType}");
+                    // Debug.LogWarning($"{gameObject.name} cast invalid: requires {castType}");
                     return false;
                 }
                 
@@ -59,50 +59,56 @@ namespace CardScripts.CardMovements
         }
 
         /// <summary>
-        /// Check if the tile meets the casting requirement
+        /// Check if the Tile meets the casting requirement
         /// </summary>
         private bool CheckCastRequirement(Tile tile, CastAbilitySO.CastRequirementType requirement)
         {
-            switch (requirement)
+            if (requirement == CastAbilitySO.CastRequirementType.Free)
             {
-                case CastAbilitySO.CastRequirementType.Free:
-                    // Can cast anywhere
-                    return true;
-
-                case CastAbilitySO.CastRequirementType.AnywhereOccupied:
-                    // Tile must have something on it (creature or building)
-                    return tile.creatureVisual != null || tile.buildingVisual != null;
-
-                case CastAbilitySO.CastRequirementType.OnCreature:
-                    // Tile must have a creature
-                    return tile.creatureVisual != null;
-
-                case CastAbilitySO.CastRequirementType.OnBuilding:
-                    // Tile must have a building
-                    return tile.buildingVisual != null;
-
-                case CastAbilitySO.CastRequirementType.OnCharm:
-                    // This is a charm tile and has at least one charm
-                    return tile is CharmTile charmTile && charmTile.InUseCharms.Count > 0;
-
-                case CastAbilitySO.CastRequirementType.CreatureAndOrBuilding:
-                    // Tile has creature and/or building (at least one)
-                    return tile.creatureVisual != null || tile.buildingVisual != null;
-
-                default:
-                    Debug.LogWarning($"Unknown cast requirement: {requirement}");
-                    return false;
+                return true;
             }
+            
+            if (tile is MiddleTile midTile)
+            {
+                switch (requirement)
+                {
+                    case CastAbilitySO.CastRequirementType.AnywhereOccupied:
+                        // Tile must have something on it (creature or building)
+                        return midTile.logicalCreature != null || midTile.logicalBuilding != null;
+
+                    case CastAbilitySO.CastRequirementType.OnCreature:
+                        // Tile must have a creature
+                        return midTile.logicalCreature != null;
+
+                    case CastAbilitySO.CastRequirementType.OnBuilding:
+                        // Tile must have a building
+                        return midTile.logicalBuilding != null;
+                    case CastAbilitySO.CastRequirementType.CreatureAndOrBuilding:
+                        // Tile has creature and/or building (at least one)
+                        return midTile.logicalCreature != null || midTile.logicalBuilding != null;
+                    default:
+                        Debug.LogWarning($"Unknown cast requirement: {requirement}");
+                        return false;
+                }
+            }
+            
+            if (tile is CharmTile charmTile)
+            {
+                return charmTile.charms.Count > 0;
+            }
+            
+            Debug.LogError($"Unknown Tile type in CheckCastRequirement() for {gameObject.name}");
+            return false;
         }
 
         [Command]
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
-            // base.CmdPlaceCardOnTile(tile);
+            // base.CmdPlaceCardOnTile(Tile);
             
             AbilityEventData spellData = new AbilityEventData(
                 AbilityEventType.AnySpellCasted,
-                tile); // pass tile as cardToBeEffected, some spells will use it, some won't
+                tile); // pass Tile as cardToBeEffected, some spells will use it, some won't
 
             cardStats.cardData.ability.ExecuteAbility(gameObject, spellData); // use the spell...
             

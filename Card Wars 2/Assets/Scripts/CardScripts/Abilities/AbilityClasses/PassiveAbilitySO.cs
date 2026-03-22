@@ -14,7 +14,7 @@ namespace CardScripts.Abilities
         public AbilityEventType[] eventsThatTriggerThisAbility;
         
         [Header("Event Scope")]
-        [Tooltip("True = Listen globally (events anywhere)\nFalse = Listen locally (events on same tile only)")]
+        [Tooltip("True = Listen globally (events anywhere)\nFalse = Listen locally (events on same middleTile only)")]
         public bool isGlobalListener = true;
 
         [Tooltip("Executes its ability on place (like a spell), along with passively listening")]

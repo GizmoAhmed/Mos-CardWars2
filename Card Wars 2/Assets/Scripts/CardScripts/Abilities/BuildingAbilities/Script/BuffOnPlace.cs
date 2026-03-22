@@ -33,7 +33,7 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
         {
             if (isGlobalListener && !isExecutableOnPlaced)
             {
-                Debug.LogError($"{name} needs to be executable on place and a tile listener");
+                Debug.LogError($"{name} needs to be executable on place and a middleTile listener");
             }
         }
     }

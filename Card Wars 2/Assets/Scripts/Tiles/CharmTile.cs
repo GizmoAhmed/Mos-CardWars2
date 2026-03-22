@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AbilityEvents;
 using Mirror;
 using UnityEngine;
 
@@ -6,21 +7,24 @@ namespace Tiles
 {
     public class CharmTile : Tile
     {
-        [SyncVar]
-        public List<GameObject> InUseCharms = new List<GameObject>();
-
-        public override bool IsOccupied => true; // Always "occupied" but can hold multiple charms
-
+        public readonly SyncList<GameObject> charms = new SyncList<GameObject>();
+        
         void Awake()
         {
             // Override the base Awake to set custom logical position
-            InitializeCharmTilePosition();
+            InitializeLogicalPosition();
+            GetComponent<TileEventManager>().InitTileEventManager(this);
+        }
+
+        void Start()
+        {
+            SetupNeighbors();
         }
 
         /// <summary>
         /// Charm tiles have special logical positions (not part of grid)
         /// </summary>
-        private void InitializeCharmTilePosition()
+        protected override void InitializeLogicalPosition()
         {
             string myName = gameObject.name;
 
@@ -40,24 +44,47 @@ namespace Tiles
             }
             else
             {
-                Debug.LogWarning($"Unknown charm tile: {myName}");
+                Debug.LogWarning($"Unknown charm middleTile: {myName}");
             }
         }
 
-        /*protected override void SetupNeighbors()
+        // todo look at this ugly functions
+        protected override void SetupNeighbors()
         {
-            // Setup visual mirroring
-            if (across == null)
+            string thisTilesName = gameObject.name;
+
+            if (thisTilesName == "SpellGroup1")
             {
-                if (gameObject.name == "SpellGroup1")
-                {
-                    across = GameObject.Find("SpellGroup2");
-                }
-                else if (gameObject.name == "SpellGroup2")
-                {
-                    across = GameObject.Find("SpellGroup1");
-                }
+                across = FindTileByName("SpellGroup2");
             }
-        }*/
+            else if (thisTilesName == "SpellGroup2")
+            {
+                across = FindTileByName("SpellGroup1");
+            }
+            else
+            {
+                Debug.LogError($"across wasn't set for {gameObject.name}, as the naming is off or spell group with that name simply wasn't found.");
+            }
+        }
+
+        [Server] // needs to be done on server because sync list
+        public void AddCharm(GameObject charm)
+        {
+            charms.Add(charm);
+        }
+
+        [Server]
+        public void RemoveCharm(GameObject charm)
+        {
+            if (charms.Contains(charm))
+            {
+                charms.Remove(charm);
+            }
+            else
+            {
+                Debug.LogError($"Attempt to remove {charm} from charms list failed because {charm} isn't present in the list for some reason.");
+            }
+
+        }
     }
 }

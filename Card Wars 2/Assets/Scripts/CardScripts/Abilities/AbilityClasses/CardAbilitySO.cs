@@ -15,13 +15,13 @@ namespace CardScripts.Abilities
         {
             CreatureStats creatureStats;
             
-            if (eventData.CustomData != null) // Execution was manual, called via placement in RegisterPassiveAbility, this building was placed on a tile
+            if (eventData.CustomData != null) // Execution was manual, called via placement in RegisterPassiveAbility, this building was placed on a middleTile
             {
-                Tile placedOnTile = eventData.CustomData["tile"] as Tile;   
+                MiddleTile placedOnMiddleTile = eventData.CustomData["middleTile"] as MiddleTile;   
                 
-                if (placedOnTile.logicalCreature != null)               // tile has creature
+                if (placedOnMiddleTile.logicalCreature != null)               // middleTile has creature
                 {
-                    creatureStats = placedOnTile.logicalCreature.GetComponent<CreatureStats>();
+                    creatureStats = placedOnMiddleTile.logicalCreature.GetComponent<CreatureStats>();
                 }
                 else
                 {

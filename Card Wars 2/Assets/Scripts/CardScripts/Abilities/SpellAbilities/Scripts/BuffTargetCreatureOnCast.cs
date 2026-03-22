@@ -14,12 +14,12 @@ namespace CardScripts.Abilities.SpellAbilities.Scripts
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            Tile tile = eventData.CardToBeAffected.GetComponent<Tile>();
-            GameObject creatureOnTile = tile.logicalCreature;
+            MiddleTile middleTile = eventData.CardToBeAffected.GetComponent<MiddleTile>();
+            GameObject creatureOnTile = middleTile.logicalCreature;
 
             if (creatureOnTile == null)
             {
-                Debug.LogError($"Could not find creature on tile {tile.gameObject.name}");
+                Debug.LogError($"Could not find creature on middleTile {middleTile.gameObject.name}");
                 return;
             }
             
@@ -28,7 +28,7 @@ namespace CardScripts.Abilities.SpellAbilities.Scripts
             creatureStats.ChangeCreatureStrength(baseStrengthBuffAmount, buff: true);
             creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
             
-            Debug.LogWarning($"{name} on {thisCard.name} buffs {creatureStats.gameObject.name}: + {baseStrengthBuffAmount} strength and + {baseDefenseBuffAmount} defense");
+            // Debug.LogWarning($"{name} on {thisCard.name} buffs {creatureStats.gameObject.name}: + {baseStrengthBuffAmount} strength and + {baseDefenseBuffAmount} defense");
         }
 
         public void OnValidate()
