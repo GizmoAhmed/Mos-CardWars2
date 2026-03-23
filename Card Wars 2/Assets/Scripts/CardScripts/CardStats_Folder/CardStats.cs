@@ -102,7 +102,7 @@ namespace CardScripts.CardStats_Folder
             ApplyStatsFromData();
         }
 
-        protected virtual void ApplyStatsFromData()
+        public virtual void ApplyStatsFromData()
         {
             soulUse = cardData.magic;
             burnCost = cardData.burnCost;

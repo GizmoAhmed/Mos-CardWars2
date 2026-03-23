@@ -50,7 +50,7 @@ namespace CardScripts.CardMovements
             // register cards passive ability in ability manager as a listener when placed
             listener.RegisterPassiveAbility();
             
-            base.RpcDiscard(); // discard on both clients via base call
+            base.ServerDiscard(); 
         }
 
         [Server]

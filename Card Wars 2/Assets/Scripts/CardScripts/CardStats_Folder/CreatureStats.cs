@@ -64,7 +64,7 @@ namespace CardScripts.CardStatss
             ApplyStatsFromData();
         }
 
-        protected override void ApplyStatsFromData()
+        public override void ApplyStatsFromData()
         {
             base.ApplyStatsFromData();
 

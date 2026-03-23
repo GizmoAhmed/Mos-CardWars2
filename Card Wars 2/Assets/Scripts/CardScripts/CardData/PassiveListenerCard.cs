@@ -143,12 +143,6 @@ namespace CardScripts.CardData
             }
         }
 
-        [Command]
-        public void CmdUnsubscribeThisCardFromListening()
-        {
-            UnsubscribeThisCardFromListening();
-        }
-
         [Server]
         public void UnsubscribeThisCardFromListening()
         {

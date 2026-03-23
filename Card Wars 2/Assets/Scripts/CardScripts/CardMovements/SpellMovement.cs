@@ -114,7 +114,7 @@ namespace CardScripts.CardMovements
             
             GlobalBroadcastCardPlacement(); // ...then tell everyone you used this spell
             
-            base.RpcDiscard(); // discard on both clients via base call
+            base.ServerDiscard(); // discard on both clients via base call
         }
 
         // broadcast the cast, who knows, there might be a card that listens to this

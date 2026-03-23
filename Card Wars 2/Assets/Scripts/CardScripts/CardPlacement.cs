@@ -11,7 +11,7 @@ using UnityEngine;
 namespace CardScripts
 {
     // On player object
-    public class CardHandler : NetworkBehaviour
+    public class CardPlacement : NetworkBehaviour
     {
         private GameObject _handGroup1;
         private GameObject _handGroup2;
@@ -69,10 +69,10 @@ namespace CardScripts
                 cardDisplay.FlipCard(false);
             }
 
-            card.GetComponent<CardMovement>().CmdSetCardState(CardMovement.CardState.Hand);
+            // card.GetComponent<CardMovement>().CmdSetCardState(CardMovement.CardState.Hand);
         }
 
-        public void MoveToDiscard(GameObject card)
+        public void MoveCardToDiscard(GameObject card)
         {
             if (isOwned)
             {

@@ -66,10 +66,17 @@ namespace PlayerStuff
             NetworkServer.Spawn(cardObj, connectionToClient);
 
             Player player = GetComponentInParent<Player>();
+            
             if (player != null)
             {
                 player.cardPlacer.MoveCardToHand(cardObj);
             }
+            else
+            {
+                Debug.LogError($"Player was not found for {cardObj.name}.");
+            }
+            
+            move.cardState = CardMovement.CardState.Hand;
 
             myDeckCardIDs.RemoveAt(index);
         }

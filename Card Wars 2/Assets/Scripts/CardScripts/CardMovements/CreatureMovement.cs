@@ -39,7 +39,7 @@ namespace CardScripts.CardMovements
         }
 
         [Server]
-        protected override void ClearLogicalReferenceOnTile(Tile tile)
+        protected override void ClearLogicalReference_OnTile(Tile tile)
         {
             MiddleTile middleTile = tile as MiddleTile;
             
@@ -79,18 +79,15 @@ namespace CardScripts.CardMovements
             }
         }
 
-        protected override void Discard()
+        [Server]
+        public override void ServerDiscard()
         {
-            if (cardState == CardState.Field)
-            {
-                // change player sync vars requires server call, 
-                ReturnMagicAndScore();
-            }
-
-            base.Discard();
+            // if being discarded from the field, returning magic
+            if (cardState == CardState.Field) ReturnMagicAndScore();
+            
+            base.ServerDiscard();
         }
 
-        [Command]
         private void ReturnMagicAndScore()
         {
             thisCardOwnerPlayerStats.currentMagic += cardStats.soulUse; // give back soulUse

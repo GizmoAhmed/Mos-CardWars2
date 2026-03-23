@@ -102,17 +102,6 @@ namespace CardScripts.CardMovements
             _owningDeck = deck;
         }
 
-        [Command]
-        public void CmdSetCardState(CardState newState)
-        {
-            SetCardState(newState);
-        }
-
-        private void SetCardState(CardState newState)
-        {
-            cardState = newState;
-        }
-
         public void BeginDrag()
         {
             if (cardState == CardState.Preview)
@@ -219,6 +208,8 @@ namespace CardScripts.CardMovements
 
             RpcPlaceCardOnTile(tile);
 
+            cardState = CardState.Field;
+
             // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
             GlobalBroadcastCardPlacement();
 
@@ -272,7 +263,6 @@ namespace CardScripts.CardMovements
                     rectTransform.sizeDelta.y); // consistent clickable area size, when dropped on field
 
             _cardDisplay.FlipCard(true); // now on field, show to both players
-            CmdSetCardState(CardState.Field);
 
             // todo Store visual tile reference (for animations, UI, etc.)
             currentTileVisual = tileObj.GetComponent<Tile>();
@@ -389,75 +379,53 @@ namespace CardScripts.CardMovements
             transform.localPosition = Vector3.zero;
         }
 
-        [ClientRpc] // use when cards themselves call to discard, requiring server-issued call, (ie burn)
-        public void RpcDiscard()
+        [Server]
+        public virtual void ServerDiscard()
         {
-            Discard();
-        }
-
-        // use if separate rpc function needs a discard (ie CardHandler)
-        protected virtual void Discard()
-        {
-            thisCardOwnerPlayerStats.GetComponent<CardHandler>().MoveToDiscard(gameObject);
-
-            // _cardDisplay.ToggleInfoSlide(false);
-
+            // if on a tile, detach from that tile
             if (cardState == CardState.Field) DetachFromTile();
 
-            CmdSetCardState(CardState.Discard);
+            // set state to discard
+            cardState = CardState.Discard;
 
-            cardStats.CmdRefreshCardStats();
+            // resets stats to base
+            cardStats.ApplyStatsFromData();
+
+            // visually move card to discard board for each respective client
+            RpcMoveDiscardedCard_ToBoard();
 
             PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
 
-            if (listen == null) return; // if listener not found, then this card is not a passive one
+            // if listener not found, then this card is not a passive one
+            if (listen == null) return;
 
-            if (isServer)
-            {
-                listen.UnsubscribeThisCardFromListening();
-            }
-            else
-            {
-                listen.CmdUnsubscribeThisCardFromListening();
-            }
+            // if a passive listener, stop it from listening
+            listen.UnsubscribeThisCardFromListening();
         }
 
         protected virtual void DetachFromTile()
         {
-            // VISUAL: Clear visual tile reference
-            if (currentTileVisual != null)
-            {
-                // RemoveFromVisualTile(currentTileVisual);
-                currentTileVisual = null;
-            }
+            currentTileVisual = null;
 
-            // LOGICAL: Clear logical position
-            if (isServer)
-            {
-                // If we're on server, clear directly
-                ClearLogicalPositionServer();
-            }
-            else
-            {
-                // If we're on client, ask server to clear
-                CmdClearLogicalPosition();
-            }
-        }
-
-        [Command]
-        private void CmdClearLogicalPosition()
-        {
             ClearLogicalPositionServer();
         }
 
+        [ClientRpc]
+        private void RpcMoveDiscardedCard_ToBoard()
+        {
+            // visually move cards 
+            thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);
+        }
+        
         [Server]
         private void ClearLogicalPositionServer()
         {
             // Clear tile's reference to this card
             Tile logicalTile = GetLogicalTile();
+
             if (logicalTile != null)
             {
-                ClearLogicalReferenceOnTile(logicalTile);
+                ClearLogicalReference_OnTile(logicalTile);
             }
 
             // Reset to "not placed" values
@@ -467,10 +435,10 @@ namespace CardScripts.CardMovements
         }
 
         [Server]
-        protected virtual void ClearLogicalReferenceOnTile(Tile tile)
+        protected virtual void ClearLogicalReference_OnTile(Tile tile)
         {
             // Override in child classes
-            Debug.LogError("ClearLogicalReferenceOnTile not overridden!");
+            Debug.LogError($"ClearLogicalReferenceOnTile not overridden on {gameObject.name}!");
         }
 
         /// <summary>
@@ -484,22 +452,13 @@ namespace CardScripts.CardMovements
             // Use TileManager if available
             if (TileManager.Instance != null)
             {
-                return TileManager.Instance.GetTile(logicalPlayerSide, logicalRow, logicalColumn);
+                Tile thisCardsTile = TileManager.Instance.GetTile(logicalPlayerSide, logicalRow, logicalColumn);
+
+                // Debug.LogWarning($"Get Logical Tile >>> {gameObject.name}'s tile is {thisCardsTile}");
+                return thisCardsTile;
             }
 
             return null;
         }
-
-        /*private void RemoveFromVisualTile(Tile tile)
-        {
-            if (tile.creatureVisual == gameObject)
-            {
-                tile.creatureVisual = null;
-            }
-            else if (tile.buildingVisual == gameObject)
-            {
-                tile.buildingVisual = null;
-            }
-        }*/
     }
 }

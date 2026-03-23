@@ -75,15 +75,13 @@ namespace CardScripts.CardMovements
             }
         }
 
-        protected override void Discard()
+        [Server]
+        public override void ServerDiscard()
         {
-            if (cardState == CardState.Field)
-            {
-                // change player sync vars requires server call, if the client running is the server, do so
-                ReturnMagic();
-            }
-
-            base.Discard();
+            // if being discarded from the field, returning magic
+            if (cardState == CardState.Field) ReturnMagic();
+            
+            base.ServerDiscard();
         }
 
         [Command]

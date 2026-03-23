@@ -17,7 +17,7 @@ using UnityEngine.UI;
 
 public class Player : NetworkBehaviour
 {
-	public CardHandler cardPlacer;
+	public CardPlacement cardPlacer;
 	public PlayerStats playerStats;
 	
 	public bool myTurn;
@@ -45,7 +45,7 @@ public class Player : NetworkBehaviour
 		
 		deckCollection		= GetComponentInChildren<DeckCollection>();
 		
-		cardPlacer = GetComponentInChildren<CardHandler>();
+		cardPlacer = GetComponentInChildren<CardPlacement>();
 
 		cardPlacer.Init();
 		

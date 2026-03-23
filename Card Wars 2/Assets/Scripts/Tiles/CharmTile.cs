@@ -76,13 +76,16 @@ namespace Tiles
         [Server]
         public void RemoveCharm(GameObject charm)
         {
+            Debug.LogWarning($"Removing {charm} from {gameObject.name}...");
+            
             if (charms.Contains(charm))
             {
                 charms.Remove(charm);
+                Debug.Log($"...Successfully removed {charm} from {gameObject.name}");
             }
             else
             {
-                Debug.LogError($"Attempt to remove {charm} from charms list failed because {charm} isn't present in the list for some reason.");
+                Debug.LogError($"...Attempt to remove {charm} from charms list failed because {charm} isn't present in the list for some reason.");
             }
         }
     }

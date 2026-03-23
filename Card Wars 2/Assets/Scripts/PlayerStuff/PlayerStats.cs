@@ -78,11 +78,11 @@ namespace PlayerStuff
 
                 CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
 
-                cardMove.RpcDiscard(); // discard the card, it (Discard) will handle the rest
+                cardMove.ServerDiscard();
             }
             else
             {
-                Debug.Log("Insufficient funds to burn");
+                Debug.LogWarning($"Insufficient funds to burn {cardStats.gameObject.name}");
             }
         }
 
