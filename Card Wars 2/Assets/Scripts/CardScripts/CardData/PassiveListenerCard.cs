@@ -171,7 +171,7 @@ namespace CardScripts.CardData
 
             AbilityEventData data = PrepareDataForExecution();
 
-            Debug.LogWarning($"Unsubscribing {gameObject.name}: << UNDO EXECUTION >>");
+            // Debug.LogWarning($"Unsubscribing {gameObject.name}: << UNDO EXECUTION >>");
             passiveAbility.UndoExecution(gameObject, data);
         }
 

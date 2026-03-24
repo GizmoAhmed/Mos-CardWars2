@@ -117,7 +117,7 @@ namespace CardScripts.CardStatss
             // Get the middleTile this card is on
             Tile middleTile = GetComponent<CardMovement>().GetLogicalTile();
             TileEventManager tileEventManager = middleTile.GetComponent<TileEventManager>();
-            
+
             if (buff)
             {
                 defense += amount;
@@ -130,7 +130,7 @@ namespace CardScripts.CardStatss
             else
             {
                 defense -= amount;
-                
+
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, amount);
                 tileEventManager.OnNerfCreatureDefenseOnTile(gameObject, amount);
             }
@@ -155,28 +155,22 @@ namespace CardScripts.CardStatss
         {
             creatureDisplay.UpdateUIStrength(newStrength);
 
-            CreatureMovement move = GetComponent<CreatureMovement>();
-
-            // FIELD: only update player score for cards on the field (ie placing and stats change)
-            // DISCARD: discard says to refresh stats, so don't mess with player score when resetting via discard since they are not on the board anymore
-            if (move.cardState == CardMovement.CardState.Field)
-            {
-                int oldScore = score;
-                int newScore = strength + defense;
-
-                int diffScore = newScore - oldScore;
-
-                // update player score accordingly
-                GetComponent<CardMovement>().thisCardOwnerPlayerStats.AddPlayerScore(diffScore);
-            }
+            ContributeCreatureScore();
         }
 
         public void UpdateDefense(int oldDefense, int newDefense)
         {
             creatureDisplay.UpdateCardUIDefense(newDefense);
+
+            ContributeCreatureScore();
+        }
+
+        private void ContributeCreatureScore()
+        {
             CreatureMovement move = GetComponent<CreatureMovement>();
 
-            // only update player score for cards on the field (ie placing and stats change)
+            // FIELD: only update player score for cards on the field (ie placing and stats change)
+            // DISCARD: discard says to refresh stats, so don't mess with player score when resetting via discard since they are not on the board anymore
             if (move.cardState == CardMovement.CardState.Field)
             {
                 int oldScore = score;

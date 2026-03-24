@@ -26,7 +26,12 @@ namespace CardScripts.CardMovements
         [Command] // not needed...todo for now
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
-            base.CmdPlaceCardOnTile(tile); // notice no passive ability registration
+            // add bases stats to score and add soul...
+            thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
+            thisCardOwnerPlayerStats.UseMagic(CreatureStats.soulUse);
+            
+            // ... then broadcast, placement abilities need the initial player score to be added first
+            base.CmdPlaceCardOnTile(tile); 
         }
 
         [Server]
@@ -72,11 +77,11 @@ namespace CardScripts.CardMovements
             // Update visual reference
             currentTileVisual = visualTile;
 
-            if (thisCardOwnerPlayerStats != null)
+            /*if (thisCardOwnerPlayerStats != null)
             {
                 thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
                 thisCardOwnerPlayerStats.UseMagic(CreatureStats.soulUse);
-            }
+            }*/
         }
 
         [Server]
