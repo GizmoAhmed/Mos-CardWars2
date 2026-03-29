@@ -43,6 +43,12 @@ namespace CardScripts.CardMovements
         protected override void SetLogicalReferenceOnTile(Tile tile)
         {
             CharmTile charmTile = tile as CharmTile;
+            
+            // if the client is setting, refer to the tile on the other side for setting logical card
+            if (logicalPlayerSide == 1)
+            {
+                charmTile = charmTile.across.GetComponent<CharmTile>();
+            }
 
             charmTile.AddCharm(gameObject);
         }

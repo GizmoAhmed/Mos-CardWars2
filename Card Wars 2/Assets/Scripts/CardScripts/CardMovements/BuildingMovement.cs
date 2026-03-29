@@ -16,9 +16,21 @@ namespace CardScripts.CardMovements
             
             if (!(tile is MiddleTile midTile)) // has to be middle tile
                 return false;
+            
+            MiddleTile logTile = null;
+            
+            // if client is validating, check the other side since server saves client side placements on the other side
+            if (logicalPlayerSide == 1)
+            {
+                logTile = midTile.across.GetComponent<MiddleTile>();
+            }
+            else
+            {
+                logTile = midTile;
+            }
 
             // return true if one of your own lands, the close ones
-            return midTile.tileOwner && midTile.logicalBuilding == null;
+            return midTile.tileOwner && logTile.logicalBuilding == null;
         }
 
         [Command]
@@ -42,10 +54,14 @@ namespace CardScripts.CardMovements
         protected override void SetLogicalReferenceOnTile(Tile tile)
         {
             MiddleTile middleTile = tile as MiddleTile;
-
+            
+            // if the client is setting, refer to the tile on the other side for setting logical card
+            if (logicalPlayerSide == 1)
+            {
+                middleTile = middleTile.across.GetComponent<MiddleTile>();
+            }
             
             middleTile.logicalBuilding = gameObject;
-            // Debug.Log($"Set logical building ({gameObject.name}) on Tile [{Tile.playerSide}][{Tile.row},{Tile.column}]");
         }
     
         [Server]

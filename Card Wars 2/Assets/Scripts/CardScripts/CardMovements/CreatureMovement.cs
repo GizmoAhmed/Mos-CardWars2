@@ -18,9 +18,22 @@ namespace CardScripts.CardMovements
 
             if (!(tile is MiddleTile midTile)) // has to be middle tile
                 return false;
+
+            MiddleTile logTile = null;
             
-            // to place, you have to own this Tile and the Tile can't already have creature on it
-            return midTile.tileOwner && midTile.logicalCreature == null;
+            // if client is validating, check the other side since server saves client side placements on the other side
+            if (logicalPlayerSide == 1)
+            {
+                logTile = midTile.across.GetComponent<MiddleTile>();
+            }
+            else
+            {
+                logTile = midTile;
+            }
+
+            // the tile has to be on your client side, the bottom row
+            // AND the tile has to not have a creature on it
+            return midTile.tileOwner && logTile.logicalCreature == null;
         }
 
         [Command] // not needed...todo for now
@@ -38,7 +51,13 @@ namespace CardScripts.CardMovements
         protected override void SetLogicalReferenceOnTile(Tile tile)
         {
             MiddleTile middleTile = tile as MiddleTile;
-            
+
+            // if the client is setting, refer to the tile on the other side for setting logical card
+            if (logicalPlayerSide == 1)
+            {
+                middleTile = middleTile.across.GetComponent<MiddleTile>();
+            }
+
             middleTile.logicalCreature = gameObject;
         }
 

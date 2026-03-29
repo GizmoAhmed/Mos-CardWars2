@@ -92,6 +92,10 @@ namespace CardScripts.CardMovements
         public void SetOwningPlayer(PlayerStats stats)
         {
             thisCardOwnerPlayerStats = stats;
+            
+            // set logical side to whoever placed the card
+            Player thisPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();
+            logicalPlayerSide = thisPlayer.playerSide;
         }
 
         /// <summary>
@@ -201,10 +205,6 @@ namespace CardScripts.CardMovements
             // SERVER: Store LOGICAL position (authoritative game state)
             logicalRow = tileScript.row;
             logicalColumn = tileScript.column;
-            
-            // set logical side to whoever placed the card
-            Player thisPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();
-            logicalPlayerSide = thisPlayer.playerSide;
 
             // SERVER: Set logical reference on tile
             SetLogicalReferenceOnTile(tileScript);
