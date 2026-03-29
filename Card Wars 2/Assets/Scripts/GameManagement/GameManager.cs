@@ -122,7 +122,7 @@ namespace GameManagement
             {
                 AssignPlayers();
                 
-                TileManager.Instance.InitializeTiles(); 
+                TileManager.Instance.MemoizeTiles(); 
                 
                 StartPlayerStats();
 
@@ -145,6 +145,9 @@ namespace GameManagement
 
                 Player p1 = Player1.identity.GetComponent<Player>();
                 Player p2 = Player2.identity.GetComponent<Player>();
+
+                p1.playerSide = 0;
+                p2.playerSide = 1;
                 
                 p1.deckCollection.InitializeDeck(masterDeck);
                 p2.deckCollection.InitializeDeck(masterDeck);

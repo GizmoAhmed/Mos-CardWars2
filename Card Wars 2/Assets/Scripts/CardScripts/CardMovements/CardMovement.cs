@@ -46,7 +46,7 @@ namespace CardScripts.CardMovements
         [SyncVar] public int logicalPlayerSide = -1;
 
         [Header("Visual Reference (Client-side - Rendering Only)")]
-        public Tile currentTileVisual = null;
+        public Tile thisCardsVisualTile = null;
 
         private bool _grabbed;
         private GameObject _startParent;
@@ -112,7 +112,7 @@ namespace CardScripts.CardMovements
             {
                 // DON'T allow to be grabbed if:
                 // already being grabbed, is already on a land, or is not your card to grab 
-                if (_grabbed || currentTileVisual != null || !isOwned) return;
+                if (_grabbed || thisCardsVisualTile != null || !isOwned) return;
             }
 
             _grabbed = true;
@@ -201,7 +201,10 @@ namespace CardScripts.CardMovements
             // SERVER: Store LOGICAL position (authoritative game state)
             logicalRow = tileScript.row;
             logicalColumn = tileScript.column;
-            logicalPlayerSide = tileScript.playerSide;
+            
+            // set logical side to whoever placed the card
+            Player thisPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();
+            logicalPlayerSide = thisPlayer.playerSide;
 
             // SERVER: Set logical reference on tile
             SetLogicalReferenceOnTile(tileScript);
@@ -265,7 +268,7 @@ namespace CardScripts.CardMovements
             _cardDisplay.FlipCard(true); // now on field, show to both players
 
             // todo Store visual tile reference (for animations, UI, etc.)
-            currentTileVisual = tileObj.GetComponent<Tile>();
+            thisCardsVisualTile = tileObj.GetComponent<Tile>();
         }
 
         public void OnClick()
@@ -405,7 +408,7 @@ namespace CardScripts.CardMovements
 
         protected virtual void DetachFromTile()
         {
-            currentTileVisual = null;
+            thisCardsVisualTile = null;
 
             ClearLogicalPositionServer();
         }
@@ -425,6 +428,7 @@ namespace CardScripts.CardMovements
 
             if (logicalTile != null)
             {
+                // overridden in child card types
                 ClearLogicalReference_OnTile(logicalTile);
             }
 
@@ -454,7 +458,6 @@ namespace CardScripts.CardMovements
             {
                 Tile thisCardsTile = TileManager.Instance.GetTile(logicalPlayerSide, logicalRow, logicalColumn);
 
-                // Debug.LogWarning($"Get Logical Tile >>> {gameObject.name}'s tile is {thisCardsTile}");
                 return thisCardsTile;
             }
 

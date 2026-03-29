@@ -17,3 +17,4 @@ MonoBehaviour:
   magic: 2
   abilityDescription: idk, moon charm tings
   burnCost: 2
+  ability: {fileID: 11400000, guid: f344b483708abe549a768f8961155355, type: 2}

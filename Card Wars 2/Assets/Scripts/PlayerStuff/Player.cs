@@ -17,6 +17,9 @@ using UnityEngine.UI;
 
 public class Player : NetworkBehaviour
 {
+	[Tooltip("0 = Player 1, 1 = Player 2")]
+	[SyncVar] public int playerSide = -1; 
+	
 	public CardPlacement cardPlacer;
 	public PlayerStats playerStats;
 	

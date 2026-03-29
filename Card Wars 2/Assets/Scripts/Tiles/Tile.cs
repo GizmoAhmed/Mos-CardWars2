@@ -26,6 +26,11 @@ namespace Tiles
 
         protected abstract void SetupNeighbors();
         
+        /// <summary>
+        /// helper for initializing tiles
+        /// </summary>
+        /// <param name="tileName"></param>
+        /// <returns></returns>
         protected GameObject FindTileByName(string tileName)
         {
             var found = GameObject.Find(tileName);

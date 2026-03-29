@@ -40,7 +40,6 @@ namespace CardScripts.CardMovements
             MiddleTile middleTile = tile as MiddleTile;
             
             middleTile.logicalCreature = gameObject;
-            // Debug.Log($"Set logical creature ({gameObject.name}) on Tile [{Tile.playerSide}][{Tile.row},{Tile.column}]");
         }
 
         [Server]
@@ -75,13 +74,7 @@ namespace CardScripts.CardMovements
             transform.SetAsFirstSibling();
 
             // Update visual reference
-            currentTileVisual = visualTile;
-
-            /*if (thisCardOwnerPlayerStats != null)
-            {
-                thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
-                thisCardOwnerPlayerStats.UseMagic(CreatureStats.soulUse);
-            }*/
+            thisCardsVisualTile = visualTile;
         }
 
         [Server]
@@ -101,7 +94,7 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            ((MiddleTile)currentTileVisual).creatureVisual = null;
+            ((MiddleTile)thisCardsVisualTile).creatureVisual = null;
             base.DetachFromTile();
         }
     }

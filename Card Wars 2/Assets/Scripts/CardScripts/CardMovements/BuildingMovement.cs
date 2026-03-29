@@ -80,7 +80,7 @@ namespace CardScripts.CardMovements
             transform.SetAsFirstSibling();
 
             // Update visual reference
-            currentTileVisual = visualTile;
+            thisCardsVisualTile = visualTile;
 
             // Player-specific logic
             if (thisCardOwnerPlayerStats != null)
@@ -106,7 +106,7 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            ((MiddleTile)currentTileVisual).buildingVisual = null;
+            ((MiddleTile)thisCardsVisualTile).buildingVisual = null;
             base.DetachFromTile();
         }
     }

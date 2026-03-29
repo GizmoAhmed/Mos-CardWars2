@@ -70,13 +70,14 @@ namespace Tiles
         [Server] // needs to be done on server because sync list
         public void AddCharm(GameObject charm)
         {
+            Debug.Log($"Adding charm {charm.name} to {gameObject.name}...");
             charms.Add(charm);
         }
 
         [Server]
         public void RemoveCharm(GameObject charm)
         {
-            Debug.LogWarning($"Removing {charm} from {gameObject.name}...");
+            Debug.LogWarning($"Attempting to remove {charm} from {gameObject.name}...");
             
             if (charms.Contains(charm))
             {
@@ -85,7 +86,8 @@ namespace Tiles
             }
             else
             {
-                Debug.LogError($"...Attempt to remove {charm} from charms list failed because {charm} isn't present in the list for some reason.");
+                Debug.LogError($"...Attempt to remove {charm} from {gameObject.name} failed because {charm} isn't present in the list." +
+                               $"\nList Count: {charms.Count}");
             }
         }
     }

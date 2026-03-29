@@ -14,14 +14,14 @@ namespace CardScripts.CardMovements
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(tile))
                 return false;
-            
+
             if (!(tile is CharmTile charmTile)) // has to be middle tile
                 return false;
 
             // return true if one of your own tile, the close ones
             return charmTile.tileOwner;
         }
-        
+
         [Command]
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
@@ -47,6 +47,14 @@ namespace CardScripts.CardMovements
             charmTile.AddCharm(gameObject);
         }
 
+        [Server]
+        protected override void ClearLogicalReference_OnTile(Tile tile)
+        {
+            CharmTile charmTile = tile as CharmTile;
+
+            charmTile.RemoveCharm(gameObject);
+        }
+
         [ClientRpc] // assume valid, so don't worry about ok to place or not
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {
@@ -64,10 +72,10 @@ namespace CardScripts.CardMovements
 
             // Visual positioning (keep world space for charms)
             transform.SetParent(visualCharmTile.transform, true);
-        
+
             // Update visual reference
-            currentTileVisual = visualCharmTile;
-        
+            thisCardsVisualTile = visualCharmTile;
+
             // Use magic
             if (thisCardOwnerPlayerStats != null)
             {
@@ -80,7 +88,7 @@ namespace CardScripts.CardMovements
         {
             // if being discarded from the field, returning magic
             if (cardState == CardState.Field) ReturnMagic();
-            
+
             base.ServerDiscard();
         }
 
@@ -92,10 +100,9 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            // todo prolly shouldn't be using the visual here
-            CharmTile charmTileScript = currentTileVisual.GetComponent<CharmTile>();
+            /*CharmTile charmTileScript = currentTileVisual.GetComponent<CharmTile>();
 
-            charmTileScript.RemoveCharm(gameObject);
+             charmTileScript.RemoveCharm(gameObject);*/
 
             base.DetachFromTile();
         }

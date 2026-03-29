@@ -6,7 +6,7 @@ namespace Tiles
 {
     public class MiddleTile : Tile
     {
-        [Header("Occupancy")]
+        [Header("Visual Occupancy, Client specific")]
         public GameObject creatureVisual;
         public GameObject buildingVisual;
 
@@ -17,9 +17,8 @@ namespace Tiles
 
         [Tooltip("Logical reference to building - same on server and all clients")] [SyncVar]
         public GameObject logicalBuilding;
-
-        public bool IsOccupied => logicalCreature != null || logicalBuilding != null;
-
+        
+        [Header("Neighbors")]
         public GameObject adjacentLeft;
         public GameObject adjacentRight;
         public GameObject diagonalLeft;

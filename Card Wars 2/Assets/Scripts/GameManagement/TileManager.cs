@@ -40,9 +40,9 @@ namespace GameManagement
         }
         
         /// <summary>
-        /// Find all tiles and index them for fast lookup
+        /// Find all tiles and index in a dictionary for fast lookup via GetTile
         /// </summary>
-        public void InitializeTiles()
+        public void MemoizeTiles()
         {
             // Find all Tile components in the scene
             Tile[] foundTiles = FindObjectsOfType<Tile>();
@@ -89,7 +89,7 @@ namespace GameManagement
         /// <summary>
         /// Get a tile by its logical position
         /// </summary>
-        public Tile GetTile(int playerSide, int row, int column)
+        public Tile GetTile(int row, int column, int playerSide)
         {
             var key = (playerSide, row, column);
             
@@ -98,7 +98,7 @@ namespace GameManagement
                 return tile;
             }
             
-            Debug.LogWarning($"No Tile found at position [Side:{playerSide}][Row:{row}][Col:{column}]");
+            Debug.LogError($"No Tile found at position [Row:{row}][Col:{column}][Side:{playerSide}]");
             return null;
         }
         
