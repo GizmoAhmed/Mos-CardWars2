@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Buttons;
 using CardScripts;
@@ -51,7 +52,7 @@ namespace PlayerStuff
         {
             ui = GetComponent<PlayerUI>();
             ui.Init(this);
-            
+
             if (ui == null) Debug.LogError("PlayerStats UI component could not be initialized.");
         }
 
@@ -90,15 +91,24 @@ namespace PlayerStuff
         public void CmdActivateCreatureAbility(GameObject creatureToActivate)
         {
             // Debug.Log($"Counting Shards for ability activation on {creatureToActivate.name}...");
-            
+
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
             int cost = creatureStats.abilityCost;
-            
+
             if (money >= cost)
             {
                 money -= cost;
                 Debug.Log($"...Spending shards ({cost}) to activate {creatureToActivate.name} ability");
-                creatureStats.cardData.ability.ExecuteAbility(creatureToActivate, null);
+
+                try
+                {
+                    creatureStats.cardData.ability.ExecuteAbility(creatureToActivate, null);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(
+                        $"Failed to activate ability {creatureToActivate.name}.\nError: {e.Message}");
+                }
             }
             else
             {
@@ -142,7 +152,7 @@ namespace PlayerStuff
 
             TargetOfferCardsOnModal(connectionToClient, freeCardsChosen, freeCardsOffered);
         }
-        
+
         [Command]
         public void CmdRequestPaidDraw(int choice, int offer)
         {
@@ -153,15 +163,16 @@ namespace PlayerStuff
 
             if (money < drawCost)
             {
-                Debug.LogWarning($"{gameObject.name} tried a paid draw ({drawCost}) with insufficient shards ({money})");
+                Debug.LogWarning(
+                    $"{gameObject.name} tried a paid draw ({drawCost}) with insufficient shards ({money})");
                 return;
             }
 
             money -= drawCost;
-            
+
             TargetOfferCardsOnModal(connectionToClient, choice, offer);
         }
-        
+
         [TargetRpc]
         private void TargetOfferCardsOnModal(NetworkConnection target, int cardsToChoose, int cardsToOffer)
         {

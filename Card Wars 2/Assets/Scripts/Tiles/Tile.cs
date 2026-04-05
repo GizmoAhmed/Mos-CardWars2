@@ -5,7 +5,7 @@ namespace Tiles
 {
     public abstract class Tile : NetworkBehaviour
     {
-        [Header("Logical Position (Game Logic)")]
+        [Header("Logical Position (Game Logic) - SET AT RUNTIME, NOT IN INSPECTOR")]
         [Tooltip("Row in the grid: 0 = bottom row (L1-L4), 1 = top row (L5-L8)")]
         public int row;
         

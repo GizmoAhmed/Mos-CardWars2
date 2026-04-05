@@ -11,6 +11,12 @@ namespace CardScripts.Abilities
     {
         public abstract void ExecuteAbility(GameObject thisCard, AbilityEventData eventData);
         
+        /// <summary>
+        /// An ability execution calls this when they want the tile the card is sitting ion
+        /// </summary>
+        /// <param name="thisCard"></param>
+        /// <param name="eventData"></param>
+        /// <returns></returns>
         public CreatureStats GetCreature_FromTileInEventData(GameObject thisCard, AbilityEventData eventData)
         {
             CreatureStats creatureStats;

@@ -203,7 +203,7 @@ namespace CardScripts.CardMovements
             Tile tileScript = tile.GetComponent<Tile>();
 
             // SERVER: Store LOGICAL position (authoritative game state)
-            logicalRow = tileScript.row;
+            logicalRow = logicalPlayerSide; // tileScript.row; 
             logicalColumn = tileScript.column;
 
             // SERVER: Set logical reference on tile
@@ -456,7 +456,7 @@ namespace CardScripts.CardMovements
             // Use TileManager if available
             if (TileManager.Instance != null)
             {
-                Tile thisCardsTile = TileManager.Instance.GetTile(logicalPlayerSide, logicalRow, logicalColumn);
+                Tile thisCardsTile = TileManager.Instance.GetTile(logicalRow, logicalColumn, logicalPlayerSide);
 
                 return thisCardsTile;
             }

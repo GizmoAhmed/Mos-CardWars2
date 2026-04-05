@@ -29,10 +29,10 @@ namespace CardScripts.Abilities
 
         public void OnValidate()
         {
-            if (eventsThatTriggerThisAbility == null || eventsThatTriggerThisAbility.Length == 0)
+            /*if (eventsThatTriggerThisAbility == null || eventsThatTriggerThisAbility.Length == 0)
             {
                 Debug.LogError($"{name} has no triggering events set in the inspector");
-            }
+            }*/
         }
     }
 }

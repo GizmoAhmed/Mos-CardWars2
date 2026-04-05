@@ -23,7 +23,7 @@ namespace GameManagement
         // Dictionary for fast O(1) lookups by logical position
         // Key: (playerSide, row, column)
         // Value: Tile reference
-        private Dictionary<(int side, int row, int col), Tile> _tileMap = new Dictionary<(int, int, int), Tile>();
+        private Dictionary<(int row, int col, int side), Tile> _tileMap = new Dictionary<(int, int, int), Tile>();
         
         void Awake()
         {
@@ -58,7 +58,7 @@ namespace GameManagement
                     allTiles.Add(tile);
                     
                     // Add to dictionary for fast lookup
-                    var key = (tile.playerSide, tile.row, tile.column);
+                    var key = (tile.row, tile.column, tile.playerSide);
                     
                     if (_tileMap.ContainsKey(key))
                     {
@@ -91,14 +91,14 @@ namespace GameManagement
         /// </summary>
         public Tile GetTile(int row, int column, int playerSide)
         {
-            var key = (playerSide, row, column);
+            var key = (row, column, playerSide);
             
             if (_tileMap.TryGetValue(key, out Tile tile))
             {
                 return tile;
             }
             
-            Debug.LogError($"No Tile found at position [Row:{row}][Col:{column}][Side:{playerSide}]");
+            Debug.LogError($"No Tile found at position [Row:{row}][Col:{column}][Player Side:{playerSide}]");
             return null;
         }
         
