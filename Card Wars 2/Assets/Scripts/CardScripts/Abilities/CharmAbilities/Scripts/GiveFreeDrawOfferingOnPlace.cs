@@ -17,7 +17,7 @@ namespace CardScripts.Abilities.CharmAbilities.Scripts
             
             playerStats.freeCardsOffered += offeringsGiven;
             
-            Debug.Log($"{name} is giving player {playerStats.gameObject.name} + {offeringsGiven} offering. Player {playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings");
+            Debug.Log($"{thisCard.name} ({name}) is giving {playerStats.gameObject.name} + {offeringsGiven} offering.\n{playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings");
         }
 
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
@@ -26,7 +26,7 @@ namespace CardScripts.Abilities.CharmAbilities.Scripts
 
             playerStats.freeCardsOffered -= offeringsGiven;
             
-            Debug.Log($"{name} is removing player {playerStats.gameObject.name} - {offeringsGiven} offering. Player {playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings");
+            Debug.Log($"{thisCard.name} ({name}) is removing {playerStats.gameObject.name} - {offeringsGiven} offering.\n{playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings");
         }
 
         public void OnValidate()

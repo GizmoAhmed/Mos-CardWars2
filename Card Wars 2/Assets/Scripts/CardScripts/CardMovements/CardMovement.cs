@@ -431,6 +431,11 @@ namespace CardScripts.CardMovements
                 // overridden in child card types
                 ClearLogicalReference_OnTile(logicalTile);
             }
+            else
+            {
+                Debug.LogWarning($"Can't find logical tile for {gameObject.name}\n" +
+                                 "Either this was a card in hand, or the tile couldn't be found while on the field, which is an issue");
+            }
 
             // Reset to "not placed" values
             logicalRow = -1;
@@ -450,17 +455,14 @@ namespace CardScripts.CardMovements
         /// </summary>
         public Tile GetLogicalTile()
         {
-            if (logicalRow < 0 || logicalColumn < 0 || logicalPlayerSide < 0)
-                return null;
-
-            // Use TileManager if available
             if (TileManager.Instance != null)
             {
                 Tile thisCardsTile = TileManager.Instance.GetTile(logicalRow, logicalColumn, logicalPlayerSide);
 
                 return thisCardsTile;
             }
-
+            
+            Debug.LogError("TileManager Instance is null");
             return null;
         }
     }

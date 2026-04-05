@@ -70,7 +70,7 @@ namespace Tiles
         [Server] // needs to be done on server because sync list
         public void AddCharm(GameObject charm)
         {
-            Debug.Log($"Adding charm {charm.name} to {gameObject.name}...");
+            Debug.LogWarning($"Adding charm {charm.name} to {gameObject.name} SyncList...");
             charms.Add(charm);
         }
 
