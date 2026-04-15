@@ -16,7 +16,7 @@ namespace AbilityEvents
             EventType = type;
             CardToBeAffected = card;    // optional, some spells ie don't affect cards
             Value = v;                  // optional, pass param for things like buffs
-            CustomData = customData;         // also optional
+            CustomData = customData;         // also optional, pass things like tiles, etc.
         }
     }
 }

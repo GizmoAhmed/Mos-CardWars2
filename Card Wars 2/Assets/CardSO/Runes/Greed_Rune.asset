@@ -17,3 +17,4 @@ MonoBehaviour:
   magic: 0
   abilityDescription: Earn X Shards per Y buffs received. Lose Z Shards per Y debuffs
   burnCost: 2
+  ability: {fileID: 11400000, guid: 5ee419952e094a646bef94aefebecabd, type: 2}

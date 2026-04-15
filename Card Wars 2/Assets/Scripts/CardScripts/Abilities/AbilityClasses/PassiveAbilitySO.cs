@@ -24,15 +24,7 @@ namespace CardScripts.Abilities
 
         public virtual void UndoExecution(GameObject thisCard, AbilityEventData eventData)
         {
-            Debug.LogError($"Called base.UndoExecution on {name} when should be using child override");
-        }
-
-        public void OnValidate()
-        {
-            /*if (eventsThatTriggerThisAbility == null || eventsThatTriggerThisAbility.Length == 0)
-            {
-                Debug.LogError($"{name} has no triggering events set in the inspector");
-            }*/
+            Debug.LogWarning($"Called base.UndoExecution on {name} when should be using child override");
         }
     }
 }
