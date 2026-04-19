@@ -22,15 +22,15 @@ namespace CardScripts.CardDisplays
         private GameObject _runeTab1;
         private GameObject _runeText1;
         private GameObject _runeName1;
-        private GameObject _runeIcon1;
+        private GameObject _runeInfoCardIcon1;
         
         private GameObject _runeTab2;
         private GameObject _runeText2;
         private GameObject _runeName2;
-        private GameObject _runeIcon2;
+        private GameObject _runeInfoCardIcon2;
         
-        private GameObject _currentRuneIcon1;
-        private GameObject _currentRuneIcon2;
+        private GameObject runeIconFace1;
+        private GameObject runeIconFace2;
 
         private CreatureStats _creatureStats;
 
@@ -98,21 +98,21 @@ namespace CardScripts.CardDisplays
                 {
                     _runeText1 = FindPart("RuneDescText1", _runeTab1.transform);
                     _runeName1 = FindPart("RuneName1", _runeTab1.transform);
-                    _runeIcon1 = FindPart("RuneIcon1", _runeTab1.transform);
+                    _runeInfoCardIcon1 = FindPart("RuneIcon1", _runeTab1.transform);
                 }
 
                 if (_runeTab2 != null)
                 {
                     _runeText2 = FindPart("RuneDescText2", _runeTab2.transform);
                     _runeName2 = FindPart("RuneName2", _runeTab2.transform);
-                    _runeIcon2 = FindPart("RuneIcon2", _runeTab2.transform);
+                    _runeInfoCardIcon2 = FindPart("RuneIcon2", _runeTab2.transform);
                 }
             }
 
             if (CurrentRunes != null)
             {
-                _currentRuneIcon1 = FindPart("CurrentRune1", CurrentRunes.transform);
-                _currentRuneIcon2 = FindPart("CurrentRune2", CurrentRunes.transform);
+                runeIconFace1 = FindPart("CurrentRune1", CurrentRunes.transform);
+                runeIconFace2 = FindPart("CurrentRune2", CurrentRunes.transform);
             }
         }
 
@@ -181,42 +181,58 @@ namespace CardScripts.CardDisplays
             SetText(_scoreObj, newScore.ToString(), true);
         }
 
-        public void DisplayRune(RuneBase newRune)
+        public void DisplayRune(RuneBase newRune = null) // optional, if passing null, remove runes
         {
-            // Debug.Log($"Displaying rune: {newRune.gameObject.name} on {gameObject.name}");
+            if (newRune == null) // removing all runes
+            {
+                // set both rune icons to nothing
+                SetImage(runeIconFace1, null); 
+                SetImage(runeIconFace2, null);
+                
+                SetImage(_runeInfoCardIcon1, null);
+                SetImage(_runeInfoCardIcon2, null);
+                
+                SetText(_runeText1, null);
+                SetText(_runeText2, null);
+                
+                SetText(_runeName1, null);
+                SetText(_runeName2, null);
+                
+                runeIconFace1.SetActive(false);
+                runeIconFace2.SetActive(false);
+                return;
+            }
 
             CardDataSO runeData = newRune.gameObject.GetComponent<CardStats>().cardData;
 
             if (_creatureStats.currentRune2 != null)
             {
-                SetImage(_currentRuneIcon2, runeData.mainImage); // current rune icon on face
-                // _currentRuneIcon2.GetComponent<Image>().sprite = runeData.mainImage;
+                SetImage(runeIconFace2, runeData.mainImage); // current rune icon on face
                 
-                _currentRuneIcon2.SetActive(true);
+                runeIconFace2.SetActive(true);
                 
                 // the info text
                 SetText(_runeText2, runeData.abilityDescription);
-                // _runeText2.GetComponent<TextMeshProUGUI>().text = runeData.abilityDescription.ToUpper();
                 
                 SetText(_runeName2, runeData.cardName);
                 
-                SetImage(_runeIcon2, runeData.mainImage);
+                SetImage(_runeInfoCardIcon2, runeData.mainImage);
 
                 return;
             }
 
             if (_creatureStats.currentRune1 != null)
             {
-                SetImage(_currentRuneIcon1, runeData.mainImage); // current rune icon on face
+                SetImage(runeIconFace1, runeData.mainImage); // current rune icon on face
                 
-                _currentRuneIcon1.SetActive(true);
+                runeIconFace1.SetActive(true);
                 
                 // the info text
                 SetText(_runeText1, runeData.abilityDescription);
                 
                 SetText(_runeName1, runeData.cardName);
                 
-                SetImage(_runeIcon1, runeData.mainImage);
+                SetImage(_runeInfoCardIcon1, runeData.mainImage);
             }
         }
     }

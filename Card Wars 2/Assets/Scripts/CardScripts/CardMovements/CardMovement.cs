@@ -390,20 +390,16 @@ namespace CardScripts.CardMovements
 
             // set state to discard
             cardState = CardState.Discard;
+            
+            // if listener found, card is passive, unsubscribe its ability
+            PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
+            if (listen != null) listen.UnsubscribeThisCardFromListening();
 
             // resets stats to base
             cardStats.ApplyStatsFromData();
 
             // visually move card to discard board for each respective client
             RpcMoveDiscardedCard_ToBoard();
-
-            PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
-
-            // if listener not found, then this card is not a passive one
-            if (listen == null) return;
-
-            // if a passive listener, stop it from listening
-            listen.UnsubscribeThisCardFromListening();
         }
 
         protected virtual void DetachFromTile()

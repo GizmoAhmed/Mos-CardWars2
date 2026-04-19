@@ -131,8 +131,16 @@ namespace CardScripts.CardDisplays
         {
             if (obj != null && obj.TryGetComponent(out TextMeshProUGUI tmp))
             {
-                tmp.text = text.ToUpper();
-
+                if (text == null) 
+                {
+                    // txt passed as null? empty the text container
+                    tmp.text = string.Empty;
+                }
+                else
+                {
+                    tmp.text = text.ToUpper();
+                }
+                
                 if (!isStatText) // stat text just stays whatever color is on the card, things like description would remain black
                     tmp.color = Color.black; // red text means error
             }

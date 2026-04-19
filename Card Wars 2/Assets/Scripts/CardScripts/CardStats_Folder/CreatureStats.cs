@@ -197,5 +197,11 @@ namespace CardScripts.CardStatss
         {
             creatureDisplay.DisplayRune(newRune);
         }
+
+        public void UnbindAllRunes()
+        {
+            currentRune1 = null;
+            currentRune2 = null;
+        }
     }
 }

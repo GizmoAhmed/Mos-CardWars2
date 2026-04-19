@@ -16,15 +16,20 @@ namespace CardScripts.CardMovements
             if (!base.ValidPlacement(tile))
                 return false;
             
-            if (!(tile is MiddleTile midTile)) // has to be middle tile
+            if (!(tile is MiddleTile localMidTile)) // has to be middle tile
                 return false;
+            
+            MiddleTile logTile = null;
+            
+            // if client is validating, check the other side since server saves client side placements on the other side
+            logTile = logicalPlayerSide == 1 ? localMidTile.across.GetComponent<MiddleTile>() : localMidTile;
 
-            if (!midTile.logicalCreature) return false; // there's no creature on this middleTile? nope, can't place here
+            if (!logTile.logicalCreature) return false; // there's no creature on this middleTile? nope, can't place here
 
-            CreatureStats creature = midTile.logicalCreature.GetComponent<CreatureStats>();
+            CreatureStats creature = logTile.logicalCreature.GetComponent<CreatureStats>();
 
-            return midTile.tileOwner &&
-                   midTile.logicalCreature != null &&
+            return localMidTile.tileOwner &&
+                   logTile.logicalCreature != null &&
                    (creature.CanBeRuned); // return true if the middleTile has a creature on it and creature can be runed
         }
 
@@ -35,7 +40,12 @@ namespace CardScripts.CardMovements
 
             MiddleTile middleTileScript = tile.GetComponent<MiddleTile>();
 
-            GameObject creatureOnTile = middleTileScript.creatureVisual;
+            MiddleTile logTile = null;
+            
+            // if client is validating, check the other side since server saves client side placements on the other side
+            logTile = logicalPlayerSide == 1 ? middleTileScript.across.GetComponent<MiddleTile>() : middleTileScript;
+            
+            GameObject creatureOnTile = logTile.logicalCreature;
 
             BindRune(creatureOnTile);
 

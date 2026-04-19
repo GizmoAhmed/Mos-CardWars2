@@ -102,6 +102,9 @@ namespace CardScripts.CardMovements
             // if being discarded from the field, returning magic
             if (cardState == CardState.Field) ReturnMagicAndScore();
             
+            // remove all runes
+            CreatureStats.UnbindAllRunes();
+            
             base.ServerDiscard();
         }
 
