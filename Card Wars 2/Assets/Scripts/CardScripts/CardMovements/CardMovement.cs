@@ -410,7 +410,7 @@ namespace CardScripts.CardMovements
         }
 
         [ClientRpc]
-        private void RpcMoveDiscardedCard_ToBoard()
+        protected void RpcMoveDiscardedCard_ToBoard()
         {
             // visually move cards 
             thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);

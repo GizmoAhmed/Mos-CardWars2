@@ -92,7 +92,7 @@ namespace CardScripts.CardStats_Folder
         /// Applies the stats from the CardDataSO
         /// </summary>
         [Command]
-        public virtual void CmdRefreshCardStats()
+        protected virtual void CmdRefreshCardStats()
         {
             ApplyStatsFromData();
         }

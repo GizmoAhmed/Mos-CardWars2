@@ -43,7 +43,7 @@ namespace CardScripts.CardStatss
         }
 
         [Command]
-        public override void CmdRefreshCardStats()
+        protected override void CmdRefreshCardStats()
         {
             base.CmdRefreshCardStats();
             ApplyStatsFromData();

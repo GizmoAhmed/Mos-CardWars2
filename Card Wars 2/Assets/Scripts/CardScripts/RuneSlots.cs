@@ -1,5 +1,6 @@
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
+using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
 using Mirror;
 using UnityEngine;
@@ -55,9 +56,18 @@ namespace CardScripts
                 currentRune2 = runeCard; // goes to RuneChange
             }
             
-            // todo add as child and hide, to be discarded along with creature below
+            // add rune as child (slot) then hide
+            RpcSlotChildRuneCard(runeCard);
         }
-        
+
+        [ClientRpc]
+        private void RpcSlotChildRuneCard(GameObject rune)
+        {
+            // visual things like 'parenting' and 'SetActive' need to be done for both clients
+            rune.transform.SetParent(transform);
+            rune.SetActive(false);
+        }
+
         public void UIRuneChange(GameObject oldRune, GameObject newRune)
         {
             creatureDisplay.DisplayRune(newRune);
@@ -68,7 +78,21 @@ namespace CardScripts
             currentRune1 = null;
             currentRune2 = null;
             
-            // todo discard any rune card children in rune slots
+            // discard each slotted rune
+            foreach (Transform rune in transform)
+            {
+                RuneMovement runeMove = rune.GetComponent<RuneMovement>();
+                runeMove.ServerDiscard();
+                
+                // they are still hidden from the initial bind, activate them to show on discard board
+                RpcShowRune(rune.gameObject);
+            }
+        }
+
+        [ClientRpc]
+        private void RpcShowRune(GameObject rune)
+        {
+            rune.gameObject.SetActive(true);
         }
     }
 }
