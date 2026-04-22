@@ -66,7 +66,7 @@ namespace CardScripts.CardMovements
         [Server]
         private void BindRune(GameObject creatureOnTile)
         {
-            // the creature on this land
+            // add rune to creature stats
             CreatureStats creature = creatureOnTile.GetComponent<CreatureStats>();
 
             if (creature.currentRune1 == null) // empty

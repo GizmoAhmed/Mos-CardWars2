@@ -84,7 +84,7 @@ namespace CardScripts.CardDisplays
             _defenseObj = FindPart("Defense");
             _scoreObj = FindPart("Score");
 
-            GameObject CurrentRunes = FindPart("CurrentRunes");
+            GameObject currentRunes = FindPart("CurrentRuneIcons");
 
             if (InfoObj != null)
             {
@@ -109,10 +109,10 @@ namespace CardScripts.CardDisplays
                 }
             }
 
-            if (CurrentRunes != null)
+            if (currentRunes != null)
             {
-                runeIconFace1 = FindPart("CurrentRune1", CurrentRunes.transform);
-                runeIconFace2 = FindPart("CurrentRune2", CurrentRunes.transform);
+                runeIconFace1 = FindPart("CurrentRuneIcon1", currentRunes.transform);
+                runeIconFace2 = FindPart("CurrentRuneIcon2", currentRunes.transform);
             }
         }
 
