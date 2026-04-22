@@ -143,13 +143,15 @@ namespace CardScripts.CardDisplays
 
             if (!toggle) return; // if toggle info on/true, wait i just wanna check sum first...
 
-            if (_creatureStats.currentRune1 == null) // then not runed up
+            RuneSlots runeSlots = GetComponentInChildren<RuneSlots>();
+            
+            if (runeSlots.currentRune1 == null) // then not runed up
             {
                 _runeTab1.SetActive(false);
                 _runeTab2.SetActive(false);
             }
-            else if (_creatureStats.currentRune1 != null &&
-                     _creatureStats.currentRune2 == null) // only first rune
+            else if (runeSlots.currentRune1 != null &&
+                     runeSlots.currentRune2 == null) // only first rune
             {
                 _runeTab1.SetActive(true);
                 _runeTab2.SetActive(false);
@@ -181,9 +183,9 @@ namespace CardScripts.CardDisplays
             SetText(_scoreObj, newScore.ToString(), true);
         }
 
-        public void DisplayRune(RuneBase newRune = null) // optional, if passing null, remove runes
+        public void DisplayRune(GameObject runeToDisplay = null) // optional, if passing null, remove runes
         {
-            if (newRune == null) // removing all runes
+            if (runeToDisplay == null) // removing all runes
             {
                 // set both rune icons to nothing
                 SetImage(runeIconFace1, null); 
@@ -203,9 +205,11 @@ namespace CardScripts.CardDisplays
                 return;
             }
 
-            CardDataSO runeData = newRune.gameObject.GetComponent<CardStats>().cardData;
+            CardDataSO runeData = runeToDisplay.GetComponent<CardStats>().cardData;
+            
+            RuneSlots runeSlots = GetComponentInChildren<RuneSlots>();
 
-            if (_creatureStats.currentRune2 != null)
+            if (runeSlots.currentRune2 != null)
             {
                 SetImage(runeIconFace2, runeData.mainImage); // current rune icon on face
                 
@@ -221,7 +225,7 @@ namespace CardScripts.CardDisplays
                 return;
             }
 
-            if (_creatureStats.currentRune1 != null)
+            if (runeSlots.currentRune1 != null)
             {
                 SetImage(runeIconFace1, runeData.mainImage); // current rune icon on face
                 

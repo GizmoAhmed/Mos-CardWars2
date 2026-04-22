@@ -103,7 +103,7 @@ namespace CardScripts.CardMovements
             if (cardState == CardState.Field) ReturnMagicAndScore();
             
             // remove all runes
-            CreatureStats.UnbindAllRunes();
+            GetComponentInChildren<RuneSlots>().UnbindAllRunes();
             
             base.ServerDiscard();
         }

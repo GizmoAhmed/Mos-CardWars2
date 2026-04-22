@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8007633529118996008}
   - component: {fileID: 6941616040279215628}
   m_Layer: 0
-  m_Name: AbilityEventManager
+  m_Name: GlobalAbilityEventManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

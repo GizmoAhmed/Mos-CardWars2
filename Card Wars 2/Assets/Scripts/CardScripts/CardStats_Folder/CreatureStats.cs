@@ -14,7 +14,7 @@ namespace CardScripts.CardStatss
         public CreatureDataSO creatureData => cardData as CreatureDataSO;
 
         [HideInInspector] public CreatureDisplay creatureDisplay;
-
+        
         [Header("Creature Specific Stats")] [SyncVar(hook = nameof(Hook_UpdateCreatureStrength))]
         public int strength;
 
@@ -25,20 +25,11 @@ namespace CardScripts.CardStatss
 
         [SyncVar(hook = nameof(UpdateAbilityCost))]
         public int abilityCost;
-
-        [Header("Rune Stuff")] [SyncVar(hook = nameof(RuneChange))]
-        public RuneBase currentRune1;
-
-        public bool overRuneable;
-
-        [SyncVar(hook = nameof(RuneChange))] public RuneBase currentRune2;
-
-        public bool CanBeRuned => (currentRune1 == null) || (overRuneable && currentRune2 == null);
-
+        
         public override void InitializeCard()
         {
             creatureDisplay = GetComponent<CreatureDisplay>();
-
+            
             base.InitializeCard();
 
             creatureDisplay.InitDisplayWithData(this);
@@ -191,17 +182,6 @@ namespace CardScripts.CardStatss
         public void UpdateScore(int oldScore, int newScore)
         {
             creatureDisplay.UpdateCardUI_Score(newScore);
-        }
-
-        public void RuneChange(RuneBase oldRune, RuneBase newRune)
-        {
-            creatureDisplay.DisplayRune(newRune);
-        }
-
-        public void UnbindAllRunes()
-        {
-            currentRune1 = null;
-            currentRune2 = null;
         }
     }
 }

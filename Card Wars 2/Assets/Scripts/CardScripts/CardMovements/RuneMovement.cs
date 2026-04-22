@@ -28,9 +28,12 @@ namespace CardScripts.CardMovements
 
             CreatureStats creature = logTile.logicalCreature.GetComponent<CreatureStats>();
 
+            // get rune slot to see if can be runed
+            RuneSlots runeSlot = creature.transform.GetComponentInChildren<RuneSlots>();
+            
             return localMidTile.tileOwner &&
                    logTile.logicalCreature != null &&
-                   (creature.CanBeRuned); // return true if the middleTile has a creature on it and creature can be runed
+                   (runeSlot.CanBeRuned); // return true if the middleTile has a creature on it and creature can be runed
         }
 
         [Command]
@@ -47,36 +50,18 @@ namespace CardScripts.CardMovements
             
             GameObject creatureOnTile = logTile.logicalCreature;
 
-            BindRune(creatureOnTile);
-
-            PassiveListenerCard listener = GetComponent<PassiveListenerCard>();
+            PlaceRuneOnCreature(creatureOnTile);
             
-            if (listener == null)
-            {
-                Debug.LogError($"No listener found on {gameObject.name}");
-                return;
-            }
-
-            // register cards passive ability in ability manager as a listener when placed
-            listener.RegisterPassiveAbility();
-            
-            base.ServerDiscard(); 
+            // base.ServerDiscard(); 
         }
 
         [Server]
-        private void BindRune(GameObject creatureOnTile)
+        private void PlaceRuneOnCreature(GameObject creatureOnTile)
         {
-            // add rune to creature stats
-            CreatureStats creature = creatureOnTile.GetComponent<CreatureStats>();
-
-            if (creature.currentRune1 == null) // empty
-            {
-                creature.currentRune1 = GetComponent<RuneBase>(); // goes to RuneChange
-            }
-            else if (creature.currentRune2 == null && creature.overRuneable)
-            {
-                creature.currentRune2 = GetComponent<RuneBase>(); // goes to RuneChange
-            }
+            // add to RuneSlots
+            RuneSlots runeSlot = creatureOnTile.transform.GetComponentInChildren<RuneSlots>();
+            
+            runeSlot.BindRune(gameObject);
         }
     }
 }

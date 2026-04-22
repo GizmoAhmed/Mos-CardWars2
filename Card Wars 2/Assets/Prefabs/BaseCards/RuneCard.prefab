@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 7932509229924535120}
   - component: {fileID: 9006069716977204555}
   - component: {fileID: 6161341023099325004}
-  - component: {fileID: 4708255491589327884}
   - component: {fileID: -1746081093091814046}
   m_Layer: 5
   m_Name: RuneCard
@@ -350,23 +349,8 @@ MonoBehaviour:
   logicalRow: -1
   logicalColumn: -1
   logicalPlayerSide: -1
-  currentTileVisual: {fileID: 0}
+  thisCardsVisualTile: {fileID: 0}
   snapBackDuration: 0.25
---- !u!114 &4708255491589327884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 659507761811515719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51220c86fc99474daed22797bbeea9d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
 --- !u!114 &-1746081093091814046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +363,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430ba0e5f439adb4090bdeef7d4dcb23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cardStats: {fileID: 0}
+  passiveAbility: {fileID: 0}
+  isExecutedOnPlace: 0
 --- !u!1 &826237918488455394
 GameObject:
   m_ObjectHideFlags: 0
