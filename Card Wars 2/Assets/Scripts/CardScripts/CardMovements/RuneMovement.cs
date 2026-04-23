@@ -44,34 +44,28 @@ namespace CardScripts.CardMovements
 
             MiddleTile middleTileScript = tile.GetComponent<MiddleTile>();
 
-            MiddleTile logTile = null;
-
             // if client is validating, check the other side since server saves client side placements on the other side
-            logTile = logicalPlayerSide == 1 ? middleTileScript.across.GetComponent<MiddleTile>() : middleTileScript;
+            MiddleTile logTile = logicalPlayerSide == 1 ? middleTileScript.across.GetComponent<MiddleTile>() : middleTileScript;
 
             GameObject creatureOnTile = logTile.logicalCreature;
+            
+            // adopt the logical position of the creature bound to, so GetLogicalTile can work on it
+            logicalRow = logicalPlayerSide;
+            logicalColumn = logTile.column;
+            
+            cardState = CardState.Field;
 
+            // subscribe passive listener, set sync-var rune variables, rpc show move for both clients
             PlaceRuneOnCreature(creatureOnTile);
         }
 
-        [Server]
-        public override void ServerDiscard()
+        // override to ignore ClearLogicalPositionServer()
+        protected override void DetachFromTile()
         {
-            // todo discarded runes don't count towards any discard listeners??
-            // if they did, you get three discards in one, but maybe genius game design moment??!
-            
-            // set state to discard
-            cardState = CardState.Discard;
-            
-            // if listener found, card is passive, unsubscribe its ability
-            PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
-            if (listen != null) listen.UnsubscribeThisCardFromListening();
-
-            // resets stats to base
-            cardStats.ApplyStatsFromData();
-
-            // visually move card to discard board for each respective client
-            RpcMoveDiscardedCard_ToBoard();
+            // Reset to "not placed" values
+            logicalRow = -1;
+            logicalColumn = -1;
+            logicalPlayerSide = -1;
         }
 
         [Server]

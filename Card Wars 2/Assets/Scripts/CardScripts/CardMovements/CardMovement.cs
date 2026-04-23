@@ -388,13 +388,17 @@ namespace CardScripts.CardMovements
             // if on a tile, detach from that tile
             if (cardState == CardState.Field) DetachFromTile();
 
+            // bother unsubscribing if you are on field (as opposed to hand and preview)
+            if (cardState == CardState.Field)
+            {
+                // if listener found, card is passive, unsubscribe its ability
+                PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
+                if (listen != null) listen.UnsubscribeThisCardFromListening();
+            }
+            
             // set state to discard
             cardState = CardState.Discard;
             
-            // if listener found, card is passive, unsubscribe its ability
-            PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
-            if (listen != null) listen.UnsubscribeThisCardFromListening();
-
             // resets stats to base
             cardStats.ApplyStatsFromData();
 
@@ -410,7 +414,7 @@ namespace CardScripts.CardMovements
         }
 
         [ClientRpc]
-        protected void RpcMoveDiscardedCard_ToBoard()
+        private void RpcMoveDiscardedCard_ToBoard()
         {
             // visually move cards 
             thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);
@@ -419,7 +423,8 @@ namespace CardScripts.CardMovements
         [Server]
         private void ClearLogicalPositionServer()
         {
-            // Clear tile's reference to this card
+            // Clear tile's reference to this card (creature and building, not rune, tile don't care about them)
+            // a rune's tile is actually a creature if you think about it
             Tile logicalTile = GetLogicalTile();
 
             if (logicalTile != null)
@@ -447,7 +452,7 @@ namespace CardScripts.CardMovements
         }
 
         /// <summary>
-        /// Get the logical tile based on logical position
+        /// Get the logical tile based on logical position (logical pos is the same between clients)
         /// </summary>
         public Tile GetLogicalTile()
         {

@@ -50,7 +50,7 @@ namespace CardScripts.CardData
 
             if (isExecutedOnPlace)
             {
-                AbilityEventData data = PrepareDataForExecution();
+                AbilityEventData data = PrepareData_ForPlacementExecution();
 
                 passiveAbility.ExecuteAbility(gameObject, data);
             }
@@ -169,13 +169,13 @@ namespace CardScripts.CardData
             _globalCallbacks.Clear();
             _tileCallbacks.Clear();
 
-            AbilityEventData data = PrepareDataForExecution();
+            AbilityEventData data = PrepareData_ForPlacementExecution();
 
             // Debug.LogWarning($"Unsubscribing {gameObject.name}: << UNDO EXECUTION >>");
             passiveAbility.UndoExecution(gameObject, data);
         }
 
-        private AbilityEventData PrepareDataForExecution()
+        private AbilityEventData PrepareData_ForPlacementExecution()
         {
             AbilityEventData data = new AbilityEventData(
                 AbilityEventType.CardPlacedOnTile,

@@ -84,7 +84,7 @@ namespace CardScripts
                 RuneMovement runeMove = rune.GetComponent<RuneMovement>();
                 runeMove.ServerDiscard();
                 
-                // they are still hidden from the initial bind, activate them to show on discard board
+                // they are still hidden from the initial bind, activate them so they show up on discard board
                 RpcShowRune(rune.gameObject);
             }
         }
