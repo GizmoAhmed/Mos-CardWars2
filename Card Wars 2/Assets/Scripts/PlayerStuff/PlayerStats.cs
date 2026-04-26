@@ -107,7 +107,7 @@ namespace PlayerStuff
                 catch (Exception e)
                 {
                     Debug.LogError(
-                        $"Failed to activate ability {creatureToActivate.name}.\nError: {e.Message}");
+                        $"Failed to activate ability {creatureToActivate.name}. Error: {e.Message}");
                 }
             }
             else

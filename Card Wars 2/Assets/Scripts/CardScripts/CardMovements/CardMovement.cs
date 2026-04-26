@@ -217,7 +217,7 @@ namespace CardScripts.CardMovements
             GlobalBroadcastCardPlacement();
 
             // you tell the tile manager of this creature about how you placed a card on it, not everyone
-            LocalWhisperCardPlacement(tileScript);
+            LocalWhisperCardPlacement(GetLogicalTile());
         }
 
         [Server]
@@ -248,7 +248,7 @@ namespace CardScripts.CardMovements
         }
 
         // you tell the tile manager of this creature about how you placed a card on it, not everyone. then tile, will execute abilities of its subscribers
-        protected virtual void LocalWhisperCardPlacement(Tile tile)
+        private void LocalWhisperCardPlacement(Tile tile)
         {
             TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
 
