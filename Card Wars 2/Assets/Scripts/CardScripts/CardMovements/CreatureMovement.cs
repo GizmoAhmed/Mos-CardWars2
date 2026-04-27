@@ -19,21 +19,12 @@ namespace CardScripts.CardMovements
             if (!(tile is MiddleTile midTile)) // has to be middle tile
                 return false;
 
-            MiddleTile logTile = null;
+            // get correct tile depending on which client is calling
+            MiddleTile logTile = GetServerTileForClient(midTile) as MiddleTile;
             
-            // if client is validating, check the other side since server saves client side placements on the other side
-            if (logicalPlayerSide == 1)
-            {
-                logTile = midTile.across.GetComponent<MiddleTile>();
-            }
-            else
-            {
-                logTile = midTile;
-            }
-
             // the tile has to be on your client side, the bottom row
             // AND the tile has to not have a creature on it
-            return midTile.tileOwner && logTile.logicalCreature == null;
+            return midTile.clientTileOwner && logTile.logicalCreature == null;
         }
 
         [Command] // not needed...todo for now

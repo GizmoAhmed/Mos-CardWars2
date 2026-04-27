@@ -16,21 +16,11 @@ namespace CardScripts.CardMovements
             
             if (!(tile is MiddleTile midTile)) // has to be middle tile
                 return false;
-            
-            MiddleTile logTile = null;
-            
-            // if client is validating, check the other side since server saves client side placements on the other side
-            if (logicalPlayerSide == 1)
-            {
-                logTile = midTile.across.GetComponent<MiddleTile>();
-            }
-            else
-            {
-                logTile = midTile;
-            }
+
+            MiddleTile logTile = GetServerTileForClient(midTile) as MiddleTile;
 
             // return true if one of your own lands, the close ones
-            return midTile.tileOwner && logTile.logicalBuilding == null;
+            return midTile.clientTileOwner && logTile.logicalBuilding == null;
         }
 
         [Command]

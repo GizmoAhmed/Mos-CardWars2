@@ -17,7 +17,7 @@ namespace Tiles
         
         [Header("Ownership")]
         [Tooltip("True if this player's side, false if opponent's side")]
-        public bool tileOwner;
+        public bool clientTileOwner;
         
         [Header("Visual Neighbors (for rendering/mirroring)")]
         public GameObject across;

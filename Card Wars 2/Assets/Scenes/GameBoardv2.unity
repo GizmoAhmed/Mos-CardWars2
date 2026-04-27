@@ -1887,7 +1887,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 0
+  clientTileOwner: 0
   across: {fileID: 0}
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
@@ -2871,7 +2871,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 0
+  clientTileOwner: 0
   across: {fileID: 0}
 --- !u!114 &473391602
 MonoBehaviour:
@@ -3260,7 +3260,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 1
+  clientTileOwner: 1
   across: {fileID: 0}
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
@@ -3564,7 +3564,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 0
+  clientTileOwner: 0
   across: {fileID: 0}
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
@@ -4044,7 +4044,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 1
+  clientTileOwner: 1
   across: {fileID: 0}
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
@@ -6623,7 +6623,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 1
+  clientTileOwner: 1
   across: {fileID: 0}
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
@@ -7761,7 +7761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: p0Deck.Array.data[10]
@@ -7858,7 +7858,7 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
+      objectReference: {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[2]
       value: 
@@ -7870,27 +7870,27 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: e6f90f058cdbb8141bac8c509df0fb5d, type: 2}
+      objectReference: {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+      objectReference: {fileID: 11400000, guid: e6f90f058cdbb8141bac8c509df0fb5d, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[6]
       value: 
-      objectReference: {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
+      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[7]
       value: 
-      objectReference: {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
+      objectReference: {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[8]
       value: 
-      objectReference: {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
+      objectReference: {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[9]
       value: 
-      objectReference: {fileID: 11400000, guid: b219a1ad426ba37488d99279652f4123, type: 2}
+      objectReference: {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: DebugMaster.Array.data[0]
       value: 
@@ -7982,11 +7982,11 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[10]
       value: 
-      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+      objectReference: {fileID: 11400000, guid: b219a1ad426ba37488d99279652f4123, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[11]
       value: 
-      objectReference: {fileID: 11400000, guid: 2d46760cca5f82f4f891a705b17d354a, type: 2}
+      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[12]
       value: 
@@ -8701,7 +8701,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 0
+  clientTileOwner: 0
   across: {fileID: 0}
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
@@ -10214,7 +10214,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 0
+  clientTileOwner: 0
   across: {fileID: 0}
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}
@@ -12060,7 +12060,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 1
+  clientTileOwner: 1
   across: {fileID: 0}
 --- !u!114 &7881014250334252995
 MonoBehaviour:
@@ -12386,7 +12386,7 @@ MonoBehaviour:
   row: 0
   column: 0
   playerSide: 0
-  tileOwner: 1
+  clientTileOwner: 1
   across: {fileID: 0}
   creatureVisual: {fileID: 0}
   buildingVisual: {fileID: 0}

@@ -453,8 +453,9 @@ namespace CardScripts.CardMovements
 
         /// <summary>
         /// Get the logical tile based on logical position (logical pos is the same between clients)
+        /// Logical Position = row, col, player-side, these are class variables in CardMovement.
         /// </summary>
-        public Tile GetLogicalTile()
+        public Tile GetLogicalTile() // todo maybe have this function take row, col, and p as parameters
         {
             if (TileManager.Instance != null)
             {
@@ -465,6 +466,28 @@ namespace CardScripts.CardMovements
             
             Debug.LogError("TileManager Instance is null");
             return null;
+        }
+
+        /// <summary>
+        /// Call to get the correct tile when in running in client
+        /// Like Get logical tile, expect this one is called from a client, like in ValidPlacement()
+        /// </summary>
+        /// <returns></returns>
+        protected Tile GetServerTileForClient(Tile midTile)
+        {
+            Tile logTile = null;
+            
+            // if client is validating, check the other side since server saves client side placements on the other side
+            if (logicalPlayerSide == 1)
+            {
+                logTile = midTile.across.GetComponent<Tile>(); // return across
+            }
+            else
+            {
+                logTile = midTile; // just return the tile you passed
+            }
+            
+            return logTile;
         }
     }
 }

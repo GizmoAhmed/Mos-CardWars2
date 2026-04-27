@@ -25,19 +25,21 @@ namespace CardScripts.CardMovements
                 if (castType != CastAbilitySO.CastRequirementType.Free)
                 {
                     // Check if side matches requirement
-                    if (castAbility.yourSide != tile.tileOwner)
+                    if (castAbility.yourSide != tile.clientTileOwner)
                     {
                         Debug.LogWarning($"Can't place {gameObject.name} on this side");
                         return false; // Wrong side!
                     }
                 }
+                
+                Tile logTile = GetServerTileForClient(tile);
 
                 // Check placement based on cast requirement
-                bool meetsRequirement = CheckCastRequirement(tile, castType);
+                bool meetsRequirement = CheckCastRequirement(logTile, castType);
 
                 if (!meetsRequirement)
                 {
-                    // Debug.LogWarning($"{gameObject.name} cast invalid: requires {castType}");
+                    Debug.LogWarning($"{gameObject.name} cast invalid: requires {castType}");
                     return false;
                 }
                 
@@ -106,9 +108,17 @@ namespace CardScripts.CardMovements
         {
             // base.CmdPlaceCardOnTile(Tile);
             
+            Tile tileScript = tile.GetComponent<Tile>();
+
+            // set these rq so we use GetLogical tile to get the correct tile on the server
+            logicalRow = logicalPlayerSide; // tileScript.row; 
+            logicalColumn = tileScript.column;
+
+            GameObject logTile = GetLogicalTile().gameObject;
+            
             AbilityEventData spellData = new AbilityEventData(
                 AbilityEventType.AnySpellCasted,
-                tile); // pass Tile as cardToBeEffected, some spells will use it, some won't
+                logTile); // pass Tile as cardToBeEffected, some spells will use it, some won't
 
             cardStats.cardData.ability.ExecuteAbility(gameObject, spellData); // use the spell...
             

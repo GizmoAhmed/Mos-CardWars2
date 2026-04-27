@@ -53,7 +53,7 @@ namespace Tiles
 
                 // PlayerSide will be set by game manager or network spawn
                 // For now, you can determine it from tileOwner
-                playerSide = tileOwner ? 0 : 1;
+                playerSide = clientTileOwner ? 0 : 1;
             }
         }
 

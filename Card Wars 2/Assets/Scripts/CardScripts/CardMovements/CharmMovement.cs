@@ -19,7 +19,7 @@ namespace CardScripts.CardMovements
                 return false;
 
             // return true if one of your own tile, the close ones
-            return charmTile.tileOwner;
+            return charmTile.clientTileOwner;
         }
 
         [Command]

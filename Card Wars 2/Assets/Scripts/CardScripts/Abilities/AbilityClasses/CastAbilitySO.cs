@@ -30,7 +30,7 @@ namespace CardScripts.Abilities.AbilityClasses
         // deeper specification for a spell that can't be captured with the above cast requirements. Ie creature needs be a of a certain element or player needs to have x soul left over
         public virtual bool SpecificSpellPlacementConditions(Tile Tile)
         {
-            return true; // by default, true just means it has not conditions
+            return true; // by default, returning true here just means it has not conditions
         }
     }
 }

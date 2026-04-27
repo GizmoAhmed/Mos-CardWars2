@@ -19,10 +19,7 @@ namespace CardScripts.CardMovements
             if (!(tile is MiddleTile localMidTile)) // has to be middle tile
                 return false;
 
-            MiddleTile logTile = null;
-
-            // if client is validating, check the other side since server saves client side placements on the other side
-            logTile = logicalPlayerSide == 1 ? localMidTile.across.GetComponent<MiddleTile>() : localMidTile;
+            MiddleTile logTile = GetServerTileForClient(localMidTile) as MiddleTile;
 
             if (!logTile.logicalCreature)
                 return false; // there's no creature on this middleTile? nope, can't place here
@@ -32,7 +29,7 @@ namespace CardScripts.CardMovements
             // get rune slot to see if can be runed
             RuneSlots runeSlot = creature.transform.GetComponentInChildren<RuneSlots>();
 
-            return localMidTile.tileOwner &&
+            return localMidTile.clientTileOwner &&
                    logTile.logicalCreature != null &&
                    (runeSlot.CanBeRuned); // return true if the middleTile has a creature on it and creature can be runed
         }
