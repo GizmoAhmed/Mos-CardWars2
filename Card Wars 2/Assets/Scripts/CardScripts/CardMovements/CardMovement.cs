@@ -423,7 +423,7 @@ namespace CardScripts.CardMovements
         [Server]
         private void ClearLogicalPositionServer()
         {
-            // Clear tile's reference to this card (creature and building, not rune, tile don't care about them)
+            // Clear tile's reference to this card (creature and building, not rune, tile don't care about runes)
             // a rune's tile is actually a creature if you think about it
             Tile logicalTile = GetLogicalTile();
 

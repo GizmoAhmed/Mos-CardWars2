@@ -33,14 +33,14 @@ namespace Tiles
                 // Player 1's charm zone
                 row = -1;        // Special value: not in grid
                 column = -1;     // Special value: charm zone
-                playerSide = 0;  // Player 1
+                serverPlayerSide = 0;  // Player 1
             }
             else if (myName == "SpellGroup2")
             {
                 // Player 2's charm zone
                 row = -1;        // Special value: not in grid
                 column = -1;     // Special value: charm zone
-                playerSide = 1;  // Player 2
+                serverPlayerSide = 1;  // Player 2
             }
             else
             {

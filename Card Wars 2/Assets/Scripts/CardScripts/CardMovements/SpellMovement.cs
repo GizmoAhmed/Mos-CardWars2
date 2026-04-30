@@ -11,120 +11,139 @@ namespace CardScripts.CardMovements
     {
         protected override bool ValidPlacement(Tile tile)
         {
-            // If can't pass global checks, abort
+            // Global checks
             if (!base.ValidPlacement(tile))
                 return false;
 
-            // Check if the ability is a CastAbilitySO (which it should) and get the cast requirement
-            // todo also get the cast condition in here, ie if creature is of element, buff XYZ
-            if (cardStats.cardData.ability is CastAbilitySO castAbility)
+            // Type check
+            if (!(cardStats.cardData.ability is CastAbilitySO castAbility))
             {
-                CastAbilitySO.CastRequirementType castType = castAbility.castRequirementType;
-
-                // Free cast ignores side restrictions
-                if (castType != CastAbilitySO.CastRequirementType.Free)
-                {
-                    // Check if side matches requirement
-                    if (castAbility.yourSide != tile.clientTileOwner)
-                    {
-                        Debug.LogWarning($"Can't place {gameObject.name} on this side");
-                        return false; // Wrong side!
-                    }
-                }
-                
-                Tile logTile = GetServerTileForClient(tile);
-
-                // Check placement based on cast requirement
-                bool meetsRequirement = CheckCastRequirement(logTile, castType);
-
-                if (!meetsRequirement)
-                {
-                    Debug.LogWarning($"{gameObject.name} cast invalid: requires {castType}");
-                    return false;
-                }
-                
-                // check more specific spell condition
-                bool specificReqsMet = castAbility.SpecificSpellPlacementConditions(tile);
-                if (!specificReqsMet)
-                {
-                    Debug.LogWarning($"{gameObject.name} wasn't cast under under it's more specific conditions, see castAbility.SpecificSpellPlacementConditions();");
-                    return false;
-                }
-
-                // Check if player has enough magic
-                return cardStats.soulUse <= thisCardOwnerPlayerStats.currentMagic;
+                Debug.LogError($"{cardStats.cardData.cardName} doesn't have a CastAbilitySO!");
+                return false;
             }
 
+            // Check side requirement
+            if (!CheckSideRequirement(tile, castAbility.castSide))
+            {
+                Debug.Log($"Spell ({gameObject.name}) can't be cast on this tile ({tile.gameObject.name}), since it's looking for this side ({castAbility.castSide})");
+                return false;
+            }
 
-            Debug.LogError($"{cardStats.cardData.cardName} doesn't have a CastAbilitySO!");
-            return false;
+            // Get server tile for logical checks
+            Tile serverTile = GetServerTileForClient(tile);
+
+            // Check occupancy requirement
+            if (!CheckCastRequirement(serverTile, castAbility.castRequirementType))
+            {
+                Debug.LogWarning($"{gameObject.name} cast invalid: requires {castAbility.castRequirementType}");
+                return false;
+            }
+
+            // Check spell-specific conditions
+            if (!castAbility.SpecificSpellPlacementConditions(tile))
+            {
+                Debug.LogWarning($"{gameObject.name} doesn't meet specific conditions");
+                return false;
+            }
+
+            // Check magic cost
+            if (cardStats.soulUse > thisCardOwnerPlayerStats.currentMagic)
+            {
+                Debug.Log("Not enough magic to cast spell");
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
-        /// Check if the Tile meets the casting requirement
+        /// Check if the spell can be cast on this side
+        /// </summary>
+        private bool CheckSideRequirement(Tile tile, CastAbilitySO.CastSide side)
+        {
+            switch (side)
+            {
+                case CastAbilitySO.CastSide.Either:
+                    return true;
+
+                case CastAbilitySO.CastSide.Yours:
+                    return tile.clientTileOwner;
+
+                case CastAbilitySO.CastSide.Theirs:
+                    return !tile.clientTileOwner;
+
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Check if the tile meets the casting requirement
         /// </summary>
         private bool CheckCastRequirement(Tile tile, CastAbilitySO.CastRequirementType requirement)
         {
-            if (requirement == CastAbilitySO.CastRequirementType.Free)
-            {
+            // Anywhere is always valid
+            if (requirement == CastAbilitySO.CastRequirementType.Anywhere)
                 return true;
+
+            // CharmTile specific
+            if (tile is CharmTile charmTile)
+            {
+                return requirement == CastAbilitySO.CastRequirementType.OnCharm
+                       && charmTile.charms.Count > 0;
             }
-            
+
+            // MiddleTile specific
             if (tile is MiddleTile midTile)
             {
                 switch (requirement)
                 {
-                    case CastAbilitySO.CastRequirementType.AnywhereOccupied:
-                        // Tile must have something on it (creature or building)
+                    case CastAbilitySO.CastRequirementType.AnyTileWithCard:
+                    case CastAbilitySO.CastRequirementType.CreatureAndOrBuilding:
                         return midTile.logicalCreature != null || midTile.logicalBuilding != null;
 
                     case CastAbilitySO.CastRequirementType.OnCreature:
-                        // Tile must have a creature
                         return midTile.logicalCreature != null;
 
                     case CastAbilitySO.CastRequirementType.OnBuilding:
-                        // Tile must have a building
                         return midTile.logicalBuilding != null;
-                    case CastAbilitySO.CastRequirementType.CreatureAndOrBuilding:
-                        // Tile has creature and/or building (at least one)
-                        return midTile.logicalCreature != null || midTile.logicalBuilding != null;
+
                     default:
                         Debug.LogWarning($"Unknown cast requirement: {requirement}");
                         return false;
                 }
             }
-            
-            if (tile is CharmTile charmTile)
-            {
-                return charmTile.charms.Count > 0;
-            }
-            
-            Debug.LogError($"Unknown Tile type in CheckCastRequirement() for {gameObject.name}");
+
+            Debug.LogError($"Unknown tile type: {tile.GetType().Name}");
             return false;
         }
 
         [Command]
         protected override void CmdPlaceCardOnTile(GameObject tile)
         {
-            // base.CmdPlaceCardOnTile(Tile);
-            
+            // base.CmdPlaceCardOnTile(tile);
+
             Tile tileScript = tile.GetComponent<Tile>();
 
+            Tile lTile = GetServerTileForClient(tileScript) as Tile;
+
+            Debug.LogWarning($"Client Place on: {tile.name}\nserver says: {lTile.name}");
+
             // set these rq so we use GetLogical tile to get the correct tile on the server
-            logicalRow = logicalPlayerSide; // tileScript.row; 
+            /*logicalRow = logicalPlayerSide; // tileScript.row;
             logicalColumn = tileScript.column;
 
-            GameObject logTile = GetLogicalTile().gameObject;
-            
+            GameObject logTile = GetLogicalTile().gameObject;*/
+
             AbilityEventData spellData = new AbilityEventData(
                 AbilityEventType.AnySpellCasted,
-                logTile); // pass Tile as cardToBeEffected, some spells will use it, some won't
+                lTile.gameObject); // pass Tile as cardToBeEffected, some spells will use it, some won't
 
             cardStats.cardData.ability.ExecuteAbility(gameObject, spellData); // use the spell...
-            
+
             GlobalBroadcastCardPlacement(); // ...then tell everyone you used this spell
-            
-            base.ServerDiscard(); // discard on both clients via base call
+
+            base.ServerDiscard(); // discard on both clients via base call todo do spells count as discards for discard listeners??
         }
 
         // broadcast the cast, who knows, there might be a card that listens to this

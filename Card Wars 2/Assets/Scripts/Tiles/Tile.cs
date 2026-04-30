@@ -13,10 +13,10 @@ namespace Tiles
         public int column;
         
         [Tooltip("Which player's side: 0 = Player 1, 1 = Player 2")]
-        public int playerSide; // Will be set based on tileOwner
+        public int serverPlayerSide; // Will be set based on tileOwner
         
-        [Header("Ownership")]
-        [Tooltip("True if this player's side, false if opponent's side")]
+        [Header("Tile Ownership")]
+        [Tooltip("SET IN INSPECTOR: To ask each player if they are placing on their side. True if this player's side, false if opponent's side.\nL1-L4 are all owned (true) for each player.")]
         public bool clientTileOwner;
         
         [Header("Visual Neighbors (for rendering/mirroring)")]
@@ -46,7 +46,7 @@ namespace Tiles
         {
             return row == otherMiddleTile.row &&
                    column == otherMiddleTile.column &&
-                   playerSide == otherMiddleTile.playerSide;
+                   serverPlayerSide == otherMiddleTile.serverPlayerSide;
         }
     }
 }

@@ -56,7 +56,7 @@ namespace GameManagement
                     allTiles.Add(tile);
 
                     // Add to dictionary for fast lookup
-                    var key = (tile.row, tile.column, tile.playerSide);
+                    var key = (tile.row, tile.column, playerSide: tile.serverPlayerSide);
 
                     if (_midTileMap.ContainsKey(key))
                     {
@@ -72,11 +72,11 @@ namespace GameManagement
                 // Handle charm tiles separately
                 else if (tile is CharmTile charmTile)
                 {
-                    if (charmTile.playerSide == 0)
+                    if (charmTile.serverPlayerSide == 0)
                     {
                         player1CharmTile = charmTile;
                     }
-                    else if (charmTile.playerSide == 1)
+                    else if (charmTile.serverPlayerSide == 1)
                     {
                         player2CharmTile = charmTile;
                     }

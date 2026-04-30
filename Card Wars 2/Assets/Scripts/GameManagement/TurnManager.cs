@@ -110,7 +110,7 @@ public class TurnManager : NetworkBehaviour
         
         CheckScore();
 
-        Invoke(nameof(ContinuePlay), 1.5f); // invoked in time for testing the pausing nature of the ActivePhase
+        Invoke(nameof(ContinuePlay), .2f); // invoked in time for testing the pausing nature of the ActivePhase
     }
 
     [Server]
