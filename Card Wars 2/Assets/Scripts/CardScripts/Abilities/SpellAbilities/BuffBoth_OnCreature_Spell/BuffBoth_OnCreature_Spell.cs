@@ -4,7 +4,7 @@ using CardScripts.CardStatss;
 using Tiles;
 using UnityEngine;
 
-namespace CardScripts.Abilities.SpellAbilities.Scripts
+namespace CardScripts.Abilities.SpellAbilities.BuffBoth_OnCreature_Spell
 {
     [CreateAssetMenu(fileName = "BuffBoth_OnCreature_Spell", menuName = "Abilities/Spell/BuffBoth_OnCreature_Spell")]
     public class BuffBoth_OnCreature_Spell : CastAbilitySO

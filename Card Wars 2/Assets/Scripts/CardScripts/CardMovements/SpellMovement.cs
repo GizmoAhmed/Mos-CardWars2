@@ -16,7 +16,7 @@ namespace CardScripts.CardMovements
                 return false;
 
             // Type check
-            if (!(cardStats.cardData.ability is CastAbilitySO castAbility))
+            if (cardStats.cardData.ability is not CastAbilitySO castAbility)
             {
                 Debug.LogError($"{cardStats.cardData.cardName} doesn't have a CastAbilitySO!");
                 return false;
@@ -25,7 +25,7 @@ namespace CardScripts.CardMovements
             // Check side requirement
             if (!CheckSideRequirement(tile, castAbility.castSide))
             {
-                Debug.Log($"Spell ({gameObject.name}) can't be cast on this tile ({tile.gameObject.name}), since it's looking for this side ({castAbility.castSide})");
+                Debug.LogWarning($"Spell ({gameObject.name}) can't be cast on this tile ({tile.gameObject.name}), since it's looking for this side ({castAbility.castSide})");
                 return false;
             }
 

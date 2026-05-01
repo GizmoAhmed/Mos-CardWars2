@@ -371,12 +371,14 @@ namespace CardScripts.CardMovements
             if (cardsPlayer != null &&
                 cardsPlayer.myTurn == false)
             {
+                Debug.LogWarning($"Not Player {cardsPlayer.name}'s turn");
                 return false;
             }
 
             // if player has negative soulUse and this card cost something, can't place
             if (cardStats.soulUse > 0 & thisCardOwnerPlayerStats.currentMagic <= 0)
             {
+                Debug.LogWarning($"Not enough soul ({thisCardOwnerPlayerStats.currentMagic}) to place this card ({gameObject.name} [Soul Use = {cardStats.soulUse}])");
                 return false;
             }
 
