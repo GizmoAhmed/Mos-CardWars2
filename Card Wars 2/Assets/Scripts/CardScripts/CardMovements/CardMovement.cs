@@ -53,6 +53,8 @@ namespace CardScripts.CardMovements
         private Vector3 _startPos;
         private GameObject _newDropZone;
 
+        private Tile _hoveredTile;
+
         private bool _outsideDrawModal; // for previewed cards
 
         private Transform _dragLayer;
@@ -92,7 +94,7 @@ namespace CardScripts.CardMovements
         public void SetOwningPlayer(PlayerStats stats)
         {
             thisCardOwnerPlayerStats = stats;
-            
+
             // set logical side to whoever placed the card
             Player thisPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();
             logicalPlayerSide = thisPlayer.playerSide;
@@ -129,6 +131,9 @@ namespace CardScripts.CardMovements
             _canvasGroup.blocksRaycasts = false; // allow dragging through raycast
 
             _cardInfoHandler.CloseAnyOpenInfo();
+
+            // tell card manager that this card is being dragged
+            CardDragManager.Instance?.RegisterDraggedCard(this);
         }
 
         public void EndDrag()
@@ -138,6 +143,8 @@ namespace CardScripts.CardMovements
             _grabbed = false;
             _canvasGroup.blocksRaycasts = true;
 
+            // tell drag manager this card isn't being dragged anymore
+            CardDragManager.Instance?.UnregisterDraggedCard(this);
 
             if (cardState == CardState.Preview && _outsideDrawModal)
             {
@@ -154,6 +161,48 @@ namespace CardScripts.CardMovements
             else
             {
                 StartCoroutine(SnapBackToHand());
+            }
+
+            // Clear hovered tile
+            _hoveredTile = null;
+        }
+
+        /// <summary>
+        /// Called by TileHoverDetector when mouse enters tile
+        /// </summary>
+        public void OnTileHoverEnter(Tile tile)
+        {
+            _hoveredTile = tile;
+
+            // Validate ONCE when entering
+            if (ValidPlacement(tile))
+            {
+                _newDropZone = tile.gameObject;
+
+                // Optional: Visual feedback
+                // tile.ShowValidPlacementIndicator();
+            }
+            else
+            {
+                _newDropZone = null;
+
+                // Optional: Visual feedback
+                // tile.ShowInvalidPlacementIndicator();
+            }
+        }
+
+        /// <summary>
+        /// Called by TileHoverDetector when mouse exits tile
+        /// </summary>
+        public void OnTileHoverExit(Tile tile)
+        {
+            if (_hoveredTile == tile)
+            {
+                _hoveredTile = null;
+                _newDropZone = null;
+
+                // Optional: Visual feedback
+                // tile.HidePlacementIndicator();
             }
         }
 
@@ -286,26 +335,15 @@ namespace CardScripts.CardMovements
                 Vector2 mousePos = Input.mousePosition;
                 transform.position = Vector3.Lerp(transform.position, mousePos, Time.deltaTime * 12f);
 
+                // Handle preview card logic (not over tiles)
                 if (cardState == CardState.Preview)
                 {
                     DrawModal? drawModal = GetUIElementUnderPointer<DrawModal>();
-
-                    if (drawModal != null)
-                    {
-                        // Debug.LogWarning($"{gameObject.name} is above {drawModal}");
-                        _outsideDrawModal = false;
-                    }
-                    else
-                    {
-                        // Debug.Log($"{gameObject.name} is not above the draw modal");
-                        _outsideDrawModal = true;
-                    }
-
-                    return;
+                    _outsideDrawModal = (drawModal == null);
                 }
 
                 // Get the land under the mouse, no need for colliders anymore
-                Tile landComponent = GetUIElementUnderPointer<Tile>();
+                /*Tile landComponent = GetUIElementUnderPointer<Tile>();
 
                 // Only assign if it's a valid place for this card
                 if (landComponent != null && ValidPlacement(landComponent))
@@ -315,7 +353,7 @@ namespace CardScripts.CardMovements
                 else
                 {
                     _newDropZone = null; // snap back if invalid
-                }
+                }*/
             }
         }
 
@@ -395,10 +433,10 @@ namespace CardScripts.CardMovements
                 PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
                 if (listen != null) listen.UnsubscribeThisCardFromListening();
             }
-            
+
             // set state to discard
             cardState = CardState.Discard;
-            
+
             // resets stats to base
             cardStats.ApplyStatsFromData();
 
@@ -419,7 +457,7 @@ namespace CardScripts.CardMovements
             // visually move cards 
             thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);
         }
-        
+
         [Server]
         private void ClearLogicalPositionServer()
         {
@@ -463,7 +501,7 @@ namespace CardScripts.CardMovements
 
                 return thisCardsTile;
             }
-            
+
             Debug.LogError("TileManager Instance is null");
             return null;
         }
@@ -476,7 +514,7 @@ namespace CardScripts.CardMovements
         protected Tile GetServerTileForClient(Tile midTile)
         {
             Tile logTile = null;
-            
+
             // if client is validating, check the other side since server saves client side placements on the other side
             if (logicalPlayerSide == 1)
             {
@@ -486,7 +524,7 @@ namespace CardScripts.CardMovements
             {
                 logTile = midTile; // just return the tile you passed
             }
-            
+
             return logTile;
         }
     }
