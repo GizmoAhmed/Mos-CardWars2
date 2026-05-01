@@ -17,4 +17,4 @@ MonoBehaviour:
   magic: 1
   abilityDescription: Deal X Damage to a creature
   burnCost: 2
-  ability: {fileID: 11400000, guid: 08dfe314ad5e9bd4a8a360bee87b27d8, type: 2}
+  ability: {fileID: 11400000, guid: c9be021ad91651d4ab1aaf1fc216c233, type: 2}

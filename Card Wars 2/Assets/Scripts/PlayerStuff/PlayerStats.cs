@@ -22,8 +22,8 @@ namespace PlayerStuff
         [SyncVar(hook = nameof(MaxMagicUpdate))]
         public int maxMagic;
 
-        [Header("Money")] [SyncVar(hook = nameof(MoneyUpdate))]
-        public int money;
+        [Header("Shards")] [SyncVar(hook = nameof(ShardsUpdate))]
+        public int shards;
 
         [Header("Score")] [SyncVar(hook = nameof(PlayerScoreStatUpdate))]
         public int playerTotalScore;
@@ -59,9 +59,9 @@ namespace PlayerStuff
         [Command]
         public void CmdUpgradeMagic()
         {
-            if (money >= upgradeCost)
+            if (shards >= upgradeCost)
             {
-                money -= upgradeCost;
+                shards -= upgradeCost;
                 maxMagic += 1;
                 currentMagic += 1;
                 upgradeCost += 1;
@@ -73,9 +73,9 @@ namespace PlayerStuff
         {
             CardStats cardStats = cardToBurn.GetComponent<CardStats>();
 
-            if (money >= cardStats.burnCost) // enough money to burn, then burn
+            if (shards >= cardStats.burnCost) // enough money to burn, then burn
             {
-                money -= cardStats.burnCost; // spend to burn
+                shards -= cardStats.burnCost; // spend to burn
 
                 CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
 
@@ -95,9 +95,9 @@ namespace PlayerStuff
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
             int cost = creatureStats.abilityCost;
 
-            if (money >= cost)
+            if (shards >= cost)
             {
-                money -= cost;
+                shards -= cost;
                 Debug.Log($"...Spending shards ({cost}) to activate {creatureToActivate.name} ability");
 
                 try
@@ -112,7 +112,7 @@ namespace PlayerStuff
             }
             else
             {
-                Debug.LogWarning($"...Insufficient shards ({money}) to activate {creatureToActivate.name} ({cost})");
+                Debug.LogWarning($"...Insufficient shards ({shards}) to activate {creatureToActivate.name} ({cost})");
             }
         }
 
@@ -161,14 +161,14 @@ namespace PlayerStuff
 
             int drawCost = choice * 2 + offer;
 
-            if (money < drawCost)
+            if (shards < drawCost)
             {
                 Debug.LogWarning(
-                    $"{gameObject.name} tried a paid draw ({drawCost}) with insufficient shards ({money})");
+                    $"{gameObject.name} tried a paid draw ({drawCost}) with insufficient shards ({shards})");
                 return;
             }
 
-            money -= drawCost;
+            shards -= drawCost;
 
             TargetOfferCardsOnModal(connectionToClient, choice, offer);
         }
@@ -213,7 +213,7 @@ namespace PlayerStuff
             ui.MagicUIUpdate(newMagic, current_max: false);
         }
 
-        public void MoneyUpdate(int oldMoney, int newMoney)
+        public void ShardsUpdate(int oldMoney, int newMoney)
         {
             ui.MoneyUIUpdate(newMoney);
         }

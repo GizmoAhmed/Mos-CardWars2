@@ -186,8 +186,8 @@ namespace GameManagement
             _stats1.currentMagic = _stats1.maxMagic = maxMagic + 2;
             _stats2.currentMagic = _stats2.maxMagic = maxMagic;
 
-            _stats1.money = money;
-            _stats2.money = money + 1;
+            _stats1.shards = money;
+            _stats2.shards = money + 1;
 
             _stats1.health = health;
             _stats2.health = health;
