@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BuffOnCast
   m_EditorClassIdentifier: 
   castRequirementType: 2
-  yourSide: 1
+  castSide: 1
   baseStrengthBuffAmount: 2
   baseDefenseBuffAmount: 2

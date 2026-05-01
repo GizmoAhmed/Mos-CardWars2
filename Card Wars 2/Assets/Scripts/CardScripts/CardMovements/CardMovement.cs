@@ -423,12 +423,13 @@ namespace CardScripts.CardMovements
         [Server]
         public virtual void ServerDiscard()
         {
-            // if on a tile, detach from that tile
-            if (cardState == CardState.Field) DetachFromTile();
+            if (cardState == CardState.Field) 
 
             // bother unsubscribing if you are on field (as opposed to hand and preview)
             if (cardState == CardState.Field)
             {
+                DetachFromTile(); // if on a tile, detach from that tile
+                
                 // if listener found, card is passive, unsubscribe its ability
                 PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
                 if (listen != null) listen.UnsubscribeThisCardFromListening();

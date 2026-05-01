@@ -127,14 +127,6 @@ namespace CardScripts.CardMovements
 
             Tile lTile = GetServerTileForClient(tileScript) as Tile;
 
-            Debug.LogWarning($"Client Place on: {tile.name}\nserver says: {lTile.name}");
-
-            // set these rq so we use GetLogical tile to get the correct tile on the server
-            /*logicalRow = logicalPlayerSide; // tileScript.row;
-            logicalColumn = tileScript.column;
-
-            GameObject logTile = GetLogicalTile().gameObject;*/
-
             AbilityEventData spellData = new AbilityEventData(
                 AbilityEventType.AnySpellCasted,
                 lTile.gameObject); // pass Tile as cardToBeEffected, some spells will use it, some won't

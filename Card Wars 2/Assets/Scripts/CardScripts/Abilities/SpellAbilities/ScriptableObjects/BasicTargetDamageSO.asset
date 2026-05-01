@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: BasicTargetDamageSO
   m_EditorClassIdentifier: 
   castRequirementType: 2
-  yourSide: 1
-  castSide: 2
-  damage: 2
+  castSide: 0
+  damage: 3

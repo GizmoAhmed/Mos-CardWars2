@@ -93,7 +93,7 @@ namespace AbilityEvents
             AbilityEventData statData = new AbilityEventData(
                 AbilityEventType.DebuffCreatureStrengthOnTile,
                 nerfCreature,
-                amount);
+                -amount); // negative
             
             TriggerTileEvent(statData);
         }
@@ -115,7 +115,7 @@ namespace AbilityEvents
             AbilityEventData statData = new AbilityEventData(
                 AbilityEventType.DebuffCreatureDefenseOnTile,
                 nerfCreature,
-                amount);
+                -amount); // make negative since nerf 
             
             TriggerTileEvent(statData);
         }

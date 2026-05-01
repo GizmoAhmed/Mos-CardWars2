@@ -7841,7 +7841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.size
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: p0Deck.Array.data[10]
@@ -7966,7 +7966,7 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[8]
       value: 
-      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+      objectReference: {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[9]
       value: 
@@ -11140,8 +11140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   port: 7777
   NoDelay: 1
-  SendTimeout: 5000
-  ReceiveTimeout: 30000
+  SendTimeout: 300000
+  ReceiveTimeout: 300000
   serverMaxMessageSize: 16384
   serverMaxReceivesPerTick: 10000
   serverSendQueueLimitPerConnection: 10000

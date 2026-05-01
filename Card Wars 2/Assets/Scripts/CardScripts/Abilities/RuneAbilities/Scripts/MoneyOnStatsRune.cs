@@ -10,7 +10,7 @@ namespace CardScripts.Abilities.RuneAbilities.Scripts
     {
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            if (eventData.Value <= 0)
+            if (eventData.Value == 0)
             {
                 Debug.LogWarning($"{thisCard.name} was sent an unusable stat change value to use. Value received ({eventData.Value}).");
                 return;
@@ -22,8 +22,9 @@ namespace CardScripts.Abilities.RuneAbilities.Scripts
             
             PlayerStats playerStats = runedCreature.GetComponent<CreatureMovement>().thisCardOwnerPlayerStats;
             
-            // todo what does losing stats look like?
-            playerStats.money += eventData.Value; // give player money equal to stat gain
+            // nerf passes negative values here, buff passes positive
+            playerStats.money += eventData.Value; 
+            
         }
         
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
