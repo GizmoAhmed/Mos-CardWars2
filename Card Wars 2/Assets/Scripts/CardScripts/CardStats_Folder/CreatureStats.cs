@@ -120,10 +120,23 @@ namespace CardScripts.CardStatss
             }
             else
             {
-                defense -= amount;
-
-                GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, amount);
-                tileEventManager.OnNerfCreatureDefenseOnTile(gameObject, amount);
+                if (defense - amount <= 0)
+                {
+                    // broadcast left over defense instead of amount
+                    GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, defense);
+                    tileEventManager.OnNerfCreatureDefenseOnTile(gameObject, defense);
+                    
+                    // unbinds runes as well btw, so all the broadcast stuff should happen before
+                    // todo i know for a fact I'll be back here when I have discard listeners
+                    GetComponent<CreatureMovement>().ServerDiscard(); 
+                }
+                else
+                {
+                    defense -= amount;
+                    
+                    GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, amount);
+                    tileEventManager.OnNerfCreatureDefenseOnTile(gameObject, amount);
+                }
             }
 
             score = strength + defense;

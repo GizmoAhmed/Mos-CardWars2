@@ -178,16 +178,10 @@ namespace CardScripts.CardMovements
             if (ValidPlacement(tile))
             {
                 _newDropZone = tile.gameObject;
-
-                // Optional: Visual feedback
-                // tile.ShowValidPlacementIndicator();
             }
             else
             {
                 _newDropZone = null;
-
-                // Optional: Visual feedback
-                // tile.ShowInvalidPlacementIndicator();
             }
         }
 
@@ -425,8 +419,6 @@ namespace CardScripts.CardMovements
         [Server]
         public virtual void ServerDiscard()
         {
-            if (cardState == CardState.Field) 
-
             // bother unsubscribing if you are on field (as opposed to hand and preview)
             if (cardState == CardState.Field)
             {
@@ -440,7 +432,7 @@ namespace CardScripts.CardMovements
             // set state to discard
             cardState = CardState.Discard;
 
-            // resets stats to base
+            // resets stats to base, to show on discard board
             cardStats.ApplyStatsFromData();
 
             // visually move card to discard board for each respective client
@@ -496,7 +488,7 @@ namespace CardScripts.CardMovements
         /// Get the logical tile based on logical position (logical pos is the same between clients)
         /// Logical Position = row, col, player-side, these are class variables in CardMovement.
         /// </summary>
-        public Tile GetLogicalTile() // todo maybe have this function take row, col, and p as parameters
+        public Tile GetLogicalTile() // maybe have this function take row, col, and p as parameters
         {
             if (TileManager.Instance != null)
             {

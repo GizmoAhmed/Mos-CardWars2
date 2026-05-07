@@ -91,7 +91,10 @@ namespace CardScripts.CardMovements
         public override void ServerDiscard()
         {
             // if being discarded from the field, returning magic
-            if (cardState == CardState.Field) ReturnMagicAndScore();
+            if (cardState == CardState.Field)
+            {
+                ReturnMagicAndScore();
+            }
             
             // remove all runes
             GetComponentInChildren<RuneSlots>().UnbindAllRunes();

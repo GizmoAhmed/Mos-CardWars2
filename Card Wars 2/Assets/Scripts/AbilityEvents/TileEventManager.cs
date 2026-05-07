@@ -45,8 +45,6 @@ namespace AbilityEvents
                 List<Action<AbilityEventData>> callbacks = 
                     new List<Action<AbilityEventData>>(_localListeners[eventData.EventType]);
                 
-                // Debug.Log($"Tile [{_Tile.playerSide}][{_Tile.row},{_Tile.column}]: Triggering {eventData.EventType} for {callbacks.Count} local listeners");
-                
                 foreach (var callback in callbacks)
                 {
                     callback?.Invoke(eventData);

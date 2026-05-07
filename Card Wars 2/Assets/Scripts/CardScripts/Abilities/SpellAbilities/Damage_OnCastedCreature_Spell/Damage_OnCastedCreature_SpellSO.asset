@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castRequirementType: 2
   castSide: 0
-  damage: 3
+  damage: 4
