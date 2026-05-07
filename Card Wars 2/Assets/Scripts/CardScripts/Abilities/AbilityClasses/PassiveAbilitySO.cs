@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using AbilityEvents;
+using Tiles;
 using UnityEngine;
 
 namespace CardScripts.Abilities
@@ -25,6 +27,31 @@ namespace CardScripts.Abilities
         public virtual void UndoExecution(GameObject thisCard, AbilityEventData eventData)
         {
             Debug.LogWarning($"Called base.UndoExecution on {name} when should be using child override");
+        }
+        
+        /// <summary>
+        /// Some abilities pass the event_data.custom_data dictionary that holds the tile it was activated on
+        /// This function returns the creature on that tile.
+        /// </summary>
+        /// <param name="eventData"></param>
+        /// <returns>Creature Game object on tile in event_data.custom_data</returns>
+        protected GameObject GetCreatureObjFromEventDataTile(AbilityEventData eventData)
+        {
+            MiddleTile tile = eventData.CustomData.Values.First() as MiddleTile;
+
+            if (tile == null)
+            {
+                Debug.LogError($"Tile passed to {name} is null");
+                return null;
+            }
+            
+            if (tile.logicalCreature != null)
+            {
+                return tile.logicalCreature;
+            }
+            
+            Debug.LogError($"Tile ({tile}) passed to {name} doesn't have a creature on it for some reason");
+            return null;
         }
     }
 }

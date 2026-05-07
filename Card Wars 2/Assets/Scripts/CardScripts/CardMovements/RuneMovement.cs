@@ -10,6 +10,8 @@ namespace CardScripts.CardMovements
 {
     public class RuneMovement : CardMovement
     {
+        [SyncVar] public GameObject creatureBoundTo;
+        
         protected override bool ValidPlacement(Tile tile)
         {
             // if can't get passed global checks, abort
@@ -72,6 +74,8 @@ namespace CardScripts.CardMovements
             RuneSlots runeSlot = creatureOnTile.transform.GetComponentInChildren<RuneSlots>();
 
             runeSlot.BindRune(gameObject);
+            
+            creatureBoundTo = creatureOnTile;
         }
     }
 }

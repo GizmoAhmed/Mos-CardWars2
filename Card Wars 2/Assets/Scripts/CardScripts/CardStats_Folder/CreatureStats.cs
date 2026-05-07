@@ -26,11 +26,17 @@ namespace CardScripts.CardStatss
         [SyncVar(hook = nameof(UpdateAbilityCost))]
         public int abilityCost;
         
+        [SyncVar(hook = nameof(ToggleBurnability))] public bool canBeBurned = true;
+        [SyncVar] public bool immortal = false;
+        
         public override void InitializeCard()
         {
             creatureDisplay = GetComponent<CreatureDisplay>();
             
             base.InitializeCard();
+
+            canBeBurned = true;
+            immortal = false;
 
             creatureDisplay.InitDisplayWithData(this);
 
@@ -195,6 +201,11 @@ namespace CardScripts.CardStatss
         public void UpdateScore(int oldScore, int newScore)
         {
             creatureDisplay.UpdateCardUI_Score(newScore);
+        }
+
+        public void ToggleBurnability(bool oldValue, bool newValue)
+        {
+            int x = 9;
         }
     }
 }

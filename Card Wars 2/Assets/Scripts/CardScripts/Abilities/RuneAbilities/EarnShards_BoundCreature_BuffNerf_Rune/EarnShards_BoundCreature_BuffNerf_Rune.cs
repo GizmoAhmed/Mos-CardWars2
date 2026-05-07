@@ -16,8 +16,6 @@ namespace CardScripts.Abilities.RuneAbilities.Scripts
                 return;
             }
             
-            // Debug.Log($"{thisCard.name} was triggered via {eventData.EventType}, greed-ing ({eventData.Value}) on {eventData.CardToBeAffected}...");
-
             GameObject runedCreature = eventData.CardToBeAffected;
             
             PlayerStats playerStats = runedCreature.GetComponent<CreatureMovement>().thisCardOwnerPlayerStats;

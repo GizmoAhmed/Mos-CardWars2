@@ -82,7 +82,12 @@ namespace CardScripts
             foreach (Transform rune in transform)
             {
                 RuneMovement runeMove = rune.GetComponent<RuneMovement>();
-                runeMove.ServerDiscard();
+                
+                // this calls OnPlace Abilities execute, which needs below to still be not null, hence this order
+                runeMove.ServerDiscard(); 
+                
+                // can confidently do this since these runes are actually all bound to something
+                runeMove.creatureBoundTo = null;
                 
                 // they are still hidden from the initial bind, activate them so they show up on discard board
                 RpcShowRune(rune.gameObject);
