@@ -128,7 +128,7 @@ namespace CardScripts.CardStatss
             }
             else
             {
-                if (defense - amount <= 0)
+                if (defense - amount <= 0 && !immortal) // and can die
                 {
                     // broadcast left over defense instead of amount
                     GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, defense);
@@ -138,7 +138,7 @@ namespace CardScripts.CardStatss
                     // todo i know for a fact I'll be back here when I have discard listeners
                     GetComponent<CreatureMovement>().ServerDiscard(); 
                 }
-                else
+                else // either not dead, or immortal
                 {
                     defense -= amount;
                     

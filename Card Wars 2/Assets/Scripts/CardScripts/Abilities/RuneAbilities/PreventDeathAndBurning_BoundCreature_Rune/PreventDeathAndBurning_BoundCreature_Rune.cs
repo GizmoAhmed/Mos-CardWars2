@@ -37,6 +37,8 @@ namespace CardScripts.Abilities.RuneAbilities.PreventDeathAndBurning_BoundCreatu
             // goes back to being killable and burnable
             boundCreature.canBeBurned = true;
             boundCreature.immortal = false;
+            
+            // todo check if dead, if sloth is removed and defense is negative, the creature should just die
 
            // Debug.Log($"<color=blue>Sloth DE-immortalizing {thisCard}</color>");
         }
