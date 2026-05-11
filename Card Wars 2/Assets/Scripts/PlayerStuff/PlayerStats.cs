@@ -73,7 +73,7 @@ namespace PlayerStuff
         {
             CardStats cardStats = cardToBurn.GetComponent<CardStats>();
 
-            if (shards >= cardStats.burnCost) // enough money to burn, then burn
+            if (shards >= cardStats.burnCost && cardStats.canBeBurned) // enough money to burn and can be burned? then burn
             {
                 shards -= cardStats.burnCost; // spend to burn
 
@@ -83,7 +83,7 @@ namespace PlayerStuff
             }
             else
             {
-                Debug.LogWarning($"Insufficient funds to burn {cardStats.gameObject.name}");
+                Debug.LogWarning($"{cardStats.gameObject.name} can't be burned because of either insufficient funds ({shards}), or burning being blocked for this creature via spell or rune or something");
             }
         }
 

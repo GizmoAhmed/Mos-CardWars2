@@ -26,7 +26,9 @@ namespace CardScripts.CardStatss
         [SyncVar(hook = nameof(UpdateAbilityCost))]
         public int abilityCost;
         
-        [SyncVar(hook = nameof(ToggleBurnability))] public bool canBeBurned = true;
+        /// <summary>
+        /// If immortal, creature can't be killed and their defense can go negative as a result
+        /// </summary>
         [SyncVar] public bool immortal = false;
         
         public override void InitializeCard()
@@ -203,9 +205,6 @@ namespace CardScripts.CardStatss
             creatureDisplay.UpdateCardUI_Score(newScore);
         }
 
-        public void ToggleBurnability(bool oldValue, bool newValue)
-        {
-            int x = 9;
-        }
+        
     }
 }

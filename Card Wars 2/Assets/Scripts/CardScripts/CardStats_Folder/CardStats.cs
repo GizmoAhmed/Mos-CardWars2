@@ -26,6 +26,8 @@ namespace CardScripts.CardStats_Folder
 
         [SyncVar(hook = nameof(UpdateBurnCost))]
         public int burnCost = 2;
+        
+        [SyncVar(hook = nameof(ToggleBurnability))] public bool canBeBurned = true;
 
         public void SetCardData(CardDataSO data)
         {
@@ -142,6 +144,11 @@ namespace CardScripts.CardStats_Folder
         public void UpdateBurnCost(int oldCost, int newCost)
         {
             _display.UpdateUI_BurnCost(newCost);
+        }
+        
+        public void ToggleBurnability(bool oldValue, bool newValue)
+        {
+            int x = 9;
         }
     }
 }
