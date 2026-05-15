@@ -101,8 +101,16 @@ namespace CardScripts.CardStatss
             }
             else
             {
-                strength -= amount;
-
+                if (strength - amount < 0) // so doesn't go negative
+                {
+                    amount = strength;
+                    strength = 0; 
+                }
+                else
+                {
+                    strength -= amount;
+                }
+                
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureStrengthNerfed(gameObject, amount);
                 tileEventManager.OnNerfCreatureStrengthOnTile(gameObject, amount);
             }

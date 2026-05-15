@@ -33,7 +33,7 @@ namespace CardScripts.Abilities.SpellAbilities.Scripts
             if (castRequirementType != CastRequirementType.OnCreature)
             {
                 Debug.LogError($"{name} should have cast type {CastRequirementType.OnCreature}");
-            }
+            } 
         }
     }
 }
