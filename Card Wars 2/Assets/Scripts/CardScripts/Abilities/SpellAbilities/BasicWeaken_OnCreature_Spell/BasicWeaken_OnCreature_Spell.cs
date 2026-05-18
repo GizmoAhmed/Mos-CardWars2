@@ -13,15 +13,11 @@ public class BasicWeaken_OnCreature_Spell : CastAbilitySO
     
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        MiddleTile middleTile = eventData.CardToBeAffected.GetComponent<MiddleTile>();
-        GameObject creatureOnTile = middleTile.logicalCreature;
+        GameObject creatureOnTile = GetCreatureFromEventData(eventData);
             
         if (creatureOnTile == null)
-        {
-            Debug.LogError($"{name} could not find creature on middleTile {middleTile.gameObject.name}");
-            return;
-        }
-            
+            return; // error message inside above function
+        
         CreatureStats creatureStats = creatureOnTile.GetComponent<CreatureStats>();
             
         // weaken creature

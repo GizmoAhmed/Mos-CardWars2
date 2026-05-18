@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0641979441064c6594eb6bd6999b0967, type: 3}
   m_Name: FairyTonic_Spell
   m_EditorClassIdentifier: 
-  cardName: FAIRY TONIC
+  cardName: Fairy Tonic
   mainImage: {fileID: 21300000, guid: 378f5e422dd2bd743ab1d16ce842301e, type: 3}
   magic: 1
   abilityDescription: Place on creature to give it +1 strength and +1 defense.

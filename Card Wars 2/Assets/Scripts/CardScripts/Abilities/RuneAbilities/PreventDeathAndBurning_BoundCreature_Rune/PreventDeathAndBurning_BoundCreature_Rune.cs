@@ -18,31 +18,41 @@ namespace CardScripts.Abilities.RuneAbilities.PreventDeathAndBurning_BoundCreatu
             // can't be killed and can't be burned
             creatureStats.immortal = true;
             creatureStats.canBeBurned = false;
-
-            // Debug.Log($"<color=blue>Sloth immortalizing {thisCard}</color>");
         }
 
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
         {
             RuneMovement runeMove = thisCard.GetComponent<RuneMovement>();
 
-            CreatureStats boundCreature = runeMove.creatureBoundTo.GetComponent<CreatureStats>();
-            
-            if (boundCreature == null)
+            CreatureStats boundCreatureStats = runeMove.creatureBoundTo.GetComponent<CreatureStats>();
+
+            if (!boundCreatureStats.immortal) // base case to stop stack overflow, todo most likely band-aid solution
+            {
+                // if true, then we can assume undo was already called in a previous discard
+                // this stops the potential stack overflow loop
+                return;
+            }
+
+            if (boundCreatureStats == null)
             {
                 Debug.LogError($"Creature bound by this rune ({thisCard}) was found null");
                 return;
             }
 
             // goes back to being killable and burnable
-            boundCreature.canBeBurned = true;
-            boundCreature.immortal = false;
-            
-            // todo check if dead, if sloth is removed and defense is negative, the creature should just die
+            boundCreatureStats.canBeBurned = true;
+            boundCreatureStats.immortal = false;
 
-           // Debug.Log($"<color=blue>Sloth DE-immortalizing {thisCard}</color>");
+            // todo check if dead, if sloth is removed and defense is negative, the creature should just die
+            if (boundCreatureStats.defense <= 0) // removing sloth of negative defense creature? kill it
+            {
+                // below was* causing stack overflow, since discard would come back to this execute in a loop, since discarding creature discards this rune
+                boundCreatureStats.GetComponent<CreatureMovement>().ServerDiscard();
+
+                // boundCreatureStats.ChangeCreatureDefense(0, false); // this function discards them as well
+            }
         }
-        
+
         public void OnValidate()
         {
             if (!isExecutableOnPlaced)

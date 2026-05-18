@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0641979441064c6594eb6bd6999b0967, type: 3}
-  m_Name: Enfeeble_Spell
+  m_Name: Dispel_Spell
   m_EditorClassIdentifier: 
-  cardName: ENFEEBLE
-  mainImage: {fileID: 21300000, guid: f88c2ab436bb04b4ba5994932505330b, type: 3}
-  magic: 0
-  abilityDescription: Weaken creature -3
+  cardName: DISPEL
+  mainImage: {fileID: 21300000, guid: d2733b903522e0548b160c7f80a10248, type: 3}
+  magic: 1
+  abilityDescription: Remove all runes from creature
   burnCost: 2
-  ability: {fileID: 11400000, guid: a4052b9432ae8ac43ba4701ad12c80f4, type: 2}
+  ability: {fileID: 11400000, guid: 3a006514100222d4ab916b235fe6b2e5, type: 2}

@@ -14,14 +14,10 @@ namespace CardScripts.Abilities.SpellAbilities.BuffBoth_OnCreature_Spell
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            MiddleTile middleTile = eventData.CardToBeAffected.GetComponent<MiddleTile>();
-            GameObject creatureOnTile = middleTile.logicalCreature;
-
+            GameObject creatureOnTile = GetCreatureFromEventData(eventData);
+            
             if (creatureOnTile == null)
-            {
-                Debug.LogError($"Could not find creature on middleTile {middleTile.gameObject.name}");
-                return;
-            }
+                return; // error message inside above function
             
             CreatureStats creatureStats = creatureOnTile.GetComponent<CreatureStats>();
             
