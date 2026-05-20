@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0641979441064c6594eb6bd6999b0967, type: 3}
+  m_Name: Shock_Spell
+  m_EditorClassIdentifier: 
+  cardName: SHOCK
+  mainImage: {fileID: 21300000, guid: f8cc344bcd198c74b9db2ac70bab1f47, type: 3}
+  magic: 1
+  abilityDescription: Deal X Damage to all opposing creatures
+  burnCost: 2
+  ability: {fileID: 11400000, guid: a87de1dcbf91dd742b9cfa4838b5fdec, type: 2}

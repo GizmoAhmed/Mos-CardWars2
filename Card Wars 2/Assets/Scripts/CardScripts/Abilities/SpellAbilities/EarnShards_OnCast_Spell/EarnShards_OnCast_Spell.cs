@@ -21,9 +21,9 @@ namespace CardScripts.Abilities.SpellAbilities.EarnShards_OnCast_Spell
 
         public void OnValidate()
         {
-            if (castRequirementType != CastRequirementType.Anywhere)
+            if (castRequirementType != CastRequirementType.AnyTile)
             {
-                Debug.LogError($"{name} should have cast type {CastRequirementType.Anywhere}");
+                Debug.LogError($"{name} should have cast type {CastRequirementType.AnyTile}");
             }
         }
     }

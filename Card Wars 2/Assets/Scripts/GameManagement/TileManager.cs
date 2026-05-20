@@ -110,6 +110,24 @@ namespace GameManagement
             Debug.LogError($"No Tile found at position [Row:{row}][Col:{column}][Player Side:{playerSide}], returning null tile...");
             return null;
         }
+        
+        /// <summary>
+        /// Get all tiles for a specific player
+        /// </summary>
+        public List<MiddleTile> GetTilesForPlayer(int playerSide)
+        {
+            List<MiddleTile> playerTiles = new List<MiddleTile>();
+
+            foreach (MiddleTile tile in allTiles)
+            {
+                if (tile.serverPlayerSide == playerSide)
+                {
+                    playerTiles.Add(tile);
+                }
+            }
+
+            return playerTiles;
+        }
 
         /*/// <summary>
         /// Get the creature at a specific logical position
@@ -136,24 +154,6 @@ namespace GameManagement
         {
             MiddleTile middleTile = GetTile(playerSide, row, column);
             return middleTile != null && middleTile.IsOccupied;
-        }
-
-        /// <summary>
-        /// Get all tiles for a specific player
-        /// </summary>
-        public List<MiddleTile> GetTilesForPlayer(int playerSide)
-        {
-            List<MiddleTile> playerTiles = new List<MiddleTile>();
-
-            foreach (MiddleTile tile in allTiles)
-            {
-                if (tile.playerSide == playerSide)
-                {
-                    playerTiles.Add(tile);
-                }
-            }
-
-            return playerTiles;
         }
 
         /// <summary>

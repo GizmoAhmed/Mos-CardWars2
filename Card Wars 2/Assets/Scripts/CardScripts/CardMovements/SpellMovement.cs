@@ -83,7 +83,7 @@ namespace CardScripts.CardMovements
         private bool CheckCastRequirement(Tile tile, CastAbilitySO.CastRequirementType requirement)
         {
             // Anywhere is always valid
-            if (requirement == CastAbilitySO.CastRequirementType.Anywhere)
+            if (requirement == CastAbilitySO.CastRequirementType.AnyTile)
                 return true;
 
             // CharmTile specific

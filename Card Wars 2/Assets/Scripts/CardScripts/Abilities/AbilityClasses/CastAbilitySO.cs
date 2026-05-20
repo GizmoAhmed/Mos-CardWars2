@@ -13,7 +13,7 @@ namespace CardScripts.Abilities.AbilityClasses
     {
         public enum CastRequirementType
         {
-            Anywhere,                   // any middleTile, empty or not, ie deep pockets
+            AnyTile,                   // any middleTile, empty or not, ie deep pockets
             AnyTileWithCard,        // any middleTile that has a card on it
             OnCreature,             // ie buff creature on cast
             OnBuilding,             // ie ...
@@ -21,7 +21,7 @@ namespace CardScripts.Abilities.AbilityClasses
             CreatureAndOrBuilding,  // ie
         }
 
-        public CastRequirementType castRequirementType =  CastRequirementType.Anywhere;
+        public CastRequirementType castRequirementType =  CastRequirementType.AnyTile;
 
         public enum CastSide
         {
