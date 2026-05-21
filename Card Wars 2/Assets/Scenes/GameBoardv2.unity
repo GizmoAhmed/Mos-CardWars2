@@ -7653,7 +7653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: money
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: health
@@ -7938,11 +7938,11 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
+      objectReference: {fileID: 11400000, guid: 2d9df32531c890143920e03962f21995, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+      objectReference: {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[2]
       value: 
@@ -7970,11 +7970,11 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[8]
       value: 
-      objectReference: {fileID: 11400000, guid: 9103be960578c464bb5163b67a1a1cb9, type: 2}
+      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[9]
       value: 
-      objectReference: {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
+      objectReference: {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: DebugMaster.Array.data[0]
       value: 

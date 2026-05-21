@@ -5,6 +5,8 @@ using Mirror;
 using PlayerStuff;
 using TMPro;
 using UnityEngine;
+using AbilityEvents;
+
 
 public class TurnManager : NetworkBehaviour
 {
@@ -93,7 +95,7 @@ public class TurnManager : NetworkBehaviour
 
 
     [Server]
-    public void SwapPhase()
+    private void SwapPhase()
     {
         _lastPlayed = gameManager.Player1.identity.GetComponent<Player>().myTurn ? 0 : 1;
 
@@ -108,8 +110,14 @@ public class TurnManager : NetworkBehaviour
 
         // todo ActivePhase(), everyone does there stuff, like watching the cards in balatro tick away when you play a hand
         
+        Debug.LogWarning("Swapping...");
+        
+        GlobalBroadcastTurnEnd();
+        
         CheckScore();
-
+        
+        // todo start of turn broadcast would prolly go here
+        
         Invoke(nameof(ContinuePlay), .2f); // invoked in time for testing the pausing nature of the ActivePhase
     }
 
@@ -153,6 +161,26 @@ public class TurnManager : NetworkBehaviour
             gameManager.GameWin(gameManager.Player1);
         else if (stats1.roundsWon == gameManager.roundsToWin)
             gameManager.GameWin(gameManager.Player2);
+    }
+    
+    [Server]
+    private void GlobalBroadcastTurnEnd()
+    {
+        if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+        {
+            AbilityEventData turnEndData = new AbilityEventData
+            (
+                AbilityEventType.AnyTurnEnd
+            );
+
+            // tell event manager to tell everyone (that cares) that the turn ended
+            GlobalAbilityEventManager.GlobalAbilityManagerInstance
+                .TriggerEvents_ForAllSubscribersOfType(turnEndData);
+        }
+        else
+        {
+            Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+        }
     }
 
     [Server]

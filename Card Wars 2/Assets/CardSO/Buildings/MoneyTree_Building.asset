@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2a52975bdf47bdb9fdb35165c23817, type: 3}
+  m_Name: MoneyTree_Building
+  m_EditorClassIdentifier: 
+  cardName: MoneyTree
+  mainImage: {fileID: 21300000, guid: 3cb668679d4066244b26629707e67b0e, type: 3}
+  magic: 2
+  abilityDescription: Earn Shards each turn if not sharing tile with a creature
+  burnCost: 2
+  ability: {fileID: 11400000, guid: fbb27b17556cf9842a4ecdc65320abdc, type: 2}

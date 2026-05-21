@@ -12,7 +12,7 @@ namespace CardScripts.Abilities
         public abstract void ExecuteAbility(GameObject thisCard, AbilityEventData eventData);
         
         /// <summary>
-        /// An ability execution calls this when they want the tile the card is sitting ion
+        /// An ability execution calls this when they want the tile the card is sitting on
         /// </summary>
         /// <param name="thisCard"></param>
         /// <param name="eventData"></param>

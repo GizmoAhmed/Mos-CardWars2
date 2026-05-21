@@ -188,6 +188,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  playerSide: -1
   cardPlacer: {fileID: 0}
   playerStats: {fileID: 0}
   myTurn: 0
@@ -229,7 +230,7 @@ MonoBehaviour:
   ui: {fileID: 0}
   currentMagic: -1
   maxMagic: -1
-  money: -1
+  shards: -1
   playerTotalScore: -1
   health: -1
   drain: -1
