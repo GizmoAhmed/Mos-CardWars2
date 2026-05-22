@@ -22,7 +22,7 @@ namespace CardScripts.CardStats_Folder
 
         private CardDisplay _display;
 
-        [SyncVar(hook = nameof(UpdateMagic))] public int soulUse;
+        [SyncVar(hook = nameof(UpdateSoul))] public int soulUse;
 
         [SyncVar(hook = nameof(UpdateBurnCost))]
         public int burnCost = 2;
@@ -86,7 +86,7 @@ namespace CardScripts.CardStats_Folder
             }
 
             // CmdRefreshCardStats(); 
-            _display.UpdateUIMagic(soulUse);
+            _display.UpdateUISoul(soulUse);
             _display.UpdateUI_BurnCost(burnCost);
         }
 
@@ -136,9 +136,9 @@ namespace CardScripts.CardStats_Folder
             }
         }
 
-        public void UpdateMagic(int oldMagic, int newMagic)
+        public void UpdateSoul(int oldMagic, int newSoul)
         {
-            _display.UpdateUIMagic(newMagic); // todo also change the players max soulUse
+            _display.UpdateUISoul(newSoul); // todo also change the players max soulUse
         }
 
         public void UpdateBurnCost(int oldCost, int newCost)

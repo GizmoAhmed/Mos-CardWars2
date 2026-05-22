@@ -7653,11 +7653,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: money
-      value: 0
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: health
-      value: 100
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: deckType
@@ -7845,7 +7845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.size
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: p0Deck.Array.data[10]
@@ -7938,39 +7938,39 @@ PrefabInstance:
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 2d9df32531c890143920e03962f21995, type: 2}
+      objectReference: {fileID: 11400000, guid: 41a2d3d2f8ba95d4aa51a693035e0186, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
+      objectReference: {fileID: 11400000, guid: 41a2d3d2f8ba95d4aa51a693035e0186, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 842864b0bbba1d94d9eda4aeb8055232, type: 2}
+      objectReference: {fileID: 11400000, guid: 2d9df32531c890143920e03962f21995, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: 87945ef6eabe77042b24de5acde1bd7c, type: 2}
+      objectReference: {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[4]
       value: 
-      objectReference: {fileID: 11400000, guid: 2a57c3ab78b3b1343befc6b7fdfef202, type: 2}
+      objectReference: {fileID: 11400000, guid: 842864b0bbba1d94d9eda4aeb8055232, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[5]
       value: 
-      objectReference: {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
+      objectReference: {fileID: 11400000, guid: 87945ef6eabe77042b24de5acde1bd7c, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[6]
       value: 
-      objectReference: {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
+      objectReference: {fileID: 11400000, guid: 2a57c3ab78b3b1343befc6b7fdfef202, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[7]
       value: 
-      objectReference: {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
+      objectReference: {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[8]
       value: 
-      objectReference: {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+      objectReference: {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: masterDeck.Array.data[9]
       value: 

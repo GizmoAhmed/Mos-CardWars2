@@ -16,7 +16,7 @@ namespace CardScripts.Abilities.RuneAbilities.Scripts
                 return;
             }
             
-            GameObject runedCreature = eventData.CardToBeAffected;
+            GameObject runedCreature = eventData.targetCard;
             
             PlayerStats playerStats = runedCreature.GetComponent<CreatureMovement>().thisCardOwnerPlayerStats;
             

@@ -184,7 +184,7 @@ namespace CardScripts.CardDisplays
                 InfoObj.activeInHierarchy;
         }
         
-        public void UpdateUIMagic(int newMagic)
+        public void UpdateUISoul(int newMagic)
         {
             SetText(magicObj, newMagic.ToString(), true);
         }

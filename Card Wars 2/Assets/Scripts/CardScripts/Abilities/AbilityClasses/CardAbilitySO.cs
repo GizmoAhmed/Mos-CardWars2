@@ -36,12 +36,12 @@ namespace CardScripts.Abilities
             }
             else // Execution was passive, triggered by call back from event system, this building was told a creature was placed on it
             {
-                if (thisCard == eventData.CardToBeAffected)
+                if (thisCard == eventData.targetCard)
                 {
                     return null; // Don't buff self
                 }
                 
-                creatureStats = eventData.CardToBeAffected.GetComponent<CreatureStats>();
+                creatureStats = eventData.targetCard.GetComponent<CreatureStats>();
                 
                 // CreatureStats 
                 if (creatureStats == null)

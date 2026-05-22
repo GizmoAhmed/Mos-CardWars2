@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AbilityEvents;
 using Buttons;
 using CardScripts;
 using CardScripts.CardData;
@@ -76,8 +77,10 @@ namespace PlayerStuff
             if (shards >= cardStats.burnCost && cardStats.canBeBurned) // enough money to burn and can be burned? then burn
             {
                 shards -= cardStats.burnCost; // spend to burn
-
+                
                 CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
+                
+                GlobalBroadcastBurn(cardToBurn);
 
                 cardMove.ServerDiscard();
             }
@@ -86,6 +89,47 @@ namespace PlayerStuff
                 Debug.LogWarning($"{cardStats.gameObject.name} can't be burned because of either insufficient funds ({shards}), or burning being blocked for this creature via spell or rune or something");
             }
         }
+
+        private void GlobalBroadcastBurn(GameObject burnedCard)
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventData burnData = new AbilityEventData(
+                    AbilityEventType.AnyCardBurned,
+                    burnedCard
+                );
+
+                // tell event manager to tell everyone (that cares) that a card was burned
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
+                    burnData);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
+        }
+
+        /*
+         // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
+        protected virtual void GlobalBroadcastCardPlacement()
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventData cardPlaceData = new AbilityEventData(
+                    AbilityEventType.AnyFieldCardPlaced,
+                    gameObject
+                );
+
+                // tell event manager to tell everyone (that cares) that this card was placed
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
+                    cardPlaceData);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
+        }
+         */
 
         [Command]
         public void CmdActivateCreatureAbility(GameObject creatureToActivate)

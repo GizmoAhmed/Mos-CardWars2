@@ -12,6 +12,7 @@ namespace AbilityEvents
         AnySpellCasted,
         AnyFieldCardPlaced,
         AnyCardPlaced,
+        AnyCardBurned,
         
         // === TILE EVENTS (happen on specific tiles, broadcast locally) ===
         CardPlacedOnTile,       
