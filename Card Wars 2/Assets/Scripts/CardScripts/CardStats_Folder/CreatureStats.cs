@@ -17,9 +17,11 @@ namespace CardScripts.CardStatss
         
         [Header("Creature Specific Stats")] [SyncVar(hook = nameof(Hook_UpdateCreatureStrength))]
         public int strength;
+        public int strengthMult = 1;
 
         [SyncVar(hook = nameof(UpdateDefense))]
         public int defense;
+        public int defenseMult = 1;
 
         [SyncVar(hook = nameof(UpdateScore))] public int score;
 
@@ -86,6 +88,8 @@ namespace CardScripts.CardStatss
         [Server] // called from inside a command
         public void ChangeCreatureStrength(int amount, bool buff)
         {
+            amount *= strengthMult; 
+            
             // Get the middleTile this card is on
             Tile middleTile = GetComponent<CardMovement>().GetLogicalTile();
             TileEventManager tileEventManager = middleTile.GetComponent<TileEventManager>();
@@ -121,6 +125,8 @@ namespace CardScripts.CardStatss
         [Server]
         public void ChangeCreatureDefense(int amount, bool buff)
         {
+            amount *= defenseMult; // gluttony rune
+            
             // Get the middleTile this card is on
             Tile middleTile = GetComponent<CardMovement>().GetLogicalTile();
             TileEventManager tileEventManager = middleTile.GetComponent<TileEventManager>();
