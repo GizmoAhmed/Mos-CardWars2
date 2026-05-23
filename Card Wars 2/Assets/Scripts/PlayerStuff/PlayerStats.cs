@@ -17,11 +17,11 @@ namespace PlayerStuff
     {
         public PlayerUI ui;
 
-        [Header("Magic")] [SyncVar(hook = nameof(CurrentMagicUpdate))]
-        public int currentMagic;
+        [Header("Soul")] [SyncVar(hook = nameof(CurrentSoulUpdate))]
+        public int currentSoul;
 
-        [SyncVar(hook = nameof(MaxMagicUpdate))]
-        public int maxMagic;
+        [SyncVar(hook = nameof(MaxSoulUpdate))]
+        public int maxSoul;
 
         [Header("Shards")] [SyncVar(hook = nameof(ShardsUpdate))]
         public int shards;
@@ -32,7 +32,8 @@ namespace PlayerStuff
         [Header("Health")] [SyncVar(hook = nameof(HealthUpdate))]
         public int health;
 
-        [SyncVar(hook = nameof(DrainUpdate))] public int drain;
+        [SyncVar(hook = nameof(DrainUpdate))]
+        public int drain;
 
         [Header("Rounds Won")] [SyncVar(hook = nameof(RoundsWonUpdate))]
         public int roundsWon;
@@ -63,8 +64,8 @@ namespace PlayerStuff
             if (shards >= upgradeCost)
             {
                 shards -= upgradeCost;
-                maxMagic += 1;
-                currentMagic += 1;
+                maxSoul += 1;
+                currentSoul += 1;
                 upgradeCost += 1;
             }
         }
@@ -109,33 +110,9 @@ namespace PlayerStuff
             }
         }
 
-        /*
-         // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
-        protected virtual void GlobalBroadcastCardPlacement()
-        {
-            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
-            {
-                AbilityEventData cardPlaceData = new AbilityEventData(
-                    AbilityEventType.AnyFieldCardPlaced,
-                    gameObject
-                );
-
-                // tell event manager to tell everyone (that cares) that this card was placed
-                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
-                    cardPlaceData);
-            }
-            else
-            {
-                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
-            }
-        }
-         */
-
         [Command]
         public void CmdActivateCreatureAbility(GameObject creatureToActivate)
         {
-            // Debug.Log($"Counting Shards for ability activation on {creatureToActivate.name}...");
-
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
             int cost = creatureStats.abilityCost;
 
@@ -174,7 +151,7 @@ namespace PlayerStuff
         {
             if (!isServer) return;
 
-            currentMagic -= amount;
+            currentSoul -= amount;
         }
 
         public void AddPlayerScore(int amount)
@@ -223,7 +200,7 @@ namespace PlayerStuff
             GetComponent<Player>().deckCollection.OfferCardsPreview(cardsToChoose, cardsToOffer);
         }
 
-        public void CurrentMagicUpdate(int oldMagic, int newMagic)
+        public void CurrentSoulUpdate(int oldMagic, int newMagic)
         {
             if (ui == null)
             {
@@ -237,24 +214,24 @@ namespace PlayerStuff
                 return;
             }
 
-            if (currentMagic < 0)
+            if (currentSoul < 0)
             {
-                ui.MagicUIUpdate(newMagic, current_max: true, goingUnder: true);
+                ui.PlayerSoulUseUIUpdate(newMagic, current_max: true, goingUnder: true);
                 return;
             }
 
-            ui.MagicUIUpdate(newMagic, current_max: true);
+            ui.PlayerSoulUseUIUpdate(newMagic, current_max: true);
         }
 
-        public void MaxMagicUpdate(int oldMagic, int newMagic)
+        public void MaxSoulUpdate(int oldMagic, int newMagic)
         {
-            if (currentMagic > maxMagic)
+            if (currentSoul > maxSoul)
             {
-                ui.MagicUIUpdate(newMagic, current_max: false, goingUnder: true);
+                ui.PlayerSoulUseUIUpdate(newMagic, current_max: false, goingUnder: true);
                 return;
             }
 
-            ui.MagicUIUpdate(newMagic, current_max: false);
+            ui.PlayerSoulUseUIUpdate(newMagic, current_max: false);
         }
 
         public void ShardsUpdate(int oldMoney, int newMoney)

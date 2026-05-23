@@ -77,7 +77,7 @@ public class PlayerUI : NetworkBehaviour
         }
     }
 
-    public void MagicUIUpdate(int magic, bool current_max, bool goingUnder = false)
+    public void PlayerSoulUseUIUpdate(int magic, bool current_max, bool goingUnder = false)
     {
         // soulUse 1 or 2
         TextMeshProUGUI magicText =
@@ -95,7 +95,7 @@ public class PlayerUI : NetworkBehaviour
             return;
         }
 
-        magicText.text = (current_max) ? magic + " / " + stats.maxMagic : stats.currentMagic + " / " + magic;
+        magicText.text = (current_max) ? magic + " / " + stats.maxSoul : stats.currentSoul + " / " + magic;
 
         if (goingUnder)
         {

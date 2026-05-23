@@ -22,7 +22,7 @@ namespace CardScripts.CardStats_Folder
 
         private CardDisplay _display;
 
-        [SyncVar(hook = nameof(UpdateSoul))] public int soulUse;
+        [SyncVar(hook = nameof(Hook_UpdateSoulUI_OnBothClients))] public int soulUse;
 
         [SyncVar(hook = nameof(UpdateBurnCost))]
         public int burnCost = 2;
@@ -110,33 +110,27 @@ namespace CardScripts.CardStats_Folder
             burnCost = cardData.burnCost;
         }
 
-        [Command] 
-        public void CmdChangeSoulUse(int amount, bool buff)
+        /// <summary>
+        /// Call to change a cards soul when it's on the field
+        /// Updates the player stat 'current soul use' whenever a field card has their soul changed
+        /// </summary>
+        /// <param name="diff">pass negative if reducing soul of this card, positive if increasing</param>
+        public void UpdateSyncSoulToPlayer(int diff) 
         {
-            if (buff)
+            // one is += and the other is -= lol it's confusing
+            // cards become more expensive in soul when increased
+            // current soul for the player on the other hand is how much is used, some reducing that actually means adding
+            soulUse += diff;
+
+            // only change players stat for field cards
+            if (TryGetComponent(out CardMovement move) &&
+                move.cardState == CardMovement.CardState.Field)
             {
-                soulUse -= amount;
-            }
-            else
-            {
-                soulUse += amount;
-            }
-        }
-        
-        [Command] 
-        public void CmdChangeBurnCost(int amount, bool buff)
-        {
-            if (buff)
-            {
-                burnCost -= amount;
-            }
-            else
-            {
-                burnCost += amount;
+                move.thisCardOwnerPlayerStats.currentSoul -= diff;
             }
         }
 
-        public void UpdateSoul(int oldMagic, int newSoul)
+        public void Hook_UpdateSoulUI_OnBothClients(int oldMagic, int newSoul)
         {
             _display.UpdateUISoul(newSoul); // todo also change the players max soulUse
         }
@@ -148,7 +142,7 @@ namespace CardScripts.CardStats_Folder
         
         public void ToggleBurnability(bool oldValue, bool newValue)
         {
-            int x = 9;
+            
         }
     }
 }

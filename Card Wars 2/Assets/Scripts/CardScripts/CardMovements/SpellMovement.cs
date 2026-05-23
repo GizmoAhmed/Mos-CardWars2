@@ -47,7 +47,7 @@ namespace CardScripts.CardMovements
             }
 
             // Check magic cost
-            if (cardStats.soulUse > thisCardOwnerPlayerStats.currentMagic)
+            if (cardStats.soulUse > thisCardOwnerPlayerStats.currentSoul)
             {
                 Debug.Log("Not enough magic to cast spell");
                 return false;

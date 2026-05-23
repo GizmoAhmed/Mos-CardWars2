@@ -32,7 +32,10 @@ namespace CardScripts.CardMovements
         {
             // add bases stats to score and add soul...
             thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
-            thisCardOwnerPlayerStats.UseMagic(CreatureStats.soulUse);
+            
+            // cardStats.UpdateSyncSoulToPlayer(-cardStats.soulUse);
+
+            thisCardOwnerPlayerStats.currentSoul -= CreatureStats.soulUse;
             
             // ... then broadcast, placement abilities need the initial player score to be added first
             base.CmdPlaceCardOnTile(tile); 
@@ -104,7 +107,10 @@ namespace CardScripts.CardMovements
 
         private void ReturnMagicAndScore()
         {
-            thisCardOwnerPlayerStats.currentMagic += cardStats.soulUse; // give back soulUse
+            // give back soulUse
+            thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse; 
+            // cardStats.UpdateSyncSoulToPlayer(cardStats.soulUse);
+            
             thisCardOwnerPlayerStats.playerTotalScore -= CreatureStats.score; // give back score
         }
 

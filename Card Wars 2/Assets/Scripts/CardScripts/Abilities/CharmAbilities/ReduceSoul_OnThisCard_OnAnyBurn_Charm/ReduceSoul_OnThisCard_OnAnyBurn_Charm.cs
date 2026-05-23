@@ -11,8 +11,6 @@ public class ReduceSoul_OnThisCard_OnAnyBurn_Charm : PassiveAbilitySO
 {
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        Debug.Log("I heard a card was burned around here...");
-
         if (eventData.targetCard == thisCard) return; // if executed on itself, don't
         
         GameObject burnedCard = eventData.targetCard;
@@ -28,9 +26,12 @@ public class ReduceSoul_OnThisCard_OnAnyBurn_Charm : PassiveAbilitySO
         {
             return;
         }
+
+        int burnedCardSoul = burnedCard.GetComponent<CardStats>().soulUse;
         
-        // subtract soul use
-        thisCard.GetComponent<CardStats>().soulUse -= burnedCard.GetComponent<CardStats>().soulUse;
+        // reduce soul use
+        thisCard.GetComponent<CardStats>().
+            UpdateSyncSoulToPlayer(-burnedCardSoul);
     }
 
     public void OnValidate()

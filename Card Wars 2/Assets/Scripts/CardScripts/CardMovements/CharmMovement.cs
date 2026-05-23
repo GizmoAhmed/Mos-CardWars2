@@ -27,16 +27,12 @@ namespace CardScripts.CardMovements
         {
             base.CmdPlaceCardOnTile(tile);
 
-            PassiveListenerCard listener = GetComponent<PassiveListenerCard>();
-
-            if (listener == null)
+            if (TryGetComponent(out PassiveListenerCard listener))
             {
-                Debug.LogError($"No listener found on {gameObject.name}");
-                return;
+                listener.RegisterPassiveAbility();
             }
-
-            // register cards passive ability in ability manager as a listener when placed
-            listener.RegisterPassiveAbility();
+            
+            thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
         }
 
         [Server]
@@ -81,12 +77,6 @@ namespace CardScripts.CardMovements
 
             // Update visual reference
             thisCardsVisualTile = visualCharmTile;
-
-            // Use magic
-            if (thisCardOwnerPlayerStats != null)
-            {
-                thisCardOwnerPlayerStats.UseMagic(cardStats.soulUse);
-            }
         }
 
         [Server]
@@ -101,7 +91,7 @@ namespace CardScripts.CardMovements
         [Command]
         private void ReturnMagic()
         {
-            thisCardOwnerPlayerStats.currentMagic += cardStats.soulUse; // give back soulUse
+            thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse; // give back soulUse
         }
 
         protected override void DetachFromTile()

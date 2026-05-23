@@ -183,11 +183,11 @@ namespace GameManagement
             _stats1 = Player1.identity.GetComponent<PlayerStats>();
             _stats2 = Player2.identity.GetComponent<PlayerStats>();
 
-            _stats1.currentMagic = _stats1.maxMagic = maxMagic + 2;
-            _stats2.currentMagic = _stats2.maxMagic = maxMagic;
+            _stats1.currentSoul = _stats1.maxSoul = maxMagic;
+            _stats2.currentSoul = _stats2.maxSoul = maxMagic;
 
             _stats1.shards = money;
-            _stats2.shards = money + 1;
+            _stats2.shards = money;
 
             _stats1.health = health;
             _stats2.health = health;
