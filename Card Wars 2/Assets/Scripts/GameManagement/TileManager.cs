@@ -107,7 +107,7 @@ namespace GameManagement
                 return tile;
             }
 
-            Debug.LogError($"No Tile found at position [Row:{row}][Col:{column}][Player Side:{playerSide}], returning null tile...");
+            Debug.LogWarning($"No Tile found at position [Row:{row}][Col:{column}][Player Side:{playerSide}], returning null tile...");
             return null;
         }
         
@@ -127,6 +127,24 @@ namespace GameManagement
             }
 
             return playerTiles;
+        }
+        
+        /// <summary>
+        /// Get adjacent tiles left and right
+        /// </summary>
+        public List<MiddleTile> GetAdjacentTiles(int row, int column, int playerSide)
+        {
+            List<MiddleTile> adjacent = new List<MiddleTile>();
+
+            // Left
+            MiddleTile left = GetTile(row, column - 1, playerSide) as MiddleTile;
+            if (left != null) adjacent.Add(left);
+
+            // Right
+            MiddleTile right = GetTile(row, column + 1, playerSide) as MiddleTile;
+            if (right != null) adjacent.Add(right);
+
+            return adjacent;
         }
 
         /*/// <summary>
@@ -154,32 +172,6 @@ namespace GameManagement
         {
             MiddleTile middleTile = GetTile(playerSide, row, column);
             return middleTile != null && middleTile.IsOccupied;
-        }
-
-        /// <summary>
-        /// Get adjacent tiles (left, right, up, down)
-        /// </summary>
-        public List<MiddleTile> GetAdjacentTiles(int playerSide, int row, int column)
-        {
-            List<MiddleTile> adjacent = new List<MiddleTile>();
-
-            // Left
-            MiddleTile left = GetTile(playerSide, row, column - 1);
-            if (left != null) adjacent.Add(left);
-
-            // Right
-            MiddleTile right = GetTile(playerSide, row, column + 1);
-            if (right != null) adjacent.Add(right);
-
-            // Up (higher row)
-            MiddleTile up = GetTile(playerSide, row + 1, column);
-            if (up != null) adjacent.Add(up);
-
-            // Down (lower row)
-            MiddleTile down = GetTile(playerSide, row - 1, column);
-            if (down != null) adjacent.Add(down);
-
-            return adjacent;
         }
 
         /// <summary>
