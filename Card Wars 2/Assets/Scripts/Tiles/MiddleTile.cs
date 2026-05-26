@@ -1,4 +1,5 @@
 using AbilityEvents;
+using CardScripts.CardMovements;
 using Mirror;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Tiles
     {
         [Header("Visual Occupancy, Client specific")]
         public GameObject creatureVisual;
+
         public GameObject buildingVisual;
 
         [Header("Logical Occupancy (Server Authority - Game Logic)")]
@@ -17,9 +19,8 @@ namespace Tiles
 
         [Tooltip("Logical reference to building - same on server and all clients")] [SyncVar]
         public GameObject logicalBuilding;
-        
-        [Header("Neighbors")]
-        public GameObject adjacentLeft;
+
+        [Header("Neighbors")] public GameObject adjacentLeft;
         public GameObject adjacentRight;
         public GameObject diagonalLeft;
         public GameObject diagonalRight;
@@ -85,6 +86,24 @@ namespace Tiles
                 // Diagonal right
                 if (col < 3)
                     diagonalRight = FindTileByName("L" + (acrossNum + 1));
+            }
+        }
+
+        /// <summary>
+        /// Clear this tile
+        /// </summary>
+        public override void DestroyAllCardsOnTile()
+        {
+            Debug.Log($"{gameObject.name} destroying its cards");
+            
+            if (logicalCreature != null)
+            {
+                logicalCreature.GetComponent<CreatureMovement>().ServerDiscard();
+            }
+
+            if (logicalBuilding != null)
+            {
+                logicalBuilding.GetComponent<BuildingMovement>().ServerDiscard();
             }
         }
     }

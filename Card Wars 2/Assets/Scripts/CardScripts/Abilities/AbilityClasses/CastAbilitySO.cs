@@ -43,7 +43,7 @@ namespace CardScripts.Abilities.AbilityClasses
 
         protected GameObject GetCreatureFromEventData(AbilityEventData eventData)
         {
-            MiddleTile middleTile = eventData.targetCard.GetComponent<MiddleTile>();
+            MiddleTile middleTile = eventData.target.GetComponent<MiddleTile>();
             GameObject creatureOnTile = middleTile.logicalCreature;
 
             if (creatureOnTile == null)

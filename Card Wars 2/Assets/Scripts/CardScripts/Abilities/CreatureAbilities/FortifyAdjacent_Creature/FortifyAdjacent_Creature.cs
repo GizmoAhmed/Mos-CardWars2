@@ -22,7 +22,7 @@ public class FortifyAdjacent_Creature : ActiveAbilitySO
         if (thisTile == null) return;
         
         List<MiddleTile> ajdTiles = TileManager.Instance.GetAdjacentTiles
-            (thisTile.row,thisTile.column, thisTile.serverPlayerSide);
+            (thisTile.row, thisTile.column, thisTile.serverPlayerSide);
 
         foreach (MiddleTile tile in ajdTiles) // only goes twice
         {

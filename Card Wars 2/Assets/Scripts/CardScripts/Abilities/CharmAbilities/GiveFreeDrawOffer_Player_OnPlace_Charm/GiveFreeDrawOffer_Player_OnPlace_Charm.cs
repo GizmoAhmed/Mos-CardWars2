@@ -16,7 +16,7 @@ namespace CardScripts.Abilities.CharmAbilities.Scripts
             
             playerStats.freeCardsOffered += offeringsGiven;
             
-            Debug.Log($"<color=blue>{thisCard.name} ({name}) is giving {playerStats.gameObject.name} + {offeringsGiven} offering.\n{playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings</color>");
+            // Debug.Log($"<color=blue>{thisCard.name} ({name}) is giving {playerStats.gameObject.name} + {offeringsGiven} offering.\n{playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings</color>");
         }
 
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

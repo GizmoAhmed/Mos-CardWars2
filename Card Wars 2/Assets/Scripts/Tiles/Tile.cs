@@ -48,5 +48,10 @@ namespace Tiles
                    column == otherMiddleTile.column &&
                    serverPlayerSide == otherMiddleTile.serverPlayerSide;
         }
+
+        public virtual void DestroyAllCardsOnTile()
+        {
+            Debug.LogError($"Base Tile Class called for clearing {gameObject.name}, make sure child is specified for method call");
+        }
     }
 }

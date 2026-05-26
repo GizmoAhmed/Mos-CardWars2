@@ -54,7 +54,7 @@ namespace CardScripts.CardMovements
         {
             CharmTile charmTile = tile as CharmTile;
 
-            charmTile.RemoveCharm(gameObject);
+            charmTile?.RemoveCharm(gameObject);
         }
 
         [ClientRpc] // assume valid, so don't worry about ok to place or not

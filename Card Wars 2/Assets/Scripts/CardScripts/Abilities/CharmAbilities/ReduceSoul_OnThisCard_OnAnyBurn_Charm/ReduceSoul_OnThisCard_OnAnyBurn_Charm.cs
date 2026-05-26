@@ -11,9 +11,9 @@ public class ReduceSoul_OnThisCard_OnAnyBurn_Charm : PassiveAbilitySO
 {
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        if (eventData.targetCard == thisCard) return; // if executed on itself, don't
+        if (eventData.target == thisCard) return; // if executed on itself, don't
         
-        GameObject burnedCard = eventData.targetCard;
+        GameObject burnedCard = eventData.target;
 
         int thisSide = thisCard.GetComponent<CardMovement>().logicalPlayerSide;
         int thatSide = burnedCard.GetComponent<CardMovement>().logicalPlayerSide;
@@ -32,6 +32,11 @@ public class ReduceSoul_OnThisCard_OnAnyBurn_Charm : PassiveAbilitySO
         // reduce soul use
         thisCard.GetComponent<CardStats>().
             UpdateSyncSoulToPlayer(-burnedCardSoul);
+    }
+
+    public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
+    {
+        // does nothing
     }
 
     public void OnValidate()

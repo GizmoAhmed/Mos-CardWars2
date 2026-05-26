@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AbilityEvents;
+using CardScripts.CardMovements;
 using Mirror;
 using UnityEngine;
 
@@ -44,11 +45,11 @@ namespace Tiles
             }
             else
             {
-                Debug.LogWarning($"Unknown charm middleTile: {myName}");
+                Debug.LogWarning($"Unknown charm tile: {myName}");
             }
         }
 
-        // todo look at this ugly functions
+        // todo look at this ugly ah function
         protected override void SetupNeighbors()
         {
             string thisTilesName = gameObject.name;
@@ -82,12 +83,29 @@ namespace Tiles
             if (charms.Contains(charm))
             {
                 charms.Remove(charm);
-                Debug.Log($"...Successfully removed {charm} from {gameObject.name}");
+                Debug.Log($"<color=green>...Successfully removed {charm} from {gameObject.name}</color>");
             }
             else
             {
                 Debug.LogError($"...Attempt to remove {charm} from {gameObject.name} failed because {charm} isn't present in the list." +
                                $"\nList Count: {charms.Count}");
+            }
+        }
+        
+        /// <summary>
+        /// Clear this tile
+        /// </summary>
+        public override void DestroyAllCardsOnTile()
+        {
+            // TIL: sync lists (and other containers in the C family),
+            // don't work when you modify the list (in this case, remove from)
+            // because it uses an iterator that removes at each index
+            // so when you remove the first index, it goes to the second...
+            // ...but since the first is removed, and there is no longer a second, it assumes its done
+            // claude recommends moving backwards, which makes sense
+            for (int i = charms.Count - 1; i >= 0; i--)
+            {
+                charms[i].GetComponent<CharmMovement>().ServerDiscard();
             }
         }
     }

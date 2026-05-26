@@ -146,6 +146,18 @@ namespace GameManagement
 
             return adjacent;
         }
+        
+        /// <summary>
+        /// Get the middleTile across from this position (opponent's mirror)
+        /// </summary>
+        public Tile GetAcrossTile(int row, int column, int playerSide)
+        {
+            // Mirror to opponent's side, same row/column
+            int opponentSide = playerSide == 0 ? 1 : 0;
+            row = opponentSide;
+            
+            return GetTile(row, column, opponentSide);
+        }
 
         /*/// <summary>
         /// Get the creature at a specific logical position
@@ -209,16 +221,6 @@ namespace GameManagement
             surrounding.AddRange(GetAdjacentTiles(playerSide, row, column));
             surrounding.AddRange(GetDiagonalTiles(playerSide, row, column));
             return surrounding;
-        }
-
-        /// <summary>
-        /// Get the middleTile across from this position (opponent's mirror)
-        /// </summary>
-        public MiddleTile GetAcrossTile(int playerSide, int row, int column)
-        {
-            // Mirror to opponent's side, same row/column
-            int opponentSide = playerSide == 0 ? 1 : 0;
-            return GetTile(opponentSide, row, column);
         }
 
         /// <summary>
