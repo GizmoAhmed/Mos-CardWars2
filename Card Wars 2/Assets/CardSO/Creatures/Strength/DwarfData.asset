@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
+  m_Name: DwarfData
+  m_EditorClassIdentifier: 
+  cardName: DWARF
+  mainImage: {fileID: 21300000, guid: ef0fc7036e046a243bcba077d3713ee5, type: 3}
+  magic: 1
+  abilityDescription: Convert all strength to drain
+  burnCost: 2
+  ability: {fileID: 11400000, guid: b32778161c55e9842bc73e4dacf3d531, type: 2}
+  element: 0
+  elementSprite: {fileID: 21300000, guid: 73a5b4af4470bc34881d92814f1bde20, type: 3}
+  abilityCost: 3
+  attack: 1
+  defense: 4

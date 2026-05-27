@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MoneyTree_Building
   m_EditorClassIdentifier: 
   cardName: MoneyTree
-  mainImage: {fileID: 21300000, guid: 3cb668679d4066244b26629707e67b0e, type: 3}
+  mainImage: {fileID: 21300000, guid: e4557df25be42354fb9c59574e544db7, type: 3}
   magic: 2
   abilityDescription: Earn Shards each turn if not sharing tile with a creature
   burnCost: 2

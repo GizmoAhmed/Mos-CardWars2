@@ -32,7 +32,7 @@ namespace PlayerStuff
         [Header("Health")] [SyncVar(hook = nameof(HealthUpdate))]
         public int health;
 
-        [SyncVar(hook = nameof(DrainUpdate))]
+        [SyncVar(hook = nameof(Hook_DrainUpdate_ClientUI))]
         public int drain;
 
         [Header("Rounds Won")] [SyncVar(hook = nameof(RoundsWonUpdate))]
@@ -264,7 +264,7 @@ namespace PlayerStuff
             ui.HealthUIUpdate(newHealth);
         }
 
-        public void DrainUpdate(int oldDrain, int newDrain)
+        public void Hook_DrainUpdate_ClientUI(int oldDrain, int newDrain)
         {
             ui.DrainUIUpdate(newDrain);
         }
