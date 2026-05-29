@@ -32,5 +32,13 @@ namespace Buttons
             
             player.deckCollection.CmdDrawCard();
         }
+        
+        public void DrawAllOnClick()
+        {
+            NetworkIdentity networkIdentity = NetworkClient.connection.identity;
+            Player player = networkIdentity.GetComponent<Player>();
+            
+            player.deckCollection.CmdDrawAllFromDeck();
+        }
     }
 }

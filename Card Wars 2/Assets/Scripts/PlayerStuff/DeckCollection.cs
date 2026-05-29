@@ -42,7 +42,7 @@ namespace PlayerStuff
                 Debug.LogError($"DrawModal is null on {gameObject.name}");
             }
         }
-        
+
         [Server]
         private void DrawSpawnCard_ByID(string cardID)
         {
@@ -66,7 +66,7 @@ namespace PlayerStuff
             NetworkServer.Spawn(cardObj, connectionToClient);
 
             Player player = GetComponentInParent<Player>();
-            
+
             if (player != null)
             {
                 player.cardPlacer.MoveCardToHand(cardObj);
@@ -75,7 +75,7 @@ namespace PlayerStuff
             {
                 Debug.LogError($"Player was not found for {cardObj.name}.");
             }
-            
+
             move.cardState = CardMovement.CardState.Hand;
 
             myDeckCardIDs.RemoveAt(index);
@@ -95,12 +95,43 @@ namespace PlayerStuff
                 Debug.LogWarning("Empty Deck");
                 return;
             }
-            
+
             string cardID = myDeckCardIDs[0];
 
             DrawSpawnCard_ByID(cardID);
         }
 
+        [Command] // called from in-scene button click
+        public void CmdDrawAllFromDeck()
+        {
+            DrawAllFromDeck(connectionToClient);
+        }
+
+        [Server]
+        private void DrawAllFromDeck(NetworkConnectionToClient conn)
+        {
+            if (myDeckCardIDs.Count == 0)
+            {
+                Debug.LogWarning("Empty Deck");
+                return;
+            }
+            
+            // iterate backwards because sync list
+            for (int i = myDeckCardIDs.Count - 1; i >= 0; i--)
+            {
+                DrawSpawnCard_ByID(myDeckCardIDs[i]);
+            }
+        }
+
+        /// <summary>
+        /// Creates a card using Prefab cards as bodies (from game manager) and fills them with souls in the form of CardDataSO
+        /// First step prior to spawning on server, since draw modal doesn't require spawn, you can just create them here
+        /// 
+        /// todo should probably remove that from gm
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         private GameObject CreateCard(CardDataSO data)
         {
             GameObject card;
@@ -124,7 +155,7 @@ namespace PlayerStuff
 
             return cardInstance;
         }
-        
+
         /// <summary>
         /// Draw a specific card by ID (called when player selects from preview)
         /// </summary>
@@ -160,22 +191,22 @@ namespace PlayerStuff
                     Debug.LogError($"Card not found: {cardName}");
                     continue;
                 }
-                
+
                 // creature card
                 GameObject previewCard = CreateCard(cardData);
 
                 // move to drawmodal
                 previewCard.transform.SetParent(drawModal.cardGroupTransform, false);
-                
+
                 // init card
                 previewCard.GetComponent<CardStats>().InitializeCard();
 
                 // flip card up
                 CardDisplay cardDisplay = previewCard.GetComponent<CardDisplay>();
                 cardDisplay.FlipCard(true);
-                
+
                 CardMovement move = previewCard.GetComponent<CardMovement>();
-                
+
                 // change state
                 move.cardState = CardMovement.CardState.Preview;
                 move.SetOwningDeck(this);
