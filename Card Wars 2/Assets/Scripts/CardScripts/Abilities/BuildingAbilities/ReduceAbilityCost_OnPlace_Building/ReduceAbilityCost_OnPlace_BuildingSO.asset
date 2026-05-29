@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 008deca034da4d9d913b4195d4daa402, type: 3}
-  m_Name: BuffBoth_OnPlace_BuildingSO
+  m_Script: {fileID: 11500000, guid: 15edcbca0d9379440b1ac4eb7772ce5c, type: 3}
+  m_Name: ReduceAbilityCost_OnPlace_BuildingSO
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 0a000000
   isGlobalListener: 0
   isExecutableOnPlaced: 1
-  baseStrengthBuffAmount: 1
-  baseDefenseBuffAmount: 1
+  reduction: 1

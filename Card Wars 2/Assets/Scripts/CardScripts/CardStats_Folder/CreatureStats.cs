@@ -25,7 +25,7 @@ namespace CardScripts.CardStatss
 
         [SyncVar(hook = nameof(UpdateScore))] public int score;
 
-        [SyncVar(hook = nameof(UpdateAbilityCost))]
+        [SyncVar(hook = nameof(Hook_UpdateAbilityCost))]
         public int abilityCost;
         
         /// <summary>
@@ -165,15 +165,22 @@ namespace CardScripts.CardStatss
         }
 
         [Server]
-        public void ChangeAbilityCost(int amount, bool buff)
+        public void ChangeAbilityCost(int amount, bool increase)
         {
-            if (buff)
+            if (increase)
             {
-                abilityCost -= amount;
+                abilityCost += amount;
             }
             else
             {
-                abilityCost += amount;
+                if (abilityCost - amount < 0) // subtracting causes negative?...
+                {
+                    abilityCost = 0; // ...then just set to 0
+                }
+                else
+                {
+                    abilityCost -= amount;
+                }
             }
         }
 
@@ -209,7 +216,7 @@ namespace CardScripts.CardStatss
             }
         }
 
-        public void UpdateAbilityCost(int oldCost, int newCost)
+        public void Hook_UpdateAbilityCost(int oldCost, int newCost)
         {
             creatureDisplay.UpdateUI_AbilityCost(newCost);
         }

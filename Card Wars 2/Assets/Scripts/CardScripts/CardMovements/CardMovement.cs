@@ -422,11 +422,13 @@ namespace CardScripts.CardMovements
             // bother unsubscribing if you are on field (as opposed to hand and preview)
             if (cardState == CardState.Field)
             {
-                DetachFromTile(); // if on a tile, detach from that tile
+                // this (unsub) goes first (before detach) so that when data is sent from unsubscribe, the tile is still set in custom data in PassiveListenerCard.cs 
                 
                 // if listener found, card is passive, unsubscribe its ability
                 PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
                 if (listen != null) listen.UnsubscribeThisCardFromListening();
+                
+                DetachFromTile(); // if on a tile, detach from that tile
             }
 
             // set state to discard

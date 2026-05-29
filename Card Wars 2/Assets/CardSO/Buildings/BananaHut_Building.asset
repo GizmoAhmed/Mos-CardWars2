@@ -15,5 +15,6 @@ MonoBehaviour:
   cardName: BananaHut
   mainImage: {fileID: 21300000, guid: 5f3b0f0178c8fd44f97f4e72adfe9875, type: 3}
   magic: 2
-  abilityDescription: Give creature +1 def each time a card is added to your hand
+  abilityDescription: Reduce Ability Cost
   burnCost: 2
+  ability: {fileID: 11400000, guid: 31eb22bb32ff48748b65e51eb2eef2d1, type: 2}
