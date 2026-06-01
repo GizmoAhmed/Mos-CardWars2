@@ -13,13 +13,9 @@ namespace GameManagement
     {
         public TurnManager turnManager;
 
-        [Header("All Cards: The Master Deck")]
-        public List<CardDataSO> masterDeck;
-        
-        private Dictionary<string, CardDataSO> _cardDatabase;
+        public MasterDeck masterDeckDb;
 
-        [Header("Base Card GameObjects")]
-        public GameObject creatureCard;
+        [Header("Base Card GameObjects")] public GameObject creatureCard;
         public GameObject buildingCard;
         public GameObject spellCard;
         public GameObject runeCard;
@@ -38,25 +34,23 @@ namespace GameManagement
         public int defaultPaidDrawChoices = 1;
         public int defaultPaidDrawOffering = 3;
 
-        [Header("Connected Players")]
-        public NetworkConnectionToClient Player1;
+        [Header("Connected Players")] public NetworkConnectionToClient Player1;
         public NetworkConnectionToClient Player2;
 
         private PlayerStats _stats1;
         private PlayerStats _stats2;
 
-        [Header("Modals < SET IN EDITOR >")] 
-        public GameObject discardsBoardp1;
+        [Header("Modals < SET IN EDITOR >")] public GameObject discardsBoardp1;
         public GameObject discardsBoardp2;
         public GameObject gmVisibleDrawModal;
 
         public List<NetworkConnectionToClient> playersConnections = new List<NetworkConnectionToClient>();
 
-        void Start()
+        /*void Start()
         {
             // Debug.Log("<<< Starting GameManager >>>");
             BuildCardDatabase();
-        }
+        }*/
 
         [Server]
         public override void OnStartServer()
@@ -64,6 +58,13 @@ namespace GameManagement
             base.OnStartServer();
             turnManager = GetComponentInChildren<TurnManager>();
             turnManager.Init(this);
+
+            masterDeckDb = GetComponentInChildren<MasterDeck>();
+
+            if (masterDeckDb == null)
+            {
+                Debug.LogError("masterDeckDb is Null on gm server start");
+            }
 
             if (discardsBoardp1 == null || discardsBoardp2 == null)
             {
@@ -74,40 +75,6 @@ namespace GameManagement
             {
                 Debug.LogError("gmVisibleDrawModal was not set in editor and therefore not found");
             }
-        }
-        
-        private void BuildCardDatabase()
-        {
-            _cardDatabase = new Dictionary<string, CardDataSO>();
-        
-            foreach (CardDataSO card in masterDeck)
-            {
-                if (!_cardDatabase.ContainsKey(card.cardID))
-                {
-                    _cardDatabase.Add(card.cardID, card);
-                }
-                else
-                {
-                    Debug.LogWarning($"Duplicate card ID: {card.cardID}");
-                }
-            }
-        }
-
-        public CardDataSO GetCardByID(string cardID)
-        {
-            if (_cardDatabase == null)
-            {
-                Debug.LogError("CardDatabase is null here");
-                return null;
-            }
-
-            if (_cardDatabase.TryGetValue(cardID, out CardDataSO card))
-            {
-                return card;
-            }
-        
-            Debug.LogError($"Card not found: {cardID}");
-            return null;
         }
 
         /// <summary>
@@ -121,22 +88,24 @@ namespace GameManagement
             if (numberOfPlayers == 2) // Full lobby, let's roll
             {
                 AssignPlayers();
-                
-                TileManager.Instance.MemoizeTiles(); 
-                
+
+                TileManager.Instance.MemoizeTiles();
+
                 StartPlayerStats();
 
-                if (masterDeck.Count == 0)
+                /*if (masterDeck.Count == 0)
                 {
                     Debug.LogWarning($"master deck on {gameObject.name} is empty, won't copy to players");
-                }
+                }*/
 
                 turnManager.StartGame();
 
-                if (creatureCard == null || 
-                    buildingCard == null || 
-                    spellCard == null || 
-                    runeCard == null || 
+                masterDeckDb.InitMasterDeck();
+                
+                if (creatureCard == null ||
+                    buildingCard == null ||
+                    spellCard == null ||
+                    runeCard == null ||
                     charmCard == null)
                 {
                     Debug.LogError($"Base Cards were not set on {gameObject.name} in the editor");
@@ -148,9 +117,10 @@ namespace GameManagement
 
                 p1.playerSide = 0;
                 p2.playerSide = 1;
-                
-                p1.deckCollection.InitializeDeck(masterDeck);
-                p2.deckCollection.InitializeDeck(masterDeck);
+
+                // game manager knows about both players, so this makes sense
+                p1.deckCollection.InitializeDeck(masterDeckDb.debugDeck);
+                p2.deckCollection.InitializeDeck(masterDeckDb.debugDeck);
             }
         }
 
@@ -203,12 +173,13 @@ namespace GameManagement
 
             _stats1.freeCardsChosen = defaultFreeDrawChoices;
             _stats2.freeCardsChosen = defaultFreeDrawChoices;
-        
+
             _stats1.freeCardsOffered = defaultFreeDrawOffering;
-            _stats2.freeCardsOffered = defaultFreeDrawOffering + 2;
+            _stats2.freeCardsOffered = defaultFreeDrawOffering;
 
             if (_stats1.playerTotalScore == 0 || _stats2.playerTotalScore == 0)
-                Debug.LogWarning($"Player {gameObject.name} has default score set to 0 in editor. GameManger can't update UI from here");
+                Debug.LogWarning(
+                    $"Player {gameObject.name} has default score set to 0 in editor. GameManger can't update UI from here");
 
             _stats1.playerTotalScore = 0;
             _stats2.playerTotalScore = 0;
@@ -223,9 +194,9 @@ namespace GameManagement
         public void RoundWin(PlayerStats winningPlayer)
         {
             Debug.Log($"...Player {winningPlayer.netId} won this round");
-        
+
             winningPlayer.roundsWon++;
-        
+
             Purge();
 
             // reset health
@@ -250,31 +221,31 @@ namespace GameManagement
         {
             _stats1.freeCardsChosen += 1;
         }
-    
+
         [ContextMenu("Increase Player 1 Offer")]
         public void IncreasePlayer1Offer()
         {
             _stats1.freeCardsOffered += 1;
         }
-    
+
         [ContextMenu("Increase Player 2 Choice")]
         public void IncreasePlayer2Choice()
         {
             _stats2.freeCardsChosen += 1;
         }
-    
+
         [ContextMenu("Increase Player 2 Offer")]
         public void IncreasePlayer2Offer()
         {
             _stats2.freeCardsOffered += 1;
         }
-    
+
         [ContextMenu("Increase Player 1 draws left")]
         public void IncreasePlayer1DrawsLeft()
         {
             _stats1.freeDrawsLeft += 1;
         }
-    
+
         [ContextMenu("Increase Player 2 draws left")]
         public void IncreasePlayer2DrawsLeft()
         {

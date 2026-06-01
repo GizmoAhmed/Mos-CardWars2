@@ -17,6 +17,7 @@ namespace AbilityEvents
         // === TILE EVENTS (happen on specific tiles, broadcast locally) ===
         CardPlacedOnTile,       
         CreatureBurnedOnTile,   
+        CardDiscardedFromTile,
         BuffCreatureStrengthOnTile,
         BuffCreatureDefenseOnTile,
         DebuffCreatureStrengthOnTile,

@@ -1,3 +1,4 @@
+using AbilityEvents;
 using CardScripts.CardStatss;
 using Mirror;
 using PlayerStuff;
@@ -102,6 +103,9 @@ namespace CardScripts.CardMovements
             // remove all runes
             GetComponentInChildren<RuneSlots>().UnbindAllRunes();
             
+            // tell tile that a card was discarded on it
+            LocalWhisperCardDiscard(GetLogicalTile());
+            
             base.ServerDiscard();
         }
 
@@ -112,6 +116,14 @@ namespace CardScripts.CardMovements
             // cardStats.UpdateSyncSoulToPlayer(cardStats.soulUse);
             
             thisCardOwnerPlayerStats.playerTotalScore -= CreatureStats.score; // give back score
+        }
+        
+        private void LocalWhisperCardDiscard(Tile tile)
+        {
+            TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
+
+            // tileManager handles creating and broadcasting the AbilityEventData
+            tileEventManager.OnCardDiscardFromTile(gameObject);
         }
 
         protected override void DetachFromTile()

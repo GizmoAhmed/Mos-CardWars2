@@ -18,10 +18,39 @@ namespace PlayerStuff
 {
     public class DeckCollection : NetworkBehaviour
     {
-        public readonly SyncList<string> myDeckCardIDs = new SyncList<string>();
+        private readonly SyncList<string> myDeckCardIDs = new SyncList<string>();
 
         public DrawModal drawModal;
 
+        private GameManager _gameManager;
+        
+        private MasterDeck _masterDeck;
+
+        void Start()
+        {
+            _gameManager = FindObjectOfType<GameManager>();
+            
+            if (_gameManager == null)
+            {
+                Debug.LogError($"_gameManager is null on {gameObject.name}");
+                return;
+            }
+            
+            drawModal = _gameManager.gmVisibleDrawModal.GetComponent<DrawModal>();
+
+            if (drawModal == null)
+            {
+                Debug.LogError($"DrawModal is null on {gameObject.name}");
+            }
+            
+            _masterDeck =  FindObjectOfType<MasterDeck>();
+
+            if (_masterDeck == null)
+            {
+                Debug.LogError($"MasterDeck is null on {gameObject.name}");                
+            }
+        }
+        
         [Server]
         public void InitializeDeck(List<CardDataSO> deck)
         {
@@ -30,16 +59,6 @@ namespace PlayerStuff
             foreach (CardDataSO card in deck)
             {
                 myDeckCardIDs.Add(card.cardID);
-            }
-        }
-
-        void Start()
-        {
-            drawModal = FindObjectOfType<GameManager>().gmVisibleDrawModal.GetComponent<DrawModal>();
-
-            if (drawModal == null)
-            {
-                Debug.LogError($"DrawModal is null on {gameObject.name}");
             }
         }
 
@@ -54,8 +73,7 @@ namespace PlayerStuff
                 return;
             }
 
-            GameManager gm = FindObjectOfType<GameManager>();
-            CardDataSO cardData = gm.GetCardByID(cardID);
+            CardDataSO cardData = _masterDeck.GetCardByID(cardID);
 
             GameObject cardObj = CreateCard(cardData);
 
@@ -135,18 +153,27 @@ namespace PlayerStuff
         private GameObject CreateCard(CardDataSO data)
         {
             GameObject card;
-
-            GameManager gm = FindObjectOfType<GameManager>();
-
-            if (data is CreatureDataSO) card = gm.creatureCard;
-            else if (data is BuildingDataSO) card = gm.buildingCard;
-            else if (data is SpellDataSO) card = gm.spellCard;
-            else if (data is CharmDataSO) card = gm.charmCard;
-            else if (data is RuneDataSO) card = gm.runeCard;
-            else
+            
+            switch (data)
             {
-                Debug.LogError($"{data.GetType()}: card data is null or the base class. Can't create card");
-                return null;
+                case CreatureDataSO:
+                    card = _gameManager.creatureCard;
+                    break;
+                case BuildingDataSO:
+                    card = _gameManager.buildingCard;
+                    break;
+                case SpellDataSO:
+                    card = _gameManager.spellCard;
+                    break;
+                case CharmDataSO:
+                    card = _gameManager.charmCard;
+                    break;
+                case RuneDataSO:
+                    card = _gameManager.runeCard;
+                    break;
+                default:
+                    Debug.LogError($"{data.GetType()}: card data is null or the base class. Can't create card");
+                    return null;
             }
 
             GameObject cardInstance = Instantiate(card);
@@ -178,13 +205,12 @@ namespace PlayerStuff
 
             // Get random card names from the deck
             List<string> randomCardNames = GetRandomUniqueCardNames(offering);
-            GameManager gm = FindObjectOfType<GameManager>();
 
             drawModal.UpdatePicksLeft(choice);
 
             foreach (string cardName in randomCardNames)
             {
-                CardDataSO cardData = gm.GetCardByID(cardName);
+                CardDataSO cardData = _masterDeck.GetCardByID(cardName);
 
                 if (cardData == null)
                 {
