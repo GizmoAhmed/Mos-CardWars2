@@ -13,7 +13,7 @@ namespace CardScripts.CardMovements
             // if can't get passed global checks, abort
             if (!base.ValidPlacement(tile))
                 return false;
-            
+
             if (!(tile is MiddleTile midTile)) // has to be middle tile
                 return false;
 
@@ -32,32 +32,32 @@ namespace CardScripts.CardMovements
             {
                 listener.RegisterPassiveAbility();
             }
-            
+
             thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
 
-            
+
             // thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
         }
-        
+
         [Server]
         protected override void SetLogicalReferenceOnTile(Tile tile)
         {
             MiddleTile middleTile = tile as MiddleTile;
-            
+
             // if the client is setting, refer to the tile on the other side for setting logical card
             if (logicalPlayerSide == 1)
             {
                 middleTile = middleTile.across.GetComponent<MiddleTile>();
             }
-            
+
             middleTile.logicalBuilding = gameObject;
         }
-    
+
         [Server]
         protected override void ClearLogicalReference_OnTile(Tile tile)
         {
             MiddleTile middleTile = tile as MiddleTile;
-            
+
             if (middleTile.logicalBuilding == gameObject)
             {
                 middleTile.logicalBuilding = null;
@@ -81,7 +81,7 @@ namespace CardScripts.CardMovements
             // Visual positioning
             visualTile.buildingVisual = gameObject;
             transform.SetParent(visualTile.transform, false);
-            transform.localPosition = new Vector3(-40,-35,0);
+            transform.localPosition = new Vector3(-40, -35, 0);
             transform.SetAsFirstSibling();
 
             // Update visual reference
@@ -92,15 +92,17 @@ namespace CardScripts.CardMovements
         public override void ServerDiscard()
         {
             // if being discarded from the field, returning magic
-            if (cardState == CardState.Field) ReturnMagic();
-            
+            if (cardState == CardState.Field)
+            {
+                ReturnMagic();
+            }
+
             base.ServerDiscard();
         }
 
-        [Command]
         private void ReturnMagic()
         {
-            thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse; // give back soulUse
+            thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse;
         }
 
         protected override void DetachFromTile()

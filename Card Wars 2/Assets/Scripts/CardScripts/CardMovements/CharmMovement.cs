@@ -88,19 +88,9 @@ namespace CardScripts.CardMovements
             base.ServerDiscard();
         }
 
-        [Command]
         private void ReturnMagic()
         {
             thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse; // give back soulUse
-        }
-
-        protected override void DetachFromTile()
-        {
-            /*CharmTile charmTileScript = currentTileVisual.GetComponent<CharmTile>();
-
-             charmTileScript.RemoveCharm(gameObject);*/
-
-            base.DetachFromTile();
         }
     }
 }
