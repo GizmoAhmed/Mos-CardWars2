@@ -25,7 +25,7 @@ namespace CardScripts.Abilities.CharmAbilities.Scripts
 
             playerStats.freeCardsOffered -= offeringsGiven;
             
-            Debug.Log($"{thisCard.name} ({name}) is removing {playerStats.gameObject.name} - {offeringsGiven} offering.\n{playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings");
+            // Debug.Log($"{thisCard.name} ({name}) is removing {playerStats.gameObject.name} - {offeringsGiven} offering.\n{playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings");
         }
 
         public void OnValidate()

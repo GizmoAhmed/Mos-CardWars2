@@ -76,12 +76,17 @@ namespace PlayerStuff
             CardDataSO cardData = _masterDeck.GetCardByID(cardID);
 
             GameObject cardObj = CreateCard(cardData);
-
+            
             CardMovement move = cardObj.GetComponent<CardMovement>();
             PlayerStats stats = GetComponentInParent<PlayerStats>();
             move.SetOwningPlayer(stats);
 
             NetworkServer.Spawn(cardObj, connectionToClient);
+            
+            // set card data with network ON, since spawning for both clients on server
+            // goes after SPAWN, because needs to be spawned to use the rpc within SetCardData
+            CardStats cardStats = cardObj.GetComponent<CardStats>();
+            cardStats.SetCardData(cardData, networked: true);
 
             Player player = GetComponentInParent<Player>();
 
@@ -178,7 +183,7 @@ namespace PlayerStuff
 
             GameObject cardInstance = Instantiate(card);
 
-            cardInstance.GetComponent<CardStats>().SetCardData(data);
+            // cardInstance.GetComponent<CardStats>().SetCardData(data);
 
             return cardInstance;
         }
@@ -220,12 +225,16 @@ namespace PlayerStuff
 
                 // creature card
                 GameObject previewCard = CreateCard(cardData);
+                
+                // set card data with network OFF, since instancing for just one client at a time
+                CardStats cardStats = previewCard.GetComponent<CardStats>();
+                cardStats.SetCardData(cardData, networked: false);
 
                 // move to drawmodal
                 previewCard.transform.SetParent(drawModal.cardGroupTransform, false);
 
                 // init card
-                previewCard.GetComponent<CardStats>().InitializeCard();
+                // previewCard.GetComponent<CardStats>().InitializeCard();
 
                 // flip card up
                 CardDisplay cardDisplay = previewCard.GetComponent<CardDisplay>();

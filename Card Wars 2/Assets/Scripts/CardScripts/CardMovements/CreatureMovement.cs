@@ -97,7 +97,7 @@ namespace CardScripts.CardMovements
             // if being discarded from the field, returning magic
             if (cardState == CardState.Field)
             {
-                ReturnMagicAndScore();
+                ReturnSoulAndScore();
             }
             
             // remove all runes
@@ -109,7 +109,7 @@ namespace CardScripts.CardMovements
             base.ServerDiscard();
         }
 
-        private void ReturnMagicAndScore()
+        private void ReturnSoulAndScore()
         {
             // give back soulUse
             thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse; 

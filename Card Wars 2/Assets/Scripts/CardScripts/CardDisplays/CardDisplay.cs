@@ -1,3 +1,4 @@
+using System;
 using CardScripts.CardData;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
@@ -34,7 +35,13 @@ namespace CardScripts.CardDisplays
 
         protected CardInfoHandler CardInfoHandler;
 
-        public virtual void InitDisplayWithData(CardStats s)
+        private void Awake()
+        {
+            // find all object variables above
+            FindDisplayParts();
+        }
+
+        public virtual void SetDisplayElements_UsingData(CardStats s)
         {
             cardData = s.CardData;    
             
@@ -45,7 +52,7 @@ namespace CardScripts.CardDisplays
             }
 
             // find all object variables above
-            FindDisplayParts();
+            // FindDisplayParts();
 
             // Set images
             SetImage(MainImageObj, cardData.mainImage);

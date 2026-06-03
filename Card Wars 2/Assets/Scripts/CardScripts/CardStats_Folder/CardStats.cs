@@ -17,9 +17,6 @@ namespace CardScripts.CardStats_Folder
 
         public CardDataSO CardData => cardData;
 
-        [SyncVar(hook = nameof(OnCardDataChanged))]
-        private int _cardDataIndex = -1;
-
         private CardDisplay _display;
 
         [SyncVar(hook = nameof(Hook_UpdateSoulUI_OnBothClients))]
@@ -31,7 +28,12 @@ namespace CardScripts.CardStats_Folder
         [SyncVar(hook = nameof(ToggleBurnability))]
         public bool canBeBurned = true;
 
-        public void SetCardData(CardDataSO data)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="networked"></param>
+        public void SetCardData(CardDataSO data, bool networked)
         {
             MasterDeck masterDeckDb = FindObjectOfType<MasterDeck>();
 
@@ -40,54 +42,54 @@ namespace CardScripts.CardStats_Folder
                 Debug.LogError($"MasterDeckDb is Null on when data set on {gameObject.name}");
                 return;
             }
-            
+
             cardData = data;
-            _cardDataIndex = masterDeckDb.masterDeckList.IndexOf(data);
+
+            if (networked) // called from server based func
+            {
+                // tell other guy about it to
+                Rpc_SetCardData(data.cardID); 
+            }
+            
+            // todo now do what Initialize card did, here
+            
+            // _cardDataIndex = masterDeckDb.masterDeckList.IndexOf(data);
         }
 
         /// <summary>
-        /// Whenever a card is created, both the host and client needs to know about its data so it can be spawned on both
-        /// This hook is here so that when the data is set to a card, both clients can know about it
+        /// Set card data for both clients from above command
+        /// I have to do it this way because I need a card data to be known for both host and join,
+        /// but I can't use the trust sync var so I have to do it the old fashion way
         /// </summary>
-        /// <param name="oldIndex"></param>
-        /// <param name="newIndex"></param>
-        private void OnCardDataChanged(int oldIndex, int newIndex)
+        /// <param name="data"></param>
+        [ClientRpc]
+        private void Rpc_SetCardData(string cardID)
         {
+            // Host already set it in SetCardData above
+            if (isServer) return;
+
             MasterDeck masterDeckDb = FindObjectOfType<MasterDeck>();
 
             if (masterDeckDb == null)
             {
-                Debug.LogError($"MasterDeckDb is NULL on when data changed on {gameObject.name}");
+                Debug.LogError($"MasterDeck not found on client!");
                 return;
             }
 
-            if (masterDeckDb.masterDeckList.Count == 0)
+            CardDataSO data = masterDeckDb.GetCardByID(cardID);
+
+            if (data == null)
             {
-                Debug.LogError($"MasterDeckDb is EMPTY on when data changed on {gameObject.name}");
+                Debug.LogError($"Card not found on client: {cardID}");
                 return;
             }
 
-            if (cardData != null)
-            {
-                 // Debug.LogWarning($"{gameObject} is trying to set new card data, but not going through with it since card data ({cardData}) is already set");
-                return;
-            }
-
-            if (newIndex < 0) return;
-
-            if (newIndex < masterDeckDb.masterDeckList.Count)
-            {
-                cardData = masterDeckDb.masterDeckList[newIndex];
-            }
+            cardData = data;
         }
 
-        public override void OnStartClient()
-        {
-            base.OnStartClient();
-
-            InitializeCard();
-        }
-
+        /// <summary>
+        /// Sets all the stats and display information of a card
+        /// </summary>
         public virtual void InitializeCard()
         {
             if (cardData == null)
@@ -99,7 +101,7 @@ namespace CardScripts.CardStats_Folder
             gameObject.name = cardData.cardName + "CardObj";
 
             _display = GetComponent<CardDisplay>();
-            _display.InitDisplayWithData(this);
+            _display.SetDisplayElements_UsingData(this);
 
             PassiveListenerCard passiveListener = GetComponent<PassiveListenerCard>();
 
@@ -113,13 +115,16 @@ namespace CardScripts.CardStats_Folder
             {
                 // non-networked: set directly
                 LocallyRefreshCardStats();
+
+                // on the server, these two variables would be set via hook
+                // since this if block says there is no server (Offer cards client side)...
+                // ... you have to set the display manually for this client ↓
             }
             else
             {
                 CmdRefreshCardStats();
             }
 
-            // CmdRefreshCardStats(); 
             _display.UpdateUISoul(soulUse);
             _display.UpdateUI_BurnCost(burnCost);
         }

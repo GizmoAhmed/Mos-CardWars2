@@ -1300,12 +1300,7 @@ namespace Mirror
             catch (Exception e)
             {
                 // show a detailed error and let the user know what went wrong
-                Debug.LogError($"OnDeserialize failed Exception={e.GetType()} (see below) object={name} component={GetType()} netId={netId}. Possible Reasons:\n" +
-                               $"  * Do {GetType()}'s OnSerialize and OnDeserialize calls write the same amount of data? \n" +
-                               $"  * Was there an exception in {GetType()}'s OnSerialize/OnDeserialize code?\n" +
-                               $"  * Are the server and client the exact same project?\n" +
-                               $"  * Maybe this OnDeserialize call was meant for another GameObject? The sceneIds can easily get out of sync if the Hierarchy was modified only in the client OR the server. Try rebuilding both.\n\n" +
-                               $"Exception {e}");
+                Debug.LogError($"OnDeserialize failed Exception={e.GetType()}\nException: {e}");
                 result = false;
             }
 

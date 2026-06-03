@@ -2,6 +2,7 @@ using CardScripts.CardData;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CardScripts.CardDisplays
@@ -34,7 +35,12 @@ namespace CardScripts.CardDisplays
 
         private CreatureStats _creatureStats;
 
-        public override void InitDisplayWithData(CardStats s)
+        private void Awake()
+        {
+            FindDisplayParts();
+        }
+
+        public override void SetDisplayElements_UsingData(CardStats s)
         {
             cardData = s.CardData as CreatureDataSO;
 
@@ -48,7 +54,7 @@ namespace CardScripts.CardDisplays
 
             // ------------- to get around null check in base class ---------------------
             // find all object variables above
-            FindDisplayParts();
+            // FindDisplayParts();
 
             // Set images
             SetImage(MainImageObj, cardData.mainImage);

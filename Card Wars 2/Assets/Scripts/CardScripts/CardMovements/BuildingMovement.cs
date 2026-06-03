@@ -94,13 +94,13 @@ namespace CardScripts.CardMovements
             // if being discarded from the field, returning magic
             if (cardState == CardState.Field)
             {
-                ReturnMagic();
+                ReturnSoul();
             }
 
             base.ServerDiscard();
         }
 
-        private void ReturnMagic()
+        private void ReturnSoul()
         {
             thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse;
         }

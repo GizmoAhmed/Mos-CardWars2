@@ -42,7 +42,7 @@ namespace CardScripts.CardStatss
             canBeBurned = true;
             immortal = false;
 
-            creatureDisplay.InitDisplayWithData(this);
+            creatureDisplay.SetDisplayElements_UsingData(this);
 
             creatureDisplay.UpdateUIStrength(strength);
             creatureDisplay.UpdateCardUIDefense(defense);
