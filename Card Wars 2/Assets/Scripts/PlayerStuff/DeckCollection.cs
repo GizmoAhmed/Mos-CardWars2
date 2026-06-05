@@ -63,8 +63,12 @@ namespace PlayerStuff
         }
 
         [Server]
-        private void DrawSpawnCard_ByID(string cardID)
+        private void DrawCardByID(string cardID)
         {
+            // instantiates and spawns a card via its id
+            _masterDeck.CreateThenSpawnCard(cardID);
+            
+            // identify and remove that card from client
             int index = myDeckCardIDs.IndexOf(cardID);
 
             if (index < 0)
@@ -72,34 +76,6 @@ namespace PlayerStuff
                 Debug.LogWarning($"Card {cardID} not in deck");
                 return;
             }
-
-            CardDataSO cardData = _masterDeck.GetCardByID(cardID);
-
-            GameObject cardObj = _masterDeck.CreateCard(cardData);
-            
-            CardMovement move = cardObj.GetComponent<CardMovement>();
-            PlayerStats stats = GetComponentInParent<PlayerStats>();
-            move.SetOwningPlayer(stats);
-
-            NetworkServer.Spawn(cardObj, connectionToClient);
-            
-            // set card data with network ON, since spawning for both clients on server
-            // goes after SPAWN, because needs to be spawned to use the rpc within SetCardData
-            CardStats cardStats = cardObj.GetComponent<CardStats>();
-            cardStats.SetCardData(cardData, serverCall: true);
-
-            Player player = GetComponentInParent<Player>();
-
-            if (player != null)
-            {
-                player.cardPlacer.MoveCardToHand(cardObj);
-            }
-            else
-            {
-                Debug.LogError($"Player was not found for {cardObj.name}.");
-            }
-
-            move.cardState = CardMovement.CardState.Hand;
 
             myDeckCardIDs.RemoveAt(index);
         }
@@ -121,7 +97,7 @@ namespace PlayerStuff
 
             string cardID = myDeckCardIDs[0];
 
-            DrawSpawnCard_ByID(cardID);
+            DrawCardByID(cardID);
         }
 
         [Command] // called from in-scene button click
@@ -142,17 +118,18 @@ namespace PlayerStuff
             // iterate backwards because sync list
             for (int i = myDeckCardIDs.Count - 1; i >= 0; i--)
             {
-                DrawSpawnCard_ByID(myDeckCardIDs[i]);
+                DrawCardByID(myDeckCardIDs[i]);
             }
         }
         
         /// <summary>
-        /// Draw a specific card by ID (called when player selects from preview)
+        /// Draw a specific card by ID
+        /// ...called when player selects a card from offer preview
         /// </summary>
         [Command(requiresAuthority = false)]
         public void CmdDrawCardByID(string cardID, NetworkConnectionToClient sender = null)
         {
-            DrawSpawnCard_ByID(cardID);
+            DrawCardByID(cardID);
         }
 
         [Client]
@@ -167,7 +144,7 @@ namespace PlayerStuff
             drawModal.ClearPreviewCards(); // clear current offering
 
             // Get random card names from the deck
-            List<string> randomCardNames = GetRandomUniqueCardNames(offering);
+            List<string> randomCardNames = GetRandomUniqueCardNames_FromPlayerDeck(offering);
 
             drawModal.UpdatePicksLeft(choice);
 
@@ -191,9 +168,6 @@ namespace PlayerStuff
                 // move to drawmodal
                 previewCard.transform.SetParent(drawModal.cardGroupTransform, false);
 
-                // init card
-                // previewCard.GetComponent<CardStats>().InitializeCard();
-
                 // flip card up
                 CardDisplay cardDisplay = previewCard.GetComponent<CardDisplay>();
                 cardDisplay.FlipCard(true);
@@ -209,7 +183,7 @@ namespace PlayerStuff
         /// <summary>
         /// Get random unique card names from the deck
         /// </summary>
-        private List<string> GetRandomUniqueCardNames(int count)
+        private List<string> GetRandomUniqueCardNames_FromPlayerDeck(int count)
         {
             int maxCount = myDeckCardIDs.Count;
 

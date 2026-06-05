@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using CardScripts.CardData;
+using CardScripts.CardMovements;
+using CardScripts.CardStats_Folder;
 using Mirror;
+using PlayerStuff;
 using UnityEngine;
 
 namespace GameManagement
@@ -116,7 +119,39 @@ namespace GameManagement
             Debug.LogError($"Card not found: {cardID}");
             return null;
         }
-        
+
+        [Server]
+        public void CreateThenSpawnCard(string cardID)
+        {
+            CardDataSO cardData = GetCardByID(cardID);
+
+            GameObject cardObj = CreateCard(cardData);
+            
+            CardMovement move = cardObj.GetComponent<CardMovement>();
+            PlayerStats stats = GetComponentInParent<PlayerStats>();
+            move.SetOwningPlayer(stats);
+
+            NetworkServer.Spawn(cardObj, connectionToClient);
+            
+            // set card data with network ON, since spawning for both clients on server
+            // goes after SPAWN, because needs to be spawned to use the rpc within SetCardData
+            CardStats cardStats = cardObj.GetComponent<CardStats>();
+            cardStats.SetCardData(cardData, serverCall: true);
+
+            Player player = GetComponentInParent<Player>();
+
+            if (player != null)
+            {
+                player.cardPlacer.MoveCardToHand(cardObj);
+            }
+            else
+            {
+                Debug.LogError($"Player was not found for {cardObj.name}.");
+            }
+
+            move.cardState = CardMovement.CardState.Hand;
+        }
+
         /// <summary>
         /// Creates a card using Prefab cards as bodies (from game manager) and fills them with souls in the form of CardDataSO
         /// First step prior to spawning on server, since draw modal doesn't require spawn, you can just create them here
