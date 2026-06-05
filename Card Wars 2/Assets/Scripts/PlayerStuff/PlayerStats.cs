@@ -119,7 +119,7 @@ namespace PlayerStuff
             if (shards >= cost)
             {
                 shards -= cost;
-                Debug.Log($"...Spending shards ({cost}) to activate {creatureToActivate.name} ability");
+                // Debug.Log($"...Spending shards ({cost}) to activate {creatureToActivate.name} ability");
 
                 try
                 {

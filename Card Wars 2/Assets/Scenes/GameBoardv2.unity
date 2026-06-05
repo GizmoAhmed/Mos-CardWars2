@@ -8102,6 +8102,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4055832630173525344, guid: 424aa81381a516f4485ba5a4a0f523f0, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: defaultFreeDrawOffering
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: defaultPaidDrawOffering
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: MasterDeck.Array.data[9]
       value: 
       objectReference: {fileID: 5128838930341079461, guid: 4d3d08e81f20a0d4da92d3d63f62cbb9, type: 3}
@@ -10031,19 +10039,28 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
-  - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
+  - {fileID: 11400000, guid: 2d46760cca5f82f4f891a705b17d354a, type: 2}
+  - {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
   - {fileID: 11400000, guid: 95c87cf645eb3ab459d8e8f447befb24, type: 2}
-  - {fileID: 11400000, guid: 862ac6482d52e454584459369a71ba42, type: 2}
+  - {fileID: 11400000, guid: 2d9df32531c890143920e03962f21995, type: 2}
   - {fileID: 11400000, guid: 41a2d3d2f8ba95d4aa51a693035e0186, type: 2}
   - {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
+  - {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
   - {fileID: 11400000, guid: 842864b0bbba1d94d9eda4aeb8055232, type: 2}
-  - {fileID: 11400000, guid: 2d46760cca5f82f4f891a705b17d354a, type: 2}
+  - {fileID: 11400000, guid: 862ac6482d52e454584459369a71ba42, type: 2}
+  - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
+  - {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
+  - {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
+  - {fileID: 11400000, guid: 228915c4fac40ce468a32f92b2c8e651, type: 2}
+  - {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
+  - {fileID: 11400000, guid: 5eba7fa8db3cb644e8612048ca8a7300, type: 2}
+  - {fileID: 11400000, guid: 87945ef6eabe77042b24de5acde1bd7c, type: 2}
+  - {fileID: 11400000, guid: d2c7baad784d6a74c8ee8abe419d4632, type: 2}
+  - {fileID: 11400000, guid: 249de86d13d6cee45bf384b8de6eb555, type: 2}
+  - {fileID: 11400000, guid: e6f90f058cdbb8141bac8c509df0fb5d, type: 2}
+  - {fileID: 11400000, guid: 9103be960578c464bb5163b67a1a1cb9, type: 2}
   masterDeckList: []
-  creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
-  buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}
-  spellCard: {fileID: 5473283833520736551, guid: 197ad043ed2b6e345929eda49e5660e4, type: 3}
-  runeCard: {fileID: 659507761811515719, guid: b943eed949e10dc4fa7b81f23cb0d28c, type: 3}
-  charmCard: {fileID: 1243263642205161095, guid: b1efdd37bf1fd294ebafc7890a269737, type: 3}
 --- !u!1 &1880351249
 GameObject:
   m_ObjectHideFlags: 0

@@ -220,7 +220,7 @@ namespace CardScripts.CardMovements
 
         private bool CanPickFromPreview()
         {
-            Debug.Log($"Player choosing {gameObject.name} to draw");
+            // Debug.Log($"Player choosing {gameObject.name} to draw");
             DrawModal drawModal = FindObjectOfType<DrawModal>();
 
             if (drawModal == null)
@@ -372,7 +372,8 @@ namespace CardScripts.CardMovements
             // if player has negative soulUse and this card cost something, can't place
             if (cardStats.soulUse > 0 & thisCardOwnerPlayerStats.currentSoul <= 0)
             {
-                Debug.LogWarning($"Not enough soul ({thisCardOwnerPlayerStats.currentSoul}) to place this card ({gameObject.name} [Soul Use = {cardStats.soulUse}])");
+                Debug.LogWarning(
+                    $"Not enough soul ({thisCardOwnerPlayerStats.currentSoul}) to place this card ({gameObject.name} [Soul Use = {cardStats.soulUse}])");
                 return false;
             }
 
@@ -423,11 +424,11 @@ namespace CardScripts.CardMovements
             if (cardState == CardState.Field)
             {
                 // this (unsub) goes first (before detach) so that when data is sent from unsubscribe, the tile is still set in custom data in PassiveListenerCard.cs 
-                
+
                 // if listener found, card is passive, unsubscribe its ability
                 PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
                 if (listen != null) listen.UnsubscribeThisCardFromListening();
-                
+
                 DetachFromTile(); // if on a tile, detach from that tile
             }
 
@@ -435,7 +436,7 @@ namespace CardScripts.CardMovements
             cardState = CardState.Discard;
 
             // resets stats to base, to show on discard board
-            cardStats.ApplyStatsFromData();
+            cardStats.SetStats_FromData();
 
             // visually move card to discard board for each respective client
             RpcMoveDiscardedCard_ToBoard();

@@ -732,7 +732,7 @@ MonoBehaviour:
   syncInterval: 0
   faceUp: 0
   cardData: {fileID: 0}
-  _magicObj: {fileID: 0}
+  magicObj: {fileID: 0}
 --- !u!114 &7641463347789120547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -895,9 +895,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   cardData: {fileID: 0}
-  thisCardOwner: {fileID: 0}
-  magicUse: 0
-  burnCost: 2
+  soulUse: -1
+  burnCost: -1
+  canBeBurned: 1
 --- !u!223 &1621094678314075071
 Canvas:
   m_ObjectHideFlags: 0
@@ -968,10 +968,12 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  player: {fileID: 0}
   cardState: 0
-  thisPlayersStats: {fileID: 0}
-  currentLand: {fileID: 0}
+  thisCardOwnerPlayerStats: {fileID: 0}
+  logicalRow: -1
+  logicalColumn: -1
+  logicalPlayerSide: -1
+  thisCardsVisualTile: {fileID: 0}
   snapBackDuration: 0.25
 --- !u!1 &5475126309412532345
 GameObject:

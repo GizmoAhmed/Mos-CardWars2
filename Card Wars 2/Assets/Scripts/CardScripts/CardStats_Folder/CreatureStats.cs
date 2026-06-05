@@ -11,15 +11,13 @@ namespace CardScripts.CardStatss
 {
     public class CreatureStats : CardStats
     {
-        public CreatureDataSO creatureData => cardData as CreatureDataSO;
-
-        [HideInInspector] public CreatureDisplay creatureDisplay;
+        private CreatureDisplay _creatureDisplay;
         
         [Header("Creature Specific Stats")] [SyncVar(hook = nameof(Hook_UpdateCreatureStrength))]
         public int strength;
         public int strengthMult = 1;
 
-        [SyncVar(hook = nameof(UpdateDefense))]
+        [SyncVar(hook = nameof(Hook_UpdateCreatureDefense))]
         public int defense;
         public int defenseMult = 1;
 
@@ -33,41 +31,36 @@ namespace CardScripts.CardStatss
         /// </summary>
         [SyncVar] public bool immortal = false;
         
-        public override void InitializeCard()
+        protected override void Awake()
         {
-            creatureDisplay = GetComponent<CreatureDisplay>();
+            base.Awake(); // set base display 
+        
+            _creatureDisplay = Display as CreatureDisplay;
+        
+            if (_creatureDisplay == null)
+            {
+                Debug.LogError($"CreatureDisplay not found on {gameObject.name}!");
+            }
+        }
+
+        public override void SetCardData(CardDataSO data, bool serverCall)
+        {
+            base.SetCardData(data, serverCall);
             
-            base.InitializeCard();
-
-            canBeBurned = true;
-            immortal = false;
-
-            creatureDisplay.SetDisplayElements_UsingData(this);
-
-            creatureDisplay.UpdateUIStrength(strength);
-            creatureDisplay.UpdateCardUIDefense(defense);
-            creatureDisplay.UpdateUI_AbilityCost(abilityCost);
-
-            score = strength + defense;
-            creatureDisplay.UpdateCardUI_Score(score);
+            // for specifically creature stats and data, add on this stuff:
+            if (!serverCall)
+            {
+                // stats already set from base call above, use them here
+                _creatureDisplay.UpdateUIStrength(strength);
+                _creatureDisplay.UpdateCardUIDefense(defense);
+                _creatureDisplay.UpdateUI_AbilityCost(abilityCost);
+                _creatureDisplay.UpdateScoreUI(score);
+            }
         }
 
-        [Command]
-        protected override void CmdRefreshCardStats()
+        public override void SetStats_FromData()
         {
-            base.CmdRefreshCardStats();
-            ApplyStatsFromData();
-        }
-
-        protected override void LocallyRefreshCardStats()
-        {
-            base.LocallyRefreshCardStats();
-            ApplyStatsFromData();
-        }
-
-        public override void ApplyStatsFromData()
-        {
-            base.ApplyStatsFromData();
+            base.SetStats_FromData();
 
             CreatureDataSO cData = cardData as CreatureDataSO;
 
@@ -81,7 +74,7 @@ namespace CardScripts.CardStatss
             }
             else
             {
-                Debug.LogError($"{gameObject.name}: card data is passed null here");
+                Debug.LogError($"{gameObject.name}: card data was null when retrieved here");
             }
         }
 
@@ -186,14 +179,14 @@ namespace CardScripts.CardStatss
 
         public void Hook_UpdateCreatureStrength(int old, int newStrength)
         {
-            creatureDisplay.UpdateUIStrength(newStrength);
+            _creatureDisplay.UpdateUIStrength(newStrength);
 
             ContributeCreatureScore();
         }
 
-        public void UpdateDefense(int oldDefense, int newDefense)
+        public void Hook_UpdateCreatureDefense(int oldDefense, int newDefense)
         {
-            creatureDisplay.UpdateCardUIDefense(newDefense);
+            _creatureDisplay.UpdateCardUIDefense(newDefense);
 
             ContributeCreatureScore();
         }
@@ -218,14 +211,12 @@ namespace CardScripts.CardStatss
 
         public void Hook_UpdateAbilityCost(int oldCost, int newCost)
         {
-            creatureDisplay.UpdateUI_AbilityCost(newCost);
+            _creatureDisplay.UpdateUI_AbilityCost(newCost);
         }
 
         public void UpdateScore(int oldScore, int newScore)
         {
-            creatureDisplay.UpdateCardUI_Score(newScore);
+            _creatureDisplay.UpdateScoreUI(newScore);
         }
-
-        
     }
 }

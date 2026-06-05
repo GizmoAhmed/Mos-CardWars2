@@ -86,7 +86,7 @@ namespace PlayerStuff
             // set card data with network ON, since spawning for both clients on server
             // goes after SPAWN, because needs to be spawned to use the rpc within SetCardData
             CardStats cardStats = cardObj.GetComponent<CardStats>();
-            cardStats.SetCardData(cardData, networked: true);
+            cardStats.SetCardData(cardData, serverCall: true);
 
             Player player = GetComponentInParent<Player>();
 
@@ -228,7 +228,7 @@ namespace PlayerStuff
                 
                 // set card data with network OFF, since instancing for just one client at a time
                 CardStats cardStats = previewCard.GetComponent<CardStats>();
-                cardStats.SetCardData(cardData, networked: false);
+                cardStats.SetCardData(cardData, serverCall: false);
 
                 // move to drawmodal
                 previewCard.transform.SetParent(drawModal.cardGroupTransform, false);

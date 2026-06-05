@@ -68,7 +68,7 @@ namespace CardScripts.CardDisplays
 
             FlipCard(face: true);
 
-            Hide(InfoObj); // initially hide the info card
+            HideUIElement(InfoObj); // initially hide the info card
 
             CardInfoHandler = FindObjectOfType<CardInfoHandler>();
             // -----------------------------------------------------
@@ -184,7 +184,7 @@ namespace CardScripts.CardDisplays
             SetText(abilityCost, newCost.ToString(), true);
         }
 
-        public void UpdateCardUI_Score(int newScore)
+        public void UpdateScoreUI(int newScore)
         {
             SetText(_scoreObj, newScore.ToString(), true);
         }

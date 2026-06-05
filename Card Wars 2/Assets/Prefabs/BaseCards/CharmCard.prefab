@@ -482,7 +482,7 @@ MonoBehaviour:
   logicalRow: -1
   logicalColumn: -1
   logicalPlayerSide: -1
-  currentTileVisual: {fileID: 0}
+  thisCardsVisualTile: {fileID: 0}
   snapBackDuration: 0.25
 --- !u!114 &-1237447297937807966
 MonoBehaviour:
@@ -500,8 +500,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   cardData: {fileID: 0}
-  soulUse: 0
-  burnCost: 2
+  soulUse: -1
+  burnCost: -1
+  canBeBurned: 1
 --- !u!114 &-7316469908674188732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,6 +515,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430ba0e5f439adb4090bdeef7d4dcb23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cardStats: {fileID: 0}
+  passiveAbility: {fileID: 0}
+  isExecutedOnPlace: 0
 --- !u!1 &1353088727235028194
 GameObject:
   m_ObjectHideFlags: 0

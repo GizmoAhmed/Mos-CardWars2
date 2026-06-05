@@ -43,6 +43,8 @@ namespace CardScripts.CardDisplays
 
         public virtual void SetDisplayElements_UsingData(CardStats s)
         {
+            // Debug.Log($"<color=yellow>Rendering:</color> Setting Display for {s} on this client");
+            
             cardData = s.CardData;    
             
             if (cardData == null)
@@ -66,12 +68,12 @@ namespace CardScripts.CardDisplays
 
             FlipCard(face: true);
 
-            Hide(InfoObj); // initially hide the info card
+            HideUIElement(InfoObj); // initially hide the info card
 
             CardInfoHandler = FindObjectOfType<CardInfoHandler>();
         }
 
-        protected void Hide(GameObject obj)
+        protected void HideUIElement(GameObject obj)
         {
             if (obj != null)
             {
@@ -149,7 +151,7 @@ namespace CardScripts.CardDisplays
                 }
                 
                 if (!isStatText) // stat text just stays whatever color is on the card, things like description would remain black
-                    tmp.color = Color.black; // red text means error
+                    tmp.color = Color.black; // the red text it starts with means error
             }
             else
             {
