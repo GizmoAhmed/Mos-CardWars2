@@ -66,7 +66,9 @@ namespace PlayerStuff
         private void DrawCardByID(string cardID)
         {
             // instantiates and spawns a card via its id
-            _masterDeck.CreateThenSpawnCard(cardID);
+            _masterDeck.CreateThenSpawnCard(
+                cardID,
+                GetComponentInParent<PlayerStats>());
             
             // identify and remove that card from client
             int index = myDeckCardIDs.IndexOf(cardID);
@@ -123,8 +125,8 @@ namespace PlayerStuff
         }
         
         /// <summary>
-        /// Draw a specific card by ID
-        /// ...called when player selects a card from offer preview
+        /// Draw a specific card by ID.
+        /// Called when player selects a card from offer preview
         /// </summary>
         [Command(requiresAuthority = false)]
         public void CmdDrawCardByID(string cardID, NetworkConnectionToClient sender = null)
@@ -163,7 +165,7 @@ namespace PlayerStuff
                 
                 // set card data with network OFF, since instancing for just one client at a time
                 CardStats cardStats = previewCard.GetComponent<CardStats>();
-                cardStats.SetCardData(cardData, serverCall: false);
+                cardStats.SetAndApplyCardData(cardData, serverCall: false);
 
                 // move to drawmodal
                 previewCard.transform.SetParent(drawModal.cardGroupTransform, false);

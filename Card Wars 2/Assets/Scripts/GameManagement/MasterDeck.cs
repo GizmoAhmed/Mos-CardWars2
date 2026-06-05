@@ -120,25 +120,38 @@ namespace GameManagement
             return null;
         }
 
+        /// <summary>
+        /// Find, Instantiate, then spawn the card.
+        /// Also sets the stats and moves card to hand
+        /// </summary>
+        /// <param name="cardID">Id of card being created and spawned</param>
+        /// <param name="playerStats">This is the player drawing</param>
         [Server]
-        public void CreateThenSpawnCard(string cardID)
+        public void CreateThenSpawnCard(string cardID, PlayerStats playerStats)
         {
             CardDataSO cardData = GetCardByID(cardID);
 
             GameObject cardObj = CreateCard(cardData);
             
             CardMovement move = cardObj.GetComponent<CardMovement>();
-            PlayerStats stats = GetComponentInParent<PlayerStats>();
-            move.SetOwningPlayer(stats);
+            move.SetOwningPlayer(playerStats);
 
-            NetworkServer.Spawn(cardObj, connectionToClient);
+            //// lesson here:
+            // this line below used master decks connection, which is a server object,
+            // so isOwned is never set on card...
+            // NetworkServer.Spawn(cardObj, connectionToClient);
+            
+            // ...instead, use the player's connection,
+            // so isOwned can be set on the spawned card according to the player
+            NetworkIdentity playerIdentity = playerStats.GetComponent<NetworkIdentity>();
+            NetworkServer.Spawn(cardObj, playerIdentity.connectionToClient);
             
             // set card data with network ON, since spawning for both clients on server
             // goes after SPAWN, because needs to be spawned to use the rpc within SetCardData
             CardStats cardStats = cardObj.GetComponent<CardStats>();
-            cardStats.SetCardData(cardData, serverCall: true);
+            cardStats.SetAndApplyCardData(cardData, serverCall: true);
 
-            Player player = GetComponentInParent<Player>();
+            Player player = playerStats.GetComponent<Player>();
 
             if (player != null)
             {

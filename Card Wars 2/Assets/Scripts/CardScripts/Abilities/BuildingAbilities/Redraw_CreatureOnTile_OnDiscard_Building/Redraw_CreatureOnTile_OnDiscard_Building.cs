@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using AbilityEvents;
 using CardScripts.Abilities;
-using CardScripts.CardMovements;
-using PlayerStuff;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Redraw_CreatureOnTile_OnDiscard_Building", menuName = "Abilities/Building/Redraw_CreatureOnTile_OnDiscard_Building")]
@@ -14,7 +10,7 @@ public class Redraw_CreatureOnTile_OnDiscard_Building : PassiveAbilitySO
     {
         Debug.Log($"{thisCard.name} calls redraw on {eventData.target.gameObject.name}");
         
-        PlayerStats playerStats = thisCard.GetComponent<CardMovement>().thisCardOwnerPlayerStats;
+        
         
         
     }

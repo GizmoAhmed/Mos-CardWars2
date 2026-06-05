@@ -43,9 +43,9 @@ namespace CardScripts.CardStatss
             }
         }
 
-        public override void SetCardData(CardDataSO data, bool serverCall)
+        public override void SetAndApplyCardData(CardDataSO data, bool serverCall)
         {
-            base.SetCardData(data, serverCall);
+            base.SetAndApplyCardData(data, serverCall);
             
             // for specifically creature stats and data, add on this stuff:
             if (!serverCall)

@@ -39,7 +39,7 @@ namespace CardScripts.CardStats_Folder
         /// </summary>
         /// <param name="data"></param>
         /// <param name="serverCall"></param>
-        public virtual void SetCardData(CardDataSO data, bool serverCall)
+        public virtual void SetAndApplyCardData(CardDataSO data, bool serverCall)
         {
             MasterDeck masterDeckDb = FindObjectOfType<MasterDeck>();
 
