@@ -19,11 +19,28 @@ namespace GameManagement
 
         [Tooltip("The name of the leaf node folder where all of the cards are stored")]
         private readonly string cardSOLeafFolderName = "CardSOs";
+        
+        [Header("Base Card GameObjects")] 
+        public GameObject creatureCard;
+        public GameObject buildingCard;
+        public GameObject spellCard;
+        public GameObject runeCard;
+        public GameObject charmCard;
 
         // Initialize on server
         [Server]
         public void InitMasterDeck()
         {
+            if (creatureCard == null ||
+                buildingCard == null ||
+                spellCard == null ||
+                runeCard == null ||
+                charmCard == null)
+            {
+                Debug.LogError($"Base Cards were not set on {gameObject.name} in the editor");
+                return;
+            }
+            
             RpcInitMasterDeck();
         }
 
@@ -98,6 +115,45 @@ namespace GameManagement
 
             Debug.LogError($"Card not found: {cardID}");
             return null;
+        }
+        
+        /// <summary>
+        /// Creates a card using Prefab cards as bodies (from game manager) and fills them with souls in the form of CardDataSO
+        /// First step prior to spawning on server, since draw modal doesn't require spawn, you can just create them here
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public GameObject CreateCard(CardDataSO data)
+        {
+            GameObject card;
+            
+            switch (data)
+            {
+                case CreatureDataSO:
+                    card = creatureCard;
+                    break;
+                case BuildingDataSO:
+                    card = buildingCard;
+                    break;
+                case SpellDataSO:
+                    card = spellCard;
+                    break;
+                case CharmDataSO:
+                    card = charmCard;
+                    break;
+                case RuneDataSO:
+                    card = runeCard;
+                    break;
+                default:
+                    Debug.LogError($"{data.GetType()}: card data is null or the base class. Can't create card");
+                    return null;
+            }
+
+            GameObject cardInstance = Instantiate(card);
+
+            // cardInstance.GetComponent<CardStats>().SetCardData(data);
+
+            return cardInstance;
         }
     }
 }

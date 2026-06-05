@@ -15,12 +15,6 @@ namespace GameManagement
 
         public MasterDeck masterDeckDb;
 
-        [Header("Base Card GameObjects")] public GameObject creatureCard;
-        public GameObject buildingCard;
-        public GameObject spellCard;
-        public GameObject runeCard;
-        public GameObject charmCard;
-
         [Header("Starting Stats")] public int maxMagic = 6;
         public int money = 20;
         public int defaultFreeDraws = 1;
@@ -101,16 +95,6 @@ namespace GameManagement
                 turnManager.StartGame();
 
                 masterDeckDb.InitMasterDeck();
-                
-                if (creatureCard == null ||
-                    buildingCard == null ||
-                    spellCard == null ||
-                    runeCard == null ||
-                    charmCard == null)
-                {
-                    Debug.LogError($"Base Cards were not set on {gameObject.name} in the editor");
-                    return;
-                }
 
                 Player p1 = Player1.identity.GetComponent<Player>();
                 Player p2 = Player2.identity.GetComponent<Player>();

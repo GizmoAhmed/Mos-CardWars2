@@ -10061,6 +10061,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e6f90f058cdbb8141bac8c509df0fb5d, type: 2}
   - {fileID: 11400000, guid: 9103be960578c464bb5163b67a1a1cb9, type: 2}
   masterDeckList: []
+  creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
+  buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}
+  spellCard: {fileID: 5473283833520736551, guid: 197ad043ed2b6e345929eda49e5660e4, type: 3}
+  runeCard: {fileID: 659507761811515719, guid: b943eed949e10dc4fa7b81f23cb0d28c, type: 3}
+  charmCard: {fileID: 1243263642205161095, guid: b1efdd37bf1fd294ebafc7890a269737, type: 3}
 --- !u!1 &1880351249
 GameObject:
   m_ObjectHideFlags: 0

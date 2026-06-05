@@ -27,7 +27,7 @@ namespace CardScripts.CardData
 
         public void InitializePassiveListener(CardStats stats, PassiveAbilitySO p)
         {
-            Debug.LogWarning($"<color=teal>Init Passive:</color> passive listener set on for {stats.gameObject.name}");
+            // Debug.LogWarning($"<color=teal>Init Passive:</color> passive listener set on for {stats.gameObject.name}");
             
             cardStats = stats;
 

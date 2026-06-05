@@ -75,7 +75,7 @@ namespace PlayerStuff
 
             CardDataSO cardData = _masterDeck.GetCardByID(cardID);
 
-            GameObject cardObj = CreateCard(cardData);
+            GameObject cardObj = _masterDeck.CreateCard(cardData);
             
             CardMovement move = cardObj.GetComponent<CardMovement>();
             PlayerStats stats = GetComponentInParent<PlayerStats>();
@@ -145,49 +145,7 @@ namespace PlayerStuff
                 DrawSpawnCard_ByID(myDeckCardIDs[i]);
             }
         }
-
-        /// <summary>
-        /// Creates a card using Prefab cards as bodies (from game manager) and fills them with souls in the form of CardDataSO
-        /// First step prior to spawning on server, since draw modal doesn't require spawn, you can just create them here
-        /// 
-        /// todo should probably remove that from gm
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        private GameObject CreateCard(CardDataSO data)
-        {
-            GameObject card;
-            
-            switch (data)
-            {
-                case CreatureDataSO:
-                    card = _gameManager.creatureCard;
-                    break;
-                case BuildingDataSO:
-                    card = _gameManager.buildingCard;
-                    break;
-                case SpellDataSO:
-                    card = _gameManager.spellCard;
-                    break;
-                case CharmDataSO:
-                    card = _gameManager.charmCard;
-                    break;
-                case RuneDataSO:
-                    card = _gameManager.runeCard;
-                    break;
-                default:
-                    Debug.LogError($"{data.GetType()}: card data is null or the base class. Can't create card");
-                    return null;
-            }
-
-            GameObject cardInstance = Instantiate(card);
-
-            // cardInstance.GetComponent<CardStats>().SetCardData(data);
-
-            return cardInstance;
-        }
-
+        
         /// <summary>
         /// Draw a specific card by ID (called when player selects from preview)
         /// </summary>
@@ -224,7 +182,7 @@ namespace PlayerStuff
                 }
 
                 // creature card
-                GameObject previewCard = CreateCard(cardData);
+                GameObject previewCard = _masterDeck.CreateCard(cardData);
                 
                 // set card data with network OFF, since instancing for just one client at a time
                 CardStats cardStats = previewCard.GetComponent<CardStats>();
