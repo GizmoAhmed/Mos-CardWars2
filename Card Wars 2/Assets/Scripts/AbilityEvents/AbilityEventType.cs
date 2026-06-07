@@ -18,6 +18,8 @@ namespace AbilityEvents
         CardPlacedOnTile,       
         CreatureBurnedOnTile,   
         CardDiscardedFromTile,
+        CreatureAbilityOnTile,
+        
         BuffCreatureStrengthOnTile,
         BuffCreatureDefenseOnTile,
         DebuffCreatureStrengthOnTile,

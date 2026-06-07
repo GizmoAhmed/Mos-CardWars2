@@ -73,7 +73,18 @@ namespace AbilityEvents
             
             TriggerTileEvent(eventData);
         }
-        
+
+        [Server]
+        public void OnCreatureAbilityOnTile(GameObject creature)
+        {
+            AbilityEventData eventData = new AbilityEventData(
+                AbilityEventType.CreatureAbilityOnTile,
+                creature
+            );
+            
+            TriggerTileEvent(eventData);
+        }
+
         [Server]
         public void OnCardDiscardFromTile(GameObject card)
         {

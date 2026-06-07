@@ -8,6 +8,7 @@ using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Mirror;
+using Tiles;
 using UnityEngine;
 
 namespace PlayerStuff
@@ -124,17 +125,32 @@ namespace PlayerStuff
                 try
                 {
                     creatureStats.cardData.ability.ExecuteAbility(creatureToActivate, null);
+                    
+                    LocalWhisperCardAbilityActivate(creatureStats);
+                    // todo global broadcast
+                    
                 }
                 catch (Exception e)
                 {
                     Debug.LogError(
-                        $"Failed to activate ability {creatureToActivate.name}. Error: {e.Message}");
+                        $"Failed to activate ability {creatureToActivate.name}. <color=red>Error</color>: {e.Message}");
                 }
             }
             else
             {
                 Debug.LogWarning($"...Insufficient shards ({shards}) to activate {creatureToActivate.name} ({cost})");
             }
+        }
+        
+        private void LocalWhisperCardAbilityActivate(CreatureStats creature)
+        {
+            // get tile of creature flooped
+            Tile tile = creature.GetComponent<CreatureMovement>().GetLogicalTile();
+            
+            TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
+
+            // tell tile manager to broadcast that this creature flooped
+            tileEventManager.OnCreatureAbilityOnTile(creature.gameObject);
         }
 
         public void DrainHealth()

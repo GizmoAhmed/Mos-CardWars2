@@ -26,10 +26,12 @@ public class FortifyAdjacent_Creature : ActiveAbilitySO
 
         foreach (MiddleTile tile in ajdTiles) // only goes twice
         {
-            CreatureStats adjCreature = tile.logicalCreature?.GetComponent<CreatureStats>();
+            if (tile.logicalCreature == null) continue; // if there's no creature there, do nothing
+
+            CreatureStats adjCreature = tile.logicalCreature.GetComponent<CreatureStats>();
             
             // if creature is there, buff it
-            adjCreature?.ChangeCreatureDefense(AdjacentBuffAmount, true);
+            adjCreature.ChangeCreatureDefense(AdjacentBuffAmount, true);
         }
     }
 }
