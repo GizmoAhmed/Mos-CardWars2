@@ -15,11 +15,11 @@ namespace CardScripts.CardStatss
         
         [Header("Creature Specific Stats")] [SyncVar(hook = nameof(Hook_UpdateCreatureStrength))]
         public int strength;
-        public int strengthMult = 1;
+        [SyncVar] public int strengthMult = 1;
 
         [SyncVar(hook = nameof(Hook_UpdateCreatureDefense))]
         public int defense;
-        public int defenseMult = 1;
+        [SyncVar] public int defenseMult = 1;
 
         [SyncVar(hook = nameof(UpdateScore))] public int score;
 
@@ -30,6 +30,8 @@ namespace CardScripts.CardStatss
         /// If immortal, creature can't be killed and their defense can go negative as a result
         /// </summary>
         [SyncVar] public bool immortal = false;
+
+        [SyncVar] public bool canBeBuffed = true;
         
         protected override void Awake()
         {
@@ -89,6 +91,8 @@ namespace CardScripts.CardStatss
 
             if (buff)
             {
+                if (!canBeBuffed) return; // if can't be buffed, return
+
                 strength += amount;
 
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureStrengthBuffed(gameObject, amount);
@@ -126,6 +130,8 @@ namespace CardScripts.CardStatss
 
             if (buff)
             {
+                if (!canBeBuffed) return; // if can't be buffed, return
+                
                 defense += amount;
 
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseBuffed(gameObject, amount);

@@ -3037,7 +3037,6 @@ MonoBehaviour:
   soulUse: -1
   burnCost: -1
   canBeBurned: 1
-  creatureDisplay: {fileID: 0}
   strength: -1
   strengthMult: 1
   defense: -1
@@ -3045,6 +3044,7 @@ MonoBehaviour:
   score: -1
   abilityCost: -1
   immortal: 0
+  canBeBuffed: 1
 --- !u!114 &1947104413682151867
 MonoBehaviour:
   m_ObjectHideFlags: 0
