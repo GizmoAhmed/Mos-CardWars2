@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fde88c7f001b6b4ca81f16da0828196, type: 3}
+  m_Name: DrawRunes_EachTurn_CharmSO
+  m_EditorClassIdentifier: 
+  eventsThatTriggerThisAbility: 01000000
+  isGlobalListener: 1
+  isExecutableOnPlaced: 0
+  runePool:
+  - {fileID: 11400000, guid: 134fe0cbdac16cc449dca3276067c915, type: 2}
+  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
+  - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
+  - {fileID: 11400000, guid: 8a5e95d4f0aae7f4388ce161272f2afe, type: 2}
+  - {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+  - {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
+  - {fileID: 11400000, guid: 56443d9793e54a549a833690afc23d7c, type: 2}
+  runesToDraw: 2
