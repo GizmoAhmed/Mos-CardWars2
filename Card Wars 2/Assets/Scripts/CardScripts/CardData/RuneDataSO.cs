@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CardScripts.CardData
 {
-    [CreateAssetMenu(fileName = "_____ Rune Data", menuName = "New Rune")]
+    [CreateAssetMenu(fileName = "-----_Rune", menuName = "New Rune")]
     public class RuneDataSO : CardDataSO
     {
         

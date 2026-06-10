@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CardScripts.CardData
 {
-    [CreateAssetMenu(fileName = "_____ Building Data", menuName = "New Building")]
+    [CreateAssetMenu(fileName = "-----_Building", menuName = "New Building")]
     public class BuildingDataSO : CardDataSO
     {
         

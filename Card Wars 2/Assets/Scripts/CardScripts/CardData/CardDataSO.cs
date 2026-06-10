@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace CardScripts.CardData
 {
-    [CreateAssetMenu(fileName = "RENAME:_____Data", menuName = "New CardDataSO")]
     public class CardDataSO : ScriptableObject
     {
         public string cardID => cardName.ToLower().Replace(" ", "_");

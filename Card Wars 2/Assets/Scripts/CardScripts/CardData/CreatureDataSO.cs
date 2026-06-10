@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace CardScripts.CardData
 {
-    [CreateAssetMenu(fileName = "_____ Creature Data", menuName = "New Creature")]
+    [CreateAssetMenu(fileName = "-----_Creature", menuName = "New Creature")]
     public class CreatureDataSO : CardDataSO
     {
         [Header("Creature Specific Data")]

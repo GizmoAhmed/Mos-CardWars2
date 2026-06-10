@@ -38,9 +38,9 @@ namespace CardScripts.CardMovements
                 Debug.LogWarning($"{gameObject.name} cast invalid: requires {castAbility.castRequirementType}");
                 return false;
             }
-
+            
             // Check spell-specific conditions
-            if (!castAbility.SpecificSpellPlacementConditions(tile))
+            if (!castAbility.SpecificSpellPlacementConditions(serverTile))
             {
                 Debug.LogWarning($"{gameObject.name} doesn't meet specific conditions");
                 return false;

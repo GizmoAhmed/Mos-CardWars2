@@ -18,7 +18,7 @@ public class DamageViaDefense_OppTile_EveryOtherTurn_Building : PassiveAbilitySO
 
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        Debug.Log($"{name} is activating...");
+        // Debug.Log($"{name} is activating...");
 
         if (currentTurn < turnsToActivate)
         {
@@ -33,7 +33,7 @@ public class DamageViaDefense_OppTile_EveryOtherTurn_Building : PassiveAbilitySO
 
         if (thisTile.logicalCreature == null) // no creature
         {
-            Debug.Log($"<color=brown>{name}</color> has no logical creature");
+            // Debug.Log($"<color=brown>{name}</color> has no logical creature");
         }
         else
         {
@@ -52,7 +52,7 @@ public class DamageViaDefense_OppTile_EveryOtherTurn_Building : PassiveAbilitySO
                 {
                     CreatureStats oppCreature = across.logicalCreature.GetComponent<CreatureStats>();
 
-                    Debug.Log($"<color=brown>{name}</color>: Damaging {oppCreature} for {damage}");
+                    // Debug.Log($"<color=brown>{name}</color>: Damaging {oppCreature} for {damage}");
                     
                     // deal damage to oppsoing
                     oppCreature.ChangeCreatureDefense(damage, buff: false);
