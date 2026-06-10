@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2a52975bdf47bdb9fdb35165c23817, type: 3}
+  m_Name: Trebby_Building
+  m_EditorClassIdentifier: 
+  cardName: TREBBY
+  mainImage: {fileID: 21300000, guid: e44ce056ac9130542b0556927ed5fcb5, type: 3}
+  magic: 1
+  abilityDescription: Deal damage to opposing tile equal to creature on tile's defense.
+    Every other turn.
+  burnCost: 2
+  ability: {fileID: 11400000, guid: 2811674990de1c64cad99bcc91ac6a35, type: 2}
