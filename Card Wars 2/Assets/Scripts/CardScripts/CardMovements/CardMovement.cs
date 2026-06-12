@@ -437,6 +437,10 @@ namespace CardScripts.CardMovements
 
             // resets stats to base, to show on discard board
             cardStats.SetStats_FromData();
+            
+            // Track discard on server
+            Player player = thisCardOwnerPlayerStats?.GetComponent<Player>();
+            player?.cardTracker.Server_TrackDiscard(gameObject);
 
             // visually move card to discard board for each respective client
             RpcMoveDiscardedCard_ToBoard();

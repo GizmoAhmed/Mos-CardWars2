@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CardScripts.Abilities.CreatureAbilities.Script
 {
-    [CreateAssetMenu(fileName = "BuffStr_Self_Floop_Creature", menuName = "Abilities/Creature/BuffStr_Self_Floop_Creature")]
+    [CreateAssetMenu(fileName = "BuffStr_Self_Floop_Creature", menuName = "Abilities/Creature/Strength/BuffStr_Self_Floop_Creature")]
     public class BuffStr_Self_Floop_Creature : ActiveAbilitySO
     {
         public int baseStrengthBuffAmount;

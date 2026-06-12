@@ -57,6 +57,10 @@ namespace CardScripts.CardMovements
             // subscribe passive listener, set sync-var rune variables, rpc show move for both clients
             PlaceRuneOnCreature(creatureOnTile);
         }
+        
+        // uses base, keeping this here to remind YOU that
+        // [Server]
+        // public override void ServerDiscard()
 
         // override to ignore ClearLogicalPositionServer()
         protected override void DetachFromTile()

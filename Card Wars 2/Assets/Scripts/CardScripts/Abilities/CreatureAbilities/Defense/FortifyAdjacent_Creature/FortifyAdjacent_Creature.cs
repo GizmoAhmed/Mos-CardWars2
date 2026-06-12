@@ -8,7 +8,7 @@ using GameManagement;
 using Tiles;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FortifyAdjacent_Creature", menuName = "Abilities/Creature/FortifyAdjacent_Creature")]
+[CreateAssetMenu(fileName = "FortifyAdjacent_Creature", menuName = "Abilities/Creature/Defense/FortifyAdjacent_Creature")]
 public class FortifyAdjacent_Creature : ActiveAbilitySO
 {
     public int AdjacentBuffAmount;

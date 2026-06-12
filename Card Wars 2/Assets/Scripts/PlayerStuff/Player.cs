@@ -17,156 +17,155 @@ using UnityEngine.UI;
 
 public class Player : NetworkBehaviour
 {
-	[Tooltip("0 = Player 1, 1 = Player 2")]
-	[SyncVar] public int playerSide = -1; 
-	
-	public CardPlacement cardPlacer;
-	public PlayerStats playerStats;
-	
-	public bool myTurn;
+    [Tooltip("0 = Player 1, 1 = Player 2")] [SyncVar]
+    public int playerSide = -1;
 
-	[Header("Deck & Discard")]
-	public DeckCollection deckCollection; 
+    public CardPlacement cardPlacer;
+    public PlayerStats playerStats;
 
-	private GameManager	gameManager;
-	
-	private TurnManager turnManager;
+    public bool myTurn;
 
-	[Header("Battle Ready Cards")]
-	[SyncVar] public bool searchComplete;
-	
-	[Header("Buttons to disable")]
-	public Button draw;
-	public Button upgrade;
-	public Button ready;
+    [Header("Deck & Discard")] public DeckCollection deckCollection;
 
-	public override void OnStartClient()
-	{
-		base.OnStartClient();
+    private GameManager gameManager;
 
-		turnManager = FindAnyObjectByType<TurnManager>();
-		
-		deckCollection		= GetComponentInChildren<DeckCollection>();
-		
-		cardPlacer = GetComponentInChildren<CardPlacement>();
+    private TurnManager turnManager;
 
-		cardPlacer.Init();
-		
-		playerStats = GetComponentInChildren<PlayerStats>();
+    public CardTracker cardTracker;
 
-		playerStats.InitUI();
-		
-		myTurn = true;
+    [Header("Battle Ready Cards")] [SyncVar]
+    public bool searchComplete;
 
-		// find buttons
-		draw	= FindAnyObjectByType<DrawButton>().gameObject.GetComponent<Button>();
-		upgrade = FindAnyObjectByType<UpgradeMagic>().gameObject.GetComponent<Button>();
-		ready	= FindAnyObjectByType<Ready>().gameObject.GetComponent<Button>();
-		
-		if (isServer) // must be the host, the first person to join
-		{
-			
-		}
-		else // the joiner, joins if there is a host, they are never alone
-		{
-			CmdCheckFullLobby();
-		}
-	}
+    [Header("Buttons to disable")] public Button draw;
+    public Button upgrade;
+    public Button ready;
 
-	[Command]
-	private void CmdCheckFullLobby()
-	{
-		gameManager = FindAnyObjectByType<GameManager>();
-		gameManager.FullLobby();
-	}
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
 
-	[Server]
-	public override void OnStartServer()
-	{
-		base.OnStartServer();
-	}
+        turnManager = FindAnyObjectByType<TurnManager>();
 
-	[Command]
-	public void CmdSetReady()
-	{
-		turnManager.PlayerReady(connectionToClient);
-	}
+        deckCollection = GetComponentInChildren<DeckCollection>();
 
-	
-	/// <summary>
-	/// True for enabling, false for disabling
-	/// </summary>
-	/// <param name="t"></param>
-	[TargetRpc]
-	public void Disable(bool enable)
-	{
-		myTurn = draw.interactable = upgrade.interactable = ready.interactable = enable;
-	}
+        cardPlacer = GetComponentInChildren<CardPlacement>();
+        
+        cardPlacer.Init();
+        
+        cardTracker = GetComponentInChildren<CardTracker>();
+        
+        playerStats = GetComponentInChildren<PlayerStats>();
 
-	/*[TargetRpc]
-	public void TargetStartBattleCardsSearch(NetworkConnection target)
-	{
-		StartCoroutine(FindBattleCardsCoroutine());
-	}*/
+        playerStats.InitUI();
 
-	/// <summary>
-	/// C# does not have list comprehensions like Python,
-	/// but it has LINQ (Language Integrated Query) which provides a similar capability. 
-	/// You can use LINQ to filter and project data in a more concise manner.
-	/// </summary>
-	/// <returns></returns>
-	/*private IEnumerator FindBattleCardsCoroutine()
-	{
-		var battleReadyCards = FindObjectsOfType<CreatureCard>()
-			.Where(creatureCard => creatureCard.isOwned && creatureCard.currentState == CardState.Placed)
-			.Select(creatureCard => {
-				string landName = creatureCard.MyLand.name;
-				int landNumber = int.Parse(landName.Substring(landName.Length - 1));
-				return new KeyValuePair<GameObject, int>(creatureCard.gameObject, landNumber);
-			} ).ToList();
+        myTurn = true;
 
-		if (battleReadyCards.Count == 0) // no cards on the field 
-		{
-			CmdSetSearch(true);
-			yield break;
-		}
+        // find buttons
+        draw = FindAnyObjectByType<DrawButton>().gameObject.GetComponent<Button>();
+        upgrade = FindAnyObjectByType<UpgradeMagic>().gameObject.GetComponent<Button>();
+        ready = FindAnyObjectByType<Ready>().gameObject.GetComponent<Button>();
 
-		// Sort the battle-ready cards by their land number
-		battleReadyCards = battleReadyCards.OrderBy(pair => pair.Value).ToList();
+        if (isServer) // must be the host, the first person to join
+        {
+        }
+        else // the joiner, joins if there is a host, they are never alone
+        {
+            CmdCheckFullLobby();
+        }
+    }
 
-		foreach (var pair in battleReadyCards)
-		{
-			GameObject cardOBJ = pair.Key;
+    [Command]
+    private void CmdCheckFullLobby()
+    {
+        gameManager = FindAnyObjectByType<GameManager>();
+        gameManager.FullLobby();
+    }
 
-			CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
-			CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
-			CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
+    [Server]
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+    }
 
-			if (acrossLand.CurrentCard == null)
-			{
-				CmdAltercation(thisCard, null);
-			}
-			else
-			{
-				CmdAltercation(thisCard, acrossLand.CurrentCard.GetComponent<CreatureCard>());
-			}
-
-			yield return new WaitForSeconds(combat.combatDelay); // Pause between each iteration
-		}
-
-		CmdSetSearch(true);
-	}*/
+    [Command]
+    public void CmdSetReady()
+    {
+        turnManager.PlayerReady(connectionToClient);
+    }
 
 
-	[Command]
-	private void CmdSetSearch(bool value)
-	{
-		searchComplete = value;
-	}
+    /// <summary>
+    /// True for enabling, false for disabling
+    /// </summary>
+    /// <param name="t"></param>
+    [TargetRpc]
+    public void Disable(bool enable)
+    {
+        myTurn = draw.interactable = upgrade.interactable = ready.interactable = enable;
+    }
 
-	/*[Command]
-	public void CmdAltercation(CreatureCard attackingCard, CreatureCard defendingCard)
-	{
-		combat.Altercation(attackingCard, defendingCard);
-	}*/
+    /*[TargetRpc]
+    public void TargetStartBattleCardsSearch(NetworkConnection target)
+    {
+        StartCoroutine(FindBattleCardsCoroutine());
+    }*/
+
+    /// <summary>
+    /// C# does not have list comprehensions like Python,
+    /// but it has LINQ (Language Integrated Query) which provides a similar capability. 
+    /// You can use LINQ to filter and project data in a more concise manner.
+    /// </summary>
+    /// <returns></returns>
+    /*private IEnumerator FindBattleCardsCoroutine()
+    {
+        var battleReadyCards = FindObjectsOfType<CreatureCard>()
+            .Where(creatureCard => creatureCard.isOwned && creatureCard.currentState == CardState.Placed)
+            .Select(creatureCard => {
+                string landName = creatureCard.MyLand.name;
+                int landNumber = int.Parse(landName.Substring(landName.Length - 1));
+                return new KeyValuePair<GameObject, int>(creatureCard.gameObject, landNumber);
+            } ).ToList();
+
+        if (battleReadyCards.Count == 0) // no cards on the field
+        {
+            CmdSetSearch(true);
+            yield break;
+        }
+
+        // Sort the battle-ready cards by their land number
+        battleReadyCards = battleReadyCards.OrderBy(pair => pair.Value).ToList();
+
+        foreach (var pair in battleReadyCards)
+        {
+            GameObject cardOBJ = pair.Key;
+
+            CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
+            CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
+            CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
+
+            if (acrossLand.CurrentCard == null)
+            {
+                CmdAltercation(thisCard, null);
+            }
+            else
+            {
+                CmdAltercation(thisCard, acrossLand.CurrentCard.GetComponent<CreatureCard>());
+            }
+
+            yield return new WaitForSeconds(combat.combatDelay); // Pause between each iteration
+        }
+
+        CmdSetSearch(true);
+    }*/
+    [Command]
+    private void CmdSetSearch(bool value)
+    {
+        searchComplete = value;
+    }
+
+    /*[Command]
+    public void CmdAltercation(CreatureCard attackingCard, CreatureCard defendingCard)
+    {
+        combat.Altercation(attackingCard, defendingCard);
+    }*/
 }
