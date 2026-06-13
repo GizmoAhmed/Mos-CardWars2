@@ -255,6 +255,12 @@ namespace CardScripts.CardMovements
             RpcPlaceCardOnTile(tile);
 
             cardState = CardState.Field;
+            
+            // remove from hand counter
+            // All others call base, so this will get called there
+            // Spell doesn't call base.CmdPlace but it's ok cause it discards itself when that happens which calls this
+            // Rune needs it though, so this line will go there
+            thisCardOwnerPlayerStats.GetComponent<CardTracker>().Server_RemoveFromHand(gameObject);
 
             // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
             GlobalBroadcastCardPlacement();
@@ -438,10 +444,14 @@ namespace CardScripts.CardMovements
             // resets stats to base, to show on discard board
             cardStats.SetStats_FromData();
             
-            // Track discard on server
             Player player = thisCardOwnerPlayerStats?.GetComponent<Player>();
-            player?.cardTracker.Server_TrackDiscard(gameObject);
-
+            
+            // Track discard on server
+            player.cardTracker.Server_TrackDiscard(gameObject);
+            
+            // also remove from hand if discarding from there
+            player.cardTracker.Server_RemoveFromHand(gameObject);
+            
             // visually move card to discard board for each respective client
             RpcMoveDiscardedCard_ToBoard();
         }

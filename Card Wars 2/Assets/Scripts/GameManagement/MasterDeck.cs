@@ -155,7 +155,10 @@ namespace GameManagement
 
             if (player != null)
             {
-                player.cardPlacer.MoveCardToHand(cardObj);
+                player.cardPlacer.Rpc_MoveCardToHand(cardObj);
+                
+                // add to card tracker for this player
+                player.cardTracker.Server_TrackAddToHand(cardObj);
             }
             else
             {

@@ -54,7 +54,7 @@ namespace CardScripts
         }
 
         [ClientRpc]
-        public void MoveCardToHand(GameObject card)
+        public void Rpc_MoveCardToHand(GameObject card)
         {
             if (isOwned)
             {

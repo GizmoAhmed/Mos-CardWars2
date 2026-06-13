@@ -8,7 +8,8 @@ namespace PlayerStuff
 {
     public class CardTracker : NetworkBehaviour
     {
-        private List<GameObject> _serverDiscardedCards = new List<GameObject>();
+        [SerializeField] private List<GameObject> _serverDiscardedCards = new List<GameObject>();
+        [SerializeField] private List<GameObject> _serverHandContents = new List<GameObject>();
         
         /// <summary>
         /// Called when a card is discarded - tracked on server
@@ -42,6 +43,22 @@ namespace PlayerStuff
             }
         
             return null;
+        }
+        
+        [Server]
+        public void Server_TrackAddToHand(GameObject card)
+        {
+            _serverHandContents.Add(card);
+            Debug.Log($"[Server] Tracked add to hand: {card.name}, " +
+                      $"total: {_serverHandContents.Count}");
+        }
+
+        [Server]
+        public void Server_RemoveFromHand(GameObject card)
+        {
+            _serverHandContents.Remove(card);
+            Debug.Log($"[Server] removing {card.name} from hand tracker, " +
+                      $"total: {_serverHandContents.Count}");
         }
     }
 }
