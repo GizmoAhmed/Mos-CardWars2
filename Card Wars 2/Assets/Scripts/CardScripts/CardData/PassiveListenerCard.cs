@@ -3,6 +3,7 @@ using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
+using CardScripts.CardStatss;
 using Mirror;
 using Tiles;
 using UnityEngine;
@@ -33,8 +34,16 @@ namespace CardScripts.CardData
 
             if (p == null)
             {
-                Debug.LogError(
-                    $"{gameObject.name} attempted to initialize passive listener with an ability that was either null or not a passive ability");
+                if (TryGetComponent(out CreatureStats creature))
+                {
+                    // Debug.LogWarning($"{gameObject.name} is a creature so unlikely it would be passive");
+                }
+                else
+                {
+                    Debug.LogError(
+                        $"{gameObject.name} (which isn't a creature btw) attempted to initialize passive listener with an ability that was either null or not a passive ability");
+                }
+                
                 return;
             }
 

@@ -1,4 +1,5 @@
 using AbilityEvents;
+using CardScripts.CardData;
 using CardScripts.CardStatss;
 using Mirror;
 using PlayerStuff;
@@ -40,6 +41,12 @@ namespace CardScripts.CardMovements
             
             // ... then broadcast, placement abilities need the initial player score to be added first
             base.CmdPlaceCardOnTile(tile); 
+            
+            // some creatures have a passive listener, try if they have one
+            if (TryGetComponent(out PassiveListenerCard listener))
+            {
+                listener.RegisterPassiveAbility();
+            }
         }
 
         [Server]

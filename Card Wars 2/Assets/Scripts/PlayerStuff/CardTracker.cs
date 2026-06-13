@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AbilityEvents;
 using Mirror;
 using Modal;
 using UnityEngine;
@@ -51,6 +52,7 @@ namespace PlayerStuff
             _serverHandContents.Add(card);
             Debug.Log($"[Server] Tracked add to hand: {card.name}, " +
                       $"total: {_serverHandContents.Count}");
+            
         }
 
         [Server]
@@ -59,6 +61,27 @@ namespace PlayerStuff
             _serverHandContents.Remove(card);
             Debug.Log($"[Server] removing {card.name} from hand tracker, " +
                       $"total: {_serverHandContents.Count}");
+        }
+
+        [Server]
+        public void GlobalBroadcastAddToHand(GameObject card)
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventData addToHandData = new AbilityEventData
+                (
+                    type: AbilityEventType.AnyAddCardToHand,
+                    t: card
+                );
+
+                // tell event manager to tell everyone (that cares) that the turn ended
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance
+                    .TriggerEvents_ForAllSubscribersOfType(addToHandData);
+            }
+            else
+            {
+                Debug.LogError($"<color=Red>Failed Add-To-Hand Broadcast</color> {name} couldn't find the GlobalAbilityEventManage Instance");
+            }
         }
     }
 }
