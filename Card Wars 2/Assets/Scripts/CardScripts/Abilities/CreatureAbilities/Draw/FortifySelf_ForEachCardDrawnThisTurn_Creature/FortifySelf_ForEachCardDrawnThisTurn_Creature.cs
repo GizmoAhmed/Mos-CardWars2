@@ -1,18 +1,31 @@
 using AbilityEvents;
+using CardScripts.CardMovements;
+using CardScripts.CardStatss;
+using PlayerStuff;
 using UnityEngine;
 
 namespace CardScripts.Abilities.CreatureAbilities.Draw.FortifySelf_ForEachCardDrawnThisTurn_Creature
 {
     [CreateAssetMenu(fileName = "FortifySelf_ForEachCardDrawnThisTurn_Creature",
         menuName = "Abilities/Creature/Draw/FortifySelf_ForEachCardDrawnThisTurn_Creature")]
-    public class FortifySelf_ForEachCardDrawnThisTurn_Creature : PassiveAbilitySO
+    public class FortifySelf_ForEachCardDrawnThisTurn_Creature : ActiveAbilitySO
     {
-        [Header("Ability Stats")]
-        public int numOfCardsDrawnThisTurn;
-    
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            Debug.Log($"Triggered {name} on {thisCard.name} via {eventData.EventType}");
+            PlayerStats playerStats = thisCard.GetComponent<CreatureMovement>().thisCardOwnerPlayerStats;
+            
+            CardTracker cardTracker = playerStats.GetComponent<CardTracker>();
+            
+            int buffAmount = cardTracker.numOfCardsDrawnThisTurn;
+            
+            // this ability used to be passive
+            // but then I learned that scriptable objects can't be used to track things like cards drawn...
+            // ...since changing a variable in here writes to the asset and saves even after play ends
+            // so instead I'll save those kinds of stats to the card tracker and leave creatures as active
+            
+            Debug.Log($"Fortifying {thisCard} by {buffAmount}");
+            CreatureStats stats = thisCard.GetComponent<CreatureStats>();
+            stats.ChangeCreatureDefense(buffAmount, buff: true);
         }
     }
 }

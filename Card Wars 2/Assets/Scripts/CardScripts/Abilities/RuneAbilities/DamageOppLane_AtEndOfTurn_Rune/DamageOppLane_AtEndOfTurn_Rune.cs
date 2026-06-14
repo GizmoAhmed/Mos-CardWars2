@@ -18,7 +18,7 @@ public class DamageOppLane_AtEndOfTurn_Rune : PassiveAbilitySO
         RuneMovement rMove = thisCard.GetComponent<RuneMovement>();
         
         // wrath was placed, adjust mult instead of attacking
-        if (eventData.EventType == AbilityEventType.CardPlacedOnTile)
+        if (eventData.eventType == AbilityEventType.CardPlacedOnTile)
         {
             // RuneMove.CreatureBoundTo won't work to get creature stats...
             // ...since rune not bound yet if broadcasted via placement listener

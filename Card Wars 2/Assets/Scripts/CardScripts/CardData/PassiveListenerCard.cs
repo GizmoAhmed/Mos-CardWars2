@@ -34,17 +34,8 @@ namespace CardScripts.CardData
 
             if (p == null)
             {
-                if (TryGetComponent(out CreatureStats creature))
-                {
-                    // Debug.LogWarning($"{gameObject.name} is a creature so unlikely it would be passive");
-                }
-                else
-                {
-                    Debug.LogError(
-                        $"{gameObject.name} (which isn't a creature btw) attempted to initialize passive listener with an ability that was either null or not a passive ability");
-                }
-                
-                return;
+                Debug.LogError(
+                    $"{gameObject.name} attempted to initialize passive listener with an ability that was either null or not a passive ability");
             }
 
             passiveAbility = p;

@@ -12,6 +12,9 @@ public class TurnManager : NetworkBehaviour
 {
     public GameManager gameManager;
 
+    private PlayerStats _player0Stats;
+    private PlayerStats _player1Stats;
+
     [SyncVar(hook = nameof(OnTurnChanged))]
     public int _currentTurn = -1;
 
@@ -71,6 +74,9 @@ public class TurnManager : NetworkBehaviour
 
         _currentTurn = 1;
         turnUI.text = "TURN: " + _currentTurn;
+        
+        _player0Stats = gameManager.Player1.identity.GetComponent<PlayerStats>();
+        _player1Stats = gameManager.Player2.identity.GetComponent<PlayerStats>();
     }
 
     public void PlayerReady(NetworkConnectionToClient net)
@@ -110,7 +116,9 @@ public class TurnManager : NetworkBehaviour
 
         // todo ActivePhase(), everyone does there stuff, like watching the cards in balatro tick away when you play a hand
         
-        Debug.LogWarning("Swapping...");
+        Debug.LogWarning("<color=grey>Ending Turn...</color>");
+
+        Server_EndOfTurnReset_BothPlayers();
         
         GlobalBroadcastTurnEnd();
         
@@ -124,23 +132,20 @@ public class TurnManager : NetworkBehaviour
     [Server]
     private void CheckScore()
     {
-        Debug.Log("Checking Scores...");
+        // Debug.Log("Checking Scores...");
         
-        PlayerStats stats0 = gameManager.Player1.identity.GetComponent<PlayerStats>();
-        PlayerStats stats1 = gameManager.Player2.identity.GetComponent<PlayerStats>();
-
-        bool p0Cleared = stats0.playerTotalScore >= stats0.health;
-        bool p1Cleared = stats1.playerTotalScore >= stats1.health;
+        bool p0Cleared = _player0Stats.playerTotalScore >= _player0Stats.health;
+        bool p1Cleared = _player1Stats.playerTotalScore >= _player1Stats.health;
 
         if (p0Cleared && p1Cleared) // both cleared, tie
         {
-            if (stats0.playerTotalScore > stats1.playerTotalScore) // both cleared but someone has the higher score
+            if (_player0Stats.playerTotalScore > _player1Stats.playerTotalScore) // both cleared but someone has the higher score
             {
-                gameManager.RoundWin(stats0);
+                gameManager.RoundWin(_player0Stats);
             }
-            else if (stats1.playerTotalScore > stats0.health)
+            else if (_player1Stats.playerTotalScore > _player0Stats.health)
             {
-                gameManager.RoundWin(stats1);
+                gameManager.RoundWin(_player1Stats);
             }
             else
             {
@@ -149,17 +154,17 @@ public class TurnManager : NetworkBehaviour
         }
         else if (p0Cleared)
         {
-            gameManager.RoundWin(stats0);
+            gameManager.RoundWin(_player0Stats);
         }
         else if (p1Cleared)
         {
-            gameManager.RoundWin(stats1);
+            gameManager.RoundWin(_player1Stats);
         }
 
         // Game Win condition check
-        if (stats0.roundsWon == gameManager.roundsToWin)
+        if (_player0Stats.roundsWon == gameManager.roundsToWin)
             gameManager.GameWin(gameManager.Player1);
-        else if (stats1.roundsWon == gameManager.roundsToWin)
+        else if (_player1Stats.roundsWon == gameManager.roundsToWin)
             gameManager.GameWin(gameManager.Player2);
     }
     
@@ -198,5 +203,18 @@ public class TurnManager : NetworkBehaviour
             DisablePlayer(gameManager.Player1, false);
             DisablePlayer(gameManager.Player2, true);
         }
+    }
+
+    /// <summary>
+    /// reset card tracking stats in each card tracker
+    /// </summary>
+    [Server]
+    private void Server_EndOfTurnReset_BothPlayers()
+    {
+        CardTracker ct0 = _player0Stats.GetComponent<CardTracker>();
+        CardTracker ct1 = _player1Stats.GetComponent<CardTracker>();
+        
+        ct0.Server_EndOfTurnCardTrackerReset();
+        ct1.Server_EndOfTurnCardTrackerReset();
     }
 }

@@ -44,7 +44,7 @@ namespace AbilityEvents
     
         public void TriggerEvents_ForAllSubscribersOfType(AbilityEventData eventData)
         {
-            if (_globalListeners.TryGetValue(eventData.EventType, out var listener))
+            if (_globalListeners.TryGetValue(eventData.eventType, out var listener))
             {
                 List<System.Action<AbilityEventData>> callbacks = new List<System.Action<AbilityEventData>>(listener);
             

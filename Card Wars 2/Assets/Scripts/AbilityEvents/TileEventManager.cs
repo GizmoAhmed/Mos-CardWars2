@@ -40,10 +40,10 @@ namespace AbilityEvents
         [Server]
         private void TriggerTileEvent(AbilityEventData eventData)
         {
-            if (_localListeners.ContainsKey(eventData.EventType))
+            if (_localListeners.ContainsKey(eventData.eventType))
             {
                 List<Action<AbilityEventData>> callbacks = 
-                    new List<Action<AbilityEventData>>(_localListeners[eventData.EventType]);
+                    new List<Action<AbilityEventData>>(_localListeners[eventData.eventType]);
                 
                 foreach (var callback in callbacks)
                 {

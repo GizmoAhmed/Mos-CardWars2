@@ -5,7 +5,7 @@ namespace AbilityEvents
 {
     public class AbilityEventData
     {
-        public readonly AbilityEventType EventType; // ie AddCardToHand, AnyFieldCardPlaced
+        public readonly AbilityEventType eventType; // ie AddCardToHand, AnyFieldCardPlaced
         public GameObject target;
         public int Value;                           // keep track of things like buffs
         
@@ -13,7 +13,7 @@ namespace AbilityEvents
         
         public AbilityEventData(AbilityEventType type, GameObject t = null, int v = 0, Dictionary<string, object> customData = null)
         {
-            EventType = type;
+            eventType = type;
             target = t;    // optional, some spells ie don't affect cards
             Value = v;                  // optional, pass param for things like buffs
             CustomData = customData;         // also optional, pass things like tiles, etc.

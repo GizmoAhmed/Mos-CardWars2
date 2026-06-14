@@ -11,6 +11,8 @@ namespace PlayerStuff
     {
         [SerializeField] private List<GameObject> _serverDiscardedCards = new List<GameObject>();
         [SerializeField] private List<GameObject> _serverHandContents = new List<GameObject>();
+
+        public int numOfCardsDrawnThisTurn;
         
         /// <summary>
         /// Called when a card is discarded - tracked on server
@@ -50,17 +52,18 @@ namespace PlayerStuff
         public void Server_TrackAddToHand(GameObject card)
         {
             _serverHandContents.Add(card);
-            Debug.Log($"[Server] Tracked add to hand: {card.name}, " +
-                      $"total: {_serverHandContents.Count}");
-            
+            /*Debug.Log($"[Server] Tracked add to hand: {card.name}, " +
+                      $"total: {_serverHandContents.Count}");*/
+
+            numOfCardsDrawnThisTurn++;
         }
 
         [Server]
         public void Server_RemoveFromHand(GameObject card)
         {
             _serverHandContents.Remove(card);
-            Debug.Log($"[Server] removing {card.name} from hand tracker, " +
-                      $"total: {_serverHandContents.Count}");
+            /*Debug.Log($"[Server] removing {card.name} from hand tracker, " +
+                      $"total: {_serverHandContents.Count}");*/
         }
 
         [Server]
@@ -82,6 +85,13 @@ namespace PlayerStuff
             {
                 Debug.LogError($"<color=Red>Failed Add-To-Hand Broadcast</color> {name} couldn't find the GlobalAbilityEventManage Instance");
             }
+        }
+
+        [Server]
+        public void Server_EndOfTurnCardTrackerReset()
+        {
+            numOfCardsDrawnThisTurn = 0;
+            // todo among other things
         }
     }
 }
