@@ -14,9 +14,9 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.FortifySelf_ForEachCardDr
         {
             PlayerStats playerStats = thisCard.GetComponent<CreatureMovement>().thisCardOwnerPlayerStats;
             
-            CardTracker cardTracker = playerStats.GetComponent<CardTracker>();
+            PlayerCardTracker playerCardTracker = playerStats.GetComponent<PlayerCardTracker>();
             
-            int buffAmount = cardTracker.numOfCardsDrawnThisTurn;
+            int buffAmount = playerCardTracker.numOfCardsDrawnThisTurn;
             
             // this ability used to be passive
             // but then I learned that scriptable objects can't be used to track things like cards drawn...

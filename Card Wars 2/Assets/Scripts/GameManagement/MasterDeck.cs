@@ -158,10 +158,10 @@ namespace GameManagement
                 player.cardPlacer.Rpc_MoveCardToHand(cardObj);
                 
                 // add to card tracker for this player
-                player.cardTracker.Server_TrackAddToHand(cardObj);
+                player.playerCardTracker.Server_TrackAddToHand(cardObj);
                 
                 // broadcast add to hand
-                player.cardTracker.GlobalBroadcastAddToHand(cardObj);
+                player.playerCardTracker.GlobalBroadcastAddToHand(cardObj);
             }
             else
             {

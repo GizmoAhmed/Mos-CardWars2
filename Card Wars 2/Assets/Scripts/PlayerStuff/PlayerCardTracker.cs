@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace PlayerStuff
 {
-    public class CardTracker : NetworkBehaviour
+    public class PlayerCardTracker : NetworkBehaviour
     {
         [SerializeField] private List<GameObject> _serverDiscardedCards = new List<GameObject>();
         [SerializeField] private List<GameObject> _serverHandContents = new List<GameObject>();

@@ -15,5 +15,4 @@ MonoBehaviour:
   eventsThatTriggerThisAbility: 01000000
   isGlobalListener: 1
   isExecutableOnPlaced: 0
-  turnsToActivate: 1
-  currentTurn: 0
+  turnsToActivate: 3

@@ -59,7 +59,7 @@ namespace CardScripts.CardMovements
             PlaceRuneOnCreature(creatureOnTile);
             
             // usually the base would do this, but we'll do it here since it's not discarded and base call isn't made
-            thisCardOwnerPlayerStats.GetComponent<CardTracker>().Server_RemoveFromHand(gameObject);
+            thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_RemoveFromHand(gameObject);
 
         }
         

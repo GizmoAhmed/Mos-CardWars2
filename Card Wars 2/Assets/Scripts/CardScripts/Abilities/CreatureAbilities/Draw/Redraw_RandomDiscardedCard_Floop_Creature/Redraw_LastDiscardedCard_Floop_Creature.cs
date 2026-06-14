@@ -17,13 +17,13 @@ public class Redraw_LastDiscardedCard_Floop_Creature : ActiveAbilitySO
 
         Player player = thisCard.GetComponent<CreatureMovement>().thisCardOwnerPlayerStats.GetComponent<Player>();
 
-        if (player.cardTracker == null)
+        if (player.playerCardTracker == null)
         {
             Debug.LogWarning("cardTracker is null on {player}");
         }
         else
         {
-            GameObject lastCard = player.cardTracker.Server_GetLastDiscard();
+            GameObject lastCard = player.playerCardTracker.Server_GetLastDiscard();
             
             if (lastCard == null)
             {

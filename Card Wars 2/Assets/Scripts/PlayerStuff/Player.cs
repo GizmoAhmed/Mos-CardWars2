@@ -31,7 +31,7 @@ public class Player : NetworkBehaviour
 
     private TurnManager turnManager;
 
-    public CardTracker cardTracker;
+    public PlayerCardTracker playerCardTracker;
 
     [Header("Battle Ready Cards")] [SyncVar]
     public bool searchComplete;
@@ -52,7 +52,7 @@ public class Player : NetworkBehaviour
         
         cardPlacer.Init();
         
-        cardTracker = GetComponentInChildren<CardTracker>();
+        playerCardTracker = GetComponentInChildren<PlayerCardTracker>();
         
         playerStats = GetComponentInChildren<PlayerStats>();
 

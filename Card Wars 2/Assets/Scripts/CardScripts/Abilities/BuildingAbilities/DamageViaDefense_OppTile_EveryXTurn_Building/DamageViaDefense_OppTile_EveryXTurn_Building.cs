@@ -8,22 +8,26 @@ using GameManagement;
 using Tiles;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DamageViaDefense_OppTile_EveryOtherTurn_Building",
-    menuName = "Abilities/Building/DamageViaDefense_OppTile_EveryOtherTurn_Building")]
-public class DamageViaDefense_OppTile_EveryOtherTurn_Building : PassiveAbilitySO
+[CreateAssetMenu(fileName = "DamageViaDefense_OppTile_EveryXTurn_Building",
+    menuName = "Abilities/Building/DamageViaDefense_OppTile_EveryXTurn_Building")]
+public class DamageViaDefense_OppTile_EveryXTurn_Building : PassiveAbilitySO
 {
     [Header("Ability Scope")] public int turnsToActivate;
-
-    [SerializeField] private int currentTurn = 0;
-
+    
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        // Debug.Log($"{name} is activating...");
+        TurnManager turn = FindObjectOfType<TurnManager>();
 
-        if (currentTurn < turnsToActivate)
+        Debug.Log($"<color=purple>Current turn</color> = {turn._currentTurn}, {thisCard.name} activates every {turnsToActivate} turn");
+
+        if (turnsToActivate < 1)
         {
-            Debug.LogWarning($"<color=brown>{name}</color> will activate in {turnsToActivate - currentTurn} more turn");
-            currentTurn++;
+            Debug.LogError($"Could not activate {name} on {thisCard.name} because turns to activate on it is set to {turnsToActivate}" );
+            return;
+        }
+
+        if (turn._currentTurn % turnsToActivate != 0) // this is not turn to activate
+        {
             return;
         }
 
@@ -33,7 +37,7 @@ public class DamageViaDefense_OppTile_EveryOtherTurn_Building : PassiveAbilitySO
 
         if (thisTile.logicalCreature == null) // no creature
         {
-            // Debug.Log($"<color=brown>{name}</color> has no logical creature");
+            Debug.Log($"<color=brown>{name}</color> has no logical creature");
         }
         else
         {
@@ -52,24 +56,19 @@ public class DamageViaDefense_OppTile_EveryOtherTurn_Building : PassiveAbilitySO
                 {
                     CreatureStats oppCreature = across.logicalCreature.GetComponent<CreatureStats>();
 
-                    // Debug.Log($"<color=brown>{name}</color>: Damaging {oppCreature} for {damage}");
+                    Debug.Log($"<color=brown>{thisCard.name}</color>: Damaging {oppCreature} for {damage}");
                     
-                    // deal damage to oppsoing
+                    // deal damage to opposing
                     oppCreature.ChangeCreatureDefense(damage, buff: false);
                 }
                 else
                 {
+                    Debug.Log($"<color=brown>{thisCard.name}</color>: Damaging empty tile for {damage}");
+
                     // todo damage to empty lane
                     // just pass damage to tiles script, and they can handle it, so we don't right this if block everytime
                 }
             }
         }
-
-        currentTurn = 0; // reset back
-    }
-
-    public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
-    {
-        currentTurn = 0;
     }
 }

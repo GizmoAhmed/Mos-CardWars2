@@ -211,8 +211,8 @@ public class TurnManager : NetworkBehaviour
     [Server]
     private void Server_EndOfTurnReset_BothPlayers()
     {
-        CardTracker ct0 = _player0Stats.GetComponent<CardTracker>();
-        CardTracker ct1 = _player1Stats.GetComponent<CardTracker>();
+        PlayerCardTracker ct0 = _player0Stats.GetComponent<PlayerCardTracker>();
+        PlayerCardTracker ct1 = _player1Stats.GetComponent<PlayerCardTracker>();
         
         ct0.Server_EndOfTurnCardTrackerReset();
         ct1.Server_EndOfTurnCardTrackerReset();
