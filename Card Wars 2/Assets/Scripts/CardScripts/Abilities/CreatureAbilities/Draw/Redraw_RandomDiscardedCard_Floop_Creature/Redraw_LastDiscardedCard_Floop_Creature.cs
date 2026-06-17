@@ -4,6 +4,7 @@ using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
+using Extensions;
 using PlayerStuff;
 using UnityEngine;
 
@@ -15,23 +16,16 @@ public class Redraw_LastDiscardedCard_Floop_Creature : ActiveAbilitySO
     {
         Debug.Log($"<color=cyan>{name}</color> active...");
 
-        Player player = thisCard.GetComponent<CreatureMovement>().thisCardOwnerPlayerStats.GetComponent<Player>();
-
-        if (player.playerCardTracker == null)
-        {
-            Debug.LogWarning("cardTracker is null on {player}");
-        }
-        else
-        {
-            GameObject lastCard = player.playerCardTracker.Server_GetLastDiscard();
+        PlayerCardTracker tracker = thisCard.GetOwningCardTracker_Ext();
+        
+        GameObject lastCard = tracker.Server_GetLastDiscard();
             
-            if (lastCard == null)
-            {
-                Debug.LogWarning($"<color=cyan>{name} on {thisCard.name} is ineffective</color>: No discarded cards on {player}");
-                return;
-            }
-            
-            RedrawCard(lastCard);
+        if (lastCard == null)
+        {
+            Debug.LogWarning($"<color=cyan>{name} on {thisCard.name} is ineffective</color>: No discarded cards on {tracker.gameObject.name}");
+            return;
         }
+            
+        RedrawCard(lastCard);
     }
 }

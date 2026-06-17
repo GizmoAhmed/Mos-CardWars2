@@ -1,6 +1,7 @@
 using AbilityEvents;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
+using Extensions;
 using PlayerStuff;
 using UnityEngine;
 
@@ -12,10 +13,8 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.FortifySelf_ForEachCardDr
     {
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            PlayerStats playerStats = thisCard.GetComponent<CreatureMovement>().thisCardOwnerPlayerStats;
-            
-            PlayerCardTracker playerCardTracker = playerStats.GetComponent<PlayerCardTracker>();
-            
+            PlayerCardTracker playerCardTracker = thisCard.GetOwningCardTracker_Ext();
+                        
             int buffAmount = playerCardTracker.numOfCardsDrawnThisTurn;
             
             // this ability used to be passive
@@ -23,7 +22,8 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.FortifySelf_ForEachCardDr
             // ...since changing a variable in here writes to the asset and saves even after play ends
             // so instead I'll save those kinds of stats to the card tracker and leave creatures as active
             
-            Debug.Log($"Fortifying {thisCard} by {buffAmount}");
+            // Debug.Log($"Fortifying {thisCard} by {buffAmount}");
+            
             CreatureStats stats = thisCard.GetComponent<CreatureStats>();
             stats.ChangeCreatureDefense(buffAmount, buff: true);
         }

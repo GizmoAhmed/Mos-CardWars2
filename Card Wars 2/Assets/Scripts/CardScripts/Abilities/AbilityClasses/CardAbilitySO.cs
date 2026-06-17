@@ -8,6 +8,11 @@ using Mirror;
 using PlayerStuff;
 using Tiles;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using AbilityEvents;
+using CardScripts.Abilities;
+using UnityEngine;
 
 namespace CardScripts.Abilities
 {
@@ -79,6 +84,24 @@ namespace CardScripts.Abilities
 
             // redraw creature
             masterDeck.CreateThenSpawnCard(redrawID, player);
+        }
+
+        /// <summary>
+        /// Pass a percentage it takes to win.
+        /// 75% means 75% chance to hit, and 25% to fail
+        /// </summary>
+        /// <param name="chance">percentage to win</param>
+        /// <returns>Win or loss</returns>
+        [Server]
+        public bool RollChance(int chance)
+        {
+            // Clamp chance between 1 and 100
+            chance = Mathf.Clamp(chance, 1, 100);
+        
+            // Roll between 1 and 100
+            int roll = UnityEngine.Random.Range(1, 101);
+
+            return roll <= chance;
         }
     }
 }
