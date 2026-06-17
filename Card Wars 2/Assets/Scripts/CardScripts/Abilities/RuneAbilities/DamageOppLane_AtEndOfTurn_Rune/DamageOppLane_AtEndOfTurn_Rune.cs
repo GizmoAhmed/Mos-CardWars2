@@ -4,6 +4,7 @@ using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
+using Extensions;
 using GameManagement;
 using Tiles;
 using Unity.VisualScripting.Dependencies.NCalc;
@@ -34,14 +35,8 @@ public class DamageOppLane_AtEndOfTurn_Rune : PassiveAbilitySO
             return;
         } // if got through this block, then this ability was passed the end of turn exec, attack opp lane
         
-        CreatureMovement cMove = rMove.creatureBoundTo.GetComponent<CreatureMovement>();
-
-        Tile thisTile = cMove.GetLogicalTile();
-
-        MiddleTile across = TileManager.Instance.GetAcrossTile(thisTile.row, 
-                thisTile.column, 
-                thisTile.serverPlayerSide) 
-                as MiddleTile;
+        // tile of this runes creature
+        MiddleTile thisTile = rMove.creatureBoundTo.GetTile_Ext() as MiddleTile;
 
         CreatureStats cStats = rMove.creatureBoundTo.GetComponent<CreatureStats>();
         
@@ -49,18 +44,9 @@ public class DamageOppLane_AtEndOfTurn_Rune : PassiveAbilitySO
         int strength = cStats.strength;
 
         if (strength == 0) return; // no point 
-        
-        if (across.logicalCreature != null) // creature over there
-        {
-            CreatureStats oppCreature =  across.logicalCreature.GetComponent<CreatureStats>();
-            
-            // deal damage
-            oppCreature.ChangeCreatureDefense(strength, buff:false);
-        }
-        else // empty lane 
-        {
-            // todo do something, for now, just add player drain or lost money or sum
-        }
+
+        // damage tile across from this one
+        thisTile.DamageTileAcross_Ext(strength);
     }
 
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

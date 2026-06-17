@@ -4,6 +4,7 @@ using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
+using Extensions;
 using GameManagement;
 using Tiles;
 using UnityEngine;
@@ -13,16 +14,16 @@ using UnityEngine;
 public class DamageViaDefense_OppTile_EveryXTurn_Building : PassiveAbilitySO
 {
     [Header("Ability Scope")] public int turnsToActivate;
-    
+
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
         TurnManager turn = FindObjectOfType<TurnManager>();
 
-        Debug.Log($"<color=purple>Current turn</color> = {turn._currentTurn}, {thisCard.name} activates every {turnsToActivate} turn");
+        // Debug.Log($"<color=purple>Current turn</color> = {turn._currentTurn}, {thisCard.name} activates every {turnsToActivate} turn");
 
         if (turnsToActivate < 1)
         {
-            Debug.LogError($"Could not activate {name} on {thisCard.name} because turns to activate on it is set to {turnsToActivate}" );
+            // Debug.LogError($"Could not activate {name} on {thisCard.name} because turns to activate on it is set to {turnsToActivate}" );
             return;
         }
 
@@ -31,44 +32,24 @@ public class DamageViaDefense_OppTile_EveryXTurn_Building : PassiveAbilitySO
             return;
         }
 
-        BuildingMovement move = thisCard.GetComponent<BuildingMovement>();
+        MiddleTile thisTile = thisCard.GetTile_Ext() as MiddleTile;
 
-        MiddleTile thisTile = move.GetLogicalTile() as MiddleTile;
-
-        if (thisTile.logicalCreature == null) // no creature
+        if (thisTile.logicalCreature != null) // no creature
         {
-            Debug.Log($"<color=brown>{name}</color> has no logical creature");
+            return;
+        }
+        
+        CreatureStats stats = thisTile.logicalCreature.GetComponent<CreatureStats>();
+
+        int damage = stats.defense;
+
+        if (damage > 0) // sloth could make defense negative
+        {
+            thisTile.DamageTileAcross_Ext(damage: damage);
         }
         else
         {
-            CreatureStats stats = thisTile.logicalCreature.GetComponent<CreatureStats>();
-
-            int damage = stats.defense;
-
-            if (damage > 0) // sloth could make defense negative
-            {
-                MiddleTile across = TileManager.Instance.GetAcrossTile(thisTile.row,
-                        thisTile.column,
-                        thisTile.serverPlayerSide)
-                    as MiddleTile;
-
-                if (across.logicalCreature != null)
-                {
-                    CreatureStats oppCreature = across.logicalCreature.GetComponent<CreatureStats>();
-
-                    Debug.Log($"<color=brown>{thisCard.name}</color>: Damaging {oppCreature} for {damage}");
-                    
-                    // deal damage to opposing
-                    oppCreature.ChangeCreatureDefense(damage, buff: false);
-                }
-                else
-                {
-                    Debug.Log($"<color=brown>{thisCard.name}</color>: Damaging empty tile for {damage}");
-
-                    // todo damage to empty lane
-                    // just pass damage to tiles script, and they can handle it, so we don't right this if block everytime
-                }
-            }
+            Debug.LogWarning($"{stats.gameObject} must have <color=cyan>sloth</color> on it, because it's defense is below zero and {thisCard.gameObject} can't use that to attack");
         }
     }
 }

@@ -18,19 +18,6 @@ namespace CardScripts.Abilities.BuildingAbilities.Redraw_CreatureOnTile_OnDiscar
             GameObject discardedCardToRedraw = eventData.target.gameObject;
             
             RedrawCard(discardedCardToRedraw); // redraw that card
-            
-            /*CreatureStats targetsCreatureStats = eventData.target.GetComponent<CreatureStats>();
-
-            string redrawID = targetsCreatureStats.cardData.cardID;
-
-            PlayerStats owningPlayer = eventData.target
-                .GetComponent<CreatureMovement>()
-                .thisCardOwnerPlayerStats;
-        
-            MasterDeck masterDeck = FindObjectOfType<MasterDeck>();
-
-            // redraw creature
-            masterDeck.CreateThenSpawnCard(redrawID, owningPlayer);*/
         
             // discard this building
             thisCard.GetComponent<CardMovement>().ServerDiscard();
