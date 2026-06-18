@@ -70,7 +70,7 @@ namespace CardScripts.Abilities
         /// </summary>
         /// <param name="redrawMe">the card you want to redraw</param>
         [Server]
-        public void RedrawCard(GameObject redrawMe)
+        public void RedrawCard(GameObject redrawMe, bool isDuplicate = false)
         {
             CardStats stats = redrawMe.GetComponent<CardStats>();
 
@@ -83,7 +83,7 @@ namespace CardScripts.Abilities
             MasterDeck masterDeck = FindObjectOfType<MasterDeck>();
 
             // redraw creature
-            masterDeck.CreateThenSpawnCard(redrawID, player);
+            masterDeck.CreateThenSpawnCard(redrawID, player, isDuplicate);
         }
 
         /// <summary>

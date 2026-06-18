@@ -127,7 +127,7 @@ namespace GameManagement
         /// <param name="cardID">Id of card being created and spawned</param>
         /// <param name="playerStats">This is the player drawing</param>
         [Server]
-        public void CreateThenSpawnCard(string cardID, PlayerStats playerStats)
+        public void CreateThenSpawnCard(string cardID, PlayerStats playerStats, bool isDuplicate = false)
         {
             CardDataSO cardData = GetCardByID(cardID);
 
@@ -161,7 +161,7 @@ namespace GameManagement
                 player.playerCardTracker.Server_TrackAddToHand(cardObj);
                 
                 // broadcast add to hand
-                player.playerCardTracker.GlobalBroadcastAddToHand(cardObj);
+                player.playerCardTracker.GlobalBroadcastAddToHand(cardObj, isDuplicate);
             }
             else
             {

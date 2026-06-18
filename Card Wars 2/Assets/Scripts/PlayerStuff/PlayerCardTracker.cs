@@ -67,16 +67,23 @@ namespace PlayerStuff
         }
 
         [Server]
-        public void GlobalBroadcastAddToHand(GameObject card)
+        public void GlobalBroadcastAddToHand(GameObject card, bool isDuplicate = false)
         {
             if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {
-                AbilityEventData addToHandData = new AbilityEventData
-                (
+                AbilityEventData addToHandData = new AbilityEventData(
                     type: AbilityEventType.AnyAddCardToHand,
-                    t: card
+                    t: card,
+                    
+                    // prevent infinite loop duplication
+                    customData: new Dictionary<string, object>
+                    {
+                        { "isDuplicate", isDuplicate }
+                    }
+                    // below broadcast will return to the ability that listens+redraws
+                    // and if the above flag is true, won't duplicate a draw again
                 );
-
+                
                 // tell event manager to tell everyone (that cares) that the turn ended
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance
                     .TriggerEvents_ForAllSubscribersOfType(addToHandData);

@@ -129,14 +129,8 @@ namespace Extensions
         {
             PlayerStats owningPlayer = card.GetOwningPlayerStats_Ext();
 
-            if (owningPlayer == player)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            // if passed card owner same as passed player, then player owns passed card
+            return owningPlayer == player;  
         }
     }
 }

@@ -7839,7 +7839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: maxMagic
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: runeCard
@@ -10042,12 +10042,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 84ea038b44e0cf4499e61811d06078e4, type: 2}
   - {fileID: 11400000, guid: 10a77530f14f5714482ab120771b3ba1, type: 2}
   - {fileID: 11400000, guid: 2b19ee0cbe8528a4982d5f43cb8fec11, type: 2}
-  - {fileID: 11400000, guid: 84ea038b44e0cf4499e61811d06078e4, type: 2}
   - {fileID: 11400000, guid: 95c87cf645eb3ab459d8e8f447befb24, type: 2}
+  - {fileID: 11400000, guid: 84ea038b44e0cf4499e61811d06078e4, type: 2}
   - {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
   - {fileID: 11400000, guid: 2d46760cca5f82f4f891a705b17d354a, type: 2}
-  - {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
   - {fileID: 11400000, guid: 560d811727093c140bfd7c54f1352f5f, type: 2}
+  - {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
   - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
   - {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
   - {fileID: 11400000, guid: 784fa037efa7dda4481228936008d047, type: 2}

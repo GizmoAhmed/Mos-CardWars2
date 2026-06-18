@@ -15,4 +15,4 @@ MonoBehaviour:
   eventsThatTriggerThisAbility: 02000000
   isGlobalListener: 1
   isExecutableOnPlaced: 0
-  chance: 1
+  chance: 25
