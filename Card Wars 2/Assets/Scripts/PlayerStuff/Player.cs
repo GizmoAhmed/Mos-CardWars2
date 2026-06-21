@@ -23,7 +23,7 @@ public class Player : NetworkBehaviour
     public CardPlacement cardPlacer;
     public PlayerStats playerStats;
 
-    public bool myTurn;
+    [SyncVar] public bool myTurn;
 
     [Header("Deck & Discard")] public DeckCollection deckCollection;
 
@@ -33,10 +33,8 @@ public class Player : NetworkBehaviour
 
     public PlayerCardTracker playerCardTracker;
 
-    [Header("Battle Ready Cards")] [SyncVar]
-    public bool searchComplete;
-
-    [Header("Buttons to disable")] public Button draw;
+    [Header("Buttons to disable")] 
+    public Button draw;
     public Button upgrade;
     public Button ready;
 
@@ -58,7 +56,7 @@ public class Player : NetworkBehaviour
 
         playerStats.InitUI();
 
-        myTurn = true;
+        // myTurn = true;
 
         // find buttons
         draw = FindAnyObjectByType<DrawButton>().gameObject.GetComponent<Button>();
@@ -95,77 +93,22 @@ public class Player : NetworkBehaviour
 
 
     /// <summary>
-    /// True for enabling, false for disabling
+    /// Toggles a players turn on the server. Only called from a server method in TurnManager.cs
     /// </summary>
-    /// <param name="t"></param>
-    [TargetRpc]
-    public void Disable(bool enable)
+    /// <param name="enable">True for, 'yes it's your turn', false for 'not your turn'</param>
+    [Server]
+    public void Server_ToggleTurn(bool enable)
     {
-        myTurn = draw.interactable = upgrade.interactable = ready.interactable = enable;
+        myTurn = enable;
     }
-
-    /*[TargetRpc]
-    public void TargetStartBattleCardsSearch(NetworkConnection target)
-    {
-        StartCoroutine(FindBattleCardsCoroutine());
-    }*/
 
     /// <summary>
-    /// C# does not have list comprehensions like Python,
-    /// but it has LINQ (Language Integrated Query) which provides a similar capability. 
-    /// You can use LINQ to filter and project data in a more concise manner.
+    /// Disables and enables the buttons of a certain player 
     /// </summary>
-    /// <returns></returns>
-    /*private IEnumerator FindBattleCardsCoroutine()
+    /// <param name="enable">True for enable, false for disable</param>
+    [TargetRpc]
+    public void TargetRpc_ToggleButtons(bool enable)
     {
-        var battleReadyCards = FindObjectsOfType<CreatureCard>()
-            .Where(creatureCard => creatureCard.isOwned && creatureCard.currentState == CardState.Placed)
-            .Select(creatureCard => {
-                string landName = creatureCard.MyLand.name;
-                int landNumber = int.Parse(landName.Substring(landName.Length - 1));
-                return new KeyValuePair<GameObject, int>(creatureCard.gameObject, landNumber);
-            } ).ToList();
-
-        if (battleReadyCards.Count == 0) // no cards on the field
-        {
-            CmdSetSearch(true);
-            yield break;
-        }
-
-        // Sort the battle-ready cards by their land number
-        battleReadyCards = battleReadyCards.OrderBy(pair => pair.Value).ToList();
-
-        foreach (var pair in battleReadyCards)
-        {
-            GameObject cardOBJ = pair.Key;
-
-            CreatureCard thisCard = cardOBJ.GetComponent<CreatureCard>();
-            CreatureLand thisLand = thisCard.MyLand.GetComponent<CreatureLand>();
-            CreatureLand acrossLand = thisLand._Across.GetComponent<CreatureLand>();
-
-            if (acrossLand.CurrentCard == null)
-            {
-                CmdAltercation(thisCard, null);
-            }
-            else
-            {
-                CmdAltercation(thisCard, acrossLand.CurrentCard.GetComponent<CreatureCard>());
-            }
-
-            yield return new WaitForSeconds(combat.combatDelay); // Pause between each iteration
-        }
-
-        CmdSetSearch(true);
-    }*/
-    [Command]
-    private void CmdSetSearch(bool value)
-    {
-        searchComplete = value;
+        draw.interactable = upgrade.interactable = ready.interactable = enable;
     }
-
-    /*[Command]
-    public void CmdAltercation(CreatureCard attackingCard, CreatureCard defendingCard)
-    {
-        combat.Altercation(attackingCard, defendingCard);
-    }*/
 }

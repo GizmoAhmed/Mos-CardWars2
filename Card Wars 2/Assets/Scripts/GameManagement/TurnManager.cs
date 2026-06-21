@@ -63,7 +63,8 @@ public class TurnManager : NetworkBehaviour
             Debug.LogError($"Network connect to Client({net.connectionId}) is null right here");
         }
 
-        net.identity.GetComponent<Player>().Disable(enable);
+        net.identity.GetComponent<Player>().Server_ToggleTurn(enable);
+        net.identity.GetComponent<Player>().TargetRpc_ToggleButtons(enable);
     }
 
     [Server]
@@ -98,8 +99,7 @@ public class TurnManager : NetworkBehaviour
             _readyHit = 0;
         }
     }
-
-
+    
     [Server]
     private void SwapPhase()
     {

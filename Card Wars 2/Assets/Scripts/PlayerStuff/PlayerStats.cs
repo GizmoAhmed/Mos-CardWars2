@@ -114,6 +114,14 @@ namespace PlayerStuff
         [Command]
         public void CmdActivateCreatureAbility(GameObject creatureToActivate)
         {
+            Player player = GetComponent<Player>();
+
+            if (!player.myTurn) // if not your turn, can't floop anyone
+            {
+                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because not your turn");
+                return;
+            }
+
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
             int cost = creatureStats.abilityCost;
 
