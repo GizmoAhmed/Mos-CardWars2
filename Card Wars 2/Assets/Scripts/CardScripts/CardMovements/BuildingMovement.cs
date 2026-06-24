@@ -35,6 +35,8 @@ namespace CardScripts.CardMovements
 
             thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
 
+            // track placed building
+            thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_TrackTilePlacement(gameObject);
 
             // thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
         }
@@ -94,6 +96,9 @@ namespace CardScripts.CardMovements
             // if being discarded from the field, returning magic
             if (cardState == CardState.Field)
             {
+                // remove tracking on placed building
+                thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_RemoveTilePlacement(gameObject);
+                
                 ReturnSoul();
             }
 

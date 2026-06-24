@@ -1,14 +1,10 @@
 using Buttons;
-using CardScripts.CardData;
 using CardScripts.CardDisplays;
-using CardScripts.CardMovements;
-using CardScripts.CardStatss;
 using GameManagement;
 using Mirror;
-using PlayerStuff;
 using UnityEngine;
 
-namespace CardScripts
+namespace PlayerStuff
 {
     // On player object
     public class CardPlacement : NetworkBehaviour

@@ -25,6 +25,10 @@ namespace CardScripts.CardStatss
 
         [SyncVar(hook = nameof(Hook_UpdateAbilityCost))]
         public int abilityCost;
+
+        // how many times a creature can floop in a turn
+        [SyncVar] public int maxFloops = 1;
+        [SyncVar] public int floopsLeft;
         
         /// <summary>
         /// If immortal, creature can't be killed and their defense can go negative as a result

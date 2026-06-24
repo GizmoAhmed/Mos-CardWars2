@@ -35,18 +35,17 @@ namespace CardScripts.CardMovements
             // add bases stats to score and add soul...
             thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
             
-            // cardStats.UpdateSyncSoulToPlayer(-cardStats.soulUse);
-
             thisCardOwnerPlayerStats.currentSoul -= CreatureStats.soulUse;
+            
+            // when placed set floop quantity
+            CreatureStats.floopsLeft = CreatureStats.maxFloops;
+            // floops may get added on placement abilities below
+            
+            // track placed creature
+            thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_TrackTilePlacement(gameObject);
             
             // ... then broadcast, placement abilities need the initial player score to be added first
             base.CmdPlaceCardOnTile(tile); 
-            
-            // some creatures have a passive listener, try if they have one
-            if (TryGetComponent(out PassiveListenerCard listener))
-            {
-                listener.RegisterPassiveAbility();
-            }
         }
 
         [Server]
@@ -104,6 +103,9 @@ namespace CardScripts.CardMovements
             // if being discarded from the field, returning magic
             if (cardState == CardState.Field)
             {
+                // remove tracking on placed creature
+                thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_RemoveTilePlacement(gameObject);
+                
                 ReturnSoulAndScore();
             }
             

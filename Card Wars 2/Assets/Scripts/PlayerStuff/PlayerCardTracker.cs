@@ -11,8 +11,11 @@ namespace PlayerStuff
     {
         [SerializeField] private List<GameObject> _serverDiscardedCards = new List<GameObject>();
         [SerializeField] private List<GameObject> _serverHandContents = new List<GameObject>();
+        [SerializeField] private List<GameObject> _serverActiveFieldCards = new List<GameObject>();
 
         public int numOfCardsDrawnThisTurn;
+
+        public int cardPlacedThisTurn;
         
         /// <summary>
         /// Called when a card is discarded - tracked on server
@@ -21,8 +24,7 @@ namespace PlayerStuff
         public void Server_TrackDiscard(GameObject card)
         {
             _serverDiscardedCards.Add(card);
-            Debug.Log($"[Server] Tracked discard: {card.name}, " +
-                      $"total: {_serverDiscardedCards.Count}");
+            // Debug.Log($"[Server] Tracked discard: {card.name}. Cards discarded: {_serverDiscardedCards.Count}");
         }
         
         /// <summary>
@@ -98,7 +100,24 @@ namespace PlayerStuff
         public void Server_EndOfTurnCardTrackerReset()
         {
             numOfCardsDrawnThisTurn = 0;
+            cardPlacedThisTurn = 0;
             // todo among other things
+        }
+
+        [Server]
+        public void Server_TrackTilePlacement(GameObject card)
+        {
+            _serverActiveFieldCards.Add(card);
+            // Debug.Log($"<color=cyan>Tracker added</color> {card.name} to tile tracker. Current count: {_serverActiveFieldCards.Count}");
+
+            cardPlacedThisTurn++;
+        }
+        
+        [Server]
+        public void Server_RemoveTilePlacement(GameObject card)
+        {
+            _serverActiveFieldCards.Remove(card);
+            //Debug.Log($"<color=orange>Tracker removed</color> {card.name} from tile tracker. Current count: {_serverActiveFieldCards.Count}");
         }
     }
 }

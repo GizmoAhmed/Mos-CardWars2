@@ -33,6 +33,9 @@ namespace CardScripts.CardMovements
             }
             
             thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
+            
+            // track placed charm
+            thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_TrackTilePlacement(gameObject);
         }
 
         [Server]
@@ -83,7 +86,14 @@ namespace CardScripts.CardMovements
         public override void ServerDiscard()
         {
             // if being discarded from the field, returning magic
-            if (cardState == CardState.Field) ReturnSoul();
+            if (cardState == CardState.Field)
+            {
+                // remove tracking on placed charm
+                thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_RemoveTilePlacement(gameObject);
+                
+                // return soul
+                ReturnSoul();
+            }
 
             base.ServerDiscard();
         }

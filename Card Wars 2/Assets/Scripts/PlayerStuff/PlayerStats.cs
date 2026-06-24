@@ -123,13 +123,20 @@ namespace PlayerStuff
             }
 
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
+
+            if (creatureStats.floopsLeft == 0) // not enough floops, return
+            {
+                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because out of floops");
+                return;
+            }
+
             int cost = creatureStats.abilityCost;
 
             if (shards >= cost)
             {
                 shards -= cost;
-                // Debug.Log($"...Spending shards ({cost}) to activate {creatureToActivate.name} ability");
-
+                creatureStats.floopsLeft -= 1; 
+                
                 try
                 {
                     creatureStats.cardData.ability.ExecuteAbility(creatureToActivate, null);

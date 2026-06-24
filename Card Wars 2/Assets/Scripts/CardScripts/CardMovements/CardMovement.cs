@@ -231,12 +231,12 @@ namespace CardScripts.CardMovements
 
             if (drawModal.picksLeft != 0) // there are picks left
             {
-                Debug.Log($"Player picks {gameObject.name} to draw, as there are enough picks");
+                // Debug.Log($"Player picks {gameObject.name} to draw, as there are enough picks");
                 drawModal.UpdatePicksLeft(drawModal.picksLeft -= 1);
                 return true;
             }
 
-            Debug.LogWarning($"Player could NOT pick {gameObject.name} as they have no picks left");
+            // Debug.LogWarning($"Player could NOT pick {gameObject.name} as they have no picks left");
             return false;
         }
 
