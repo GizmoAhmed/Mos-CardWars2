@@ -26,16 +26,18 @@ namespace CardScripts.CardStatss
         [SyncVar(hook = nameof(Hook_UpdateAbilityCost))]
         public int abilityCost;
 
+        [Header("Floop Amount")]
         // how many times a creature can floop in a turn
         [SyncVar] public int maxFloops = 1;
         [SyncVar] public int floopsLeft;
         
-        /// <summary>
-        /// If immortal, creature can't be killed and their defense can go negative as a result
-        /// </summary>
+        [Header("Rune Booleans")]
+        // If immortal, creature can't be killed and their defense can go negative as a result
         [SyncVar] public bool immortal = false;
 
         [SyncVar] public bool canBeBuffed = true;
+        
+        // todo prideful
         
         protected override void Awake()
         {
@@ -217,6 +219,12 @@ namespace CardScripts.CardStatss
                 // update player score accordingly
                 GetComponent<CardMovement>().thisCardOwnerPlayerStats.AddPlayerScore(diffScore);
             }
+        }
+
+        [Server]
+        public void ResetFloops()
+        {
+            floopsLeft = maxFloops;
         }
 
         public void Hook_UpdateAbilityCost(int oldCost, int newCost)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AbilityEvents;
+using CardScripts.CardStatss;
 using Mirror;
 using Modal;
 using UnityEngine;
@@ -102,6 +103,20 @@ namespace PlayerStuff
             numOfCardsDrawnThisTurn = 0;
             cardPlacedThisTurn = 0;
             // todo among other things
+
+            Server_ResetFloops_OfAllCreatures();
+        }
+
+        [Server]
+        public void Server_ResetFloops_OfAllCreatures()
+        {
+            List<CreatureStats> allCreaturesOnField = Server_GetOnFieldCreatureStats();
+
+            foreach (CreatureStats creatureStats in allCreaturesOnField)
+            {
+                // Debug.Log($"Tracker resetting <color=orange>{creatureStats.gameObject.name}</color> floops to {creatureStats.maxFloops}");
+                creatureStats.ResetFloops();
+            }
         }
 
         [Server]
@@ -118,6 +133,25 @@ namespace PlayerStuff
         {
             _serverActiveFieldCards.Remove(card);
             //Debug.Log($"<color=orange>Tracker removed</color> {card.name} from tile tracker. Current count: {_serverActiveFieldCards.Count}");
+        }
+
+        /// <summary>
+        /// Get all CreatureStats currently on the field
+        /// </summary>
+        [Server]
+        public List<CreatureStats> Server_GetOnFieldCreatureStats()
+        {
+            List<CreatureStats> creatures = new List<CreatureStats>();
+    
+            foreach (GameObject card in _serverActiveFieldCards)
+            {
+                if (card != null && card.TryGetComponent<CreatureStats>(out CreatureStats stats))
+                {
+                    creatures.Add(stats);
+                }
+            }
+    
+            return creatures;
         }
     }
 }

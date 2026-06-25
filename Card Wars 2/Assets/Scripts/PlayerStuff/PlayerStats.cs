@@ -118,15 +118,15 @@ namespace PlayerStuff
 
             if (!player.myTurn) // if not your turn, can't floop anyone
             {
-                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because not your turn");
+                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>not your turn</color>");
                 return;
             }
 
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
 
-            if (creatureStats.floopsLeft == 0) // not enough floops, return
+            if (creatureStats.floopsLeft <= 0) // not enough floops, return
             {
-                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because out of floops");
+                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>out of floops</color>");
                 return;
             }
 
@@ -140,6 +140,7 @@ namespace PlayerStuff
                 try
                 {
                     creatureStats.cardData.ability.ExecuteAbility(creatureToActivate, null);
+                    // Debug.Log($"<color=green>Flooped</color> {creatureToActivate.name}");
                     
                     LocalWhisperCardAbilityActivate(creatureStats);
                     // todo global broadcast
