@@ -30,6 +30,8 @@ namespace CardScripts.CardStatss
         // how many times a creature can floop in a turn
         [SyncVar] public int maxFloops = 1;
         [SyncVar] public int floopsLeft;
+
+        [SyncVar] public bool multiFloop = false;
         
         [Header("Rune Booleans")]
         // If immortal, creature can't be killed and their defense can go negative as a result

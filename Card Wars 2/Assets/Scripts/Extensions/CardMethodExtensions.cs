@@ -132,5 +132,26 @@ namespace Extensions
             // if passed card owner same as passed player, then player owns passed card
             return owningPlayer == player;  
         }
+
+        public static CreatureStats GetCreatureStats_FromBoundRune_Ext(this GameObject rune)
+        {
+            RuneMovement runeMove = rune.GetComponent<RuneMovement>();
+
+            if (runeMove == null)
+            {
+                Debug.LogError($"Non-rune ({rune.name}) was passed to GetCreatureStats_FromBoundRune_Ext");
+                return null;
+            }
+
+            CreatureStats boundCreatureStats = runeMove.creatureBoundTo.GetComponent<CreatureStats>();
+
+            if (boundCreatureStats == null)
+            {
+                Debug.LogError($"Tried getting creature bound by {rune.name} in GetCreatureStats_FromBoundRune_Ext, <color=orange>but no creature was found</color>");
+                return null;
+            }
+            
+            return boundCreatureStats;
+        }
     }
 }

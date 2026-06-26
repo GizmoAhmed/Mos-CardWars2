@@ -17,3 +17,4 @@ MonoBehaviour:
   magic: 0
   abilityDescription: "Creature\u2019s ability activates an additional time."
   burnCost: 2
+  ability: {fileID: 11400000, guid: edd0fbd85dae8cc4783b0eb42298edf5, type: 2}

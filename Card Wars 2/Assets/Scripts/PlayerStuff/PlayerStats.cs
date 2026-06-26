@@ -124,9 +124,9 @@ namespace PlayerStuff
 
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
 
-            if (creatureStats.floopsLeft <= 0) // not enough floops, return
+            if (creatureStats.floopsLeft <= 0 && !creatureStats.multiFloop) // not enough floops, return
             {
-                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>out of floops</color>");
+                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>out of floops ({creatureStats.floopsLeft} floops left)</color>");
                 return;
             }
 
