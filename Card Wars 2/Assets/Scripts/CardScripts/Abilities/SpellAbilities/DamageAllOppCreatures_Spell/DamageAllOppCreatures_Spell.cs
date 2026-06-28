@@ -4,7 +4,9 @@ using AbilityEvents;
 using CardScripts.Abilities.AbilityClasses;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
+using Extensions;
 using GameManagement;
+using PlayerStuff;
 using Tiles;
 using UnityEngine;
 
@@ -15,23 +17,14 @@ public class DamageAllOppCreatures_Spell : CastAbilitySO
     
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        Debug.Log($"{thisCard.name} damages all opponents for {damagetoAllAmount}");
+        List<CreatureStats> oppsCreatures = thisCard.Ext_GetAllOpponentsActiveCreatures();
         
-        SpellMovement move = thisCard.GetComponent<SpellMovement>();
+        Debug.Log($"<color=yellow>{thisCard.name}</color> damages all opponents " +
+                  $"(Counts: {oppsCreatures.Count}) for {damagetoAllAmount}");
 
-        int otherSide = (move.logicalPlayerSide == 0) ? 1 : 0;
-        
-        List<MiddleTile> oppTiles = TileManager.Instance.GetTilesForPlayer(otherSide);
-
-        // foreach opp tile, deal damage to creature on said tile, if there is a creature
-        foreach (MiddleTile tile in oppTiles)
+        foreach (CreatureStats creature in oppsCreatures)
         {
-            if (tile.logicalCreature != null)
-            {
-                CreatureStats stats = tile.logicalCreature.GetComponent<CreatureStats>();
-                
-                stats.ChangeCreatureDefense(damagetoAllAmount, false);
-            }
+            creature.ChangeCreatureDefense(damagetoAllAmount, false);
         }
     }
     

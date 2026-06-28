@@ -48,6 +48,8 @@ namespace PlayerStuff
         [Header("Free Draw Parameters")] [SyncVar(hook = nameof(FreeDrawsLeftUpdate))]
         public int freeDrawsLeft;
 
+        [SyncVar] public int freeDrawsPerTurn;
+
         [SyncVar(hook = nameof(ChoiceUpdate))] public int freeCardsChosen;
         [SyncVar(hook = nameof(OfferUpdate))] public int freeCardsOffered;
 

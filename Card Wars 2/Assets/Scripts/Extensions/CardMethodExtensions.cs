@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
 using GameManagement;
@@ -152,6 +153,37 @@ namespace Extensions
             }
             
             return boundCreatureStats;
+        }
+        
+        public static List<CreatureStats> Ext_GetAllActiveCreaturesForThisPlayer(this GameObject card)
+        {
+            PlayerCardTracker thisCardOwnerStats = card.GetOwningCardTracker_Ext();
+            
+            List<CreatureStats> oppsCreatures = thisCardOwnerStats.Server_GetThisPlayersOnFieldCreatures();
+
+            if (oppsCreatures.Count == 0)
+            {
+                Debug.LogWarning("Attempted to get all active cards for this player, none found");
+            }
+            
+            return oppsCreatures;
+        }
+
+        public static List<CreatureStats> Ext_GetAllOpponentsActiveCreatures(this GameObject card)
+        {
+            PlayerStats thisCardOwnerStats = card.GetOwningPlayerStats_Ext();
+
+            PlayerCardTracker oppsCardTracker = thisCardOwnerStats.GetOpponentCardTracker_Ext();
+
+            List<CreatureStats> oppsCreatures = oppsCardTracker.Server_GetThisPlayersOnFieldCreatures();
+
+            if (oppsCreatures.Count == 0)
+            {
+                Debug.LogWarning("Attempted to get all active opp cards, none found");
+                return null;
+            }
+            
+            return oppsCreatures;
         }
     }
 }

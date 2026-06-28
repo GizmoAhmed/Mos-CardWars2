@@ -8106,6 +8106,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
+      propertyPath: defaultFreeDrawsPerTurn
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: defaultPaidDrawOffering
       value: 3
       objectReference: {fileID: 0}
@@ -10039,17 +10043,16 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
-  - {fileID: 11400000, guid: 2d9df32531c890143920e03962f21995, type: 2}
-  - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
-  - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
-  - {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
-  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
-  - {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
-  - {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
-  - {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
-  - {fileID: 11400000, guid: 228915c4fac40ce468a32f92b2c8e651, type: 2}
-  - {fileID: 11400000, guid: 228915c4fac40ce468a32f92b2c8e651, type: 2}
   - {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
+  - {fileID: 11400000, guid: 560d811727093c140bfd7c54f1352f5f, type: 2}
+  - {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
+  - {fileID: 11400000, guid: 10a77530f14f5714482ab120771b3ba1, type: 2}
+  - {fileID: 11400000, guid: 87945ef6eabe77042b24de5acde1bd7c, type: 2}
+  - {fileID: 11400000, guid: 2b19ee0cbe8528a4982d5f43cb8fec11, type: 2}
+  - {fileID: 11400000, guid: 842864b0bbba1d94d9eda4aeb8055232, type: 2}
+  - {fileID: 11400000, guid: 2a57c3ab78b3b1343befc6b7fdfef202, type: 2}
+  - {fileID: 11400000, guid: 862ac6482d52e454584459369a71ba42, type: 2}
+  - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
   masterDeckList: []
   creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}

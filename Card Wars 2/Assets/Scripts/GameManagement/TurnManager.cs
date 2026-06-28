@@ -214,7 +214,12 @@ public class TurnManager : NetworkBehaviour
         PlayerCardTracker ct0 = _player0Stats.GetComponent<PlayerCardTracker>();
         PlayerCardTracker ct1 = _player1Stats.GetComponent<PlayerCardTracker>();
         
+        // reset card tracking
         ct0.Server_EndOfTurnCardTrackerReset();
         ct1.Server_EndOfTurnCardTrackerReset();
+
+        // reset draws
+        _player0Stats.freeDrawsLeft = _player0Stats.freeDrawsPerTurn;
+        _player1Stats.freeDrawsLeft = _player1Stats.freeDrawsPerTurn;
     }
 }

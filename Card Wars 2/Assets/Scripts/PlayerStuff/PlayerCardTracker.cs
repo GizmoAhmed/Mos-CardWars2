@@ -16,7 +16,7 @@ namespace PlayerStuff
 
         public int numOfCardsDrawnThisTurn;
 
-        public int cardPlacedThisTurn;
+        public int cardsPlacedThisTurn;
         
         /// <summary>
         /// Called when a card is discarded - tracked on server
@@ -101,7 +101,7 @@ namespace PlayerStuff
         public void Server_EndOfTurnCardTrackerReset()
         {
             numOfCardsDrawnThisTurn = 0;
-            cardPlacedThisTurn = 0;
+            cardsPlacedThisTurn = 0;
             // todo among other things
 
             Server_ResetFloops_OfAllCreatures();
@@ -110,7 +110,7 @@ namespace PlayerStuff
         [Server]
         public void Server_ResetFloops_OfAllCreatures()
         {
-            List<CreatureStats> allCreaturesOnField = Server_GetOnFieldCreatureStats();
+            List<CreatureStats> allCreaturesOnField = Server_GetThisPlayersOnFieldCreatures();
 
             foreach (CreatureStats creatureStats in allCreaturesOnField)
             {
@@ -125,7 +125,7 @@ namespace PlayerStuff
             _serverActiveFieldCards.Add(card);
             // Debug.Log($"<color=cyan>Tracker added</color> {card.name} to tile tracker. Current count: {_serverActiveFieldCards.Count}");
 
-            cardPlacedThisTurn++;
+            cardsPlacedThisTurn++;
         }
         
         [Server]
@@ -139,13 +139,13 @@ namespace PlayerStuff
         /// Get all CreatureStats currently on the field
         /// </summary>
         [Server]
-        public List<CreatureStats> Server_GetOnFieldCreatureStats()
+        public List<CreatureStats> Server_GetThisPlayersOnFieldCreatures()
         {
             List<CreatureStats> creatures = new List<CreatureStats>();
     
             foreach (GameObject card in _serverActiveFieldCards)
             {
-                if (card != null && card.TryGetComponent<CreatureStats>(out CreatureStats stats))
+                if (card != null && card.TryGetComponent(out CreatureStats stats))
                 {
                     creatures.Add(stats);
                 }

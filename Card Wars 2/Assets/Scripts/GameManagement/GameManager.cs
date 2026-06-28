@@ -15,19 +15,31 @@ namespace GameManagement
 
         public MasterDeck masterDeckDb;
 
-        [Header("Starting Stats")] public int maxMagic = 6;
+        [Header("Starting Player Stats")] 
+        
+        [Header("Magic")]
+        public int maxMagic = 6;
+        public int upgradeCost = 2;
+        
+        [Header("Money")]
         public int money = 20;
-        public int defaultFreeDraws = 1;
+        
+        [Header("Draws")]
+        public int defaultFreeDrawsPerTurn = 1;
+        
         public int defaultFreeDrawChoices = 1;
         public int defaultFreeDrawOffering = 3;
-        public int health = 30;
-        public int drain = 3;
-        public int upgradeCost = 2;
-
-        public int roundsToWin = 4;
+        
         public int defaultPaidDrawChoices = 1;
         public int defaultPaidDrawOffering = 3;
-
+        
+        [Header("Health & Drain")]
+        public int health = 30;
+        public int drain = 3;
+        
+        [Header("Rounds")]
+        public int roundsToWin = 4;
+        
         [Header("Connected Players")] public NetworkConnectionToClient Player1;
         public NetworkConnectionToClient Player2;
 
@@ -152,8 +164,11 @@ namespace GameManagement
             _stats1.upgradeCost = upgradeCost;
             _stats2.upgradeCost = upgradeCost;
 
-            _stats1.freeDrawsLeft = defaultFreeDraws;
-            _stats2.freeDrawsLeft = defaultFreeDraws;
+            _stats1.freeDrawsLeft = defaultFreeDrawsPerTurn;
+            _stats2.freeDrawsLeft = defaultFreeDrawsPerTurn;
+            
+            _stats1.freeDrawsPerTurn = defaultFreeDrawsPerTurn;
+            _stats2.freeDrawsPerTurn = defaultFreeDrawsPerTurn;
 
             _stats1.freeCardsChosen = defaultFreeDrawChoices;
             _stats2.freeCardsChosen = defaultFreeDrawChoices;
