@@ -175,7 +175,7 @@ public class PlayerUI : NetworkBehaviour
         TextMeshProUGUI drainText =
             (isOwned) ? _drain1.GetComponent<TextMeshProUGUI>() : _drain2.GetComponent<TextMeshProUGUI>();
 
-        drainText.text = "- " + newDrain.ToString();
+        drainText.text = newDrain.ToString();
     }
 
     public void RoundsUIUpdate(int newRounds)

@@ -76,19 +76,21 @@ namespace PlayerStuff
         {
             CardStats cardStats = cardToBurn.GetComponent<CardStats>();
 
-            if (shards >= cardStats.burnCost && cardStats.canBeBurned) // enough money to burn and can be burned? then burn
+            if (shards >= cardStats.burnCost &&
+                cardStats.canBeBurned) // enough money to burn and can be burned? then burn
             {
                 shards -= cardStats.burnCost; // spend to burn
-                
+
                 CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
-                
+
                 GlobalBroadcastBurn(cardToBurn);
 
                 cardMove.ServerDiscard();
             }
             else
             {
-                Debug.LogWarning($"{cardStats.gameObject.name} can't be burned because of either insufficient funds ({shards}), or burning being blocked for this creature via spell or rune or something");
+                Debug.LogWarning(
+                    $"{cardStats.gameObject.name} can't be burned because of either insufficient funds ({shards}), or burning being blocked for this creature via spell or rune or something");
             }
         }
 
@@ -118,7 +120,8 @@ namespace PlayerStuff
 
             if (!player.myTurn) // if not your turn, can't floop anyone
             {
-                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>not your turn</color>");
+                Debug.Log(
+                    $"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>not your turn</color>");
                 return;
             }
 
@@ -126,7 +129,8 @@ namespace PlayerStuff
 
             if (creatureStats.floopsLeft <= 0 && !creatureStats.multiFloop) // not enough floops, return
             {
-                Debug.Log($"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>out of floops ({creatureStats.floopsLeft} floops left)</color>");
+                Debug.LogWarning(
+                    $"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>out of floops ({creatureStats.floopsLeft} floops left)</color>");
                 return;
             }
 
@@ -135,21 +139,29 @@ namespace PlayerStuff
             if (shards >= cost)
             {
                 shards -= cost;
-                creatureStats.floopsLeft -= 1; 
-                
+                creatureStats.floopsLeft -= 1;
+
+                // negative floops means multifloop was used to buy pass not enough floops
+                if (creatureStats.floopsLeft < 0)
+                {
+                    int drainRate = 2;
+                    int nonNegFloopsLeft = creatureStats.floopsLeft * -1;
+                    
+                    drain -= nonNegFloopsLeft * drainRate;
+                }
+
                 try
                 {
                     creatureStats.cardData.ability.ExecuteAbility(creatureToActivate, null);
                     // Debug.Log($"<color=green>Flooped</color> {creatureToActivate.name}");
-                    
+
                     LocalWhisperCardAbilityActivate(creatureStats);
                     // todo global broadcast
-                    
                 }
                 catch (Exception e)
                 {
                     Debug.LogError(
-                        $"Failed to activate ability {creatureToActivate.name}. <color=red>Error</color>: {e.Message}");
+                        $"Failed to activate ability <color=orange>{creatureToActivate.name}</color>. <color=red>Error</color>: {e.Message}");
                 }
             }
             else
@@ -157,18 +169,21 @@ namespace PlayerStuff
                 Debug.LogWarning($"...Insufficient shards ({shards}) to activate {creatureToActivate.name} ({cost})");
             }
         }
-        
+
         private void LocalWhisperCardAbilityActivate(CreatureStats creature)
         {
             // get tile of creature flooped
             Tile tile = creature.GetComponent<CreatureMovement>().GetLogicalTile();
-            
+
             TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
 
             // tell tile manager to broadcast that this creature flooped
             tileEventManager.OnCreatureAbilityOnTile(creature.gameObject);
         }
 
+        /// <summary>
+        /// Called at end of each turn
+        /// </summary>
         public void DrainHealth()
         {
             health -= drain;
