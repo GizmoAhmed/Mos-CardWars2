@@ -36,6 +36,13 @@ namespace Extensions
             return thisTile;
         }
 
+        public static Tile Ext_GetTileAcrossFromThisTile(this Tile tile)
+        {
+            return TileManager.Instance.GetAcrossTile(tile.row, 
+                    tile.column, 
+                    tile.serverPlayerSide);
+        }
+
         public static void DamageTileAcross_Ext(this MiddleTile tile, int damage)
         {
             if (!NetworkServer.active)
@@ -43,11 +50,8 @@ namespace Extensions
                 Debug.LogError("<color=orange>DamageTileAcross_Ext</color> called on client - ignoring!");
                 return;
             }
-            
-            MiddleTile across = TileManager.Instance.GetAcrossTile(tile.row, 
-                    tile.column, 
-                    tile.serverPlayerSide) 
-                as MiddleTile;
+
+            MiddleTile across = tile.Ext_GetTileAcrossFromThisTile() as MiddleTile;
             
             if (across.logicalCreature != null) // creature over there
             {

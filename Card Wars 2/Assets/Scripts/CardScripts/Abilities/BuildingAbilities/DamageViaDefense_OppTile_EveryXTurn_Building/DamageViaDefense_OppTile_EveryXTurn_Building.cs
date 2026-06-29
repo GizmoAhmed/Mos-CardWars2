@@ -23,7 +23,7 @@ public class DamageViaDefense_OppTile_EveryXTurn_Building : PassiveAbilitySO
 
         if (turnsToActivate < 1)
         {
-            // Debug.LogError($"Could not activate {name} on {thisCard.name} because turns to activate on it is set to {turnsToActivate}" );
+            Debug.LogError($"Could not activate {name} on {thisCard.name} because turns to activate on it is set to {turnsToActivate}" );
             return;
         }
 

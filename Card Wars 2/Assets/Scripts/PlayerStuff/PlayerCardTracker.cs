@@ -10,9 +10,9 @@ namespace PlayerStuff
 {
     public class PlayerCardTracker : NetworkBehaviour
     {
-        [SerializeField] private List<GameObject> _serverDiscardedCards = new List<GameObject>();
-        [SerializeField] private List<GameObject> _serverHandContents = new List<GameObject>();
-        [SerializeField] private List<GameObject> _serverActiveFieldCards = new List<GameObject>();
+        [SerializeField] private List<GameObject> serverDiscardedCards = new List<GameObject>();
+        [SerializeField] private List<GameObject> serverHandContents = new List<GameObject>();
+        [SerializeField] private List<GameObject> serverActiveFieldCards = new List<GameObject>();
 
         public int numOfCardsDrawnThisTurn;
 
@@ -24,7 +24,7 @@ namespace PlayerStuff
         [Server]
         public void Server_TrackDiscard(GameObject card)
         {
-            _serverDiscardedCards.Add(card);
+            serverDiscardedCards.Add(card);
             // Debug.Log($"[Server] Tracked discard: {card.name}. Cards discarded: {_serverDiscardedCards.Count}");
         }
         
@@ -34,14 +34,14 @@ namespace PlayerStuff
         [Server]
         public GameObject Server_GetLastDiscard()
         {
-            if (_serverDiscardedCards.Count == 0)
+            if (serverDiscardedCards.Count == 0)
                 return null;
         
             // Find last non-null card (some might have been destroyed)
-            for (int i = _serverDiscardedCards.Count - 1; i >= 0; i--)
+            for (int i = serverDiscardedCards.Count - 1; i >= 0; i--)
             {
-                if (_serverDiscardedCards[i] != null)
-                    return _serverDiscardedCards[i];
+                if (serverDiscardedCards[i] != null)
+                    return serverDiscardedCards[i];
             
                 // todo if you want it removed
                 
@@ -54,7 +54,7 @@ namespace PlayerStuff
         [Server]
         public void Server_TrackAddToHand(GameObject card)
         {
-            _serverHandContents.Add(card);
+            serverHandContents.Add(card);
             /*Debug.Log($"[Server] Tracked add to hand: {card.name}, " +
                       $"total: {_serverHandContents.Count}");*/
 
@@ -64,7 +64,7 @@ namespace PlayerStuff
         [Server]
         public void Server_RemoveFromHand(GameObject card)
         {
-            _serverHandContents.Remove(card);
+            serverHandContents.Remove(card);
             /*Debug.Log($"[Server] removing {card.name} from hand tracker, " +
                       $"total: {_serverHandContents.Count}");*/
         }
@@ -122,7 +122,7 @@ namespace PlayerStuff
         [Server]
         public void Server_TrackTilePlacement(GameObject card)
         {
-            _serverActiveFieldCards.Add(card);
+            serverActiveFieldCards.Add(card);
             // Debug.Log($"<color=cyan>Tracker added</color> {card.name} to tile tracker. Current count: {_serverActiveFieldCards.Count}");
 
             cardsPlacedThisTurn++;
@@ -131,7 +131,7 @@ namespace PlayerStuff
         [Server]
         public void Server_RemoveTilePlacement(GameObject card)
         {
-            _serverActiveFieldCards.Remove(card);
+            serverActiveFieldCards.Remove(card);
             //Debug.Log($"<color=orange>Tracker removed</color> {card.name} from tile tracker. Current count: {_serverActiveFieldCards.Count}");
         }
 
@@ -143,7 +143,7 @@ namespace PlayerStuff
         {
             List<CreatureStats> creatures = new List<CreatureStats>();
     
-            foreach (GameObject card in _serverActiveFieldCards)
+            foreach (GameObject card in serverActiveFieldCards)
             {
                 if (card != null && card.TryGetComponent(out CreatureStats stats))
                 {
