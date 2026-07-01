@@ -9,12 +9,13 @@ namespace CardScripts.CardData
         public Element element;
         public enum Element
         {
-            Forge,
-            Crystal,
-            Haunted,
-            Occult,
-            Spirit,
-            None
+            Strength,
+            Defense,
+            Soul,
+            Draw,
+            Money,
+            None,
+            All
         }
 
         public Sprite elementSprite;

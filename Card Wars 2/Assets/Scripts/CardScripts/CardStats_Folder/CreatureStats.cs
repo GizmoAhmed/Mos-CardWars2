@@ -13,7 +13,9 @@ namespace CardScripts.CardStatss
     {
         private CreatureDisplay _creatureDisplay;
         
-        [Header("Creature Specific Stats")] [SyncVar(hook = nameof(Hook_UpdateCreatureStrength))]
+        [Header("Creature Specific Stats")] 
+        
+        [SyncVar(hook = nameof(Hook_UpdateCreatureStrength))]
         public int strength;
         [SyncVar] public int strengthMult = 1;
 
