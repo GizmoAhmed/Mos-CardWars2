@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa7cb9ecc583ab74a9ec16761339e75a, type: 3}
-  m_Name: Fortify_OnPlace_ForEachMatchElementOnField_BuildingSO
+  m_Script: {fileID: 11500000, guid: f973b101df654b44f8bfc61e3d79aea5, type: 3}
+  m_Name: ReduceMaxOppMaxSoul_OnPlace_CharmSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0a000000
-  isGlobalListener: 0
+  eventsThatTriggerThisAbility: 
+  isGlobalListener: 1
   isExecutableOnPlaced: 1
-  DefensePerMatch: 2
+  soulReduction: 2

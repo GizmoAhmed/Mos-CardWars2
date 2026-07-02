@@ -83,12 +83,12 @@ namespace Tiles
             if (charms.Contains(charm))
             {
                 charms.Remove(charm);
-                Debug.Log($"<color=green>...Successfully removed {charm} from {gameObject.name}</color>");
+                //Debug.Log($"<color=green>...Successfully removed {charm} from {gameObject.name}</color>");
             }
             else
             {
-                Debug.LogError($"...Attempt to remove {charm} from {gameObject.name} failed because {charm} isn't present in the list." +
-                               $"\nList Count: {charms.Count}");
+                /*Debug.LogError($"...Attempt to remove {charm} from {gameObject.name} failed because {charm} isn't present in the list." +
+                               $"\nList Count: {charms.Count}");*/
             }
         }
         

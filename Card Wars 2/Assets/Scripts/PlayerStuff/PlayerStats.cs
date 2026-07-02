@@ -191,16 +191,19 @@ namespace PlayerStuff
             health -= drain;
         }
 
-        /// <summary>
-        /// should never reach this function if already over-soulUse
-        /// see ValidPlacement() in each card move child class
-        /// </summary>
-        /// <param name="amount"></param>
-        public void UseMagic(int amount)
+        [Server]
+        public void Server_ChangePlayerSoul(bool raiseSoul, int amount)
         {
-            if (!isServer) return;
-
-            currentSoul -= amount;
+            if (raiseSoul) // increasing soul
+            {
+                maxSoul += amount;
+                currentSoul +=  amount;
+            }
+            else
+            {
+                maxSoul -= amount;
+                currentSoul -= amount;
+            }
         }
 
         public void AddPlayerScore(int amount)

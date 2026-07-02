@@ -103,7 +103,7 @@ namespace Extensions
         /// </summary>
         /// <param name="player"></param>
         /// <returns>Opponent of the player that owns this card</returns>
-        public static PlayerStats GetOpponent_Ext(this PlayerStats player)
+        public static PlayerStats Ext_GetOpponentPlayerStats(this PlayerStats player)
         {
             if (!NetworkServer.active)
             {
@@ -127,7 +127,7 @@ namespace Extensions
                 return null;
             }
             
-            return player.GetOpponent_Ext().GetComponent<PlayerCardTracker>();
+            return player.Ext_GetOpponentPlayerStats().GetComponent<PlayerCardTracker>();
         }
 
         public static bool IsCardOwnedByPlayer(this GameObject card, PlayerStats player)

@@ -5,34 +5,37 @@ using CardScripts.CardStatss;
 using Extensions;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "DamageAllOppCreatures_Spell", menuName = "Abilities/Spell/DamageAllOppCreatures_Spell")]
-public class DamageAllOppCreatures_Spell : CastAbilitySO
+namespace CardScripts.Abilities.SpellAbilities.DamageAllOppCreatures_Spell
 {
-    public int damagetoAllAmount;
-    
-    public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
+    [CreateAssetMenu(fileName = "DamageAllOppCreatures_Spell", menuName = "Abilities/Spell/DamageAllOppCreatures_Spell")]
+    public class DamageAllOppCreatures_Spell : CastAbilitySO
     {
-        List<CreatureStats> oppsCreatures = thisCard.Ext_GetAllOpponentsActiveCreatures();
+        public int damagetoAllAmount;
+    
+        public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
+        {
+            List<CreatureStats> oppsCreatures = thisCard.Ext_GetAllOpponentsActiveCreatures();
         
-        /*Debug.Log($"<color=yellow>{thisCard.name}</color> damages all opponents " +
+            /*Debug.Log($"<color=yellow>{thisCard.name}</color> damages all opponents " +
                   $"(Counts: {oppsCreatures.Count}) for {damagetoAllAmount}");*/
 
-        foreach (CreatureStats creature in oppsCreatures)
-        {
-            creature.ChangeCreatureDefense(damagetoAllAmount, false);
+            foreach (CreatureStats creature in oppsCreatures)
+            {
+                creature.ChangeCreatureDefense(damagetoAllAmount, false);
+            }
         }
-    }
     
-    public void OnValidate()
-    {
-        if (castRequirementType != CastRequirementType.AnyTile)
+        public void OnValidate()
         {
-            Debug.LogError($"{name} should have cast type {CastRequirementType.AnyTile}");
-        }
+            if (castRequirementType != CastRequirementType.AnyTile)
+            {
+                Debug.LogError($"{name} should have cast type {CastRequirementType.AnyTile}");
+            }
         
-        if (castSide != CastSide.Theirs)
-        {
-            Debug.LogError($"{name} should have cast side of {CastSide.Theirs}");
+            if (castSide != CastSide.Theirs)
+            {
+                Debug.LogError($"{name} should have cast side of {CastSide.Theirs}");
+            }
         }
     }
 }
