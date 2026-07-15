@@ -87,7 +87,7 @@ namespace Extensions
         /// </summary>
         /// <param name="card"></param>
         /// <returns>Card tracker from the player that owns this card</returns>
-        public static PlayerCardTracker GetOwningCardTracker_Ext(this GameObject card)
+        public static PlayerCardTracker Ext_GetOwningCardTracker(this GameObject card)
         {
             if (!NetworkServer.active)
             {
@@ -161,7 +161,7 @@ namespace Extensions
         
         public static List<CreatureStats> Ext_GetAllActiveCreaturesForThisPlayer(this GameObject card)
         {
-            PlayerCardTracker thisCardOwnerStats = card.GetOwningCardTracker_Ext();
+            PlayerCardTracker thisCardOwnerStats = card.Ext_GetOwningCardTracker();
             
             List<CreatureStats> oppsCreatures = thisCardOwnerStats.Server_GetThisPlayersOnFieldCreatures();
 
@@ -188,6 +188,13 @@ namespace Extensions
             }
             
             return oppsCreatures;
+        }
+
+        public static int Ext_GetPlayerHandCount(this GameObject card)
+        {
+            PlayerCardTracker track = card.Ext_GetOwningCardTracker();
+
+            return track.Server_GetPlayerHandCount();
         }
     }
 }

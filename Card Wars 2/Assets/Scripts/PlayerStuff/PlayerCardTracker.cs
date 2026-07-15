@@ -153,5 +153,11 @@ namespace PlayerStuff
     
             return creatures;
         }
+        
+        [Server]
+        public int Server_GetPlayerHandCount()
+        {
+            return serverHandContents.Count;
+        }
     }
 }

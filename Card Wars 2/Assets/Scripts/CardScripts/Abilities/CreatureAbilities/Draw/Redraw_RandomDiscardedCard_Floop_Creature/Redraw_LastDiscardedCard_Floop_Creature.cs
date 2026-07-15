@@ -13,7 +13,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.Redraw_RandomDiscardedCar
         {
             // Debug.Log($"<color=cyan>{name}</color> active...");
 
-            PlayerCardTracker tracker = thisCard.GetOwningCardTracker_Ext();
+            PlayerCardTracker tracker = thisCard.Ext_GetOwningCardTracker();
         
             GameObject lastCard = tracker.Server_GetLastDiscard();
             

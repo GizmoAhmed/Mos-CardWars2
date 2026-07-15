@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
+  m_Name: CrabData
+  m_EditorClassIdentifier: 
+  cardName: Drill Crab
+  mainImage: {fileID: 21300000, guid: b28ac2c5c5d24674fa85ced48f7a1efc, type: 3}
+  magic: 1
+  abilityDescription: Fortify +4 if hand count <= 4
+  burnCost: 2
+  ability: {fileID: 11400000, guid: e4306893a5707bf4681c980c6f657a0e, type: 2}
+  element: 1
+  elementSprite: {fileID: 0}
+  abilityCost: 2
+  attack: 0
+  defense: 2

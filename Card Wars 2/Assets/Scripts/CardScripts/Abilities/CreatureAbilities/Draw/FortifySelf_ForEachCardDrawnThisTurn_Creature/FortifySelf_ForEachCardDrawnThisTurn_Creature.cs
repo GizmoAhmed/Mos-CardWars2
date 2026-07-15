@@ -13,7 +13,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.FortifySelf_ForEachCardDr
     {
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            PlayerCardTracker playerCardTracker = thisCard.GetOwningCardTracker_Ext();
+            PlayerCardTracker playerCardTracker = thisCard.Ext_GetOwningCardTracker();
                         
             int buffAmount = playerCardTracker.numOfCardsDrawnThisTurn;
             
