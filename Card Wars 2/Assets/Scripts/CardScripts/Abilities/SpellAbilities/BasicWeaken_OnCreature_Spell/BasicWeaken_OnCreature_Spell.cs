@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts.Abilities.AbilityClasses;
 using CardScripts.CardStatss;
+using Extensions;
 using Tiles;
 using UnityEngine;
 
@@ -13,13 +14,11 @@ public class BasicWeaken_OnCreature_Spell : CastAbilitySO
     
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        GameObject creatureOnTile = GetCreatureFromEventData(eventData);
-            
-        if (creatureOnTile == null)
+        CreatureStats creatureStats = eventData.Ext_GetCreatureStats_FromSpellCastEventData();
+
+        if (creatureStats == null)
             return; // error message inside above function
         
-        CreatureStats creatureStats = creatureOnTile.GetComponent<CreatureStats>();
-            
         // weaken creature
         creatureStats.ChangeCreatureStrength(weakenAmount, buff: false);
     }

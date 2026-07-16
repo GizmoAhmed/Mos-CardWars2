@@ -40,19 +40,5 @@ namespace CardScripts.Abilities.AbilityClasses
             // Debug.LogWarning($" {name}: Non-overridden specific spell placement conditions for this spell");
             return true; // by default, returning true here just means it has not conditions
         }
-
-        protected GameObject GetCreatureFromEventData(AbilityEventData eventData)
-        {
-            MiddleTile middleTile = eventData.target.GetComponent<MiddleTile>();
-            GameObject creatureOnTile = middleTile.logicalCreature;
-
-            if (creatureOnTile == null)
-            {
-                Debug.LogError($"Could not find creature on middleTile {middleTile.gameObject.name}");
-                return null;
-            }
-            
-            return creatureOnTile;
-        }
     }
 }

@@ -1,8 +1,10 @@
 using AbilityEvents;
 using CardScripts.Abilities.AbilityClasses;
 using CardScripts.CardMovements;
+using Extensions;
 using Tiles;
 using UnityEngine;
+using CardScripts.CardStatss;
 
 namespace CardScripts.Abilities.SpellAbilities.RemoveRunes_OnCreature_Spell
 {
@@ -11,13 +13,13 @@ namespace CardScripts.Abilities.SpellAbilities.RemoveRunes_OnCreature_Spell
     {
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            GameObject creatureOnTile = GetCreatureFromEventData(eventData);
+            CreatureStats creatureStats = eventData.Ext_GetCreatureStats_FromSpellCastEventData();
             
-            if (creatureOnTile == null)
+            if (creatureStats == null)
                 return; // error message inside above function
         
             // creature cards have runes slots, that's just how it is
-            creatureOnTile.GetComponentInChildren<RuneSlots>().UnbindAllRunes();
+            creatureStats.gameObject.GetComponentInChildren<RuneSlots>().UnbindAllRunes();
         }
 
         public override bool SpecificSpellPlacementConditions(Tile tile)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts.Abilities.AbilityClasses;
 using CardScripts.CardStatss;
+using Extensions;
 using Newtonsoft.Json.Serialization;
 using Tiles;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -13,12 +14,10 @@ public class TradeDefenseForStrength_OnCreature_Spell : CastAbilitySO
 {
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        GameObject creatureOnTile = GetCreatureFromEventData(eventData);
+        CreatureStats creatureStats = eventData.Ext_GetCreatureStats_FromSpellCastEventData();
             
-        if (creatureOnTile == null)
+        if (creatureStats == null)
             return; // error message inside above function
-            
-        CreatureStats creatureStats = creatureOnTile.GetComponent<CreatureStats>();
         
         int defense = creatureStats.defense; // because of condition check below, defense should always be above 1
 
