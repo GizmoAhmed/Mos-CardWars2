@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AbilityEvents;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
 using GameManagement;
@@ -195,6 +196,20 @@ namespace Extensions
             PlayerCardTracker track = card.Ext_GetOwningCardTracker();
 
             return track.Server_GetPlayerHandCount();
+        }
+
+        public static CreatureStats Ext_GetCreatureStats_FromSpellCastEventData(this AbilityEventData data)
+        {
+            MiddleTile middleTile = data.target.GetComponent<MiddleTile>();
+            GameObject creatureOnTile = middleTile.logicalCreature;
+
+            if (creatureOnTile == null)
+            {
+                Debug.LogError($"Could not find creature on middleTile {middleTile.gameObject.name}");
+                return null;
+            }
+            
+            return creatureOnTile.GetComponent<CreatureStats>();
         }
     }
 }
