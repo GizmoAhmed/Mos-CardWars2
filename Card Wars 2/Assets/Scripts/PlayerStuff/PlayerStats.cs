@@ -136,7 +136,7 @@ namespace PlayerStuff
                 return;
             }
 
-            // todo early abort ability activation
+            // todo early abort ability activation would go here
             // if ability has a prerequisite (ie hand count < x) that is not made,
             // then abort so a floop isn't spent, similar to spell condition on those cards
             

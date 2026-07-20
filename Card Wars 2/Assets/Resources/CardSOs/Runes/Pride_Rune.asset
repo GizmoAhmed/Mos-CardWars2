@@ -15,6 +15,7 @@ MonoBehaviour:
   cardName: SUPERBIA
   mainImage: {fileID: 21300000, guid: cc56ff49b1eda394788ea8de3a3b912f, type: 3}
   magic: 0
-  abilityDescription: "Creature\u2019s ability activates an additional time."
+  abilityDescription: "Creature\u2019s ability activates additional times at the
+    cost of drain"
   burnCost: 2
   ability: {fileID: 11400000, guid: edd0fbd85dae8cc4783b0eb42298edf5, type: 2}

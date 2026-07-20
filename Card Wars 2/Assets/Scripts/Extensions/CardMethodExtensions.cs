@@ -72,7 +72,7 @@ namespace Extensions
         /// </summary>
         /// <param name="card"></param>
         /// <returns>player that owns this card</returns>
-        public static PlayerStats GetOwningPlayerStats_Ext(this GameObject card)
+        public static PlayerStats Ext_GetOwningPlayerStats(this GameObject card)
         {
             if (!NetworkServer.active)
             {
@@ -96,7 +96,7 @@ namespace Extensions
                 return null;
             }
             
-            return card.GetOwningPlayerStats_Ext().GetComponent<PlayerCardTracker>();
+            return card.Ext_GetOwningPlayerStats().GetComponent<PlayerCardTracker>();
         }
         
         /// <summary>
@@ -133,7 +133,7 @@ namespace Extensions
 
         public static bool IsCardOwnedByPlayer(this GameObject card, PlayerStats player)
         {
-            PlayerStats owningPlayer = card.GetOwningPlayerStats_Ext();
+            PlayerStats owningPlayer = card.Ext_GetOwningPlayerStats();
 
             // if passed card owner same as passed player, then player owns passed card
             return owningPlayer == player;  
@@ -176,7 +176,7 @@ namespace Extensions
 
         public static List<CreatureStats> Ext_GetAllOpponentsActiveCreatures(this GameObject card)
         {
-            PlayerStats thisCardOwnerStats = card.GetOwningPlayerStats_Ext();
+            PlayerStats thisCardOwnerStats = card.Ext_GetOwningPlayerStats();
 
             PlayerCardTracker oppsCardTracker = thisCardOwnerStats.GetOpponentCardTracker_Ext();
 
