@@ -150,7 +150,7 @@ namespace PlayerStuff
                 // negative floops means multifloop was used to buy pass not enough floops
                 if (creatureStats.floopsLeft < 0)
                 {
-                    int drainRate = 2;
+                    int drainRate = 2; // todo could equal ability cost
                     int nonNegFloopsLeft = creatureStats.floopsLeft * -1;
                     
                     drain -= nonNegFloopsLeft * drainRate;

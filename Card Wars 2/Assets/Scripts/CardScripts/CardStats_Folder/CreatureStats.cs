@@ -182,14 +182,8 @@ namespace CardScripts.CardStatss
             }
             else
             {
-                if (abilityCost - amount < 0) // subtracting causes negative?...
-                {
-                    abilityCost = 0; // ...then just set to 0
-                }
-                else
-                {
-                    abilityCost -= amount;
-                }
+                // note, negative ability costs give the player money back
+                abilityCost -= amount;
             }
         }
 
