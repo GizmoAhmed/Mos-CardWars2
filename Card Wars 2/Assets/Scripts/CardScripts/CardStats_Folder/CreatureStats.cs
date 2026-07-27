@@ -39,9 +39,10 @@ namespace CardScripts.CardStatss
         // If immortal, creature can't be killed and their defense can go negative as a result
         [SyncVar] public bool immortal = false;
 
-        [SyncVar] public bool canBeBuffed = true;
-        
-        // todo prideful
+        [Header("Blockers")] 
+        [SyncVar] public int canBuffStrength = 0;
+        [SyncVar] public int canBuffDefense = 0;
+        // [SyncVar] public bool canBeBuffed = true;
         
         protected override void Awake()
         {
@@ -101,7 +102,13 @@ namespace CardScripts.CardStatss
 
             if (buff)
             {
-                if (!canBeBuffed) return; // if can't be buffed, return
+                if (canBuffStrength > 0) // > 0 means an ability incremented it, so can't buff
+                {
+                    Debug.Log($"Attempted to <color=orange>strengthen</color> {gameObject.name} but was <color=red>blocked</color>");
+                    return;
+                }
+
+                // if (!canBeBuffed) return; // if can't be buffed, return
 
                 strength += amount;
 
@@ -140,7 +147,13 @@ namespace CardScripts.CardStatss
 
             if (buff)
             {
-                if (!canBeBuffed) return; // if can't be buffed, return
+                if (canBuffDefense > 0) // > 0 means an ability incremented it, so can't buff
+                {
+                    Debug.Log($"Attempted to <color=cyan>fortify</color> {gameObject.name} but was <color=red>blocked</color>");
+                    return;
+                }
+                
+                // if (!canBeBuffed) return; // if can't be buffed, return
                 
                 defense += amount;
 

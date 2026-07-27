@@ -30,7 +30,11 @@ public class DamageOppLane_AtEndOfTurn_Rune : PassiveAbilitySO
             CreatureStats creatureStats = GetCreatureObjFromEventDataTile(eventData).GetComponent<CreatureStats>();
             
             // can't buff anymore
-            creatureStats.canBeBuffed = false;
+            // creatureStats.canBeBuffed = false;
+
+            // increment blockers, so that if there are multiple, can decrement to take them off
+            creatureStats.canBuffStrength += 1;
+            creatureStats.canBuffDefense += 1;
             
             return;
         } // if got through this block, then this ability was passed the end of turn exec, attack opp lane
@@ -55,6 +59,10 @@ public class DamageOppLane_AtEndOfTurn_Rune : PassiveAbilitySO
         
         CreatureStats cStats = rMove.creatureBoundTo.GetComponent<CreatureStats>();
         
-        cStats.canBeBuffed = true;
+        // cStats.canBeBuffed = true;
+        
+        // decrement blockers, signaling that this ability is no longer a blocker
+        cStats.canBuffStrength -= 1;
+        cStats.canBuffDefense -= 1;
     }
 }

@@ -107,6 +107,8 @@ namespace CardScripts.CardMovements
                 thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_RemoveTilePlacement(gameObject);
                 
                 ReturnSoulAndScore();
+                
+                // todo reset blockers, immortality, and whatever else is needed
             }
             
             // remove all runes
