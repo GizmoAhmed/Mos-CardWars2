@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e2a52975bdf47bdb9fdb35165c23817, type: 3}
-  m_Name: Test_Building
+  m_Name: WizardEffigy_Building
   m_EditorClassIdentifier: 
-  cardName: REDUCE SOUL FOR BUFF
-  mainImage: {fileID: 21300000, guid: 3cb668679d4066244b26629707e67b0e, type: 3}
+  cardName: WIZARDS EFFIGY
+  mainImage: {fileID: 21300000, guid: 93053d45e589684458af5a80452fdff4, type: 3}
   magic: 1
   abilityDescription: REDUCE SOUL OF CREATURE, BUT CREATURE CAN'T BUFF
   burnCost: 2
