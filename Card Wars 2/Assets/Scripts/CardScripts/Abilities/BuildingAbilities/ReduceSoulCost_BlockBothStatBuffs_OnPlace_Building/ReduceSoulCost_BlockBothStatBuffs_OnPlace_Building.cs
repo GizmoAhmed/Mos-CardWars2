@@ -20,8 +20,15 @@ public class ReduceSoulCost_BlockBothStatBuffs_OnPlace_Building : PassiveAbility
 
         creatureOnTile.canBuffDefense += 1;
         creatureOnTile.canBuffStrength += 1;
-        
-        creatureOnTile.soulUse -= soulReduction;
+
+        if (soulReduction < 0)
+        {
+            Debug.LogError($"{name} on {thisCard} has a soul reduction that is negative ({soulReduction}) which doesn't make here.");
+            return;
+        }
+
+        creatureOnTile.UpdateSyncSoulToPlayer(-soulReduction);
+        //creatureOnTile.soulUse -= soulReduction;
     }
 
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
@@ -34,7 +41,13 @@ public class ReduceSoulCost_BlockBothStatBuffs_OnPlace_Building : PassiveAbility
         creatureOnTile.canBuffDefense -= 1;
         creatureOnTile.canBuffStrength -= 1;
         
-        creatureOnTile.soulUse += soulReduction;
+        if (soulReduction < 0)
+        {
+            Debug.LogError($"{name} on {thisCard} has a soul reduction that is negative ({soulReduction}) which doesn't make here.");
+            return;
+        }
         
+        creatureOnTile.UpdateSyncSoulToPlayer(soulReduction);
+        //creatureOnTile.soulUse += soulReduction;
     }
 }
