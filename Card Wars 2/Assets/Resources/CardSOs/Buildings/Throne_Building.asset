@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2a52975bdf47bdb9fdb35165c23817, type: 3}
+  m_Name: Throne_Building
+  m_EditorClassIdentifier: 
+  cardName: THRONE
+  mainImage: {fileID: 21300000, guid: 4eb19d21f76b90b499426241483d3c74, type: 3}
+  magic: 1
+  abilityDescription: On Ability, Fortify creature for each of your empty lanes
+  burnCost: 2
+  ability: {fileID: 11400000, guid: 91eb45d5f94b10f4f88267616a7e80ac, type: 2}
