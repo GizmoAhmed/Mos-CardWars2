@@ -17,7 +17,7 @@ public class EarnShardsEachTurn_IfNoCreatureOnTile_Building : PassiveAbilitySO
     {
         // Debug.Log("Contemplating giving shards...");
         
-        MiddleTile tile = thisCard.GetTile_Ext() as MiddleTile;
+        MiddleTile tile = thisCard.Ext_GetTile() as MiddleTile;
 
         if (tile?.logicalCreature == null) // tile shouldn't be null but whatever
         {

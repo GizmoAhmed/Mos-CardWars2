@@ -18,7 +18,7 @@ public class Fortify_EndOfTurn_IfOppLaneEmpty_Building : PassiveAbilitySO
     {
         // Debug.Log($"{thisCard.name} ability execution called...");
         
-        MiddleTile thisTile = thisCard.GetTile_Ext() as MiddleTile;
+        MiddleTile thisTile = thisCard.Ext_GetTile() as MiddleTile;
 
         if (thisTile.logicalCreature == null)
         {

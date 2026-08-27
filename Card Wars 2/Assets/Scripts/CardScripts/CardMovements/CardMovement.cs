@@ -263,7 +263,7 @@ namespace CardScripts.CardMovements
             thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_RemoveFromHand(gameObject);
 
             // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
-            GlobalBroadcastCardPlacement();
+            GlobalBroadcast_AnyCardPlacement();
 
             // you tell the tile manager of this creature about how you placed a card on it, not everyone
             LocalWhisperCardPlacement(GetLogicalTile());
@@ -277,7 +277,7 @@ namespace CardScripts.CardMovements
         }
 
         // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
-        protected virtual void GlobalBroadcastCardPlacement()
+        protected virtual void GlobalBroadcast_AnyCardPlacement()
         {
             if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {

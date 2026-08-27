@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008deca034da4d9d913b4195d4daa402, type: 3}
   m_Name: BuffBoth_OnPlace_BuildingSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0a000000
+  eventsThatTriggerThisAbility: 0b000000
   isGlobalListener: 0
   isExecutableOnPlaced: 1
   baseStrengthBuffAmount: 1

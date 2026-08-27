@@ -11,6 +11,7 @@ namespace AbilityEvents
         AnyCardDrawn,            
         AnySpellCasted,
         AnyFieldCardPlaced,
+        AnyCreaturePlaced,
         AnyCardPlaced,
         AnyCardBurned,
         

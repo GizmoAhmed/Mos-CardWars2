@@ -26,7 +26,7 @@ public class RedrawCardOnChance_OnDraw_Charm : PassiveAbilitySO
         GameObject redrawMe = eventData.target;
         
         // check to see if redraw is owned
-        bool yours = redrawMe.IsCardOwnedByPlayer(thisCard.Ext_GetOwningPlayerStats());
+        bool yours = redrawMe.Ext_IsCardOwnedByThisPlayer(thisCard.Ext_GetOwningPlayerStats());
 
         if (!yours) return;
         

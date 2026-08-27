@@ -17,14 +17,14 @@ namespace Extensions
         /// </summary>
         /// <param name="card">Card game object</param>
         /// <returns>Tile the parametrized card is attached to</returns>
-        public static Tile GetTile_Ext(this GameObject card)
+        public static Tile Ext_GetTile(this GameObject card)
         {
             if (!NetworkServer.active)
             {
                 Debug.LogError("GetTile_Ext called on client - ignoring!");
                 return null;
             }
-            
+
             CardMovement cardMovement = card.GetComponent<CardMovement>();
 
             Tile thisTile = cardMovement.GetLogicalTile();
@@ -33,15 +33,15 @@ namespace Extensions
             {
                 Debug.LogError(card.name + " has no Tile attached");
             }
-        
+
             return thisTile;
         }
 
         public static Tile Ext_GetTileAcrossFromThisTile(this Tile tile)
         {
-            return TileManager.Instance.GetAcrossTile(tile.row, 
-                    tile.column, 
-                    tile.serverPlayerSide);
+            return TileManager.Instance.GetAcrossTile(tile.row,
+                tile.column,
+                tile.serverPlayerSide);
         }
 
         public static void DamageTileAcross_Ext(this MiddleTile tile, int damage)
@@ -53,13 +53,13 @@ namespace Extensions
             }
 
             MiddleTile across = tile.Ext_GetTileAcrossFromThisTile() as MiddleTile;
-            
+
             if (across.logicalCreature != null) // creature over there
             {
-                CreatureStats oppCreature =  across.logicalCreature.GetComponent<CreatureStats>();
-            
+                CreatureStats oppCreature = across.logicalCreature.GetComponent<CreatureStats>();
+
                 // deal damage
-                oppCreature.ChangeCreatureDefense(damage, buff:false);
+                oppCreature.ChangeCreatureDefense(damage, buff: false);
             }
             else // empty lane 
             {
@@ -79,7 +79,7 @@ namespace Extensions
                 Debug.LogError("<color=orange>GetOwningPlayerStats_Ext</color> called on client - ignoring!");
                 return null;
             }
-            
+
             return card.GetComponent<CardMovement>().thisCardOwnerPlayerStats;
         }
 
@@ -95,10 +95,10 @@ namespace Extensions
                 Debug.LogError("<color=orange>GetOwningCardTracker_Ext</color> called on client - ignoring!");
                 return null;
             }
-            
+
             return card.Ext_GetOwningPlayerStats().GetComponent<PlayerCardTracker>();
         }
-        
+
         /// <summary>
         /// Get the opponent of the player that owns this card
         /// </summary>
@@ -111,12 +111,12 @@ namespace Extensions
                 Debug.LogError("<color=orange>GetOpponent_Ext</color> called on client - ignoring!");
                 return null;
             }
-            
+
             GameManager gm = GameObject.FindObjectOfType<GameManager>();
-        
+
             PlayerStats p1 = gm.Player1.identity.GetComponent<PlayerStats>();
             PlayerStats p2 = gm.Player2.identity.GetComponent<PlayerStats>();
-        
+
             return player == p1 ? p2 : p1;
         }
 
@@ -127,16 +127,16 @@ namespace Extensions
                 Debug.LogError("<color=orange>GetOpponentCardTracker_Ext</color> called on client - ignoring!");
                 return null;
             }
-            
+
             return player.Ext_GetOpponentPlayerStats().GetComponent<PlayerCardTracker>();
         }
 
-        public static bool IsCardOwnedByPlayer(this GameObject card, PlayerStats player)
+        public static bool Ext_IsCardOwnedByThisPlayer(this GameObject cardToCheckIfOwned, PlayerStats player)
         {
-            PlayerStats owningPlayer = card.Ext_GetOwningPlayerStats();
+            PlayerStats owningPlayer = cardToCheckIfOwned.Ext_GetOwningPlayerStats();
 
             // if passed card owner same as passed player, then player owns passed card
-            return owningPlayer == player;  
+            return owningPlayer == player;
         }
 
         public static CreatureStats GetCreatureStats_FromBoundRune_Ext(this GameObject rune)
@@ -153,24 +153,25 @@ namespace Extensions
 
             if (boundCreatureStats == null)
             {
-                Debug.LogError($"Tried getting creature bound by {rune.name} in GetCreatureStats_FromBoundRune_Ext, <color=orange>but no creature was found</color>");
+                Debug.LogError(
+                    $"Tried getting creature bound by {rune.name} in GetCreatureStats_FromBoundRune_Ext, <color=orange>but no creature was found</color>");
                 return null;
             }
-            
+
             return boundCreatureStats;
         }
-        
+
         public static List<CreatureStats> Ext_GetAllActiveCreaturesForThisPlayer(this GameObject card)
         {
             PlayerCardTracker thisCardOwnerStats = card.Ext_GetOwningCardTracker();
-            
+
             List<CreatureStats> oppsCreatures = thisCardOwnerStats.Server_GetThisPlayersOnFieldCreatures();
 
             if (oppsCreatures.Count == 0)
             {
                 Debug.LogWarning("Attempted to get all active cards for this player, none found");
             }
-            
+
             return oppsCreatures;
         }
 
@@ -187,7 +188,7 @@ namespace Extensions
                 Debug.LogWarning("Attempted to get all active opp cards, none found");
                 return null;
             }
-            
+
             return oppsCreatures;
         }
 
@@ -208,8 +209,39 @@ namespace Extensions
                 Debug.LogError($"Could not find creature on middleTile {middleTile.gameObject.name}");
                 return null;
             }
-            
+
             return creatureOnTile.GetComponent<CreatureStats>();
+        }
+
+        public static CreatureStats Ext_GetCreatureStats_FromSharedBuildingsTile(this GameObject building)
+        {
+            BuildingMovement build = building.GetComponent<BuildingMovement>();
+
+            if (build == null) // not a building
+            {
+                Debug.LogError(
+                    $"Attempted to retrieve creature from the tile of a non-building (Ext_GetCreatureStats_FromSharedBuildingsTile)");
+                return null;
+            }
+
+            MiddleTile thisTile = building.Ext_GetTile() as MiddleTile;
+
+            if (thisTile != null)
+            {
+                if (thisTile.logicalCreature == null)
+                {
+                    Debug.Log($"<color=orange>Ext_GetCreatureStats_FromSharedBuildingsTile</color> attempted to grab the creature at {thisTile}, but no creature was present, returning null");
+                    return null;
+                }
+
+                GameObject creatureOnTile = thisTile.logicalCreature;
+                CreatureStats creatureStats = creatureOnTile.GetComponent<CreatureStats>();
+
+                return creatureStats;
+            }
+
+            Debug.LogError($"Couldn't find tile for this building ({building.name})");
+            return null;
         }
     }
 }

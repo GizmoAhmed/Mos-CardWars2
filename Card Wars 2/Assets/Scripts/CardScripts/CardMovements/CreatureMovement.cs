@@ -46,6 +46,30 @@ namespace CardScripts.CardMovements
             
             // ... then broadcast, placement abilities need the initial player score to be added first
             base.CmdPlaceCardOnTile(tile); 
+            
+            // above broadcasts all card placements, since all card types call the base above
+            // this call below narrows a call down to just creatures, that way if a charm or something only cares about creatures, it doesn't have to do the wide search above, you feel me?\
+            GlobalBroadcast_AnyCreaturePlacement();
+        }
+        
+        // you tell the global instance that a card placed, which lets EVERYONE know to trigger their abilities if they care
+        private void GlobalBroadcast_AnyCreaturePlacement()
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventData cardPlaceData = new AbilityEventData(
+                    AbilityEventType.AnyCreaturePlaced,
+                    gameObject
+                );
+
+                // tell event manager to tell everyone (that cares) that this card was placed
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
+                    cardPlaceData);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
         }
 
         [Server]

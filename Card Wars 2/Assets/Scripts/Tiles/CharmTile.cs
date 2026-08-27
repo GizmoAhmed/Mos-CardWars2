@@ -78,7 +78,7 @@ namespace Tiles
         [Server]
         public void RemoveCharm(GameObject charm)
         {
-            Debug.LogWarning($"Attempting to remove {charm} from {gameObject.name}...");
+            // Debug.LogWarning($"Attempting to remove {charm} from {gameObject.name}...");
             
             if (charms.Contains(charm))
             {
@@ -87,8 +87,8 @@ namespace Tiles
             }
             else
             {
-                /*Debug.LogError($"...Attempt to remove {charm} from {gameObject.name} failed because {charm} isn't present in the list." +
-                               $"\nList Count: {charms.Count}");*/
+                Debug.LogError($"...Attempt to remove {charm} from {gameObject.name} failed because {charm} isn't present in the list." +
+                               $"\nList Count: {charms.Count}");
             }
         }
         

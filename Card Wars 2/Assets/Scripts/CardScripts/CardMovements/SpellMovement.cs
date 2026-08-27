@@ -133,13 +133,13 @@ namespace CardScripts.CardMovements
 
             cardStats.cardData.ability.ExecuteAbility(gameObject, spellData); // use the spell...
 
-            GlobalBroadcastCardPlacement(); // ...then tell everyone you used this spell
+            GlobalBroadcast_AnyCardPlacement(); // ...then tell everyone you used this spell
 
             base.ServerDiscard(); // discard on both clients via base call todo do spells count as discards for discard listeners??
         }
 
         // broadcast the cast, who knows, there might be a card that listens to this
-        protected override void GlobalBroadcastCardPlacement()
+        protected override void GlobalBroadcast_AnyCardPlacement()
         {
             if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {

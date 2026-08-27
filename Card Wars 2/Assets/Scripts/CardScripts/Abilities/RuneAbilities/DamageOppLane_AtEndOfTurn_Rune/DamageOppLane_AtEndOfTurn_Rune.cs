@@ -40,7 +40,7 @@ public class DamageOppLane_AtEndOfTurn_Rune : PassiveAbilitySO
         } // if got through this block, then this ability was passed the end of turn exec, attack opp lane
         
         // tile of this runes creature
-        MiddleTile thisTile = rMove.creatureBoundTo.GetTile_Ext() as MiddleTile;
+        MiddleTile thisTile = rMove.creatureBoundTo.Ext_GetTile() as MiddleTile;
 
         CreatureStats cStats = rMove.creatureBoundTo.GetComponent<CreatureStats>();
         

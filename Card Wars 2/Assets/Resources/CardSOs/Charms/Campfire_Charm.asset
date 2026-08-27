@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc74177ebf214e89bcc315814ae71b9b, type: 3}
-  m_Name: Miasma_Charm
+  m_Name: Campfire_Charm
   m_EditorClassIdentifier: 
-  cardName: MIASMA
-  mainImage: {fileID: 21300000, guid: 335a6d887529e96469c9e566e6cc760e, type: 3}
-  magic: 3
-  abilityDescription: Increase drain if on low money
+  cardName: CAMPFIRE
+  mainImage: {fileID: 21300000, guid: 1c34a8ab78a08ab4e90a437eae821039, type: 3}
+  magic: 2
+  abilityDescription: Reduce burn cost of all of your placed creatures
   burnCost: 2
-  ability: {fileID: 11400000, guid: 027233f18896c7749b0490cc97629292, type: 2}
+  ability: {fileID: 11400000, guid: 318163e7539f1eb41ac9eecd864604f7, type: 2}
