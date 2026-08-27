@@ -14,7 +14,7 @@ namespace CardScripts.CardData
             Soul,
             Draw,
             Money,
-            None,
+            // None, don't have any reason for this, yet
             All
         }
 

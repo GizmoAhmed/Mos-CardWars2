@@ -27,6 +27,9 @@ namespace CardScripts.CardStatss
 
         [SyncVar(hook = nameof(Hook_UpdateAbilityCost))]
         public int abilityCost;
+        
+        [Header("Element")]
+        public CreatureDataSO.Element element;
 
         [Header("Floop Amount")]
         // how many times a creature can floop in a turn
@@ -82,6 +85,8 @@ namespace CardScripts.CardStatss
                 strength = cData.attack;
                 defense = cData.defense;
                 score = strength + defense;
+                
+                element = cData.element;
 
                 abilityCost = cData.abilityCost;
             }

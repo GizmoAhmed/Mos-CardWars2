@@ -18,6 +18,7 @@ namespace GameManagement
 
         private readonly Dictionary<string, CardDataSO> _allCardsDict = new Dictionary<string, CardDataSO>();
 
+        [Header("THIS ONE AUTO-POPULATES DON'T TOUCH IT")]
         public List<CardDataSO> masterDeckList;
 
         [Tooltip("The name of the leaf node folder where all of the cards are stored")]
