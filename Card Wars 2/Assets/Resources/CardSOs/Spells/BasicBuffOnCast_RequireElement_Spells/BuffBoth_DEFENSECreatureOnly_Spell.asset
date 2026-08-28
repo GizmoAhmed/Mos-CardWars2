@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0641979441064c6594eb6bd6999b0967, type: 3}
+  m_Name: BuffBoth_DEFENSECreatureOnly_Spell
+  m_EditorClassIdentifier: 
+  cardName: EARTH BUFF
+  mainImage: {fileID: 21300000, guid: a76d4b34ccd26884388497390214fad0, type: 3}
+  magic: 1
+  abilityDescription: Buff an Earth Creature
+  burnCost: 2
+  ability: {fileID: 11400000, guid: cd117efedb5b18f49b8e3275cedb31cb, type: 2}

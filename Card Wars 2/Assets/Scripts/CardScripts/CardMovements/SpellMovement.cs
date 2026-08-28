@@ -42,7 +42,7 @@ namespace CardScripts.CardMovements
             // Check spell-specific conditions
             if (!castAbility.SpecificSpellPlacementConditions(serverTile))
             {
-                Debug.LogWarning($"{gameObject.name} doesn't meet specific conditions");
+                Debug.LogWarning($"{gameObject.name} doesn't meet specific conditions. See above for details ↑");
                 return false;
             }
 

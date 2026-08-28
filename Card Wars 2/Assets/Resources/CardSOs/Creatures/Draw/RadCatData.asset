@@ -18,7 +18,7 @@ MonoBehaviour:
   abilityDescription: Fortify for each card drawn this turn
   burnCost: 2
   ability: {fileID: 11400000, guid: 5f1f125dafbd52f468bac10433fc219b, type: 2}
-  element: 4
+  element: 3
   elementSprite: {fileID: 21300000, guid: 7c91cf54a519a4f40aef70ddc720cc1e, type: 3}
   abilityCost: 3
   attack: 1

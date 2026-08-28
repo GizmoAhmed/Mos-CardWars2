@@ -13,15 +13,15 @@ namespace CardScripts.Abilities.AbilityClasses
     {
         public enum CastRequirementType
         {
-            AnyTile,                   // any middleTile, empty or not, ie deep pockets
-            AnyTileWithCard,        // any middleTile that has a card on it
-            OnCreature,             // ie buff creature on cast
-            OnBuilding,             // ie ...
-            OnCharm,                // ie ...
-            CreatureAndOrBuilding,  // ie
+            AnyTile, // any middleTile, empty or not, ie deep pockets
+            AnyTileWithCard, // any middleTile that has a card on it
+            OnCreature, // ie buff creature on cast
+            OnBuilding, // ie ...
+            OnCharm, // ie ...
+            CreatureAndOrBuilding, // ie
         }
 
-        public CastRequirementType castRequirementType =  CastRequirementType.AnyTile;
+        public CastRequirementType castRequirementType = CastRequirementType.AnyTile;
 
         public enum CastSide
         {
@@ -29,12 +29,17 @@ namespace CardScripts.Abilities.AbilityClasses
             Yours,
             Theirs
         }
-        
+
         public CastSide castSide = CastSide.Either;
 
         public abstract override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData);
 
-        // deeper specification for a spell that can't be captured with the above cast requirements. Ie creature needs be a of a certain element or player needs to have x soul left over
+        /// <summary>
+        // deeper specification for a spell that can't be captured with the above cast requirements.
+        // Ie creature needs be a of a certain element or player needs to have x soul left over
+        /// </summary>
+        /// <param name="tile"></param>
+        /// <returns></returns>
         public virtual bool SpecificSpellPlacementConditions(Tile tile)
         {
             // Debug.LogWarning($" {name}: Non-overridden specific spell placement conditions for this spell");

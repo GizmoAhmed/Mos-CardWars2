@@ -29,7 +29,7 @@ namespace CardScripts.CardStatss
         public int abilityCost;
         
         [Header("Element")]
-        public CreatureDataSO.Element element;
+        [SyncVar] public CreatureDataSO.Element element;
 
         [Header("Floop Amount")]
         // how many times a creature can floop in a turn

@@ -21,11 +21,6 @@ namespace CardScripts.Abilities.SpellAbilities.RemoveRunes_OnCreature_Spell
             // creature cards have runes slots, that's just how it is
             creatureStats.gameObject.GetComponentInChildren<RuneSlots>().UnbindAllRunes();
         }
-
-        public override bool SpecificSpellPlacementConditions(Tile tile)
-        {
-            return base.SpecificSpellPlacementConditions(tile);
-        }
         
         public void OnValidate()
         {
