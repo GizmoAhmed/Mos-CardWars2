@@ -10050,6 +10050,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
   - {fileID: 11400000, guid: 597b9bbf25f813949a13906b381f9bdc, type: 2}
   - {fileID: 11400000, guid: 18cd5f60d1a3c1946be4d8808d172d74, type: 2}
+  - {fileID: 11400000, guid: 77d54f800db1f5f4c9236f3214cc8eee, type: 2}
+  - {fileID: 11400000, guid: 0c57732e7321f20438dad0c2f2ea3eaf, type: 2}
+  - {fileID: 11400000, guid: bd0369647e8b21d43844a76d9a9a6e18, type: 2}
   masterDeckList: []
   creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}
