@@ -15,7 +15,7 @@ namespace CardScripts.CardData
             Draw,
             Money,
             // None, don't have any reason for this, yet
-            All
+            Any
         }
 
         public Sprite elementSprite;

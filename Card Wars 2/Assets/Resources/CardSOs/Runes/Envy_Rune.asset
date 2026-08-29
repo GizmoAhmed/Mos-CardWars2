@@ -15,5 +15,8 @@ MonoBehaviour:
   cardName: INVIDIA
   mainImage: {fileID: 21300000, guid: f038bfdddc59eed4da0d6e362ab5107f, type: 3}
   magic: 0
-  abilityDescription: Creature receives all buffs and debuffs of adjacent creatures
+  abilityDescription: 'Creature acts as all elements
+
+'
   burnCost: 2
+  ability: {fileID: 11400000, guid: 91fe03aa2b1e1e841a83e14d16fde5a3, type: 2}

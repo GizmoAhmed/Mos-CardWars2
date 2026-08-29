@@ -101,7 +101,7 @@ namespace CardScripts.CardStatss
         /// </summary>
         public bool ElementMatch(CreatureDataSO.Element req)
         {
-            return element == CreatureDataSO.Element.All || element == req;
+            return element == CreatureDataSO.Element.Any || element == req;
         }
 
         [Server] // called from inside a command
