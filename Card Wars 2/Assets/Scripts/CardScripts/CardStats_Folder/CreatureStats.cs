@@ -28,7 +28,7 @@ namespace CardScripts.CardStatss
         [SyncVar(hook = nameof(Hook_UpdateAbilityCost))]
         public int abilityCost;
         
-        [Header("Element")]
+        [Header("Element")] // todo eventually have a hook here if you want element changes to update UI on the fly
         [SyncVar] public CreatureDataSO.Element element;
 
         [Header("Floop Amount")]
@@ -94,6 +94,14 @@ namespace CardScripts.CardStatss
             {
                 Debug.LogError($"{gameObject.name}: card data was null when retrieved here");
             }
+        }
+        
+        /// <summary>
+        /// Check if this creature meets an element requirement
+        /// </summary>
+        public bool ElementMatch(CreatureDataSO.Element req)
+        {
+            return element == CreatureDataSO.Element.All || element == req;
         }
 
         [Server] // called from inside a command

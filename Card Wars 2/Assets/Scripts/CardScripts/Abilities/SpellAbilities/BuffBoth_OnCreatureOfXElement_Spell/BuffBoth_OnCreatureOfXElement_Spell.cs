@@ -16,7 +16,7 @@ public class BuffBoth_OnCreatureOfXElement_Spell : CastAbilitySO
     public int fortify;
 
     [Header("Element Required to Buff Creature")]
-    public CreatureDataSO.Element elementRequirment;
+    public CreatureDataSO.Element elementRequirement;
 
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
@@ -28,7 +28,7 @@ public class BuffBoth_OnCreatureOfXElement_Spell : CastAbilitySO
         // The spell condition function below should have turned the spell away if that element didn't match, (protecting the player i guess)
         // so this check is redundant, we'll have it anyway i guess.
 
-        if (creatureStats.element == elementRequirment)
+        if (creatureStats.ElementMatch(req: elementRequirement))
         {
             // buff
             creatureStats.ChangeCreatureStrength(strengthen, buff: true);
@@ -36,7 +36,7 @@ public class BuffBoth_OnCreatureOfXElement_Spell : CastAbilitySO
         }
     }
 
-    // called from spell movement, boolean for allowing or denyign spell cast
+    // called from spell movement, boolean for allowing or denying spell cast
     public override bool SpecificSpellPlacementConditions(Tile tile)
     {
         Debug.Log($"{name} that was just placed on {tile.gameObject.name}, checking spell req");
@@ -59,18 +59,7 @@ public class BuffBoth_OnCreatureOfXElement_Spell : CastAbilitySO
 
         CreatureStats stats = creature.GetComponent<CreatureStats>();
 
-        // get element of creature on tile
-        CreatureDataSO.Element element_ofCreatureOnTile = stats.element;
-
-        // compare
-        if (element_ofCreatureOnTile == elementRequirment)
-        {
-            return true; // allow place
-        }
-        else
-        {
-            Debug.LogWarning($"Spell Valid Cast Check: Creature ({creature.name}, {element_ofCreatureOnTile}) does not have the correct element match: ({name}, {elementRequirment})");
-            return false; // not matching, deny placement 
-        }
+        // returns true if there is a match
+        return stats.ElementMatch(req: elementRequirement);
     }
 }

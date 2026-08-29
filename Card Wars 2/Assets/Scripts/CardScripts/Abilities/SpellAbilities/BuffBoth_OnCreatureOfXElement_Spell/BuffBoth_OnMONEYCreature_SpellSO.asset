@@ -16,4 +16,4 @@ MonoBehaviour:
   castSide: 0
   strengthen: 1
   fortify: 3
-  elementRequirment: 4
+  elementRequirement: 4
