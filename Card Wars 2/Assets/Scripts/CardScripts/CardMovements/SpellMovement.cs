@@ -9,10 +9,43 @@ namespace CardScripts.CardMovements
 {
     public class SpellMovement : CardMovement
     {
+        /// <summary>
+        /// This function has two of the base classes checks
+        /// The base also has a third check (soul use) but since spells don't use that in this version...
+        /// ...I just put the first two into this function
+        ///
+        /// Easier to look at this way imo
+        /// </summary>
+        /// <returns></returns>
+        private bool SoulExcluding_SpellSpecificPlacementChecks()
+        {
+            if (cardState == CardState.Preview)
+            {
+                // Debug.LogWarning($"Preview Card {gameObject.name} is asking about valid placement on {tile.gameObject.name}");
+                return false;
+            }
+
+            Player cardsPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();
+
+            // if not your turn, you can't place a card anywhere
+            if (cardsPlayer != null &&
+                cardsPlayer.myTurn == false)
+            {
+                Debug.LogWarning($"Not Player {cardsPlayer.name}'s turn");
+                return false;
+            }
+
+            return true;
+        }
+
         protected override bool ValidPlacement(Tile tile)
         {
             // Global checks
-            if (!base.ValidPlacement(tile))
+            /*if (!base.ValidPlacement(tile))
+                return false;*/
+            
+            // global checks replaced with:
+            if (!SoulExcluding_SpellSpecificPlacementChecks()) // if doesn't pass global checks, abort. else, continue
                 return false;
 
             // Type check
@@ -47,11 +80,11 @@ namespace CardScripts.CardMovements
             }
 
             // Check magic cost
-            if (cardStats.soulUse > thisCardOwnerPlayerStats.currentSoul)
+            /*if (cardStats.soulUse > thisCardOwnerPlayerStats.currentSoul)
             {
                 Debug.Log("Not enough magic to cast spell");
                 return false;
-            }
+            }*/
 
             return true;
         }
