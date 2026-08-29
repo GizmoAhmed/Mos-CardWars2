@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: BUFF DRAW
   mainImage: {fileID: 21300000, guid: 7c91cf54a519a4f40aef70ddc720cc1e, type: 3}
-  magic: 0
+  magic: -1
   abilityDescription: Buff a draw creature
   burnCost: 2
   ability: {fileID: 11400000, guid: c271d3eb2a5aa3042bf3647a31d1d2e5, type: 2}

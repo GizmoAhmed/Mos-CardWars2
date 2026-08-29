@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: FORGE BUFF
   mainImage: {fileID: 21300000, guid: 73a5b4af4470bc34881d92814f1bde20, type: 3}
-  magic: 0
+  magic: -1
   abilityDescription: Buff A forge Creature
   burnCost: 2
   ability: {fileID: 11400000, guid: 8246f5d27b6f0aa4b911c112ee75fb90, type: 2}

@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: LUXARIA
   mainImage: {fileID: 21300000, guid: 2b61c9680c888b146a772d7db0400fe5, type: 3}
-  magic: 0
+  magic: -1
   abilityDescription: Add copy of this creature when ability activates, copy has
     increased Soul cost by X
   burnCost: 2
+  ability: {fileID: 0}

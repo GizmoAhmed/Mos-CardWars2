@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: STIM
   mainImage: {fileID: 21300000, guid: 0ddfcd7951c1ce14f958578a4116aeae, type: 3}
-  magic: 0
+  magic: -1
   abilityDescription: Trade all defense for strength on creature
   burnCost: 2
   ability: {fileID: 11400000, guid: ead0989953cca2d42b6e8e207e543669, type: 2}

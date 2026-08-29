@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Avaritia
   mainImage: {fileID: 21300000, guid: 5d8064ab0d1d0ba4ebbcfeb5fae7c7bc, type: 3}
-  magic: 0
+  magic: -1
   abilityDescription: Earn X Shards per Y buffs received. Lose Z Shards per Y debuffs
   burnCost: 2
   ability: {fileID: 11400000, guid: 04813e90e5ade964da731629e535586a, type: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: ENFEEBLE
   mainImage: {fileID: 21300000, guid: f88c2ab436bb04b4ba5994932505330b, type: 3}
-  magic: 0
+  magic: -1
   abilityDescription: Weaken creature -3
   burnCost: 2
   ability: {fileID: 11400000, guid: a4052b9432ae8ac43ba4701ad12c80f4, type: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: MONEY BUFF
   mainImage: {fileID: 21300000, guid: 2c8b8b728fac60540b0c05d6a408f3fa, type: 3}
-  magic: 0
+  magic: -1
   abilityDescription: Buff a Shards Creature
   burnCost: 2
   ability: {fileID: 11400000, guid: 701e8076fb46a3d4fbda1f49b0c33629, type: 2}

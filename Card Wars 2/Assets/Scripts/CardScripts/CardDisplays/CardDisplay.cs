@@ -90,9 +90,10 @@ namespace CardScripts.CardDisplays
             var searchRoot = parent ?? transform;
 
             var obj = searchRoot.Find(childName)?.gameObject;
+            
             if (obj == null)
             {
-                Debug.LogError($"Missing {childName} on {searchRoot.gameObject.name}");
+                Debug.LogWarning($"Missing {childName} UI Obj on {gameObject.name}. This is a concern if it's a creature, charm, or building that triggered this");
             }
 
             return obj;
@@ -169,7 +170,16 @@ namespace CardScripts.CardDisplays
         {
             MainImageObj.SetActive(up);
             NameTop.SetActive(up);
-            magicObj.SetActive(up);
+            
+            if (magicObj != null) // runes and spells don't have this, so don't error if it's not there
+            {
+                magicObj.SetActive(up);
+            }
+            else
+            {
+                Debug.Log($"{gameObject.name} successfully avoid null reff when flipping card");
+            }
+
             CardBackObj.SetActive(!up);
         }
 

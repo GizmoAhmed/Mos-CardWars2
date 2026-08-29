@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: SPECULATE
   mainImage: {fileID: 21300000, guid: 9ddf3ca015487f54fb6a32f6698a8652, type: 3}
-  magic: 0
+  magic: -1
   abilityDescription: 50% chance to either double a stat or destory the creature
   burnCost: 2
   ability: {fileID: 11400000, guid: 28b7b7c422d993c48bd4f5435fe6c880, type: 2}
