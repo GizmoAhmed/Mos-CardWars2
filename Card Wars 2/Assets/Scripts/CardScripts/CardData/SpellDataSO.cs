@@ -5,6 +5,7 @@ namespace CardScripts.CardData
     [CreateAssetMenu(fileName = "-----_Spell Data", menuName = "New Spell")]
     public class SpellDataSO : CardDataSO
     {
-        
+        [Header("Consumable Specific Data")] 
+        public int uses;
     }
 }

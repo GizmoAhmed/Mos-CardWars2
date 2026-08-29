@@ -18,3 +18,4 @@ MonoBehaviour:
   abilityDescription: Weaken creature -3
   burnCost: 2
   ability: {fileID: 11400000, guid: a4052b9432ae8ac43ba4701ad12c80f4, type: 2}
+  uses: 3

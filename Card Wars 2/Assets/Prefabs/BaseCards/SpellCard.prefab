@@ -635,16 +635,16 @@ GameObject:
   - component: {fileID: 6486586047065268401}
   - component: {fileID: 1681923711948794376}
   - component: {fileID: 1380254017328238154}
-  - component: {fileID: 7996546231622550611}
   - component: {fileID: 7641463347789120547}
   - component: {fileID: 7242188996679405225}
   - component: {fileID: 4187329128161945748}
   - component: {fileID: 8554458174844860123}
-  - component: {fileID: 3231430453291465831}
   - component: {fileID: 1621094678314075071}
   - component: {fileID: 1035414510199488426}
   - component: {fileID: 3991019096879594961}
   - component: {fileID: -3994100279708696279}
+  - component: {fileID: -8391062358812073343}
+  - component: {fileID: 8372296194682450414}
   m_Layer: 5
   m_Name: SpellCard
   m_TagString: Untagged
@@ -715,24 +715,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7996546231622550611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5473283833520736551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2928847d54a4b0b4f824ec0b21cdf26f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  faceUp: 0
-  cardData: {fileID: 0}
-  magicObj: {fileID: 0}
 --- !u!114 &7641463347789120547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,25 +861,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3231430453291465831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5473283833520736551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41e1a865dd518ae43938cf37828cb77f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  cardData: {fileID: 0}
-  soulUse: -1
-  burnCost: -1
-  canBeBurned: 1
 --- !u!223 &1621094678314075071
 Canvas:
   m_ObjectHideFlags: 0
@@ -975,6 +938,44 @@ MonoBehaviour:
   logicalPlayerSide: -1
   thisCardsVisualTile: {fileID: 0}
   snapBackDuration: 0.25
+--- !u!114 &-8391062358812073343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473283833520736551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7247f493aecc494ea9f72a724c64f266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  cardData: {fileID: 0}
+  soulUse: -1
+  burnCost: -1
+  canBeBurned: 1
+  uses: 0
+--- !u!114 &8372296194682450414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473283833520736551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f67e16f51ab4243a80c0909a11270b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  faceUp: 0
+  cardData: {fileID: 0}
+  magicObj: {fileID: 0}
 --- !u!1 &5475126309412532345
 GameObject:
   m_ObjectHideFlags: 0

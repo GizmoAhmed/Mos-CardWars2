@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: SHOCK
   mainImage: {fileID: 21300000, guid: f8cc344bcd198c74b9db2ac70bab1f47, type: 3}
-  magic: 1
+  magic: 0
   abilityDescription: Deal X Damage to all opposing creatures
   burnCost: 2
   ability: {fileID: 11400000, guid: a87de1dcbf91dd742b9cfa4838b5fdec, type: 2}
+  uses: 1

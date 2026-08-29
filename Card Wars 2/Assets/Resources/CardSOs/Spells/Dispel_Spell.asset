@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: DISPEL
   mainImage: {fileID: 21300000, guid: d2733b903522e0548b160c7f80a10248, type: 3}
-  magic: 1
+  magic: 0
   abilityDescription: Remove all runes from creature
   burnCost: 2
   ability: {fileID: 11400000, guid: 3a006514100222d4ab916b235fe6b2e5, type: 2}
+  uses: 3

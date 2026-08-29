@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: PROFIT
   mainImage: {fileID: 21300000, guid: e6c5a796e31028c4cbcf2aa72d65fc66, type: 3}
-  magic: 1
+  magic: 0
   abilityDescription: Earn X Shards
   burnCost: 2
   ability: {fileID: 11400000, guid: 6c86c0690e3966c4fa43ca5d04706d07, type: 2}
+  uses: 2

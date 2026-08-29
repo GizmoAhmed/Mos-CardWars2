@@ -43,7 +43,7 @@ namespace CardScripts.CardMovements
             // Global checks
             /*if (!base.ValidPlacement(tile))
                 return false;*/
-            
+
             // global checks replaced with:
             if (!SoulExcluding_SpellSpecificPlacementChecks()) // if doesn't pass global checks, abort. else, continue
                 return false;
@@ -58,7 +58,8 @@ namespace CardScripts.CardMovements
             // Check side requirement
             if (!CheckSideRequirement(tile, castAbility.castSide))
             {
-                Debug.LogWarning($"Spell ({gameObject.name}) can't be cast on this tile ({tile.gameObject.name}), since it's looking for this side ({castAbility.castSide})");
+                Debug.LogWarning(
+                    $"Spell ({gameObject.name}) can't be cast on this tile ({tile.gameObject.name}), since it's looking for this side ({castAbility.castSide})");
                 return false;
             }
 
@@ -71,7 +72,7 @@ namespace CardScripts.CardMovements
                 Debug.LogWarning($"{gameObject.name} cast invalid: requires {castAbility.castRequirementType}");
                 return false;
             }
-            
+
             // Check spell-specific conditions
             if (!castAbility.SpecificSpellPlacementConditions(serverTile))
             {
@@ -164,11 +165,27 @@ namespace CardScripts.CardMovements
                 AbilityEventType.AnySpellCasted,
                 lTile.gameObject); // pass Tile as cardToBeEffected, some spells will use it, some won't
 
+            Debug.Log($"<color=purple>Cast</color> {gameObject.name} on {lTile.gameObject.name}");
             cardStats.cardData.ability.ExecuteAbility(gameObject, spellData); // use the spell...
 
             GlobalBroadcast_AnyCardPlacement(); // ...then tell everyone you used this spell
 
-            base.ServerDiscard(); // discard on both clients via base call todo do spells count as discards for discard listeners??
+            // decrement uses
+            // if uses is now zero, discard
+            
+            Target_SnapBack(connectionToClient);
+
+            // base.ServerDiscard(); // discard on both clients via base call todo do spells count as discards for discard listeners??
+        }
+
+        /// <summary>
+        /// Runs only on the client that cast the spell then send it back to hand
+        /// TargetRPC because called from Command, which is server only, and I need snap back to run per the client who is dragging the card
+        /// </summary>
+        [TargetRpc]
+        private void Target_SnapBack(NetworkConnectionToClient target)
+        {
+            StartCoroutine(SnapBackToHand());
         }
 
         // broadcast the cast, who knows, there might be a card that listens to this

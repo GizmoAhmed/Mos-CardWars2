@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: SCORCH
   mainImage: {fileID: 21300000, guid: 02844d409b1130f4f967b32db982877b, type: 3}
-  magic: 4
+  magic: 0
   abilityDescription: DESTROY ALL CARDS IN A LANE
   burnCost: 2
   ability: {fileID: 11400000, guid: 0a99850e82ef20a4e9a324f43a93e174, type: 2}
+  uses: 1

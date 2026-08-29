@@ -136,7 +136,7 @@ namespace CardScripts.CardMovements
             CardDragManager.Instance?.RegisterDraggedCard(this);
         }
 
-        public void EndDrag()
+        public virtual void EndDrag()
         {
             if (!_grabbed) return;
 
@@ -404,7 +404,7 @@ namespace CardScripts.CardMovements
             return null;
         }
 
-        private IEnumerator SnapBackToHand()
+        protected IEnumerator SnapBackToHand()
         {
             Vector3 start = transform.position;
             Vector3 end = _startPos;
