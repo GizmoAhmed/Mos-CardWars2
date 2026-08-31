@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BuffOrDestroy_OnChance_SpellSO
   m_EditorClassIdentifier: 
   castRequirementType: 2
-  castSide: 1
+  castSide: 0
   chance: 50

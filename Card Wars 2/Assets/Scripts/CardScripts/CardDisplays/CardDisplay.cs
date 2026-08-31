@@ -44,9 +44,9 @@ namespace CardScripts.CardDisplays
         public virtual void SetDisplayElements_UsingData(CardStats s)
         {
             // Debug.Log($"<color=yellow>Rendering:</color> Setting Display for {s} on this client");
-            
-            cardData = s.CardData;    
-            
+
+            cardData = s.CardData;
+
             if (cardData == null)
             {
                 Debug.LogError($"CardData is null on {gameObject.name}");
@@ -90,10 +90,11 @@ namespace CardScripts.CardDisplays
             var searchRoot = parent ?? transform;
 
             var obj = searchRoot.Find(childName)?.gameObject;
-            
+
             if (obj == null)
             {
-                Debug.LogWarning($"Missing {childName} UI Obj on {gameObject.name}. This is a concern if it's a creature, charm, or building that triggered this");
+                Debug.LogWarning(
+                    $"Missing {childName} UI Obj on {gameObject.name}. This is a concern if it's a creature, charm, or building that triggered this");
             }
 
             return obj;
@@ -104,7 +105,7 @@ namespace CardScripts.CardDisplays
             // main
             MainImageObj = FindPart("MainImage");
             CardBackObj = FindPart("CardBack");
-            
+
             magicObj = FindPart("Magic");
 
             // info right + left
@@ -119,7 +120,7 @@ namespace CardScripts.CardDisplays
                 // right >
                 InfoRight = FindPart("InfoRight", InfoObj.transform);
                 AbilityDesc = FindPart("AbilityDesc", InfoRight.transform);
-                
+
                 // left <
                 InfoLeft = FindPart("InfoLeft", InfoObj.transform);
                 GameObject burnButton = FindPart("BurnButton", InfoLeft.transform);
@@ -141,7 +142,7 @@ namespace CardScripts.CardDisplays
         {
             if (obj != null && obj.TryGetComponent(out TextMeshProUGUI tmp))
             {
-                if (text == null) 
+                if (text == null)
                 {
                     // txt passed as null? empty the text container
                     tmp.text = string.Empty;
@@ -150,7 +151,7 @@ namespace CardScripts.CardDisplays
                 {
                     tmp.text = text.ToUpper();
                 }
-                
+
                 if (!isStatText) // stat text just stays whatever color is on the card, things like description would remain black
                     tmp.color = Color.black; // the red text it starts with means error
             }
@@ -170,14 +171,15 @@ namespace CardScripts.CardDisplays
         {
             MainImageObj.SetActive(up);
             NameTop.SetActive(up);
-            
+
             if (magicObj != null) // runes and spells don't have this, so don't error if it's not there
             {
                 magicObj.SetActive(up);
             }
             else
             {
-                Debug.Log($"{gameObject.name} successfully avoid null reff when flipping card");
+                Debug.Log(
+                    $"{gameObject.name} <color=green>successfully</color> avoid null ref on the magic object, because it shouldn't have a magic object, when this flipping card. Double check that this is a <color=cyan>SPELL or RUNE</color>");
             }
 
             CardBackObj.SetActive(!up);
@@ -190,19 +192,19 @@ namespace CardScripts.CardDisplays
 
             CardInfoHandler.HandleCardClick(this);
         }
-        
+
         public virtual void ToggleInfoSlide(bool show)
         {
             if (!faceUp || InfoObj == null)
                 return;
 
             InfoObj.SetActive(show);
-            
+
             // move card to front, so other stuff can't cover the info
             gameObject.GetComponent<Canvas>().overrideSorting =
                 InfoObj.activeInHierarchy;
         }
-        
+
         public void UpdateUISoul(int newMagic)
         {
             SetText(magicObj, newMagic.ToString(), true);

@@ -32,9 +32,7 @@ namespace CardScripts.CardDisplays
         
         private GameObject runeIconFace1;
         private GameObject runeIconFace2;
-
-        private CreatureStats _creatureStats;
-
+        
         private void Awake()
         {
             FindDisplayParts();
@@ -49,9 +47,7 @@ namespace CardScripts.CardDisplays
                 Debug.LogError($"creatureData is null on {gameObject.name}");
                 return;
             }
-
-            _creatureStats = GetComponent<CreatureStats>();
-
+            
             // ------------- to get around null check in base class ---------------------
             // find all object variables above
             // FindDisplayParts();
