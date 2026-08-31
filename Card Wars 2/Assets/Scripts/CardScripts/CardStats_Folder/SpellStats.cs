@@ -63,5 +63,11 @@ namespace CardScripts.CardStats_Folder
         {
             _spellDisplay.UpdateUIUses(updated);
         }
+
+        [Server] // server allows hook to cascade onto client ui
+        public void Server_UseSpell_DecrementUses()
+        {
+            uses--;
+        }
     }
 }

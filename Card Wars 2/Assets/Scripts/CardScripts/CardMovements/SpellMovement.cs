@@ -1,6 +1,7 @@
 using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.Abilities.AbilityClasses;
+using CardScripts.CardStats_Folder;
 using Mirror;
 using Tiles;
 using UnityEngine;
@@ -170,12 +171,30 @@ namespace CardScripts.CardMovements
 
             GlobalBroadcast_AnyCardPlacement(); // ...then tell everyone you used this spell
 
-            // decrement uses
-            // if uses is now zero, discard
             
-            Target_SnapBack(connectionToClient);
+            SpellStats stats = GetComponent<SpellStats>();
+            int usesLeft = stats.uses;
 
-            // base.ServerDiscard(); // discard on both clients via base call todo do spells count as discards for discard listeners??
+            if (usesLeft <= 0) // error check, ideally should never get here
+            {
+                // I know this is a good error check, because I should never have to comment this if you get what I'm saying
+                Debug.LogError($"CmdPlace in SpellMovement ({gameObject.name}) attempted to decrement a spell that has no uses left, which should have never reached here.");    
+            }
+            else
+            {
+                // decrement uses, uses -= 1
+                stats.Server_UseSpell_DecrementUses();
+
+                if (stats.uses == 0) // spent, discard
+                {
+                    base.ServerDiscard();
+                }
+                else // still got more, move back to hand
+                {
+                    Target_SnapBack(connectionToClient);
+                    // todo make the spell face up
+                }
+            }
         }
 
         /// <summary>
