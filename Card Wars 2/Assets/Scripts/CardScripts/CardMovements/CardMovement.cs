@@ -424,6 +424,14 @@ namespace CardScripts.CardMovements
         }
 
         [Server]
+        public virtual void BurnCard()
+        {
+            Debug.LogWarning($"BurnCard not overridden on {gameObject.name}! Discarding anyway...");
+            
+            ServerDiscard();
+        }
+
+        [Server]
         public virtual void ServerDiscard()
         {
             // bother unsubscribing if you are on field (as opposed to hand and preview)

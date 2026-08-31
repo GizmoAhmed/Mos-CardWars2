@@ -14,6 +14,7 @@ namespace AbilityEvents
         AnyCreaturePlaced,
         AnyCardPlaced,
         AnyCardBurned,
+        AnyCreatureBurned,
         
         // === TILE EVENTS (happen on specific tiles, broadcast locally) ===
         CardPlacedOnTile,       

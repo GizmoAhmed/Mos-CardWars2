@@ -64,6 +64,10 @@ namespace CardScripts.CardData
             // Register based on scope (global vs middleTile)
             if (passiveAbility.isGlobalListener)
             {
+                // todo have a check here:
+                
+                // if ability event is tile based (ie creature burned on tile) thrown an error if enters this if block
+                // I set a tile based ability to global in the inspector, and spent way to long wondering why it wasn't registering 
                 RegisterGlobalListener(passiveAbility, events);
             }
             else

@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa7cb9ecc583ab74a9ec16761339e75a, type: 3}
-  m_Name: Fortify_OnPlace_ForEachMatchElementOnField_BuildingSO
+  m_Script: {fileID: 11500000, guid: aff51d19516c6fc4391c4007af554cbf, type: 3}
+  m_Name: UpgradeMagic_OnCreatureBurnedOnTile_IfCertainScore_BuildingSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0a000000
+  eventsThatTriggerThisAbility: 0d000000
   isGlobalListener: 0
-  isExecutableOnPlaced: 1
-  DefensePerMatch: 2
+  isExecutableOnPlaced: 0
+  scoreNeeded: 8
+  soulUpgradeAmount: 1

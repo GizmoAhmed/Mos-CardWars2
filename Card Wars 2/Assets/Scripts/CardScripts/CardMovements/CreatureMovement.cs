@@ -122,6 +122,44 @@ namespace CardScripts.CardMovements
         }
 
         [Server]
+        public override void BurnCard()
+        {
+            // todo creature burned broadcast, below are the remnants of that
+            // you'd have to get rid of the GlobalBroadcastBurn(cardToBurn); in player stats for this to work, and then make a global broadcast for all 5 card types
+            
+           //  GlobalBroadcast_AnyCreatureBurn(gameObject);
+           LocalWhisperCreatureBurn(GetLogicalTile());
+           
+           base.BurnCard(); // server discard
+        }
+
+        private void LocalWhisperCreatureBurn(Tile tile)
+        {
+            TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
+
+            tileEventManager.OnCreatureBurnedOnTile(gameObject);
+        }
+
+        /*private void GlobalBroadcast_AnyCreatureBurn(GameObject burnedCard)
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventData burnData = new AbilityEventData(
+                    AbilityEventType.AnyCreatureBurned,
+                    burnedCard
+                );
+
+                // tell event manager to tell everyone (that cares) that a card was burned
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
+                    burnData);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
+        }*/
+
+        [Server]
         public override void ServerDiscard()
         {
             // if being discarded from the field, returning magic

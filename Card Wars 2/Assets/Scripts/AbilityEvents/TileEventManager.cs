@@ -70,7 +70,7 @@ namespace AbilityEvents
                 AbilityEventType.CreatureBurnedOnTile,
                 burnedCreature
             );
-            
+            // todo if you wanna save a running of the below function, check if the creature is even on the field
             TriggerTileEvent(eventData);
         }
 

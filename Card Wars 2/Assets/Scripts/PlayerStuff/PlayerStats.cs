@@ -62,15 +62,27 @@ namespace PlayerStuff
         }
 
         [Command]
-        public void CmdUpgradeMagic()
+        public void CmdUpgradeMagic() // todo, mabye a magic amount
+        {
+            UpgradeSoul(1, upTheCost: true);
+        }
+
+        [Server]
+        public void UpgradeSoul(int amount, bool upTheCost = true)
         {
             if (shards >= upgradeCost)
             {
                 shards -= upgradeCost;
-                maxSoul += 1;
-                currentSoul += 1;
-                upgradeCost += 1;
+                maxSoul += amount;
+                currentSoul += amount;
+
+                if (upTheCost)
+                {
+                    upgradeCost += 1;
+                }
             }
+            
+            // todo magic upgrade listener and broadcast
         }
 
         [Command] // called from in game button click
@@ -84,10 +96,12 @@ namespace PlayerStuff
                 shards -= cardStats.burnCost; // spend to burn
 
                 CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
+                
+                // todo have unique burns for each card type mabye
 
                 GlobalBroadcastBurn(cardToBurn);
 
-                cardMove.ServerDiscard();
+                cardMove.BurnCard();
             }
             else
             {
