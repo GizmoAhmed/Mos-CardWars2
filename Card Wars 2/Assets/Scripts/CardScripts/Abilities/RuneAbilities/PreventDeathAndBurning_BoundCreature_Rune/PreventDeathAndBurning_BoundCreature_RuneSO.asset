@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05d93c1866a05104fa32b9ea813f030d, type: 3}
-  m_Name: PreventDeathAndBurning_BoundCreature_Rune
+  m_Name: PreventDeathAndBurning_BoundCreature_RuneSO
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 
   isGlobalListener: 0

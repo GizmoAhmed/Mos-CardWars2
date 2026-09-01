@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342905e30a30b484799f15f13d969cc2, type: 3}
   m_Name: EarnShards_BoundCreature_BuffNerf_RuneSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0b0000000c0000000d0000000e000000
-  isGlobalListener: 0
+  eventsThatTriggerThisAbility: 10000000110000001200000013000000
   isExecutableOnPlaced: 0

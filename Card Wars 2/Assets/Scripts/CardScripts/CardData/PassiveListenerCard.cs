@@ -6,6 +6,7 @@ using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Mirror;
 using Tiles;
+using System.Linq;
 using UnityEngine;
 
 namespace CardScripts.CardData
@@ -29,7 +30,7 @@ namespace CardScripts.CardData
         public void InitializePassiveListener(CardStats stats, PassiveAbilitySO p)
         {
             // Debug.LogWarning($"<color=teal>Init Passive:</color> passive listener set on for {stats.gameObject.name}");
-            
+
             cardStats = stats;
 
             if (p == null)
@@ -59,20 +60,26 @@ namespace CardScripts.CardData
 
             AbilityEventType[] events = passiveAbility.eventsThatTriggerThisAbility;
 
-            if (events.Length == 0) return; // don't register anything if it has no triggering events
+            if (events.Length == 0) return;
 
-            if (passiveAbility.abilityListenScope == PassiveAbilitySO.EventListenScope.NotSet && events.Length > 0)
+            // Split this cards events into global and tile
+            AbilityEventType[] globalEvents = events.Where(e => e.IsGlobalEvent()).ToArray();
+            AbilityEventType[] tileEvents = events.Where(e => e.IsTileEvent()).ToArray();
+
+            // register each event type as each scope
+            // this is nice cause it means you can set mulitple listener types in the inspector of different scopes
+            // AnyTurnEnd + CreatureBurnedOnTile on the same single card
+            
+            if (globalEvents.Length > 0)
             {
-                // if scope isn't set, but there are event triggers, than something wasn't set up properly in the inspector
-                Debug.LogError("Passive ability listen scope is <color=red>not set</color>. Make sure to set either global or tile");
+                RegisterGlobalListener(passiveAbility, globalEvents);
+                Debug.Log($"{passiveAbility.name} registered {globalEvents.Length} global events");
             }
-            else if (passiveAbility.abilityListenScope == PassiveAbilitySO.EventListenScope.Global)
+
+            if (tileEvents.Length > 0)
             {
-                RegisterGlobalListener(passiveAbility, events);
-            }
-            else if (passiveAbility.abilityListenScope == PassiveAbilitySO.EventListenScope.Tile)
-            {
-                RegisterTileListener(passiveAbility, events);
+                RegisterTileListener(passiveAbility, tileEvents);
+                Debug.Log($"{passiveAbility.name} registered {tileEvents.Length} tile events");
             }
         }
 

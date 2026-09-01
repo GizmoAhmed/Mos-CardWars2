@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2afab955829e884ba4dd85fda5ce2d5, type: 3}
   m_Name: FortifyPerEmptyLane_CreatureOnTile_OnAbility_BuildingSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0d000000
-  abilityListenScope: 2
+  eventsThatTriggerThisAbility: 0f000000
   isExecutableOnPlaced: 0
   defensePerEmptyLane: 2

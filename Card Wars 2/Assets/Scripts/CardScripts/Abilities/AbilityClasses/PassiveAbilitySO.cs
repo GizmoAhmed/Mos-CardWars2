@@ -12,19 +12,8 @@ namespace CardScripts.Abilities
     public abstract class PassiveAbilitySO : CardAbilitySO
     {
         [Header("Passive Ability Settings")]
-        [Tooltip("The events that trigger Execute ability on this SO")]
+        [Tooltip("The events that trigger Execute ability on this SO. Automatically determined if tile or global in PassiveListenerCard Registration")]
         public AbilityEventType[] eventsThatTriggerThisAbility;
-        
-        public enum EventListenScope
-        {
-            NotSet,
-            Global,
-            Tile
-        }
-        [Header("Event Scope")]
-        [Tooltip("Where you want to register to this ability to" +
-                 "\n Either to listen for global broadcasts, or only tto listen for events from this tile")]
-        public EventListenScope abilityListenScope = EventListenScope.NotSet;
         
         [Tooltip("Executes its ability on place (like a spell), along with passively listening")]
         public bool isExecutableOnPlaced = false;
