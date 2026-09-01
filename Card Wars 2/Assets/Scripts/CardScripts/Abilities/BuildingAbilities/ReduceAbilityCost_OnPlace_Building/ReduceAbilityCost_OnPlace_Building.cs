@@ -33,12 +33,4 @@ public class ReduceAbilityCost_OnPlace_Building : PassiveAbilitySO
             creatureStats.ChangeAbilityCost(reduction, increase:true);
         }
     }
-    
-    public void OnValidate()
-    {
-        if (isGlobalListener && !isExecutableOnPlaced && !eventsThatTriggerThisAbility.Contains(AbilityEventType.CardPlacedOnTile))
-        {
-            Debug.LogError($"{name} needs to be executable on place and a middleTile listener");
-        }
-    }
 }

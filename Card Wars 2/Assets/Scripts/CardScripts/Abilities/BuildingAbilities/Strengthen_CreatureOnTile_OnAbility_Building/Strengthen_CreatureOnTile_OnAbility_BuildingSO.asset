@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa9fec3aa5c68d4b8950c1f083388fb, type: 3}
   m_Name: Strengthen_CreatureOnTile_OnAbility_BuildingSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0d000000
-  isGlobalListener: 0
+  eventsThatTriggerThisAbility: 0f000000
+  abilityListenScope: 2
   isExecutableOnPlaced: 0
   Strength: 3

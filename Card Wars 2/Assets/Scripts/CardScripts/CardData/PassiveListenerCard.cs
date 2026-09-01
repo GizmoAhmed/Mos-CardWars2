@@ -60,17 +60,17 @@ namespace CardScripts.CardData
             AbilityEventType[] events = passiveAbility.eventsThatTriggerThisAbility;
 
             if (events.Length == 0) return; // don't register anything if it has no triggering events
-            
-            // Register based on scope (global vs middleTile)
-            if (passiveAbility.isGlobalListener)
+
+            if (passiveAbility.abilityListenScope == PassiveAbilitySO.EventListenScope.NotSet && events.Length > 0)
             {
-                // todo have a check here:
-                
-                // if ability event is tile based (ie creature burned on tile) thrown an error if enters this if block
-                // I set a tile based ability to global in the inspector, and spent way to long wondering why it wasn't registering 
+                // if scope isn't set, but there are event triggers, than something wasn't set up properly in the inspector
+                Debug.LogError("Passive ability listen scope is <color=red>not set</color>. Make sure to set either global or tile");
+            }
+            else if (passiveAbility.abilityListenScope == PassiveAbilitySO.EventListenScope.Global)
+            {
                 RegisterGlobalListener(passiveAbility, events);
             }
-            else
+            else if (passiveAbility.abilityListenScope == PassiveAbilitySO.EventListenScope.Tile)
             {
                 RegisterTileListener(passiveAbility, events);
             }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15edcbca0d9379440b1ac4eb7772ce5c, type: 3}
   m_Name: ReduceAbilityCost_OnPlace_BuildingSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0b000000
-  isGlobalListener: 0
+  eventsThatTriggerThisAbility: 0c000000
+  abilityListenScope: 2
   isExecutableOnPlaced: 1
   reduction: 1

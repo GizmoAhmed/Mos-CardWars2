@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FortifyPerEmptyLane_CreatureOnTile_OnAbility_BuildingSO
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 0d000000
-  isGlobalListener: 0
+  abilityListenScope: 2
   isExecutableOnPlaced: 0
   defensePerEmptyLane: 2

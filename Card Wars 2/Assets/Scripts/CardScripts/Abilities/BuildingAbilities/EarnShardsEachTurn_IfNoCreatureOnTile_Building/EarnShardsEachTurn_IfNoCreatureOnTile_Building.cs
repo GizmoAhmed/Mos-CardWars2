@@ -36,12 +36,4 @@ public class EarnShardsEachTurn_IfNoCreatureOnTile_Building : PassiveAbilitySO
     {
         // Debug.Log("Does nothing....");
     }
-
-    public void OnValidate()
-    {
-        if (!isGlobalListener && isExecutableOnPlaced)
-        {
-            Debug.LogError($"{name} listen globally and be not executable on place");
-        }
-    }
 }

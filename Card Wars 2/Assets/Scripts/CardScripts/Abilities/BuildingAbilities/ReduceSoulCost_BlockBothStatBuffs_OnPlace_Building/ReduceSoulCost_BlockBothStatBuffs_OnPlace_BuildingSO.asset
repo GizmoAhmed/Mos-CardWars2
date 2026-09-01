@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba4c7f73a32a3e546bddbe129fc57be7, type: 3}
   m_Name: ReduceSoulCost_BlockBothStatBuffs_OnPlace_BuildingSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0b000000
-  isGlobalListener: 0
+  eventsThatTriggerThisAbility: 0c000000
+  abilityListenScope: 2
   isExecutableOnPlaced: 1
   soulReduction: 3

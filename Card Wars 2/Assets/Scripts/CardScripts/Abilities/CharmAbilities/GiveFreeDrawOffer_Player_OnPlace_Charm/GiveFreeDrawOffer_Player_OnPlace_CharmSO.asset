@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GiveFreeDrawOffer_Player_OnPlace_CharmSO
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 
-  isGlobalListener: 1
+  abilityListenScope: 0
   isExecutableOnPlaced: 1
   offeringsGiven: 1

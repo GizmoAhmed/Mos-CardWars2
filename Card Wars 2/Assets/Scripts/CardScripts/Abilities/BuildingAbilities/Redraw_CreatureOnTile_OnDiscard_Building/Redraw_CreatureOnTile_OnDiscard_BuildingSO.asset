@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Redraw_CreatureOnTile_OnDiscard_BuildingSO
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 0c000000
-  isGlobalListener: 0
+  abilityListenScope: 2
   isExecutableOnPlaced: 0

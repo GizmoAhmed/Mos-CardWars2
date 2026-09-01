@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BuffBoth_OnPlace_BuildingSO
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 0b000000
-  isGlobalListener: 0
+  abilityListenScope: 1
   isExecutableOnPlaced: 1
   baseStrengthBuffAmount: 1
   baseDefenseBuffAmount: 1

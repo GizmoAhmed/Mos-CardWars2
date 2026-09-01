@@ -82,11 +82,6 @@ namespace CardScripts.Abilities.CharmAbilities.DrawRunes_EachTurn_Charm
 
         public void OnValidate()
         {
-            if (!isGlobalListener) // needs to be global listener, as it listens for turns
-            {
-                Debug.LogError($"{name} should be globally listening");
-            }
-        
             if (isExecutableOnPlaced) // needs to be global listener, as it listens for turns
             {
                 Debug.LogError($"{name} shouldn't be executing on place");

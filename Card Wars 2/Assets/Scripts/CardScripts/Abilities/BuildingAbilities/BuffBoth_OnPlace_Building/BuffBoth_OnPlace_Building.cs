@@ -28,13 +28,5 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
         {
             // Debug.Log("Does nothing....");
         }
-
-        public void OnValidate()
-        {
-            if (isGlobalListener && !isExecutableOnPlaced && !eventsThatTriggerThisAbility.Contains(AbilityEventType.CardPlacedOnTile))
-            {
-                Debug.LogError($"{name} needs to be executable on place and a middleTile listener");
-            }
-        }
     }
 }

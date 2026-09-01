@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ReduceBurnCost_OfPlayersCreaturesPlaced_CharmSO
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 08000000
-  isGlobalListener: 1
+  abilityListenScope: 1
   isExecutableOnPlaced: 1
   burnReduction: 1

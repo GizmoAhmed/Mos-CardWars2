@@ -4,6 +4,8 @@ using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
+using Extensions;
+using PlayerStuff;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ReduceSoul_OnThisCard_OnAnyBurn_Charm", menuName = "Abilities/Charm/ReduceSoul_OnThisCard_OnAnyBurn_Charm")]
@@ -14,11 +16,10 @@ public class ReduceSoul_OnThisCard_OnAnyBurn_Charm : PassiveAbilitySO
         if (eventData.target == thisCard) return; // if executed on itself, don't
         
         GameObject burnedCard = eventData.target;
+        
+        bool isOwned = burnedCard.Ext_IsCardOwnedByThisPlayer(thisCard.Ext_GetOwningPlayerStats());
 
-        int thisSide = thisCard.GetComponent<CardMovement>().logicalPlayerSide;
-        int thatSide = burnedCard.GetComponent<CardMovement>().logicalPlayerSide;
-
-        if (thisSide != thatSide) return; // only count owned cards
+        if (!isOwned) return; // not your card
 
         // has to be on the field
         if (burnedCard.GetComponent<CardMovement>().cardState 

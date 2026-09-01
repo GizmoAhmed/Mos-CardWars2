@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DamageViaDefense_OppTile_EveryOtherTurn_BuildingSO
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 01000000
-  isGlobalListener: 1
+  abilityListenScope: 1
   isExecutableOnPlaced: 0
   turnsToActivate: 3

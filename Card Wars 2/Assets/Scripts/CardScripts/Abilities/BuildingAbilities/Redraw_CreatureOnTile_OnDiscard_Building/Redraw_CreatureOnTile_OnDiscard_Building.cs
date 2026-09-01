@@ -22,13 +22,5 @@ namespace CardScripts.Abilities.BuildingAbilities.Redraw_CreatureOnTile_OnDiscar
             // discard this building
             thisCard.GetComponent<CardMovement>().ServerDiscard();
         }
-    
-        public void OnValidate()
-        {
-            if (isGlobalListener && isExecutableOnPlaced && !eventsThatTriggerThisAbility.Contains(AbilityEventType.CardDiscardedFromTile))
-            {
-                Debug.LogError($"{name} shouldn't be executable on place, and should be a tile listener for CardDiscardedFromTile");
-            }
-        }
     }
 }

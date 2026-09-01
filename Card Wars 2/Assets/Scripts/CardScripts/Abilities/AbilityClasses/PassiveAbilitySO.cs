@@ -15,10 +15,17 @@ namespace CardScripts.Abilities
         [Tooltip("The events that trigger Execute ability on this SO")]
         public AbilityEventType[] eventsThatTriggerThisAbility;
         
+        public enum EventListenScope
+        {
+            NotSet,
+            Global,
+            Tile
+        }
         [Header("Event Scope")]
-        [Tooltip("True = Listen globally (events anywhere)\nFalse = Listen locally (events on same middleTile only)")]
-        public bool isGlobalListener = true;
-
+        [Tooltip("Where you want to register to this ability to" +
+                 "\n Either to listen for global broadcasts, or only tto listen for events from this tile")]
+        public EventListenScope abilityListenScope = EventListenScope.NotSet;
+        
         [Tooltip("Executes its ability on place (like a spell), along with passively listening")]
         public bool isExecutableOnPlaced = false;
         
