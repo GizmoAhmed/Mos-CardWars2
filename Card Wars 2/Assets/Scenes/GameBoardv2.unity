@@ -10043,25 +10043,19 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
-  - {fileID: 11400000, guid: 8d80d28c7163de84f9dc2bc03ae0d88e, type: 2}
-  - {fileID: 11400000, guid: 4e0d64378e08f2842bba79e6ce08efdb, type: 2}
-  - {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
-  - {fileID: 11400000, guid: 0e1c3f504ad111c438c4dab2a2842357, type: 2}
   - {fileID: 11400000, guid: 41a2d3d2f8ba95d4aa51a693035e0186, type: 2}
-  - {fileID: 11400000, guid: 84ea038b44e0cf4499e61811d06078e4, type: 2}
   - {fileID: 11400000, guid: e691292f70aa6154ea1abc35cf29983a, type: 2}
-  - {fileID: 11400000, guid: b72bcd18fb70d1b44b1733376e52e2da, type: 2}
   - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
+  - {fileID: 11400000, guid: b72bcd18fb70d1b44b1733376e52e2da, type: 2}
   - {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
-  - {fileID: 11400000, guid: 2a57c3ab78b3b1343befc6b7fdfef202, type: 2}
   - {fileID: 11400000, guid: 1f5179304f93fec4ca650c8ef6641946, type: 2}
+  - {fileID: 11400000, guid: 2a57c3ab78b3b1343befc6b7fdfef202, type: 2}
   - {fileID: 11400000, guid: 134fe0cbdac16cc449dca3276067c915, type: 2}
   - {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
   - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
   - {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
-  - {fileID: 11400000, guid: 95c87cf645eb3ab459d8e8f447befb24, type: 2}
-  - {fileID: 11400000, guid: 69f31f70a6a5da84aa88fd0166fc48ae, type: 2}
-  - {fileID: 11400000, guid: 0246900e396514642a269ca47109a31d, type: 2}
+  - {fileID: 11400000, guid: 0fe3bcc8d5cb5e647851d148c0ae71bb, type: 2}
+  - {fileID: 11400000, guid: b219a1ad426ba37488d99279652f4123, type: 2}
   masterDeckList: []
   creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}
@@ -11852,6 +11846,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1001 &1268850742730394079
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1133309403274286012, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457239287107607575, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
+      propertyPath: m_Name
+      value: DebugLogMessagesHandler
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 969399b2e3f2a4a48811fb0c810bb063, type: 3}
 --- !u!114 &1457262615996526877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13085,3 +13136,4 @@ SceneRoots:
   - {fileID: 4052159343950108583}
   - {fileID: 1183004021}
   - {fileID: 1344499680}
+  - {fileID: 1268850742730394079}

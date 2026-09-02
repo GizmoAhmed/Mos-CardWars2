@@ -18,10 +18,10 @@ namespace PlayerStuff
     {
         public PlayerUI ui;
 
-        [Header("Soul")] [SyncVar(hook = nameof(CurrentSoulUpdate))]
+        [Header("Soul")] [SyncVar(hook = nameof(Hook_PlayerCurrentSoulUIUpdate))]
         public int currentSoul;
 
-        [SyncVar(hook = nameof(MaxSoulUpdate))]
+        [SyncVar(hook = nameof(Hook_PlayerMaxSoulUIUpdate))]
         public int maxSoul;
 
         [Header("Shards")] [SyncVar(hook = nameof(ShardsUpdate))]
@@ -62,27 +62,54 @@ namespace PlayerStuff
         }
 
         [Command]
-        public void CmdUpgradeMagic() // todo, mabye a magic amount
-        {
-            UpgradeSoul(1, upTheCost: true);
-        }
-
-        [Server]
-        public void UpgradeSoul(int amount, bool upTheCost = true)
+        public void CmdUpgradeMagic() // todo, upgrade amount stat, that way the 1 can be changed that variable can be made into an ability
         {
             if (shards >= upgradeCost)
             {
-                shards -= upgradeCost;
-                maxSoul += amount;
-                currentSoul += amount;
-
-                if (upTheCost)
-                {
-                    upgradeCost += 1;
-                }
+                shards -= upgradeCost;                      // spend money
+                S_UpdatePlayerSoul(increase: true, amount: 1);    // raise soul
+                upgradeCost += 1;                           // up the cost
             }
+        }
+        
+        [Server]
+        public void S_UpdatePlayerSoul(bool increase, int amount)
+        {
+            // todo abilities that decrement soul, upgrade soul when the de-execute, should that count as an upgrade? Ie drought
             
-            // todo magic upgrade listener and broadcast
+            if (increase) // increasing soul
+            {
+                maxSoul += amount;
+                currentSoul +=  amount;
+                
+                // broadcast to all AnySoulUpgrade listeners that an upgrade happened.
+                GlobalBroadCastSoulUpgrade(soulAmount: amount);
+            }
+            else
+            {
+                maxSoul -= amount;
+                currentSoul -= amount;
+            }
+        }
+
+        private void GlobalBroadCastSoulUpgrade(int soulAmount)
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventData soulUpgradeData = new AbilityEventData(
+                    AbilityEventType.AnySoulUpgrade,
+                    t: gameObject, // player
+                    v: soulAmount
+                );
+
+                // tell event manager to tell everyone (that cares) that a card was burned
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
+                    soulUpgradeData);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
         }
 
         [Command] // called from in game button click
@@ -209,21 +236,6 @@ namespace PlayerStuff
             health -= drain;
         }
 
-        [Server]
-        public void Server_ChangePlayerSoul(bool raiseSoul, int amount)
-        {
-            if (raiseSoul) // increasing soul
-            {
-                maxSoul += amount;
-                currentSoul +=  amount;
-            }
-            else
-            {
-                maxSoul -= amount;
-                currentSoul -= amount;
-            }
-        }
-
         public void AddPlayerScore(int amount)
         {
             if (!isServer) return;
@@ -270,7 +282,7 @@ namespace PlayerStuff
             GetComponent<Player>().deckCollection.OfferCardsPreview(cardsToChoose, cardsToOffer);
         }
 
-        public void CurrentSoulUpdate(int oldMagic, int newMagic)
+        public void Hook_PlayerCurrentSoulUIUpdate(int oldMagic, int newMagic)
         {
             if (ui == null)
             {
@@ -293,7 +305,7 @@ namespace PlayerStuff
             ui.PlayerSoulUseUIUpdate(newMagic, current_max: true);
         }
 
-        public void MaxSoulUpdate(int oldMagic, int newMagic)
+        public void Hook_PlayerMaxSoulUIUpdate(int oldMagic, int newMagic)
         {
             if (currentSoul > maxSoul)
             {

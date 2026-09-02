@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5bebfcda10cf54ab68b8e8769d4507, type: 3}
   m_Name: ReduceBurnCost_OfCreatureOnTile_BuildingSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0c000000
-  abilityListenScope: 2
+  eventsThatTriggerThisAbility: 64000000
   isExecutableOnPlaced: 1
   burnReduction: 1

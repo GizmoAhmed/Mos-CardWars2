@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 342905e30a30b484799f15f13d969cc2, type: 3}
-  m_Name: EarnShards_BoundCreature_BuffNerf_RuneSO
+  m_Script: {fileID: 11500000, guid: 3b7e958e59a348b45bb26f83b2f59d6d, type: 3}
+  m_Name: FortifyAllYourCreatures_OnYourMagicUpgrades_CharmSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 680000006a000000690000006b000000
+  eventsThatTriggerThisAbility: 0c000000
   isExecutableOnPlaced: 0
+  fortify: 3

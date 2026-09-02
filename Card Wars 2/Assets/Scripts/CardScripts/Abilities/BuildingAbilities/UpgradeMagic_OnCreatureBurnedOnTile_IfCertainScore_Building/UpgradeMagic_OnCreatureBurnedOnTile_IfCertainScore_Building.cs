@@ -18,11 +18,6 @@ public class UpgradeMagic_OnCreatureBurnedOnTile_IfCertainScore_Building : Passi
     
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        // check if on field
-        // check if creature 
-        // check if creature owned
-        // check score
-        
         // because tile based, I don't have to check for tile, if it's on the field, or owned by the player...
         //... all of that stuff is implied
         
@@ -33,8 +28,8 @@ public class UpgradeMagic_OnCreatureBurnedOnTile_IfCertainScore_Building : Passi
         if (creatureStats.score >= scoreNeeded) // pass
         {
             PlayerStats player = thisCard.Ext_GetOwningPlayerStats();
-            
-            player.UpgradeSoul(soulUpgradeAmount, upTheCost: false);
+
+            player.S_UpdatePlayerSoul(increase: true, amount: soulUpgradeAmount);
         }
         else
         {

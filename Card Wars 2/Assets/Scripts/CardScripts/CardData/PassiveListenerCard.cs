@@ -73,13 +73,13 @@ namespace CardScripts.CardData
             if (globalEvents.Length > 0)
             {
                 RegisterGlobalListener(passiveAbility, globalEvents);
-                Debug.Log($"{passiveAbility.name} registered {globalEvents.Length} global events");
+                Debug.Log($"{passiveAbility.name} <color=magenta>registered</color> {globalEvents.Length} global events");
             }
 
             if (tileEvents.Length > 0)
             {
                 RegisterTileListener(passiveAbility, tileEvents);
-                Debug.Log($"{passiveAbility.name} registered {tileEvents.Length} tile events");
+                Debug.Log($"{passiveAbility.name} <color=teal>registered</color> {tileEvents.Length} tile events");
             }
         }
 

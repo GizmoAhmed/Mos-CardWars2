@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff51d19516c6fc4391c4007af554cbf, type: 3}
   m_Name: UpgradeMagic_OnCreatureBurnedOnTile_IfCertainScore_BuildingSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0d000000
-  abilityListenScope: 2
+  eventsThatTriggerThisAbility: 65000000
   isExecutableOnPlaced: 0
   scoreNeeded: 8
   soulUpgradeAmount: 1

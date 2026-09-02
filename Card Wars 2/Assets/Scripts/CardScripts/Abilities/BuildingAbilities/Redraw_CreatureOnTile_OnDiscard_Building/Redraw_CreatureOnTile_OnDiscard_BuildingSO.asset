@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2f80f874f7b6b4a970330efc371f48, type: 3}
   m_Name: Redraw_CreatureOnTile_OnDiscard_BuildingSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0e000000
+  eventsThatTriggerThisAbility: 66000000
   isExecutableOnPlaced: 0
