@@ -76,7 +76,7 @@ namespace PlayerStuff
             {
                 AbilityEventData addToHandData = new AbilityEventData(
                     type: AbilityEventType.AnyAddCardToHand,
-                    t: card,
+                    targ: card,
                     
                     // prevent infinite loop duplication
                     customData: new Dictionary<string, object>

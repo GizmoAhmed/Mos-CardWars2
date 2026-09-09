@@ -320,6 +320,31 @@ namespace CardScripts.CardMovements
             thisCardsVisualTile = tileObj.GetComponent<Tile>();
         }
 
+        /// <summary>
+        /// Base call that broadcasts AnyCardBurned, overrides in the child card types (creature, building, etc) need to call this as well as broadcast their own type
+        /// </summary>
+        [Server]
+        public virtual void GlobalBroadcastCardBurned()
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventData burnData = new AbilityEventData(
+                    type: AbilityEventType.AnyCardBurned,
+                    targ: gameObject
+                );
+
+                Debug.Log("<<< <color=cyan>Base: Any Card Burn Broadcast</color> >>>");
+                
+                // tell event manager to tell everyone (that cares) that a card was burned
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
+                    burnData);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
+        }
+
         public void OnClick()
         {
             // Debug.Log($"Clicked on: {gameObject.name}");
@@ -426,7 +451,7 @@ namespace CardScripts.CardMovements
         [Server]
         public virtual void BurnCard()
         {
-            Debug.LogWarning($"BurnCard not overridden on {gameObject.name}! Discarding anyway...");
+            //Debug.LogWarning($"BurnCard not overridden on {gameObject.name}! Discarding anyway...");
             
             ServerDiscard();
         }

@@ -24,6 +24,9 @@ namespace PlayerStuff
         [SyncVar(hook = nameof(Hook_PlayerMaxSoulUIUpdate))]
         public int maxSoul;
 
+        [Tooltip("The amount of cards blocking this player's ability to upgrade their soul. If zero, there are no blockers. If > 0, soul is being blocked.")]
+        [SyncVar] public int canUpgradeSoul = 0;
+
         [Header("Shards")] [SyncVar(hook = nameof(ShardsUpdate))]
         public int shards;
 
@@ -64,18 +67,23 @@ namespace PlayerStuff
         [Command]
         public void CmdUpgradeMagic() // todo, upgrade amount stat, that way the 1 can be changed that variable can be made into an ability
         {
-            if (shards >= upgradeCost)
+            if (shards >= upgradeCost && canUpgradeSoul == 0)
             {
-                shards -= upgradeCost;                      // spend money
-                S_UpdatePlayerSoul(increase: true, amount: 1);    // raise soul
-                upgradeCost += 1;                           // up the cost
+                shards -= upgradeCost;                              // spend money
+                S_UpdatePlayerSoul(increase: true, amount: 1);      // raise soul
+                upgradeCost += 1;                                   // up the cost
             }
         }
         
         [Server]
-        public void S_UpdatePlayerSoul(bool increase, int amount)
+        public void S_UpdatePlayerSoul(bool increase, int amount, bool ignoreAnySoulUpgradeBlock = false)
         {
-            // todo abilities that decrement soul, upgrade soul when the de-execute, should that count as an upgrade? Ie drought
+            // some cards decrement soul, then upgrade it back up on de-execute.
+            // those abilities should ignore canBeUpgraded because otherwise, for example, drought's effects would be permanent
+            if (increase && canUpgradeSoul > 0 && !ignoreAnySoulUpgradeBlock) 
+            {
+                return;
+            }
             
             if (increase) // increasing soul
             {
@@ -98,8 +106,8 @@ namespace PlayerStuff
             {
                 AbilityEventData soulUpgradeData = new AbilityEventData(
                     AbilityEventType.AnySoulUpgrade,
-                    t: gameObject, // player
-                    v: soulAmount
+                    targ: gameObject, // player
+                    val: soulAmount
                 );
 
                 // tell event manager to tell everyone (that cares) that a card was burned
@@ -137,9 +145,15 @@ namespace PlayerStuff
             }
         }
 
+        // todo maybe split this function into each card type, so you don't have to use any
         private void GlobalBroadcastBurn(GameObject burnedCard)
         {
-            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            CardMovement burnedCardMovement = burnedCard.GetComponent<CardMovement>();
+            
+            // now each card type can broadcast their own thing, so abilities don't have to ask for all card types if they only care about one
+            burnedCardMovement.GlobalBroadcastCardBurned(); 
+            
+            /*if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {
                 AbilityEventData burnData = new AbilityEventData(
                     AbilityEventType.AnyCardBurned,
@@ -153,7 +167,7 @@ namespace PlayerStuff
             else
             {
                 Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
-            }
+            }*/
         }
 
         [Command]

@@ -11,11 +11,11 @@ namespace AbilityEvents
         
         public Dictionary<string, object> CustomData; 
         
-        public AbilityEventData(AbilityEventType type, GameObject t = null, int v = 0, Dictionary<string, object> customData = null)
+        public AbilityEventData(AbilityEventType type, GameObject targ = null, int val = 0, Dictionary<string, object> customData = null)
         {
             eventType = type;
-            target = t;    // optional, some spells ie don't affect cards
-            Value = v;                  // optional, pass param for things like buffs
+            target = targ;    // optional, some spells ie don't affect cards
+            Value = val;                  // optional, pass param for things like buffs
             CustomData = customData;         // also optional, pass things like tiles, etc.
         }
     }

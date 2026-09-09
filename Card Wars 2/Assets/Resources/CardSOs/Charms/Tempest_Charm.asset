@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Tempest
   mainImage: {fileID: 21300000, guid: 279f28eb3cd6f6e408b7d8fffdfe2683, type: 3}
-  magic: 4
-  abilityDescription: 
+  magic: 3
+  abilityDescription: Opp cannot upgrade soul until they burn a creature of X score
   burnCost: 2
-  ability: {fileID: 0}
+  ability: {fileID: 11400000, guid: 4b67ba23df514ae46bb4025a653e6e2e, type: 2}

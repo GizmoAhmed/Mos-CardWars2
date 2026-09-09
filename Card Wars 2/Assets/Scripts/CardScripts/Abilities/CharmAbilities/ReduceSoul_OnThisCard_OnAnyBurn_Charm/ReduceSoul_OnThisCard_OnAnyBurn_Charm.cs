@@ -8,31 +8,27 @@ using Extensions;
 using PlayerStuff;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ReduceSoul_OnThisCard_OnAnyBurn_Charm", menuName = "Abilities/Charm/ReduceSoul_OnThisCard_OnAnyBurn_Charm")]
+[CreateAssetMenu(fileName = "ReduceSoul_OnThisCard_OnAnyBurn_Charm",
+    menuName = "Abilities/Charm/ReduceSoul_OnThisCard_OnAnyBurn_Charm")]
 public class ReduceSoul_OnThisCard_OnAnyBurn_Charm : PassiveAbilitySO
 {
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
         if (eventData.target == thisCard) return; // if executed on itself, don't
-        
+
         GameObject burnedCard = eventData.target;
-        
+
         bool isOwned = burnedCard.Ext_IsCardOwnedByThisPlayer(thisCard.Ext_GetOwningPlayerStats());
 
         if (!isOwned) return; // not your card
 
-        // has to be on the field
-        if (burnedCard.GetComponent<CardMovement>().cardState 
-            != CardMovement.CardState.Field)
-        {
-            return;
-        }
+        // has to be on the field, otherwise return
+        if (!burnedCard.Ext_isCardOnField()) return;
 
         int burnedCardSoul = burnedCard.GetComponent<CardStats>().soulUse;
-        
+
         // reduce soul use
-        thisCard.GetComponent<CardStats>().
-            UpdateSyncSoulToPlayer(-burnedCardSoul);
+        thisCard.GetComponent<CardStats>().UpdateSyncSoulToPlayer(-burnedCardSoul);
     }
 
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

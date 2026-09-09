@@ -243,5 +243,11 @@ namespace Extensions
             Debug.LogError($"Couldn't find tile for this building ({building.name})");
             return null;
         }
+
+        public static bool Ext_isCardOnField(this GameObject card)
+        {
+            return card.GetComponent<CardMovement>().cardState
+                   == CardMovement.CardState.Field;
+        }
     }
 }

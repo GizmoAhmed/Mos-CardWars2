@@ -204,5 +204,29 @@ namespace CardScripts.CardMovements
             ((MiddleTile)thisCardsVisualTile).creatureVisual = null;
             base.DetachFromTile();
         }
+        
+        [Server]
+        public override void GlobalBroadcastCardBurned()
+        {
+            base.GlobalBroadcastCardBurned(); // broadcasts AnyCardBurned for those who care
+            
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                Debug.Log("<<< <color=orange>Creature Burn Broadcast</color> >>>");
+                
+                AbilityEventData burnData = new AbilityEventData(
+                    AbilityEventType.AnyCreatureBurned, // <-- only diff
+                    gameObject
+                );
+
+                // tell event manager to tell everyone (that cares) that a creature was burned
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
+                    burnData);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
+        }
     }
 }
