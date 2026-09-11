@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 9006069716977204555}
   - component: {fileID: 6161341023099325004}
   - component: {fileID: -1746081093091814046}
+  - component: {fileID: -21623250749570345}
   m_Layer: 5
   m_Name: RuneCard
   m_TagString: Untagged
@@ -370,6 +371,22 @@ MonoBehaviour:
   cardStats: {fileID: 0}
   passiveAbility: {fileID: 0}
   isExecutedOnPlace: 0
+--- !u!114 &-21623250749570345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 659507761811515719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6b1ffe2d9923f41aebe07ada1cdbf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  turnsOnField: 0
 --- !u!1 &826237918488455394
 GameObject:
   m_ObjectHideFlags: 0

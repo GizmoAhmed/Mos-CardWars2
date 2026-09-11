@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using AbilityEvents;
+using CardScripts;
 using CardScripts.Abilities;
 using CardScripts.CardMovements;
 using CardScripts.CardStatss;
@@ -13,28 +14,27 @@ using UnityEngine;
     menuName = "Abilities/Building/DamageViaDefense_OppTile_EveryXTurn_Building")]
 public class DamageViaDefense_OppTile_EveryXTurn_Building : PassiveAbilitySO
 {
-    [Header("Ability Scope")] public int turnsToActivate;
+    public int turnsToActivate;
 
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        TurnManager turn = FindObjectOfType<TurnManager>();
-
-        // Debug.Log($"<color=purple>Current turn</color> = {turn._currentTurn}, {thisCard.name} activates every {turnsToActivate} turn");
-
         if (turnsToActivate < 1)
         {
             Debug.LogError($"Could not activate {name} on {thisCard.name} because turns to activate on it is set to {turnsToActivate}" );
             return;
         }
+        
+        CardRuntimeData cardRuntimeData = thisCard.GetComponent<CardRuntimeData>();
+        int turnsActive = cardRuntimeData.turnsOnField;
 
-        if (turn._currentTurn % turnsToActivate != 0) // this is not turn to activate
+        if (turnsActive % turnsToActivate != 0) // this is not turn to activate
         {
             return;
         }
 
         MiddleTile thisTile = thisCard.Ext_GetTile() as MiddleTile;
 
-        if (thisTile.logicalCreature != null) // no creature
+        if (thisTile == null || thisTile.logicalCreature == null) // no creature
         {
             return;
         }
@@ -49,7 +49,7 @@ public class DamageViaDefense_OppTile_EveryXTurn_Building : PassiveAbilitySO
         }
         else
         {
-            Debug.LogWarning($"{stats.gameObject} must have <color=cyan>sloth</color> on it, because it's defense is below zero and {thisCard.gameObject} can't use that to attack");
+            Debug.LogWarning($"Strength on {stats.gameObject} is below zero, must have <color=cyan>sloth</color> on it. {name} can't use a negative defense value to attack");
         }
     }
 }

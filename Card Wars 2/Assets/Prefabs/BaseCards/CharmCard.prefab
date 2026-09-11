@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: -7445801736710256903}
   - component: {fileID: -1237447297937807966}
   - component: {fileID: -7316469908674188732}
+  - component: {fileID: 6499468357493125423}
   m_Layer: 5
   m_Name: CharmCard
   m_TagString: Untagged
@@ -521,6 +522,22 @@ MonoBehaviour:
   cardStats: {fileID: 0}
   passiveAbility: {fileID: 0}
   isExecutedOnPlace: 0
+--- !u!114 &6499468357493125423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243263642205161095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6b1ffe2d9923f41aebe07ada1cdbf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  turnsOnField: 0
 --- !u!1 &1353088727235028194
 GameObject:
   m_ObjectHideFlags: 0

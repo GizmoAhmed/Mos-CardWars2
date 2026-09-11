@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AbilityEvents;
+using CardScripts;
 using CardScripts.CardStatss;
 using Mirror;
 using Modal;
@@ -26,6 +27,10 @@ namespace PlayerStuff
         {
             serverDiscardedCards.Add(card);
             // Debug.Log($"[Server] Tracked discard: {card.name}. Cards discarded: {_serverDiscardedCards.Count}");
+            
+            // since discarded, reset runtime data
+            CardRuntimeData data = card.GetComponent<CardRuntimeData>();
+            data.ResetCardRunTimeData();
         }
         
         /// <summary>
@@ -98,13 +103,19 @@ namespace PlayerStuff
         }
 
         [Server]
-        public void Server_EndOfTurnCardTrackerReset()
+        public void Server_EndOfTurnCardTrackerIncrement()
         {
             numOfCardsDrawnThisTurn = 0;
             cardsPlacedThisTurn = 0;
-            // todo among other things
 
             Server_ResetFloops_OfAllCreatures();
+
+            // increment data that is turn based
+            foreach (GameObject card in serverActiveFieldCards)
+            {
+                CardRuntimeData runtimeData = card.GetComponent<CardRuntimeData>();
+                runtimeData.EndOfTurn_RunTimeDataIncrement();
+            }
         }
 
         [Server]

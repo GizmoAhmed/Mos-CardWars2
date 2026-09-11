@@ -779,6 +779,7 @@ GameObject:
   - component: {fileID: -3994100279708696279}
   - component: {fileID: -8391062358812073343}
   - component: {fileID: 8372296194682450414}
+  - component: {fileID: -4259474710115901657}
   m_Layer: 5
   m_Name: SpellCard
   m_TagString: Untagged
@@ -1111,8 +1112,22 @@ MonoBehaviour:
   faceUp: 0
   cardData: {fileID: 0}
   magicObj: {fileID: 0}
-  usesUIObject: {fileID: 3203238083490853190, guid: 44e5ef9b26f44804194e01f40f785fb3, type: 3}
-  xUIObject: {fileID: 3711539597169667302, guid: 59467920eb811d6448718fcc81333e5d, type: 3}
+--- !u!114 &-4259474710115901657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473283833520736551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6b1ffe2d9923f41aebe07ada1cdbf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  turnsOnField: 0
 --- !u!1 &5945192695792531235
 GameObject:
   m_ObjectHideFlags: 0

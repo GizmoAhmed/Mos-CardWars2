@@ -2741,6 +2741,7 @@ GameObject:
   - component: {fileID: 1947104413682151867}
   - component: {fileID: 6426264086484934529}
   - component: {fileID: 2475366819963107678}
+  - component: {fileID: -2654388533391899147}
   m_Layer: 5
   m_Name: CreatureCard
   m_TagString: Untagged
@@ -3043,8 +3044,13 @@ MonoBehaviour:
   defenseMult: 1
   score: -1
   abilityCost: -1
+  element: 0
+  maxFloops: 1
+  floopsLeft: 0
+  multiFloop: 0
   immortal: 0
-  canBeBuffed: 1
+  canBuffStrength: 0
+  canBuffDefense: 0
 --- !u!114 &1947104413682151867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3100,6 +3106,22 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+--- !u!114 &-2654388533391899147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310339964073049012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6b1ffe2d9923f41aebe07ada1cdbf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  turnsOnField: 0
 --- !u!1 &7754454831407693559
 GameObject:
   m_ObjectHideFlags: 0
