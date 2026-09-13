@@ -18,7 +18,8 @@ public class ReduceSoul_OnThisCard_OnAnyBurn_Charm : PassiveAbilitySO
 
         GameObject burnedCard = eventData.target;
 
-        bool isOwned = burnedCard.Ext_IsCardOwnedByThisPlayer(thisCard.Ext_GetOwningPlayerStats());
+        bool isOwned = thisCard.Ext_IsSameOwner(burnedCard);
+        // bool isOwned = burnedCard.Ext_IsCardOwnedByThisPlayer(thisCard.Ext_GetOwningPlayerStats());
 
         if (!isOwned) return; // not your card
 

@@ -138,6 +138,24 @@ namespace Extensions
             // if passed card owner same as passed player, then player owns passed card
             return owningPlayer == player;
         }
+        
+        /// <summary>
+        /// Check if two cards belong to the same player
+        /// using logical player side (server authoritative)
+        /// </summary>
+        public static bool Ext_IsSameOwner(this GameObject card, GameObject otherCard)
+        {
+            CardMovement thisMove = card.GetComponent<CardMovement>();
+            CardMovement otherMove = otherCard.GetComponent<CardMovement>();
+    
+            if (thisMove == null || otherMove == null)
+            {
+                Debug.LogWarning("Ext_IsSameOwner: Missing CardMovement!");
+                return false;
+            }
+    
+            return thisMove.logicalPlayerSide == otherMove.logicalPlayerSide;
+        }
 
         public static CreatureStats GetCreatureStats_FromBoundRune_Ext(this GameObject rune)
         {

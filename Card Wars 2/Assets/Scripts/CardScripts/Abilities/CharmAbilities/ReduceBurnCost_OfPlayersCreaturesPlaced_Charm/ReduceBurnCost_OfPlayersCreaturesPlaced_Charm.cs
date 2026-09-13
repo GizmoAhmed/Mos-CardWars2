@@ -18,13 +18,14 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
 
         if (eventData.eventType == AbilityEventType.CardPlacedOnTile)
         {
-            ReduceBurnOfAllCreatures(card: thisCard, burnReduction);
+            AdjustBurnOfAllCreatures(card: thisCard, burnReduction);
         }
         else if (eventData.eventType == AbilityEventType.AnyCreaturePlaced)
         {
-            bool yourCard = eventData.target.Ext_IsCardOwnedByThisPlayer(player: thisCard.Ext_GetOwningPlayerStats());
+            bool owned = thisCard.Ext_IsSameOwner(eventData.target);   
+            // bool yourCard = eventData.target.Ext_IsCardOwnedByThisPlayer(player: thisCard.Ext_GetOwningPlayerStats());
 
-            if (yourCard)
+            if (owned)
             {
                 CreatureStats placedCreature = eventData.target.GetComponent<CreatureStats>();
 
@@ -35,10 +36,10 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
 
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
     {
-        ReduceBurnOfAllCreatures(card: thisCard, -burnReduction); // negative, since increasing burn cost
+        AdjustBurnOfAllCreatures(card: thisCard, -burnReduction); // negative, since increasing burn cost
     }
 
-    private void ReduceBurnOfAllCreatures(GameObject card, int amount)
+    private void AdjustBurnOfAllCreatures(GameObject card, int amount)
     {
         var creatures = card.Ext_GetAllActiveCreaturesForThisPlayer();
 

@@ -32,6 +32,8 @@ namespace CardScripts
         public void ResetCardRunTimeData()
         {
             turnsOnField = 0;
+            
+            customInts.Clear();
         }
     }
 }
