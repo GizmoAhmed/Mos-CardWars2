@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OdinEye_Charm
   m_EditorClassIdentifier: 
   cardName: Odin's Eye
-  mainImage: {fileID: 21300000, guid: 7c91cf54a519a4f40aef70ddc720cc1e, type: 3}
+  mainImage: {fileID: 21300000, guid: d6a8b89478fc6c04cbf765f5ca5cd2e8, type: 3}
   magic: 2
   abilityDescription: +1 Free Draw Offering
   burnCost: 2

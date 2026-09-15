@@ -178,8 +178,8 @@ namespace CardScripts.CardDisplays
             }
             else
             {
-                Debug.Log(
-                    $"{gameObject.name} <color=green>successfully</color> avoid null ref on the magic object, because it shouldn't have a magic object, when this flipping card. Double check that this is a <color=cyan>SPELL or RUNE</color>");
+                /*Debug.Log(
+                    $"{gameObject.name} <color=green>successfully</color> avoid null ref on the magic object, because it shouldn't have a magic object, when this flipping card. Double check that this is a <color=cyan>SPELL or RUNE</color>");*/
             }
 
             CardBackObj.SetActive(!up);
@@ -207,7 +207,10 @@ namespace CardScripts.CardDisplays
 
         public void UpdateUISoul(int newMagic)
         {
-            SetText(magicObj, newMagic.ToString(), true);
+            if (magicObj != null) // spells have null magic obj 
+            {
+                SetText(magicObj, newMagic.ToString(), true);
+            }
         }
 
         public void UpdateUI_BurnCost(int newCost)

@@ -31,7 +31,7 @@ public class BuffStat_EachTurn_WithChanceToDestroySelf_Building : PassiveAbility
 
             if (creatureStats != null) // null error check happens in extension method
             {
-                creatureStats.ChangeCreatureStrength(strengthBoost, buff: true);
+                creatureStats.UpdateCreatureStrength(strengthBoost, buff: true);
                 creatureStats.ChangeCreatureDefense(defenseBoost, buff: true);
             }
         }

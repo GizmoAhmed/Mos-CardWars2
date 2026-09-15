@@ -20,7 +20,7 @@ public class BasicWeaken_OnCreature_Spell : CastAbilitySO
             return; // error message inside above function
         
         // weaken creature
-        creatureStats.ChangeCreatureStrength(weakenAmount, buff: false);
+        creatureStats.UpdateCreatureStrength(weakenAmount, buff: false);
     }
 
     public void OnValidate()

@@ -20,7 +20,7 @@ namespace CardScripts.Abilities.SpellAbilities.BuffBoth_OnCreature_Spell
             if (creatureStats == null)
                 return; // error message inside above function
             
-            creatureStats.ChangeCreatureStrength(baseStrengthBuffAmount, buff: true);
+            creatureStats.UpdateCreatureStrength(baseStrengthBuffAmount, buff: true);
             creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
         }
 

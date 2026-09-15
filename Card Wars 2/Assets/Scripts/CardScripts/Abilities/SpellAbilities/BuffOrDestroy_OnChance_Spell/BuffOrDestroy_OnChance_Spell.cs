@@ -33,7 +33,7 @@ public class BuffOrDestroy_OnChance_Spell : CastAbilitySO
             else
             {
                 int strength = creatureOnTile.strength;
-                creatureOnTile.ChangeCreatureStrength(strength, buff: true);
+                creatureOnTile.UpdateCreatureStrength(strength, buff: true);
             }
         }
         else // miss

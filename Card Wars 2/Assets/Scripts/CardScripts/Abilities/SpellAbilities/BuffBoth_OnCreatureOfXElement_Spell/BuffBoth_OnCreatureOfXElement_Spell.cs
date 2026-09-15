@@ -31,7 +31,7 @@ public class BuffBoth_OnCreatureOfXElement_Spell : CastAbilitySO
         if (creatureStats.ElementMatch(req: elementRequirement))
         {
             // buff
-            creatureStats.ChangeCreatureStrength(strengthen, buff: true);
+            creatureStats.UpdateCreatureStrength(strengthen, buff: true);
             creatureStats.ChangeCreatureDefense(fortify, buff: true);
         }
     }

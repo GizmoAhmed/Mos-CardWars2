@@ -27,7 +27,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Strength.WeakenCreature_ToAddD
                 player.drain += (creatureStats.strength * drainGainPerWeaken); // gain +X drain per strength weakened
             
                 // lose all strength
-                creatureStats.ChangeCreatureStrength(creatureStats.strength, false);
+                creatureStats.UpdateCreatureStrength(creatureStats.strength, false);
             }
         }
     }

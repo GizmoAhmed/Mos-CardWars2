@@ -45,7 +45,7 @@ public class SpendAllShards_BuffAllYourCreatures_Creature : ActiveAbilitySO
 
         foreach (CreatureStats creature in creatures) // buff each creature
         {
-            creature.ChangeCreatureStrength(buffAmount, buff: true);
+            creature.UpdateCreatureStrength(buffAmount, buff: true);
         }
     }
 }

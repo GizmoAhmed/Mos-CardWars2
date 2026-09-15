@@ -105,7 +105,7 @@ namespace CardScripts.CardStatss
         }
 
         [Server] // called from inside a command
-        public void ChangeCreatureStrength(int amount, bool buff)
+        public void UpdateCreatureStrength(int amount, bool buff)
         {
             amount *= strengthMult; 
             
