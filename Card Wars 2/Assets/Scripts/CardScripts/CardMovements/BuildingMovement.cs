@@ -33,7 +33,9 @@ namespace CardScripts.CardMovements
                 listener.RegisterPassiveAbility();
             }
 
-            thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
+            // can now broadcast
+            thisCardOwnerPlayerStats.AdjustPlayerCurrentSoul_ViaPlacement(usingSoul: true, amount: cardStats.soulUse);
+            // thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
 
             // track placed building
             thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_TrackTilePlacement(gameObject);
@@ -107,7 +109,9 @@ namespace CardScripts.CardMovements
 
         private void ReturnSoul()
         {
-            thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse;
+            // Free the Soul
+            thisCardOwnerPlayerStats.AdjustPlayerCurrentSoul_ViaPlacement(usingSoul: false, cardStats.soulUse);
+            // thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse;
         }
 
         protected override void DetachFromTile()

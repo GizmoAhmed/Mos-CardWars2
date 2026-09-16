@@ -29,7 +29,7 @@ public class UpgradeMagic_OnCreatureBurnedOnTile_IfCertainScore_Building : Passi
         {
             PlayerStats player = thisCard.Ext_GetOwningPlayerStats();
 
-            player.S_UpdatePlayerSoul(increase: true, amount: soulUpgradeAmount);
+            player.UpdatePlayerMaxSoul_ViaUpgrade(increase: true, amount: soulUpgradeAmount);
         }
         else
         {

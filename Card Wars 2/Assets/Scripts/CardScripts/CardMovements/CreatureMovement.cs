@@ -35,7 +35,8 @@ namespace CardScripts.CardMovements
             // add bases stats to score and add soul...
             thisCardOwnerPlayerStats.AddPlayerScore(CreatureStats.score);
             
-            thisCardOwnerPlayerStats.currentSoul -= CreatureStats.soulUse;
+            thisCardOwnerPlayerStats.AdjustPlayerCurrentSoul_ViaPlacement(usingSoul: true, amount: CreatureStats.soulUse);
+            //thisCardOwnerPlayerStats.currentSoul -= CreatureStats.soulUse;
             
             // when placed set floop quantity
             CreatureStats.floopsLeft = CreatureStats.maxFloops;
@@ -185,7 +186,8 @@ namespace CardScripts.CardMovements
         private void ReturnSoulAndScore()
         {
             // give back soulUse
-            thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse; 
+            thisCardOwnerPlayerStats.AdjustPlayerCurrentSoul_ViaPlacement(usingSoul: false, amount: cardStats.soulUse);
+            // thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse; 
             // cardStats.UpdateSyncSoulToPlayer(cardStats.soulUse);
             
             thisCardOwnerPlayerStats.playerTotalScore -= CreatureStats.score; // give back score

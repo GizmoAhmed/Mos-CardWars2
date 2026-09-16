@@ -24,8 +24,10 @@ namespace PlayerStuff
         [SyncVar(hook = nameof(Hook_PlayerMaxSoulUIUpdate))]
         public int maxSoul;
 
-        [Tooltip("The amount of cards blocking this player's ability to upgrade their soul. If zero, there are no blockers. If > 0, soul is being blocked.")]
-        [SyncVar] public int canUpgradeSoul = 0;
+        [Tooltip(
+            "The amount of cards blocking this player's ability to upgrade their soul. If zero, there are no blockers. If > 0, soul is being blocked.")]
+        [SyncVar]
+        public int canUpgradeSoul = 0;
 
         [Header("Shards")] [SyncVar(hook = nameof(ShardsUpdate))]
         public int shards;
@@ -65,54 +67,88 @@ namespace PlayerStuff
         }
 
         [Command]
-        public void CmdUpgradeMagic() // todo, upgrade amount stat, that way the 1 can be changed that variable can be made into an ability
+        public void CmdUpgradeMagic()
         {
+            // todo, upgrade amount stat, that way the 1 can be changed that variable can be made into an ability
             if (shards >= upgradeCost && canUpgradeSoul == 0)
             {
-                shards -= upgradeCost;                              // spend money
-                S_UpdatePlayerSoul(increase: true, amount: 1);      // raise soul
-                upgradeCost += 1;                                   // up the cost
+                shards -= upgradeCost; // spend money
+                UpdatePlayerMaxSoul_ViaUpgrade(increase: true, amount: 1); // raise soul
+                upgradeCost += 1; // up the cost
             }
         }
-        
+
         [Server]
-        public void S_UpdatePlayerSoul(bool increase, int amount, bool ignoreAnySoulUpgradeBlock = false)
+        public void AdjustPlayerCurrentSoul_ViaPlacement(bool usingSoul, int amount)
+        {
+            int oldMaxSoul = maxSoul;
+            int oldCurrentSoul = currentSoul;
+
+            if (usingSoul)
+            {
+                currentSoul -= amount;
+            }
+            else
+            {
+                currentSoul += amount;
+            }
+
+            GlobalBroadCastSoulUpdate(oldCurrent: oldCurrentSoul, oldMax: oldMaxSoul);
+        }
+
+        /// <summary>
+        /// This one adjusts the player max soul directly via ie upgrade, since max soul is the soul number that gets adjusted this way
+        /// This is not the one that does it when cards are placed or discarded
+        /// </summary>
+        /// <param name="increase"></param>
+        /// <param name="amount"></param>
+        /// <param name="ignoreAnySoulUpgradeBlock"></param>
+        [Server]
+        public void UpdatePlayerMaxSoul_ViaUpgrade(bool increase, int amount, bool ignoreAnySoulUpgradeBlock = false)
         {
             // some cards decrement soul, then upgrade it back up on de-execute.
-            // those abilities should ignore canBeUpgraded because otherwise, for example, drought's effects would be permanent
-            if (increase && canUpgradeSoul > 0 && !ignoreAnySoulUpgradeBlock) 
+            // those abilities should ignore canBeUpgraded because otherwise, for example, an ability like drought, would have its effects would be permanent
+            if (increase && canUpgradeSoul > 0 && !ignoreAnySoulUpgradeBlock)
             {
                 return;
             }
-            
+
+            int oldMaxSoul = maxSoul;
+            int oldCurrentSoul = currentSoul;
+
             if (increase) // increasing soul
             {
                 maxSoul += amount;
-                currentSoul +=  amount;
-                
+                currentSoul += amount;
+
                 // broadcast to all AnySoulUpgrade listeners that an upgrade happened.
-                GlobalBroadCastSoulUpgrade(soulAmount: amount);
+                // GlobalBroadCastSoulUpgrade(soulAmount: amount);
             }
             else
             {
                 maxSoul -= amount;
                 currentSoul -= amount;
             }
+
+            GlobalBroadCastSoulUpdate(oldCurrent: oldCurrentSoul, oldMax: oldMaxSoul);
         }
 
-        private void GlobalBroadCastSoulUpgrade(int soulAmount)
+        private void GlobalBroadCastSoulUpdate(int oldCurrent, int oldMax)
         {
             if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {
-                AbilityEventData soulUpgradeData = new AbilityEventData(
-                    AbilityEventType.AnySoulUpgrade,
-                    targ: gameObject, // player
-                    val: soulAmount
+                AbilityEventData soul = new AbilityEventData(
+                    AbilityEventType.AnyPlayerSoulUpdate,
+                    targ: gameObject, // this player gameobject
+                    customData: new Dictionary<string, object>()
                 );
 
-                // tell event manager to tell everyone (that cares) that a card was burned
+                soul.CustomData["oldCurrent"] = oldCurrent;
+                soul.CustomData["oldMax"] = oldMax;
+
+                // tell event manager to tell everyone (that cares) about this event
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
-                    soulUpgradeData);
+                    soul);
             }
             else
             {
@@ -131,7 +167,7 @@ namespace PlayerStuff
                 shards -= cardStats.burnCost; // spend to burn
 
                 CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
-                
+
                 // todo have unique burns for each card type mabye
 
                 GlobalBroadcastBurn(cardToBurn);
@@ -149,10 +185,10 @@ namespace PlayerStuff
         private void GlobalBroadcastBurn(GameObject burnedCard)
         {
             CardMovement burnedCardMovement = burnedCard.GetComponent<CardMovement>();
-            
+
             // now each card type can broadcast their own thing, so abilities don't have to ask for all card types if they only care about one
-            burnedCardMovement.GlobalBroadcastCardBurned(); 
-            
+            burnedCardMovement.GlobalBroadcastCardBurned();
+
             /*if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {
                 AbilityEventData burnData = new AbilityEventData(
@@ -194,7 +230,7 @@ namespace PlayerStuff
             // todo early abort ability activation would go here
             // if ability has a prerequisite (ie hand count < x) that is not made,
             // then abort so a floop isn't spent, similar to spell condition on those cards
-            
+
             int cost = creatureStats.abilityCost;
 
             if (shards >= cost)
@@ -207,7 +243,7 @@ namespace PlayerStuff
                 {
                     int drainRate = 2; // todo could equal ability cost
                     int nonNegFloopsLeft = creatureStats.floopsLeft * -1;
-                    
+
                     drain -= nonNegFloopsLeft * drainRate;
                 }
 
@@ -254,6 +290,10 @@ namespace PlayerStuff
         {
             if (!isServer) return;
             playerTotalScore += amount;
+        }
+
+        public void ServerUpdatePlayerSoul()
+        {
         }
 
         [Command]

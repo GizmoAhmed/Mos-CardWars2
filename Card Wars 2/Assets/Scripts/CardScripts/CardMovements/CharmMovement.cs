@@ -32,7 +32,8 @@ namespace CardScripts.CardMovements
                 listener.RegisterPassiveAbility();
             }
             
-            thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
+            thisCardOwnerPlayerStats.AdjustPlayerCurrentSoul_ViaPlacement(usingSoul: true, amount: cardStats.soulUse);
+            //thisCardOwnerPlayerStats.currentSoul -= cardStats.soulUse;
             
             // track placed charm
             thisCardOwnerPlayerStats.GetComponent<PlayerCardTracker>().Server_TrackTilePlacement(gameObject);
@@ -100,7 +101,8 @@ namespace CardScripts.CardMovements
 
         private void ReturnSoul()
         {
-            thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse; // give back soulUse
+            thisCardOwnerPlayerStats.AdjustPlayerCurrentSoul_ViaPlacement(usingSoul: false, amount: cardStats.soulUse);
+            // thisCardOwnerPlayerStats.currentSoul += cardStats.soulUse; // give back soulUse
         }
     }
 }

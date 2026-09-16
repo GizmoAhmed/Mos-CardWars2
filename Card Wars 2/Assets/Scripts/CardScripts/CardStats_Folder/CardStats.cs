@@ -159,7 +159,8 @@ namespace CardScripts.CardStats_Folder
             if (TryGetComponent(out CardMovement move) &&
                 move.cardState == CardMovement.CardState.Field)
             {
-                move.thisCardOwnerPlayerStats.currentSoul -= diff;
+                move.thisCardOwnerPlayerStats.AdjustPlayerCurrentSoul_ViaPlacement(usingSoul: true, amount: diff);
+                // move.thisCardOwnerPlayerStats.currentSoul -= diff;
             }
         }
 
