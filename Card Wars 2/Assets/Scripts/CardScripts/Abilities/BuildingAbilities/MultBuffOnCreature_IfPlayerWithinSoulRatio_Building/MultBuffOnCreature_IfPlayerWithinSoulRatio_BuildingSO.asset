@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b546dbc10241572409a9a025fdf24ecb, type: 3}
-  m_Name: DoubleBuffOnCreature_AsLongAsWithinSoulRatio_BuildingSO
+  m_Name: MultBuffOnCreature_IfPlayerWithinSoulRatio_BuildingSO
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 640000000c000000
   isExecutableOnPlaced: 1

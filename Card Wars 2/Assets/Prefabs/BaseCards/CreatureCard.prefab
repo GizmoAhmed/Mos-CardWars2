@@ -2742,6 +2742,7 @@ GameObject:
   - component: {fileID: 6426264086484934529}
   - component: {fileID: 2475366819963107678}
   - component: {fileID: -2654388533391899147}
+  - component: {fileID: 5957992307115415502}
   m_Layer: 5
   m_Name: CreatureCard
   m_TagString: Untagged
@@ -3122,6 +3123,21 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   turnsOnField: 0
+--- !u!114 &5957992307115415502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7310339964073049012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cdf7c1f68234ba42b45b6b5bb2b9db1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &7754454831407693559
 GameObject:
   m_ObjectHideFlags: 0

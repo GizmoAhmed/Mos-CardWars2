@@ -1,10 +1,10 @@
 using AbilityEvents;
 using UnityEngine;
 
-namespace CardScripts.Abilities.BuildingAbilities.DoubleBuffOnCreature_AsLongAsWithinSoulRatio_Building
+namespace CardScripts.Abilities.BuildingAbilities.MultBuffOnCreature_IfPlayerWithinSoulRatio_Building
 {
-    [CreateAssetMenu(fileName = "DoubleBuffOnCreature_AsLongAsWithinSoulRatio_Building", menuName = "Abilities/Building/DoubleBuffOnCreature_AsLongAsWithinSoulRatio_Building")]
-    public class DoubleBuffOnCreature_AsLongAsWithinSoulRatio_Building : PassiveAbilitySO
+    [CreateAssetMenu(fileName = "MultBuffOnCreature_IfPlayerWithinSoulRatio_Building", menuName = "Abilities/Building/MultBuffOnCreature_IfPlayerWithinSoulRatio_Building")]
+    public class MultBuffOnCreature_IfPlayerWithinSoulRatio_Building : PassiveAbilitySO
     {
         [Range(0f, 1f)]
         public float soulRatio;

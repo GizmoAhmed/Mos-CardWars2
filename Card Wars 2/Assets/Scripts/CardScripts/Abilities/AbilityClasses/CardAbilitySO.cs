@@ -103,5 +103,12 @@ namespace CardScripts.Abilities
 
             return roll <= chance;
         }
+
+        [Server]
+        public void AnimateAbility(GameObject card)
+        {
+            CardAnimator anim = card.GetComponent<CardAnimator>();
+            anim.Jiggle();
+        }
     }
 }

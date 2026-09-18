@@ -20,6 +20,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Script
                 return;
             }
             
+            AnimateAbility(thisCard);
             creatureStats.UpdateCreatureStrength(baseStrengthBuffAmount, buff:true);
         }
     }

@@ -10043,22 +10043,18 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
-  - {fileID: 11400000, guid: 0e1c3f504ad111c438c4dab2a2842357, type: 2}
-  - {fileID: 11400000, guid: 84ea038b44e0cf4499e61811d06078e4, type: 2}
-  - {fileID: 11400000, guid: 862ac6482d52e454584459369a71ba42, type: 2}
-  - {fileID: 11400000, guid: 81e16ca940190cd43bb2028c5f8f012d, type: 2}
   - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
+  - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
+  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
+  - {fileID: 11400000, guid: 81e16ca940190cd43bb2028c5f8f012d, type: 2}
   - {fileID: 11400000, guid: b72bcd18fb70d1b44b1733376e52e2da, type: 2}
   - {fileID: 11400000, guid: 160ba9513c90bc947afd9d3de8d54677, type: 2}
+  - {fileID: 11400000, guid: 35e6841046ed91740a284820acc2fa61, type: 2}
+  - {fileID: 11400000, guid: e6f90f058cdbb8141bac8c509df0fb5d, type: 2}
   - {fileID: 11400000, guid: 1f5179304f93fec4ca650c8ef6641946, type: 2}
-  - {fileID: 11400000, guid: 2a57c3ab78b3b1343befc6b7fdfef202, type: 2}
-  - {fileID: 11400000, guid: 4f174335696d7244b8a572b7335fcd56, type: 2}
-  - {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
-  - {fileID: 11400000, guid: 249de86d13d6cee45bf384b8de6eb555, type: 2}
-  - {fileID: 11400000, guid: 4f174335696d7244b8a572b7335fcd56, type: 2}
-  - {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
+  - {fileID: 11400000, guid: 86e83286f09be01469cfe39aa476eb52, type: 2}
+  - {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
   - {fileID: 11400000, guid: 39f8fae888d8715438a938deea195f00, type: 2}
-  - {fileID: 11400000, guid: 52b298e0b34d6fe4487c7242a8bd59d0, type: 2}
   masterDeckList: []
   creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}
