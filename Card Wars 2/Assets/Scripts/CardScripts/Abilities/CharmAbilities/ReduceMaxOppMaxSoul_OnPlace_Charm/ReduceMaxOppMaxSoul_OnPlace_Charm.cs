@@ -16,6 +16,7 @@ public class ReduceMaxOppMaxSoul_OnPlace_Charm : PassiveAbilitySO
         PlayerStats opponent = thisCard.Ext_GetOwningPlayerStats().Ext_GetOpponentPlayerStats();
 
         opponent.UpdatePlayerMaxSoul_ViaUpgrade(increase: false, soulReduction);
+        AnimateAbility(thisCard);
     }
     
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

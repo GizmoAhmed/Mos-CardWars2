@@ -46,6 +46,7 @@ public class DamageViaDefense_OppTile_EveryXTurn_Building : PassiveAbilitySO
         if (damage > 0) // sloth could make defense negative
         {
             thisTile.DamageTileAcross_Ext(damage: damage);
+            AnimateAbility(thisCard);
         }
         else
         {

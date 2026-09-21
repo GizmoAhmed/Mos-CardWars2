@@ -47,5 +47,6 @@ public class SpendAllShards_BuffAllYourCreatures_Creature : ActiveAbilitySO
         {
             creature.UpdateCreatureStrength(buffAmount, buff: true);
         }
+        AnimateAbility(thisCard);
     }
 }

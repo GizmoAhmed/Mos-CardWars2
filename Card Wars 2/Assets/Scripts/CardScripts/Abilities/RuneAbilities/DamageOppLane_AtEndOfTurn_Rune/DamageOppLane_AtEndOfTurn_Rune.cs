@@ -51,6 +51,7 @@ public class DamageOppLane_AtEndOfTurn_Rune : PassiveAbilitySO
 
         // damage tile across from this one
         thisTile.DamageTileAcross_Ext(strength);
+        AnimateAbility(cStats.gameObject);
     }
 
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

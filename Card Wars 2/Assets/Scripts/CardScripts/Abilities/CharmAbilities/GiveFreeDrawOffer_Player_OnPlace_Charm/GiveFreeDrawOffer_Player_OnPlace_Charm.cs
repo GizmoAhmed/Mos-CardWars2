@@ -16,6 +16,8 @@ namespace CardScripts.Abilities.CharmAbilities.Scripts
             
             playerStats.freeCardsOffered += offeringsGiven;
             
+            AnimateAbility(thisCard);
+            
             // Debug.Log($"<color=blue>{thisCard.name} ({name}) is giving {playerStats.gameObject.name} + {offeringsGiven} offering.\n{playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings</color>");
         }
 

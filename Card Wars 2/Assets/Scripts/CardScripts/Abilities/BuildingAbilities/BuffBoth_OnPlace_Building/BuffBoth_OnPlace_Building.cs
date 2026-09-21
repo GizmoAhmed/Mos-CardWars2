@@ -21,6 +21,7 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
             {
                 creatureStats.UpdateCreatureStrength(baseStrengthBuffAmount, buff: true);
                 creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
+                AnimateAbility(thisCard);
             }
         }
 

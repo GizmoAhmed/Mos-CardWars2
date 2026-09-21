@@ -22,6 +22,7 @@ namespace CardScripts.Abilities.RuneAbilities.Scripts
             
             // nerf passes negative values here, buff passes positive
             playerStats.shards += eventData.Value; 
+            AnimateAbility(runedCreature);
         }
         
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

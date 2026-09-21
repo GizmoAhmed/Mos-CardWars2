@@ -29,5 +29,6 @@ public class DrawWrath_Creature : ActiveAbilitySO
         MasterDeck masterDeck = FindObjectOfType<MasterDeck>();
         
         masterDeck.CreateThenSpawnCard(wrath.cardID, owningPlayer);
+        AnimateAbility(thisCard);
     }
 }

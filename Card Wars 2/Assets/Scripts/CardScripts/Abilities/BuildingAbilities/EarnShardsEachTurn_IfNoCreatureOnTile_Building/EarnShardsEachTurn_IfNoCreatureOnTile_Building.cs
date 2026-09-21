@@ -23,6 +23,7 @@ public class EarnShardsEachTurn_IfNoCreatureOnTile_Building : PassiveAbilitySO
         {
             PlayerStats player = thisCard.GetComponent<BuildingMovement>().thisCardOwnerPlayerStats;
             player.shards += shardsEarned;
+            AnimateAbility(thisCard);
             
             // Debug.Log($"Giving {player} {shardsEarned} shards from {thisCard.name}");
         }

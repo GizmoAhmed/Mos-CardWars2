@@ -30,6 +30,7 @@ public class ReduceSoul_OnThisCard_OnAnyBurn_Charm : PassiveAbilitySO
 
         // reduce soul use
         thisCard.GetComponent<CardStats>().UpdateSyncSoulToPlayer(-burnedCardSoul);
+        AnimateAbility(thisCard);
     }
 
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

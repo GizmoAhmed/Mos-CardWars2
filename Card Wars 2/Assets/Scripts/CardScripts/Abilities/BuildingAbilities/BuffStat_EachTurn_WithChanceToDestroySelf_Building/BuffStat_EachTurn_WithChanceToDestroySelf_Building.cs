@@ -29,10 +29,11 @@ public class BuffStat_EachTurn_WithChanceToDestroySelf_Building : PassiveAbility
         {
             CreatureStats creatureStats = thisCard.Ext_GetCreatureStats_FromSharedBuildingsTile();
 
-            if (creatureStats != null) // null error check happens in extension method
+            if (creatureStats != null) // null error check happens in above extension method
             {
                 creatureStats.UpdateCreatureStrength(strengthBoost, buff: true);
                 creatureStats.ChangeCreatureDefense(defenseBoost, buff: true);
+                AnimateAbility(thisCard);
             }
         }
     }

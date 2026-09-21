@@ -22,6 +22,7 @@ namespace CardScripts.Abilities.BuildingAbilities.FortifyPerEmptyLane_CreatureOn
             int rate = totalTiles -  activeCreatureCount;
             
             creatureStats.ChangeCreatureDefense(defensePerEmptyLane * rate, buff:true);
+            AnimateAbility(thisCard);
         }
     }
 }

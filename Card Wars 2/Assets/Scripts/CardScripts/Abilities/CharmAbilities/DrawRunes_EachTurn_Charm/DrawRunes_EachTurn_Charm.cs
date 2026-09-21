@@ -61,6 +61,7 @@ namespace CardScripts.Abilities.CharmAbilities.DrawRunes_EachTurn_Charm
                 masterDeck.CreateThenSpawnCard(rune.cardID, owningPlayer);
                 Debug.Log($"{name} drew rune: {rune.cardID}");
             }
+            AnimateAbility(thisCard);
         }
     
         /// <summary>
