@@ -108,7 +108,7 @@ namespace CardScripts.Abilities
         public void AnimateAbility(GameObject card)
         {
             CardAnimator anim = card.GetComponent<CardAnimator>();
-            anim.Jiggle();
+            anim.JiggleCard();
         }
     }
 }

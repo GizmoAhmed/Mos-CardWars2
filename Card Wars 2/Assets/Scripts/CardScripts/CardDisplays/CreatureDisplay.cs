@@ -168,11 +168,13 @@ namespace CardScripts.CardDisplays
         public void UpdateUIStrength(int newAttack)
         {
             SetText(_strengthObj, newAttack.ToString(), true);
+            // Anim.TextPop(_strengthObj);
         }
 
         public void UpdateCardUIDefense(int newDefense)
         {
             SetText(_defenseObj, newDefense.ToString(), true);
+            // Anim.TextPop(_defenseObj);
         }
 
         public void UpdateUI_AbilityCost(int newCost)

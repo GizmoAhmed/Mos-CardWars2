@@ -34,7 +34,7 @@ namespace CardScripts.CardDisplays
         private GameObject _burnObj;
 
         protected CardInfoHandler CardInfoHandler;
-
+        
         private void Awake()
         {
             // find all object variables above

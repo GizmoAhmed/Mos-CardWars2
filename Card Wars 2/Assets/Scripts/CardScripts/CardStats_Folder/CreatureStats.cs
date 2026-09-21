@@ -195,7 +195,7 @@ namespace CardScripts.CardStatss
                     tileEventManager.OnNerfCreatureDefenseOnTile(gameObject, amount);
                 }
             }
-
+            
             score = strength + defense;
         }
 
