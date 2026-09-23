@@ -59,7 +59,7 @@ namespace Extensions
                 CreatureStats oppCreature = across.logicalCreature.GetComponent<CreatureStats>();
 
                 // deal damage
-                oppCreature.ChangeCreatureDefense(damage, buff: false);
+                oppCreature.UpdateCreatureDefense(damage, buff: false);
             }
             else // empty lane 
             {

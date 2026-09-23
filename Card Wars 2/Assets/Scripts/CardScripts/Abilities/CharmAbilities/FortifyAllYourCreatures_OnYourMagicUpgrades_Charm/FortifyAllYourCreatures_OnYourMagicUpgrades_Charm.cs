@@ -33,7 +33,7 @@ namespace CardScripts.Abilities.CharmAbilities.FortifyAllYourCreatures_OnYourMag
                 // fortify them all
                 foreach (CreatureStats creature in allYourCreatures)
                 {
-                    creature.ChangeCreatureDefense(amount: fortify, buff: true);
+                    creature.UpdateCreatureDefense(amount: fortify, buff: true);
                 }
                 AnimateAbilityExecute(thisCard);
             }

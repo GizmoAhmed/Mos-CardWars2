@@ -9,7 +9,7 @@ namespace CardScripts.Abilities.BuildingAbilities.BuffCreature_EndOfTurn_PerSpar
     [CreateAssetMenu(fileName = "BuffCreature_EndOfTurn_PerSpareSoul_Building", menuName = "Abilities/Building/BuffCreature_EndOfTurn_PerSpareSoul_Building")]
     public class BuffCreature_EndOfTurn_PerSpareSoul_Building : PassiveAbilitySO
     {
-        public int FortifyPerSpareSoul;
+        public int fortifyPerSpareSoul;
     
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
@@ -22,7 +22,7 @@ namespace CardScripts.Abilities.BuildingAbilities.BuffCreature_EndOfTurn_PerSpar
             int spareSoul = player.maxSoul - player.currentSoul;
 
             // buff per spare
-            creatureStats.ChangeCreatureDefense(FortifyPerSpareSoul * spareSoul, buff: true);
+            creatureStats.UpdateCreatureDefense(fortifyPerSpareSoul * spareSoul, buff: true);
             AnimateAbilityExecute(thisCard);
         }
     }

@@ -32,7 +32,7 @@ public class BuffBoth_OnCreatureOfXElement_Spell : CastAbilitySO
         {
             // buff
             creatureStats.UpdateCreatureStrength(strengthen, buff: true);
-            creatureStats.ChangeCreatureDefense(fortify, buff: true);
+            creatureStats.UpdateCreatureDefense(fortify, buff: true);
         }
     }
 

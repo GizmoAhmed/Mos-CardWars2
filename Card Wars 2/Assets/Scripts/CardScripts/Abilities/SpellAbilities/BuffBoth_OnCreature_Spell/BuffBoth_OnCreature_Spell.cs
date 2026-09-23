@@ -21,7 +21,7 @@ namespace CardScripts.Abilities.SpellAbilities.BuffBoth_OnCreature_Spell
                 return; // error message inside above function
             
             creatureStats.UpdateCreatureStrength(baseStrengthBuffAmount, buff: true);
-            creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
+            creatureStats.UpdateCreatureDefense(baseDefenseBuffAmount, buff: true);
         }
 
         public void OnValidate()

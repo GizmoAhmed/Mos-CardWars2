@@ -21,7 +21,7 @@ namespace CardScripts.Abilities.SpellAbilities.DamageAllOppCreatures_Spell
 
             foreach (CreatureStats creature in oppsCreatures)
             {
-                creature.ChangeCreatureDefense(damagetoAllAmount, false);
+                creature.UpdateCreatureDefense(damagetoAllAmount, false);
             }
         }
     

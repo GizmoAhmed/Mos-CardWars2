@@ -2,6 +2,7 @@ using CardScripts.CardData;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -32,6 +33,8 @@ namespace CardScripts.CardDisplays
         
         private GameObject runeIconFace1;
         private GameObject runeIconFace2;
+
+        private CardAnimator anim;
         
         private void Awake()
         {
@@ -67,6 +70,8 @@ namespace CardScripts.CardDisplays
             HideUIElement(InfoObj); // initially hide the info card
 
             CardInfoHandler = FindObjectOfType<CardInfoHandler>();
+            
+            anim = FindObjectOfType<CardAnimator>();
             // -----------------------------------------------------
 
             CreatureDataSO creatureData = s.CardData as CreatureDataSO;
@@ -177,6 +182,24 @@ namespace CardScripts.CardDisplays
             // Anim.TextPop(_defenseObj);
         }
 
+        public void PopAnimate(CreatureStats.AnimTarget target, bool isBuff = true)
+        {
+            Transform toAnimate = target switch
+            {
+                CreatureStats.AnimTarget.Strength => _strengthObj.transform,
+                CreatureStats.AnimTarget.Defense  => _defenseObj.transform,
+                _ => null
+            };
+    
+            if (toAnimate == null)
+            {
+                Debug.LogWarning($"No transform found for {target}");
+                return;
+            }
+    
+            anim.PopAnimate(toAnimate, isBuff);
+        }
+        
         public void UpdateUI_AbilityCost(int newCost)
         {
             SetText(abilityCost, newCost.ToString(), true);

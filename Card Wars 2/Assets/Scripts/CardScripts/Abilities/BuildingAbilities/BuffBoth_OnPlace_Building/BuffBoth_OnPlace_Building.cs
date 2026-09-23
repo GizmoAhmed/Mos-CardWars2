@@ -20,7 +20,7 @@ namespace CardScripts.Abilities.BuildingAbilities.Script
             if (creatureStats != null)
             {
                 creatureStats.UpdateCreatureStrength(baseStrengthBuffAmount, buff: true);
-                creatureStats.ChangeCreatureDefense(baseDefenseBuffAmount, buff: true);
+                creatureStats.UpdateCreatureDefense(baseDefenseBuffAmount, buff: true);
                 AnimateAbilityExecute(thisCard);
             }
         }

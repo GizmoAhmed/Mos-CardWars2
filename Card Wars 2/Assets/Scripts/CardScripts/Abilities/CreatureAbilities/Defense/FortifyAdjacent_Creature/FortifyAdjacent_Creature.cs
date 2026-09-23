@@ -31,7 +31,7 @@ public class FortifyAdjacent_Creature : ActiveAbilitySO
             CreatureStats adjCreature = tile.logicalCreature.GetComponent<CreatureStats>();
             
             // if creature is there, buff it
-            adjCreature.ChangeCreatureDefense(AdjacentBuffAmount, true);
+            adjCreature.UpdateCreatureDefense(AdjacentBuffAmount, true);
         }
         AnimateAbilityExecute(thisCard);
     }

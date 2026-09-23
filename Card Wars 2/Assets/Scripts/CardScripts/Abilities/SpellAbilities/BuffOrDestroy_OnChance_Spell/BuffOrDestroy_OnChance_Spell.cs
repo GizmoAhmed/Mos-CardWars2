@@ -28,7 +28,7 @@ public class BuffOrDestroy_OnChance_Spell : CastAbilitySO
             if (RollChance(50))
             {
                 int defense = creatureOnTile.defense;
-                creatureOnTile.ChangeCreatureDefense(defense, buff: true);
+                creatureOnTile.UpdateCreatureDefense(defense, buff: true);
             }
             else
             {

@@ -32,7 +32,7 @@ public class Fortify_EndOfTurn_IfOppLaneEmpty_Building : PassiveAbilitySO
         if (across.logicalCreature == null) // buff this creature if across is empty
         {
             thisTile.logicalCreature.GetComponent<CreatureStats>().
-                ChangeCreatureDefense(fortify, buff: true);
+                UpdateCreatureDefense(fortify, buff: true);
             AnimateAbilityExecute(thisCard);
         }
     }

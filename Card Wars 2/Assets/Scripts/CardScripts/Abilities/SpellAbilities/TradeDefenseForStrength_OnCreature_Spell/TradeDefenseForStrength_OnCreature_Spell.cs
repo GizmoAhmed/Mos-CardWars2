@@ -32,7 +32,7 @@ public class TradeDefenseForStrength_OnCreature_Spell : CastAbilitySO
         creatureStats.defenseMult = 1;
 
         // trade stats
-        creatureStats.ChangeCreatureDefense(trade, buff:false); // lose all defense except 1
+        creatureStats.UpdateCreatureDefense(trade, buff:false); // lose all defense except 1
         creatureStats.UpdateCreatureStrength(trade, buff:true); // give str all the def
 
         // set mults back

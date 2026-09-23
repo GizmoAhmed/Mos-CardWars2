@@ -26,6 +26,8 @@ namespace CardScripts
         [ClientRpc] // jiggle on both clients
         private void RpcJiggleCard()
         {
+            transform.DOKill();
+            
             // Sequence for jiggle animation
             Sequence jiggleSequence = DOTween.Sequence();
 
@@ -38,6 +40,25 @@ namespace CardScripts
                 fadeOut: true));
 
             // Debug.Log($"<color=green>{this}</color> on {gameObject.name} just jiggled");
+        }
+        
+        public void PopAnimate(Transform target, bool isBuff = true)
+        {
+            if (target == null)
+            {
+                Debug.LogWarning("PopAnimate: target is null!");
+                return;
+            }
+    
+            target.DOKill();
+            target.localScale = Vector3.one;
+    
+            target.DOPunchScale(
+                punch: Vector3.one * 0.75f, // todo increase punch depending on amount buffed
+                duration: 0.5f,
+                vibrato: 1,
+                elasticity: 0.6f
+            );
         }
     }
 }

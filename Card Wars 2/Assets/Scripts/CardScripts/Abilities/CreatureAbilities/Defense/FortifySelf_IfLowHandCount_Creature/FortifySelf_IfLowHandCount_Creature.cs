@@ -25,7 +25,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Defense.FortifySelf_IfLowHandC
             Debug.Log($"<color=cyan>{thisCard.name}</color>'s player has a hand count of {thisPlayerHandCount} which is less than {MaxCardsInHandAllowed} cards. <color=green>Activating</color> fortification");
             // fortify
             CreatureStats creatureStats = thisCard.GetComponent<CreatureStats>();
-            creatureStats.ChangeCreatureDefense(FortifyAmount, buff:true);
+            creatureStats.UpdateCreatureDefense(FortifyAmount, buff:true);
             AnimateAbilityExecute(thisCard);
         }
     }

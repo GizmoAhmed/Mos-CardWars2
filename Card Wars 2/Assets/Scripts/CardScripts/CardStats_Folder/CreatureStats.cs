@@ -47,6 +47,12 @@ namespace CardScripts.CardStatss
         [SyncVar] public int canBuffDefense = 0;
         // [SyncVar] public bool canBeBuffed = true;
         
+        public enum AnimTarget
+        {
+            Strength,
+            Defense
+        }
+        
         protected override void Awake()
         {
             base.Awake(); // set base display 
@@ -146,11 +152,12 @@ namespace CardScripts.CardStatss
                 tileEventManager.OnNerfCreatureStrengthOnTile(gameObject, amount);
             }
 
+            RpcPopAnimate(AnimTarget.Strength, buff);
             score = strength + defense;
         }
 
         [Server]
-        public void ChangeCreatureDefense(int amount, bool buff)
+        public void UpdateCreatureDefense(int amount, bool buff)
         {
             amount *= defenseMult; // gluttony rune
             
@@ -196,7 +203,14 @@ namespace CardScripts.CardStatss
                 }
             }
             
+            RpcPopAnimate(AnimTarget.Defense, buff);
             score = strength + defense;
+        }
+        
+        [ClientRpc]
+        private void RpcPopAnimate(AnimTarget target, bool isBuff)
+        {
+            _creatureDisplay?.PopAnimate(target, isBuff);
         }
 
         [Server]

@@ -20,7 +20,7 @@ namespace CardScripts.Abilities.SpellAbilities.Scripts
                 return; // error message inside above function
             
             // deal damage
-            creatureStats.ChangeCreatureDefense(damage, buff: false);
+            creatureStats.UpdateCreatureDefense(damage, buff: false);
         }
 
         public void OnValidate()
