@@ -93,8 +93,8 @@ namespace CardScripts.CardDisplays
 
             if (obj == null)
             {
-                Debug.LogWarning(
-                    $"Missing {childName} UI Obj on {gameObject.name}. This is a concern if it's a creature, charm, or building that triggered this");
+                //Debug.LogWarning(
+                    //$"Missing {childName} UI Obj on {gameObject.name}. This is a concern if it's a creature, charm, or building that triggered this");
             }
 
             return obj;

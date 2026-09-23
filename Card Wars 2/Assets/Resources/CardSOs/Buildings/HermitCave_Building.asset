@@ -18,4 +18,4 @@ MonoBehaviour:
   abilityDescription: Double Buffs On creature as long as player soul ratio less
     than X
   burnCost: 2
-  ability: {fileID: 11400000, guid: 0e147307df4513041a57329ae7af00b1, type: 2}
+  ability: {fileID: 11400000, guid: 067cde47e42b14942b788c40b252cf3a, type: 2}
