@@ -22,7 +22,7 @@ public class BlockOppSoulUpgrade_UntilOppBurnsCreatureOfXScore_Charm : PassiveAb
         {
             // block soul upgrades
             opponent.canUpgradeSoul += 1;
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
         else if (eventData.eventType == AbilityEventType.AnyCreatureBurned)
         {

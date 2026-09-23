@@ -26,7 +26,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Defense.FortifySelf_IfLowHandC
             // fortify
             CreatureStats creatureStats = thisCard.GetComponent<CreatureStats>();
             creatureStats.ChangeCreatureDefense(FortifyAmount, buff:true);
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
     }
 }

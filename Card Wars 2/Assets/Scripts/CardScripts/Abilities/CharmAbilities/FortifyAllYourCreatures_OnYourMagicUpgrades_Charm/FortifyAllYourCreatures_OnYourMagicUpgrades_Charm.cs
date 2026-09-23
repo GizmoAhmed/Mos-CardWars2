@@ -35,7 +35,7 @@ namespace CardScripts.Abilities.CharmAbilities.FortifyAllYourCreatures_OnYourMag
                 {
                     creature.ChangeCreatureDefense(amount: fortify, buff: true);
                 }
-                AnimateAbility(thisCard);
+                AnimateAbilityExecute(thisCard);
             }
             else
             {

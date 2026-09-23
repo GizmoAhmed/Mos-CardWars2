@@ -56,7 +56,7 @@ public class IncreaseDrainEachTurn_ReduceAmountIncreasedPerBurn_Charm : PassiveA
 
                 // reduce buff amount
                 data.customInts[DrainBuffKey] -= buffReductionPerBurn;
-                AnimateAbility(thisCard);
+                AnimateAbilityExecute(thisCard);
 
                 // if below zero, discard
                 if (data.customInts[DrainBuffKey] < 0)
@@ -78,7 +78,7 @@ public class IncreaseDrainEachTurn_ReduceAmountIncreasedPerBurn_Charm : PassiveA
                 
                 // buff drain
                 player.drain += data.customInts[DrainBuffKey];
-                AnimateAbility(thisCard);                
+                AnimateAbilityExecute(thisCard);                
                 break;
 
             default:

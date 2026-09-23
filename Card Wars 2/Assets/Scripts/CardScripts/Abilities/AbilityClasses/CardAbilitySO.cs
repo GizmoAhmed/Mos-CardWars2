@@ -105,7 +105,7 @@ namespace CardScripts.Abilities
         }
 
         [Server]
-        public void AnimateAbility(GameObject card)
+        public void AnimateAbilityExecute(GameObject card)
         {
             CardAnimator anim = card.GetComponent<CardAnimator>();
             anim.JiggleCard();

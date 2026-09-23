@@ -31,7 +31,7 @@ public class UpgradeMagic_OnCreatureBurnedOnTile_IfCertainScore_Building : Passi
 
             player.UpdatePlayerMaxSoul_ViaUpgrade(increase: true, amount: soulUpgradeAmount);
             
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
         else
         {

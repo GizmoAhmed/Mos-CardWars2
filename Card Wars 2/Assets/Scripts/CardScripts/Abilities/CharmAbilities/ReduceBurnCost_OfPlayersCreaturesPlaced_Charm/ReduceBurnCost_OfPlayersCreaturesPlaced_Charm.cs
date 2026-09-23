@@ -19,7 +19,7 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
         if (eventData.eventType == AbilityEventType.CardPlacedOnTile)
         {
             AdjustBurnOfAllCreatures(card: thisCard, burnReduction);
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
         else if (eventData.eventType == AbilityEventType.AnyCreaturePlaced)
         {
@@ -31,7 +31,7 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
                 CreatureStats placedCreature = eventData.target.GetComponent<CreatureStats>();
 
                 placedCreature.burnCost -= burnReduction;
-                AnimateAbility(thisCard);
+                AnimateAbilityExecute(thisCard);
             }
         }
     }

@@ -29,7 +29,7 @@ public class IncreaseDrain_EachTurn_IfPlayerLowMoney_Charm : PassiveAbilitySO
         if (thisPlayer.shards < moneyThreshold)
         {
             thisPlayer.drain += drainAmount;
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
     }
 }

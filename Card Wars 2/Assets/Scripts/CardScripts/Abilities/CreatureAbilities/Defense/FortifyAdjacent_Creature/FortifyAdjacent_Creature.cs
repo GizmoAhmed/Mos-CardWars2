@@ -33,6 +33,6 @@ public class FortifyAdjacent_Creature : ActiveAbilitySO
             // if creature is there, buff it
             adjCreature.ChangeCreatureDefense(AdjacentBuffAmount, true);
         }
-        AnimateAbility(thisCard);
+        AnimateAbilityExecute(thisCard);
     }
 }

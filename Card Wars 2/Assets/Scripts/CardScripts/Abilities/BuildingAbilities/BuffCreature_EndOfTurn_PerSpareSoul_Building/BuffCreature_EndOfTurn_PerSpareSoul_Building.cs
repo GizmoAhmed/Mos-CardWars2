@@ -23,7 +23,7 @@ namespace CardScripts.Abilities.BuildingAbilities.BuffCreature_EndOfTurn_PerSpar
 
             // buff per spare
             creatureStats.ChangeCreatureDefense(FortifyPerSpareSoul * spareSoul, buff: true);
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
     }
 }

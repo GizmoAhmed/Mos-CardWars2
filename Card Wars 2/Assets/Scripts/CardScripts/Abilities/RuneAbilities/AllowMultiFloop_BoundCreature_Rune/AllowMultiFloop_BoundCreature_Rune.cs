@@ -16,7 +16,7 @@ public class AllowMultiFloop_BoundCreature_Rune : PassiveAbilitySO
         CreatureStats creatureStats = GetCreatureObjFromEventDataTile(eventData).GetComponent<CreatureStats>();
 
         creatureStats.multiFloop = true;
-        AnimateAbility(creatureStats.gameObject);
+        AnimateAbilityExecute(creatureStats.gameObject);
     }
     
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

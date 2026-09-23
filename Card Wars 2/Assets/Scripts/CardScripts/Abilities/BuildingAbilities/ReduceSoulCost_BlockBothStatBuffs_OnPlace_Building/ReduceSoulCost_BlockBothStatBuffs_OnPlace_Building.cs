@@ -28,7 +28,7 @@ public class ReduceSoulCost_BlockBothStatBuffs_OnPlace_Building : PassiveAbility
         }
 
         creatureOnTile.UpdateSyncSoulToPlayer(-soulReduction);
-        AnimateAbility(thisCard);
+        AnimateAbilityExecute(thisCard);
         //creatureOnTile.soulUse -= soulReduction;
     }
 

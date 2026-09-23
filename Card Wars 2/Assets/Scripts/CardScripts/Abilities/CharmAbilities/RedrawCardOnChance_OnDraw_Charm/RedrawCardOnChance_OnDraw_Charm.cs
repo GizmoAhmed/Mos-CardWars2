@@ -37,7 +37,7 @@ public class RedrawCardOnChance_OnDraw_Charm : PassiveAbilitySO
             // to prevent loops, pass boolean to break the cycle for this specific ability
             RedrawCard(redrawMe, isDuplicate: true); 
             
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
             
             Debug.Log($"<color=cyan>{name}</color> on {thisCard.name} <color=green>activated</color>! ");
         }

@@ -33,7 +33,7 @@ public class BuffStat_EachTurn_WithChanceToDestroySelf_Building : PassiveAbility
             {
                 creatureStats.UpdateCreatureStrength(strengthBoost, buff: true);
                 creatureStats.ChangeCreatureDefense(defenseBoost, buff: true);
-                AnimateAbility(thisCard);
+                AnimateAbilityExecute(thisCard);
             }
         }
     }

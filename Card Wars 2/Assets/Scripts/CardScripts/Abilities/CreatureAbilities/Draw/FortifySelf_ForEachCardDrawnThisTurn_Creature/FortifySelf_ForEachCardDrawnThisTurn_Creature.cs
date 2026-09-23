@@ -27,7 +27,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.FortifySelf_ForEachCardDr
             CreatureStats stats = thisCard.GetComponent<CreatureStats>();
             stats.ChangeCreatureDefense(buffAmount, buff: true);
             
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
     }
 }

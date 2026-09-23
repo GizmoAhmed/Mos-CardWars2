@@ -20,7 +20,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.GetFreeDraw_Creature
             }
 
             thisPlayer.freeDrawsLeft += freeDrawsGained;
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
 
     }

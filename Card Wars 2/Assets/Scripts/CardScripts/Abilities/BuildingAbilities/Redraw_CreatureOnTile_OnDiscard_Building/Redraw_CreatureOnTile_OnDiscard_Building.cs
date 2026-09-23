@@ -21,7 +21,7 @@ namespace CardScripts.Abilities.BuildingAbilities.Redraw_CreatureOnTile_OnDiscar
         
             // discard this building
             thisCard.GetComponent<CardMovement>().ServerDiscard();
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
     }
 }

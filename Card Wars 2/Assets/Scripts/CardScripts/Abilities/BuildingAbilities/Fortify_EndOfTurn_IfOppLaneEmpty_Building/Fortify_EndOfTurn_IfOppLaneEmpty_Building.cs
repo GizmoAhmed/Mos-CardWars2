@@ -33,7 +33,7 @@ public class Fortify_EndOfTurn_IfOppLaneEmpty_Building : PassiveAbilitySO
         {
             thisTile.logicalCreature.GetComponent<CreatureStats>().
                 ChangeCreatureDefense(fortify, buff: true);
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
     }
 }

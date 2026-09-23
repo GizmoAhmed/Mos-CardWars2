@@ -19,7 +19,7 @@ public class ReduceAbilityCost_OnPlace_Building : PassiveAbilitySO
         {
             // reduce by reduction amount
             creatureStats.ChangeAbilityCost(reduction, increase:false);
-            AnimateAbility(thisCard);
+            AnimateAbilityExecute(thisCard);
         }
     }
 

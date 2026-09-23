@@ -28,7 +28,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Strength.WeakenCreature_ToAddD
             
                 // lose all strength
                 creatureStats.UpdateCreatureStrength(creatureStats.strength, false);
-                AnimateAbility(thisCard);
+                AnimateAbilityExecute(thisCard);
             }
         }
     }

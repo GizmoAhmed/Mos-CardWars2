@@ -18,7 +18,7 @@ public class Strengthen_CreatureOnTile_OnAbility_Building : PassiveAbilitySO
         
         creatureStats.UpdateCreatureStrength(Strength, buff: true);
         
-        AnimateAbility(thisCard);
+        AnimateAbilityExecute(thisCard);
     }
 
 }
