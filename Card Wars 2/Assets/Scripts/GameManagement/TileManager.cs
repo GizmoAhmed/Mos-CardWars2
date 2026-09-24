@@ -128,7 +128,25 @@ namespace GameManagement
 
             return playerTiles;
         }
+
+        public MiddleTile GetLeftAdjacentTile(MiddleTile thisTile)
+        {
+            int thisRow = thisTile.row;
+            int thisCol = thisTile.column;
+            int thisSide = thisTile.serverPlayerSide;
+            
+            return GetTile(thisRow, thisCol - 1, thisSide) as MiddleTile;
+        }
         
+        public MiddleTile GetRightAdjacentTile(MiddleTile thisTile)
+        {
+            int thisRow = thisTile.row;
+            int thisCol = thisTile.column;
+            int thisSide = thisTile.serverPlayerSide;
+            
+            return GetTile(thisRow, thisCol + 1, thisSide) as MiddleTile;
+        }
+
         /// <summary>
         /// Get adjacent tiles left and right
         /// </summary>

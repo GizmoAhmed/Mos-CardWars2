@@ -23,5 +23,6 @@ public class Strengthen_ForEachUnusedSoulOnOpp_Creature : ActiveAbilitySO
         
         // buff at rate
         thisCard.GetComponent<CreatureStats>().UpdateCreatureStrength(amount: str, buff: true);
+        AnimateAbilityExecute(thisCard);
     }
 }
