@@ -17,8 +17,9 @@ MonoBehaviour:
   magic: 4
   abilityDescription: FEE FI FO FUM
   burnCost: 2
+  ability: {fileID: 11400000, guid: 00619e4d301b27a41a87907d446614b9, type: 2}
   element: 2
   elementSprite: {fileID: 21300000, guid: d06102b5419f6004ba21b1396b2cb4eb, type: 3}
   abilityCost: 4
-  attack: 7
-  defense: 15
+  attack: 3
+  defense: 7
