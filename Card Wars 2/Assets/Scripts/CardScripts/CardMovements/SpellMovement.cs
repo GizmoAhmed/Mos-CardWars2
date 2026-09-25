@@ -170,7 +170,6 @@ namespace CardScripts.CardMovements
             cardStats.cardData.ability.ExecuteAbility(gameObject, spellData); // use the spell...
 
             GlobalBroadcast_AnyCardPlacement(); // ...then tell everyone you used this spell
-
             
             SpellStats stats = GetComponent<SpellStats>();
             int usesLeft = stats.uses;

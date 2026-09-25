@@ -12,7 +12,7 @@ using Mirror;
 using Modal;
 using PlayerStuff;
 using Tiles;
-using UnityEditor.Build;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -431,6 +431,8 @@ namespace CardScripts.CardMovements
 
         protected IEnumerator SnapBackToHand()
         {
+            transform.DOKill(); // make sure animation doesn't mess with snap back movement
+            
             Vector3 start = transform.position;
             Vector3 end = _startPos;
             float t = 0f;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts;
+using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Mirror;
 using Modal;
@@ -164,7 +165,23 @@ namespace PlayerStuff
     
             return creatures;
         }
-        
+
+        [Server]
+        public List<SpellStats> Server_GetThisPlayerInHandSpells()
+        {
+            List<SpellStats> spells = new List<SpellStats>();
+
+            foreach (GameObject card in serverHandContents)
+            {
+                if (card != null && card.TryGetComponent(out SpellStats stats))
+                {
+                    spells.Add(stats);
+                }
+            }
+            
+            return spells;
+        }
+
         [Server]
         public int Server_GetPlayerHandCount()
         {

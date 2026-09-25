@@ -13,6 +13,6 @@ public class UpgradeMaxMagic_Spell : CastAbilitySO
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
         thisCard.Ext_GetOwningPlayerStats().UpdatePlayerMaxSoul_ViaUpgrade(increase: true, amount: soulIncrease, ignoreAnySoulUpgradeBlock: false);
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }
