@@ -1,6 +1,7 @@
 using AbilityEvents;
 using CardScripts.Abilities.AbilityClasses;
 using CardScripts.CardMovements;
+using Extensions;
 using PlayerStuff;
 using UnityEngine;
 
@@ -13,8 +14,7 @@ namespace CardScripts.Abilities.SpellAbilities.EarnShards_OnCast_Spell
 
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
-            Debug.Log($"EarnShards_OnCast_Spell, player earned {shardsEarned} shards");
-            PlayerStats player = thisCard.GetComponent<SpellMovement>().thisCardOwnerPlayerStats;
+            PlayerStats player = thisCard.Ext_GetOwningPlayerStats();
             
             player.shards += shardsEarned;
         }
