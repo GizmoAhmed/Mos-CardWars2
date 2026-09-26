@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e2a52975bdf47bdb9fdb35165c23817, type: 3}
-  m_Name: TEST
+  m_Name: AlchemyTable_Building
   m_EditorClassIdentifier: 
-  cardName: TEST
-  mainImage: {fileID: 21300000, guid: 3cb668679d4066244b26629707e67b0e, type: 3}
+  cardName: ALCHEMY TABLE
+  mainImage: {fileID: 21300000, guid: cd7a7ebe594959743a83614debba5c47, type: 3}
   magic: 1
   abilityDescription: INCREASES OF ALL IN HAND SPELLS BY X
   burnCost: 2

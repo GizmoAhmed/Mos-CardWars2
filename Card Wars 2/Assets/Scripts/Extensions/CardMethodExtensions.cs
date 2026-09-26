@@ -267,5 +267,16 @@ namespace Extensions
             return card.GetComponent<CardMovement>().cardState
                    == CardMovement.CardState.Field;
         }
+        
+        public static T GetRandomFromList<T>(this List<T> list)
+        {
+            if (list == null || list.Count == 0)
+            {
+                Debug.LogWarning("GetRandom called on null or empty list!");
+                return default;
+            }
+        
+            return list[Random.Range(0, list.Count)];
+        }
     }
 }
