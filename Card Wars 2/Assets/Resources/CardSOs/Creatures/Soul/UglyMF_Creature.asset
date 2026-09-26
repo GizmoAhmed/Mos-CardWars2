@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
+  m_Name: UglyMF_Creature
+  m_EditorClassIdentifier: 
+  cardName: UglyMF
+  mainImage: {fileID: 21300000, guid: eec60b5bffb59e3468ff9c33fa316396, type: 3}
+  magic: 2
+  abilityDescription: Buff this creature, but increase it's soul use
+  burnCost: 2
+  ability: {fileID: 11400000, guid: 5deb024c090283a43b5a183b4ec79cdb, type: 2}
+  element: 2
+  elementSprite: {fileID: 21300000, guid: d06102b5419f6004ba21b1396b2cb4eb, type: 3}
+  abilityCost: 2
+  attack: 1
+  defense: 3
