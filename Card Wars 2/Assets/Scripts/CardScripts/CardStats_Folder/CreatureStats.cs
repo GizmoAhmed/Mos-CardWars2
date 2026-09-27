@@ -107,6 +107,11 @@ namespace CardScripts.CardStatss
         /// </summary>
         public bool ElementMatch(CreatureDataSO.Element req)
         {
+            if (req == CreatureDataSO.Element.Any)
+            {
+                return true;
+            }
+
             return element == CreatureDataSO.Element.Any || element == req;
         }
 
