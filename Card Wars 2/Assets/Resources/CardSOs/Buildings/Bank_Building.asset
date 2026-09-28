@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bank_Building
   m_EditorClassIdentifier: 
   cardName: BANK
-  mainImage: {fileID: 21300000, guid: 3cb668679d4066244b26629707e67b0e, type: 3}
+  mainImage: {fileID: 21300000, guid: 9b230581f50b6db4c8c8ece5c80cee54, type: 3}
   magic: 2
   abilityDescription: Fortify creature for each X shard you have
   burnCost: 2

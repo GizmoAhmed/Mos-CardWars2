@@ -249,6 +249,11 @@ namespace PlayerStuff
 
                 try
                 {
+                    if (creatureStats.cardData.ability == null)
+                    {
+                        Debug.LogError($"<color=orange>{creatureStats.gameObject.name}</color> has no ability set");
+                    }
+
                     creatureStats.cardData.ability.ExecuteAbility(creatureToActivate, null);
                     // Debug.Log($"<color=green>Flooped</color> {creatureToActivate.name}");
 

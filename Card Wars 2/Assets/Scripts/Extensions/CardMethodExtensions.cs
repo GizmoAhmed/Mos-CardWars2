@@ -120,7 +120,7 @@ namespace Extensions
             return player == p1 ? p2 : p1;
         }
 
-        public static PlayerCardTracker GetOpponentCardTracker_Ext(this PlayerStats player)
+        public static PlayerCardTracker Ext_GetOpponentCardTracker(this PlayerStats player)
         {
             if (!NetworkServer.active)
             {
@@ -197,7 +197,7 @@ namespace Extensions
         {
             PlayerStats thisCardOwnerStats = card.Ext_GetOwningPlayerStats();
 
-            PlayerCardTracker oppsCardTracker = thisCardOwnerStats.GetOpponentCardTracker_Ext();
+            PlayerCardTracker oppsCardTracker = thisCardOwnerStats.Ext_GetOpponentCardTracker();
 
             List<CreatureStats> oppsCreatures = oppsCardTracker.Server_GetThisPlayersOnFieldCreatures();
 
@@ -275,7 +275,12 @@ namespace Extensions
                 Debug.LogWarning("GetRandom called on null or empty list!");
                 return default;
             }
-        
+
+            if (list.Count == 1)
+            {
+                return list[0];
+            }
+
             return list[Random.Range(0, list.Count)];
         }
     }

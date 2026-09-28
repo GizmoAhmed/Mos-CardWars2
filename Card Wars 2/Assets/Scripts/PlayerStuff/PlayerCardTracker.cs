@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts;
+using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Mirror;
@@ -145,6 +146,24 @@ namespace PlayerStuff
         {
             serverActiveFieldCards.Remove(card);
             //Debug.Log($"<color=orange>Tracker removed</color> {card.name} from tile tracker. Current count: {_serverActiveFieldCards.Count}");
+        }
+
+        [Server]
+        public List<CardStats> Server_GetThisPlayerAllActiveFieldCards()
+        {
+            List<CardStats> allActiveFieldCards = new List<CardStats>();
+
+            foreach (GameObject card in serverActiveFieldCards)
+            {
+                if (card.GetComponent<CreatureMovement>() || 
+                    card.GetComponent<BuildingMovement>() ||
+                    card.GetComponent<CharmMovement>())
+                {
+                    allActiveFieldCards.Add(card.GetComponent<CardStats>());
+                }
+            }
+            
+            return allActiveFieldCards;
         }
 
         /// <summary>
