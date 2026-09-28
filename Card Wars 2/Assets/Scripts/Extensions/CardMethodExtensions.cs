@@ -44,6 +44,15 @@ namespace Extensions
                 tile.serverPlayerSide);
         }
 
+        public static MiddleTile Ext_GetTileAcrossFromThisCard(this GameObject card)
+        {
+            MiddleTile thisTile = card.Ext_GetTile() as  MiddleTile;
+
+            MiddleTile acrossTile = thisTile.Ext_GetTileAcrossFromThisTile() as MiddleTile;
+            
+            return acrossTile;
+        }
+
         public static void DamageTileAcross_Ext(this MiddleTile tile, int damage)
         {
             if (!NetworkServer.active)
