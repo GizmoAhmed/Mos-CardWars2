@@ -141,25 +141,6 @@ namespace CardScripts.CardMovements
             tileEventManager.OnCreatureBurnedOnTile(gameObject);
         }
 
-        /*private void GlobalBroadcast_AnyCreatureBurn(GameObject burnedCard)
-        {
-            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
-            {
-                AbilityEventData burnData = new AbilityEventData(
-                    AbilityEventType.AnyCreatureBurned,
-                    burnedCard
-                );
-
-                // tell event manager to tell everyone (that cares) that a card was burned
-                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
-                    burnData);
-            }
-            else
-            {
-                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
-            }
-        }*/
-
         [Server]
         public override void ServerDiscard()
         {
@@ -191,14 +172,6 @@ namespace CardScripts.CardMovements
             // cardStats.UpdateSyncSoulToPlayer(cardStats.soulUse);
             
             thisCardOwnerPlayerStats.playerTotalScore -= CreatureStats.score; // give back score
-        }
-        
-        private void LocalWhisperCardDiscard(Tile tile)
-        {
-            TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
-
-            // tileManager handles creating and broadcasting the AbilityEventData
-            tileEventManager.OnCardDiscardFromTile(gameObject);
         }
 
         protected override void DetachFromTile()

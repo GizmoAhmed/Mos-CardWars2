@@ -9,40 +9,29 @@ using GameManagement;
 using Tiles;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature", menuName = "Abilities/Creature/Soul/ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature")]
+[CreateAssetMenu(fileName = "ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature",
+    menuName = "Abilities/Creature/Soul/ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature")]
 public class ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature : ActiveAbilitySO
 {
     public int selfDamage;
     public int soulReduction;
 
     public AdjacentSide Side;
+
     public enum AdjacentSide
-    {   
+    {
         Left,
-        Right   
+        Right
     }
 
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        // get tile
-        MiddleTile thisTile = thisCard.Ext_GetTile() as MiddleTile;
-
-        MiddleTile adj;
+        string leftOrRight = Side == AdjacentSide.Left ? "left" : "right";
         
-        if (Side == AdjacentSide.Left)
-        {
-            adj = TileManager.Instance.GetLeftAdjacentTile(thisTile);
-        }
-        else
-        {
-            adj = TileManager.Instance.GetRightAdjacentTile(thisTile);
-        }
+        MiddleTile adj = thisCard.GetEitherAdjacentTile(leftOrRight);
 
-        if (adj == null) // no tile to the left or right of this one
-        {
-            return;
-        }
-        
+        if (adj == null) return; // in a position where there is not right or left 
+
         // look at adjacent creature
         GameObject adjCreature = adj.logicalCreature;
 
@@ -50,14 +39,14 @@ public class ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature : ActiveAbilit
         {
             return; // no creature on this tile
         }
-        
+
         // buff that adjacent creature
         adjCreature.GetComponent<CreatureStats>().UpdateSyncSoulToPlayer(-soulReduction);
         AnimateAbilityExecute(adjCreature);
-        
+
         // damage thisCard
-        thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: selfDamage, buff:false);
-        
+        thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: selfDamage, buff: false);
+
         AnimateAbilityExecute(thisCard);
     }
 }

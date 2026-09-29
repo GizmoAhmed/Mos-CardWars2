@@ -487,8 +487,18 @@ namespace CardScripts.CardMovements
             // also remove from hand if discarding from there
             player.playerCardTracker.Server_RemoveFromHand(gameObject);
             
+            LocalWhisperCardDiscard(GetLogicalTile());
+            
             // visually move card to discard board for each respective client
             RpcMoveDiscardedCard_ToBoard();
+        }
+        
+        protected void LocalWhisperCardDiscard(Tile tile)
+        {
+            TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
+
+            // tileManager handles creating and broadcasting the AbilityEventData
+            tileEventManager.OnCardDiscardFromTile(gameObject);
         }
 
         protected virtual void DetachFromTile()

@@ -37,6 +37,25 @@ namespace Extensions
             return thisTile;
         }
 
+        public static MiddleTile GetEitherAdjacentTile(this GameObject card, string rightORleft = "right")
+        {
+            // get tile
+            MiddleTile thisTile = card.Ext_GetTile() as MiddleTile;
+
+            if (rightORleft == "left")
+            {
+                return TileManager.Instance.GetLeftAdjacentTile(thisTile);
+            }
+            else if (rightORleft == "right")
+            {
+                return TileManager.Instance.GetRightAdjacentTile(thisTile);
+            }
+
+            Debug.LogError(
+                $"Extension Method GetEitherAdjacentTile: Passed in valid string '{rightORleft}' should say 'right' or 'left'");
+            return null;
+        }
+
         public static Tile Ext_GetTileAcrossFromThisTile(this Tile tile)
         {
             return TileManager.Instance.GetAcrossTile(tile.row,
@@ -46,10 +65,10 @@ namespace Extensions
 
         public static MiddleTile Ext_GetTileAcrossFromThisCard(this GameObject card)
         {
-            MiddleTile thisTile = card.Ext_GetTile() as  MiddleTile;
+            MiddleTile thisTile = card.Ext_GetTile() as MiddleTile;
 
             MiddleTile acrossTile = thisTile.Ext_GetTileAcrossFromThisTile() as MiddleTile;
-            
+
             return acrossTile;
         }
 
@@ -147,7 +166,7 @@ namespace Extensions
             // if passed card owner same as passed player, then player owns passed card
             return owningPlayer == player;
         }
-        
+
         /// <summary>
         /// Check if two cards belong to the same player
         /// using logical player side (server authoritative)
@@ -156,13 +175,13 @@ namespace Extensions
         {
             CardMovement thisMove = card.GetComponent<CardMovement>();
             CardMovement otherMove = otherCard.GetComponent<CardMovement>();
-    
+
             if (thisMove == null || otherMove == null)
             {
                 Debug.LogWarning("Ext_IsSameOwner: Missing CardMovement!");
                 return false;
             }
-    
+
             return thisMove.logicalPlayerSide == otherMove.logicalPlayerSide;
         }
 
@@ -257,7 +276,8 @@ namespace Extensions
             {
                 if (thisTile.logicalCreature == null)
                 {
-                    Debug.Log($"<color=orange>Ext_GetCreatureStats_FromSharedBuildingsTile</color> attempted to grab the creature at {thisTile}, but no creature was present, returning null");
+                    Debug.Log(
+                        $"<color=orange>Ext_GetCreatureStats_FromSharedBuildingsTile</color> attempted to grab the creature at {thisTile}, but no creature was present, returning null");
                     return null;
                 }
 
@@ -276,7 +296,7 @@ namespace Extensions
             return card.GetComponent<CardMovement>().cardState
                    == CardMovement.CardState.Field;
         }
-        
+
         public static T GetRandomFromList<T>(this List<T> list)
         {
             if (list == null || list.Count == 0)

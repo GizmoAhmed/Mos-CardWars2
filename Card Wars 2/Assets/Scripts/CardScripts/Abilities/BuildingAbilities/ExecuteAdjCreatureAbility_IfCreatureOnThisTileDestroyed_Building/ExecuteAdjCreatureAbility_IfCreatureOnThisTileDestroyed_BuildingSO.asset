@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52714821183cd4f48843eaaee1a05b63, type: 3}
-  m_Name: ReduceSoulOnAdjacentCreature_ThenDamageThis_CreatureSO
+  m_Script: {fileID: 11500000, guid: be17bdd32bbb76d4186ea8f86f8d1813, type: 3}
+  m_Name: ExecuteAdjCreatureAbility_IfCreatureOnThisTileDestroyed_BuildingSO
   m_EditorClassIdentifier: 
-  selfDamage: 6
-  soulReduction: 1
-  Side: 1
+  eventsThatTriggerThisAbility: 66000000
+  isExecutableOnPlaced: 0
+  side: 1
