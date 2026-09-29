@@ -70,7 +70,7 @@ namespace CardScripts.Abilities
         /// </summary>
         /// <param name="redrawMe">the card you want to redraw</param>
         [Server]
-        public void RedrawCard(GameObject redrawMe, bool isDuplicate = false)
+        public GameObject RedrawCard(GameObject redrawMe, bool isDuplicate = false, PlayerStats drawToThisPlayer = null)
         {
             CardStats stats = redrawMe.GetComponent<CardStats>();
 
@@ -80,10 +80,15 @@ namespace CardScripts.Abilities
                 .GetComponent<CardMovement>()
                 .thisCardOwnerPlayerStats;
             
+            if (drawToThisPlayer != null)
+            {
+                player = drawToThisPlayer;
+            }
+
             MasterDeck masterDeck = FindObjectOfType<MasterDeck>();
 
             // redraw creature
-            masterDeck.CreateThenSpawnCard(redrawID, player, isDuplicate);
+            return masterDeck.CreateThenSpawnCard(redrawID, player, isDuplicate);
         }
 
         /// <summary>
@@ -97,7 +102,7 @@ namespace CardScripts.Abilities
         {
             // Clamp chance between 1 and 100
             chance = Mathf.Clamp(chance, 1, 100);
-        
+
             // Roll between 1 and 100
             int roll = UnityEngine.Random.Range(1, 101);
 

@@ -328,6 +328,7 @@ namespace Utilities.Editor
 using CardScripts.Abilities;
 using CardScripts.CardStatss;
 using Extensions;
+using CardScripts.Abilities.AbilityClasses;
 using UnityEngine;
 
 [CreateAssetMenu(

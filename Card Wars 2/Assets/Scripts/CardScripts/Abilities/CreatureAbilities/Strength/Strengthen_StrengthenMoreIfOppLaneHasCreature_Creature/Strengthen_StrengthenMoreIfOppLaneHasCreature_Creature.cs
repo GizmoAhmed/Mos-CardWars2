@@ -34,7 +34,7 @@ public class Strengthen_StrengthenMoreIfOppLaneHasCreature_Creature : ActiveAbil
 
         int buffAmount = 0;
 
-        buffAmount = acrossCreature == null ? defaultStrength : bonusStrength;
+        buffAmount = acrossCreature == null ? bonusStrength : defaultStrength;
 
         CreatureStats thisCreature = thisCard.GetComponent<CreatureStats>();
 

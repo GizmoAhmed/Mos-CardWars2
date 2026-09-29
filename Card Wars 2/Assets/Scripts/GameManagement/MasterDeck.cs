@@ -128,7 +128,7 @@ namespace GameManagement
         /// <param name="cardID">Id of card being created and spawned</param>
         /// <param name="playerStats">This is the player drawing</param>
         [Server]
-        public void CreateThenSpawnCard(string cardID, PlayerStats playerStats, bool isDuplicate = false)
+        public GameObject CreateThenSpawnCard(string cardID, PlayerStats playerStats, bool isDuplicate = false)
         {
             CardDataSO cardData = GetCardByID(cardID);
 
@@ -170,6 +170,8 @@ namespace GameManagement
             }
 
             move.cardState = CardMovement.CardState.Hand;
+            
+            return cardObj;
         }
 
         /// <summary>

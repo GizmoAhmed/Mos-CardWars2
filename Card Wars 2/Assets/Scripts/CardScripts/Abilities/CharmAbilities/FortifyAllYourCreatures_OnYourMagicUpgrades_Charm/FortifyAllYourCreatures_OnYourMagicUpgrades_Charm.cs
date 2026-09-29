@@ -25,8 +25,6 @@ namespace CardScripts.Abilities.CharmAbilities.FortifyAllYourCreatures_OnYourMag
             // ask if this card's owner was the one that upgraded
             if (thisPlayer == eventData.target) // yes
             {
-                // Debug.Log($"{name}: <color=teal>Matching Player!</color>");
-                
                 // get all your creatures
                 List<CreatureStats> allYourCreatures = thisCard.Ext_GetAllActiveCreaturesForThisPlayer();
 

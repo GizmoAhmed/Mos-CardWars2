@@ -93,7 +93,7 @@ namespace PlayerStuff
                 currentSoul += amount;
             }
 
-            GlobalBroadCastSoulUpdate(oldCurrent: oldCurrentSoul, oldMax: oldMaxSoul);
+            GlobalBroadCastSoulAdjust(oldCurrent: oldCurrentSoul, oldMax: oldMaxSoul);
         }
 
         /// <summary>
@@ -130,15 +130,20 @@ namespace PlayerStuff
                 currentSoul -= amount;
             }
 
-            GlobalBroadCastSoulUpdate(oldCurrent: oldCurrentSoul, oldMax: oldMaxSoul);
+            GlobalBroadCastSoulAdjust(oldCurrent: oldCurrentSoul, oldMax: oldMaxSoul);
+
+            if (increase) // broadcast just a postive upgrade
+            {
+                GlobalBroadCast_MaxSoulUpgrade();
+            }
         }
 
-        private void GlobalBroadCastSoulUpdate(int oldCurrent, int oldMax)
+        private void GlobalBroadCastSoulAdjust(int oldCurrent, int oldMax)
         {
             if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {
                 AbilityEventData soul = new AbilityEventData(
-                    AbilityEventType.AnyPlayerSoulUpdate,
+                    AbilityEventType.AnyPlayerSoulAdjustment,
                     targ: gameObject, // this player gameobject
                     customData: new Dictionary<string, object>()
                 );
@@ -146,6 +151,26 @@ namespace PlayerStuff
                 soul.CustomData["oldCurrent"] = oldCurrent;
                 soul.CustomData["oldMax"] = oldMax;
 
+                // tell event manager to tell everyone (that cares) about this event
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
+                    soul);
+            }
+            else
+            {
+                Debug.LogError($"{gameObject.name} couldn't find the ability event manager");
+            }
+        }
+
+        private void GlobalBroadCast_MaxSoulUpgrade()
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventData soul = new AbilityEventData(
+                    AbilityEventType.AnyPlayerSoulUpgrade,
+                    targ: gameObject, // this player object
+                    val: maxSoul
+                );
+                
                 // tell event manager to tell everyone (that cares) about this event
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
                     soul);
