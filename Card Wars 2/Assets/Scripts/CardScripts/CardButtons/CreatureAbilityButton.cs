@@ -25,7 +25,7 @@ namespace CardScripts.CardButtons
             // only field cards can use abilities
             if (_move.cardState == CardMovement.CardState.Field)
             {
-                _move.thisCardOwnerPlayerStats.CmdActivateCreatureAbility(gameObject);
+                _move.thisCardOwnerPlayerStats.CmdCreatureAbility_ButtonPress(gameObject);
             }
         }
     }

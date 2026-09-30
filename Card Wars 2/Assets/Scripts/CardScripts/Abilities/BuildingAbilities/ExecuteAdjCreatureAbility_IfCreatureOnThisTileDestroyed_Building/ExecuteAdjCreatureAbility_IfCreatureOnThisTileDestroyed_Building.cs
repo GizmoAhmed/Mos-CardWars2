@@ -37,7 +37,7 @@ namespace CardScripts.Abilities.BuildingAbilities.ExecuteAdjCreatureAbility_IfCr
             CreatureStats adjCreatureStats = adjCreature.GetComponent<CreatureStats>();
         
             // todo executing here doesn't follow the normal PlayerStats.cs route, keep that in mind
-            adjCreatureStats.cardData.ability.ExecuteAbility(adjCreature, eventData: null);
+            adjCreatureStats.ActivateCreatureAbility();
         
             AnimateAbilityExecute(thisCard);
         }

@@ -1,3 +1,4 @@
+using System;
 using AbilityEvents;
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
@@ -268,6 +269,46 @@ namespace CardScripts.CardStatss
         public void ResetFloops()
         {
             floopsLeft = maxFloops;
+        }
+        
+        /// <summary>
+        /// Usually, abilities are called by clicking a creature ability button
+        /// This function is for cases where it's done otherwise, typically from another ability
+        /// </summary>
+        /// <param name="creatureToActivate"></param>
+        [Server]
+        public void ActivateCreatureAbility()
+        {
+            try
+            {
+                if (cardData.ability == null)
+                {
+                    Debug.LogError($"<color=orange>{gameObject.name}</color> has no ability set");
+                    return;
+                }
+
+                cardData.ability.ExecuteAbility(gameObject, null);
+
+                LocalWhisperCardAbilityActivate(this);
+                // todo global broadcast
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(
+                    $"Failed to activate ability <color=orange>{name}</color>. <color=red>Error</color>: {e.Message}");
+            }
+
+        }
+        
+        private void LocalWhisperCardAbilityActivate(CreatureStats creature)
+        {
+            // get tile of creature flooped
+            Tile tile = creature.GetComponent<CreatureMovement>().GetLogicalTile();
+
+            TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
+
+            // tell tile manager to broadcast that this creature flooped
+            tileEventManager.OnCreatureAbilityOnTile(creature.gameObject);
         }
 
         public void Hook_UpdateAbilityCost(int oldCost, int newCost)

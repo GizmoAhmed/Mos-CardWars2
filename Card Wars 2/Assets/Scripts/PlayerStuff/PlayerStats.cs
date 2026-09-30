@@ -232,7 +232,7 @@ namespace PlayerStuff
         }
 
         [Command]
-        public void CmdActivateCreatureAbility(GameObject creatureToActivate)
+        public void CmdCreatureAbility_ButtonPress(GameObject creatureToActivate)
         {
             Player player = GetComponent<Player>();
 
@@ -272,40 +272,13 @@ namespace PlayerStuff
                     drain -= nonNegFloopsLeft * drainRate;
                 }
 
-                try
-                {
-                    if (creatureStats.cardData.ability == null)
-                    {
-                        Debug.LogError($"<color=orange>{creatureStats.gameObject.name}</color> has no ability set");
-                    }
-
-                    creatureStats.cardData.ability.ExecuteAbility(creatureToActivate, null);
-                    // Debug.Log($"<color=green>Flooped</color> {creatureToActivate.name}");
-
-                    LocalWhisperCardAbilityActivate(creatureStats);
-                    // todo global broadcast
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError(
-                        $"Failed to activate ability <color=orange>{creatureToActivate.name}</color>. <color=red>Error</color>: {e.Message}");
-                }
+                // activates and broadcasts
+                creatureStats.ActivateCreatureAbility();
             }
             else
             {
-                Debug.LogWarning($"...Insufficient shards ({shards}) to activate {creatureToActivate.name} ({cost})");
+                Debug.LogWarning($"...Insufficient <color=yellow>shards</color> ({shards}) to activate {creatureToActivate.name} ({cost})");
             }
-        }
-
-        private void LocalWhisperCardAbilityActivate(CreatureStats creature)
-        {
-            // get tile of creature flooped
-            Tile tile = creature.GetComponent<CreatureMovement>().GetLogicalTile();
-
-            TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
-
-            // tell tile manager to broadcast that this creature flooped
-            tileEventManager.OnCreatureAbilityOnTile(creature.gameObject);
         }
 
         /// <summary>
