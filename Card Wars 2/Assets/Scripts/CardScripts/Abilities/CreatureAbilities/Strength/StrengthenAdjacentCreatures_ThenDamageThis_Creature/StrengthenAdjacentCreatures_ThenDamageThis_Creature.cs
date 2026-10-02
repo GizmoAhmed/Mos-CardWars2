@@ -1,23 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts.Abilities;
-using CardScripts.CardMovements;
 using CardScripts.CardStatss;
 using Extensions;
-using GameManagement;
+using CardScripts.Abilities.AbilityClasses;
 using Tiles;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FortifyAdjacent_Creature", menuName = "Abilities/Creature/Defense/FortifyAdjacent_Creature")]
-public class FortifyAdjacent_Creature : ActiveAbilitySO
+[CreateAssetMenu(
+    fileName = "StrengthenAdjacentCreatures_ThenDamageThis_Creature", 
+    menuName = "Abilities/Creature/StrengthenAdjacentCreatures_ThenDamageThis_Creature")]
+public class StrengthenAdjacentCreatures_ThenDamageThis_Creature : ActiveAbilitySO
 {
-    public int AdjacentBuffAmount;
+    public int strengthen;
+    public int selfDamage;
     
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
+        // get adjacent
         List<MiddleTile> ajdTiles = thisCard.Ext_GetTilesAdjacentToThisCard();
-        
+
+        // buff each
         foreach (MiddleTile tile in ajdTiles) // only goes twice
         {
             if (tile.logicalCreature == null) continue; // if there's no creature there, do nothing
@@ -25,8 +28,11 @@ public class FortifyAdjacent_Creature : ActiveAbilitySO
             CreatureStats adjCreature = tile.logicalCreature.GetComponent<CreatureStats>();
             
             // if creature is there, buff it
-            adjCreature.UpdateCreatureDefense(AdjacentBuffAmount, true);
+            adjCreature.UpdateCreatureStrength(strengthen, true);
         }
+        
+        thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: selfDamage, buff: false);
+
         AnimateAbilityExecute(thisCard);
     }
 }

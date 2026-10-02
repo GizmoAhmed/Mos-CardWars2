@@ -72,6 +72,16 @@ namespace Extensions
             return acrossTile;
         }
 
+        public static List<MiddleTile> Ext_GetTilesAdjacentToThisCard(this GameObject card)
+        {
+            CreatureMovement move =  card.GetComponent<CreatureMovement>();
+
+            MiddleTile thisTile = move.GetLogicalTile() as MiddleTile;
+            
+            return TileManager.Instance.GetAdjacentTiles
+                (thisTile.row, thisTile.column, thisTile.serverPlayerSide);
+        }
+
         public static void DamageTileAcross_Ext(this MiddleTile tile, int damage)
         {
             if (!NetworkServer.active)
