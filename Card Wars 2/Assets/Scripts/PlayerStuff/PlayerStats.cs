@@ -295,10 +295,6 @@ namespace PlayerStuff
             playerTotalScore += amount;
         }
 
-        public void ServerUpdatePlayerSoul()
-        {
-        }
-
         [Command]
         public void CmdRequestFreeDraw()
         {
