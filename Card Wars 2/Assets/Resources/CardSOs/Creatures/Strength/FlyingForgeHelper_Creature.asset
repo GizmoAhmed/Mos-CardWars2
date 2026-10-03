@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
+  m_Name: FlyingForgeHelper_Creature
+  m_EditorClassIdentifier: 
+  cardName: FlyingForgeHelper
+  mainImage: {fileID: 21300000, guid: c75f16896b02b7e4eb4783ae94c0c8ce, type: 3}
+  soul: 1
+  abilityDescription: 
+  burnCost: 2
+  ability: {fileID: 11400000, guid: 9331172d9fe05244588b5cb99cbacb76, type: 2}
+  element: 0
+  elementSprite: {fileID: 21300000, guid: 73a5b4af4470bc34881d92814f1bde20, type: 3}
+  abilityCost: 2
+  attack: 0
+  defense: 2

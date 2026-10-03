@@ -16,6 +16,8 @@ namespace CardScripts.Abilities.RuneAbilities.MakeAllElemental_BoundCreature_Run
             CreatureStats creatureStats = GetCreatureObjFromEventDataTile(eventData).GetComponent<CreatureStats>();
 
             creatureStats.element = CreatureDataSO.Element.Any;
+            
+            AnimateAbilityExecute(creatureStats.gameObject);
         }
     
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

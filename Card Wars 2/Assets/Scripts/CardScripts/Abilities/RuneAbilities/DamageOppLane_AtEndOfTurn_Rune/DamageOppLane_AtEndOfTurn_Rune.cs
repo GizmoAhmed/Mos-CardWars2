@@ -47,7 +47,7 @@ public class DamageOppLane_AtEndOfTurn_Rune : PassiveAbilitySO
         // strength of this wrath-ed creature
         int strength = cStats.strength;
 
-        if (strength == 0) return; // no point 
+        if (strength <= 0) return; // no point 
 
         // damage tile across from this one
         thisTile.DamageTileAcross_Ext(strength);

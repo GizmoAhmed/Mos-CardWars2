@@ -16,6 +16,8 @@ namespace CardScripts.Abilities.RuneAbilities.DoubleBuffsNerfs_OnBoundCreature_R
             // double whatever the current mult is, usually 1
             creatureStats.strengthMult *= 2;
             creatureStats.defenseMult *= 2;
+            
+            AnimateAbilityExecute(creatureStats.gameObject);
         }
 
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)

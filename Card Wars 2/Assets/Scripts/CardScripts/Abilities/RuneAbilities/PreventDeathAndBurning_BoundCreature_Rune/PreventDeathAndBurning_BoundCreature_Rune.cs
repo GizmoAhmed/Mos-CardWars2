@@ -19,6 +19,8 @@ namespace CardScripts.Abilities.RuneAbilities.PreventDeathAndBurning_BoundCreatu
             // can't be killed and can't be burned
             creatureStats.immortal = true;
             creatureStats.canBeBurned = false;
+            
+            AnimateAbilityExecute(creatureStats.gameObject);
         }
 
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
