@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Crane
   mainImage: {fileID: 21300000, guid: b563a18f97dc38647a377c3231d1c17c, type: 3}
-  magic: 1
+  soul: 1
   abilityDescription: Double uses on a radom spell in your hand
   burnCost: 2
   ability: {fileID: 11400000, guid: 6992339c57186dd40b63a6e4b7a89d87, type: 2}

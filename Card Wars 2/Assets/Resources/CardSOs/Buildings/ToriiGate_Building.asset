@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: ToriiGate
   mainImage: {fileID: 21300000, guid: ede4a3d539fcebd428d09c18ece5db69, type: 3}
-  magic: 4
+  soul: 2
   abilityDescription: Strength Creature +3 when flooped
   burnCost: 2
   ability: {fileID: 11400000, guid: 6f1c80fc36c44a344a397084d67dcedc, type: 2}

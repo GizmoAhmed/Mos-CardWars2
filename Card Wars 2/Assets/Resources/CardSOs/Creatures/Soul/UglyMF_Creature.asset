@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: UglyMF
   mainImage: {fileID: 21300000, guid: eec60b5bffb59e3468ff9c33fa316396, type: 3}
-  magic: 2
+  soul: 1
   abilityDescription: Buff this creature, but increase it's soul use
   burnCost: 2
   ability: {fileID: 11400000, guid: 5deb024c090283a43b5a183b4ec79cdb, type: 2}

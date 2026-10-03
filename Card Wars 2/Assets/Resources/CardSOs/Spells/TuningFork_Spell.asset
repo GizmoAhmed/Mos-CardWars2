@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Tuning Fork
   mainImage: {fileID: 21300000, guid: 346b9c67620c9514290fd7c81596c9d5, type: 3}
-  magic: -1
+  soul: -1
   abilityDescription: Activate the ability of the creature casted on
   burnCost: 2
   ability: {fileID: 11400000, guid: 9987a1f2902b65045ae17020095f8b29, type: 2}

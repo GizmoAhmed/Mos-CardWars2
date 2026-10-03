@@ -64,7 +64,7 @@ namespace CardScripts.CardDisplays
             // set description
             GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
             
-            SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.abilityDescription));
+            SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.ability.name));
 
             FlipCard(face: true);
 
@@ -244,7 +244,7 @@ namespace CardScripts.CardDisplays
                 runeIconFace2.SetActive(true);
                 
                 // the info text
-                SetText(_runeText2, ParseAbilityName_IntoDescription(runeData.abilityDescription));
+                SetText(_runeText2, ParseAbilityName_IntoDescription(runeData.ability.name));
                 
                 SetText(_runeName2, runeData.cardName);
                 
@@ -260,7 +260,7 @@ namespace CardScripts.CardDisplays
                 runeIconFace1.SetActive(true);
                 
                 // the info text
-                SetText(_runeText1, ParseAbilityName_IntoDescription(runeData.abilityDescription));
+                SetText(_runeText1, ParseAbilityName_IntoDescription(runeData.ability.name));
                 
                 SetText(_runeName1, runeData.cardName);
                 

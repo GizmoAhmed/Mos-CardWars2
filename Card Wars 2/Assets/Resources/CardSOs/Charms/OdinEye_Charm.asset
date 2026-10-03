@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Odin's Eye
   mainImage: {fileID: 21300000, guid: d6a8b89478fc6c04cbf765f5ca5cd2e8, type: 3}
-  magic: 2
+  soul: 1
   abilityDescription: +1 Free Draw Offering
   burnCost: 2
   ability: {fileID: 11400000, guid: 383f6d5290f417847a59dc308f226fe9, type: 2}

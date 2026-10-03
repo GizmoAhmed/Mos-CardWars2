@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: SCHOLAR
   mainImage: {fileID: 21300000, guid: 8dade034e36bf3742885d7a14e07e9f1, type: 3}
-  magic: 2
+  soul: 2
   abilityDescription: REDRAW 1 RANDOM DISCARDED CARD
   burnCost: 2
   ability: {fileID: 11400000, guid: 9a99c326820a88d43814f1e206f88069, type: 2}

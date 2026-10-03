@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: ALCHEMY TABLE
   mainImage: {fileID: 21300000, guid: cd7a7ebe594959743a83614debba5c47, type: 3}
-  magic: 1
+  soul: 2
   abilityDescription: INCREASES OF ALL IN HAND SPELLS BY X
   burnCost: 2
   ability: {fileID: 11400000, guid: b1cd8f603607ad348961aba04afcbc88, type: 2}

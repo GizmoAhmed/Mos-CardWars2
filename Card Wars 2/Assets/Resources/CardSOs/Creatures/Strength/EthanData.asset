@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Ethan
   mainImage: {fileID: 21300000, guid: b5be9412f7c81e94a8c073463a5b1a12, type: 3}
-  magic: 1
+  soul: 1
   abilityDescription: +1 Strength
   burnCost: 2
   ability: {fileID: 11400000, guid: f93619cb09a56db4b8cecf701c8c2298, type: 2}

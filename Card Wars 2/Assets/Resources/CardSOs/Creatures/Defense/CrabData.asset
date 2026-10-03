@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Drill Crab
   mainImage: {fileID: 21300000, guid: b28ac2c5c5d24674fa85ced48f7a1efc, type: 3}
-  magic: 1
+  soul: 1
   abilityDescription: Fortify +4 if hand count <= 4
   burnCost: 2
   ability: {fileID: 11400000, guid: e4306893a5707bf4681c980c6f657a0e, type: 2}

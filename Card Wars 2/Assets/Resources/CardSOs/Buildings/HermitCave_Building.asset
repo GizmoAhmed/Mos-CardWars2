@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: HermitCave
   mainImage: {fileID: 21300000, guid: 1be337bcf5ace30409ea2b990a8e1c44, type: 3}
-  magic: 2
-  abilityDescription: Double Buffs On creature as long as player soul ratio less
-    than X
+  soul: 3
+  abilityDescription: 
   burnCost: 2
   ability: {fileID: 11400000, guid: 067cde47e42b14942b788c40b252cf3a, type: 2}

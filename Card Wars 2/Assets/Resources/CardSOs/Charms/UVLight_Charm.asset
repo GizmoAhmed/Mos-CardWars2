@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: UV LIGHT
   mainImage: {fileID: 21300000, guid: adce6bd21fba4694c86cd2b22b3c3278, type: 3}
-  magic: 2
+  soul: 2
   abilityDescription: Increase Drain Each Turn, amount increased reduced per card
     burned
   burnCost: 2

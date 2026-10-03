@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AbilityEvents;
 using CardScripts;
 using CardScripts.CardMovements;
@@ -164,6 +165,22 @@ namespace PlayerStuff
             }
             
             return allActiveFieldCards;
+        }
+
+        [Server]
+        public List<GameObject> GetThisPlayersHand()
+        {
+            return serverHandContents;
+        }
+        
+        [Server]
+        public List<GameObject> GetThisPlayerSoulCardsInHand()
+        {
+            return serverHandContents.Where(card => 
+                    card.TryGetComponent<CreatureMovement>(out _) ||
+                    card.TryGetComponent<BuildingMovement>(out _) ||
+                    card.TryGetComponent<CharmMovement>(out _))
+                .ToList();
         }
 
         /// <summary>

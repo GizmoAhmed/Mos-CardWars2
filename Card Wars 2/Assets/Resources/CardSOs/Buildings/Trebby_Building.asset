@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: TREBBY
   mainImage: {fileID: 21300000, guid: e44ce056ac9130542b0556927ed5fcb5, type: 3}
-  magic: 1
+  soul: 3
   abilityDescription: Deal damage to opposing tile equal to creature on tile's defense.
     Every other turn.
   burnCost: 2

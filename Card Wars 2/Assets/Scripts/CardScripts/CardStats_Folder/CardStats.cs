@@ -142,7 +142,7 @@ namespace CardScripts.CardStats_Folder
 
         public virtual void SetStats_FromData()
         {
-            soulUse = cardData.magic;
+            soulUse = cardData.soul;
             burnCost = cardData.burnCost;
         }
 
@@ -169,7 +169,7 @@ namespace CardScripts.CardStats_Folder
 
         public void Hook_UpdateSoulUI_OnBothClients(int oldMagic, int newSoul)
         {
-            Display.UpdateUISoul(newSoul); // todo also change the players max soulUse
+            Display.UpdateUISoul(newSoul); 
         }
 
         public void Hook_UpdateUIBurnCost(int oldCost, int newCost)

@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using CardScripts.CardData;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
@@ -66,7 +67,7 @@ namespace CardScripts.CardDisplays
             GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
             
             
-            SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.abilityDescription));
+            SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.ability.name));
 
             FlipCard(face: true);
 
@@ -79,8 +80,17 @@ namespace CardScripts.CardDisplays
         {
             if (string.IsNullOrEmpty(rawName)) return "XXXXXXX";
     
+            // Remove "SO" suffix if present
+            if (rawName.EndsWith("SO"))
+                rawName = rawName.Substring(0, rawName.Length - 2);
+    
             // Replace underscores with spaces
-            return rawName.Replace("_", " ");
+            rawName = rawName.Replace("_", " ");
+    
+            // Add space before capital letters (camelCase/PascalCase splitting)
+            rawName = Regex.Replace(rawName, "(?<!^)(?<! )(?=[A-Z])", " ");
+    
+            return rawName.Trim();
         }
 
         protected void HideUIElement(GameObject obj)

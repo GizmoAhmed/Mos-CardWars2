@@ -10,7 +10,7 @@ namespace CardScripts.CardData
         [Header("General Card Data")]
         public string cardName;
         public Sprite mainImage;
-        public int magic;
+        public int soul;
     
         [TextArea] 
         public string abilityDescription;

@@ -10057,6 +10057,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 81e16ca940190cd43bb2028c5f8f012d, type: 2}
   - {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
   - {fileID: 11400000, guid: 18a3497c125ace043bfd0a7c94429d21, type: 2}
+  - {fileID: 11400000, guid: e3b9d9d306ad7b64fb92b2162cc28207, type: 2}
   - {fileID: 11400000, guid: 7fa30b6ac55316042a93207caee9aec2, type: 2}
   - {fileID: 11400000, guid: 90b907b2409f32244adb0487404dc2ad, type: 2}
   masterDeckList: []

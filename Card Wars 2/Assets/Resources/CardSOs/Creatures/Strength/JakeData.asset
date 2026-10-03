@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: JAKE
   mainImage: {fileID: 21300000, guid: bda1280258f16bc43aa9cb73f5dd26dc, type: 3}
-  magic: 1
+  soul: 1
   abilityDescription: Convert all strength to drain
   burnCost: 2
   ability: {fileID: 11400000, guid: b32778161c55e9842bc73e4dacf3d531, type: 2}

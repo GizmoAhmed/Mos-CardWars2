@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Crystal Knight
   mainImage: {fileID: 21300000, guid: d8b1dd31247df7d49b4cae30d6e26955, type: 3}
-  magic: 1
+  soul: 1
   abilityDescription: Forify +2 to Adj. Creatures
   burnCost: 2
   ability: {fileID: 11400000, guid: d923bc38985f1e049800465005a47108, type: 2}

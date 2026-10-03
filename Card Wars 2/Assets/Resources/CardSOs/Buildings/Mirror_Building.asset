@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: MIRROR
   mainImage: {fileID: 21300000, guid: 24bee8caf68d3d54aa89043533f20d62, type: 3}
-  magic: 4
+  soul: 3
   abilityDescription: Execute Ajd Creature's ability when the card on this tile is
     destoryed
   burnCost: 2

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: GRAND CHARM
   mainImage: {fileID: 21300000, guid: 7f340ab524098904495efbcf3b1b3c8c, type: 3}
-  magic: 3
+  soul: 5
   abilityDescription: Randomly draw X runes at the end of the the turn
   burnCost: 2
   ability: {fileID: 11400000, guid: 3f1e6f84cbd2c084dbb6666af73d7244, type: 2}

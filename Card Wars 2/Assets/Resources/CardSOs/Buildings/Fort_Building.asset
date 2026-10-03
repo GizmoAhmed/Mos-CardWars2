@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Fort
   mainImage: {fileID: 21300000, guid: 97e9bf81c488a8644a51418288ecfe2f, type: 3}
-  magic: 1
+  soul: 1
   abilityDescription: Creature's placed on this tile gain +1 str and +1 def
   burnCost: 2
   ability: {fileID: 11400000, guid: 51e24f4fdd21fbf4d8ff4c22029c4343, type: 2}

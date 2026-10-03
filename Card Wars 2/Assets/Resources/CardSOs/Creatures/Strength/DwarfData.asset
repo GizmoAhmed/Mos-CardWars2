@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: DWARF
   mainImage: {fileID: 21300000, guid: ef0fc7036e046a243bcba077d3713ee5, type: 3}
-  magic: 1
+  soul: 2
   abilityDescription: Draw WRATH
   burnCost: 2
   ability: {fileID: 11400000, guid: 9dd10da543d5b1845b973ebc7f267a99, type: 2}

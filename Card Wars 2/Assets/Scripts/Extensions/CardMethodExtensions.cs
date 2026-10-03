@@ -337,5 +337,12 @@ namespace Extensions
 
             return list[Random.Range(0, list.Count)];
         }
+        
+        public static bool IsSoulBasedCard(this GameObject card)
+        {
+            return card.TryGetComponent<CreatureMovement>(out _) ||
+                   card.TryGetComponent<BuildingMovement>(out _) ||
+                   card.TryGetComponent<CharmMovement>(out _);
+        }
     }
 }

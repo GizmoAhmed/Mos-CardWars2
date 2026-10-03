@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Big Ray
   mainImage: {fileID: 21300000, guid: c7b4180e730c0054ea69c93892fbde74, type: 3}
-  magic: 2
+  soul: -1
   abilityDescription: Buff Creature for each turn it was active
   burnCost: 2
   ability: {fileID: 11400000, guid: 265a3a48a26476e448d6d2ce064ede2e, type: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Mausoleum
   mainImage: {fileID: 21300000, guid: ba151e7931c1038499004ad579f5b7d2, type: 3}
-  magic: 1
+  soul: 1
   abilityDescription: Redraw creature when its discared, then discard this building
   burnCost: 2
   ability: {fileID: 11400000, guid: 2544ea3696da4fe4a83c3a51d623dfa3, type: 2}

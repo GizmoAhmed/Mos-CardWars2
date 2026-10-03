@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: MAGIC HAMMER
   mainImage: {fileID: 21300000, guid: 9c7ce51c479fda341b5e80f6c2a793ad, type: 3}
-  magic: -1
+  soul: -1
   abilityDescription: Draw building casted on. Building drawn has X extra soul
   burnCost: 2
   ability: {fileID: 11400000, guid: c66add84365051543999e8ee0d503544, type: 2}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: RAD CAT
   mainImage: {fileID: 21300000, guid: f30e1571bc27ad848a5e5d6f6e485d34, type: 3}
-  magic: 1
+  soul: 1
   abilityDescription: Fortify for each card drawn this turn
   burnCost: 2
   ability: {fileID: 11400000, guid: 5f1f125dafbd52f468bac10433fc219b, type: 2}
