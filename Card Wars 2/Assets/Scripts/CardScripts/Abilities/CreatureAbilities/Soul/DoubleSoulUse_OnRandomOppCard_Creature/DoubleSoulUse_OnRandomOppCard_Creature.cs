@@ -16,7 +16,7 @@ public class DoubleSoulUse_OnRandomOppCard_Creature : ActiveAbilitySO
         
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        PlayerCardTracker oppCardTracker = thisCard.Ext_GetOwningPlayerStats().Ext_GetOpponentCardTracker();
+        PlayerCardTracker oppCardTracker = thisCard.Ext_GetOpponentCardTracker();
 
         List<CardStats> oppsActiveCards = oppCardTracker.Server_GetThisPlayerAllActiveFieldCards();
 

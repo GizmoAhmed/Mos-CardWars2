@@ -15,7 +15,7 @@ public class BuffPerCardInOppHand_Creature : ActiveAbilitySO
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
         // get opps hand and count
-        PlayerCardTracker oppCardTracker = thisCard.Ext_GetOwningPlayerStats().Ext_GetOpponentCardTracker();
+        PlayerCardTracker oppCardTracker = thisCard.Ext_GetOpponentCardTracker();
 
         int count = oppCardTracker.Server_GetPlayerHandCount();
 

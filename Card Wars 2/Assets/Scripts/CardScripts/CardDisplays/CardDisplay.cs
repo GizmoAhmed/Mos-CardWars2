@@ -64,13 +64,23 @@ namespace CardScripts.CardDisplays
 
             // set description
             GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
-            SetText(descTextChild, cardData.abilityDescription);
+            
+            
+            SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.abilityDescription));
 
             FlipCard(face: true);
 
             HideUIElement(InfoObj); // initially hide the info card
 
             CardInfoHandler = FindObjectOfType<CardInfoHandler>();
+        }
+
+        protected string ParseAbilityName_IntoDescription(string rawName)
+        {
+            if (string.IsNullOrEmpty(rawName)) return "XXXXXXX";
+    
+            // Replace underscores with spaces
+            return rawName.Replace("_", " ");
         }
 
         protected void HideUIElement(GameObject obj)

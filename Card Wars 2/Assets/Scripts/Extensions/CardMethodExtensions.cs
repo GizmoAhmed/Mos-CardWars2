@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts.CardMovements;
+using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using GameManagement;
 using Mirror;
@@ -158,15 +159,16 @@ namespace Extensions
             return player == p1 ? p2 : p1;
         }
 
-        public static PlayerCardTracker Ext_GetOpponentCardTracker(this PlayerStats player)
+        public static PlayerCardTracker Ext_GetOpponentCardTracker(this GameObject card)
         {
-            if (!NetworkServer.active)
-            {
-                Debug.LogError("<color=orange>GetOpponentCardTracker_Ext</color> called on client - ignoring!");
-                return null;
-            }
+            // get this player
+            PlayerStats thisCardOwnerStats = card.Ext_GetOwningPlayerStats();
 
-            return player.Ext_GetOpponentPlayerStats().GetComponent<PlayerCardTracker>();
+            // get that players opponent
+            PlayerStats oppStats = thisCardOwnerStats.Ext_GetOpponentPlayerStats();
+            
+            //get the card tracker
+            return oppStats.GetComponent<PlayerCardTracker>();
         }
 
         public static bool Ext_IsCardOwnedByThisPlayer(this GameObject cardToCheckIfOwned, PlayerStats player)
@@ -233,9 +235,7 @@ namespace Extensions
 
         public static List<CreatureStats> Ext_GetAllOpponentsActiveCreatures(this GameObject card)
         {
-            PlayerStats thisCardOwnerStats = card.Ext_GetOwningPlayerStats();
-
-            PlayerCardTracker oppsCardTracker = thisCardOwnerStats.Ext_GetOpponentCardTracker();
+            PlayerCardTracker oppsCardTracker = card.Ext_GetOpponentCardTracker();
 
             List<CreatureStats> oppsCreatures = oppsCardTracker.Server_GetThisPlayersOnFieldCreatures();
 
@@ -246,6 +246,21 @@ namespace Extensions
             }
 
             return oppsCreatures;
+        }
+
+        public static List<CardStats> Ext_GetAnyAndAllFieldCards(this GameObject card)
+        {
+            List<CardStats> final = new List<CardStats>();
+
+            PlayerCardTracker thisCardTracker = card.Ext_GetOwningCardTracker();
+            
+            final.AddRange(thisCardTracker.Server_GetThisPlayerAllActiveFieldCards() as List<CardStats>);
+
+            PlayerCardTracker oppCardTracker = card.Ext_GetOpponentCardTracker();
+            
+            final.AddRange(oppCardTracker.Server_GetThisPlayerAllActiveFieldCards());
+            
+            return final;
         }
 
         public static int Ext_GetPlayerHandCount(this GameObject card)

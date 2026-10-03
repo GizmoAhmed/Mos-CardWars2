@@ -16,7 +16,7 @@ public class DestroyOppFieldCreatures_ThatHaveSameStrength_Creature : ActiveAbil
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
         // get opp field creatures
-        PlayerCardTracker oppCardTracker = thisCard.Ext_GetOwningPlayerStats().Ext_GetOpponentCardTracker();
+        PlayerCardTracker oppCardTracker = thisCard.Ext_GetOpponentCardTracker();
 
         List<CreatureStats> oppsActiveCards = oppCardTracker.Server_GetThisPlayersOnFieldCreatures();
 
