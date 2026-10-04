@@ -29,5 +29,7 @@ public class StrengthenPerAbilityCost_RaiseAbilityCost_Creature : ActiveAbilityS
 
         // raise ability cost, todo preferably offset with an invoke or something
         stats.abilityCost++;
+        
+        AnimateAbilityExecute(thisCard);
     }
 }
