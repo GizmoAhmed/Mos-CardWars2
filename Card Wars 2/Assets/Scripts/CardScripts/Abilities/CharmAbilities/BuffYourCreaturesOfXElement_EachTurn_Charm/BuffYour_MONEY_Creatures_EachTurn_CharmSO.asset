@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a333e13bdd8b24418e21bb3cbf5321d, type: 3}
+  m_Name: BuffYour_MONEY_Creatures_EachTurn_CharmSO
+  m_EditorClassIdentifier: 
+  eventsThatTriggerThisAbility: 01000000
+  isExecutableOnPlaced: 0
+  elementToBuff: 4
+  strength: 2
+  defense: 2
