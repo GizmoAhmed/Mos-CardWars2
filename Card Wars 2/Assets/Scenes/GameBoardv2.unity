@@ -10047,16 +10047,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5212a6cfded8dae4fa03cd8ce46bd9f9, type: 2}
   - {fileID: 11400000, guid: 3501a03da52aad54fbb84d108047f842, type: 2}
   - {fileID: 11400000, guid: 9ebad1b25f447534a8be0c1da5b9f04f, type: 2}
-  - {fileID: 11400000, guid: 11e739e4521116d419cc78c07c382ae7, type: 2}
   - {fileID: 11400000, guid: 6d3451ea336229f4db11a9ae643a9e02, type: 2}
   - {fileID: 11400000, guid: 290126a966512ef40bf49061958b626a, type: 2}
+  - {fileID: 11400000, guid: 11e739e4521116d419cc78c07c382ae7, type: 2}
   - {fileID: 11400000, guid: c9e6f5f760f98d5498cdcabae9e15d24, type: 2}
   - {fileID: 11400000, guid: 40444997ac3059b4fb69a77212656054, type: 2}
   - {fileID: 11400000, guid: 7c7f9dfcd8ad90141a6336ce0b89ce95, type: 2}
   - {fileID: 11400000, guid: 56443d9793e54a549a833690afc23d7c, type: 2}
-  - {fileID: 11400000, guid: 56443d9793e54a549a833690afc23d7c, type: 2}
   - {fileID: 11400000, guid: 7181a4d8665685a4a98093941a7535ef, type: 2}
   - {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
+  - {fileID: 11400000, guid: 67aab21c6d7059e47880ff7e218c5ec5, type: 2}
   masterDeckList: []
   creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}

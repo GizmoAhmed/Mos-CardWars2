@@ -17,6 +17,11 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.DoubleUsageOnRandomSpell_
             // get all spells in hand
             List<SpellStats> spells = thisCard.Ext_GetOwningCardTracker().Server_GetThisPlayerInHandSpells();
 
+            if (spells == null || spells.Count == 0)
+            {
+                return;
+            }
+
             SpellStats spellChosen = spells.GetRandomFromList();
 
             if (usageRate > 1)
