@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts.Abilities;
+using CardScripts.CardData;
 using UnityEngine;
 
 namespace CardScripts.Abilities
@@ -89,6 +90,16 @@ namespace CardScripts.Abilities
 
             // redraw creature
             return masterDeck.CreateThenSpawnCard(redrawID, player, isDuplicate);
+        }
+
+        [Server]
+        protected GameObject DrawCard_GivenCardDataSO(CardDataSO data, PlayerStats drawToThisPlayer)
+        {
+            MasterDeck masterDeck = FindObjectOfType<MasterDeck>();
+        
+            GameObject card = masterDeck.CreateThenSpawnCard(data.cardID, drawToThisPlayer);
+
+            return card;
         }
 
         /// <summary>

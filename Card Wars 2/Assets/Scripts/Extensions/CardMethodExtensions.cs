@@ -283,6 +283,20 @@ namespace Extensions
 
             return creatureOnTile.GetComponent<CreatureStats>();
         }
+        
+        public static BuildingMovement Ext_GetBuilding_FromSpellCastEventData(this AbilityEventData data)
+        {
+            MiddleTile middleTile = data.target.GetComponent<MiddleTile>();
+            GameObject building = middleTile.logicalBuilding;
+
+            if (building == null)
+            {
+                Debug.LogError($"Ext_GetBuilding_FromSpellCastEventData: Attempted to retrieve building from {middleTile.gameObject.name}, no building found");
+                return null;
+            }
+
+            return building.GetComponent<BuildingMovement>();
+        }
 
         public static CreatureStats Ext_GetCreatureStats_FromSharedBuildingsTile(this GameObject building)
         {
