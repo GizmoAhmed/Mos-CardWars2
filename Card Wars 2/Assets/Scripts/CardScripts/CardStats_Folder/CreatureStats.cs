@@ -117,9 +117,12 @@ namespace CardScripts.CardStatss
         }
 
         [Server] // called from inside a command
-        public void UpdateCreatureStrength(int amount, bool buff)
+        public void UpdateCreatureStrength(int amount, bool buff, bool applyMult = true)
         {
-            amount *= strengthMult; 
+            if (applyMult == true) // apply mult
+            {
+                amount *= strengthMult; 
+            }
             
             // Get the middleTile this card is on
             Tile middleTile = GetComponent<CardMovement>().GetLogicalTile();
@@ -165,9 +168,12 @@ namespace CardScripts.CardStatss
         }
 
         [Server]
-        public void UpdateCreatureDefense(int amount, bool buff)
+        public void UpdateCreatureDefense(int amount, bool buff, bool applyMult = true)
         {
-            amount *= defenseMult; // gluttony rune
+            if (applyMult == true)
+            {
+                amount *= defenseMult; // gluttony rune
+            }
             
             // Get the middleTile this card is on
             Tile middleTile = GetComponent<CardMovement>().GetLogicalTile();

@@ -23,21 +23,9 @@ public class TradeDefenseForStrength_OnCreature_Spell : CastAbilitySO
 
         int trade = defense - 1; // leaves creature with 1 defense
 
-        // save mults
-        int savedStrMult = creatureStats.strengthMult;
-        int savedDefMult = creatureStats.defenseMult;
-
-        // reset mults
-        creatureStats.strengthMult = 1;
-        creatureStats.defenseMult = 1;
-
         // trade stats
-        creatureStats.UpdateCreatureDefense(trade, buff:false); // lose all defense except 1
-        creatureStats.UpdateCreatureStrength(trade, buff:true); // give str all the def
-
-        // set mults back
-        creatureStats.strengthMult = savedStrMult;
-        creatureStats.defenseMult = savedDefMult;
+        creatureStats.UpdateCreatureDefense(trade, buff:false, applyMult: false); // lose all defense except 1
+        creatureStats.UpdateCreatureStrength(trade, buff:true, applyMult: true); // give str all the def
     }
     
 

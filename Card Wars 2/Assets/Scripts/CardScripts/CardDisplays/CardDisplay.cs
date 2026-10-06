@@ -78,11 +78,12 @@ namespace CardScripts.CardDisplays
 
         protected string ParseAbilityName_IntoDescription(string rawName)
         {
-            if (string.IsNullOrEmpty(rawName)) return "XXXXXXX";
+            if (string.IsNullOrEmpty(rawName)) return "";
     
-            // Remove "SO" suffix if present
-            if (rawName.EndsWith("SO"))
-                rawName = rawName.Substring(0, rawName.Length - 2);
+            // Drop everything after (and including) the last underscore
+            int lastUnderscore = rawName.LastIndexOf('_');
+            if (lastUnderscore >= 0)
+                rawName = rawName.Substring(0, lastUnderscore);
     
             // Replace underscores with spaces
             rawName = rawName.Replace("_", " ");

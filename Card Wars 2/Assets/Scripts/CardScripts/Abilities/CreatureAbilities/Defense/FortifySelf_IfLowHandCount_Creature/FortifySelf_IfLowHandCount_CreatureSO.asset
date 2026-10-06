@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: FortifySelf_IfLowHandCount_CreatureSO
   m_EditorClassIdentifier: 
   MaxCardsInHandAllowed: 4
-  FortifyAmount: 4
+  FortifyAmount: 8
