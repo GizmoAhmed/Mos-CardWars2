@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
-  m_Name: Wanderer_Creature
+  m_Name: Necromancer_Creature
   m_EditorClassIdentifier: 
-  cardName: Wanderer
-  mainImage: {fileID: 21300000, guid: e013cc38440f5884e8e96983368168e5, type: 3}
-  soul: 3
+  cardName: Necromancer
+  mainImage: {fileID: 21300000, guid: 069fe633aa393bc408c4a37d3e0bbfe2, type: 3}
+  soul: 1
   abilityDescription: 
   burnCost: 2
-  ability: {fileID: 11400000, guid: 36885a813efaef64c8352a7e7beede10, type: 2}
+  ability: {fileID: 11400000, guid: 29e79c0cfb50222408e74cc8f90e9078, type: 2}
   element: 2
   elementSprite: {fileID: 21300000, guid: c2e4a872d1e5a7b43a898ed378a4fbb8, type: 3}
-  abilityCost: 4
-  attack: 1
-  defense: 4
+  abilityCost: 0
+  attack: 0
+  defense: 2
