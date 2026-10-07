@@ -35,7 +35,7 @@ namespace CardScripts.CardDisplays
         private GameObject _burnObj;
 
         protected CardInfoHandler CardInfoHandler;
-        
+
         private void Awake()
         {
             // find all object variables above
@@ -65,9 +65,15 @@ namespace CardScripts.CardDisplays
 
             // set description
             GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
-            
-            
-            SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.ability.name));
+
+            if (cardData.ability == null)
+            {
+                Debug.LogError($"CardDisplay: cardData.ability is null on {gameObject.name}");
+            }
+            else
+            {
+                SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.ability.name));
+            }
 
             FlipCard(face: true);
 
@@ -79,18 +85,18 @@ namespace CardScripts.CardDisplays
         protected string ParseAbilityName_IntoDescription(string rawName)
         {
             if (string.IsNullOrEmpty(rawName)) return "";
-    
+
             // Drop everything after (and including) the last underscore
             int lastUnderscore = rawName.LastIndexOf('_');
             if (lastUnderscore >= 0)
                 rawName = rawName.Substring(0, lastUnderscore);
-    
+
             // Replace underscores with spaces
             rawName = rawName.Replace("_", " ");
-    
+
             // Add space before capital letters (camelCase/PascalCase splitting)
             rawName = Regex.Replace(rawName, "(?<!^)(?<! )(?=[A-Z])", " ");
-    
+
             return rawName.Trim();
         }
 
@@ -115,7 +121,7 @@ namespace CardScripts.CardDisplays
             if (obj == null)
             {
                 //Debug.LogWarning(
-                    //$"Missing {childName} UI Obj on {gameObject.name}. This is a concern if it's a creature, charm, or building that triggered this");
+                //$"Missing {childName} UI Obj on {gameObject.name}. This is a concern if it's a creature, charm, or building that triggered this");
             }
 
             return obj;

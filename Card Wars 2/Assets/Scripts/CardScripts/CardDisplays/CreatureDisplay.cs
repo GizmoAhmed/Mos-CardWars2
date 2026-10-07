@@ -63,8 +63,15 @@ namespace CardScripts.CardDisplays
 
             // set description
             GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
-            
-            SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.ability.name));
+
+            if (cardData.ability == null)
+            {
+                Debug.LogError($"CreatureDisplay: cardData.ability is null on {gameObject.name}");                
+            }
+            else
+            {
+                SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.ability.name));
+            }
 
             FlipCard(face: true);
 
@@ -244,7 +251,14 @@ namespace CardScripts.CardDisplays
                 runeIconFace2.SetActive(true);
                 
                 // the info text
-                SetText(_runeText2, ParseAbilityName_IntoDescription(runeData.ability.name));
+                if (cardData.ability == null)
+                {
+                    Debug.LogError($"Rune Bind: cardData.ability is null on {runeData.name}");                
+                }
+                else
+                {
+                    SetText(_runeText2, ParseAbilityName_IntoDescription(runeData.ability.name));
+                }
                 
                 SetText(_runeName2, runeData.cardName);
                 
@@ -260,7 +274,14 @@ namespace CardScripts.CardDisplays
                 runeIconFace1.SetActive(true);
                 
                 // the info text
-                SetText(_runeText1, ParseAbilityName_IntoDescription(runeData.ability.name));
+                if (cardData.ability == null)
+                {
+                    Debug.LogError($"Rune Bind: cardData.ability is null on {runeData.name}");                
+                }
+                else
+                {
+                    SetText(_runeText1, ParseAbilityName_IntoDescription(runeData.ability.name));
+                }
                 
                 SetText(_runeName1, runeData.cardName);
                 
