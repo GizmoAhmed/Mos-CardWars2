@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e2a52975bdf47bdb9fdb35165c23817, type: 3}
-  m_Name: Mirror_Building
+  m_Name: Factory_Building
   m_EditorClassIdentifier: 
-  cardName: MIRROR
-  mainImage: {fileID: 21300000, guid: 24bee8caf68d3d54aa89043533f20d62, type: 3}
-  soul: 2
+  cardName: FACTORY
+  mainImage: {fileID: 21300000, guid: c139293ad1659e94e8a79bf3447d57a1, type: 3}
+  soul: 3
   abilityDescription: 
   burnCost: 2
-  ability: {fileID: 11400000, guid: 9dfb7d200801c6840a7b5fca1cedc62c, type: 2}
+  ability: {fileID: 11400000, guid: e672a629cef18c04280b82bbbf9c3e39, type: 2}
