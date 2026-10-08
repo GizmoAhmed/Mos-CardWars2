@@ -8,7 +8,7 @@ using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "GetFreeDrawOffering_ThenDamageThisCreature_Creature", 
-    menuName = "Abilities/Creature/GetFreeDrawOffering_ThenDamageThisCreature_Creature")]
+    menuName = "Abilities/Creature/Draw/GetFreeDrawOffering_ThenDamageThisCreature_Creature")]
 public class GetFreeDrawOffering_ThenDamageThisCreature_Creature : ActiveAbilitySO
 {
     public int amountOfExtraOffers;
