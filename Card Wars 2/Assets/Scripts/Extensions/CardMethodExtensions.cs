@@ -336,7 +336,7 @@ namespace Extensions
                    == CardMovement.CardState.Field;
         }
 
-        public static T GetRandomFromList<T>(this List<T> list)
+        public static T GetRandomFromList<T>(this IReadOnlyList<T> list)
         {
             if (list == null || list.Count == 0)
             {
@@ -344,12 +344,7 @@ namespace Extensions
                 return default;
             }
 
-            if (list.Count == 1)
-            {
-                return list[0];
-            }
-
-            return list[Random.Range(0, list.Count)];
+            return list.Count == 1 ? list[0] : list[Random.Range(0, list.Count)];
         }
         
         public static bool IsSoulBasedCard(this GameObject card)

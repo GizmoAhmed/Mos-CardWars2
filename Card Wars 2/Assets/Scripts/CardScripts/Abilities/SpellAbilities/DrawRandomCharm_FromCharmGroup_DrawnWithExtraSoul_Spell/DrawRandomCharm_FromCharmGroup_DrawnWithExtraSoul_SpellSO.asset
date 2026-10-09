@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2e636c6d75d354da743515c7e9267c, type: 3}
   m_Name: DrawRandomCharm_FromCharmGroup_DrawnWithExtraSoul_SpellSO
   m_EditorClassIdentifier: 
-  castRequirementType: 0
+  castRequirementType: 4
   castSide: 0
+  extraSoul: 1
