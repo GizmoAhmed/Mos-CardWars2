@@ -19,7 +19,7 @@ MonoBehaviour:
   burnCost: 2
   ability: {fileID: 11400000, guid: f77ff9ac4d3e02f4eabf783c7bd1d835, type: 2}
   element: 3
-  elementSprite: {fileID: 0}
+  elementSprite: {fileID: 21300000, guid: 94c442535ef1d3c47bb8085d9e16bc77, type: 3}
   abilityCost: 5
   attack: 0
   defense: 1

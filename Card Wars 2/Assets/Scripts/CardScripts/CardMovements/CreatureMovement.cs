@@ -176,7 +176,12 @@ namespace CardScripts.CardMovements
 
         protected override void DetachFromTile()
         {
-            ((MiddleTile)thisCardsVisualTile).creatureVisual = null;
+            // if not already null, for whatever reason
+            if (thisCardsVisualTile != null) 
+            {
+                ((MiddleTile)thisCardsVisualTile).creatureVisual = null;
+            }
+            
             base.DetachFromTile();
         }
         
