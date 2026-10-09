@@ -19,13 +19,7 @@ public class BuffStat_EachTurn_WithChanceToDestroySelf_Building : PassiveAbility
     
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        if (RollChance(destroyChance)) // hit, destroy this building
-        {
-            BuildingMovement buildingMovement = thisCard.GetComponent<BuildingMovement>();
-            
-            buildingMovement.ServerDiscard();
-        }
-        else // miss, buff
+        if (RollChance(destroyChance)) // hit, buff
         {
             CreatureStats creatureStats = thisCard.Ext_GetCreatureStats_FromSharedBuildingsTile();
 
@@ -35,6 +29,12 @@ public class BuffStat_EachTurn_WithChanceToDestroySelf_Building : PassiveAbility
                 creatureStats.UpdateCreatureDefense(defenseBoost, buff: true);
                 AnimateAbilityExecute(thisCard);
             }
+        }
+        else // miss, discard this building
+        {
+            BuildingMovement buildingMovement = thisCard.GetComponent<BuildingMovement>();
+            
+            buildingMovement.ServerDiscard();
         }
     }
 }

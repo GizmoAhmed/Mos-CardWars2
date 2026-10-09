@@ -14,6 +14,8 @@ namespace CardScripts.CardStatss
     {
         private CreatureDisplay _creatureDisplay;
         
+        private CreatureMovement _creatureMovement;
+        
         [Header("Creature Specific Stats")] 
         
         [SyncVar(hook = nameof(Hook_UpdateCreatureStrength))]
@@ -32,12 +34,18 @@ namespace CardScripts.CardStatss
         [Header("Element")] // todo eventually have a hook here if you want element changes to update UI on the fly
         [SyncVar] public CreatureDataSO.Element element;
 
-        [Header("Floop Amount")]
+        [Header("Ability Stuff")] 
+        public bool canFloop = true;
+        
         // how many times a creature can floop in a turn
         [SyncVar] public int maxFloops = 1;
         [SyncVar] public int floopsLeft;
 
         [SyncVar] public bool multiFloop = false;
+        [SyncVar] public bool isGamblingAbility = false;
+
+        [Range(0, 100)]
+        public int gambleChance = 0;
         
         [Header("Rune Booleans")]
         // If immortal, creature can't be killed and their defense can go negative as a result
@@ -64,6 +72,8 @@ namespace CardScripts.CardStatss
             {
                 Debug.LogError($"CreatureDisplay not found on {gameObject.name}!");
             }
+            
+            _creatureMovement = Movement as  CreatureMovement;
         }
 
         public override void SetAndApplyCardData(CardDataSO data, bool serverCall)
@@ -205,7 +215,6 @@ namespace CardScripts.CardStatss
                     tileEventManager.OnNerfCreatureDefenseOnTile(gameObject, defense);
                     
                     // unbinds runes as well btw, so all the broadcast stuff should happen before
-                    // todo i know for a fact I'll be back here when I have discard listeners
                     GetComponent<CreatureMovement>().ServerDiscard(); 
                 }
                 else // either not dead, or immortal
@@ -283,10 +292,11 @@ namespace CardScripts.CardStatss
         /// Usually, abilities are called by clicking a creature ability button
         /// This function is for cases where it's done otherwise, typically from another ability
         /// </summary>
-        /// <param name="creatureToActivate"></param>
         [Server]
         public void ActivateCreatureAbility()
         {
+            if (!canFloop) return; // if can't floop don't bother
+            
             try
             {
                 if (cardData.ability == null)
@@ -295,10 +305,30 @@ namespace CardScripts.CardStatss
                     return;
                 }
 
-                cardData.ability.ExecuteAbility(gameObject, null);
+                if (!isGamblingAbility) // not gambling, just run ability
+                {
+                    ExecuteAndBroadCastAbility();
+                }
+                else
+                {
+                    // run chance
+                    bool hit = cardData.ability.RollChance(chance: gambleChance);
 
-                LocalWhisperCardAbilityActivate(this);
-                // todo global broadcast
+                    if (hit)
+                    {
+                        ExecuteAndBroadCastAbility();
+
+                        // check:
+                        if (ValidateAbilityExecution()) // passed checks?
+                        {
+                            ExecuteAndBroadCastAbility(); // go again
+                        }
+                    }
+                    else
+                    {
+                        // missed? too bad, ability wasn't set off at all
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -308,6 +338,31 @@ namespace CardScripts.CardStatss
 
         }
         
+        private void ExecuteAndBroadCastAbility()
+        {
+            Debug.Log($"<color=green>ExecuteAndBroadCastAbility</color> on {gameObject.name}");
+            cardData.ability.ExecuteAbility(gameObject, null);
+            LocalWhisperCardAbilityActivate(this);
+            // todo global broadcast
+        }
+        
+        /// <summary>
+        /// Check if ability can be re-executed after initial execute
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateAbilityExecution()
+        {
+            // make sure it didn't invalidate its ability to floop with the first execute
+                        
+            if (!canFloop) return false; // can't floop, abort
+
+            if (_creatureMovement.cardState == CardMovement.CardState.Discard) 
+                return false; // killed itself, abort
+                        
+            // todo and any other reasons below
+            return true;
+        }
+
         private void LocalWhisperCardAbilityActivate(CreatureStats creature)
         {
             // get tile of creature flooped

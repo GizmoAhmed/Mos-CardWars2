@@ -245,6 +245,8 @@ namespace PlayerStuff
 
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
 
+            if (!creatureStats.canFloop) return; // can't floop, don't spend money
+
             if (creatureStats.floopsLeft <= 0 && !creatureStats.multiFloop) // not enough floops, return
             {
                 Debug.LogWarning(

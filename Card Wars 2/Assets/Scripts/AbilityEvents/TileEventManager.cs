@@ -79,7 +79,7 @@ namespace AbilityEvents
         {
             AbilityEventData eventData = new AbilityEventData(
                 AbilityEventType.CreatureAbilityOnTile,
-                creature
+                targ: creature
             );
             
             TriggerTileEvent(eventData);

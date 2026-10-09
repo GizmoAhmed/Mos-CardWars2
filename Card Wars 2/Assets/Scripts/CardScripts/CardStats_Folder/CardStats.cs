@@ -21,6 +21,8 @@ namespace CardScripts.CardStats_Folder
         protected CardDisplay Display;
         
         protected CardAnimator anim;
+        
+        protected CardMovement Movement;
 
         [SyncVar(hook = nameof(Hook_UpdateSoulUI_OnBothClients))]
         public int soulUse;
@@ -35,6 +37,7 @@ namespace CardScripts.CardStats_Folder
         {
             Display = GetComponent<CardDisplay>();
             anim = GetComponent<CardAnimator>();
+            Movement = GetComponent<CardMovement>();
         }
 
         /// <summary>

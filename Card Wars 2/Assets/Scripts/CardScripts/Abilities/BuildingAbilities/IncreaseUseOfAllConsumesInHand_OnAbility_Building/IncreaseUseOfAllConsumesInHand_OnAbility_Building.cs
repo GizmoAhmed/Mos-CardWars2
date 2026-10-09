@@ -21,7 +21,7 @@ public class IncreaseUseOfAllConsumesInHand_OnAbility_Building : PassiveAbilityS
         foreach (SpellStats spell in spells)
         {
             spell.uses +=  usesIncrease;
-            AnimateAbilityExecute(spell.gameObject);
+            // AnimateAbilityExecute(spell.gameObject);
         }
 
         if (spells.Count > 0)
