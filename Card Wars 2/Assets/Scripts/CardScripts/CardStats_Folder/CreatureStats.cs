@@ -4,7 +4,9 @@ using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
+using Extensions;
 using Mirror;
+using PlayerStuff;
 using Tiles;
 using UnityEngine;
 
@@ -307,7 +309,7 @@ namespace CardScripts.CardStatss
 
                 if (!isGamblingAbility) // not gambling, just run ability
                 {
-                    ExecuteAndBroadCastAbility();
+                    ExecuteAndBroadcastAbility();
                 }
                 else
                 {
@@ -316,12 +318,12 @@ namespace CardScripts.CardStatss
 
                     if (hit)
                     {
-                        ExecuteAndBroadCastAbility();
+                        ExecuteAndBroadcastAbility();
 
                         // check:
                         if (ValidateAbilityExecution()) // passed checks?
                         {
-                            ExecuteAndBroadCastAbility(); // go again
+                            ExecuteAndBroadcastAbility(); // go again
                         }
                     }
                     else
@@ -338,10 +340,16 @@ namespace CardScripts.CardStatss
 
         }
         
-        private void ExecuteAndBroadCastAbility()
+        private void ExecuteAndBroadcastAbility()
         {
             Debug.Log($"<color=green>ExecuteAndBroadCastAbility</color> on {gameObject.name}");
             cardData.ability.ExecuteAbility(gameObject, null);
+            
+            PlayerCardTracker playerCardTracker = gameObject.Ext_GetOwningCardTracker();
+
+            // increment floop counter
+            playerCardTracker.Server_IncrementCreatureActivation(gameObject);
+            
             LocalWhisperCardAbilityActivate(this);
             // todo global broadcast
         }

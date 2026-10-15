@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2a52975bdf47bdb9fdb35165c23817, type: 3}
   m_Name: MysticBanner_Building
   m_EditorClassIdentifier: 
-  cardName: FORGE BANNER
-  mainImage: {fileID: 21300000, guid: b164ad7bb4734864d930e91711a83e74, type: 3}
+  cardName: MYSTIC BANNER
+  mainImage: {fileID: 21300000, guid: 95ab272d5350767418361ab3a43a7164, type: 3}
   soul: 1
   abilityDescription: 
   burnCost: 2
-  ability: {fileID: 11400000, guid: 7e126a8ce43d7c84a952062d0b7d3280, type: 2}
+  ability: {fileID: 11400000, guid: 362a7372dbdaaf246a7994337204ba99, type: 2}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0641979441064c6594eb6bd6999b0967, type: 3}
+  m_Name: BoneAxe_Spell
+  m_EditorClassIdentifier: 
+  cardName: BONE AXE
+  mainImage: {fileID: 21300000, guid: df0a05252d8c7a04a947f7d163fc2ee0, type: 3}
+  soul: -1
+  abilityDescription: 
+  burnCost: 2
+  ability: {fileID: 11400000, guid: 544fd0dc59c63e14eb60fae7614e7a9b, type: 2}
+  uses: 3

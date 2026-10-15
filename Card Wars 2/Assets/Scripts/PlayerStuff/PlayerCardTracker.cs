@@ -21,7 +21,9 @@ namespace PlayerStuff
         public int numOfCardsDrawnThisTurn;
 
         public int cardsPlacedThisTurn;
-        
+
+        public int creatureActivationsThisTurn;
+
         /// <summary>
         /// Called when a card is discarded - tracked on server
         /// </summary>
@@ -30,12 +32,12 @@ namespace PlayerStuff
         {
             serverDiscardedCards.Add(card);
             // Debug.Log($"[Server] Tracked discard: {card.name}. Cards discarded: {_serverDiscardedCards.Count}");
-            
+
             // since discarded, reset runtime data
             CardRuntimeData data = card.GetComponent<CardRuntimeData>();
             data.ResetCardRunTimeData();
         }
-        
+
         /// <summary>
         /// Server gets last discarded card directly
         /// </summary>
@@ -44,21 +46,21 @@ namespace PlayerStuff
         {
             if (serverDiscardedCards.Count == 0)
                 return null;
-        
+
             // Find last non-null card (some might have been destroyed)
             for (int i = serverDiscardedCards.Count - 1; i >= 0; i--)
             {
                 if (serverDiscardedCards[i] != null)
                     return serverDiscardedCards[i];
-            
+
                 // todo if you want it removed
-                
+
                 // _serverDiscardedCards.RemoveAt(i);
             }
-        
+
             return null;
         }
-        
+
         [Server]
         public void Server_TrackAddToHand(GameObject card)
         {
@@ -67,6 +69,17 @@ namespace PlayerStuff
                       $"total: {_serverHandContents.Count}");*/
 
             numOfCardsDrawnThisTurn++;
+        }
+
+        [Server]
+        public void Server_IncrementCreatureActivation(GameObject card)
+        {
+            creatureActivationsThisTurn++;
+            Debug.Log
+            (
+                $"<color=cyan>IncrementCreatureActivation</color> on {card.name}: " +
+                $"Total floops this turn = {creatureActivationsThisTurn}"
+            );
         }
 
         [Server]
@@ -85,7 +98,7 @@ namespace PlayerStuff
                 AbilityEventData addToHandData = new AbilityEventData(
                     type: AbilityEventType.AnyAddCardToHand,
                     targ: card,
-                    
+
                     // prevent infinite loop duplication
                     customData: new Dictionary<string, object>
                     {
@@ -94,14 +107,15 @@ namespace PlayerStuff
                     // below broadcast will return to the ability that listens+redraws
                     // and if the above flag is true, won't duplicate a draw again
                 );
-                
+
                 // tell event manager to tell everyone (that cares) that the turn ended
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance
                     .TriggerEvents_ForAllSubscribersOfType(addToHandData);
             }
             else
             {
-                Debug.LogError($"<color=Red>Failed Add-To-Hand Broadcast</color> {name} couldn't find the GlobalAbilityEventManage Instance");
+                Debug.LogError(
+                    $"<color=Red>Failed Add-To-Hand Broadcast</color> {name} couldn't find the GlobalAbilityEventManage Instance");
             }
         }
 
@@ -110,6 +124,7 @@ namespace PlayerStuff
         {
             numOfCardsDrawnThisTurn = 0;
             cardsPlacedThisTurn = 0;
+            creatureActivationsThisTurn = 0;
 
             Server_ResetFloops_OfAllCreatures();
 
@@ -141,7 +156,7 @@ namespace PlayerStuff
 
             cardsPlacedThisTurn++;
         }
-        
+
         [Server]
         public void Server_RemoveTilePlacement(GameObject card)
         {
@@ -156,14 +171,14 @@ namespace PlayerStuff
 
             foreach (GameObject card in serverActiveFieldCards)
             {
-                if (card.GetComponent<CreatureMovement>() || 
+                if (card.GetComponent<CreatureMovement>() ||
                     card.GetComponent<BuildingMovement>() ||
                     card.GetComponent<CharmMovement>())
                 {
                     allActiveFieldCards.Add(card.GetComponent<CardStats>());
                 }
             }
-            
+
             return allActiveFieldCards;
         }
 
@@ -172,11 +187,11 @@ namespace PlayerStuff
         {
             return serverHandContents;
         }
-        
+
         [Server]
         public List<GameObject> GetThisPlayerSoulCardsInHand()
         {
-            return serverHandContents.Where(card => 
+            return serverHandContents.Where(card =>
                     card.TryGetComponent<CreatureMovement>(out _) ||
                     card.TryGetComponent<BuildingMovement>(out _) ||
                     card.TryGetComponent<CharmMovement>(out _))
@@ -190,7 +205,7 @@ namespace PlayerStuff
         public List<CreatureStats> Server_GetThisPlayersOnFieldCreatures()
         {
             List<CreatureStats> creatures = new List<CreatureStats>();
-    
+
             foreach (GameObject card in serverActiveFieldCards)
             {
                 if (card != null && card.TryGetComponent(out CreatureStats stats))
@@ -198,7 +213,7 @@ namespace PlayerStuff
                     creatures.Add(stats);
                 }
             }
-    
+
             return creatures;
         }
 
@@ -214,7 +229,7 @@ namespace PlayerStuff
                     spells.Add(stats);
                 }
             }
-            
+
             return spells;
         }
 
