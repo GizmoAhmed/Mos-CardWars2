@@ -117,10 +117,10 @@ public class TurnManager : NetworkBehaviour
         // todo ActivePhase(), everyone does there stuff, like watching the cards in balatro tick away when you play a hand
         
         Debug.LogWarning("<color=grey>Ending Turn...</color>");
-
-        Server_EndOfTurnReset_BothPlayers();
         
         GlobalBroadcastTurnEnd();
+        
+        Server_EndOfTurnReset_BothPlayers();
         
         CheckScore();
         
