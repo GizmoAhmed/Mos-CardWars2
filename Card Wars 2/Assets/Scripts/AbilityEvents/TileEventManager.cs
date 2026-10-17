@@ -86,6 +86,23 @@ namespace AbilityEvents
         }
 
         [Server]
+        public void OnChanceOnTile(int chance, bool hit, GameObject card)
+        {
+            AbilityEventType chanceEvent = hit ? 
+                AbilityEventType.ChanceHitOnTile :    // if hit
+                AbilityEventType.ChanceMissOnTile;  // else
+
+            AbilityEventData luck = new AbilityEventData
+            (
+                type: chanceEvent,
+                targ: card,
+                val: chance
+            );
+            
+            TriggerTileEvent(luck);
+        }
+
+        [Server]
         public void OnCardDiscardFromTile(GameObject card)
         {
             AbilityEventData eventData = new AbilityEventData(

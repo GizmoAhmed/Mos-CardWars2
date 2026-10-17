@@ -120,6 +120,7 @@ namespace CardScripts.Abilities
             bool hit = roll <= chance;
             
             GlobalBroadCastRollChance(chance: chance, hit: hit, cardTriggeredFrom: thisCard);
+            LocalTileWhisperRollChance(chance: chance, hit: hit, cardTriggeredFrom: thisCard);
 
             return hit;
         }
@@ -146,6 +147,15 @@ namespace CardScripts.Abilities
             {
                 Debug.LogError($"{cardTriggeredFrom.name} couldn't find the ability event manager");
             }
+        }
+
+        private void LocalTileWhisperRollChance(int chance, bool hit, GameObject cardTriggeredFrom)
+        {
+            Tile tile = cardTriggeredFrom.GetComponent<CreatureMovement>().GetLogicalTile();
+            
+            TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
+
+            tileEventManager.OnChanceOnTile(chance: chance, hit: hit, card: cardTriggeredFrom);
         }
 
         [Server]

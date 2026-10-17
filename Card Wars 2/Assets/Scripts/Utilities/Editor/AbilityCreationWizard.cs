@@ -330,6 +330,7 @@ using CardScripts.CardStatss;
 using Extensions;
 using CardScripts.Abilities.AbilityClasses;
 using UnityEngine;
+using PlayerStuff;
 
 [CreateAssetMenu(
     fileName = ""{_previewClassName}"", 

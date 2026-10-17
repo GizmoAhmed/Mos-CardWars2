@@ -25,6 +25,8 @@ namespace AbilityEvents
         AnyChanceMissed = 15,
         
         // === TILE EVENTS (happen on specific tiles, broadcast locally) ===
+        ChanceHitOnTile = 98,
+        ChanceMissOnTile = 99,
         CardPlacedOnTile = 100,       
         CreatureBurnedOnTile = 101,   
         CardDiscardedFromTile = 102,

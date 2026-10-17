@@ -325,9 +325,12 @@ namespace CardScripts.CardStatss
                         {
                             ExecuteAndBroadcastAbility(); // go again
                         }
+                        
+                        Debug.Log($"{gameObject.name} gambled on an additional floop and <color=red>won</color>");
                     }
                     else
                     {
+                        Debug.Log($"{gameObject.name} gambled on an additional floop and <color=red>missed</color>");
                         // missed? too bad, ability wasn't set off at all
                     }
                 }
