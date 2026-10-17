@@ -314,7 +314,7 @@ namespace CardScripts.CardStatss
                 else
                 {
                     // run chance
-                    bool hit = cardData.ability.RollChance(chance: gambleChance);
+                    bool hit = cardData.ability.RollChance(chance: gambleChance, gameObject);
 
                     if (hit)
                     {

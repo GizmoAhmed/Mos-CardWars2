@@ -15,7 +15,7 @@ public class ChanceToEarnDoubleAbilityCost_Creature : ActiveAbilitySO
 
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        if (RollChance(hitChance))
+        if (RollChance(hitChance, thisCard))
         {
             // get player
             PlayerStats player = thisCard.Ext_GetOwningPlayerStats();

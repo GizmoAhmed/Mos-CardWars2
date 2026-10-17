@@ -18,7 +18,7 @@ public class ChanceToUpgradePlayerSoul_Creature : ActiveAbilitySO
         
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        if (RollChance(chanceToHit)) // hits
+        if (RollChance(chanceToHit, thisCard)) // hits
         {
             PlayerStats player = thisCard.Ext_GetOwningPlayerStats();
 

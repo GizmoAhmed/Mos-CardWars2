@@ -19,7 +19,7 @@ public class BuffStat_EachTurn_WithChanceToDestroySelf_Building : PassiveAbility
     
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        if (RollChance(destroyChance)) // hit, buff
+        if (RollChance(destroyChance, thisCard)) // hit, buff
         {
             CreatureStats creatureStats = thisCard.Ext_GetCreatureStats_FromSharedBuildingsTile();
 

@@ -109,15 +109,43 @@ namespace CardScripts.Abilities
         /// <param name="chance">percentage to win</param>
         /// <returns>Win or loss</returns>
         [Server]
-        public bool RollChance(int chance)
+        public bool RollChance(int chance, GameObject thisCard)
         {
             // Clamp chance between 1 and 100
             chance = Mathf.Clamp(chance, 1, 100);
 
             // Roll between 1 and 100
             int roll = UnityEngine.Random.Range(1, 101);
+            
+            bool hit = roll <= chance;
+            
+            GlobalBroadCastRollChance(chance: chance, hit: hit, cardTriggeredFrom: thisCard);
 
-            return roll <= chance;
+            return hit;
+        }
+
+        private void GlobalBroadCastRollChance(int chance, bool hit, GameObject cardTriggeredFrom)
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                 AbilityEventType chanceEvent = hit ? 
+                     AbilityEventType.AnyChanceHit :    // if hit
+                     AbilityEventType.AnyChanceMissed;  // else
+
+                AbilityEventData luck = new AbilityEventData
+                (
+                    type: chanceEvent,
+                    targ: cardTriggeredFrom,
+                    val: chance
+                );
+                
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.
+                    TriggerEvents_ForAllSubscribersOfType(luck);
+            }
+            else
+            {
+                Debug.LogError($"{cardTriggeredFrom.name} couldn't find the ability event manager");
+            }
         }
 
         [Server]

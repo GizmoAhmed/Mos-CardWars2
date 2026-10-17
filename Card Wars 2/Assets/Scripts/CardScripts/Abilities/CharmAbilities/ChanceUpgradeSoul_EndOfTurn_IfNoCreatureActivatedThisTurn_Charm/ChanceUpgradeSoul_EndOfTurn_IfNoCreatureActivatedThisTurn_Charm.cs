@@ -24,7 +24,7 @@ public class ChanceUpgradeSoul_EndOfTurn_IfNoCreatureActivatedThisTurn_Charm : P
 
         if (floopsThisTurn == 0)
         {
-            if (RollChance(chanceToHit)) // hits
+            if (RollChance(chanceToHit, thisCard)) // hits
             {
                 PlayerStats player = thisCard.Ext_GetOwningPlayerStats();
 

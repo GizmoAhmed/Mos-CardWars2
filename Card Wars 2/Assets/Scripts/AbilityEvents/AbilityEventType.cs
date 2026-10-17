@@ -21,6 +21,8 @@ namespace AbilityEvents
         AnyCreatureBurned = 11,
         AnyPlayerSoulAdjustment = 12,
         AnyPlayerSoulUpgrade = 13,
+        AnyChanceHit = 14,
+        AnyChanceMissed = 15,
         
         // === TILE EVENTS (happen on specific tiles, broadcast locally) ===
         CardPlacedOnTile = 100,       

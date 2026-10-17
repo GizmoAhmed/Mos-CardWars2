@@ -31,7 +31,7 @@ public class RedrawCardOnChance_OnDraw_Charm : PassiveAbilitySO
 
         if (!yours) return;
         
-        if (RollChance(chance)) // hits
+        if (RollChance(chance, thisCard)) // hits
         {
             // this ability listens for draws and draws itself, so...
             // to prevent loops, pass boolean to break the cycle for this specific ability

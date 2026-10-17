@@ -20,12 +20,12 @@ public class BuffOrDestroy_OnChance_Spell : CastAbilitySO
         if (creatureOnTile == null)
             return; // error message inside above function
         
-        if (RollChance(chance)) // hit
+        if (RollChance(chance, thisCard)) // hit
         {
             Debug.Log($"{name} hit! Buffing {creatureOnTile.name}");
             
             // chance between attack or defense
-            if (RollChance(50))
+            if (RollChance(50, thisCard))
             {
                 int defense = creatureOnTile.defense;
                 creatureOnTile.UpdateCreatureDefense(defense, buff: true);
