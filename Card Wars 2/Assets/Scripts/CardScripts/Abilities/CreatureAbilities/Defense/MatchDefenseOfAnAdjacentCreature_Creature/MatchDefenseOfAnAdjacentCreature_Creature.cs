@@ -23,7 +23,7 @@ public class MatchDefenseOfAnAdjacentCreature_Creature : ActiveAbilitySO
     {
         string leftOrRight = Side == AdjacentSide.Left ? "left" : "right";
 
-        MiddleTile adj = thisCard.GetEitherAdjacentTile(leftOrRight);
+        MiddleTile adj = thisCard.Ext_GetEitherAdjacentTile(leftOrRight);
 
         if (adj == null) return; // in a position where there is not right or left 
 

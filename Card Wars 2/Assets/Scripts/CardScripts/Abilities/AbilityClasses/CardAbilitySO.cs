@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.CardData;
+using Extensions;
 using UnityEngine;
 
 namespace CardScripts.Abilities
@@ -156,6 +157,16 @@ namespace CardScripts.Abilities
             TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
 
             tileEventManager.OnChanceOnTile(chance: chance, hit: hit, card: cardTriggeredFrom);
+        }
+
+        protected GameObject GetAnAdjacentCreature(GameObject thisCard, string leftOrRight)
+        {
+            MiddleTile adj = thisCard.Ext_GetEitherAdjacentTile(leftOrRight);
+
+            if (adj == null) return null; // in a position where there is not right or left 
+
+            // look at adjacent creature
+            return adj.logicalCreature;
         }
 
         [Server]

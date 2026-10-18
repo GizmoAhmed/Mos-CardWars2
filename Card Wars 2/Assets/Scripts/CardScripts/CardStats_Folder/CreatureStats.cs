@@ -36,8 +36,10 @@ namespace CardScripts.CardStatss
         [Header("Element")] // todo eventually have a hook here if you want element changes to update UI on the fly
         [SyncVar] public CreatureDataSO.Element element;
 
-        [Header("Ability Stuff")] 
-        public bool canFloop = true;
+        [Header("Ability Stuff")]
+        
+        [Tooltip("Amount of floop blockers, if 0, can floop")]
+        public int floopBlockers = 0;
         
         // how many times a creature can floop in a turn
         [SyncVar] public int maxFloops = 1;
@@ -131,6 +133,12 @@ namespace CardScripts.CardStatss
         [Server] // called from inside a command
         public void UpdateCreatureStrength(int amount, bool buff, bool applyMult = true)
         {
+            if (amount == 0) // no point
+            {
+                RpcPopAnimate(AnimTarget.Strength, buff);
+                return;
+            } 
+            
             if (applyMult == true) // apply mult
             {
                 amount *= strengthMult; 
@@ -147,33 +155,21 @@ namespace CardScripts.CardStatss
                     Debug.Log($"Attempted to <color=orange>strengthen</color> {gameObject.name} but was <color=red>blocked</color>");
                     return;
                 }
-
-                // if (!canBeBuffed) return; // if can't be buffed, return
-
+                
                 strength += amount;
-
-                GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureStrengthBuffed(gameObject, amount);
-
+                
                 // tell the middleTile the creature is on that it just got buffed, so the middleTile can tell other things on itself that
                 tileEventManager.OnBuffCreatureStrengthOnTile(gameObject, amount);
             }
             else
             {
-                /*if (strength - amount < 0) // so doesn't go negative
-                {
-                    amount = strength;
-                    strength = 0; 
-                }
-                else
-                {
-                    strength -= amount;
-                }*/
-                
                 strength -= amount; // can go negative
                 
-                GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureStrengthNerfed(gameObject, amount);
+                // GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureStrengthNerfed(gameObject, amount);
                 tileEventManager.OnNerfCreatureStrengthOnTile(gameObject, amount);
             }
+            
+            GlobalBroadCastStatChange(amount: amount, buff: buff, str: true);
 
             RpcPopAnimate(AnimTarget.Strength, buff);
             score = strength + defense;
@@ -182,6 +178,12 @@ namespace CardScripts.CardStatss
         [Server]
         public void UpdateCreatureDefense(int amount, bool buff, bool applyMult = true)
         {
+            if (amount == 0) // no point
+            {
+                RpcPopAnimate(AnimTarget.Defense, buff);
+                return;
+            } 
+
             if (applyMult == true)
             {
                 amount *= defenseMult; // gluttony rune
@@ -203,35 +205,80 @@ namespace CardScripts.CardStatss
                 
                 defense += amount;
 
-                GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseBuffed(gameObject, amount);
-
+                GlobalBroadCastStatChange(amount: amount, buff: true, str: false);
+                
                 // tell the middleTile the creature is on that it just got buffed, so the middleTile can tell other things on itself that
                 tileEventManager.OnBuffCreatureDefenseOnTile(gameObject, amount);
             }
             else
             {
-                if (defense - amount <= 0 && !immortal) // and can die
+                if (defense - amount <= 0 && !immortal) // can die and gonna die
                 {
                     // broadcast left over defense instead of amount
-                    GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, defense);
+                    // GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, defense);
                     tileEventManager.OnNerfCreatureDefenseOnTile(gameObject, defense);
+                    
+                    // needs to happen before discard since those post discard values are problematic to some abilities
+                    // ie logical player side being reset 
+                    GlobalBroadCastStatChange(amount: amount, buff: false, str: false);
                     
                     // unbinds runes as well btw, so all the broadcast stuff should happen before
                     GetComponent<CreatureMovement>().ServerDiscard(); 
                 }
-                else // either not dead, or immortal
+                else // survived, the blow or just immortal 
                 {
                     defense -= amount;
                     
-                    GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, amount);
+                    GlobalBroadCastStatChange(amount: amount, buff: false, str: false);
+                    
+                    // GlobalAbilityEventManager.GlobalAbilityManagerInstance.OnAnyCreatureDefenseNerfed(gameObject, amount);
                     tileEventManager.OnNerfCreatureDefenseOnTile(gameObject, amount);
                 }
             }
-            
+
             RpcPopAnimate(AnimTarget.Defense, buff);
             score = strength + defense;
         }
-        
+
+        private void GlobalBroadCastStatChange(int amount, bool buff, bool str)
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventType statChangeType;
+
+                if (buff && str) // buff to strength
+                {
+                    statChangeType = AbilityEventType.AnyCreatureStrengthBuff;
+                }
+                else if (!buff && str) // nerf to strength
+                {
+                    statChangeType = AbilityEventType.AnyCreatureStrengthNerf;
+                }
+                else if (buff && !str) // buff to defense
+                {
+                    statChangeType = AbilityEventType.AnyCreatureDefenseBuff;
+                }
+                else // if (!buff && !Strength) // nerf to defense
+                {
+                    statChangeType = AbilityEventType.AnyCreatureDefenseNerf;
+                }
+                
+                AbilityEventData statData = new AbilityEventData(
+                        type: statChangeType,
+                        targ: gameObject,
+                        val: amount
+                    );
+                
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance
+                    .TriggerEvents_ForAllSubscribersOfType(statData);
+            }
+            else
+            {
+                Debug.LogError(
+                    $"<color=Orange>Failed Stat Change Broadcast</color> {name} couldn't find the GlobalAbilityEventManage Instance");
+            }
+        }
+
         [ClientRpc]
         private void RpcPopAnimate(AnimTarget target, bool isBuff)
         {
@@ -297,7 +344,7 @@ namespace CardScripts.CardStatss
         [Server]
         public void ActivateCreatureAbility()
         {
-            if (!canFloop) return; // if can't floop don't bother
+            if (floopBlockers > 0) return; // if can't floop don't bother
             
             try
             {
@@ -365,7 +412,7 @@ namespace CardScripts.CardStatss
         {
             // make sure it didn't invalidate its ability to floop with the first execute
                         
-            if (!canFloop) return false; // can't floop, abort
+            if (floopBlockers > 0) return false; // can't floop, abort
 
             if (_creatureMovement.cardState == CardMovement.CardState.Discard) 
                 return false; // killed itself, abort

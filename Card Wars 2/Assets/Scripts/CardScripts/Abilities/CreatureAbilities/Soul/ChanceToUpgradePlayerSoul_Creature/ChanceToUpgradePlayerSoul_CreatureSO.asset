@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20043a774acefa7419af4acd4ef59434, type: 3}
   m_Name: ChanceToUpgradePlayerSoul_CreatureSO
   m_EditorClassIdentifier: 
-  chanceToHit: 100
+  chanceToHit: 50
   soulUpgradeAmount: 1

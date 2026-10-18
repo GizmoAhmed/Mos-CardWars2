@@ -38,7 +38,7 @@ namespace Extensions
             return thisTile;
         }
 
-        public static MiddleTile GetEitherAdjacentTile(this GameObject card, string rightORleft = "right")
+        public static MiddleTile Ext_GetEitherAdjacentTile(this GameObject card, string rightORleft = "right")
         {
             // get tile
             MiddleTile thisTile = card.Ext_GetTile() as MiddleTile;

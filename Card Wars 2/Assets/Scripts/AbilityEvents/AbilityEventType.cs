@@ -23,6 +23,10 @@ namespace AbilityEvents
         AnyPlayerSoulUpgrade = 13,
         AnyChanceHit = 14,
         AnyChanceMissed = 15,
+        AnyCreatureStrengthBuff = 16,
+        AnyCreatureDefenseBuff = 17,
+        AnyCreatureStrengthNerf = 18,
+        AnyCreatureDefenseNerf = 19,
         
         // === TILE EVENTS (happen on specific tiles, broadcast locally) ===
         ChanceHitOnTile = 98,
