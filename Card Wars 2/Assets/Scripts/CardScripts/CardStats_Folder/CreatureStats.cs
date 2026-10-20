@@ -289,14 +289,18 @@ namespace CardScripts.CardStatss
         public void ChangeAbilityCost(int amount, bool increase)
         {
             if (increase)
-            {
                 abilityCost += amount;
-            }
             else
-            {
-                // note, negative ability costs give the player money back
                 abilityCost -= amount;
-            }
+    
+            // Hook won't fire on host - manually update UI via RPC
+            RpcUpdateAbilityCostUI(abilityCost);
+        }
+
+        [ClientRpc]
+        private void RpcUpdateAbilityCostUI(int newCost)
+        {
+            _creatureDisplay.UpdateUI_AbilityCost(newCost);
         }
 
         public void Hook_UpdateCreatureStrength(int old, int newStrength)
@@ -434,6 +438,12 @@ namespace CardScripts.CardStatss
 
         public void Hook_UpdateAbilityCost(int oldCost, int newCost)
         {
+            if (_creatureDisplay == null)
+            {
+                Debug.LogWarning("Hook fired but _creatureDisplay is null, may be a timing issue. gl fn");
+                return;
+            }
+            
             _creatureDisplay.UpdateUI_AbilityCost(newCost);
         }
 

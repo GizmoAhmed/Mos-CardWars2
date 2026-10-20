@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0641979441064c6594eb6bd6999b0967, type: 3}
+  m_Name: Katana_Spell
+  m_EditorClassIdentifier: 
+  cardName: KATANA
+  mainImage: {fileID: 21300000, guid: 0e738e00e39592b4a909450451908e76, type: 3}
+  soul: -1
+  abilityDescription: 
+  burnCost: 2
+  ability: {fileID: 11400000, guid: 17dbd3d060e252b4ca8ba46d02421d76, type: 2}
+  uses: 1
