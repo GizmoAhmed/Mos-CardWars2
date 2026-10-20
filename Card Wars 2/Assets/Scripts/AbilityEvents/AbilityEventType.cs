@@ -27,6 +27,7 @@ namespace AbilityEvents
         AnyCreatureDefenseBuff = 17,
         AnyCreatureStrengthNerf = 18,
         AnyCreatureDefenseNerf = 19,
+        AnyCreatureAbility = 20,
         
         // === TILE EVENTS (happen on specific tiles, broadcast locally) ===
         ChanceHitOnTile = 98,

@@ -374,7 +374,7 @@ namespace CardScripts.CardStatss
                         ExecuteAndBroadcastAbility();
 
                         // check:
-                        if (ValidateAbilityExecution()) // passed checks?
+                        if (ValidateAbilityReExecution()) // passed checks?
                         {
                             ExecuteAndBroadcastAbility(); // go again
                         }
@@ -394,6 +394,23 @@ namespace CardScripts.CardStatss
 
         }
         
+        /// <summary>
+        /// Check if ability can be re-executed after initial execute
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateAbilityReExecution()
+        {
+            // make sure it didn't invalidate its ability to floop with the first execute
+                        
+            if (floopBlockers > 0) return false; // can't floop, abort
+
+            if (_creatureMovement.cardState == CardMovement.CardState.Discard) 
+                return false; // killed itself, abort
+                        
+            // todo and any other reasons below
+            return true;
+        }
+        
         private void ExecuteAndBroadcastAbility()
         {
             Debug.Log($"<color=green>ExecuteAndBroadCastAbility</color> on {gameObject.name}");
@@ -405,24 +422,28 @@ namespace CardScripts.CardStatss
             playerCardTracker.Server_IncrementCreatureActivation(gameObject);
             
             LocalWhisperCardAbilityActivate(this);
-            // todo global broadcast
+            GlobalBroadCastAbilityActivation();
         }
-        
-        /// <summary>
-        /// Check if ability can be re-executed after initial execute
-        /// </summary>
-        /// <returns></returns>
-        private bool ValidateAbilityExecution()
-        {
-            // make sure it didn't invalidate its ability to floop with the first execute
-                        
-            if (floopBlockers > 0) return false; // can't floop, abort
 
-            if (_creatureMovement.cardState == CardMovement.CardState.Discard) 
-                return false; // killed itself, abort
-                        
-            // todo and any other reasons below
-            return true;
+        private void GlobalBroadCastAbilityActivation()
+        {
+            if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
+            {
+                AbilityEventData abilityData = new AbilityEventData
+                (
+                    type: AbilityEventType.AnyCreatureAbility,
+                    targ: gameObject
+                );
+                
+                // tell event manager to tell everyone (that cares) that this creature activated
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance
+                    .TriggerEvents_ForAllSubscribersOfType(abilityData);
+            }
+            else
+            {
+                Debug.LogError(
+                    $"<color=Red>Failed Global Ability Broadcast</color> {name} couldn't find the GlobalAbilityEventManage Instance");
+            }
         }
 
         private void LocalWhisperCardAbilityActivate(CreatureStats creature)
