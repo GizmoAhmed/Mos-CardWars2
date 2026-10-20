@@ -75,6 +75,7 @@ namespace PlayerStuff
         public void Server_IncrementCreatureActivation(GameObject card)
         {
             creatureActivationsThisTurn++;
+            
             Debug.Log
             (
                 $"<color=cyan>IncrementCreatureActivation</color> on {card.name}: " +

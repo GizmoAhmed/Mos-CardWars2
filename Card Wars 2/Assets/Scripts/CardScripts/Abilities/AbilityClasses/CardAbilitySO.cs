@@ -152,7 +152,7 @@ namespace CardScripts.Abilities
 
         private void LocalTileWhisperRollChance(int chance, bool hit, GameObject cardTriggeredFrom)
         {
-            Tile tile = cardTriggeredFrom.GetComponent<CreatureMovement>().GetLogicalTile();
+            Tile tile = cardTriggeredFrom.GetComponent<CardMovement>().GetLogicalTile();
             
             TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
 

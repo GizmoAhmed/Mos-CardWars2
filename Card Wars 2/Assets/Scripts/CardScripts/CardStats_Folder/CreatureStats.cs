@@ -369,6 +369,8 @@ namespace CardScripts.CardStatss
 
                     if (hit)
                     {
+                        Debug.Log($"{gameObject.name} gambled on an additional floop and <color=green>won</color>: Activating Twice");
+                        
                         ExecuteAndBroadcastAbility();
 
                         // check:
@@ -376,8 +378,6 @@ namespace CardScripts.CardStatss
                         {
                             ExecuteAndBroadcastAbility(); // go again
                         }
-                        
-                        Debug.Log($"{gameObject.name} gambled on an additional floop and <color=red>won</color>");
                     }
                     else
                     {
