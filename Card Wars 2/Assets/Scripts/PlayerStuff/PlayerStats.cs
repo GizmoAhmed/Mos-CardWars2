@@ -186,18 +186,24 @@ namespace PlayerStuff
         {
             CardStats cardStats = cardToBurn.GetComponent<CardStats>();
             CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
-
-            if (!cardStats.canBeBurned)
-            {
-                Debug.LogWarning($"{cardToBurn.name} can't be burned: blocked via spell or rune");
-                return;
-            }
-
+            
             // Burning from hand: refund shards, no cost
             if (cardMove.cardState == CardMovement.CardState.Hand)
             {
+                if (!cardStats.canBeHandSold)
+                {
+                    Debug.LogWarning($"{cardToBurn.name} can't be burned from hand because being blocked");
+                    return;
+                } // can be burned from hand
+                
                 shards += cardStats.burnInHandReturn;
                 cardMove.BurnCard();
+                return;
+            }
+            
+            if (!cardStats.canBeBurned)
+            {
+                Debug.LogWarning($"{cardToBurn.name} can't be burned: blocked via spell or rune");
                 return;
             }
 

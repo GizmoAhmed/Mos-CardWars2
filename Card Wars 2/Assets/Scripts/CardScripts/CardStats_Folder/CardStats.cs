@@ -36,6 +36,9 @@ namespace CardScripts.CardStats_Folder
         [SyncVar(hook = nameof(ToggleBurnability))]
         public bool canBeBurned = true;
 
+        [SyncVar]
+        public bool canBeHandSold = true;
+
         protected virtual void Awake()
         {
             Display = GetComponent<CardDisplay>();
