@@ -255,6 +255,8 @@ namespace CardScripts.CardMovements
             RpcPlaceCardOnTile(tile);
 
             cardState = CardState.Field;
+
+            RpcFlipBurn(); // since now on field, use return instead of cost
             
             // remove from hand counter
             // All others call base, so this will get called there
@@ -267,6 +269,15 @@ namespace CardScripts.CardMovements
 
             // you tell the tile manager of this creature about how you placed a card on it, not everyone
             LocalWhisperCardPlacement(GetLogicalTile());
+        }
+
+        /// <summary>
+        /// Tell CardDisplay to show burn return instead of burn cost
+        /// </summary>
+        [ClientRpc]
+        private void RpcFlipBurn()
+        {
+            _cardDisplay.FlipBurn_ToCostFromReturn(cardStats.burnCost);
         }
 
         [Server]

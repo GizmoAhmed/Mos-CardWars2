@@ -33,6 +33,7 @@ namespace CardScripts.CardDisplays
 
         protected GameObject InfoLeft; // ▼
         private GameObject _burnObj;
+        private GameObject _burnButtonObj;
 
         protected CardInfoHandler CardInfoHandler;
 
@@ -150,8 +151,8 @@ namespace CardScripts.CardDisplays
 
                 // left <
                 InfoLeft = FindPart("InfoLeft", InfoObj.transform);
-                GameObject burnButton = FindPart("BurnButton", InfoLeft.transform);
-                _burnObj = FindPart("BurnCostText", burnButton.transform);
+                _burnButtonObj = FindPart("BurnButton", InfoLeft.transform);
+                _burnObj = FindPart("BurnCostText", _burnButtonObj.transform);
             }
             else
             {
@@ -240,9 +241,29 @@ namespace CardScripts.CardDisplays
             }
         }
 
-        public void UpdateUI_BurnCost(int newCost)
+        public void UpdateUI_Burn(int newCost)
         {
             SetText(_burnObj, newCost.ToString(), true);
+        }
+
+        public void FlipBurn_ToCostFromReturn(int burnCost)
+        {
+            UpdateUI_Burn(burnCost);
+            
+            Button burnButton = _burnButtonObj.GetComponent<Button>();
+            
+            ChangeButtonColor(burnButton, Color.red);
+        }
+
+        private void ChangeButtonColor(Button button, Color color)
+        {
+            ColorBlock cb = button.colors;
+
+            cb.normalColor = color;
+            cb.highlightedColor = color;
+            cb.pressedColor = color;
+            
+            button.colors = cb;
         }
     }
 }

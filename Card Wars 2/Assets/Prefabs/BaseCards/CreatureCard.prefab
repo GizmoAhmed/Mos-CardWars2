@@ -1487,10 +1487,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.85490197, g: 0.4392157, b: 0.5109936, a: 1}
-    m_HighlightedColor: {r: 0.854902, g: 0.43921572, b: 0.50980395, a: 1}
-    m_PressedColor: {r: 0.854902, g: 0.43921572, b: 0.50980395, a: 1}
-    m_SelectedColor: {r: 0.854902, g: 0.43921572, b: 0.50980395, a: 1}
+    m_NormalColor: {r: 0.6150943, g: 0.6150943, b: 0.6150943, a: 1}
+    m_HighlightedColor: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
+    m_PressedColor: {r: 0.6830188, g: 0.6830188, b: 0.6830188, a: 1}
+    m_SelectedColor: {r: 0.5773585, g: 0.5773585, b: 0.5773585, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3046,9 +3046,12 @@ MonoBehaviour:
   score: -1
   abilityCost: -1
   element: 0
+  floopBlockers: 0
   maxFloops: 1
   floopsLeft: 0
   multiFloop: 0
+  isGamblingAbility: 0
+  gambleChance: 0
   immortal: 0
   canBuffStrength: 0
   canBuffDefense: 0

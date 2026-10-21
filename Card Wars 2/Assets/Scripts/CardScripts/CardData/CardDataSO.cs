@@ -17,6 +17,8 @@ namespace CardScripts.CardData
         
         public int burnCost = 2;
 
+        public int burnReturn = 3;
+
         public CardAbilitySO ability;
     }
 }

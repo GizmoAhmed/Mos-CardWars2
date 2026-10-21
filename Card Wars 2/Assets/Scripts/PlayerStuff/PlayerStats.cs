@@ -185,25 +185,35 @@ namespace PlayerStuff
         public void CmdBurn(GameObject cardToBurn)
         {
             CardStats cardStats = cardToBurn.GetComponent<CardStats>();
+            CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
 
-            if (shards >= cardStats.burnCost &&
-                cardStats.canBeBurned) // enough money to burn and can be burned? then burn
+            if (!cardStats.canBeBurned)
             {
-                shards -= cardStats.burnCost; // spend to burn
+                Debug.LogWarning($"{cardToBurn.name} can't be burned: blocked via spell or rune");
+                return;
+            }
 
-                CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
-
-                // todo have unique burns for each card type mabye
-
-                GlobalBroadcastBurn(cardToBurn);
-
+            // Burning from hand: refund shards, no cost
+            if (cardMove.cardState == CardMovement.CardState.Hand)
+            {
+                shards += cardStats.burnInHandReturn;
                 cardMove.BurnCard();
+                return;
             }
-            else
+
+            // Burning from the field: costs shards
+            if (shards < cardStats.burnCost)
             {
-                Debug.LogWarning(
-                    $"{cardStats.gameObject.name} can't be burned because of either insufficient funds ({shards}), or burning being blocked for this creature via spell or rune or something");
+                Debug.LogWarning($"{cardToBurn.name} can't be burned: insufficient funds ({shards}/{cardStats.burnCost})");
+                return;
             }
+            
+            // spend shards for field cards
+            shards -= cardStats.burnCost;
+
+            // todo have unique burns for each card type maybe
+            GlobalBroadcastBurn(cardToBurn);
+            cardMove.BurnCard();
         }
 
         // todo maybe split this function into each card type, so you don't have to use any
