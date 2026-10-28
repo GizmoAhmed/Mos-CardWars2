@@ -33,10 +33,7 @@ public class Player : NetworkBehaviour
 
     public PlayerCardTracker playerCardTracker;
 
-    [Header("Buttons to disable")] 
-    public Button draw;
-    public Button upgrade;
-    public Button ready;
+    private ButtonsManager buttonManager;
 
     public override void OnStartClient()
     {
@@ -55,13 +52,8 @@ public class Player : NetworkBehaviour
         playerStats = GetComponentInChildren<PlayerStats>();
 
         playerStats.InitUI();
-
-        // myTurn = true;
-
-        // find buttons
-        draw = FindAnyObjectByType<DrawButton>().gameObject.GetComponent<Button>();
-        upgrade = FindAnyObjectByType<UpgradeMagic>().gameObject.GetComponent<Button>();
-        ready = FindAnyObjectByType<Ready>().gameObject.GetComponent<Button>();
+        
+        buttonManager = FindAnyObjectByType<ButtonsManager>(FindObjectsInactive.Include);
 
         if (isServer) // must be the host, the first person to join
         {
@@ -109,6 +101,6 @@ public class Player : NetworkBehaviour
     [TargetRpc]
     public void TargetRpc_ToggleButtons(bool enable)
     {
-        draw.interactable = upgrade.interactable = ready.interactable = enable;
+        buttonManager.SetInteractable_ForAllButtons(enable);
     }
 }
