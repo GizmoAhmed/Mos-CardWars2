@@ -10101,6 +10101,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  debugMode: 1
   debugDeck:
   - {fileID: 11400000, guid: 800a96500403f3347a620a14ee907f59, type: 2}
   - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}

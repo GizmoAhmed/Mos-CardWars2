@@ -51,6 +51,12 @@ namespace PlayerStuff
             }
         }
         
+        /// <summary>
+        /// From GameManager, can either be initialized with debug or master deck
+        /// debug mode uses debug deck, which uses cards placed in inspector to make myDeckCardIDs, then removes them as they are drawn
+        /// release mode uses master deck directly instead of any manual inspector placement, which doesn't get used up
+        /// </summary>
+        /// <param name="deck"></param>
         [Server]
         public void InitializeDeck(List<CardDataSO> deck)
         {
@@ -62,27 +68,32 @@ namespace PlayerStuff
             }
         }
 
+        /// <summary>
+        /// Uses the MasterDeck to find, create, then spawn the card using the passed card id 
+        /// </summary>
+        /// <param name="cardID"></param>
         [Server]
         private void DrawCardByID(string cardID)
         {
-            // instantiates and spawns a card via its id
-            _masterDeck.CreateThenSpawnCard(
-                cardID,
-                GetComponentInParent<PlayerStats>());
-            
-            // identify and remove that card from client
-            int index = myDeckCardIDs.IndexOf(cardID);
+            _masterDeck.CreateThenSpawnCard(cardID, GetComponentInParent<PlayerStats>());
 
+            // Full pool mode: the deck never shrinks
+            if (!_masterDeck.DebugDeckActive) return;
+
+            int index = myDeckCardIDs.IndexOf(cardID);
             if (index < 0)
             {
                 Debug.LogWarning($"Card {cardID} not in deck");
                 return;
             }
-
             myDeckCardIDs.RemoveAt(index);
         }
-
-        [Command] // called from in-scene button click
+        
+        /// <summary>
+        /// Debug function: Used for the in-scene button that simply draws a card.
+        /// (Isn't in the actual game)
+        /// </summary>
+        [Command]
         public void CmdDrawCard()
         {
             DrawTopCardFromDeck(connectionToClient);
@@ -91,6 +102,9 @@ namespace PlayerStuff
         [Server]
         private void DrawTopCardFromDeck(NetworkConnectionToClient conn)
         {
+            // don't allow this in release mode
+            if (!_masterDeck.debugMode) return;
+
             if (myDeckCardIDs.Count == 0)
             {
                 Debug.LogWarning("Empty Deck");
@@ -108,9 +122,16 @@ namespace PlayerStuff
             DrawAllFromDeck(connectionToClient);
         }
 
+        /// <summary>
+        /// Debug function: Used for the in-scene button that draws all cards in deck.
+        /// (Isn't in the actual game)
+        /// </summary>
         [Server]
         private void DrawAllFromDeck(NetworkConnectionToClient conn)
         {
+            // don't allow this in release mode
+            if (!_masterDeck.debugMode) return;
+            
             if (myDeckCardIDs.Count == 0)
             {
                 Debug.LogWarning("Empty Deck");

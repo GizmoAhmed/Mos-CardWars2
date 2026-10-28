@@ -14,6 +14,14 @@ namespace GameManagement
     /// </summary>
     public class MasterDeck : NetworkBehaviour
     {
+        [Header("Deck Mode")]
+        [Tooltip("ON: players draw from the finite Debug Deck (cards are consumed). " +
+                 "OFF: players draw from the full master pool and it never runs out.")]
+        public bool debugMode = true;
+
+        /// <summary>Debug mode only counts in the editor or development builds.</summary>
+        public bool DebugDeckActive => debugMode && (Application.isEditor || Debug.isDebugBuild);
+
         public List<CardDataSO> debugDeck;
 
         private readonly Dictionary<string, CardDataSO> _allCardsDict = new Dictionary<string, CardDataSO>();
@@ -23,45 +31,63 @@ namespace GameManagement
 
         [Tooltip("The name of the leaf node folder where all of the cards are stored")]
         private readonly string cardSOLeafFolderName = "CardSOs";
-        
-        [Header("Base Card GameObjects")] 
-        public GameObject creatureCard;
+
+        [Header("Base Card GameObjects")] public GameObject creatureCard;
         public GameObject buildingCard;
         public GameObject spellCard;
         public GameObject runeCard;
         public GameObject charmCard;
 
-        // Initialize on server
+        /// <summary>The list a player's deck should start as.</summary>
+        public List<CardDataSO> GetStartingDeck()
+        {
+            if (masterDeckList.Count == 0)
+            {
+                Debug.LogError("There are no cards in the master deck");
+            }
+
+            return DebugDeckActive ? debugDeck : masterDeckList;
+        }
+
+        // Server: populate immediately so the deck is ready on the very next line
         [Server]
         public void InitMasterDeck()
         {
-            if (creatureCard == null ||
-                buildingCard == null ||
-                spellCard == null ||
-                runeCard == null ||
-                charmCard == null)
+            if (creatureCard == null || buildingCard == null || spellCard == null ||
+                runeCard == null || charmCard == null)
             {
                 Debug.LogError($"Base Cards were not set on {gameObject.name} in the editor");
                 return;
             }
-            
-            RpcInitMasterDeck();
+
+            PopulateLocal();
         }
 
-        [ClientRpc]
-        private void RpcInitMasterDeck()
+        // Joiner: populate when this object spawns on their machine
+        public override void OnStartClient()
         {
+            base.OnStartClient();
+
+            // On the host, the server already populated via InitMasterDeck()
+            if (isServer) return;
+
+            PopulateLocal();
+        }
+
+        private void PopulateLocal()
+        {
+            _allCardsDict.Clear(); // makes repeat calls safe
             AutoPopulateMasterDeck();
             CreateDict_FromMasterDeck();
         }
-
+        
         /// <summary>
         /// Automatically finds all CardDataSO assets in Assets/Resources/CardSOs folder
         /// </summary>
         private void AutoPopulateMasterDeck()
         {
             masterDeckList.Clear();
-            
+
             CardDataSO[] allCards = Resources.LoadAll<CardDataSO>(cardSOLeafFolderName);
 
             if (allCards.Length == 0)
@@ -101,7 +127,8 @@ namespace GameManagement
         {
             if (_allCardsDict == null)
             {
-                Debug.LogError($"GetCardByID({cardID}) --> _allCardsDict is null, can't retrieve a card");
+                Debug.LogError(
+                    $"GetCardByID({cardID}) --> _allCardsDict is null, can't retrieve a card with id:  {cardID}");
                 return null;
             }
 
@@ -133,7 +160,7 @@ namespace GameManagement
             CardDataSO cardData = GetCardByID(cardID);
 
             GameObject cardObj = CreateCard(cardData);
-            
+
             CardMovement move = cardObj.GetComponent<CardMovement>();
             move.SetOwningPlayer(playerStats);
 
@@ -141,12 +168,12 @@ namespace GameManagement
             // this line below used master decks connection, which is a server object,
             // so isOwned is never set on card...
             // NetworkServer.Spawn(cardObj, connectionToClient);
-            
+
             // ...instead, use the player's connection,
             // so isOwned can be set on the spawned card according to the player
             NetworkIdentity playerIdentity = playerStats.GetComponent<NetworkIdentity>();
             NetworkServer.Spawn(cardObj, playerIdentity.connectionToClient);
-            
+
             // set card data with network ON, since spawning for both clients on server
             // goes after SPAWN, because needs to be spawned to use the rpc within SetCardData
             CardStats cardStats = cardObj.GetComponent<CardStats>();
@@ -157,10 +184,10 @@ namespace GameManagement
             if (player != null)
             {
                 player.cardPlacer.Rpc_MoveCardToHand(cardObj);
-                
+
                 // add to card tracker for this player
                 player.playerCardTracker.Server_TrackAddToHand(cardObj);
-                
+
                 // broadcast add to hand
                 player.playerCardTracker.GlobalBroadcastAddToHand(cardObj, isDuplicate);
             }
@@ -170,7 +197,7 @@ namespace GameManagement
             }
 
             move.cardState = CardMovement.CardState.Hand;
-            
+
             return cardObj;
         }
 
@@ -183,7 +210,7 @@ namespace GameManagement
         public GameObject CreateCard(CardDataSO data)
         {
             GameObject card;
-            
+
             switch (data)
             {
                 case CreatureDataSO:

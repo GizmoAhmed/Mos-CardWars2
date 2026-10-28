@@ -67,6 +67,11 @@ public class TurnManager : NetworkBehaviour
         net.identity.GetComponent<Player>().TargetRpc_ToggleButtons(enable);
     }
 
+    /// <summary>
+    /// Starts one player and disables the other
+    /// Starts turn counter at 1
+    /// Sets PlayerStats
+    /// </summary>
     [Server]
     public void StartGame()
     {

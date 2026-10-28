@@ -52,12 +52,6 @@ namespace GameManagement
 
         public List<NetworkConnectionToClient> playersConnections = new List<NetworkConnectionToClient>();
 
-        /*void Start()
-        {
-            // Debug.Log("<<< Starting GameManager >>>");
-            BuildCardDatabase();
-        }*/
-
         [Server]
         public override void OnStartServer()
         {
@@ -84,7 +78,8 @@ namespace GameManagement
         }
 
         /// <summary>
-        /// Called by the server player once lobby is full
+        /// Sets the 'Players' variables
+        /// Inits Tiles, player stats, turn manager, master deck, and player deck collections
         /// </summary>
         [Server]
         public void FullLobby()
@@ -99,11 +94,6 @@ namespace GameManagement
 
                 StartPlayerStats();
 
-                /*if (masterDeck.Count == 0)
-                {
-                    Debug.LogWarning($"master deck on {gameObject.name} is empty, won't copy to players");
-                }*/
-
                 turnManager.StartGame();
 
                 masterDeckDb.InitMasterDeck();
@@ -114,9 +104,10 @@ namespace GameManagement
                 p1.playerSide = 0;
                 p2.playerSide = 1;
 
-                // game manager knows about both players, so this makes sense
-                p1.deckCollection.InitializeDeck(masterDeckDb.debugDeck);
-                p2.deckCollection.InitializeDeck(masterDeckDb.debugDeck);
+                // passes master deck to player deck collections
+                // either debug or master, depending on whether debug mode is toggled or not
+                p1.deckCollection.InitializeDeck(masterDeckDb.GetStartingDeck());
+                p2.deckCollection.InitializeDeck(masterDeckDb.GetStartingDeck());
             }
         }
 
