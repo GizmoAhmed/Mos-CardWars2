@@ -241,5 +241,27 @@ namespace PlayerStuff
 
             return result;
         }
+
+        public void DrawStartingHand(int handSize)
+        {
+            if (_masterDeck.debugMode)
+            {
+                Debug.LogWarning(
+                    "Attempted to <color=orange>draw starting hand</color> but refused since in debug mode");
+                return;
+            }
+
+            // weighted random card
+            List<string> randomCardNames = 
+                _masterDeck.GetWeightedUniqueCardIDs(count: handSize);
+
+            // draw those cards
+            foreach (string cardName in randomCardNames)
+            {
+                CardDataSO cardData = _masterDeck.GetCardByID(cardName);
+
+                DrawCardByID(cardData.cardID);
+            }
+        }
     }
 }

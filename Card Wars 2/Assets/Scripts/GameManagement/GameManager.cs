@@ -33,6 +33,9 @@ namespace GameManagement
         public int defaultPaidDrawChoices = 1;
         public int defaultPaidDrawOffering = 3;
         
+        [Header("Starting Hand")]
+        public int startingHandSize = 6;
+        
         [Header("Health & Drain")]
         public int health = 30;
         public int drain = 3;
@@ -108,6 +111,9 @@ namespace GameManagement
                 // either debug or master, depending on whether debug mode is toggled or not
                 p1.deckCollection.InitializeDeck(masterDeckDb.GetStartingDeck());
                 p2.deckCollection.InitializeDeck(masterDeckDb.GetStartingDeck());
+                
+                p1.deckCollection.DrawStartingHand(startingHandSize);
+                p2.deckCollection.DrawStartingHand(startingHandSize);
             }
         }
 
