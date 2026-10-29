@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
   m_Name: BlueSlimey_Creature
   m_EditorClassIdentifier: 
-  cardName: BlueSlimey
+  cardName: BLUE SLIMEY
   mainImage: {fileID: 21300000, guid: e503bdb52f27c154897edf1374c2177d, type: 3}
   soul: 0
   abilityDescription: 
@@ -24,4 +24,4 @@ MonoBehaviour:
   elementSprite: {fileID: 21300000, guid: 721a34d7fd8f8be4cb12e322feff275d, type: 3}
   abilityCost: 1
   attack: 0
-  defense: 10
+  defense: 5

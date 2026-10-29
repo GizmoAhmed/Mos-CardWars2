@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
   m_Name: FlyingForgeHelper_Creature
   m_EditorClassIdentifier: 
-  cardName: FlyingForgeHelper
+  cardName: Flying Forge Helper
   mainImage: {fileID: 21300000, guid: c75f16896b02b7e4eb4783ae94c0c8ce, type: 3}
   soul: 1
   abilityDescription: 

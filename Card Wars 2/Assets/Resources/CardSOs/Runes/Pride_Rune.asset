@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6d9034fb4b4da29c90f75f1532ce64, type: 3}
   m_Name: Pride_Rune
   m_EditorClassIdentifier: 
-  cardName: SUPERBIA
+  cardName: PRIDE
   mainImage: {fileID: 21300000, guid: cc56ff49b1eda394788ea8de3a3b912f, type: 3}
   soul: -1
   abilityDescription: 

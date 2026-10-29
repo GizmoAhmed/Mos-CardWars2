@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0641979441064c6594eb6bd6999b0967, type: 3}
   m_Name: BuffBoth_STRENGTHCreatureOnly_Spell
   m_EditorClassIdentifier: 
-  cardName: FORGE BUFF
+  cardName: BUFF RED
   mainImage: {fileID: 21300000, guid: 73a5b4af4470bc34881d92814f1bde20, type: 3}
   soul: -1
   abilityDescription: Buff A forge Creature
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 8246f5d27b6f0aa4b911c112ee75fb90, type: 2}
+  cardRarity: 0
   uses: 2
