@@ -84,7 +84,7 @@ namespace CardScripts.CardStats_Folder
             {
                 // since client, you'll have to manually call the ui update functions that are inside the hooks
                 SetStats_FromData(); 
-                Display.UpdateUISoul(soulUse);
+                Display.UpdateUI_Soul(soulUse);
                 Display.UpdateUI_Burn(burnInHandReturn); // use return on set 
             }
             
@@ -179,7 +179,7 @@ namespace CardScripts.CardStats_Folder
 
         public void Hook_UpdateSoulUI_OnBothClients(int oldMagic, int newSoul)
         {
-            Display.UpdateUISoul(newSoul); 
+            Display.UpdateUI_Soul(newSoul); 
         }
 
         public void Hook_UpdateUIBurnCost(int oldCost, int newCost)

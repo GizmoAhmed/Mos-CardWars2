@@ -5,8 +5,10 @@ using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Mirror;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using ColorUtility = UnityEngine.ColorUtility;
 
 // Assigns all the visual stuff from CardDataSO to a card game object this script is attached to
 namespace CardScripts.CardDisplays
@@ -24,6 +26,14 @@ namespace CardScripts.CardDisplays
         protected GameObject NameTop;
 
         [HideInInspector] public GameObject magicObj;
+
+        private GameObject _backDrop;
+        
+        [Header("Rarity Colors")]
+        [SerializeField] private Color commonColor   = Color.white;
+        [SerializeField] private Color uncommonColor = new Color(0.8f, 1f, 0.92f);
+        [SerializeField] private Color rareColor     = new Color(0.4f, 0.7f, 1f);
+        [SerializeField] private Color epicColor     = new Color(0.78f, 0.49f, 1f);
 
         // ~~~ Stuff shown on left and right info cards ~~~
         protected GameObject InfoObj; // parent of next line ▼
@@ -77,6 +87,8 @@ namespace CardScripts.CardDisplays
             }
 
             FlipCard(face: true);
+
+            AddCardRarityEffect();
 
             HideUIElement(InfoObj); // initially hide the info card
 
@@ -138,6 +150,8 @@ namespace CardScripts.CardDisplays
 
             // info right + left
             InfoObj = FindPart("Info");
+            
+            _backDrop = FindPart("BackDrop");
 
             // some cascading logic here, if infoObj is find, you can find the rest and so on
             if (InfoObj != null)
@@ -213,6 +227,34 @@ namespace CardScripts.CardDisplays
             CardBackObj.SetActive(!up);
         }
 
+        private void AddCardRarityEffect()
+        {
+            Image backDropImage = _backDrop.GetComponent<Image>();
+
+            Color color;
+
+            switch (cardData.cardRarity)
+            {
+                case CardDataSO.Rarity.Common:
+                    color = Color.white;
+                    break;
+                case CardDataSO.Rarity.Uncommon:
+                    color = uncommonColor;
+                    break;
+                case CardDataSO.Rarity.Rare:
+                    color = rareColor;
+                    break;
+                case CardDataSO.Rarity.Epic:
+                    color = epicColor;
+                    break;
+                default:
+                    color = Color.magenta; // obvious "something's wrong" color
+                    break;
+            }
+
+            backDropImage.color = color;
+        }
+
         public void OnCardClicked()
         {
             if (!faceUp)
@@ -233,7 +275,7 @@ namespace CardScripts.CardDisplays
                 InfoObj.activeInHierarchy;
         }
 
-        public void UpdateUISoul(int newMagic)
+        public void UpdateUI_Soul(int newMagic)
         {
             if (magicObj != null) // spells have null magic obj 
             {

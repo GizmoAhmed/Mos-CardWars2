@@ -263,6 +263,10 @@ MonoBehaviour:
   faceUp: 0
   cardData: {fileID: 0}
   magicObj: {fileID: 0}
+  commonColor: {r: 1, g: 1, b: 1, a: 1}
+  uncommonColor: {r: 0.8, g: 1, b: 0.92156863, a: 1}
+  rareColor: {r: 1, g: 0.88235295, b: 0.7529412, a: 1}
+  epicColor: {r: 0.90588236, g: 0.78431374, b: 1, a: 1}
 --- !u!114 &7177929760799130277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,7 +508,9 @@ MonoBehaviour:
   cardData: {fileID: 0}
   soulUse: -1
   burnCost: -1
+  burnInHandReturn: 0
   canBeBurned: 1
+  canBeHandSold: 1
 --- !u!114 &-7316469908674188732
 MonoBehaviour:
   m_ObjectHideFlags: 0

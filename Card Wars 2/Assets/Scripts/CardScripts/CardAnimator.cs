@@ -2,6 +2,7 @@ using CardScripts.CardDisplays;
 using DG.Tweening;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CardScripts
 {
@@ -59,6 +60,21 @@ namespace CardScripts
                 vibrato: 1,
                 elasticity: 0.6f
             );
+        }
+        
+        public void PulseBrightness(Image image, float duration = 0.6f, int loops = 1)
+        {
+            if (image == null) return;
+
+            image.DOKill();
+            Color original = image.color;
+            Color bright = Color.Lerp(original, Color.white, 0.7f);
+
+            Sequence pulse = DOTween.Sequence();
+            pulse.Append(image.DOColor(bright, duration * 0.4f).SetEase(Ease.OutQuad));
+            pulse.Append(image.DOColor(original, duration * 0.6f).SetEase(Ease.InQuad));
+            pulse.SetLoops(loops);
+            pulse.SetTarget(image);
         }
     }
 }
