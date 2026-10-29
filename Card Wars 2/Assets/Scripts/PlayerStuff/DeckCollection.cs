@@ -167,7 +167,12 @@ namespace PlayerStuff
             drawModal.ClearPreviewCards(); // clear current offering
 
             // Get random card names from the deck
-            List<string> randomCardNames = GetRandomUniqueCardNames_FromPlayerDeck(offering);
+            // List<string> randomCardNames = GetRandomUniqueCardNames_FromPlayerDeck(offering);
+            
+            // uses weights to draw based on card rarity
+            List<string> randomCardNames = _masterDeck.DebugDeckActive
+                ? GetRandomUniqueCardNames_FromPlayerDeck(offering)   // debug deck: unchanged
+                : _masterDeck.GetWeightedUniqueCardIDs(offering);     // pool mode: weighted
 
             drawModal.UpdatePicksLeft(choice);
 

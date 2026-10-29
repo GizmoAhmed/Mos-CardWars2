@@ -17,5 +17,7 @@ MonoBehaviour:
   soul: -1
   abilityDescription: Soul Upgrade +1
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 48ba65b4433c3384c8636c675a64570b, type: 2}
+  cardRarity: 1
   uses: 1

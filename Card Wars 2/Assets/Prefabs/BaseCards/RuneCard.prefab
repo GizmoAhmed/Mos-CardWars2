@@ -275,7 +275,9 @@ MonoBehaviour:
   cardData: {fileID: 0}
   soulUse: -1
   burnCost: -1
+  burnInHandReturn: 0
   canBeBurned: 1
+  canBeHandSold: 1
 --- !u!223 &2806361383123639047
 Canvas:
   m_ObjectHideFlags: 0

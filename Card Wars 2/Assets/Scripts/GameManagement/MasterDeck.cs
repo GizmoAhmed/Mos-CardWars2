@@ -6,6 +6,8 @@ using CardScripts.CardStats_Folder;
 using Mirror;
 using PlayerStuff;
 using UnityEngine;
+using System.Linq;
+using Random = UnityEngine.Random;
 
 namespace GameManagement
 {
@@ -28,6 +30,26 @@ namespace GameManagement
 
         [Header("THIS ONE AUTO-POPULATES DON'T TOUCH IT")]
         public List<CardDataSO> masterDeckList;
+
+        [Serializable] // editable in inspector
+        public struct RarityWeight
+        {
+            public CardDataSO.Rarity rarity;
+            [Min(0)] public float weight;
+        }
+
+        [Header("Rarity Odds (relative weights, don't need to sum to 100)")]
+        public List<RarityWeight> rarityWeights = new List<RarityWeight>
+        {
+            new RarityWeight { rarity = CardDataSO.Rarity.Common, weight = 62 },
+            new RarityWeight { rarity = CardDataSO.Rarity.Uncommon, weight = 25 },
+            new RarityWeight { rarity = CardDataSO.Rarity.Rare, weight = 10 },
+            new RarityWeight { rarity = CardDataSO.Rarity.Epic, weight = 3 },
+        };
+
+        // Built in PopulateLocal(): rarity -> every card of that tier
+        private readonly Dictionary<CardDataSO.Rarity, List<CardDataSO>> _cardsByRarity
+            = new Dictionary<CardDataSO.Rarity, List<CardDataSO>>();
 
         [Tooltip("The name of the leaf node folder where all of the cards are stored")]
         private readonly string cardSOLeafFolderName = "CardSOs";
@@ -79,8 +101,43 @@ namespace GameManagement
             _allCardsDict.Clear(); // makes repeat calls safe
             AutoPopulateMasterDeck();
             CreateDict_FromMasterDeck();
+            BuildRarityGroups();
         }
         
+        private void BuildRarityGroups()
+        {
+            _cardsByRarity.Clear();
+
+            foreach (CardDataSO card in masterDeckList)
+            {
+                if (!_cardsByRarity.TryGetValue(card.cardRarity, out List<CardDataSO> group))
+                {
+                    group = new List<CardDataSO>();
+                    _cardsByRarity[card.cardRarity] = group;
+                }
+
+                group.Add(card);
+            }
+        }
+        
+        /// <summary>
+        /// This catches duplicate tiers or all-zero weights while you’re editing,
+        /// since a list (unlike a dictionary) lets you add the same rarity twice by accident
+        /// </summary>
+        private void OnValidate()
+        {
+            var duplicates = rarityWeights
+                .GroupBy(r => r.rarity)
+                .Where(g => g.Count() > 1)
+                .Select(g => g.Key);
+
+            foreach (var rarity in duplicates)
+                Debug.LogWarning($"MasterDeck: rarity {rarity} appears more than once in Rarity Weights");
+
+            if (rarityWeights.Count > 0 && rarityWeights.All(r => r.weight <= 0))
+                Debug.LogWarning("MasterDeck: all rarity weights are zero, nothing can be drawn");
+        }
+
         /// <summary>
         /// Automatically finds all CardDataSO assets in Assets/Resources/CardSOs folder
         /// </summary>
@@ -238,6 +295,69 @@ namespace GameManagement
             // cardInstance.GetComponent<CardStats>().SetCardData(data);
 
             return cardInstance;
+        }
+        
+        /// <summary>
+        /// Weighted random card: rolls a rarity tier first, then picks uniformly within it.
+        /// Pass cards to exclude (e.g. already offered in the draw modal).
+        /// </summary>
+        public CardDataSO GetWeightedRandomCard(ICollection<string> excludeCardIDs = null)
+        {
+            // Only tiers that still have at least one eligible card take part in the roll
+            var eligible = new List<(CardDataSO.Rarity rarity, float weight, List<CardDataSO> cards)>();
+            float totalWeight = 0f;
+
+            foreach (RarityWeight rw in rarityWeights)
+            {
+                if (rw.weight <= 0f) continue;
+                if (!_cardsByRarity.TryGetValue(rw.rarity, out List<CardDataSO> tierCards)) continue;
+
+                List<CardDataSO> available = excludeCardIDs == null
+                    ? tierCards
+                    : tierCards.Where(c => !excludeCardIDs.Contains(c.cardID)).ToList();
+
+                if (available.Count == 0) continue;
+
+                eligible.Add((rw.rarity, rw.weight, available));
+                totalWeight += rw.weight;
+            }
+
+            if (eligible.Count == 0)
+            {
+                Debug.LogWarning("GetWeightedRandomCard: no eligible cards to draw");
+                return null;
+            }
+
+            // Roll a point on the number line [0, totalWeight) and see which tier it lands in
+            float roll = Random.Range(0f, totalWeight);
+
+            foreach (var tier in eligible)
+            {
+                roll -= tier.weight;
+                if (roll < 0f)
+                    return tier.cards[Random.Range(0, tier.cards.Count)];
+            }
+
+            // Floating point safety net: fall back to the last tier
+            var last = eligible[eligible.Count - 1];
+            return last.cards[Random.Range(0, last.cards.Count)];
+        }
+
+        /// <summary>
+        /// Several unique weighted cards, for the draw modal offer.
+        /// </summary>
+        public List<string> GetWeightedUniqueCardIDs(int count)
+        {
+            var picked = new List<string>();
+
+            for (int i = 0; i < count; i++)
+            {
+                CardDataSO card = GetWeightedRandomCard(excludeCardIDs: picked);
+                if (card == null) break;   // pool exhausted
+                picked.Add(card.cardID);
+            }
+
+            return picked;
         }
     }
 }

@@ -17,4 +17,6 @@ MonoBehaviour:
   soul: 1
   abilityDescription: 
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: cc625d69241960343a9679130d029672, type: 2}
+  cardRarity: 1

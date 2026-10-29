@@ -3038,7 +3038,9 @@ MonoBehaviour:
   cardData: {fileID: 0}
   soulUse: -1
   burnCost: -1
+  burnInHandReturn: 0
   canBeBurned: 1
+  canBeHandSold: 1
   strength: -1
   strengthMult: 1
   defense: -1

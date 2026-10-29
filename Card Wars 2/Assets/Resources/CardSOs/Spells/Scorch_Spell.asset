@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0641979441064c6594eb6bd6999b0967, type: 3}
   m_Name: Scorch_Spell
   m_EditorClassIdentifier: 
-  cardName: SCORCH
+  cardName: VOLCANO
   mainImage: {fileID: 21300000, guid: 02844d409b1130f4f967b32db982877b, type: 3}
   soul: -1
   abilityDescription: DESTROY ALL CARDS IN A LANE
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 0a99850e82ef20a4e9a324f43a93e174, type: 2}
+  cardRarity: 1
   uses: 1

@@ -20,5 +20,15 @@ namespace CardScripts.CardData
         public int burnReturn = 3;
 
         public CardAbilitySO ability;
+
+        public enum Rarity
+        {
+            Common = 0, 
+            Uncommon = 1,
+            Rare = 2,
+            Epic = 3,
+        }
+        
+        public Rarity cardRarity = Rarity.Common;
     }
 }

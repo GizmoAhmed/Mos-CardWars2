@@ -18,4 +18,6 @@ MonoBehaviour:
   abilityDescription: Add copy of this creature when ability activates, copy has
     increased Soul cost by X
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 0}
+  cardRarity: 1

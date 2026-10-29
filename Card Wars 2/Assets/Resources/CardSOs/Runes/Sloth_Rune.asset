@@ -17,4 +17,6 @@ MonoBehaviour:
   soul: -1
   abilityDescription: Creature cannot die but cannot be burned
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 4fe8f56b8f53dce478314c8ad4587219, type: 2}
+  cardRarity: 1

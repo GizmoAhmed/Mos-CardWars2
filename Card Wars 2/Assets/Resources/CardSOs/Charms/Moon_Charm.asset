@@ -17,4 +17,6 @@ MonoBehaviour:
   soul: 3
   abilityDescription: Fortify All Your Creatures whenever your magic is upgraded
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: ac518a11051b44442b567957dd6ae516, type: 2}
+  cardRarity: 1

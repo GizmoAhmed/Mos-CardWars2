@@ -17,9 +17,11 @@ MonoBehaviour:
   soul: 1
   abilityDescription: 
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: a9b1cf0e6621b0546905201357fe2bac, type: 2}
+  cardRarity: 0
   element: 1
   elementSprite: {fileID: 21300000, guid: 721a34d7fd8f8be4cb12e322feff275d, type: 3}
   abilityCost: 1
   attack: 1
-  defense: 1
+  defense: 10

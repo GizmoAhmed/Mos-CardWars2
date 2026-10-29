@@ -18,4 +18,6 @@ MonoBehaviour:
   abilityDescription: Deal damage to opposing tile equal to creature on tile's defense.
     Every other turn.
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 2811674990de1c64cad99bcc91ac6a35, type: 2}
+  cardRarity: 1

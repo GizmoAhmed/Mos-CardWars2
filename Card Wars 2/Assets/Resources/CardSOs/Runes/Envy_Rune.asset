@@ -19,4 +19,6 @@ MonoBehaviour:
 
 '
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 91fe03aa2b1e1e841a83e14d16fde5a3, type: 2}
+  cardRarity: 1

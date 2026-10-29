@@ -17,5 +17,7 @@ MonoBehaviour:
   soul: -1
   abilityDescription: Activate the ability of the creature casted on
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 9987a1f2902b65045ae17020095f8b29, type: 2}
+  cardRarity: 1
   uses: 2

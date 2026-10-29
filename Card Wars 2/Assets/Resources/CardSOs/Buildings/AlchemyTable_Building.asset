@@ -17,4 +17,6 @@ MonoBehaviour:
   soul: 2
   abilityDescription: INCREASES OF ALL IN HAND SPELLS BY X
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: b1cd8f603607ad348961aba04afcbc88, type: 2}
+  cardRarity: 1

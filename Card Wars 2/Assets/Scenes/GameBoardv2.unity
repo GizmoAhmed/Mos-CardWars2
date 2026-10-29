@@ -10101,7 +10101,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  debugMode: 1
+  debugMode: 0
   debugDeck:
   - {fileID: 11400000, guid: 800a96500403f3347a620a14ee907f59, type: 2}
   - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
@@ -10117,6 +10117,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 52b298e0b34d6fe4487c7242a8bd59d0, type: 2}
   - {fileID: 11400000, guid: de98d0dee3d8ac840a364382fa815817, type: 2}
   masterDeckList: []
+  rarityWeights:
+  - rarity: 0
+    weight: 62
+  - rarity: 1
+    weight: 25
+  - rarity: 2
+    weight: 10
+  - rarity: 3
+    weight: 3
   creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}
   spellCard: {fileID: 5473283833520736551, guid: 197ad043ed2b6e345929eda49e5660e4, type: 3}

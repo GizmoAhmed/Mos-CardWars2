@@ -17,4 +17,6 @@ MonoBehaviour:
   soul: 5
   abilityDescription: Randomly draw X runes at the end of the the turn
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 3f1e6f84cbd2c084dbb6666af73d7244, type: 2}
+  cardRarity: 3

@@ -17,9 +17,11 @@ MonoBehaviour:
   soul: 1
   abilityDescription: Double uses on a radom spell in your hand
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 6992339c57186dd40b63a6e4b7a89d87, type: 2}
+  cardRarity: 1
   element: 3
   elementSprite: {fileID: 21300000, guid: 94c442535ef1d3c47bb8085d9e16bc77, type: 3}
   abilityCost: 3
   attack: 0
-  defense: 1
+  defense: 10

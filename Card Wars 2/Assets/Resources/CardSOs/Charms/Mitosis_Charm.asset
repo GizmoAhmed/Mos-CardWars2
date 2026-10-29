@@ -17,4 +17,6 @@ MonoBehaviour:
   soul: 6
   abilityDescription: Chance to redraw a card that was drawn
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 63b0e5d18bca51743a18d3e88eadac94, type: 2}
+  cardRarity: 2

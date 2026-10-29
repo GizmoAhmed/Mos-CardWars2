@@ -17,4 +17,6 @@ MonoBehaviour:
   soul: 6
   abilityDescription: Reduce Soul cost each time card burned on field
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: 932bb7dc5ae96da46879f718aa462976, type: 2}
+  cardRarity: 2

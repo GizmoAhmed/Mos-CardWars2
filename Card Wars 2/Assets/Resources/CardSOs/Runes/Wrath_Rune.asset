@@ -18,4 +18,6 @@ MonoBehaviour:
   abilityDescription: Deal damage to opposing tile equal to this creatures strength
     after each turn. LOCK creature.
   burnCost: 2
+  burnReturn: 3
   ability: {fileID: 11400000, guid: e73fb8256fe2504479bbe79542a3626b, type: 2}
+  cardRarity: 1
