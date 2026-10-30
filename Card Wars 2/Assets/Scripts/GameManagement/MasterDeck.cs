@@ -36,15 +36,16 @@ namespace GameManagement
         {
             public CardDataSO.Rarity rarity;
             [Min(0)] public float weight;
+            [Min(0)] public float burnReturnMultiplier;  
         }
 
         [Header("Rarity Odds (relative weights, don't need to sum to 100)")]
         public List<RarityWeight> rarityWeights = new List<RarityWeight>
         {
-            new RarityWeight { rarity = CardDataSO.Rarity.Common, weight = 62 },
-            new RarityWeight { rarity = CardDataSO.Rarity.Uncommon, weight = 25 },
-            new RarityWeight { rarity = CardDataSO.Rarity.Rare, weight = 10 },
-            new RarityWeight { rarity = CardDataSO.Rarity.Epic, weight = 3 },
+            new RarityWeight { rarity = CardDataSO.Rarity.Common, weight = 62, burnReturnMultiplier = 1f },
+            new RarityWeight { rarity = CardDataSO.Rarity.Uncommon, weight = 25, burnReturnMultiplier = 1.5f },
+            new RarityWeight { rarity = CardDataSO.Rarity.Rare, weight = 10, burnReturnMultiplier = 2f },
+            new RarityWeight { rarity = CardDataSO.Rarity.Epic, weight = 3, burnReturnMultiplier = 3.5f },
         };
 
         // Built in PopulateLocal(): rarity -> every card of that tier
@@ -118,6 +119,23 @@ namespace GameManagement
 
                 group.Add(card);
             }
+        }
+        
+        /// <summary>
+        /// Given the cards rarity, multiple money gained from burn return by that cards rarity
+        /// Rarer cards give more money when burned
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public int GetBurnReturn(CardDataSO data)
+        {
+            foreach (RarityWeight rw in rarityWeights)
+            {
+                if (rw.rarity == data.cardRarity)
+                    return Mathf.RoundToInt(data.burnReturn * rw.burnReturnMultiplier);
+            }
+
+            return data.burnReturn;   // rarity not configured: no multiplier
         }
         
         /// <summary>

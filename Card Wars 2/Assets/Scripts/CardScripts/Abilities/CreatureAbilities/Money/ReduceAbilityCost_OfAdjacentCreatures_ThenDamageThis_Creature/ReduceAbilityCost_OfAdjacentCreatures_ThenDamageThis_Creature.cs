@@ -9,8 +9,8 @@ using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "ReduceAbilityCost_OfAdjacentCreatures_Creature", 
-    menuName = "Abilities/Creature/ReduceAbilityCost_OfAdjacentCreatures_Creature")]
-public class ReduceAbilityCost_OfAdjacentCreatures_Creature : ActiveAbilitySO
+    menuName = "Abilities/Creature/Money/ReduceAbilityCost_OfAdjacentCreatures_ThenDamageThis_Creature")]
+public class ReduceAbilityCost_OfAdjacentCreatures_ThenDamageThis_Creature : ActiveAbilitySO
 {
     public int selfDamage;
     public int abilityCostReduction;

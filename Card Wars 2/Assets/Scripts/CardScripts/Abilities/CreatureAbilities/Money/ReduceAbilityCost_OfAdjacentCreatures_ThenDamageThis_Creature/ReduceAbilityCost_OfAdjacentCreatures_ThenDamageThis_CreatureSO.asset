@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c5da96fe294134b83bb1911a8c23a5, type: 3}
-  m_Name: ReduceAbilityCost_OfAdjacentCreatures_CreatureSO
+  m_Name: ReduceAbilityCost_OfAdjacentCreatures_ThenDamageThis_CreatureSO
   m_EditorClassIdentifier: 
   selfDamage: 5
   abilityCostReduction: 1

@@ -24,6 +24,8 @@ namespace CardScripts.CardStats_Folder
         
         protected CardMovement Movement;
 
+        private MasterDeck _masterDeck;
+
         [SyncVar(hook = nameof(Hook_UpdateSoulUI_OnBothClients))]
         public int soulUse;
 
@@ -44,6 +46,7 @@ namespace CardScripts.CardStats_Folder
             Display = GetComponent<CardDisplay>();
             anim = GetComponent<CardAnimator>();
             Movement = GetComponent<CardMovement>();
+            _masterDeck = FindObjectOfType<MasterDeck>();
         }
 
         /// <summary>
@@ -53,9 +56,7 @@ namespace CardScripts.CardStats_Folder
         /// <param name="serverCall"></param>
         public virtual void SetAndApplyCardData(CardDataSO data, bool serverCall)
         {
-            MasterDeck masterDeckDb = FindObjectOfType<MasterDeck>();
-
-            if (masterDeckDb == null)
+            if (_masterDeck == null)
             {
                 Debug.LogError($"MasterDeckDb is Null on when data set on {gameObject.name}");
                 return;
@@ -153,7 +154,7 @@ namespace CardScripts.CardStats_Folder
         {
             soulUse = cardData.soul;
             burnCost = cardData.burnCost;
-            burnInHandReturn = cardData.burnReturn;
+            burnInHandReturn = _masterDeck.GetBurnReturn(cardData); // get burn return for this rarity
         }
 
         /// <summary>

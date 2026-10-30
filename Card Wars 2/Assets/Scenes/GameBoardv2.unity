@@ -10108,9 +10108,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8559f16a97f893f4384ab9f7e1ac05cf, type: 2}
   - {fileID: 11400000, guid: 45fb1db4d6e074546a01198769e716a9, type: 2}
   - {fileID: 11400000, guid: 0e1c3f504ad111c438c4dab2a2842357, type: 2}
-  - {fileID: 11400000, guid: 89eef818a2410a7428f69f80e7be27f8, type: 2}
   - {fileID: 11400000, guid: 290126a966512ef40bf49061958b626a, type: 2}
   - {fileID: 11400000, guid: 40444997ac3059b4fb69a77212656054, type: 2}
+  - {fileID: 11400000, guid: 89eef818a2410a7428f69f80e7be27f8, type: 2}
   - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
   - {fileID: 11400000, guid: 3a6209d244887aa47a217ea3ba612854, type: 2}
   - {fileID: 11400000, guid: bd67f097bf776ff44baee0a04ab5cd20, type: 2}
@@ -10119,13 +10119,17 @@ MonoBehaviour:
   masterDeckList: []
   rarityWeights:
   - rarity: 0
-    weight: 62
+    weight: 70
+    burnReturnMultiplier: 1
   - rarity: 1
-    weight: 25
+    weight: 20
+    burnReturnMultiplier: 1.5
   - rarity: 2
-    weight: 10
+    weight: 5
+    burnReturnMultiplier: 2
   - rarity: 3
-    weight: 3
+    weight: 1
+    burnReturnMultiplier: 3.5
   creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}
   spellCard: {fileID: 5473283833520736551, guid: 197ad043ed2b6e345929eda49e5660e4, type: 3}
