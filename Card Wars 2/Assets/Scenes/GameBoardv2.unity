@@ -179,7 +179,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'MAGIC +1 '
+  m_text: 'MAX SOUL +1 '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -206,8 +206,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19
-  m_fontSizeBase: 19
+  m_fontSize: 11.28
+  m_fontSizeBase: 11.28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10235,31 +10235,24 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  debugMode: 0
+  debugMode: 1
   debugDeck:
-  - {fileID: 11400000, guid: 800a96500403f3347a620a14ee907f59, type: 2}
-  - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
-  - {fileID: 11400000, guid: 8559f16a97f893f4384ab9f7e1ac05cf, type: 2}
-  - {fileID: 11400000, guid: 45fb1db4d6e074546a01198769e716a9, type: 2}
-  - {fileID: 11400000, guid: 0e1c3f504ad111c438c4dab2a2842357, type: 2}
-  - {fileID: 11400000, guid: 89eef818a2410a7428f69f80e7be27f8, type: 2}
-  - {fileID: 11400000, guid: 290126a966512ef40bf49061958b626a, type: 2}
-  - {fileID: 11400000, guid: 40444997ac3059b4fb69a77212656054, type: 2}
   - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
-  - {fileID: 11400000, guid: 3a6209d244887aa47a217ea3ba612854, type: 2}
-  - {fileID: 11400000, guid: bd67f097bf776ff44baee0a04ab5cd20, type: 2}
-  - {fileID: 11400000, guid: 52b298e0b34d6fe4487c7242a8bd59d0, type: 2}
-  - {fileID: 11400000, guid: de98d0dee3d8ac840a364382fa815817, type: 2}
+  - {fileID: 11400000, guid: e3b9d9d306ad7b64fb92b2162cc28207, type: 2}
+  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
+  - {fileID: 11400000, guid: 7fa30b6ac55316042a93207caee9aec2, type: 2}
+  - {fileID: 11400000, guid: e3b9d9d306ad7b64fb92b2162cc28207, type: 2}
+  - {fileID: 11400000, guid: 620791cd636868e4791acf1e1c003ce5, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0
-    weight: 70
+    weight: 105
     burnReturnMultiplier: 1
   - rarity: 1
-    weight: 20
+    weight: 30
     burnReturnMultiplier: 1.5
   - rarity: 2
-    weight: 5
+    weight: 7.5
     burnReturnMultiplier: 2
   - rarity: 3
     weight: 1
@@ -12467,15 +12460,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8007633529118996008, guid: e2a300932f522db46855e2e496ba2324, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 943.8535
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8007633529118996008, guid: e2a300932f522db46855e2e496ba2324, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 391.43817
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8007633529118996008, guid: e2a300932f522db46855e2e496ba2324, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.370101
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8007633529118996008, guid: e2a300932f522db46855e2e496ba2324, type: 3}
       propertyPath: m_LocalRotation.w

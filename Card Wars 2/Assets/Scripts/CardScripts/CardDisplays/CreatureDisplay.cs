@@ -20,6 +20,7 @@ namespace CardScripts.CardDisplays
 
         private GameObject activateButton;
         private GameObject abilityCost;
+        private GameObject _abilityUses;
 
         private GameObject _runeTab1;
         private GameObject _runeText1;
@@ -43,51 +44,27 @@ namespace CardScripts.CardDisplays
 
         public override void SetDisplayElements_UsingData(CardStats s)
         {
-            cardData = s.CardData as CreatureDataSO;
+            // Runs all the shared logic: image, name, description, flip, rarity, info card
+            base.SetDisplayElements_UsingData(s);
 
-            if (cardData == null)
+            // If the base bailed out on a null check, don't continue
+            if (cardData == null) return;
+
+            // ---- Creature-only work ----
+            CreatureDataSO creatureData = s.CardData as CreatureDataSO;
+            if (creatureData == null)
             {
-                Debug.LogError($"creatureData is null on {gameObject.name}");
+                Debug.LogError($"CardData is not a CreatureDataSO on {gameObject.name}");
                 return;
             }
-            
-            // ------------- to get around null check in base class ---------------------
-            // find all object variables above
-            // FindDisplayParts();
 
-            // Set images
-            SetImage(MainImageObj, cardData.mainImage);
-
-            // Set names
-            SetText(NameTop, cardData.cardName);
-
-            // set description
-            GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
-
-            if (cardData.ability == null)
-            {
-                Debug.LogError($"CreatureDisplay: cardData.ability is null on {gameObject.name}");                
-            }
-            else
-            {
-                SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.ability.name));
-            }
-
-            FlipCard(face: true);
-
-            HideUIElement(InfoObj); // initially hide the info card
-
-            CardInfoHandler = FindObjectOfType<CardInfoHandler>();
-            
             anim = FindObjectOfType<CardAnimator>();
-            // -----------------------------------------------------
-
-            CreatureDataSO creatureData = s.CardData as CreatureDataSO;
 
             SetImage(_elementObj, creatureData.elementSprite);
 
             GameObject activateButtonText = activateButton.transform.GetChild(0).gameObject;
             SetText(activateButtonText, creatureData.abilityCost.ToString());
+            SetText(_abilityUses, 1.ToString()); // start as one
         }
 
         protected override void FindDisplayParts()
@@ -105,6 +82,12 @@ namespace CardScripts.CardDisplays
             {
                 activateButton = FindPart("ActivateButton", InfoRight.transform);
                 abilityCost = FindPart("AbilityCostText", activateButton.transform);
+                _abilityUses = FindPart("UsesText", activateButton.transform);
+
+                if (_abilityUses == null)
+                {
+                    Debug.LogError($"ability uses was not found on {gameObject.name}");
+                }
 
                 _runeTab1 = FindPart("RuneTab1", InfoLeft.transform);
                 _runeTab2 = FindPart("RuneTab2", InfoLeft.transform);
@@ -287,6 +270,11 @@ namespace CardScripts.CardDisplays
                 
                 SetImage(_runeInfoCardIcon1, runeData.mainImage);
             }
+        }
+
+        public void UpdateUI_AbilityUsesLeft(int usesLeft)
+        {
+            SetText(_abilityUses, usesLeft.ToString(), isStatText: true);
         }
     }
 }

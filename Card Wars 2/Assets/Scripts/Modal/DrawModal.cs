@@ -30,6 +30,8 @@ namespace Modal
 
         public GameObject picksLeftTextObj;
         public int picksLeft;
+        
+        private DiscardModal _discardModal;
 
         void Start()
         {
@@ -68,7 +70,7 @@ namespace Modal
             {
                 Debug.LogError($"drawCostTextObj is null, make sure to set on {gameObject.name}");
             }
-            
+
             if (picksLeftTextObj == null)
             {
                 Debug.LogError($"picksLeftTextObj is null, make sure to set on {gameObject.name}");
@@ -80,7 +82,7 @@ namespace Modal
             {
                 Debug.LogError("_cardGroupTransform couldn't be found and is null");
             }
-            
+
             GameManager gameManager = FindObjectOfType<GameManager>();
 
             paidPicks = gameManager.defaultPaidDrawChoices;
@@ -88,11 +90,18 @@ namespace Modal
             paidChoiceTextObj.GetComponent<TextMeshProUGUI>().text = paidPicks.ToString();
             paidOfferTextObj.GetComponent<TextMeshProUGUI>().text = paidOffer.ToString();
             UpdateDrawCostText();
+
+            _discardModal = FindAnyObjectByType<DiscardModal>(FindObjectsInactive.Include);
         }
 
         public void OpenDrawModal()
         {
             gameObject.SetActive(true);
+
+            if (_discardModal.gameObject.activeInHierarchy) // if discard modal already open?
+            {
+                _discardModal.CloseModal();
+            }
         }
 
         //IModal
@@ -103,7 +112,6 @@ namespace Modal
 
         private void CloseDrawModal()
         {
-            Debug.LogWarning("Closing Draw Modal...");
             ClearPreviewCards();
             UpdatePicksLeft(0);
             gameObject.SetActive(false);

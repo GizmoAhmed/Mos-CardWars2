@@ -43,7 +43,7 @@ namespace CardScripts.CardStatss
         
         // how many times a creature can floop in a turn
         [SyncVar] public int maxFloops = 1;
-        [SyncVar] public int floopsLeft;
+        [SyncVar(hook = nameof(Hook_UpdateAbilityUses))] public int floopsLeft;
 
         [SyncVar] public bool multiFloop = false;
         [SyncVar] public bool isGamblingAbility = false;
@@ -471,6 +471,11 @@ namespace CardScripts.CardStatss
         public void UpdateScore(int oldScore, int newScore)
         {
             _creatureDisplay.UpdateScoreUI(newScore);
+        }
+
+        public void Hook_UpdateAbilityUses(int oldUses, int newUses)
+        {
+            _creatureDisplay.UpdateUI_AbilityUsesLeft(newUses);
         }
     }
 }

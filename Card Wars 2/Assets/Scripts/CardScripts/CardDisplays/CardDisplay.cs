@@ -65,9 +65,6 @@ namespace CardScripts.CardDisplays
                 return;
             }
 
-            // find all object variables above
-            // FindDisplayParts();
-
             // Set images
             SetImage(MainImageObj, cardData.mainImage);
 

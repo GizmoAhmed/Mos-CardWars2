@@ -317,9 +317,10 @@ namespace GameManagement
         
         /// <summary>
         /// Weighted random card: rolls a rarity tier first, then picks uniformly within it.
-        /// Pass cards to exclude (e.g. already offered in the draw modal).
         /// </summary>
-        public CardDataSO GetWeightedRandomCard(ICollection<string> excludeCardIDs = null)
+        /// <param name="excludeCardIDs">Pass cards to exclude (e.g. already offered in the draw modal).</param>
+        /// <returns>Returned Random Card</returns>
+        private CardDataSO GetWeightedRandomCard(ICollection<string> excludeCardIDs = null)
         {
             // Only tiers that still have at least one eligible card take part in the roll
             var eligible = new List<(CardDataSO.Rarity rarity, float weight, List<CardDataSO> cards)>();

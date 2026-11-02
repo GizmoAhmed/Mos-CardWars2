@@ -13,7 +13,7 @@ namespace Modal
 
         public void MinimizeModal()
         {
-            throw new NotImplementedException();
+            Debug.LogWarning("Attempted to minimize a Discard board, somehow someway");
         }
     }
 }

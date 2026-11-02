@@ -1,6 +1,6 @@
+using CardScripts;
 using Mirror;
 using Modal;
-using PlayerStuff;
 using UnityEngine;
 
 namespace Buttons
@@ -8,10 +8,14 @@ namespace Buttons
     public class DrawButton : NetworkBehaviour
     {
         public GameObject drawModalObj;
+        
+        private CardInfoHandler _cardInfoHandler;
 
         public void InitDrawModal(GameObject d)
         {
             drawModalObj = d;
+            
+            _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
         }
 
         public void ToggleDrawModal()
@@ -22,7 +26,12 @@ namespace Buttons
                 return;
             }
 
-            if (!drawModalObj.activeInHierarchy)    drawModalObj.GetComponent<DrawModal>().OpenDrawModal();
+            if (!drawModalObj.activeInHierarchy) // if not active...
+            {
+                drawModalObj.GetComponent<DrawModal>().OpenDrawModal(); // open
+            }
+            
+            _cardInfoHandler.CloseAnyOpenInfo();
         }
 
         public void DrawCardOnClick()
