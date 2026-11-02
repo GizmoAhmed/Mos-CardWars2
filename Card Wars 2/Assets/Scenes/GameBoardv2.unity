@@ -10235,13 +10235,13 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  debugMode: 1
+  debugMode: 0
   debugDeck:
   - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
   - {fileID: 11400000, guid: e3b9d9d306ad7b64fb92b2162cc28207, type: 2}
+  - {fileID: 11400000, guid: e3b9d9d306ad7b64fb92b2162cc28207, type: 2}
   - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
   - {fileID: 11400000, guid: 7fa30b6ac55316042a93207caee9aec2, type: 2}
-  - {fileID: 11400000, guid: e3b9d9d306ad7b64fb92b2162cc28207, type: 2}
   - {fileID: 11400000, guid: 620791cd636868e4791acf1e1c003ce5, type: 2}
   masterDeckList: []
   rarityWeights:

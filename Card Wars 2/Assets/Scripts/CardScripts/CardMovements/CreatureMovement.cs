@@ -114,8 +114,9 @@ namespace CardScripts.CardMovements
 
             // Visual positioning
             visualTile.creatureVisual = gameObject;
+            PlaceOnTileOutsideLayout(visualTile.transform, Vector2.zero);
             transform.SetParent(visualTile.transform, false);
-            transform.localPosition = Vector3.zero;
+            transform.localPosition = Vector3.zero; // center of tile
             transform.SetAsFirstSibling();
 
             // Update visual reference

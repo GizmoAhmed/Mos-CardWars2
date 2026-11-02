@@ -15,6 +15,7 @@ using Tiles;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace CardScripts.CardMovements
 {
@@ -257,7 +258,7 @@ namespace CardScripts.CardMovements
             cardState = CardState.Field;
 
             RpcFlipBurn(); // since now on field, use return instead of cost
-            
+
             // remove from hand counter
             // All others call base, so this will get called there
             // Spell doesn't call base.CmdPlace but it's ok cause it discards itself when that happens which calls this
@@ -316,6 +317,31 @@ namespace CardScripts.CardMovements
             tileEventManager.OnCardPlacedOnTile(gameObject);
         }
 
+        /// <summary>
+        /// Add a LayoutElement with Ignore Layout checked to the card when it lands on a tile.
+        /// Layout groups skip ignored children entirely, so they stop driving the anchors, position, and size.
+        /// Yu can set them yourself. The hand keeps its layout behavior, and the card only opts out once it’s placed.
+        /// </summary>
+        /// <param name="newParent">Tile being placed on</param>
+        /// <param name="anchoredPos">New position set to when placed</param>
+        protected void PlaceOnTileOutsideLayout(Transform newParent, Vector2 anchoredPos)
+        {
+            RectTransform rt = (RectTransform)transform;
+
+            // Opt out of the layout group BEFORE reparenting, so it never drives this card
+            LayoutElement le = GetComponent<LayoutElement>();
+            if (le == null) le = gameObject.AddComponent<LayoutElement>();
+            le.ignoreLayout = true;
+
+            transform.SetParent(newParent, false);
+
+            // The layout group left the anchors at top-left, so set them explicitly
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = anchoredPos;
+            transform.SetAsFirstSibling();
+        }
+
         [ClientRpc]
         protected virtual void RpcPlaceCardOnTile(GameObject tileObj)
         {
@@ -345,7 +371,7 @@ namespace CardScripts.CardMovements
                 );
 
                 Debug.Log("<<< <color=cyan>Base: Any Card Burn Broadcast</color> >>>");
-                
+
                 // tell event manager to tell everyone (that cares) that a card was burned
                 GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(
                     burnData);
@@ -443,7 +469,7 @@ namespace CardScripts.CardMovements
         protected IEnumerator SnapBackToHand()
         {
             transform.DOKill(); // make sure animation doesn't mess with snap back movement
-            
+
             Vector3 start = transform.position;
             Vector3 end = _startPos;
             float t = 0f;
@@ -465,7 +491,7 @@ namespace CardScripts.CardMovements
         public virtual void BurnCard()
         {
             //Debug.LogWarning($"BurnCard not overridden on {gameObject.name}! Discarding anyway...");
-            
+
             ServerDiscard();
         }
 
@@ -489,21 +515,21 @@ namespace CardScripts.CardMovements
 
             // resets stats to base, to show on discard board
             cardStats.SetStats_FromData();
-            
+
             Player player = thisCardOwnerPlayerStats?.GetComponent<Player>();
-            
+
             // Track discard on server
             player.playerCardTracker.Server_TrackDiscard(gameObject);
-            
+
             // also remove from hand if discarding from there
             player.playerCardTracker.Server_RemoveFromHand(gameObject);
-            
+
             LocalWhisperCardDiscard(GetLogicalTile());
-            
+
             // visually move card to discard board for each respective client
             RpcMoveDiscardedCard_ToBoard();
         }
-        
+
         protected void LocalWhisperCardDiscard(Tile tile)
         {
             TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();

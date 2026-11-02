@@ -92,11 +92,22 @@ namespace Modal
             UpdateDrawCostText();
 
             _discardModal = FindAnyObjectByType<DiscardModal>(FindObjectsInactive.Include);
+
+            if (_discardModal == null)
+            {
+                Debug.LogError("_discardModal couldn't be found");
+            }
         }
 
         public void OpenDrawModal()
         {
             gameObject.SetActive(true);
+
+            if (_discardModal == null)
+            {
+                Debug.LogWarning("While opening the draw model, an attempt was made to close the _discardModal, but it wasn't found");
+                return;
+            }
 
             if (_discardModal.gameObject.activeInHierarchy) // if discard modal already open?
             {

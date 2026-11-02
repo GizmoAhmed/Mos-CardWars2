@@ -8,6 +8,9 @@ namespace CardScripts.CardMovements
 {
     public class BuildingMovement : CardMovement
     {
+        private const int PlacementPosX = -60;
+        private const int PlacementPosY = -35;
+        
         protected override bool ValidPlacement(Tile tile)
         {
             // if can't get passed global checks, abort
@@ -84,8 +87,9 @@ namespace CardScripts.CardMovements
 
             // Visual positioning
             visualTile.buildingVisual = gameObject;
+            PlaceOnTileOutsideLayout(visualTile.transform, new Vector2(PlacementPosX, PlacementPosY));
             transform.SetParent(visualTile.transform, false);
-            transform.localPosition = new Vector3(-40, -35, 0);
+            transform.localPosition = new Vector3(PlacementPosX, PlacementPosY, 0);
             transform.SetAsFirstSibling();
 
             // Update visual reference
