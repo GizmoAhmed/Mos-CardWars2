@@ -103,8 +103,14 @@ namespace Modal
 
         private void CloseDrawModal()
         {
+            Debug.LogWarning("Closing Draw Modal...");
             ClearPreviewCards();
             UpdatePicksLeft(0);
+            gameObject.SetActive(false);
+        }
+
+        public void MinimizeModal()
+        {
             gameObject.SetActive(false);
         }
 

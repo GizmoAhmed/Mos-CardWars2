@@ -19,5 +19,12 @@ namespace Buttons
             
             modal.CloseModal();
         }
+
+        public void MinimizeOnClick()
+        {
+            IModal modal = _parent.GetComponent<IModal>();
+            
+            modal.MinimizeModal();
+        }
     }
 }

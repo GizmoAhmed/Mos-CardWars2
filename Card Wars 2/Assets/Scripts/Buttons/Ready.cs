@@ -1,14 +1,17 @@
 using Mirror;
 
-public class Ready : NetworkBehaviour
+namespace Buttons
 {
-	public void ReadyUp()
+	public class Ready : NetworkBehaviour
 	{
-		Player player = NetworkClient.localPlayer.GetComponent<Player>();
-
-		if (player != null)
+		public void ReadyUp()
 		{
-			player.CmdSetReady();
+			Player player = NetworkClient.localPlayer.GetComponent<Player>();
+
+			if (player != null)
+			{
+				player.CmdSetReady();
+			}
 		}
 	}
 }

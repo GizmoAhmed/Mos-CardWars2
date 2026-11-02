@@ -10,5 +10,10 @@ namespace Modal
         {
             gameObject.SetActive(false);
         }
+
+        public void MinimizeModal()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

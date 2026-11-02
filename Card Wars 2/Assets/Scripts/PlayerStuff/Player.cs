@@ -7,6 +7,7 @@ using System.Collections;
 using Buttons;
 using CardScripts;
 using GameManagement;
+using Modal;
 using PlayerStuff;
 using Unity.Collections;
 using Unity.VisualScripting;
@@ -35,6 +36,8 @@ public class Player : NetworkBehaviour
 
     private ButtonsManager buttonManager;
 
+    private DrawModal drawModal;
+
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -55,6 +58,13 @@ public class Player : NetworkBehaviour
         
         buttonManager = FindAnyObjectByType<ButtonsManager>(FindObjectsInactive.Include);
 
+        drawModal = FindAnyObjectByType<DrawModal>(FindObjectsInactive.Include);
+
+        if (drawModal == null)
+        {
+            Debug.LogError("Player initiation: No draw modal found");
+        }
+        
         if (isServer) // must be the host, the first person to join
         {
         }
@@ -81,6 +91,8 @@ public class Player : NetworkBehaviour
     public void CmdSetReady()
     {
         turnManager.PlayerReady(connectionToClient);
+        
+        drawModal.CloseModal();
     }
 
 
