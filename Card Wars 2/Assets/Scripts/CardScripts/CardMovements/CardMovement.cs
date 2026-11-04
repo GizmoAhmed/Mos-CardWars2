@@ -68,6 +68,8 @@ namespace CardScripts.CardMovements
         private CardInfoHandler _cardInfoHandler;
 
         private const int CLICKABLE_RECT_WIDTH = 147;
+        
+        private CardAnimator _cardAnimator;
 
         protected virtual void Start()
         {
@@ -89,6 +91,8 @@ namespace CardScripts.CardMovements
                 Debug.LogError($"_cardDisplay is null ({gameObject.name})");
 
             _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
+            
+            _cardAnimator = GetComponent<CardAnimator>();
         }
 
         [Server]
@@ -548,8 +552,11 @@ namespace CardScripts.CardMovements
         [ClientRpc]
         private void RpcMoveDiscardedCard_ToBoard()
         {
-            // visually move cards 
-            thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);
+            // fade out, then when that's done, move to discard
+            _cardAnimator.FadeOutThen(_canvasGroup, () =>
+            {
+                thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);
+            });
         }
 
         [Server]

@@ -76,5 +76,23 @@ namespace CardScripts
             pulse.SetLoops(loops);
             pulse.SetTarget(image);
         }
+        
+        public void FadeOutThen(CanvasGroup canvasGroup, System.Action onFaded, float duration = 0.8f)
+        {
+            canvasGroup.DOKill();
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;   // can't click or drag a dying card
+
+            canvasGroup.DOFade(0f, duration)
+                .SetEase(Ease.InQuad)
+                .SetLink(canvasGroup.gameObject)  // auto-kills if the object is destroyed
+                .OnComplete(() =>
+                {
+                    onFaded?.Invoke();            // move to discard board while invisible
+                    canvasGroup.alpha = 1f;       // restore so it's visible on the discard board
+                    canvasGroup.interactable = true;
+                    canvasGroup.blocksRaycasts = true;
+                });
+        }
     }
 }
