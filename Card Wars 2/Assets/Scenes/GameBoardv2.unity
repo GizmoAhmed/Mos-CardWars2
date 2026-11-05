@@ -10241,6 +10241,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7c7f9dfcd8ad90141a6336ce0b89ce95, type: 2}
   - {fileID: 11400000, guid: d2c7baad784d6a74c8ee8abe419d4632, type: 2}
   - {fileID: 11400000, guid: 0f974da970699944d8c836baa70a7a06, type: 2}
+  - {fileID: 11400000, guid: 8559f16a97f893f4384ab9f7e1ac05cf, type: 2}
+  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0

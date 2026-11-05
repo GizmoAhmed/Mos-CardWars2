@@ -84,6 +84,20 @@ namespace CardScripts.CardMovements
             }
         }
         
+        private bool CanBeGrabbed(out string reason)
+        {
+            reason = null;
+
+            if (cardState == CardState.Preview)    return true;
+            if (_grabbed)                           { reason = "already grabbed"; return false; }
+            if (thisCardsVisualTile != null)    { reason = "already on a tile"; return false; }
+            if (!isOwned)                          { reason = "not owned by this player"; return false; }
+            if (!CanMoveCard)                      { reason = "not your turn"; return false; }
+            if (cardState == CardState.Discard)    { reason = "in discard"; return false; }
+
+            return true;
+        }
+        
         [Header("Discard Effects")]
         public float discardFadeOutDuration = 1f;
 
@@ -131,15 +145,10 @@ namespace CardScripts.CardMovements
 
         public void BeginDrag()
         {
-            if (cardState == CardState.Preview)
+            if (!CanBeGrabbed(out string reason))
             {
-                // cards in the draw modal preview are always draggable
-            }
-            else
-            {
-                // DON'T allow to be grabbed if:
-                // already being grabbed, is already on a land, is not your card to grab, not your turn, or in the discard state 
-                if (_grabbed || thisCardsVisualTile != null || !isOwned || !CanMoveCard || cardState == CardState.Discard) return;
+                Debug.Log($"<color=orange>Drag denied</color> on {gameObject.name}: {reason}");
+                return;
             }
 
             _grabbed = true;

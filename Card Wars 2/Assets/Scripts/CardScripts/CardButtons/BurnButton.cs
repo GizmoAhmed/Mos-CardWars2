@@ -8,6 +8,18 @@ namespace CardScripts.CardButtons
     {
         private CardMovement _move;
 
+        private bool CanBeBurned(out string reason)
+        {
+            reason = null;
+            
+            if (_move == null) { reason = "_move not set"; return false; }
+            if (_move.thisCardOwnerPlayerStats == null) { reason = "_move.thisCardOwnerPlayerStats is null"; return false; }
+            if (_move.cardState == CardMovement.CardState.Discard) { reason = "discarded"; return false; }
+            if (_move.cardState == CardMovement.CardState.Preview) { reason = "being previewed"; return false; }
+
+            return true;
+        }
+
         private void Start()
         {
             _move = GetComponent<CardMovement>();
@@ -15,18 +27,12 @@ namespace CardScripts.CardButtons
         
         public void OnClickBurn()
         {
-            if (_move == null)
+            if (!CanBeBurned(out string reason))
             {
-                Debug.LogError($"Move script on {gameObject.name} is null");
+                Debug.Log($"<color=orange>Burn denied</color> on {gameObject.name}: {reason}");
                 return;
             }
-
-            if (_move.thisCardOwnerPlayerStats == null)
-            {
-                Debug.LogWarning($"Move script on {gameObject.name} does not have it's owning player set at time of burn");
-                return;
-            }
-
+            
             _move.thisCardOwnerPlayerStats.CmdBurn(gameObject);
         }
     }
