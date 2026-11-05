@@ -70,6 +70,19 @@ namespace CardScripts.CardMovements
         private const int CLICKABLE_RECT_WIDTH = 147;
         
         private CardAnimator _cardAnimator;
+        
+        private Player _cardsPlayer;
+
+        private bool CanMoveCard
+        {
+            get
+            {
+                if (_cardsPlayer == null)
+                    _cardsPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();
+
+                return _cardsPlayer == null || _cardsPlayer.myTurn;
+            }
+        }
 
         protected virtual void Start()
         {
@@ -115,6 +128,8 @@ namespace CardScripts.CardMovements
 
         public void BeginDrag()
         {
+            if (!CanMoveCard) return; // can't drag if not your turn
+
             if (cardState == CardState.Preview)
             {
                 // cards in the draw modal preview are draggable
@@ -324,7 +339,7 @@ namespace CardScripts.CardMovements
         /// <summary>
         /// Add a LayoutElement with Ignore Layout checked to the card when it lands on a tile.
         /// Layout groups skip ignored children entirely, so they stop driving the anchors, position, and size.
-        /// Yu can set them yourself. The hand keeps its layout behavior, and the card only opts out once it’s placed.
+        /// You can set them yourself. The hand keeps its layout behavior, and the card only opts out once it’s placed.
         /// </summary>
         /// <param name="newParent">Tile being placed on</param>
         /// <param name="anchoredPos">New position set to when placed</param>
@@ -431,13 +446,9 @@ namespace CardScripts.CardMovements
                 return false;
             }
 
-            Player cardsPlayer = thisCardOwnerPlayerStats.GetComponent<Player>();
-
-            // if not your turn, you can't place a card anywhere
-            if (cardsPlayer != null &&
-                cardsPlayer.myTurn == false)
+            if(!CanMoveCard)
             {
-                Debug.LogWarning($"Not Player {cardsPlayer.name}'s turn");
+                Debug.LogWarning($"Not this player's ({thisCardOwnerPlayerStats.name.ToLower()}) turn");
                 return false;
             }
 
@@ -552,6 +563,8 @@ namespace CardScripts.CardMovements
         [ClientRpc]
         private void RpcMoveDiscardedCard_ToBoard()
         {
+            _cardInfoHandler.CloseThisCardsInfo(gameObject);
+            
             // fade out, then when that's done, move to discard
             _cardAnimator.FadeOutThen(_canvasGroup, () =>
             {

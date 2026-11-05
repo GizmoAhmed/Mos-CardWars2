@@ -37,5 +37,19 @@ namespace CardScripts
             current = null;
         }
 
+        public void CloseThisCardsInfo(GameObject card)
+        {
+            CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
+            
+            if (cardDisplay == current)
+            {
+                CloseAnyOpenInfo();
+            }
+            else
+            {
+                cardDisplay.ToggleInfoSlide(false);
+            }
+        }
+
     }
 }
