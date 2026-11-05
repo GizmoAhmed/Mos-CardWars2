@@ -1075,6 +1075,7 @@ MonoBehaviour:
   logicalPlayerSide: -1
   thisCardsVisualTile: {fileID: 0}
   snapBackDuration: 0.25
+  spellFadeOutTime: 1.2
 --- !u!114 &-8391062358812073343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1150,6 +1151,8 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  lineColor: {r: 1, g: 0.85, b: 0.3, a: 0.9}
+  lineThickness: 6
 --- !u!1 &5945192695792531235
 GameObject:
   m_ObjectHideFlags: 0

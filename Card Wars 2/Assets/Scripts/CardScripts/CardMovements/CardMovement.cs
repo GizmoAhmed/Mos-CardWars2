@@ -61,15 +61,15 @@ namespace CardScripts.CardMovements
         private Transform _dragLayer;
         [Tooltip("Seconds for snapping back")] public float snapBackDuration = 0.25f;
 
-        private CanvasGroup _canvasGroup;
+        protected CanvasGroup _canvasGroup;
 
         protected CardDisplay _cardDisplay;
 
-        private CardInfoHandler _cardInfoHandler;
+        protected CardInfoHandler _cardInfoHandler;
 
         private const int CLICKABLE_RECT_WIDTH = 147;
         
-        private CardAnimator _cardAnimator;
+        protected CardAnimator CardAnimator;
         
         private Player _cardsPlayer;
 
@@ -105,7 +105,7 @@ namespace CardScripts.CardMovements
 
             _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
             
-            _cardAnimator = GetComponent<CardAnimator>();
+            CardAnimator = GetComponent<CardAnimator>();
         }
 
         [Server]
@@ -567,7 +567,7 @@ namespace CardScripts.CardMovements
             _cardInfoHandler.CloseAnyOpenInfo(); 
             
             // fade out, then when that's done, move to discard
-            _cardAnimator.FadeOutThen(_canvasGroup, () =>
+            CardAnimator.FadeOutThen(_canvasGroup, () =>
             {
                 thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);
             });

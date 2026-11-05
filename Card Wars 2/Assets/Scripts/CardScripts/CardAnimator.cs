@@ -11,6 +11,10 @@ namespace CardScripts
         private RectTransform _rectTransform;
         
         private CardDisplay _cardDisplay;
+                
+        [Header("Spell Target Line")]
+        [SerializeField] private Color lineColor = new Color(1f, 0.85f, 0.3f, 0.9f);
+        [SerializeField] private float lineThickness = 6f;
 
         void Awake()
         {
@@ -93,6 +97,44 @@ namespace CardScripts
                     canvasGroup.interactable = true;
                     canvasGroup.blocksRaycasts = true;
                 });
+        }
+
+        public void ShowTargetLine(Transform from, Transform to, float grow = 0.25f, float hold = 0.8f, float fade = 0.4f)
+        {
+            Canvas canvas = from.GetComponentInParent<Canvas>()?.rootCanvas;
+            if (canvas == null) return;
+
+            RectTransform canvasRect = (RectTransform)canvas.transform;
+
+            // Works for Overlay, Camera, and World Space canvases
+            Vector2 a = canvasRect.InverseTransformPoint(from.position);
+            Vector2 b = canvasRect.InverseTransformPoint(to.position);
+            Vector2 dir = b - a;
+            float length = dir.magnitude;
+            if (length < 1f) return;
+
+            GameObject go = new GameObject("SpellTargetLine", typeof(RectTransform), typeof(CanvasGroup), typeof(UnityEngine.UI.Image));
+            RectTransform rt = (RectTransform)go.transform;
+            rt.SetParent(canvasRect, false);
+            rt.SetAsLastSibling(); // draw on top
+
+            var img = go.GetComponent<UnityEngine.UI.Image>();
+            img.color = lineColor;
+            img.raycastTarget = false;
+
+            rt.pivot = new Vector2(0f, 0.5f);          // grow outward from the spell
+            rt.localPosition = a;
+            rt.localRotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+            rt.sizeDelta = new Vector2(0f, lineThickness);
+
+            CanvasGroup cg = go.GetComponent<CanvasGroup>();
+
+            DOTween.Sequence()
+                .Append(rt.DOSizeDelta(new Vector2(length, lineThickness), grow).SetEase(Ease.OutQuad))
+                .AppendInterval(hold)
+                .Append(cg.DOFade(0f, fade))
+                .OnComplete(() => Destroy(go))
+                .SetLink(go);
         }
     }
 }

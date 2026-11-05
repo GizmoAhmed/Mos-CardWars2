@@ -5,7 +5,9 @@ using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using CardScripts.CardStats_Folder;
 using Mirror;
+using PlayerStuff;
 using Tiles;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,6 +15,10 @@ namespace CardScripts.CardMovements
 {
     public class SpellMovement : CardMovement
     {
+        /*[Header("Spell Effects")]
+        [Tooltip("When spells are discarded, they should last a little but longer before fading. Param Default is 0.8f")]
+        public float spellFadeOutTime;*/
+        
         /// <summary>
         /// This function has two of the base classes checks
         /// The base also has a third check (soul use) but since spells don't use that in this version...
@@ -83,13 +89,6 @@ namespace CardScripts.CardMovements
                 Debug.LogWarning($"{gameObject.name} doesn't meet specific conditions. See above for details ↑");
                 return false;
             }
-
-            // Check magic cost
-            /*if (cardStats.soulUse > thisCardOwnerPlayerStats.currentSoul)
-            {
-                Debug.Log("Not enough magic to cast spell");
-                return false;
-            }*/
 
             return true;
         }
@@ -214,9 +213,20 @@ namespace CardScripts.CardMovements
         [ClientRpc]
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {
+            Rpc_RevealSpell(tileObj);
+        }
+        
+        private void Rpc_RevealSpell(GameObject castTile)
+        {
+            if (isOwned) return;   // the caster doesn't need the line, only the opponent
+
             _cardDisplay.FlipCard(face: true);
-            
-            // if not dead freeze in place for a second 
+
+            // 'castTile' is the caster's tile, so the opponent's matching tile is the one across
+            Tile tile = castTile.GetComponent<Tile>();
+            Transform target = tile.across.GetComponent<Tile>().transform;
+
+            CardAnimator.ShowTargetLine(from: transform, to: target);
         }
 
         // broadcast the cast, who knows, there might be a card that listens to this
