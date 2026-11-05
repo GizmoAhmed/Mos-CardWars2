@@ -65,7 +65,7 @@ namespace CardScripts.CardMovements
 
         protected CardDisplay _cardDisplay;
 
-        protected CardInfoHandler _cardInfoHandler;
+        private CardInfoHandler _cardInfoHandler;
 
         private const int CLICKABLE_RECT_WIDTH = 147;
         
@@ -83,6 +83,9 @@ namespace CardScripts.CardMovements
                 return _cardsPlayer == null || _cardsPlayer.myTurn;
             }
         }
+        
+        [Header("Discard Effects")]
+        public float discardFadeOutDuration = 1f;
 
         protected virtual void Start()
         {
@@ -135,8 +138,8 @@ namespace CardScripts.CardMovements
             else
             {
                 // DON'T allow to be grabbed if:
-                // already being grabbed, is already on a land, is not your card to grab, or not your turn 
-                if (_grabbed || thisCardsVisualTile != null || !isOwned || !CanMoveCard) return;
+                // already being grabbed, is already on a land, is not your card to grab, not your turn, or in the discard state 
+                if (_grabbed || thisCardsVisualTile != null || !isOwned || !CanMoveCard || cardState == CardState.Discard) return;
             }
 
             _grabbed = true;
@@ -570,7 +573,8 @@ namespace CardScripts.CardMovements
             CardAnimator.FadeOutThen(_canvasGroup, () =>
             {
                 thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);
-            });
+            }
+                , duration: discardFadeOutDuration);
         }
 
         [Server]

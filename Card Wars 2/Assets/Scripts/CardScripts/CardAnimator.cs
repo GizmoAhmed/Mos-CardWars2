@@ -11,7 +11,7 @@ namespace CardScripts
         private RectTransform _rectTransform;
         
         private CardDisplay _cardDisplay;
-                
+        
         [Header("Spell Target Line")]
         [SerializeField] private Color lineColor = new Color(1f, 0.85f, 0.3f, 0.9f);
         [SerializeField] private float lineThickness = 6f;

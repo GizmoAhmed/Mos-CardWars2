@@ -191,7 +191,13 @@ namespace PlayerStuff
                 Debug.LogWarning($"Can't burn this card ({cardToBurn.name}), because it isn't your turn card");
                 return;
             }
-            
+
+            if (cardMove.cardState == CardMovement.CardState.Discard)
+            {
+                Debug.LogWarning($"Can't burn this card ({cardToBurn.name}), because it is in the discard pile");
+                return;
+            }
+
             CardStats cardStats = cardToBurn.GetComponent<CardStats>();
             
             // Burning from hand: refund shards, no cost
@@ -257,6 +263,14 @@ namespace PlayerStuff
         [Command]
         public void CmdCreatureAbility_ButtonPress(GameObject creatureToActivate)
         {
+            CardMovement cardMove = creatureToActivate.GetComponent<CardMovement>();
+            
+            if (cardMove.cardState == CardMovement.CardState.Discard)
+            {
+                Debug.LogWarning($"Can't activate this creature ({creatureToActivate.name}), because it is in the discard pile");
+                return;
+            }
+            
             Player player = GetComponent<Player>();
 
             if (!player.myTurn) // if not your turn, can't floop anyone
