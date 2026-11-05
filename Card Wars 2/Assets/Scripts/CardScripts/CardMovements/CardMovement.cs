@@ -73,7 +73,7 @@ namespace CardScripts.CardMovements
         
         private Player _cardsPlayer;
 
-        private bool CanMoveCard
+        public bool CanMoveCard
         {
             get
             {
@@ -128,17 +128,15 @@ namespace CardScripts.CardMovements
 
         public void BeginDrag()
         {
-            if (!CanMoveCard) return; // can't drag if not your turn
-
             if (cardState == CardState.Preview)
             {
-                // cards in the draw modal preview are draggable
+                // cards in the draw modal preview are always draggable
             }
             else
             {
                 // DON'T allow to be grabbed if:
-                // already being grabbed, is already on a land, or is not your card to grab 
-                if (_grabbed || thisCardsVisualTile != null || !isOwned) return;
+                // already being grabbed, is already on a land, is not your card to grab, or not your turn 
+                if (_grabbed || thisCardsVisualTile != null || !isOwned || !CanMoveCard) return;
             }
 
             _grabbed = true;

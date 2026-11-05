@@ -10246,16 +10246,16 @@ MonoBehaviour:
   masterDeckList: []
   rarityWeights:
   - rarity: 0
-    weight: 105
+    weight: 120
     burnReturnMultiplier: 1
   - rarity: 1
-    weight: 30
+    weight: 40
     burnReturnMultiplier: 1.5
   - rarity: 2
-    weight: 7.5
+    weight: 3
     burnReturnMultiplier: 2
   - rarity: 3
-    weight: 1
+    weight: 0.5
     burnReturnMultiplier: 3.5
   creatureCard: {fileID: 7310339964073049012, guid: 9d3772c294006ba4e9127c29add652c2, type: 3}
   buildingCard: {fileID: 259850269640685191, guid: 3371297d479866e4cb9964262e868d5b, type: 3}

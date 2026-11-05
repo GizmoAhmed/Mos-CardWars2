@@ -184,8 +184,15 @@ namespace PlayerStuff
         [Command] // called from in game button click
         public void CmdBurn(GameObject cardToBurn)
         {
-            CardStats cardStats = cardToBurn.GetComponent<CardStats>();
             CardMovement cardMove = cardToBurn.GetComponent<CardMovement>();
+
+            if (!cardMove.CanMoveCard)
+            {
+                Debug.LogWarning($"Can't burn this card ({cardToBurn.name}), because it isn't your turn card");
+                return;
+            }
+            
+            CardStats cardStats = cardToBurn.GetComponent<CardStats>();
             
             // Burning from hand: refund shards, no cost
             if (cardMove.cardState == CardMovement.CardState.Hand)
