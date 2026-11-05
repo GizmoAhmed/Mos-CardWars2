@@ -1,9 +1,12 @@
 using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.Abilities.AbilityClasses;
+using CardScripts.CardData;
+using CardScripts.CardDisplays;
 using CardScripts.CardStats_Folder;
 using Mirror;
 using Tiles;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace CardScripts.CardMovements
@@ -173,6 +176,8 @@ namespace CardScripts.CardMovements
             
             SpellStats stats = GetComponent<SpellStats>();
             int usesLeft = stats.uses;
+            
+            RpcPlaceCardOnTile(tile.gameObject);
 
             if (usesLeft <= 0) // error check, ideally should never get here
             {
@@ -204,6 +209,14 @@ namespace CardScripts.CardMovements
         private void Target_SnapBack(NetworkConnectionToClient target)
         {
             StartCoroutine(SnapBackToHand());
+        }
+
+        [ClientRpc]
+        protected override void RpcPlaceCardOnTile(GameObject tileObj)
+        {
+            _cardDisplay.FlipCard(face: true);
+            
+            // if not dead freeze in place for a second 
         }
 
         // broadcast the cast, who knows, there might be a card that listens to this

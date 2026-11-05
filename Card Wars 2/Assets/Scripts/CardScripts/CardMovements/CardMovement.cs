@@ -63,7 +63,7 @@ namespace CardScripts.CardMovements
 
         private CanvasGroup _canvasGroup;
 
-        private CardDisplay _cardDisplay;
+        protected CardDisplay _cardDisplay;
 
         private CardInfoHandler _cardInfoHandler;
 
@@ -561,7 +561,10 @@ namespace CardScripts.CardMovements
         [ClientRpc]
         private void RpcMoveDiscardedCard_ToBoard()
         {
-            _cardInfoHandler.CloseThisCardsInfo(gameObject);
+            // any info always happens to be this card's info,
+            // because you have to have a cards info open in order to burn it
+            
+            _cardInfoHandler.CloseAnyOpenInfo(); 
             
             // fade out, then when that's done, move to discard
             _cardAnimator.FadeOutThen(_canvasGroup, () =>

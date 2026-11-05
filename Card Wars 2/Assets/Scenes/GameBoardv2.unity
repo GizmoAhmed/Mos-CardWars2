@@ -10237,12 +10237,9 @@ MonoBehaviour:
   syncInterval: 0
   debugMode: 0
   debugDeck:
-  - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
-  - {fileID: 11400000, guid: e3b9d9d306ad7b64fb92b2162cc28207, type: 2}
-  - {fileID: 11400000, guid: e3b9d9d306ad7b64fb92b2162cc28207, type: 2}
-  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
-  - {fileID: 11400000, guid: 620791cd636868e4791acf1e1c003ce5, type: 2}
-  - {fileID: 11400000, guid: 7fa30b6ac55316042a93207caee9aec2, type: 2}
+  - {fileID: 11400000, guid: d090b6208c1716143bbb36196edaac9a, type: 2}
+  - {fileID: 11400000, guid: 7c7f9dfcd8ad90141a6336ce0b89ce95, type: 2}
+  - {fileID: 11400000, guid: 0f974da970699944d8c836baa70a7a06, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0
@@ -10490,7 +10487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cee8f4839fc1f741891bd9c96e0345a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardGroupTransform: {fileID: 0}
+  cardGroupTransform: {fileID: 1950032996}
   freeDrawsLeftTextObj: {fileID: 194793680}
   freeChoiceTextObj: {fileID: 1967649468}
   freeOfferTextObj: {fileID: 473185082}

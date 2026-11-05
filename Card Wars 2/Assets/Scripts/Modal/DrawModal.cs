@@ -9,8 +9,8 @@ namespace Modal
 {
     public class DrawModal : MonoBehaviour, IModal
     {
-        [HideInInspector] public Transform cardGroupTransform;
-        
+        public Transform cardGroupTransform;
+
         public GameObject freeDrawsLeftTextObj;
 
         public GameObject freeChoiceTextObj;
@@ -30,7 +30,7 @@ namespace Modal
 
         public GameObject picksLeftTextObj;
         public int picksLeft;
-        
+
         private DiscardModal _discardModal;
 
         void Start()
@@ -75,9 +75,7 @@ namespace Modal
             {
                 Debug.LogError($"picksLeftTextObj is null, make sure to set on {gameObject.name}");
             }
-
-            cardGroupTransform = GetComponentInChildren<HorizontalLayoutGroup>().transform;
-
+            
             if (cardGroupTransform == null)
             {
                 Debug.LogError("_cardGroupTransform couldn't be found and is null");
@@ -105,7 +103,8 @@ namespace Modal
 
             if (_discardModal == null)
             {
-                Debug.LogWarning("While opening the draw model, an attempt was made to close the _discardModal, but it wasn't found");
+                Debug.LogWarning(
+                    "While opening the draw model, an attempt was made to close the _discardModal, but it wasn't found");
                 return;
             }
 
@@ -167,7 +166,7 @@ namespace Modal
             freeOfferTextObj.GetComponent<TextMeshProUGUI>().text = offerPlayerStat.ToString();
             _freeOffer = offerPlayerStat;
         }
-        
+
         public void UpdatePaidChoice(int i)
         {
             int toBeChoice = paidPicks + i;
@@ -193,7 +192,7 @@ namespace Modal
             paidOfferTextObj.GetComponent<TextMeshProUGUI>().text = paidOffer.ToString();
             UpdateDrawCostText();
         }
-        
+
         private void UpdateDrawCostText()
         {
             drawCost = paidPicks * 2 + paidOffer;
@@ -203,6 +202,12 @@ namespace Modal
         [Client]
         public void ClearPreviewCards()
         {
+            if (cardGroupTransform == null)
+            {
+                Debug.LogError($"{gameObject}: Child object that has the Horizontal Layout Group on it is null on the draw modal");
+                return;
+            }
+
             // Destroy all children of the card group
             foreach (Transform card in cardGroupTransform)
             {
