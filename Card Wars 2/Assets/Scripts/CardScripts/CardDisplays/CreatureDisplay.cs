@@ -173,7 +173,7 @@ namespace CardScripts.CardDisplays
             // Anim.TextPop(_defenseObj);
         }
 
-        public void PopAnimate(CreatureStats.AnimTarget target, bool isBuff = true)
+        public void PopTextAnimate(CreatureStats.AnimTarget target, bool isBuff = true)
         {
             Transform toAnimate = target switch
             {
@@ -188,7 +188,7 @@ namespace CardScripts.CardDisplays
                 return;
             }
     
-            anim.PopAnimate(toAnimate, isBuff);
+            anim.PopTextAnimate(toAnimate, isBuff);
         }
         
         public void UpdateUI_AbilityCost(int newCost)

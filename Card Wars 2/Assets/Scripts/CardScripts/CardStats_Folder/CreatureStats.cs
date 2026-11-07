@@ -135,7 +135,7 @@ namespace CardScripts.CardStatss
         {
             if (amount == 0) // no point
             {
-                RpcPopAnimate(AnimTarget.Strength, buff);
+                RpcPopTextAnimate(AnimTarget.Strength, buff);
                 return;
             } 
             
@@ -171,7 +171,7 @@ namespace CardScripts.CardStatss
             
             GlobalBroadCastStatChange(amount: amount, buff: buff, str: true);
 
-            RpcPopAnimate(AnimTarget.Strength, buff);
+            RpcPopTextAnimate(AnimTarget.Strength, buff);
             score = strength + defense;
         }
 
@@ -180,7 +180,7 @@ namespace CardScripts.CardStatss
         {
             if (amount == 0) // no point
             {
-                RpcPopAnimate(AnimTarget.Defense, buff);
+                RpcPopTextAnimate(AnimTarget.Defense, buff);
                 return;
             } 
 
@@ -236,7 +236,7 @@ namespace CardScripts.CardStatss
                 }
             }
 
-            RpcPopAnimate(AnimTarget.Defense, buff);
+            RpcPopTextAnimate(AnimTarget.Defense, buff);
             score = strength + defense;
         }
 
@@ -280,9 +280,9 @@ namespace CardScripts.CardStatss
         }
 
         [ClientRpc]
-        private void RpcPopAnimate(AnimTarget target, bool isBuff)
+        private void RpcPopTextAnimate(AnimTarget target, bool isBuff)
         {
-            _creatureDisplay?.PopAnimate(target, isBuff);
+            _creatureDisplay?.PopTextAnimate(target, isBuff);
         }
 
         [Server]

@@ -108,22 +108,20 @@ namespace CardScripts.Abilities
         /// 75% means 75% chance to hit, and 25% to fail
         /// </summary>
         /// <param name="chance">percentage to win</param>
-        /// <returns>Win or loss</returns>
+        /// <returns>Hit or Miss</returns>
         [Server]
         public bool RollChance(int chance, GameObject thisCard)
         {
-            // Clamp chance between 1 and 100
             chance = Mathf.Clamp(chance, 1, 100);
-
-            // Roll between 1 and 100
             int roll = UnityEngine.Random.Range(1, 101);
-            
-            bool hit = roll <= chance;
-            
-            GlobalBroadCastRollChance(chance: chance, hit: hit, cardTriggeredFrom: thisCard);
-            LocalTileWhisperRollChance(chance: chance, hit: hit, cardTriggeredFrom: thisCard);
+            bool result = roll <= chance;
 
-            return hit;
+            GlobalBroadCastRollChance(chance: chance, hit: result, cardTriggeredFrom: thisCard);
+            LocalTileWhisperRollChance(chance: chance, hit: result, cardTriggeredFrom: thisCard);
+
+            thisCard.GetComponent<CardAnimator>()?.Server_ShowRollResult(result);
+
+            return result;
         }
 
         private void GlobalBroadCastRollChance(int chance, bool hit, GameObject cardTriggeredFrom)
