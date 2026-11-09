@@ -38,6 +38,11 @@ public class PlayerUI : NetworkBehaviour
 
     private PlayerStats stats;
 
+    [Header("Opponent UI")] private GameObject _freeDrawsUIObj;
+    private const string FREE_DRAWS_PREFIX = "FREE DRAWS: ";
+    private GameObject _choicesTextObj;
+    private GameObject _offeringsTextObj;
+
     public void Init(PlayerStats s)
     {
         stats = s;
@@ -68,7 +73,12 @@ public class PlayerUI : NetworkBehaviour
         _costText = SafeFind("CostText");
         _drain1 = SafeFind("Drain1");
         _drain2 = SafeFind("Drain2");
-        
+
+        // opponents draw ui
+        _freeDrawsUIObj = SafeFind("_FreeDraws");
+        _offeringsTextObj = SafeFind("Y_Offerings");
+        _choicesTextObj = SafeFind("X_Choices");
+
         _drawModalUI = FindObjectOfType<DrawButton>().drawModalObj;
 
         if (_drawModalUI == null)
@@ -117,41 +127,56 @@ public class PlayerUI : NetworkBehaviour
 
     public void FreeDrawsUpdate(int draws)
     {
-        if (!isOwned) return;
-        
-        if (_drawModalUI == null)
+        if (!isOwned) // opponent 
         {
-            Debug.LogError("_drawModalUI is null for some reason");
-            return;
+            _freeDrawsUIObj.GetComponent<TextMeshProUGUI>().text = FREE_DRAWS_PREFIX.ToUpper() + draws;
         }
+        else // you
+        {
+            if (_drawModalUI == null)
+            {
+                Debug.LogError("_drawModalUI is null for some reason");
+                return;
+            }
 
-        _drawModalUI.GetComponent<DrawModal>().SetFreeDrawsLeft(draws);
+            _drawModalUI.GetComponent<DrawModal>().SetFreeDrawsLeft(draws);
+        }
     }
 
     public void FreeChoiceUIUpdate(int choice)
     {
-        if(!isOwned) return;
-
-        if (_drawModalUI == null)
+        if (!isOwned) // opponent
         {
-            Debug.LogError("_drawModalUI is null for some reason");
-            return;
+            _choicesTextObj.GetComponent<TextMeshProUGUI>().text = choice.ToString();
         }
+        else
+        {
+            if (_drawModalUI == null)
+            {
+                Debug.LogError("_drawModalUI is null for some reason");
+                return;
+            }
 
-        _drawModalUI.GetComponent<DrawModal>().SetFreeChoice(choice);
+            _drawModalUI.GetComponent<DrawModal>().SetFreeChoice(choice);
+        }
     }
-    
+
     public void FreeOfferUIUpdate(int offer)
     {
-        if(!isOwned) return;
-
-        if (_drawModalUI == null)
+        if (!isOwned) // opponent
         {
-            Debug.LogError("_drawModalUI is null for some reason");
-            return;
+            _offeringsTextObj.GetComponent<TextMeshProUGUI>().text = offer.ToString();
         }
+        else
+        {
+            if (_drawModalUI == null)
+            {
+                Debug.LogError("_drawModalUI is null for some reason");
+                return;
+            }
 
-        _drawModalUI.GetComponent<DrawModal>().SetFreeOffer(offer);   
+            _drawModalUI.GetComponent<DrawModal>().SetFreeOffer(offer);
+        }
     }
 
     public void PlayerScoreUIUpdate(int newScore)
