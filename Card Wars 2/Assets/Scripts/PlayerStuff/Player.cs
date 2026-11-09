@@ -36,7 +36,9 @@ public class Player : NetworkBehaviour
 
     private ButtonsManager buttonManager;
 
-    private DrawModal drawModal;
+    private DrawModal _drawModal;
+    
+    private DiscardModal _discardModal;
 
     public override void OnStartClient()
     {
@@ -58,9 +60,11 @@ public class Player : NetworkBehaviour
         
         buttonManager = FindAnyObjectByType<ButtonsManager>(FindObjectsInactive.Include);
 
-        drawModal = FindAnyObjectByType<DrawModal>(FindObjectsInactive.Include);
+        _drawModal = FindAnyObjectByType<DrawModal>(FindObjectsInactive.Include);
+        
+        _discardModal = FindAnyObjectByType<DiscardModal>(FindObjectsInactive.Include);
 
-        if (drawModal == null)
+        if (_drawModal == null)
         {
             Debug.LogError("Player initiation: No draw modal found");
         }
@@ -92,7 +96,8 @@ public class Player : NetworkBehaviour
     {
         turnManager.PlayerReady(connectionToClient);
         
-        drawModal.CloseModal();
+        _drawModal.CloseModal();
+        _discardModal.CloseModal();
     }
 
 
