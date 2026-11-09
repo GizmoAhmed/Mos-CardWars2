@@ -10251,6 +10251,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32d4d84214ace4e439d7a0d65f1d28af, type: 2}
   - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
   - {fileID: 11400000, guid: 40444997ac3059b4fb69a77212656054, type: 2}
+  - {fileID: 11400000, guid: 228915c4fac40ce468a32f92b2c8e651, type: 2}
+  - {fileID: 11400000, guid: c0fe89340e2cbf24cae16482d6e443ef, type: 2}
+  - {fileID: 11400000, guid: ff20755a368ed054085edad54c673732, type: 2}
+  - {fileID: 11400000, guid: 56443d9793e54a549a833690afc23d7c, type: 2}
+  - {fileID: 11400000, guid: 89d14fe237ec2804e838460cb62895ab, type: 2}
+  - {fileID: 11400000, guid: 54841f2539038d24ab5b457553e199f4, type: 2}
+  - {fileID: 11400000, guid: 6cfaf050b41ecde4c9234a9b23913d78, type: 2}
+  - {fileID: 11400000, guid: 84ea038b44e0cf4499e61811d06078e4, type: 2}
+  - {fileID: 11400000, guid: 81e16ca940190cd43bb2028c5f8f012d, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0

@@ -68,9 +68,9 @@ namespace CardScripts.CardMovements
         private CardInfoHandler _cardInfoHandler;
 
         private const int CLICKABLE_RECT_WIDTH = 147;
-        
+
         protected CardAnimator CardAnimator;
-        
+
         private Player _cardsPlayer;
 
         public bool CanMoveCard
@@ -83,23 +83,46 @@ namespace CardScripts.CardMovements
                 return _cardsPlayer == null || _cardsPlayer.myTurn;
             }
         }
-        
+
         private bool CanBeGrabbed(out string reason)
         {
             reason = null;
 
-            if (cardState == CardState.Preview)    return true;
-            if (_grabbed)                           { reason = "already grabbed"; return false; }
-            if (thisCardsVisualTile != null)    { reason = "already on a tile"; return false; }
-            if (!isOwned)                          { reason = "not owned by this player"; return false; }
-            if (!CanMoveCard)                      { reason = "not your turn"; return false; }
-            if (cardState == CardState.Discard)    { reason = "in discard"; return false; }
+            if (cardState == CardState.Preview) return true;
+            if (_grabbed)
+            {
+                reason = "already grabbed";
+                return false;
+            }
+
+            if (thisCardsVisualTile != null)
+            {
+                reason = "already on a tile";
+                return false;
+            }
+
+            if (!isOwned)
+            {
+                reason = "not owned by this player";
+                return false;
+            }
+
+            if (!CanMoveCard)
+            {
+                reason = "not your turn";
+                return false;
+            }
+
+            if (cardState == CardState.Discard)
+            {
+                reason = "in discard";
+                return false;
+            }
 
             return true;
         }
-        
-        [Header("Discard Effects")]
-        public float discardFadeOutDuration = 1f;
+
+        [Header("Discard Effects")] public float discardFadeOutDuration = 1f;
 
         protected virtual void Start()
         {
@@ -121,7 +144,7 @@ namespace CardScripts.CardMovements
                 Debug.LogError($"_cardDisplay is null ({gameObject.name})");
 
             _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
-            
+
             CardAnimator = GetComponent<CardAnimator>();
         }
 
@@ -371,6 +394,24 @@ namespace CardScripts.CardMovements
             transform.SetAsFirstSibling();
         }
 
+        /// <summary>
+        /// Opposite of PlaceOnTileOutsideLayout: hands the card back to a layout group
+        /// (hand, discard board) by clearing Ignore Layout and restoring top-left anchors.
+        /// </summary>
+        private void ReturnToLayout()
+        {
+            RectTransform rt = (RectTransform)transform;
+
+            if (TryGetComponent(out LayoutElement le))
+                le.ignoreLayout = false;
+
+            // match the anchors the layout group expects (top left, as on unbugged cards)
+            rt.anchorMin = rt.anchorMax = new Vector2(0f, 1f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.localScale = Vector3.one;
+            rt.localRotation = Quaternion.identity;
+        }
+
         [ClientRpc]
         protected virtual void RpcPlaceCardOnTile(GameObject tileObj)
         {
@@ -456,7 +497,7 @@ namespace CardScripts.CardMovements
                 return false;
             }
 
-            if(!CanMoveCard)
+            if (!CanMoveCard)
             {
                 Debug.LogWarning($"Not this player's ({thisCardOwnerPlayerStats.name.ToLower()}) turn");
                 return false;
@@ -573,17 +614,14 @@ namespace CardScripts.CardMovements
         [ClientRpc]
         private void RpcMoveDiscardedCard_ToBoard()
         {
-            // any info always happens to be this card's info,
-            // because you have to have a cards info open in order to burn it
-            
-            _cardInfoHandler.CloseAnyOpenInfo(); 
-            
-            // fade out, then when that's done, move to discard
+            _cardInfoHandler.CloseAnyOpenInfo();
+
             CardAnimator.FadeOutThen(_canvasGroup, () =>
             {
+                // code in here is ran once the card is completely faded:
                 thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);
-            }
-                , duration: discardFadeOutDuration);
+                ReturnToLayout();
+            }, duration: discardFadeOutDuration);
         }
 
         [Server]

@@ -17,11 +17,18 @@ namespace CardScripts
         [SerializeField] private Color lineColor = new Color(1f, 0.85f, 0.3f, 0.9f);
         [SerializeField] private float lineThickness = 6f;
         
-        [Header("Pop Up Text")]
+        [Header("Floating Text")]
         [SerializeField] private TextMeshProUGUI popUpTextPrefab;   // simple TMP text prefab
+        [SerializeField] private float fadeOutDuration = 0.6f;
+        
+        [Header("Roll Chance Colors")]
         [SerializeField] private Color hitColor  = new Color32(80, 220, 120, 255);
         [SerializeField] private Color missColor = new Color32(230, 80, 80, 255);
-        [SerializeField] private float fadeOutDuration = 0.6f;
+        
+        [Header("Stat Colors")] // todo CreatureStats decides the colors right now, card anim should use these intead of a passed color param
+        [SerializeField] private Color strengthColor  = new Color32(255,77,121, 255);
+        [SerializeField] private Color defenseColor = new Color32(230, 80, 80, 255);
+        
         private static RectTransform _effectsLayer;
 
         private static RectTransform EffectsLayer

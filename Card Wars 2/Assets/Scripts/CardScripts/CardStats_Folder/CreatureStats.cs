@@ -175,7 +175,7 @@ namespace CardScripts.CardStatss
 
             GlobalBroadCastStatChange(amount: amount, buff: buff, str: true);
 
-            CallAnim_ToFloatStatText(amount, Color.red);
+            CallAnim_ToFloatStatText(amount, new Color32(255,77,121, 255));
             RpcPopTextAnimate(AnimTarget.Strength, buff);
             score = strength + defense;
         }
@@ -242,7 +242,7 @@ namespace CardScripts.CardStatss
                 }
             }
 
-            CallAnim_ToFloatStatText(amount, Color.blue);
+            CallAnim_ToFloatStatText(amount, new Color32(48, 168, 165, 255));
             RpcPopTextAnimate(AnimTarget.Defense, buff);
             score = strength + defense;
         }

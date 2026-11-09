@@ -1389,8 +1389,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286140159
-  m_fontColor: {r: 1, g: 0.3075471, b: 0.4731928, a: 1}
+    rgba: 4286139903
+  m_fontColor: {r: 1, g: 0.3019608, b: 0.47450984, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3424,7 +3424,6 @@ MonoBehaviour:
   hitColor: {r: 0.3137255, g: 0.8627451, b: 0.47058824, a: 1}
   missColor: {r: 0.9019608, g: 0.3137255, b: 0.3137255, a: 1}
   fadeOutDuration: 0.6
-  effectsCanvas: {fileID: 8324879568673342908, guid: f70d482675b88c84f9452ef0701b5c9e, type: 3}
 --- !u!1 &7754454831407693559
 GameObject:
   m_ObjectHideFlags: 0
