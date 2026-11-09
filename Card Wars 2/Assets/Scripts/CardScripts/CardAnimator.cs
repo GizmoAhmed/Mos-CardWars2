@@ -133,16 +133,23 @@ namespace CardScripts
         private void RpcShowRollResult(bool hit)
         {
             string text = hit ? $"Hit!" : $"Missed!";
-            PopUpTextEffect(text, hit ? hitColor : missColor);
+            FloatText(text, hit ? hitColor : missColor);
+        }
+
+        [ClientRpc]
+        public void FloatStatText(string text, Color color)
+        {
+            FloatText(text, color);
         }
 
         /// <summary>
-        /// Makes text appear for a moment to indicate something happened
+        /// Makes text appear for a moment and float upwards to indicate something happened
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="textColor"></param>
-        private void PopUpTextEffect(string text, Color textColor)
+        /// <param name="text">Text to Show</param>
+        /// <param name="textColor">Color of text</param>
+        private void FloatText(string text, Color textColor)
         {
+            // get root GameCanvas
             Canvas canvas = GetComponentInParent<Canvas>()?.rootCanvas;
             if (canvas == null || popUpTextPrefab == null) return;
 
