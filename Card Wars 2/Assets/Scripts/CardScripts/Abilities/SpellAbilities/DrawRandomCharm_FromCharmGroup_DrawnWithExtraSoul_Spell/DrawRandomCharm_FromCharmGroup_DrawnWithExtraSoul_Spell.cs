@@ -1,12 +1,9 @@
 using AbilityEvents;
-using CardScripts.Abilities;
-using CardScripts.CardStatss;
 using Extensions;
 using CardScripts.Abilities.AbilityClasses;
 using CardScripts.CardStats_Folder;
 using UnityEngine;
 using Tiles;
-using Extensions;
 
 [CreateAssetMenu(
     fileName = "DrawRandomCharm_FromCharmGroup_DrawnWithExtraSoul_Spell", 

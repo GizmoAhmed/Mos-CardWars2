@@ -247,7 +247,7 @@ namespace PlayerStuff
             if (_masterDeck.debugMode)
             {
                 Debug.LogWarning(
-                    "Attempted to <color=orange>draw starting hand</color> but refused since in debug mode");
+                    "Attempted to draw starting hand but <color=orange>refused since in debug mode</color>");
                 return;
             }
 

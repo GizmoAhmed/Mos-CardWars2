@@ -8,13 +8,8 @@ using Mirror;
 using PlayerStuff;
 using Tiles;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using AbilityEvents;
-using CardScripts.Abilities;
 using CardScripts.CardData;
 using Extensions;
-using UnityEngine;
 
 namespace CardScripts.Abilities
 {

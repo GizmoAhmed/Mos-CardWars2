@@ -313,6 +313,7 @@ namespace PlayerStuff
 
                 // activates and broadcasts
                 creatureStats.ActivateCreatureAbility();
+                // todo print creature ability activation
             }
             else
             {

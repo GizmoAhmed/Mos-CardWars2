@@ -1,3 +1,4 @@
+#nullable enable
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -88,36 +89,12 @@ namespace CardScripts.CardMovements
         {
             reason = null;
 
-            if (cardState == CardState.Preview) return true;
-            if (_grabbed)
-            {
-                reason = "already grabbed";
-                return false;
-            }
-
-            if (thisCardsVisualTile != null)
-            {
-                reason = "already on a tile";
-                return false;
-            }
-
-            if (!isOwned)
-            {
-                reason = "not owned by this player";
-                return false;
-            }
-
-            if (!CanMoveCard)
-            {
-                reason = "not your turn";
-                return false;
-            }
-
-            if (cardState == CardState.Discard)
-            {
-                reason = "in discard";
-                return false;
-            }
+            if (cardState == CardState.Preview)    return true;
+            if (_grabbed)                           { reason = "already grabbed"; return false; }
+            if (thisCardsVisualTile != null)    { reason = "already on a tile"; return false; }
+            if (!isOwned)                          { reason = "not owned by this player"; return false; }
+            if (!CanMoveCard)                      { reason = "not your turn"; return false; }
+            if (cardState == CardState.Discard)    { reason = "in discard"; return false; }
 
             return true;
         }

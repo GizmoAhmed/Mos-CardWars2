@@ -14,7 +14,7 @@ public class PlayerUI : NetworkBehaviour
 {
     [Header("Magic")] private GameObject _magic1;
     private GameObject _magic2;
-    private readonly Color _magicGreen = new Color32(87, 169, 108, 255); // 0-255 constructor
+    private readonly Color _soulGreen = new Color32(87, 169, 108, 255); // 0-255 constructor
 
     [Header("Money")] private GameObject _money1;
     private GameObject _money2;
@@ -42,6 +42,7 @@ public class PlayerUI : NetworkBehaviour
     private const string FREE_DRAWS_PREFIX = "FREE DRAWS: ";
     private GameObject _choicesTextObj;
     private GameObject _offeringsTextObj;
+    private GameObject _oppUpgradeCostTextObj;
 
     public void Init(PlayerStats s)
     {
@@ -74,10 +75,11 @@ public class PlayerUI : NetworkBehaviour
         _drain1 = SafeFind("Drain1");
         _drain2 = SafeFind("Drain2");
 
-        // opponents draw ui
+        // opponents ui
         _freeDrawsUIObj = SafeFind("_FreeDraws");
         _offeringsTextObj = SafeFind("Y_Offerings");
         _choicesTextObj = SafeFind("X_Choices");
+        _oppUpgradeCostTextObj = SafeFind("OppUpgradeCost");
 
         _drawModalUI = FindObjectOfType<DrawButton>().drawModalObj;
 
@@ -107,13 +109,13 @@ public class PlayerUI : NetworkBehaviour
 
         magicText.text = (current_max) ? magic + " / " + stats.maxSoul : stats.currentSoul + " / " + magic;
 
-        if (goingUnder)
+        if (stats.currentSoul < 0) // oversouled
         {
             magicText.color = Color.red;
         }
         else
         {
-            magicText.color = _magicGreen;
+            magicText.color = _soulGreen;
         }
     }
 
@@ -228,11 +230,16 @@ public class PlayerUI : NetworkBehaviour
 
     public void UpgradeUIUpdate(int cost)
     {
-        if (!isOwned) return;
+        if (!isOwned) // opponent
+        {
+            _oppUpgradeCostTextObj.GetComponent<TextMeshProUGUI>().text = cost.ToString();
+        }
+        else // you
+        {
+            TextMeshProUGUI c = _costText.GetComponent<TextMeshProUGUI>();
 
-        TextMeshProUGUI c = _costText.GetComponent<TextMeshProUGUI>();
-
-        c.text = cost.ToString();
+            c.text = cost.ToString();
+        }
     }
 
     public void PopulateWinDots(int numberOfRoundsToWin)
