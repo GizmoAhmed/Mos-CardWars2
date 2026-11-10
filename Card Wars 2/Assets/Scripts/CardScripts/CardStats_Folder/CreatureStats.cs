@@ -175,7 +175,7 @@ namespace CardScripts.CardStatss
 
             GlobalBroadCastStatChange(amount: amount, buff: buff, str: true);
 
-            CallAnim_ToFloatStatText(amount, new Color32(255,77,121, 255));
+            CallAnim_ToFloatStatText(amount, buff,new Color32(255,77,121, 255));
             RpcPopTextAnimate(AnimTarget.Strength, buff);
             score = strength + defense;
         }
@@ -242,21 +242,21 @@ namespace CardScripts.CardStatss
                 }
             }
 
-            CallAnim_ToFloatStatText(amount, new Color32(48, 168, 165, 255));
+            CallAnim_ToFloatStatText(amount, buff,new Color32(48, 168, 165, 255));
             RpcPopTextAnimate(AnimTarget.Defense, buff);
             score = strength + defense;
         }
 
-        private void CallAnim_ToFloatStatText(int amount, Color color)
+        private void CallAnim_ToFloatStatText(int amount, bool buff, Color color)
         {
             string textToFloat = amount.ToString();
-            if (amount >= 0) // positive
+            if (buff) // positive
             {
                 textToFloat = "+ " + textToFloat;
             }
-            else
+            else // nerf? then negative
             {
-                textToFloat = "-" + textToFloat;
+                textToFloat = "- " + textToFloat;
             }
 
             anim.FloatStatText(textToFloat, color);

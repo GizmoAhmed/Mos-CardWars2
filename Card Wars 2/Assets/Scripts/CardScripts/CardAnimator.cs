@@ -19,7 +19,7 @@ namespace CardScripts
         
         [Header("Floating Text")]
         [SerializeField] private TextMeshProUGUI popUpTextPrefab;   // simple TMP text prefab
-        [SerializeField] private float fadeOutDuration = 0.6f;
+        [SerializeField] private float fadeOutDuration = 1.4f;
         
         [Header("Roll Chance Colors")]
         [SerializeField] private Color hitColor  = new Color32(80, 220, 120, 255);
