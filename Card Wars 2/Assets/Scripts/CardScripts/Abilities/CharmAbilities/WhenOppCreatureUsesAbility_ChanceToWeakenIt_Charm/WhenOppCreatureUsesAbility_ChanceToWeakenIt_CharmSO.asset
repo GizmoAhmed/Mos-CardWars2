@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventsThatTriggerThisAbility: 14000000
   isExecutableOnPlaced: 0
-  chanceToHit: 100
+  chanceToHit: 50
   weaken: 3

@@ -3420,10 +3420,12 @@ MonoBehaviour:
   syncInterval: 0
   lineColor: {r: 1, g: 0.85, b: 0.3, a: 0.9}
   lineThickness: 6
-  popUpTextPrefab: {fileID: 3252510850468919528, guid: efa2417838d5d274094ec232fe845506, type: 3}
+  floatingTextPrefab: {fileID: 3252510850468919528, guid: efa2417838d5d274094ec232fe845506, type: 3}
+  fadeOutDuration: 1.4
   hitColor: {r: 0.3137255, g: 0.8627451, b: 0.47058824, a: 1}
   missColor: {r: 0.9019608, g: 0.3137255, b: 0.3137255, a: 1}
-  fadeOutDuration: 0.6
+  strengthColor: {r: 1, g: 0.3019608, b: 0.4745098, a: 1}
+  defenseColor: {r: 0.9019608, g: 0.3137255, b: 0.3137255, a: 1}
 --- !u!1 &7754454831407693559
 GameObject:
   m_ObjectHideFlags: 0
