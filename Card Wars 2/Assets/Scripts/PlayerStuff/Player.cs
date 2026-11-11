@@ -95,11 +95,17 @@ public class Player : NetworkBehaviour
     public void CmdSetReady()
     {
         turnManager.PlayerReady(connectionToClient);
-        
+
+        // tell only the player who readied up to close their own modals
+        TargetCloseModals(connectionToClient);
+    }
+
+    [TargetRpc]
+    private void TargetCloseModals(NetworkConnectionToClient target)
+    {
         _drawModal.CloseModal();
         _discardModal.CloseModal();
     }
-
 
     /// <summary>
     /// Toggles a players turn on the server. Only called from a server method in TurnManager.cs

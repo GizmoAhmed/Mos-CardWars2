@@ -11208,7 +11208,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  debugMode: 1
+  debugMode: 0
   debugDeck:
   - {fileID: 11400000, guid: 84ea038b44e0cf4499e61811d06078e4, type: 2}
   - {fileID: 11400000, guid: 7c7f9dfcd8ad90141a6336ce0b89ce95, type: 2}
@@ -13071,7 +13071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetX: 0
+  offsetX: 90
   offsetY: 0
 --- !u!114 &2129006740
 MonoBehaviour:
