@@ -129,6 +129,8 @@ namespace PlayerStuff
 
             Server_ResetFloops_OfAllCreatures();
 
+            Server_DiscardSpentSpellsInHand();
+
             // increment data that is turn based
             foreach (GameObject card in serverActiveFieldCards)
             {
@@ -136,9 +138,24 @@ namespace PlayerStuff
                 runtimeData.EndOfTurn_RunTimeDataIncrement();
             }
         }
+        
+        [Server]
+        private void Server_DiscardSpentSpellsInHand()
+        {
+            List<GameObject> spentSpells = serverHandContents
+                .Where(card => card != null
+                               && card.TryGetComponent(out SpellMovement spell)
+                               && !spell.UsesLeft) // no uses left 
+                .ToList();   // snapshot before the list changes
+
+            foreach (GameObject card in spentSpells)
+            {
+                card.GetComponent<CardMovement>().ServerDiscard();
+            }
+        }
 
         [Server]
-        public void Server_ResetFloops_OfAllCreatures()
+        private void Server_ResetFloops_OfAllCreatures()
         {
             List<CreatureStats> allCreaturesOnField = Server_GetThisPlayersOnFieldCreatures();
 

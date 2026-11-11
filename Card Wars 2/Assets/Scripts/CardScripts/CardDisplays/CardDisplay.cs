@@ -45,7 +45,7 @@ namespace CardScripts.CardDisplays
         private GameObject _burnObj;
         private GameObject _burnButtonObj;
 
-        protected CardInfoHandler CardInfoHandler;
+        private CardInfoHandler _cardInfoHandler;
 
         private void Awake()
         {
@@ -89,7 +89,7 @@ namespace CardScripts.CardDisplays
 
             HideUIElement(InfoObj); // initially hide the info card
 
-            CardInfoHandler = FindObjectOfType<CardInfoHandler>();
+            _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
         }
 
         protected string ParseAbilityName_IntoDescription(string rawName)
@@ -257,7 +257,7 @@ namespace CardScripts.CardDisplays
             if (!faceUp)
                 return;
 
-            CardInfoHandler.HandleCardClick(this);
+            _cardInfoHandler.HandleCardClick(this);
         }
 
         public virtual void ToggleInfoSlide(bool show)

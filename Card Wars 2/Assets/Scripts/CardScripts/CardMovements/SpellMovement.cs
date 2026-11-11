@@ -15,6 +15,17 @@ namespace CardScripts.CardMovements
 {
     public class SpellMovement : CardMovement
     {
+        public bool UsesLeft
+        {
+            get
+            {
+                SpellStats stats = GetComponent<SpellStats>();
+                int usesLeft = stats.uses;
+
+                return usesLeft > 0; // return true if there are uses left 
+            }
+        }
+
         /*[Header("Spell Effects")]
         [Tooltip("When spells are discarded, they should last a little but longer before fading. Param Default is 0.8f")]
         public float spellFadeOutTime;*/
@@ -53,6 +64,8 @@ namespace CardScripts.CardMovements
             // Global checks
             /*if (!base.ValidPlacement(tile))
                 return false;*/
+
+            if (!UsesLeft) return false; // if no uses left, return false
 
             // global checks replaced with:
             if (!SoulExcluding_SpellSpecificPlacementChecks()) // if doesn't pass global checks, abort. else, continue
@@ -188,9 +201,10 @@ namespace CardScripts.CardMovements
                 // decrement uses, uses -= 1
                 stats.Server_UseSpell_DecrementUses();
 
-                if (stats.uses == 0) // spent, discard
+                if (!UsesLeft) // spent, discard
                 {
-                    base.ServerDiscard();
+                    // base.ServerDiscard();
+                    Target_SnapBack(connectionToClient);
                 }
                 else // still got more, move back to hand
                 {
@@ -218,7 +232,7 @@ namespace CardScripts.CardMovements
         
         private void Rpc_RevealSpell(GameObject castTile)
         {
-            if (isOwned) return;   // the caster doesn't need the line, only the opponent
+            if (isOwned) return;   // the caster doesn't need to be revealed to, they already know the spell
 
             _cardDisplay.FlipCard(face: true);
 

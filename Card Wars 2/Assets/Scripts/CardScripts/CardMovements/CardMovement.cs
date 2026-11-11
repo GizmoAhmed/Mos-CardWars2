@@ -564,7 +564,7 @@ namespace CardScripts.CardMovements
             // Track discard on server
             player.playerCardTracker.Server_TrackDiscard(gameObject);
 
-            // also remove from hand if discarding from there
+            // also remove from hand if discarding from there ('if' since the below func simply won't do anything if not in hand)
             player.playerCardTracker.Server_RemoveFromHand(gameObject);
 
             LocalWhisperCardDiscard(GetLogicalTile());
@@ -598,6 +598,7 @@ namespace CardScripts.CardMovements
                 // code in here is ran once the card is completely faded:
                 thisCardOwnerPlayerStats.GetComponent<CardPlacement>().MoveCardToDiscard(gameObject);
                 ReturnToLayout();
+                
             }, duration: discardFadeOutDuration);
         }
 
