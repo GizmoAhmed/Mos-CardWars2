@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72ac05769b206c04e93781b17f921a4e, type: 3}
   m_Name: EarnShards_OnCast_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Earn {shardsEarned} Shards
   castRequirementType: 0
   castSide: 0
-  shardsEarned: 5
+  shardsEarned: 100

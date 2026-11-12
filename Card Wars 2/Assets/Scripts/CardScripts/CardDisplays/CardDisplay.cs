@@ -20,9 +20,6 @@ namespace CardScripts.CardDisplays
 
         public CardDataSO cardData;
 
-        [SyncVar(hook = nameof(Hook_UpdateAbilityDescription))]
-        public string abilityDescription;
-
         // ~~~ Main Stuff shown on backdrop ~~~
         protected GameObject MainImageObj;
         protected GameObject CardBackObj;
@@ -117,7 +114,7 @@ namespace CardScripts.CardDisplays
                 
                 SetText(
                     textObj,
-                    ability.abilityDescription, // use the typed out description
+                    ability.SpecifyAbilityDescription(), // use typed out description, filled in with actual ability values
                     changeColorOfText_FromDefaultToBlack: true); // set to black to indicate the typed desc was used
             }
             
@@ -302,13 +299,6 @@ namespace CardScripts.CardDisplays
             // move card to front, so other stuff can't cover the info
             gameObject.GetComponent<Canvas>().overrideSorting =
                 InfoObj.activeInHierarchy;
-        }
-
-        public void Hook_UpdateAbilityDescription(string oldDesc, string newDesc)
-        {
-            GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
-
-            SetText(descTextChild, newDesc);
         }
 
         public void UpdateUI_Soul(int newMagic)

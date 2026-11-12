@@ -1,3 +1,4 @@
+using System;
 using AbilityEvents;
 using CardScripts.CardStatss;
 using UnityEngine;
@@ -22,12 +23,6 @@ namespace CardScripts.Abilities.CreatureAbilities.Script
             
             AnimateAbilityExecute(thisCard);
             creatureStats.UpdateCreatureStrength(baseStrengthBuffAmount, buff:true);
-        }
-
-        // ability description: Strength +{x}
-        public override void InitDescription()
-        {
-            
         }
     }
 }

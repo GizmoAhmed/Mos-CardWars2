@@ -10,25 +10,44 @@ using Tiles;
 using UnityEngine;
 using CardScripts.CardData;
 using Extensions;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace CardScripts.Abilities
 {
     [Serializable]
     public abstract class CardAbilitySO : ScriptableObject
     {
-        [TextArea] 
-        public string abilityDescription;
+        [TextArea] public string abilityDescription;
 
-        [Server]
-        public virtual void InitDescription()
-        {
-            Debug.LogWarning("Initialized description in the base class, override required");
-        }
+        // CardAbilitySO.cs
         
-        [Server]
-        public virtual void UpdateDescription()
+        
+        public virtual string SpecifyAbilityDescription()
         {
-            Debug.LogWarning("Update description in the base class, override required");
+            /*
+             The code swaps {baseStrengthBuffAmount} for the current value of that field, 
+             so with baseStrengthBuffAmount = 2 the card shows Strength +2. 
+             Change the field to 3, and it shows Strength +3, without touching the text.
+             Regex.Replace scans the whole string, and for every piece that looks like {something} it calls your function with the match. 
+             The function looks up a field with that name on the ability and returns its value as text, which replaces the whole {...}.
+             */
+            if (string.IsNullOrEmpty(abilityDescription)) return abilityDescription;
+
+            return Regex.Replace(abilityDescription, @"\{(\w+)\}", match =>
+            {
+                string fieldName = match.Groups[1].Value;
+                FieldInfo field = GetType().GetField(fieldName,
+                    BindingFlags.Public | BindingFlags.Instance);
+
+                if (field == null)
+                {
+                    Debug.LogError($"{name}: description token {{{fieldName}}} matches no public field");
+                    return match.Value; // leave it visible so the typo is obvious
+                }
+
+                return field.GetValue(this)?.ToString() ?? "";
+            });
         }
 
         public abstract void ExecuteAbility(GameObject thisCard, AbilityEventData eventData);
@@ -91,7 +110,7 @@ namespace CardScripts.Abilities
             PlayerStats player = redrawMe
                 .GetComponent<CardMovement>()
                 .thisCardOwnerPlayerStats;
-            
+
             if (drawToThisPlayer != null)
             {
                 player = drawToThisPlayer;
@@ -107,7 +126,7 @@ namespace CardScripts.Abilities
         protected GameObject DrawCard_GivenCardDataSO(CardDataSO data, PlayerStats drawToThisPlayer)
         {
             MasterDeck masterDeck = FindObjectOfType<MasterDeck>();
-        
+
             GameObject card = masterDeck.CreateThenSpawnCard(data.cardID, drawToThisPlayer);
 
             return card;
@@ -138,9 +157,10 @@ namespace CardScripts.Abilities
         {
             if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)
             {
-                 AbilityEventType chanceEvent = hit ? 
-                     AbilityEventType.AnyChanceHit :    // if hit
-                     AbilityEventType.AnyChanceMissed;  // else
+                AbilityEventType chanceEvent = hit
+                    ? AbilityEventType.AnyChanceHit
+                    : // if hit
+                    AbilityEventType.AnyChanceMissed; // else
 
                 AbilityEventData luck = new AbilityEventData
                 (
@@ -148,9 +168,8 @@ namespace CardScripts.Abilities
                     targ: cardTriggeredFrom,
                     val: chance
                 );
-                
-                GlobalAbilityEventManager.GlobalAbilityManagerInstance.
-                    TriggerEvents_ForAllSubscribersOfType(luck);
+
+                GlobalAbilityEventManager.GlobalAbilityManagerInstance.TriggerEvents_ForAllSubscribersOfType(luck);
             }
             else
             {
@@ -161,7 +180,7 @@ namespace CardScripts.Abilities
         private void LocalTileWhisperRollChance(int chance, bool hit, GameObject cardTriggeredFrom)
         {
             Tile tile = cardTriggeredFrom.GetComponent<CardMovement>().GetLogicalTile();
-            
+
             TileEventManager tileEventManager = tile.gameObject.GetComponent<TileEventManager>();
 
             tileEventManager.OnChanceOnTile(chance: chance, hit: hit, card: cardTriggeredFrom);

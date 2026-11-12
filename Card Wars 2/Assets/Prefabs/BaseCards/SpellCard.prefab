@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: INCREASE ATTACK BY XXX WHEN XXX IS ACTIVATED. LOWER BY XXX WHEN IS DISCARDED
+  m_text: 'BLAH BLAH ABILITY BLAH BLAH BLAH ABILITY BLAH BLAH BLAH ABILITY BLAH '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
   m_sharedMaterial: {fileID: -5755056127871695466, guid: c8d458fceb5004f4eb9b95801ff89b45, type: 2}
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 47.41089, y: -24.423767, z: 46.931885, w: -24.902649}
+  m_margin: {x: 47.41089, y: -41.160522, z: 46.931885, w: -40.86087}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1159,6 +1159,8 @@ MonoBehaviour:
   missColor: {r: 0.9019608, g: 0.3137255, b: 0.3137255, a: 1}
   strengthColor: {r: 1, g: 0.3019608, b: 0.4745098, a: 1}
   defenseColor: {r: 0.9019608, g: 0.3137255, b: 0.3137255, a: 1}
+  stackWindow: 0.5
+  stackSpacing: 45
 --- !u!1 &5945192695792531235
 GameObject:
   m_ObjectHideFlags: 0
