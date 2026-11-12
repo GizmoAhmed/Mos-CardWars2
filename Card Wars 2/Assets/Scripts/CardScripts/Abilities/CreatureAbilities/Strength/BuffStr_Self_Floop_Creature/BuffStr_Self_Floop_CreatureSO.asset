@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e48c6431288f4c59aa07253b9ade2f76, type: 3}
   m_Name: BuffStr_Self_Floop_CreatureSO
   m_EditorClassIdentifier: 
+  abilityDescription: Strength +{x}
   baseStrengthBuffAmount: 2

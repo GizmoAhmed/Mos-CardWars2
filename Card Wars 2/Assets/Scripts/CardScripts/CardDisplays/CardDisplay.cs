@@ -1,5 +1,6 @@
 using System;
 using System.Text.RegularExpressions;
+using CardScripts.Abilities;
 using CardScripts.CardData;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
@@ -69,27 +70,44 @@ namespace CardScripts.CardDisplays
             SetImage(MainImageObj, cardData.mainImage);
 
             // Set names
-            SetText(NameTop, cardData.cardName);
+            SetText(NameTop, cardData.cardName, changeColorOfText_FromDefaultToBlack: true);
 
             // set description
             GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
-
+            
+            SetAbilityDescription(descTextChild, cardData.ability);
+            
             if (cardData.ability == null)
             {
                 Debug.LogError($"CardDisplay: cardData.ability is null on {gameObject.name}");
             }
-            else
-            {
-                SetText(descTextChild, ParseAbilityName_IntoDescription(cardData.ability.name));
-            }
 
             FlipCard(face: true);
 
-            AddCardRarityEffect();
+            AddCardRarityColor();
 
             HideUIElement(InfoObj); // initially hide the info card
 
             _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
+        }
+
+        protected void SetAbilityDescription(GameObject textObj, CardAbilitySO ability)
+        {
+            if (string.IsNullOrEmpty(ability.abilityDescription)) // no description typed out in the SO
+            {
+                // turn the name of the ability into an apt description
+                SetText(
+                    textObj,
+                    ParseAbilityName_IntoDescription(ability.name), // pass name as the ability description
+                    changeColorOfText_FromDefaultToBlack: false); // leave as error red
+            }
+            else // there is a description there
+            {
+                SetText(
+                    textObj,
+                    ability.abilityDescription, // use the typed out description
+                    changeColorOfText_FromDefaultToBlack: true); // set to black to indicate the typed desc was used
+            }
         }
 
         protected string ParseAbilityName_IntoDescription(string rawName)
@@ -110,7 +128,7 @@ namespace CardScripts.CardDisplays
             return rawName.Trim();
         }
 
-        protected void HideUIElement(GameObject obj)
+        private void HideUIElement(GameObject obj)
         {
             if (obj != null)
             {
@@ -177,13 +195,13 @@ namespace CardScripts.CardDisplays
                 img.sprite = sprite;
         }
 
-        protected void SetText(GameObject obj, string text, bool isStatText = false)
+        protected void SetText(GameObject obj, string text, bool changeColorOfText_FromDefaultToBlack = false)
         {
             if (obj != null && obj.TryGetComponent(out TextMeshProUGUI tmp))
             {
                 if (text == null)
                 {
-                    // txt passed as null? empty the text container
+                    Debug.LogWarning($"Can't set text on {gameObject.name} cause it was passed null");
                     tmp.text = string.Empty;
                 }
                 else
@@ -191,7 +209,7 @@ namespace CardScripts.CardDisplays
                     tmp.text = text.ToUpper();
                 }
 
-                if (!isStatText) // stat text just stays whatever color is on the card, things like description would remain black
+                if (changeColorOfText_FromDefaultToBlack) // stat text just stays whatever color is on the card, things like description would remain black
                     tmp.color = Color.black; // the red text it starts with means error
             }
             else
@@ -224,7 +242,7 @@ namespace CardScripts.CardDisplays
             CardBackObj.SetActive(!up);
         }
 
-        private void AddCardRarityEffect()
+        private void AddCardRarityColor()
         {
             Image backDropImage = _backDrop.GetComponent<Image>();
 
@@ -276,13 +294,13 @@ namespace CardScripts.CardDisplays
         {
             if (magicObj != null) // spells have null magic obj 
             {
-                SetText(magicObj, newMagic.ToString(), true);
+                SetText(magicObj, newMagic.ToString());
             }
         }
 
         public void UpdateUI_Burn(int newCost)
         {
-            SetText(_burnObj, newCost.ToString(), true);
+            SetText(_burnObj, newCost.ToString());
         }
 
         public void FlipBurn_ToCostFromReturn(int burnCost)

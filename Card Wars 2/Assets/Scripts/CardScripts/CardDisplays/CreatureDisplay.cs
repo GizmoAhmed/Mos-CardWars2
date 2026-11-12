@@ -163,13 +163,13 @@ namespace CardScripts.CardDisplays
 
         public void UpdateUIStrength(int newAttack)
         {
-            SetText(_strengthObj, newAttack.ToString(), true);
+            SetText(_strengthObj, newAttack.ToString());
             // Anim.TextPop(_strengthObj);
         }
 
         public void UpdateCardUIDefense(int newDefense)
         {
-            SetText(_defenseObj, newDefense.ToString(), true);
+            SetText(_defenseObj, newDefense.ToString());
             // Anim.TextPop(_defenseObj);
         }
 
@@ -200,7 +200,7 @@ namespace CardScripts.CardDisplays
 
         public void UpdateScoreUI(int newScore)
         {
-            SetText(_scoreObj, newScore.ToString(), true);
+            SetText(_scoreObj, newScore.ToString());
         }
 
         public void DisplayRune(GameObject runeToDisplay = null) // optional, if passing null, remove runes
@@ -234,18 +234,10 @@ namespace CardScripts.CardDisplays
                 SetImage(runeIconFace2, runeData.mainImage); // current rune icon on face
                 
                 runeIconFace2.SetActive(true);
-                
-                // the info text
-                if (cardData.ability == null)
-                {
-                    Debug.LogError($"Rune Bind: cardData.ability is null on {runeData.name}");                
-                }
-                else
-                {
-                    SetText(_runeText2, ParseAbilityName_IntoDescription(runeData.ability.name));
-                }
-                
-                SetText(_runeName2, runeData.cardName);
+
+                SetAbilityDescription(_runeText2, runeData.ability);
+
+                SetText(_runeName2, runeData.cardName, changeColorOfText_FromDefaultToBlack: true);
                 
                 SetImage(_runeInfoCardIcon2, runeData.mainImage);
 
@@ -258,17 +250,9 @@ namespace CardScripts.CardDisplays
                 
                 runeIconFace1.SetActive(true);
                 
-                // the info text
-                if (cardData.ability == null)
-                {
-                    Debug.LogError($"Rune Bind: cardData.ability is null on {runeData.name}");                
-                }
-                else
-                {
-                    SetText(_runeText1, ParseAbilityName_IntoDescription(runeData.ability.name));
-                }
+                SetAbilityDescription(_runeText1, runeData.ability);
                 
-                SetText(_runeName1, runeData.cardName);
+                SetText(_runeName1, runeData.cardName, changeColorOfText_FromDefaultToBlack: true);
                 
                 SetImage(_runeInfoCardIcon1, runeData.mainImage);
             }
@@ -276,7 +260,7 @@ namespace CardScripts.CardDisplays
 
         public void UpdateUI_AbilityUsesLeft(int usesLeft)
         {
-            SetText(_abilityUses, usesLeft.ToString(), isStatText: true);
+            SetText(_abilityUses, usesLeft.ToString(), changeColorOfText_FromDefaultToBlack: true);
         }
     }
 }

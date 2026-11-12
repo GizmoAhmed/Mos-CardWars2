@@ -11,9 +11,6 @@ namespace CardScripts.CardData
         public string cardName;
         public Sprite mainImage;
         public int soul;
-    
-        [TextArea] 
-        public string abilityDescription;
         
         public int burnCost = 2;
 

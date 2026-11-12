@@ -16,6 +16,9 @@ namespace CardScripts.Abilities
     [Serializable]
     public abstract class CardAbilitySO : ScriptableObject
     {
+        [TextArea] 
+        public string abilityDescription;
+        
         public abstract void ExecuteAbility(GameObject thisCard, AbilityEventData eventData);
 
         /// <summary>
