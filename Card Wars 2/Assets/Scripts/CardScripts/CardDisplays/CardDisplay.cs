@@ -20,6 +20,9 @@ namespace CardScripts.CardDisplays
 
         public CardDataSO cardData;
 
+        [SyncVar(hook = nameof(Hook_UpdateAbilityDescription))]
+        public string abilityDescription;
+
         // ~~~ Main Stuff shown on backdrop ~~~
         protected GameObject MainImageObj;
         protected GameObject CardBackObj;
@@ -75,7 +78,10 @@ namespace CardScripts.CardDisplays
             // set description
             GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
             
-            SetAbilityDescription(descTextChild, cardData.ability);
+            string textUsedForDesc = InitializeAbilityDescription(descTextChild, cardData.ability);
+            
+            // set syncvar to update on both clients
+            // abilityDescription = textUsedForDesc;
             
             if (cardData.ability == null)
             {
@@ -91,26 +97,34 @@ namespace CardScripts.CardDisplays
             _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
         }
 
-        protected void SetAbilityDescription(GameObject textObj, CardAbilitySO ability)
+        protected string InitializeAbilityDescription(GameObject textObj, CardAbilitySO ability)
         {
+            string desc;
+            
             if (string.IsNullOrEmpty(ability.abilityDescription)) // no description typed out in the SO
             {
+                desc = ParseAbilityName_IntoDescription(ability.name); // pass name as the ability description
+                
                 // turn the name of the ability into an apt description
                 SetText(
                     textObj,
-                    ParseAbilityName_IntoDescription(ability.name), // pass name as the ability description
+                    desc,
                     changeColorOfText_FromDefaultToBlack: false); // leave as error red
             }
             else // there is a description there
             {
+                desc = ability.abilityDescription;
+                
                 SetText(
                     textObj,
                     ability.abilityDescription, // use the typed out description
                     changeColorOfText_FromDefaultToBlack: true); // set to black to indicate the typed desc was used
             }
+            
+            return desc;
         }
 
-        protected string ParseAbilityName_IntoDescription(string rawName)
+        private string ParseAbilityName_IntoDescription(string rawName)
         {
             if (string.IsNullOrEmpty(rawName)) return "";
 
@@ -288,6 +302,13 @@ namespace CardScripts.CardDisplays
             // move card to front, so other stuff can't cover the info
             gameObject.GetComponent<Canvas>().overrideSorting =
                 InfoObj.activeInHierarchy;
+        }
+
+        public void Hook_UpdateAbilityDescription(string oldDesc, string newDesc)
+        {
+            GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
+
+            SetText(descTextChild, newDesc);
         }
 
         public void UpdateUI_Soul(int newMagic)

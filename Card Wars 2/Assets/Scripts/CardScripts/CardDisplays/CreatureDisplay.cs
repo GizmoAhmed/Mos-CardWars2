@@ -235,7 +235,7 @@ namespace CardScripts.CardDisplays
                 
                 runeIconFace2.SetActive(true);
 
-                SetAbilityDescription(_runeText2, runeData.ability);
+                InitializeAbilityDescription(_runeText2, runeData.ability);
 
                 SetText(_runeName2, runeData.cardName, changeColorOfText_FromDefaultToBlack: true);
                 
@@ -250,7 +250,7 @@ namespace CardScripts.CardDisplays
                 
                 runeIconFace1.SetActive(true);
                 
-                SetAbilityDescription(_runeText1, runeData.ability);
+                InitializeAbilityDescription(_runeText1, runeData.ability);
                 
                 SetText(_runeName1, runeData.cardName, changeColorOfText_FromDefaultToBlack: true);
                 

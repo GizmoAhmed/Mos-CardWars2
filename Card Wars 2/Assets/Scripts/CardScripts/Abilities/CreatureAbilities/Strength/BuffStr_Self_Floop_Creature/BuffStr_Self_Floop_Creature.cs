@@ -23,5 +23,11 @@ namespace CardScripts.Abilities.CreatureAbilities.Script
             AnimateAbilityExecute(thisCard);
             creatureStats.UpdateCreatureStrength(baseStrengthBuffAmount, buff:true);
         }
+
+        // ability description: Strength +{x}
+        public override void InitDescription()
+        {
+            
+        }
     }
 }

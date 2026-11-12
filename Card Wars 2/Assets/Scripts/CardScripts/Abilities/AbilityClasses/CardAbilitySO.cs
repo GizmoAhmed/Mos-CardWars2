@@ -18,7 +18,19 @@ namespace CardScripts.Abilities
     {
         [TextArea] 
         public string abilityDescription;
+
+        [Server]
+        public virtual void InitDescription()
+        {
+            Debug.LogWarning("Initialized description in the base class, override required");
+        }
         
+        [Server]
+        public virtual void UpdateDescription()
+        {
+            Debug.LogWarning("Update description in the base class, override required");
+        }
+
         public abstract void ExecuteAbility(GameObject thisCard, AbilityEventData eventData);
 
         /// <summary>
