@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5479898ab4adc4ba307b1684566dcf, type: 3}
   m_Name: DamageViaDefense_OppTile_EveryOtherTurn_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Deal damage equal to this creatures defense every {turnsToActivate}
+    turn
   eventsThatTriggerThisAbility: 01000000
   isExecutableOnPlaced: 0
   turnsToActivate: 2

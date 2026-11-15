@@ -15,4 +15,4 @@ MonoBehaviour:
   abilityDescription: Earn {shardsEarned} Shards
   castRequirementType: 0
   castSide: 0
-  shardsEarned: 100
+  shardsEarned: 5

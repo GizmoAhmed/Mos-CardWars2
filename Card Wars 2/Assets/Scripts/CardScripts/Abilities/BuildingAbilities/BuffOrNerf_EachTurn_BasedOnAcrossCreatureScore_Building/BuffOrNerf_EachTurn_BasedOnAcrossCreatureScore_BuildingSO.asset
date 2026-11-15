@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7500ae843547d442a823a6f049207c2, type: 3}
   m_Name: BuffOrNerf_EachTurn_BasedOnAcrossCreatureScore_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, strengthen this creature +{strengthen} if across
+    creature has a higher score, and weaken - {strengthen} if of a lower score
   eventsThatTriggerThisAbility: 01000000
   isExecutableOnPlaced: 0
   strengthen: 3

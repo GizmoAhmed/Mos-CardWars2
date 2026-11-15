@@ -56,8 +56,6 @@ namespace CardScripts.CardDisplays
 
         public virtual void SetDisplayElements_UsingData(CardStats s)
         {
-            // Debug.Log($"<color=yellow>Rendering:</color> Setting Display for {s} on this client");
-
             cardData = s.CardData;
 
             if (cardData == null)

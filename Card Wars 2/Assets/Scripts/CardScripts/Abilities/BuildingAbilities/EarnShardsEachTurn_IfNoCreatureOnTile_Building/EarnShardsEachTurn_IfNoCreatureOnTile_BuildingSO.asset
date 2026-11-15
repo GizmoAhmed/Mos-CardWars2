@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ce8434fb28ef649aee7882561f7cec, type: 3}
   m_Name: EarnShardsEachTurn_IfNoCreatureOnTile_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, earn {shardsEarned} shards if no creature on this
+    tile
   eventsThatTriggerThisAbility: 01000000
-  abilityListenScope: 1
   isExecutableOnPlaced: 0
   shardsEarned: 5

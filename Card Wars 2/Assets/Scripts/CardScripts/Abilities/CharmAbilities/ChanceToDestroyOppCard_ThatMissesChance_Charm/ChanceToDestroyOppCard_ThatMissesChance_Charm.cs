@@ -27,8 +27,8 @@ public class ChanceToDestroyOppCard_ThatMissesChance_Charm : PassiveAbilitySO
         if (yours) return; // don't care about your own cards
 
         // there's a situation where two opposing cards of this ability, can loop themselves...
-        // ...by continually failing they trigger eachothers ability
-        // While this isn't a true inifinte loop (becuase chance cannot be 0, therefore not infinitely triggering, cause it'll hit eventually)...
+        // ...by continually failing they trigger each others ability
+        // While this isn't a true inifinte loop (because chance cannot be 0, therefore not infinitely triggering, cause it'll hit eventually)...
         // ...it's still important to know
         if (RollChance(chanceToHit, thisCard)) // hits
         {

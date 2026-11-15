@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32d9056d2e6de0946b58bb123cc3e300, type: 3}
   m_Name: DamageOppCreatures_OfSameElementOfCreatureOnThisTile_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Deal {damage} damage to all opp creatures that have the same
+    element as creature on this tile
   eventsThatTriggerThisAbility: 01000000
   isExecutableOnPlaced: 0
   damage: 2

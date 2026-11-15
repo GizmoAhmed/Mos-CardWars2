@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ceb60b0d3a08954c9bfcaa25cb5a102, type: 3}
   m_Name: ChanceOfAdditionalAbility_OrNoAbilityAtAll_RuneSO
   m_EditorClassIdentifier: 
+  abilityDescription: '{chanceToDouble}% chance to activate ability a second time.
+    If missed, no ability activates at all'
   eventsThatTriggerThisAbility: 
   isExecutableOnPlaced: 1
-  chanceToDouble: 75
+  chanceToDouble: 60

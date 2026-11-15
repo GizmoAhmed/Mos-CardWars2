@@ -10,7 +10,7 @@ namespace CardScripts.Abilities.SpellAbilities.DamageAllOppCreatures_Spell
     [CreateAssetMenu(fileName = "DamageAllOppCreatures_Spell", menuName = "Abilities/Spell/DamageAllOppCreatures_Spell")]
     public class DamageAllOppCreatures_Spell : CastAbilitySO
     {
-        public int damagetoAllAmount;
+        public int damage;
     
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
@@ -21,7 +21,7 @@ namespace CardScripts.Abilities.SpellAbilities.DamageAllOppCreatures_Spell
 
             foreach (CreatureStats creature in oppsCreatures)
             {
-                creature.UpdateCreatureDefense(damagetoAllAmount, false);
+                creature.UpdateCreatureDefense(damage, false);
             }
         }
     

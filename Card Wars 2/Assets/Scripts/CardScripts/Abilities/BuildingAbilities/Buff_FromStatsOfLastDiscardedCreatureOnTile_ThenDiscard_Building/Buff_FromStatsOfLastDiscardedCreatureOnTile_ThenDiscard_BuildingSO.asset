@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211d29c6a39942b499d48948a72d4412, type: 3}
   m_Name: Buff_FromStatsOfLastDiscardedCreatureOnTile_ThenDiscard_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Saves stats of creature discarded from this tile. Applies stats
+    to next creature placed, then discard this card.
   eventsThatTriggerThisAbility: 6600000064000000
   isExecutableOnPlaced: 0

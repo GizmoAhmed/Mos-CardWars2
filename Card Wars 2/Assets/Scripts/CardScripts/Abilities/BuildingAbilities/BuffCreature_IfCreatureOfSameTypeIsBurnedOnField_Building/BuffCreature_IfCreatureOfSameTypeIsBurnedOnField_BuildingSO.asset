@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 874b486fe21c0804c800011c6ef0011b, type: 3}
   m_Name: BuffCreature_IfCreatureOfSameTypeIsBurnedOnField_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Fortify this creature +{fortify} each time a creature of the
+    same type is burned on the field
   eventsThatTriggerThisAbility: 0b000000
   isExecutableOnPlaced: 0
   fortify: 3

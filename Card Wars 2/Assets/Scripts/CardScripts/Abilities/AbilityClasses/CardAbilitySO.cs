@@ -19,9 +19,6 @@ namespace CardScripts.Abilities
     public abstract class CardAbilitySO : ScriptableObject
     {
         [TextArea] public string abilityDescription;
-
-        // CardAbilitySO.cs
-        
         
         public virtual string SpecifyAbilityDescription()
         {

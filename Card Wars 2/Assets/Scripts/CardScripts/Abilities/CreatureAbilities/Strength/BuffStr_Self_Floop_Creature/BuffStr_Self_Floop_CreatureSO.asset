@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BuffStr_Self_Floop_CreatureSO
   m_EditorClassIdentifier: 
   abilityDescription: Strength +{baseStrengthBuffAmount}
-  baseStrengthBuffAmount: 12
+  baseStrengthBuffAmount: 2

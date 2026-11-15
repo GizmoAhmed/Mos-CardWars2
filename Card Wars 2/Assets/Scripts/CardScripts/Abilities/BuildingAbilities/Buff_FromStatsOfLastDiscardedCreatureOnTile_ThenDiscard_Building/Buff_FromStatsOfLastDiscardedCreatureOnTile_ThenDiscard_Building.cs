@@ -30,9 +30,9 @@ public class Buff_FromStatsOfLastDiscardedCreatureOnTile_ThenDiscard_Building : 
         }
         else if (eventData.eventType == AbilityEventType.CardPlacedOnTile)
         {
-            CreatureStats placedCreature = eventData.target.GetComponent<CreatureStats>();
-
             if (data.customInts.Count == 0) return; // no creature's stats were saved
+            
+            CreatureStats placedCreature = eventData.target.GetComponent<CreatureStats>();
             
             // save these here, since discarding below deletes them
             int savedStrength = data.customInts["str"];

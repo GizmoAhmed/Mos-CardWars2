@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ada04d88c8a073a4793cdf0916a46f82, type: 3}
   m_Name: BuffStat_EachTurn_WithChanceToDestroySelf_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, {destroyChance}% to strengthen +{strengthBoost}
+    and fortify +{defenseBoost} this creature. If chance missed, destroy this building
   eventsThatTriggerThisAbility: 01000000
-  abilityListenScope: 1
   isExecutableOnPlaced: 0
   strengthBoost: 2
   defenseBoost: 2

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158a2b2419962294b82c7801ebbebdf9, type: 3}
   m_Name: BuffCreature_EndOfTurn_PerSpareSoul_Building
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, fortify this creature +{fortifyPerSpareSoul} for
+    each of your unused soul
   eventsThatTriggerThisAbility: 01000000
   isExecutableOnPlaced: 0
-  FortifyPerSpareSoul: 3
+  fortifyPerSpareSoul: 2

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be17bdd32bbb76d4186ea8f86f8d1813, type: 3}
   m_Name: ExecuteAdjCreatureAbility_IfCreatureOnThisTileDestroyed_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: If creature on this tile is discarded, activate ability of
+    creature to the {side}
   eventsThatTriggerThisAbility: 66000000
   isExecutableOnPlaced: 0
   side: 1

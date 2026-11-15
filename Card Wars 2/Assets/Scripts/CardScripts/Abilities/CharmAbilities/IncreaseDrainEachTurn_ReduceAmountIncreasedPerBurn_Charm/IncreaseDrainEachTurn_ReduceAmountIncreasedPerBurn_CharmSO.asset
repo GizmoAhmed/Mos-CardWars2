@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703082979408196458416967d30bb106, type: 3}
   m_Name: IncreaseDrainEachTurn_ReduceAmountIncreasedPerBurn_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: Gain {startingDrainBuffAmount} drain each turn. Reduce this
+    gain by {buffReductionPerBurn} each time you burn a card.
   eventsThatTriggerThisAbility: 010000000a000000
   isExecutableOnPlaced: 1
   startingDrainBuffAmount: 10
-  currentDrainBuffAmount: 0
   buffReductionPerBurn: 2

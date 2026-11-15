@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06152be04d3d85a4f89e4b6a60a2b8f6, type: 3}
   m_Name: BuffCreatureOnTile_IfDRAW_EachTurn_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, strengthen (+{strength}) and fortify (+{defense})
+    this creature if it is a {elementToBuff} creature
   eventsThatTriggerThisAbility: 01000000
   isExecutableOnPlaced: 0
   elementToBuff: 3

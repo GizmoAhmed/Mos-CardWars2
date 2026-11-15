@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99bbfcf930e79546bf8811007c5c856, type: 3}
   m_Name: BuffCreatureOnTile_WhenYouHitOnAnyLuck_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Strengthen this creature +{strength} any time you sucessfull
+    hit on any luck
   eventsThatTriggerThisAbility: 0e000000
   isExecutableOnPlaced: 0
   strength: 3
