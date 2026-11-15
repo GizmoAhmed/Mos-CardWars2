@@ -194,10 +194,7 @@ MonoBehaviour:
   playerStats: {fileID: 0}
   myTurn: 0
   deckCollection: {fileID: 0}
-  searchComplete: 0
-  draw: {fileID: 0}
-  upgrade: {fileID: 0}
-  ready: {fileID: 0}
+  playerCardTracker: {fileID: 0}
 --- !u!114 &-2743666710545749402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,14 +228,16 @@ MonoBehaviour:
   ui: {fileID: 0}
   currentSoul: 0
   maxSoul: 0
+  canUpgradeSoul: 0
   shards: -1
   playerTotalScore: -1
   health: -1
   drain: -1
-  roundsWon: -1
+  roundsWon: 0
   roundsRequired: 0
   upgradeCost: -1
   freeDrawsLeft: 0
+  freeDrawsPerTurn: 0
   freeCardsChosen: 0
   freeCardsOffered: 0
 --- !u!114 &5554848961364696670
@@ -281,3 +280,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 028d3b562a954b2488991aa34e544ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  serverDiscardedCards: []
+  serverHandContents: []
+  serverActiveFieldCards: []
+  numOfCardsDrawnThisTurn: 0
+  cardsPlacedThisTurn: 0
+  creatureActivationsThisTurn: 0

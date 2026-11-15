@@ -159,55 +159,65 @@ public class TurnManager : NetworkBehaviour
         
         Server_EndOfTurnReset_BothPlayers();
         
-        CheckScore();
+        bool gameWinnerDecided = CheckScore();
         
-        // todo start of turn broadcast would prolly go here
-        
-        Invoke(nameof(ContinuePlay), .2f); // invoked in time for testing the pausing nature of the ActivePhase
+        if (gameWinnerDecided)
+        {
+            // don't continue play
+        }
+        else // continue play
+        {
+            Invoke(nameof(ContinuePlay), .2f); 
+        }
     }
 
     [Server]
-    private void CheckScore()
+    private bool CheckScore()
     {
-        // Debug.Log("Checking Scores...");
-        
         bool p0Cleared = _player0Stats.playerTotalScore >= _player0Stats.health;
         bool p1Cleared = _player1Stats.playerTotalScore >= _player1Stats.health;
 
-        if (p0Cleared && p1Cleared) // both cleared, tie
+        PlayerStats roundWinner = DecideRoundWinner(p0Cleared, p1Cleared);
+
+        if (roundWinner != null)
         {
-            if (_player0Stats.playerTotalScore > _player1Stats.playerTotalScore) // both cleared but someone has the higher score
-            {
-                gameManager.RoundWin(_player0Stats);
-            }
-            else if (_player1Stats.playerTotalScore > _player0Stats.health)
-            {
-                gameManager.RoundWin(_player1Stats);
-            }
-            else
-            {
-                // else tie case: do nothing for now
-            }
+            return AwardRound(roundWinner);
         }
-        else if (p0Cleared)
+        
+        return false;
+    }
+
+    /// <summary>Returns the round winner, or null if nobody won (or it's a tie).</summary>
+    private PlayerStats DecideRoundWinner(bool p0Cleared, bool p1Cleared)
+    {
+        if (p0Cleared && p1Cleared)
         {
-            gameManager.RoundWin(_player0Stats);
-        }
-        else if (p1Cleared)
-        {
-            gameManager.RoundWin(_player1Stats);
+            // both cleared: higher total score wins, equal means a tie
+            if (_player0Stats.playerTotalScore > _player1Stats.playerTotalScore) return _player0Stats;
+            if (_player1Stats.playerTotalScore > _player0Stats.playerTotalScore) return _player1Stats;
+            return null; // tie: do nothing for now
         }
 
-        // Game Win condition check
-        if (_player0Stats.roundsWon == gameManager.roundsToWin)
-        {
-            gameManager.GameWin(gameManager.Player1);
-        }
-        else if (_player1Stats.roundsWon == gameManager.roundsToWin)
-        {
-            gameManager.GameWin(gameManager.Player2);
-        }
+        if (p0Cleared) return _player0Stats;
+        if (p1Cleared) return _player1Stats;
+        return null;
     }
+
+    /// <summary>Gives the round to a player and checks whether that wins the game.</summary>
+    private bool AwardRound(PlayerStats winner)
+    {
+        gameManager.RoundWin(winner);
+
+        if (winner.roundsWon == gameManager.roundsToWin)
+        {
+            gameManager.GameWin(ConnectionOf(winner));
+            return true;
+        }
+        return false;
+    }
+
+    private NetworkConnectionToClient ConnectionOf(PlayerStats stats)
+        => stats == _player0Stats ? gameManager.Player1 : gameManager.Player2;
     
     [Server]
     private void GlobalBroadcastTurnEnd()

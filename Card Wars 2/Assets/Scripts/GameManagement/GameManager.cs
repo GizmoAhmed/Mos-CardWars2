@@ -220,8 +220,8 @@ namespace GameManagement
             _stats1.playerTotalScore = 0;
             _stats2.playerTotalScore = 0;
 
-            _stats1.roundsWon = -1;
-            _stats2.roundsWon = -1;
+            _stats1.roundsWon = 0;
+            _stats2.roundsWon = 0;
 
             _stats1.roundsRequired = roundsToWin;
             _stats2.roundsRequired = roundsToWin;
