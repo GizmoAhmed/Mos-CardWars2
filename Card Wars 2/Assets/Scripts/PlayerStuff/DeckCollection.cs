@@ -172,7 +172,7 @@ namespace PlayerStuff
             // uses weights to draw based on card rarity
             List<string> randomCardNames = _masterDeck.DebugDeckActive
                 ? GetRandomUniqueCardNames_FromPlayerDeck(offering)   // debug deck: unchanged
-                : _masterDeck.GetWeightedPicks(offering, _gameManager.CreaturesForOffer(offering));     // pool mode: weighted
+                : _masterDeck.GetWeightedPicks_ExactCreatures(offering, _gameManager.CreaturesForOffer(offering));     // pool mode: weighted
 
             drawModal.UpdatePicksLeft(choice);
 

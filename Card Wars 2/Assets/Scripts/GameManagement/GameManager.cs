@@ -14,11 +14,16 @@ namespace GameManagement
         public TurnManager turnManager;
 
         public MasterDeck masterDeckDb;
+
+        [SerializeField] private GameObject effectsLayer;
         
         [Header("Deck Mode")]
         [Tooltip("ON: players draw from the finite Debug Deck (cards are consumed). " +
                  "OFF: players draw from the full master pool and it never runs out.")]
         public bool debugMode = true;
+        
+        [Header("Panels")]
+        [SerializeField] public GameObject gameEndPanel;
 
         [Header("Starting Player Stats")] 
         
@@ -99,11 +104,29 @@ namespace GameManagement
 
         /// <summary>
         /// Sets the 'Players' variables
-        /// Inits Tiles, player stats, turn manager, master deck, and player deck collections
+        /// Initializes Tiles, player stats, turn manager, master deck, player deck collections, and effects layer
         /// </summary>
         [Server]
         public void FullLobby()
         {
+            if (effectsLayer == null)
+            {
+                Debug.LogError($"effectsLayer is Null on {gameObject.name} server start. Make sure to set in inspector");
+            }
+            else
+            {
+                effectsLayer.SetActive(true);
+            }
+
+            if (gameEndPanel == null)
+            {
+                Debug.LogError($"GameEndPanel is Null on {gameObject.name} server start. Make sure to set in inspector");
+            }
+            else
+            {
+                gameEndPanel.SetActive(false);
+            }
+
             int numberOfPlayers = NetworkServer.connections.Count;
 
             if (numberOfPlayers == 2) // Full lobby, let's roll
@@ -217,10 +240,32 @@ namespace GameManagement
             _stats2.health = health + 10;*/
         }
 
-        [ContextMenu("Win Game")]
+        [ContextMenu("Game Win")]
+        [Server]
         public void GameWin(NetworkConnectionToClient winner)
         {
             Debug.Log($"Player {winner.connectionId} has won the whole game !!!");
+
+            NetworkConnectionToClient loser = (winner == Player1) ? Player2 : Player1;
+
+            // each player's own machine shows its own result
+            Target_ShowGameEnd(winner, didWin: true);
+            Target_ShowGameEnd(loser, didWin: false);
+
+            turnManager.DisablePlayer(Player1, false);
+            turnManager.DisablePlayer(Player2, false);
+        }
+
+        [TargetRpc]
+        private void Target_ShowGameEnd(NetworkConnectionToClient target, bool didWin)
+        {
+            gameEndPanel.SetActive(true);
+            
+            GameObject winText = gameEndPanel.transform.Find("WinText").gameObject;
+            GameObject loseText = gameEndPanel.transform.Find("LoseText").gameObject;
+            
+            winText.SetActive(didWin);
+            loseText.SetActive(!didWin);
         }
 
         /*private void Purge()

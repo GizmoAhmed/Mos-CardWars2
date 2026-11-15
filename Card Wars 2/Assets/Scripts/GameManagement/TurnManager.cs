@@ -16,7 +16,7 @@ public class TurnManager : NetworkBehaviour
     private PlayerStats _player1Stats;
 
     [SyncVar(hook = nameof(OnTurnChanged))]
-    public int _currentTurn = -1;
+    public int currentTurn = -1;
 
     [SyncVar] private int _lastPlayed;
 
@@ -28,6 +28,8 @@ public class TurnManager : NetworkBehaviour
 
     [Tooltip("True (P0 goes first)\nFalse (P1 goes first)")]
     public bool whoFirst;
+    
+    [SerializeField] private TextMeshProUGUI nextUpUI;
 
     public void Init(GameManager gm)
     {
@@ -35,7 +37,7 @@ public class TurnManager : NetworkBehaviour
 
         turnUI = turnObj.GetComponent<TextMeshProUGUI>();
 
-        _currentTurn = _readyHit = 0;
+        currentTurn = _readyHit = 0;
 
         if (turnUI == null) Debug.LogError($"Make sure to set turnUI in inspector on {gameObject.name}");
     }
@@ -77,9 +79,13 @@ public class TurnManager : NetworkBehaviour
     {
         DisablePlayer(gameManager.Player1, whoFirst);
         DisablePlayer(gameManager.Player2, !whoFirst);
+        
+        // Player1 acts first when whoFirst is true, so the other player is next
+        int firstIndex = whoFirst ? 0 : 1;
+        UpdateNextUp(1 - firstIndex); // update ui
 
-        _currentTurn = 1;
-        turnUI.text = "TURN: " + _currentTurn;
+        currentTurn = 1;
+        turnUI.text = "TURN: " + currentTurn;
         
         _player0Stats = gameManager.Player1.identity.GetComponent<PlayerStats>();
         _player1Stats = gameManager.Player2.identity.GetComponent<PlayerStats>();
@@ -97,6 +103,9 @@ public class TurnManager : NetworkBehaviour
             // disable current player, enable the other
             DisablePlayer(gameManager.playersConnections[currentIndex], false);
             DisablePlayer(gameManager.playersConnections[otherIndex], true);
+            
+            // otherIndex is acting now, and also opens the next turn, so they're "next up" again
+            UpdateNextUp(otherIndex);
         }
         else // both players went, swap phase
         {
@@ -104,12 +113,35 @@ public class TurnManager : NetworkBehaviour
             _readyHit = 0;
         }
     }
+
+    /// <summary>
+    /// Tells each player who acts after the player currently acting, relative to themselves.
+    /// </summary>
+    [Server]
+    private void UpdateNextUp(int nextPlayerIndex)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            TargetUpdateNextUpUI(ConnectionFor(i), isYou: i == nextPlayerIndex);
+        }
+    }
+
+    private NetworkConnectionToClient ConnectionFor(int playerIndex)
+        => playerIndex == 0 ? gameManager.Player1 : gameManager.Player2;
+
+    [TargetRpc]
+    private void TargetUpdateNextUpUI(NetworkConnectionToClient target, bool isYou)
+    {
+        if (nextUpUI == null) return;
+        nextUpUI.text = isYou ? "YOU" : "THEM";
+    }
     
     [Server]
     private void SwapPhase()
     {
         _lastPlayed = gameManager.Player1.identity.GetComponent<Player>().myTurn ? 0 : 1;
 
+        // disable both players
         DisablePlayer(gameManager.Player1, false);
         DisablePlayer(gameManager.Player2, false);
 
@@ -168,9 +200,13 @@ public class TurnManager : NetworkBehaviour
 
         // Game Win condition check
         if (_player0Stats.roundsWon == gameManager.roundsToWin)
+        {
             gameManager.GameWin(gameManager.Player1);
+        }
         else if (_player1Stats.roundsWon == gameManager.roundsToWin)
+        {
             gameManager.GameWin(gameManager.Player2);
+        }
     }
     
     [Server]
@@ -196,7 +232,7 @@ public class TurnManager : NetworkBehaviour
     [Server]
     public void ContinuePlay()
     {
-        _currentTurn++;
+        currentTurn++;
 
         if (_lastPlayed == 0)
         {
@@ -208,6 +244,9 @@ public class TurnManager : NetworkBehaviour
             DisablePlayer(gameManager.Player1, false);
             DisablePlayer(gameManager.Player2, true);
         }
+        
+        // _lastPlayed opens the new turn, so the other player is next
+        UpdateNextUp(1 - _lastPlayed);
     }
 
     /// <summary>
