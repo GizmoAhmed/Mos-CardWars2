@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2015c5eb5f22afc4eb173c2cd6fd65b1, type: 3}
   m_Name: MakeAllElemental_BoundCreature_RuneSO
   m_EditorClassIdentifier: 
+  abilityDescription: This creature is used as any element
   eventsThatTriggerThisAbility: 
-  isGlobalListener: 0
   isExecutableOnPlaced: 1

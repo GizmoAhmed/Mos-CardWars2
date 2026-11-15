@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548c04cdcdb2cf74bbec68cbd65d0dfd, type: 3}
   m_Name: BuffYourCreatures_ThatMatchElementWithDrawnCreature_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: For each drawn creature, foritfy +{fortify} to all your on
+    field creatures that share the element of the drawn creature
   eventsThatTriggerThisAbility: 02000000
   isExecutableOnPlaced: 0
   fortify: 5

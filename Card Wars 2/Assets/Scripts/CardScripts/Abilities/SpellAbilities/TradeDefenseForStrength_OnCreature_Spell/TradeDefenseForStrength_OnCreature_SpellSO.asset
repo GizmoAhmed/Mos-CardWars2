@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c17de774508dffc46a5829690d09f15e, type: 3}
   m_Name: TradeDefenseForStrength_OnCreature_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Trade all creature defense for strength
   castRequirementType: 2
   castSide: 0

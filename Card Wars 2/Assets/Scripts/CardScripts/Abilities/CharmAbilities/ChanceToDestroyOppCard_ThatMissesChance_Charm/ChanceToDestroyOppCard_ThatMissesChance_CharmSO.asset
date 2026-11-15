@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 007ddad9269bff742bc79c4d6a24bf13, type: 3}
   m_Name: ChanceToDestroyOppCard_ThatMissesChance_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: If an opp card misses on chance, {chanceToHit}% to discard
+    that card
   eventsThatTriggerThisAbility: 0f000000
   isExecutableOnPlaced: 0
   chanceToHit: 25

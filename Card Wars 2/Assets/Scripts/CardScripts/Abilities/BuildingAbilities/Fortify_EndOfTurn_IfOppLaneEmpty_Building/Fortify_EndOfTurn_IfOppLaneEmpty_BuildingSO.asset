@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090b212aa9fcded4e9da6148d8384f80, type: 3}
   m_Name: Fortify_EndOfTurn_IfOppLaneEmpty_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, fortify this creature +{fortify} if across tile
+    has no creature
   eventsThatTriggerThisAbility: 01000000
-  abilityListenScope: 1
   isExecutableOnPlaced: 0
-  fortify: 3
+  fortify: 7

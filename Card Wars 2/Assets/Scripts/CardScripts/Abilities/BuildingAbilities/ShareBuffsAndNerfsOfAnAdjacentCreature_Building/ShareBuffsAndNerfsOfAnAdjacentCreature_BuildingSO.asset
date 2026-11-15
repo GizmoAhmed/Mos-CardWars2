@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a37e9bcedd251a44b6e98e10dd1caf4, type: 3}
   m_Name: ShareBuffsAndNerfsOfAnAdjacentCreature_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Share all buffs and nerfs of creature to the {side}
   eventsThatTriggerThisAbility: 10000000110000001200000013000000
   isExecutableOnPlaced: 0
+  side: 0

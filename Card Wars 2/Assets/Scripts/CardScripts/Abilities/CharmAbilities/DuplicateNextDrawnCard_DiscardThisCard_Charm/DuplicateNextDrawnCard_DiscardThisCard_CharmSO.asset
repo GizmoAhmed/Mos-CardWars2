@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceabb3ef0899d8646be764176f445eee, type: 3}
   m_Name: DuplicateNextDrawnCard_DiscardThisCard_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: Redraw next drawn card, then discard this card
   eventsThatTriggerThisAbility: 02000000
   isExecutableOnPlaced: 0

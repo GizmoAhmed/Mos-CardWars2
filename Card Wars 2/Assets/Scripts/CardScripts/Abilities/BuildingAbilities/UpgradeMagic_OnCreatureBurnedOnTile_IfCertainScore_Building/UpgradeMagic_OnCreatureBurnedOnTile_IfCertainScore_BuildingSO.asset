@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff51d19516c6fc4391c4007af554cbf, type: 3}
   m_Name: UpgradeMagic_OnCreatureBurnedOnTile_IfCertainScore_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: If creature on this tile is burned, upgrade soul +{soulUpgradeAmount}
+    if it's score is > {scoreNeeded}
   eventsThatTriggerThisAbility: 65000000
   isExecutableOnPlaced: 0
-  scoreNeeded: 8
+  scoreNeeded: 25
   soulUpgradeAmount: 1

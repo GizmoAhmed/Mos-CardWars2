@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9a808b747eefa448680a8fc9ec2b8b, type: 3}
   m_Name: DestroyABuilding_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Destroy any building
   castRequirementType: 3
   castSide: 0

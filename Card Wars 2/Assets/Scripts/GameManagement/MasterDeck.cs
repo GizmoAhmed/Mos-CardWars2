@@ -36,7 +36,7 @@ namespace GameManagement
         {
             public CardDataSO.Rarity rarity;
             [Min(0)] public float weight;
-            [Min(0)] public float burnReturnMultiplier;  
+            [Min(0)] public float burnReturnMultiplier;
         }
 
         [Header("Rarity Odds (relative weights, don't need to sum to 100)")]
@@ -104,7 +104,7 @@ namespace GameManagement
             CreateDict_FromMasterDeck();
             BuildRarityGroups();
         }
-        
+
         private void BuildRarityGroups()
         {
             _cardsByRarity.Clear();
@@ -120,7 +120,7 @@ namespace GameManagement
                 group.Add(card);
             }
         }
-        
+
         /// <summary>
         /// Given the cards rarity, multiple money gained from burn return by that cards rarity
         /// Rarer cards give more money when burned
@@ -135,9 +135,9 @@ namespace GameManagement
                     return Mathf.RoundToInt(data.burnReturn * rw.burnReturnMultiplier);
             }
 
-            return data.burnReturn;   // rarity not configured: no multiplier
+            return data.burnReturn; // rarity not configured: no multiplier
         }
-        
+
         /// <summary>
         /// This catches duplicate tiers or all-zero weights while you’re editing,
         /// since a list (unlike a dictionary) lets you add the same rarity twice by accident
@@ -263,7 +263,7 @@ namespace GameManagement
                 // add to card tracker for this player
                 player.playerCardTracker.Server_TrackAddToHand(cardObj);
 
-                // broadcast add to hand
+                // broadcast add to hand todo should probably be put in the player card tracker
                 player.playerCardTracker.GlobalBroadcastAddToHand(cardObj, isDuplicate);
             }
             else
@@ -314,13 +314,15 @@ namespace GameManagement
 
             return cardInstance;
         }
-        
+
         /// <summary>
         /// Weighted random card: rolls a rarity tier first, then picks uniformly within it.
         /// </summary>
         /// <param name="excludeCardIDs">Pass cards to exclude (e.g. already offered in the draw modal).</param>
         /// <returns>Returned Random Card</returns>
-        private CardDataSO GetWeightedRandomCard(ICollection<string> excludeCardIDs = null)
+        private CardDataSO GetWeightedRandomCard(
+            ICollection<string> excludeCardIDs = null,
+            Func<CardDataSO, bool> filter = null)
         {
             // Only tiers that still have at least one eligible card take part in the roll
             var eligible = new List<(CardDataSO.Rarity rarity, float weight, List<CardDataSO> cards)>();
@@ -331,9 +333,10 @@ namespace GameManagement
                 if (rw.weight <= 0f) continue;
                 if (!_cardsByRarity.TryGetValue(rw.rarity, out List<CardDataSO> tierCards)) continue;
 
-                List<CardDataSO> available = excludeCardIDs == null
-                    ? tierCards
-                    : tierCards.Where(c => !excludeCardIDs.Contains(c.cardID)).ToList();
+                List<CardDataSO> available = tierCards
+                    .Where(c => (excludeCardIDs == null || !excludeCardIDs.Contains(c.cardID))
+                                && (filter == null || filter(c)))
+                    .ToList();
 
                 if (available.Count == 0) continue;
 
@@ -372,11 +375,93 @@ namespace GameManagement
             for (int i = 0; i < count; i++)
             {
                 CardDataSO card = GetWeightedRandomCard(excludeCardIDs: picked);
-                if (card == null) break;   // pool exhausted
+                if (card == null) break; // pool exhausted
                 picked.Add(card.cardID);
             }
 
             return picked;
+        }
+        
+        /// <summary>
+        /// Picks 'count' unique cards, with at least 'minCreatures' of them being creatures.
+        /// Guaranteed creatures are picked first, the rest from the whole pool, then shuffled.
+        /// </summary>
+        public List<string> GetWeightedPicks(int count, int minCreatures)
+        {
+            var picked = new List<string>();
+            minCreatures = Mathf.Clamp(minCreatures, 0, count);
+
+            for (int i = 0; i < minCreatures; i++)
+            {
+                CardDataSO creature = GetWeightedRandomCard(picked, c => c is CreatureDataSO);
+                if (creature == null)
+                {
+                    Debug.LogWarning("Not enough creatures in the pool to meet the guarantee");
+                    break;
+                }
+                picked.Add(creature.cardID);
+            }
+
+            while (picked.Count < count)
+            {
+                CardDataSO card = GetWeightedRandomCard(picked);
+                if (card == null) break;   // pool exhausted
+                picked.Add(card.cardID);
+            }
+
+            // so guaranteed creatures aren't always the first cards shown
+            for (int i = picked.Count - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+                (picked[i], picked[j]) = (picked[j], picked[i]);
+            }
+
+            return picked;
+        }
+        
+        /// <summary>
+        /// Picks exactly 'creatureCount' creatures and fills the rest with non-creatures.
+        /// </summary>
+        public List<string> GetWeightedPicks_ExactCreatures(int totalCount, int setAmountOfCreatures)
+        {
+            var picked = new List<string>();
+            setAmountOfCreatures = Mathf.Clamp(setAmountOfCreatures, 0, totalCount);
+
+            // creature slots
+            for (int i = 0; i < setAmountOfCreatures; i++)
+            {
+                CardDataSO creature = GetWeightedRandomCard(picked, c => c is CreatureDataSO);
+                if (creature == null)
+                {
+                    Debug.LogWarning("Not enough creatures in the pool for the requested count");
+                    break;
+                }
+                picked.Add(creature.cardID);
+            }
+
+            // everything else: random, but NOT creatures, so the creature count stays exact
+            while (picked.Count < totalCount)
+            {
+                CardDataSO other = GetWeightedRandomCard(picked, c => !(c is CreatureDataSO));
+                if (other == null)
+                {
+                    Debug.LogWarning("Ran out of non-creature cards to fill the hand");
+                    break;
+                }
+                picked.Add(other.cardID);
+            }
+
+            Shuffle(picked);   // so creatures aren't always the first cards dealt
+            return picked;
+        }
+
+        private static void Shuffle(List<string> list)
+        {
+            for (int i = list.Count - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+                (list[i], list[j]) = (list[j], list[i]);
+            }
         }
     }
 }

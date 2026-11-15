@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523fe276961a22d4bb03b40a27dfc9f4, type: 3}
   m_Name: DamageAllOppCreatures_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Deal {damage} to all opp creatures
   castRequirementType: 0
   castSide: 2
-  damagetoAllAmount: 2
+  damage: 0

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a333e13bdd8b24418e21bb3cbf5321d, type: 3}
   m_Name: BuffYour_DEFENSE_Creatures_EachTurn_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, strengthen (+{strength}) and fortify (+{defense})
+    all your on field creatures that are of the {elementToBuff} element
   eventsThatTriggerThisAbility: 01000000
   isExecutableOnPlaced: 0
   elementToBuff: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cecdc2d4f967b4da7ad647dbddfea5, type: 3}
   m_Name: ReduceBurnCost_OfPlayersCreaturesPlaced_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: 'Reduce burn cost -{burnReduction} of all of your creatures '
   eventsThatTriggerThisAbility: 08000000
-  abilityListenScope: 1
   isExecutableOnPlaced: 1
   burnReduction: 1

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34d4ae13b6364d4192e5152c5af458a, type: 3}
   m_Name: IncreaseDrain_EachTurn_IfPlayerLowMoney_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, If this player has < {moneyThreshold} shards, increase
+    drain +{drainAmount}
   eventsThatTriggerThisAbility: 01000000
-  abilityListenScope: 1
   isExecutableOnPlaced: 0
-  moneyThreshold: 20
-  drainAmount: 5
+  moneyThreshold: 3
+  drainAmount: 1

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ddfd93a4f5c4164884ad3037d4d471c, type: 3}
   m_Name: IncreaseUseOfAllConsumesInHand_OnAbility_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: When this creature uses its ability, each spell in your hand
+    gains +{usesIncrease} uses
   eventsThatTriggerThisAbility: 67000000
   isExecutableOnPlaced: 0
   usesIncrease: 3

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3ce504ac2de544f814fa4815145cb7, type: 3}
   m_Name: DestroyAllCardsInLane_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Destroy all cards in a lane
   castRequirementType: 0
   castSide: 0

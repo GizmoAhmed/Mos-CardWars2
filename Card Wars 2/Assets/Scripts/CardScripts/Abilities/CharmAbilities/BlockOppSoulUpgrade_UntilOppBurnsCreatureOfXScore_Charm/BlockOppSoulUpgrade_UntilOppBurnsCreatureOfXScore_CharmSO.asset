@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1884e71d4030b814ea367a92e199e216, type: 3}
   m_Name: BlockOppSoulUpgrade_UntilOppBurnsCreatureOfXScore_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: Opponent cannot upgrade soul until they burn a creature with
+    > {scoreNeeded} score, then discard this ccard
   eventsThatTriggerThisAbility: 0b000000
   isExecutableOnPlaced: 1
-  scoreNeeded: 7
+  scoreNeeded: 15

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f1726bdc4ecef4ab6b1557b6876d60, type: 3}
   m_Name: IncreaseAllOppCreaturesAbilityCost_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: Increase all opp creature ability cost +{costIncrease}
   eventsThatTriggerThisAbility: 08000000
   isExecutableOnPlaced: 1
   costIncrease: 2

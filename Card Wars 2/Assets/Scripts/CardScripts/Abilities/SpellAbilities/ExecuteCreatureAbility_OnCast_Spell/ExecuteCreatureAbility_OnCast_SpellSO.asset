@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed3f8c6c2f5b55a45ba4d7ca78d26e50, type: 3}
   m_Name: ExecuteCreatureAbility_OnCast_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Execute any creature ability
   castRequirementType: 2
   castSide: 0

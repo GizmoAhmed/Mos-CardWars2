@@ -25,7 +25,7 @@ namespace PlayerStuff
         private GameManager _gameManager;
         
         private MasterDeck _masterDeck;
-
+        
         void Start()
         {
             _gameManager = FindObjectOfType<GameManager>();
@@ -172,7 +172,7 @@ namespace PlayerStuff
             // uses weights to draw based on card rarity
             List<string> randomCardNames = _masterDeck.DebugDeckActive
                 ? GetRandomUniqueCardNames_FromPlayerDeck(offering)   // debug deck: unchanged
-                : _masterDeck.GetWeightedUniqueCardIDs(offering);     // pool mode: weighted
+                : _masterDeck.GetWeightedPicks(offering, _gameManager.CreaturesForOffer(offering));     // pool mode: weighted
 
             drawModal.UpdatePicksLeft(choice);
 
@@ -242,7 +242,7 @@ namespace PlayerStuff
             return result;
         }
 
-        public void DrawStartingHand(int handSize)
+        public void DrawStartingHand(int handSize, int creatureCount)
         {
             if (_masterDeck.debugMode)
             {
@@ -251,9 +251,15 @@ namespace PlayerStuff
                 return;
             }
 
-            // weighted random card
-            List<string> randomCardNames = 
-                _masterDeck.GetWeightedUniqueCardIDs(count: handSize);
+            // weighted random cards, minimum amount of creatures
+            /*List<string> randomCardNames = _masterDeck.GetWeightedPicks(
+                count: handSize,
+                minCreatures: creatureCount);*/
+            
+            // weighted random cards, set amount of creatures
+            List<string> randomCardNames = _masterDeck.GetWeightedPicks_ExactCreatures(
+                totalCount: handSize,
+                setAmountOfCreatures: creatureCount);
 
             // draw those cards
             foreach (string cardName in randomCardNames)

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321aee5a97d0d41418b51799af86248b, type: 3}
   m_Name: UpgradeMaxMagic_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Upgrade max soul +{soulIncrease}
   castRequirementType: 0
   castSide: 0
   soulIncrease: 1

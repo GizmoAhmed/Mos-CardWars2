@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ebfcf050e0a8764db0b6ebf8989a32c, type: 3}
   m_Name: FortifyCreature_ForEachXShardPlayerHas_BuildingSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, fortify +{fortify} this creature for every {perShard}
+    this player has
   eventsThatTriggerThisAbility: 01000000
   isExecutableOnPlaced: 0
   fortify: 2

@@ -207,8 +207,6 @@ namespace CardScripts
             rt.localPosition = start;
             rt.localScale = Vector3.zero;
 
-            Debug.Log($"card world center {worldCenter} | text world {t.transform.position}");
-            Debug.Log($"{name} rect width {cardRect.rect.width}, clickable 147");
             DOTween.Sequence()
                 .SetDelay(_floatStackIndex * 0.15f)
                 .Append(rt.DOScale(1f, 0.2f).SetEase(Ease.OutBack))

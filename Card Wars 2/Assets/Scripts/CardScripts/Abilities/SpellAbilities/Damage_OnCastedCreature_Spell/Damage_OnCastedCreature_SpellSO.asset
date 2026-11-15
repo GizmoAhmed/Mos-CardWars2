@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd87fee8464e994496b153008daa574, type: 3}
   m_Name: Damage_OnCastedCreature_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Deal {damage} to any creature
   castRequirementType: 2
   castSide: 0
   damage: 4

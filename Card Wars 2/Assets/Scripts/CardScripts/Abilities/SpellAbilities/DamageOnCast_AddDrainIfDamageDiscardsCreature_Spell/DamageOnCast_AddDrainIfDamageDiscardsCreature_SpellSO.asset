@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e42425cb70b2c4098fb6dc6681b430, type: 3}
   m_Name: DamageOnCast_AddDrainIfDamageDiscardsCreature_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Deal {damage} to any creature, gain {drainGained} drain if
+    creature destroyed from this damage
   castRequirementType: 2
   castSide: 0
   damage: 3

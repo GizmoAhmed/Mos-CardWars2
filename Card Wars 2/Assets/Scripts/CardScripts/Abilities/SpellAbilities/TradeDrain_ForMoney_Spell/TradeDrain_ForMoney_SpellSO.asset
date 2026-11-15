@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a824d5d5174492f428ea6157c76811a5, type: 3}
   m_Name: TradeDrain_ForMoney_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Lose {drainLoss} drain, earn {shardGain} shards
   castRequirementType: 0
   castSide: 0
   drainLoss: 5

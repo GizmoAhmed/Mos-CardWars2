@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099ab3a4e3bdf1b4298df497662bc2dd, type: 3}
   m_Name: DiscardACreature_DrawStrongerVersion_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Destroy any of your creatures, then redraw a strong version
+    of that creature
   castRequirementType: 2
   castSide: 1
   abilityCostReduction: 1

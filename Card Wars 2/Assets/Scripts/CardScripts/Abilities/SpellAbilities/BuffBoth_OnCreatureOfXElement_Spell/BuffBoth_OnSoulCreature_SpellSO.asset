@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcff04b929c36f042bd6b8cd65c7148a, type: 3}
   m_Name: BuffBoth_OnSoulCreature_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Strengthen (+{strengthen}) and fortify (+{fortify}) any creature
+    of {elementRequirement} element
   castRequirementType: 2
   castSide: 0
   strengthen: 1

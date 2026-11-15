@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797c7188fd7afe345bfd55989d845b44, type: 3}
   m_Name: RedrawCardOnChance_OnDraw_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: '{chance}% to draw a copy of a card that was just drawn'
   eventsThatTriggerThisAbility: 02000000
   isExecutableOnPlaced: 0
   chance: 35

@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e750a59b3c04381a5ded240f6921f4e, type: 3}
   m_Name: BuffBoth_OnCreature_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Strengthen (+{baseStrengthBuffAmount}) and fortify (+{baseDefenseBuffAmount})
+    any creature
   castRequirementType: 2
   castSide: 0
   baseStrengthBuffAmount: 1

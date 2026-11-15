@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b7e958e59a348b45bb26f83b2f59d6d, type: 3}
   m_Name: FortifyAllYourCreatures_OnYourMagicUpgrades_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: When soul is upgraded, fortify +{fortify} all your creatures
   eventsThatTriggerThisAbility: 0d000000
   isExecutableOnPlaced: 0
   fortify: 3

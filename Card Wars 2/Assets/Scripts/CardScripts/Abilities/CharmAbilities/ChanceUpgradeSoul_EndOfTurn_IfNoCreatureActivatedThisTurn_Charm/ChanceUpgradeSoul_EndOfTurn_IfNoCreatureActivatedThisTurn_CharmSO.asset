@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdde53828e46d854ebfdecbf7e8510ef, type: 3}
   m_Name: ChanceUpgradeSoul_EndOfTurn_IfNoCreatureActivatedThisTurn_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, if none of your creatures abilities were used, {chanceToHit}%
+    to upgrade soul +{soulUpgradeAmount}
   eventsThatTriggerThisAbility: 01000000
   isExecutableOnPlaced: 0
   soulUpgradeAmount: 1

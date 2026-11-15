@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf239be85f2c063429334ed315f59682, type: 3}
   m_Name: DoubleBuffsNerfs_OnBoundCreature_RuneSO
   m_EditorClassIdentifier: 
+  abilityDescription: Double buffs and nerfs to this creature
   eventsThatTriggerThisAbility: 
-  isGlobalListener: 0
   isExecutableOnPlaced: 1

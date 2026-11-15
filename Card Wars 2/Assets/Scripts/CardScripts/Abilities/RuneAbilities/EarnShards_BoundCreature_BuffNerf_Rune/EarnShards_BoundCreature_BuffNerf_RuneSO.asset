@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 342905e30a30b484799f15f13d969cc2, type: 3}
   m_Name: EarnShards_BoundCreature_BuffNerf_RuneSO
   m_EditorClassIdentifier: 
+  abilityDescription: Earn or lose shards on creature buff or nerf respectively
   eventsThatTriggerThisAbility: 680000006a000000690000006b000000
   isExecutableOnPlaced: 0

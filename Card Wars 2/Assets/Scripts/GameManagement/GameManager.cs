@@ -36,6 +36,18 @@ namespace GameManagement
         [Header("Starting Hand")]
         public int startingHandSize = 6;
         
+        [Header("Creature Guarantees")]
+        [Min(0)] public int startingHandCreatureCount = 2;
+        [Range(0, 100)] public int offerCreaturePercent = 25; // of cards offered in the draw modal
+
+        // minimum amount of creatures in an offer
+        public int MinCreaturesForOffer(int offered)
+            => Mathf.CeilToInt(offered * offerCreaturePercent / 100f);
+        
+        /// <summary>How many of the offered cards will be creatures.</summary>
+        public int CreaturesForOffer(int offered)
+            => Mathf.RoundToInt(offered * offerCreaturePercent / 100f);
+        
         [Header("Health & Drain")]
         public int health = 30;
         public int drain = 3;
@@ -112,8 +124,8 @@ namespace GameManagement
                 p1.deckCollection.InitializeDeck(masterDeckDb.GetStartingDeck());
                 p2.deckCollection.InitializeDeck(masterDeckDb.GetStartingDeck());
                 
-                p1.deckCollection.DrawStartingHand(startingHandSize);
-                p2.deckCollection.DrawStartingHand(startingHandSize);
+                p1.deckCollection.DrawStartingHand(startingHandSize, startingHandCreatureCount);
+                p2.deckCollection.DrawStartingHand(startingHandSize, startingHandCreatureCount);
             }
         }
 
@@ -200,19 +212,20 @@ namespace GameManagement
             _stats2.health = health + 10;
         }
 
+        [ContextMenu("Win Game")]
         public void GameWin(NetworkConnectionToClient winner)
         {
             Debug.Log($"Player {winner.connectionId} has won the whole game !!!");
         }
 
-        public void Purge()
+        private void Purge()
         {
             Debug.Log($"Purging creatures and buildings");
 
             // todo find object of type, run discard on each
         }
 
-        [ContextMenu("Increase Player 1 Choice")]
+        /*[ContextMenu("Increase Player 1 Choice")]
         public void IncreasePlayer1Choice()
         {
             _stats1.freeCardsChosen += 1;
@@ -246,6 +259,6 @@ namespace GameManagement
         public void IncreasePlayer2DrawsLeft()
         {
             _stats2.freeDrawsLeft += 1;
-        }
+        }*/
     }
 }

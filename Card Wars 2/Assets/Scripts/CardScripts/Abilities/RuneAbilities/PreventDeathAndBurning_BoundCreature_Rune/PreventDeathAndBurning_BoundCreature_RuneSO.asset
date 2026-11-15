@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05d93c1866a05104fa32b9ea813f030d, type: 3}
   m_Name: PreventDeathAndBurning_BoundCreature_RuneSO
   m_EditorClassIdentifier: 
+  abilityDescription: Creature cannot be burned or defeated
   eventsThatTriggerThisAbility: 
-  isGlobalListener: 0
   isExecutableOnPlaced: 1

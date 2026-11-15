@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f33f5d528166841818b8cbeea33f07, type: 3}
   m_Name: ReduceAllYourCreaturesAbilityCost_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: Reduce all your creatures ability cost -{costReduction}
   eventsThatTriggerThisAbility: 08000000
   isExecutableOnPlaced: 1
   costReduction: 1

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106ed1f5cb1c7cb4b915f8227258e66b, type: 3}
   m_Name: DamageOppLane_AtEndOfTurn_RuneSO
   m_EditorClassIdentifier: 
+  abilityDescription: Each turn, damage opp tile equal to this creatures strength,
+    but this creature cannot buff it's stats
   eventsThatTriggerThisAbility: 01000000
-  isGlobalListener: 1
   isExecutableOnPlaced: 1

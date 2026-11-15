@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9130fb691ddd321488ed19c3c5e98828, type: 3}
   m_Name: FortifyAllCreatures_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Foritfy +{fortify} for all your creatures
   castRequirementType: 0
   castSide: 1
   fortify: 3

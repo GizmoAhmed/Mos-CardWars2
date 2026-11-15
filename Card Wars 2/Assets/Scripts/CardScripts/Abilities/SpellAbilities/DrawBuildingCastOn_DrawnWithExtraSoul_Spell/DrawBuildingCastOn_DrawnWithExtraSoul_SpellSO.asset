@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e57461a22817c45b8fbb55630d5ea7, type: 3}
   m_Name: DrawBuildingCastOn_DrawnWithExtraSoul_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Redraw any building, with {extraSoul} extra soul
   castRequirementType: 3
   castSide: 0
   extraSoul: 1

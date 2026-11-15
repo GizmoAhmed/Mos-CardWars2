@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdc361b62f4c6a64681441ac0808a8e2, type: 3}
   m_Name: WhenOppCreatureUsesAbility_ChanceToWeakenIt_CharmSO
   m_EditorClassIdentifier: 
+  abilityDescription: '{chanceToHit}% to weaken -{weaken} on opp creatures use an
+    ability'
   eventsThatTriggerThisAbility: 14000000
   isExecutableOnPlaced: 0
   chanceToHit: 50

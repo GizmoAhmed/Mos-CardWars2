@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629d6a2a11d84a046a02d789950b4f73, type: 3}
   m_Name: RemoveRunes_OnCreature_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: Remove rune(s) from any creature
   castRequirementType: 2
   castSide: 0

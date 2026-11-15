@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f345a98ab2ceebf428691398d7d3a502, type: 3}
   m_Name: BuffOrDestroy_OnChance_SpellSO
   m_EditorClassIdentifier: 
+  abilityDescription: '{chance} to double a random stat on any creature. If missed,
+    destroy, that creature '
   castRequirementType: 2
   castSide: 0
   chance: 50
