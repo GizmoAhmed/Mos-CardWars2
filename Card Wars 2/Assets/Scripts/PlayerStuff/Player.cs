@@ -28,7 +28,7 @@ public class Player : NetworkBehaviour
 
     [Header("Deck & Discard")] public DeckCollection deckCollection;
 
-    private GameManager gameManager;
+    private GameManager _gameManager;
 
     private TurnManager turnManager;
 
@@ -37,7 +37,7 @@ public class Player : NetworkBehaviour
     private ButtonsManager buttonManager;
 
     private DrawModal _drawModal;
-    
+
     private DiscardModal _discardModal;
 
     public override void OnStartClient()
@@ -49,26 +49,26 @@ public class Player : NetworkBehaviour
         deckCollection = GetComponentInChildren<DeckCollection>();
 
         cardPlacer = GetComponentInChildren<CardPlacement>();
-        
+
         cardPlacer.Init();
-        
+
         playerCardTracker = GetComponentInChildren<PlayerCardTracker>();
-        
+
         playerStats = GetComponentInChildren<PlayerStats>();
 
         playerStats.InitUI();
-        
+
         buttonManager = FindAnyObjectByType<ButtonsManager>(FindObjectsInactive.Include);
 
         _drawModal = FindAnyObjectByType<DrawModal>(FindObjectsInactive.Include);
-        
+
         _discardModal = FindAnyObjectByType<DiscardModal>(FindObjectsInactive.Include);
 
         if (_drawModal == null)
         {
             Debug.LogError("Player initiation: No draw modal found");
         }
-        
+
         if (isServer) // must be the host, the first person to join
         {
         }
@@ -76,13 +76,23 @@ public class Player : NetworkBehaviour
         {
             CmdCheckFullLobby();
         }
+
+        if (!FindAnyObjectByType<GameManager>().debugMode) // disable debug elements when not in debug mode
+        {
+            GameObject[] debugElements = GameObject.FindGameObjectsWithTag("Debug");
+
+            foreach (GameObject debugElement in debugElements)
+            {
+                debugElement.SetActive(false);
+            }
+        }
     }
 
     [Command]
     private void CmdCheckFullLobby()
     {
-        gameManager = FindAnyObjectByType<GameManager>();
-        gameManager.FullLobby();
+        _gameManager = FindAnyObjectByType<GameManager>();
+        _gameManager.FullLobby();
     }
 
     [Server]

@@ -14,6 +14,11 @@ namespace GameManagement
         public TurnManager turnManager;
 
         public MasterDeck masterDeckDb;
+        
+        [Header("Deck Mode")]
+        [Tooltip("ON: players draw from the finite Debug Deck (cards are consumed). " +
+                 "OFF: players draw from the full master pool and it never runs out.")]
+        public bool debugMode = true;
 
         [Header("Starting Player Stats")] 
         
@@ -205,11 +210,11 @@ namespace GameManagement
 
             winningPlayer.roundsWon++;
 
-            Purge();
+            // Purge();
 
             // reset health
-            _stats1.health = health + 10; // +10 for now since we aren't purging
-            _stats2.health = health + 10;
+            /*_stats1.health = health + 10; // +10 for now since we aren't purging
+            _stats2.health = health + 10;*/
         }
 
         [ContextMenu("Win Game")]
@@ -218,12 +223,12 @@ namespace GameManagement
             Debug.Log($"Player {winner.connectionId} has won the whole game !!!");
         }
 
-        private void Purge()
+        /*private void Purge()
         {
             Debug.Log($"Purging creatures and buildings");
 
             // todo find object of type, run discard on each
-        }
+        }*/
 
         /*[ContextMenu("Increase Player 1 Choice")]
         public void IncreasePlayer1Choice()

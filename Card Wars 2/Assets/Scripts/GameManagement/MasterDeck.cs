@@ -16,14 +16,9 @@ namespace GameManagement
     /// </summary>
     public class MasterDeck : NetworkBehaviour
     {
-        [Header("Deck Mode")]
-        [Tooltip("ON: players draw from the finite Debug Deck (cards are consumed). " +
-                 "OFF: players draw from the full master pool and it never runs out.")]
-        public bool debugMode = true;
-
         /// <summary>Debug mode only counts in the editor or development builds.</summary>
-        public bool DebugDeckActive => debugMode && (Application.isEditor || Debug.isDebugBuild);
-
+        public bool DebugDeckActive => FindAnyObjectByType<GameManager>().debugMode && (Application.isEditor || Debug.isDebugBuild);
+        
         public List<CardDataSO> debugDeck;
 
         private readonly Dictionary<string, CardDataSO> _allCardsDict = new Dictionary<string, CardDataSO>();

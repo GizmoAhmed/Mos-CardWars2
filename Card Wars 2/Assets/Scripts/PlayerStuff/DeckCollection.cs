@@ -103,7 +103,7 @@ namespace PlayerStuff
         private void DrawTopCardFromDeck(NetworkConnectionToClient conn)
         {
             // don't allow this in release mode
-            if (!_masterDeck.debugMode) return;
+            if (!_gameManager.debugMode) return;
 
             if (myDeckCardIDs.Count == 0)
             {
@@ -130,7 +130,7 @@ namespace PlayerStuff
         private void DrawAllFromDeck(NetworkConnectionToClient conn)
         {
             // don't allow this in release mode
-            if (!_masterDeck.debugMode) return;
+            if (!_gameManager.debugMode) return;
             
             if (myDeckCardIDs.Count == 0)
             {
@@ -244,7 +244,7 @@ namespace PlayerStuff
 
         public void DrawStartingHand(int handSize, int creatureCount)
         {
-            if (_masterDeck.debugMode)
+            if (_gameManager.debugMode)
             {
                 Debug.LogWarning(
                     "Attempted to draw starting hand but <color=orange>refused since in debug mode</color>");
