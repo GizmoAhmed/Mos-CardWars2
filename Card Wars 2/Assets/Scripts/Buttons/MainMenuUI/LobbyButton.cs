@@ -2,54 +2,53 @@ using GameManagement;
 using Mirror;
 using UnityEngine;
 
-public class LobbyButton : MonoBehaviour
+namespace Buttons.MainMenuUI
 {
-    private Room room;
-    private LanDiscovery lan;
-
-    void Awake()
+    public class LobbyButton : MonoBehaviour
     {
-        room = FindObjectOfType<Room>();
-        lan = NetworkManager.singleton != null
-            ? NetworkManager.singleton.GetComponent<LanDiscovery>()
-            : FindObjectOfType<LanDiscovery>();
-    }
+        private Room room;
+        private LanDiscovery lan;
 
-    public void CreateLobby()
-    {
-        room.StartHost(); // Start Server in here moves to lobby scene
-        lan?.Advertise();
-    }
+        void Awake()
+        {
+            room = FindObjectOfType<Room>();
+            lan = NetworkManager.singleton != null
+                ? NetworkManager.singleton.GetComponent<LanDiscovery>()
+                : FindObjectOfType<LanDiscovery>();
+        }
 
-    // joiner, automatic: find a host on the LAN and connect
-    public void FindGame()
-    {
-        lan?.Search();
-    }
+        // button in the lobby online scene
+        public void OnClick_StartGame()
+        {
+            if (!NetworkServer.active || room == null || room.numPlayers != 2) return;
 
-    // joiner, manual fallback: typed address (localhost for ParrelSync)
-    public void JoinLobby(string address)
-    {
-        room.networkAddress = ResolveAddress(address);
-        room.StartClient();
-    }
-
-    private static string ResolveAddress(string typed)
-    {
-#if UNITY_EDITOR
-        // a ParrelSync clone is always testing on the same machine as the host
-        if (ParrelSync.ClonesManager.IsClone())
-            return "localhost";
-#endif
-
-        return string.IsNullOrWhiteSpace(typed) ? "localhost" : typed.Trim();
-    }
-
-    public void StartGame()
-    {
-        if (!NetworkServer.active || room == null || room.numPlayers != 2) return;
-
-        lan?.Stop();   // stop broadcasting before leaving the lobby
-        room.ServerChangeScene(room.GameplayScene); // move to GameBoardV2
+            lan?.Stop();   // stop broadcasting before leaving the lobby
+            room.ServerChangeScene(room.GameplayScene); // move to GameBoardV2
+        }
+    
+        /// <summary>
+        /// Goes from online Lobby, to the offline main menu
+        /// </summary>
+        public void OnClick_ReturnToMainMenu()
+        {
+            if (NetworkServer.active && NetworkClient.isConnected)
+            {
+                // Host (server + client)
+                Debug.Log("Host stopping server and returning to menu...");
+                NetworkManager.singleton.StopHost();
+            }
+            else if (NetworkClient.isConnected)
+            {
+                // Client only (joiner)
+                Debug.Log("Client disconnecting and returning to menu...");
+                NetworkManager.singleton.StopClient();
+            }
+            else
+            {
+                // Offline / already in menu
+                Debug.Log("Already offline, returning to menu scene.");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu_Offline");
+            }
+        }
     }
 }

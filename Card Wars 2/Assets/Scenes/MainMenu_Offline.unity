@@ -476,8 +476,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 387635041}
-        m_TargetAssemblyTypeName: LobbyButton, Assembly-CSharp
-        m_MethodName: CreateLobby
+        m_TargetAssemblyTypeName: Buttons.MainMenuUI.MainMenuButton, Assembly-CSharp
+        m_MethodName: OnClick_CreateLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -534,9 +534,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 387635036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5edef4c94d279a04a940fe426de7d98f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bde9e940887cec40b966e8adbf9661e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  join: {fileID: 0}
 --- !u!1 &392662429
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,7 +590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bde9e940887cec40b966e8adbf9661e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  join: {fileID: 0}
+  join: {fileID: 1860777564}
 --- !u!114 &392662432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,7 +637,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 392662431}
         m_TargetAssemblyTypeName: Buttons.MainMenuUI, Assembly-CSharp
-        m_MethodName: CloseJoinBoard
+        m_MethodName: OnClick_CloseJoinBoard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1478,7 +1479,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1787752860}
         m_TargetAssemblyTypeName: Buttons.MainMenuUI, Assembly-CSharp
-        m_MethodName: OpenJoinBoard
+        m_MethodName: OnClick_OpenJoinBoard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1538,7 +1539,7 @@ GameObject:
   - component: {fileID: 947235526}
   - component: {fileID: 947235525}
   - component: {fileID: 947235524}
-  - component: {fileID: 947235523}
+  - component: {fileID: 947235527}
   m_Layer: 8
   m_Name: FindGameButton
   m_TagString: Untagged
@@ -1566,18 +1567,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -64}
   m_SizeDelta: {x: 325, y: 82.3899}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &947235523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947235521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5edef4c94d279a04a940fe426de7d98f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &947235524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,9 +1611,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 947235523}
-        m_TargetAssemblyTypeName: LobbyButton, Assembly-CSharp
-        m_MethodName: FindGame
+      - m_Target: {fileID: 947235527}
+        m_TargetAssemblyTypeName: Buttons.MainMenuUI.MainMenuButton, Assembly-CSharp
+        m_MethodName: OnClick_FindGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1672,6 +1661,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947235521}
   m_CullTransparentMesh: 1
+--- !u!114 &947235527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947235521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bde9e940887cec40b966e8adbf9661e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  join: {fileID: 0}
 --- !u!1 &1204562910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,8 +1759,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1204562915}
-        m_TargetAssemblyTypeName: LobbyButton, Assembly-CSharp
-        m_MethodName: JoinLobby
+        m_TargetAssemblyTypeName: Buttons.MainMenuUI.MainMenuButton, Assembly-CSharp
+        m_MethodName: OnClick_JoinLobby
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1815,9 +1817,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1204562910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5edef4c94d279a04a940fe426de7d98f, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bde9e940887cec40b966e8adbf9661e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  join: {fileID: 0}
 --- !u!1 &1205642842
 GameObject:
   m_ObjectHideFlags: 0

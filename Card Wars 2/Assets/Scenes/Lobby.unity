@@ -435,7 +435,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 562114700}
-        m_TargetAssemblyTypeName: Buttons.MainMenuUI.MainMenuUI, Assembly-CSharp
+        m_TargetAssemblyTypeName: LobbyButton, Assembly-CSharp
         m_MethodName: OnClick_ReturnToMainMenu
         m_Mode: 1
         m_Arguments:
@@ -493,10 +493,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 562114694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bde9e940887cec40b966e8adbf9661e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5edef4c94d279a04a940fe426de7d98f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  join: {fileID: 0}
 --- !u!1 &969132341
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +547,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusText: {fileID: 969132344}
-  startGameButton: {fileID: 1045598057}
 --- !u!114 &969132344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,7 +748,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1045598064}
         m_TargetAssemblyTypeName: LobbyButton, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: OnClick_StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
