@@ -1,9 +1,6 @@
 using AbilityEvents;
 using CardScripts.Abilities;
 using CardScripts.CardStatss;
-using Extensions;
-using CardScripts.Abilities.AbilityClasses;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 [CreateAssetMenu(
