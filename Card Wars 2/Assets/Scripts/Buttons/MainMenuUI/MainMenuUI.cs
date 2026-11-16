@@ -7,22 +7,26 @@ namespace Buttons.MainMenuUI
     {
         public GameObject join;
 
-        public void OnJoinClick()
+        public void OpenJoinBoard()
         {
             if (join == null)
             {
                 Debug.LogError("Missing Join Field - Set in Inspector");
+                return;
             }
             
             join.SetActive(true);
         }
 
-        public void GoBack()
+        public void CloseJoinBoard()
         {
             transform.parent.gameObject.SetActive(false);
         }
         
-        public void OnExitClicked()
+        /// <summary>
+        /// Goes from online Lobby, to the offline main menu
+        /// </summary>
+        public void OnClick_ReturnToMainMenu()
         {
             if (NetworkServer.active && NetworkClient.isConnected)
             {

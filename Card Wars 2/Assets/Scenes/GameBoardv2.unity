@@ -14876,10 +14876,10 @@ RectTransform:
   - {fileID: 564382902}
   - {fileID: 1411303555}
   - {fileID: 311369674}
+  - {fileID: 810721927}
   - {fileID: 1030213352}
   - {fileID: 474931977}
   - {fileID: 2022051325}
-  - {fileID: 810721927}
   - {fileID: 1543129783}
   - {fileID: 23890951}
   - {fileID: 813621106}
@@ -14929,7 +14929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8324879568673342908, guid: f70d482675b88c84f9452ef0701b5c9e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8324879568673342908, guid: f70d482675b88c84f9452ef0701b5c9e, type: 3}
       propertyPath: m_TagString

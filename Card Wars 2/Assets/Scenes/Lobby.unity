@@ -436,7 +436,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 562114700}
         m_TargetAssemblyTypeName: Buttons.MainMenuUI.MainMenuUI, Assembly-CSharp
-        m_MethodName: OnExitClicked
+        m_MethodName: OnClick_ReturnToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
