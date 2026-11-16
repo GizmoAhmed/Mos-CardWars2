@@ -17,7 +17,7 @@ namespace GameManagement
             currentMatchID = GetRandomMatchID();
             Debug.Log($"Host started with Match ID: {currentMatchID}");
         
-            GameObject joinCode = GameObject.FindWithTag("JoinCode");
+            /*GameObject joinCode = GameObject.FindWithTag("JoinCode");
 
             if (joinCode == null)
             {
@@ -25,7 +25,7 @@ namespace GameManagement
                 return;
             }
         
-            joinCode.GetComponent<TextMeshProUGUI>().text = currentMatchID;
+            joinCode.GetComponent<TextMeshProUGUI>().text = currentMatchID;*/
         }
 
         public override void OnClientConnect()

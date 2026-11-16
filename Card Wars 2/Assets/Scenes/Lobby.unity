@@ -548,6 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusText: {fileID: 969132344}
+  startGameButton: {fileID: 1045598057}
 --- !u!114 &969132344
 MonoBehaviour:
   m_ObjectHideFlags: 0

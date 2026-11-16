@@ -27,13 +27,13 @@ public class LobbyButton : MonoBehaviour
     
     public void StartGame()
     {
-        if (room.numPlayers != 2)
+        if (!NetworkServer.active)
         {
-            Debug.LogWarning($"Cannot start game because there are {room.numPlayers} players in the lobby");
+            Debug.LogWarning($"Cannot start game because this client doesn't see an active server.");
             return;
         }
 
-        if (NetworkServer.active && room != null) // && room.numPlayers == 2)
+        if (NetworkServer.active && room != null && room.numPlayers == 2)
         {
             // server start the gameplay scene, which is GameBoardV2
             room.ServerChangeScene(room.GameplayScene);

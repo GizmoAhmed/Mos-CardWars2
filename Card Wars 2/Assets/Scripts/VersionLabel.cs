@@ -26,10 +26,12 @@ public class VersionLabel : MonoBehaviour
         string text = $"v{Application.version}";
 
         if (Application.isEditor)       // Unity editor (including ParrelSync clones)
-            text += " (editor)";
+            text += " (unity editor)";
         else if (Debug.isDebugBuild)    // Standalone build with Development Build ticked
-            text += " (dev)";
-        // else                         // Release Build
+            text += " (dev build)";
+        else                            // Release Build
+            text += " (release)";
+        
 
         return text;
     }

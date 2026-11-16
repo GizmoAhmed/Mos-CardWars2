@@ -1450,6 +1450,7 @@ GameObject:
   - component: {fileID: 1424736986}
   - component: {fileID: 1424736985}
   - component: {fileID: 1424736984}
+  - component: {fileID: 1424736987}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -1483,7 +1484,7 @@ MonoBehaviour:
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
-  authenticator: {fileID: 0}
+  authenticator: {fileID: 1424736987}
   playerPrefab: {fileID: 7879420104403120485, guid: 5efb24a2cc2784d4db2d1ae8f789dec4, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
@@ -1568,6 +1569,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1424736987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424736983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a522f82dc85cf4abf73dfdee79a6a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnServerAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1431997463
 GameObject:
   m_ObjectHideFlags: 0
