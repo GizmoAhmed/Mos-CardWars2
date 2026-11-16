@@ -1,35 +1,42 @@
+using GameManagement;
 using Mirror;
 using UnityEngine;
 
 public class LobbyButton : MonoBehaviour
 {
-    private Room match;
+    private Room room;
 
     void Awake()
     {
-        match = FindObjectOfType<Room>();
+        room = FindObjectOfType<Room>();
     }
 
     public void CreateLobby()
     {
         Debug.Log("Creating Lobby...");
-        match.StartHost();
+        room.StartHost();
     }
 
     public void JoinLobby()
     {
         Debug.Log("Joining Lobby...");
         // for now, assume localhost
-        match.networkAddress = "localhost"; 
-        match.StartClient();
+        room.networkAddress = "localhost"; 
+        room.StartClient();
     }
     
     public void StartGame()
     {
-        if (NetworkServer.active && match != null && match.numPlayers == 2)
+        if (room.numPlayers != 2)
         {
-            // server start the gameplay scene
-            match.ServerChangeScene(match.GameplayScene);
+            Debug.LogWarning($"Cannot start game because there are {room.numPlayers} players in the lobby");
+            return;
+        }
+
+        if (NetworkServer.active && room != null) // && room.numPlayers == 2)
+        {
+            // server start the gameplay scene, which is GameBoardV2
+            room.ServerChangeScene(room.GameplayScene);
         }
     }
 }
