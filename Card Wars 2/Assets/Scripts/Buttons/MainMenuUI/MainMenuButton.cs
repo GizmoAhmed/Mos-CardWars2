@@ -67,5 +67,14 @@ namespace Buttons.MainMenuUI
 
             return string.IsNullOrWhiteSpace(typed) ? "localhost" : typed.Trim();
         }
+
+        public void OnClick_QuitGame()
+        {
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;   // stops Play mode
+            #else
+                Application.Quit();                                // closes the built game
+            #endif
+        }
     }
 }
