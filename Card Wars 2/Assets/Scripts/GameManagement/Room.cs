@@ -1,11 +1,14 @@
 using Mirror;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GameManagement
 {
     public class Room : NetworkRoomManager
     {
+        private bool _closing;
+        
         [Header("Match Maker Subclass Specifics")]
     
         // store the current match ID
@@ -58,5 +61,31 @@ namespace GameManagement
             return gamePlayer;
         }
 
+        public override void OnServerDisconnect(NetworkConnectionToClient conn)
+        {
+            base.OnServerDisconnect(conn);   // keep the room manager's own cleanup
+
+            // only react in the game itself: a joiner leaving the Lobby should leave the host waiting
+            bool inGame = SceneManager.GetActiveScene().path == GameplayScene;
+
+            // the host's own connection also "disconnects" during StopHost, so ignore that
+            if (!inGame || _closing || conn == NetworkServer.localConnection) return;
+
+            _closing = true;
+            Debug.Log("Opponent left the game, returning host to the menu");
+            Invoke(nameof(CloseGame), 0.5f);   // let the disconnect finish before tearing down
+        }
+
+        private void CloseGame()
+        {
+            DG.Tweening.DOTween.KillAll();     // same cleanup as the Return button
+            StopHost();                        // loads the Offline Scene
+        }
+
+        public override void OnStopHost()
+        {
+            base.OnStopHost();
+            _closing = false;                  // reset for the next game
+        }
     }
 }
