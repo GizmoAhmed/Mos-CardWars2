@@ -25,7 +25,8 @@ namespace CardScripts.CardDisplays
         protected GameObject MainImageObj;
         protected GameObject CardBackObj;
 
-        protected GameObject NameTop;
+        private GameObject _nameBackDrop;
+        private GameObject _nameTopTextObj;
 
         [HideInInspector] public GameObject magicObj;
 
@@ -33,7 +34,7 @@ namespace CardScripts.CardDisplays
 
         public bool infoGrown;
 
-        private CardAnimator _animator; 
+        protected CardAnimator Animator; 
         
         [Header("Rarity Colors")]
         [SerializeField] private Color commonColor   = Color.white;
@@ -58,9 +59,9 @@ namespace CardScripts.CardDisplays
             // find all object variables above
             FindDisplayParts();
             
-            _animator = GetComponent<CardAnimator>();
+            Animator = GetComponent<CardAnimator>();
 
-            if (_animator == null)
+            if (Animator == null)
             {
                 Debug.LogError($"{gameObject.name} Awake: No CardAnimator found for CardDisplay on");
             }
@@ -80,7 +81,7 @@ namespace CardScripts.CardDisplays
             SetImage(MainImageObj, cardData.mainImage);
 
             // Set names
-            SetText(NameTop, cardData.cardName, changeColorOfText_FromDefaultToBlack: true);
+            SetText(_nameTopTextObj, cardData.cardName, changeColorOfText_FromDefaultToBlack: true);
 
             // set description
             GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
@@ -192,8 +193,8 @@ namespace CardScripts.CardDisplays
             // some cascading logic here, if infoObj is find, you can find the rest and so on
             if (InfoObj != null)
             {
-                GameObject nameBackDrop = FindPart("NameBackDrop", InfoObj.transform);
-                NameTop = FindPart("NameTop", nameBackDrop.transform);
+                _nameBackDrop = FindPart("NameBackDrop", InfoObj.transform);
+                _nameTopTextObj = FindPart("NameTop", _nameBackDrop.transform);
 
                 // right >
                 InfoRight = FindPart("InfoRight", InfoObj.transform);
@@ -248,7 +249,7 @@ namespace CardScripts.CardDisplays
         protected virtual void ShowCardFlip(bool up)
         {
             MainImageObj.SetActive(up);
-            NameTop.SetActive(up);
+            _nameTopTextObj.SetActive(up);
 
             if (magicObj != null) // runes and spells don't have this, so don't error if it's not there
             {
@@ -307,7 +308,8 @@ namespace CardScripts.CardDisplays
 
             if (!show && infoGrown) // closing a grown slide: snap it back
             {
-                _animator.ScaleInfoSlide(InfoObj, grow: false, instant: true);
+                Animator.ScaleInfoSlide(_nameBackDrop, grow: false, instant: true);
+                Animator.ScaleInfoSlide(InfoRight, grow: false, instant: true);
                 infoGrown = false;
             }
 
@@ -321,7 +323,8 @@ namespace CardScripts.CardDisplays
         public void OnClick_ScaleInfoSlide()
         {
             infoGrown = !infoGrown;
-            _animator.ScaleInfoSlide(InfoObj, grow: infoGrown);
+            Animator.ScaleInfoSlide(_nameBackDrop, grow: infoGrown);
+            Animator.ScaleInfoSlide(InfoRight, grow: infoGrown);
         }
 
         public void UpdateUI_Soul(int newMagic)

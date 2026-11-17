@@ -127,6 +127,9 @@ namespace CardScripts.CardDisplays
         public override void ToggleInfoSlide(bool toggle = true)
         {
             base.ToggleInfoSlide(toggle);
+            
+            // name and info right are shrunk in the base
+            Animator.ScaleInfoSlide(InfoLeft, grow: false, instant: true);
 
             if (InfoObj.activeInHierarchy &&
                 GetComponentInParent<CardMovement>().cardState == CardMovement.CardState.Field)
@@ -134,7 +137,7 @@ namespace CardScripts.CardDisplays
                 gameObject.transform.SetAsLastSibling();
             }
 
-            if (!toggle) return; // if toggle info on/true, wait i just wanna check sum first...
+            if (!toggle) return; // if toggle info on/true, wait I just want to check sum first...
 
             RuneSlots runeSlots = GetComponentInChildren<RuneSlots>();
             
