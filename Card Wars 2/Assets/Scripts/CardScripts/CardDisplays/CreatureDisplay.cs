@@ -37,11 +37,6 @@ namespace CardScripts.CardDisplays
 
         private CardAnimator anim;
         
-        private void Awake()
-        {
-            FindDisplayParts();
-        }
-
         public override void SetDisplayElements_UsingData(CardStats s)
         {
             // Runs all the shared logic: image, name, description, flip, rarity, info card

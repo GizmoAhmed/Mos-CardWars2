@@ -43,6 +43,11 @@ namespace CardScripts
         private float _lastFloatTime = -10f;
         private int _floatStackIndex;
 
+        [Header("Info Readability Scaling")] 
+        public float infoScaling = 2;
+        private Vector3 _infoBaseScale;
+        private bool _infoBaseStored;
+
         private static RectTransform _effectsLayer;
 
         private static RectTransform EffectsLayer
@@ -272,6 +277,36 @@ namespace CardScripts
             return TryGetComponent<CharmMovement>(out _)
                         ? 1f
                         : (Random.value < 0.5f ? -1f : 1f);
+        }
+        
+        public void ScaleInfoSlide(GameObject obj, bool grow, bool instant = false)
+        {
+            if (infoScaling <= 0f)
+            {
+                Debug.LogError($"infoScaling must be > 0 on {name}");
+                return;
+            }
+
+            // store the starting scale, instead of just assuming the scale will always be vector3.one
+            if (!_infoBaseStored) 
+            {
+                _infoBaseScale = obj.transform.localScale; 
+                _infoBaseStored = true;
+            }
+
+            Vector3 targetScale = grow ? _infoBaseScale * infoScaling : _infoBaseScale;
+
+            obj.transform.DOKill(); // cancel a half-finished tween
+
+            if (instant)
+            {
+                obj.transform.localScale = targetScale;
+                return;
+            }
+
+            obj.transform.DOScale(targetScale, 0.2f)
+                .SetEase(grow ? Ease.OutBack : Ease.OutQuad)   // OutBack overshoots, so only use it to grow
+                .SetLink(obj);
         }
     }
 }

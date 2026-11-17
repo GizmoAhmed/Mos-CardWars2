@@ -4,6 +4,7 @@ using CardScripts.Abilities;
 using CardScripts.CardData;
 using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
+using DG.Tweening;
 using Mirror;
 using TMPro;
 using Unity.VisualScripting;
@@ -29,6 +30,10 @@ namespace CardScripts.CardDisplays
         [HideInInspector] public GameObject magicObj;
 
         private GameObject _backDrop;
+
+        public bool infoGrown;
+
+        private CardAnimator _animator; 
         
         [Header("Rarity Colors")]
         [SerializeField] private Color commonColor   = Color.white;
@@ -52,6 +57,13 @@ namespace CardScripts.CardDisplays
         {
             // find all object variables above
             FindDisplayParts();
+            
+            _animator = GetComponent<CardAnimator>();
+
+            if (_animator == null)
+            {
+                Debug.LogError($"{gameObject.name} Awake: No CardAnimator found for CardDisplay on");
+            }
         }
 
         public virtual void SetDisplayElements_UsingData(CardStats s)
@@ -284,7 +296,8 @@ namespace CardScripts.CardDisplays
             if (!faceUp)
                 return;
 
-            _cardInfoHandler.HandleCardClick(this);
+            // eventually calls ToggleInfoSlide, but needs to turn off any previous slides
+            _cardInfoHandler.HandleCardClick(this); 
         }
 
         public virtual void ToggleInfoSlide(bool show)
@@ -292,11 +305,23 @@ namespace CardScripts.CardDisplays
             if (!faceUp || InfoObj == null)
                 return;
 
+            if (!show && infoGrown) // closing a grown slide: snap it back
+            {
+                _animator.ScaleInfoSlide(InfoObj, grow: false, instant: true);
+                infoGrown = false;
+            }
+
             InfoObj.SetActive(show);
 
             // move card to front, so other stuff can't cover the info
             gameObject.GetComponent<Canvas>().overrideSorting =
                 InfoObj.activeInHierarchy;
+        }
+
+        public void OnClick_ScaleInfoSlide()
+        {
+            infoGrown = !infoGrown;
+            _animator.ScaleInfoSlide(InfoObj, grow: infoGrown);
         }
 
         public void UpdateUI_Soul(int newMagic)

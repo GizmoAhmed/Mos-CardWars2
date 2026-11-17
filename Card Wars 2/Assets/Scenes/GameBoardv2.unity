@@ -6257,6 +6257,7 @@ GameObject:
   - component: {fileID: 810721927}
   - component: {fileID: 810721926}
   - component: {fileID: 810721925}
+  - component: {fileID: 810721928}
   m_Layer: 8
   m_Name: TurnUI
   m_TagString: Untagged
@@ -6380,6 +6381,23 @@ RectTransform:
   m_AnchoredPosition: {x: 656, y: -19}
   m_SizeDelta: {x: 239.6758, y: 98.6928}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &810721928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810721924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2302520324
+  _assetId: 0
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &813621105
 GameObject:
   m_ObjectHideFlags: 0
@@ -9798,7 +9816,7 @@ PrefabInstance:
       objectReference: {fileID: 1243263642205161095, guid: b1efdd37bf1fd294ebafc7890a269737, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: drawModal
@@ -12234,9 +12252,9 @@ MonoBehaviour:
   syncInterval: 0
   debugDeck:
   - {fileID: 11400000, guid: 81e16ca940190cd43bb2028c5f8f012d, type: 2}
+  - {fileID: 11400000, guid: d6a89fa4313e88c4eafd7ada18f69760, type: 2}
   - {fileID: 11400000, guid: 1d4bab05fd6e91f4f888c8853305ef9b, type: 2}
   - {fileID: 11400000, guid: 249de86d13d6cee45bf384b8de6eb555, type: 2}
-  - {fileID: 11400000, guid: d6a89fa4313e88c4eafd7ada18f69760, type: 2}
   - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
   - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
   - {fileID: 11400000, guid: 0f7e2fd70145b1c4c81a997373446d79, type: 2}
@@ -14929,7 +14947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8324879568673342908, guid: f70d482675b88c84f9452ef0701b5c9e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8324879568673342908, guid: f70d482675b88c84f9452ef0701b5c9e, type: 3}
       propertyPath: m_TagString
