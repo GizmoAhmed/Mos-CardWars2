@@ -10,32 +10,32 @@ namespace CardScripts.CardDisplays
 {
     public class CreatureDisplay : CardDisplay
     {
-        private GameObject _element;
+        [Header("Stats UI Objects")]
+        public GameObject strengthObj;
+        public GameObject defenseObj;
+        public GameObject scoreObj;
+        public GameObject elementObj;
 
-        private GameObject _strengthObj;
-        private GameObject _defenseObj;
-        private GameObject _scoreObj;
+        [Header("Ability UI Objects")]
+        public GameObject activateButton;
+        public GameObject abilityCost;
+        public GameObject abilityUses;
 
-        private GameObject _elementObj;
-
-        private GameObject activateButton;
-        private GameObject abilityCost;
-        private GameObject _abilityUses;
-
-        private GameObject _runeTab1;
-        private GameObject _runeText1;
-        private GameObject _runeName1;
-        private GameObject _runeInfoCardIcon1;
+        [Header("Rune UI Objects")]
+        public GameObject runeTab1;
+        public GameObject runeText1;
+        public GameObject runeName1;
+        public GameObject runeInfoCardIcon1;
         
-        private GameObject _runeTab2;
-        private GameObject _runeText2;
-        private GameObject _runeName2;
-        private GameObject _runeInfoCardIcon2;
+        public GameObject runeTab2;
+        public GameObject runeText2;
+        public GameObject runeName2;
+        public GameObject runeInfoCardIcon2;
         
-        private GameObject runeIconFace1;
-        private GameObject runeIconFace2;
+        public GameObject runeIconFace1;
+        public GameObject runeIconFace2;
 
-        private CardAnimator anim;
+        private CardAnimator _anim;
         
         public override void SetDisplayElements_UsingData(CardStats s)
         {
@@ -53,85 +53,41 @@ namespace CardScripts.CardDisplays
                 return;
             }
 
-            anim = FindObjectOfType<CardAnimator>();
+            _anim = FindObjectOfType<CardAnimator>();
 
-            SetImage(_elementObj, creatureData.elementSprite);
+            SetImage(elementObj, creatureData.elementSprite);
 
-            GameObject activateButtonText = activateButton.transform.GetChild(0).gameObject;
-            SetText(activateButtonText, creatureData.abilityCost.ToString());
-            SetText(_abilityUses, 1.ToString()); // start as one
-        }
-
-        protected override void FindDisplayParts()
-        {
-            base.FindDisplayParts();
-
-            _elementObj = FindPart("Element");
-            _strengthObj = FindPart("Attack");
-            _defenseObj = FindPart("Defense");
-            _scoreObj = FindPart("Score");
-
-            GameObject currentRunes = FindPart("CurrentRuneIcons");
-
-            if (InfoObj != null)
-            {
-                activateButton = FindPart("ActivateButton", InfoRight.transform);
-                abilityCost = FindPart("AbilityCostText", activateButton.transform);
-                _abilityUses = FindPart("UsesText", activateButton.transform);
-
-                if (_abilityUses == null)
-                {
-                    Debug.LogError($"ability uses was not found on {gameObject.name}");
-                }
-
-                _runeTab1 = FindPart("RuneTab1", InfoLeft.transform);
-                _runeTab2 = FindPart("RuneTab2", InfoLeft.transform);
-
-                if (_runeTab1 != null)
-                {
-                    _runeText1 = FindPart("RuneDescText1", _runeTab1.transform);
-                    _runeName1 = FindPart("RuneName1", _runeTab1.transform);
-                    _runeInfoCardIcon1 = FindPart("RuneIcon1", _runeTab1.transform);
-                }
-
-                if (_runeTab2 != null)
-                {
-                    _runeText2 = FindPart("RuneDescText2", _runeTab2.transform);
-                    _runeName2 = FindPart("RuneName2", _runeTab2.transform);
-                    _runeInfoCardIcon2 = FindPart("RuneIcon2", _runeTab2.transform);
-                }
-            }
-
-            if (currentRunes != null)
-            {
-                runeIconFace1 = FindPart("CurrentRuneIcon1", currentRunes.transform);
-                runeIconFace2 = FindPart("CurrentRuneIcon2", currentRunes.transform);
-            }
+            SetText(abilityCost, creatureData.abilityCost.ToString());
+            SetText(abilityUses, 1.ToString()); // start as one
         }
 
         protected override void ShowCardFlip(bool up)
         {
             base.ShowCardFlip(up);
 
-            _elementObj.SetActive(up);
+            elementObj.SetActive(up);
 
-            _strengthObj.SetActive(up);
-            _defenseObj.SetActive(up);
-            _scoreObj.SetActive(up);
+            strengthObj.SetActive(up);
+            defenseObj.SetActive(up);
+            scoreObj.SetActive(up);
 
-            magicObj.SetActive(up);
+            soulTextObj.SetActive(up);
 
-            CardBackObj.SetActive(!up);
+            cardBackObj.SetActive(!up);
         }
 
         public override void ToggleInfoSlide(bool toggle = true)
         {
             base.ToggleInfoSlide(toggle);
             
-            // name and info right are shrunk in the base
-            Animator.ScaleInfoSlide(InfoLeft, grow: false, instant: true);
-
-            if (InfoObj.activeInHierarchy &&
+            // name and info right are already adjusted in the base, now do creature specific stuff 
+            Animator.ScaleInfoSlide(runeTab1, grow: false, instant: true);
+            
+            // ↓ todo we want rune tab 2 to scale as well, but it would overlap with the first, since they start off close together
+            // Animator.ScaleInfoSlide(runeTab2, grow: false, instant: true);
+            // mabye transform pos x to the side or something?
+            
+            if (infoObj.activeInHierarchy &&
                 GetComponentInParent<CardMovement>().cardState == CardMovement.CardState.Field)
             {
                 gameObject.transform.SetAsLastSibling();
@@ -143,31 +99,37 @@ namespace CardScripts.CardDisplays
             
             if (runeSlots.currentRune1 == null) // then not runed up
             {
-                _runeTab1.SetActive(false);
-                _runeTab2.SetActive(false);
+                runeTab1.SetActive(false);
+                runeTab2.SetActive(false);
             }
             else if (runeSlots.currentRune1 != null &&
                      runeSlots.currentRune2 == null) // only first rune
             {
-                _runeTab1.SetActive(true);
-                _runeTab2.SetActive(false);
+                runeTab1.SetActive(true);
+                runeTab2.SetActive(false);
             }
             else // assume two runes on this creature
             {
-                _runeTab1.SetActive(true);
-                _runeTab2.SetActive(true);
+                runeTab1.SetActive(true);
+                runeTab2.SetActive(true);
             }
+        }
+
+        public override void OnClick_ScaleInfoSlide()
+        {
+            base.OnClick_ScaleInfoSlide();
+            Animator.ScaleInfoSlide(runeTab1, grow: infoGrown);
         }
 
         public void UpdateUIStrength(int newAttack)
         {
-            SetText(_strengthObj, newAttack.ToString());
+            SetText(strengthObj, newAttack.ToString());
             // Anim.TextPop(_strengthObj);
         }
 
         public void UpdateCardUIDefense(int newDefense)
         {
-            SetText(_defenseObj, newDefense.ToString());
+            SetText(defenseObj, newDefense.ToString());
             // Anim.TextPop(_defenseObj);
         }
 
@@ -175,8 +137,8 @@ namespace CardScripts.CardDisplays
         {
             Transform toAnimate = target switch
             {
-                CreatureStats.AnimTarget.Strength => _strengthObj.transform,
-                CreatureStats.AnimTarget.Defense  => _defenseObj.transform,
+                CreatureStats.AnimTarget.Strength => strengthObj.transform,
+                CreatureStats.AnimTarget.Defense  => defenseObj.transform,
                 _ => null
             };
     
@@ -186,7 +148,7 @@ namespace CardScripts.CardDisplays
                 return null;
             }
     
-            anim.PopTextAnimate(toAnimate, isBuff);
+            _anim.PopTextAnimate(toAnimate, isBuff);
 
             return toAnimate;
         }
@@ -198,7 +160,7 @@ namespace CardScripts.CardDisplays
 
         public void UpdateScoreUI(int newScore)
         {
-            SetText(_scoreObj, newScore.ToString());
+            SetText(scoreObj, newScore.ToString());
         }
 
         public void DisplayRune(GameObject runeToDisplay = null) // optional, if passing null, remove runes
@@ -209,14 +171,14 @@ namespace CardScripts.CardDisplays
                 SetImage(runeIconFace1, null); 
                 SetImage(runeIconFace2, null);
                 
-                SetImage(_runeInfoCardIcon1, null);
-                SetImage(_runeInfoCardIcon2, null);
+                SetImage(runeInfoCardIcon1, null);
+                SetImage(runeInfoCardIcon2, null);
                 
-                SetText(_runeText1, null);
-                SetText(_runeText2, null);
+                SetText(runeText1, null);
+                SetText(runeText2, null);
                 
-                SetText(_runeName1, null);
-                SetText(_runeName2, null);
+                SetText(runeName1, null);
+                SetText(runeName2, null);
                 
                 runeIconFace1.SetActive(false);
                 runeIconFace2.SetActive(false);
@@ -233,11 +195,11 @@ namespace CardScripts.CardDisplays
                 
                 runeIconFace2.SetActive(true);
 
-                InitializeAbilityDescription(_runeText2, runeData.ability);
+                InitializeAbilityDescription(runeText2, runeData.ability);
 
-                SetText(_runeName2, runeData.cardName, changeColorOfText_FromDefaultToBlack: true);
+                SetText(runeName2, runeData.cardName, changeColorOfText_FromDefaultToBlack: true);
                 
-                SetImage(_runeInfoCardIcon2, runeData.mainImage);
+                SetImage(runeInfoCardIcon2, runeData.mainImage);
 
                 return;
             }
@@ -248,17 +210,17 @@ namespace CardScripts.CardDisplays
                 
                 runeIconFace1.SetActive(true);
                 
-                InitializeAbilityDescription(_runeText1, runeData.ability);
+                InitializeAbilityDescription(runeText1, runeData.ability);
                 
-                SetText(_runeName1, runeData.cardName, changeColorOfText_FromDefaultToBlack: true);
+                SetText(runeName1, runeData.cardName, changeColorOfText_FromDefaultToBlack: true);
                 
-                SetImage(_runeInfoCardIcon1, runeData.mainImage);
+                SetImage(runeInfoCardIcon1, runeData.mainImage);
             }
         }
 
         public void UpdateUI_AbilityUsesLeft(int usesLeft)
         {
-            SetText(_abilityUses, usesLeft.ToString(), changeColorOfText_FromDefaultToBlack: true);
+            SetText(abilityUses, usesLeft.ToString(), changeColorOfText_FromDefaultToBlack: true);
         }
     }
 }

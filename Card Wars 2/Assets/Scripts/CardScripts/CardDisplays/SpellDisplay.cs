@@ -6,26 +6,9 @@ namespace CardScripts.CardDisplays
 {
     public class SpellDisplay : CardDisplay
     {
-        private GameObject _usesUIObject;
-        private GameObject _xUIObject;
-
-        protected override void FindDisplayParts()
-        {
-            base.FindDisplayParts();
-            
-            _usesUIObject = FindPart("Uses");
-            _xUIObject = FindPart("x");
-
-            if (_usesUIObject == null)
-            {
-                Debug.LogError($"The Uses UI object is null on {gameObject.name}. Make sure to set it in the <color=blue>inspector</color>");
-            }
-
-            if (_xUIObject == null)
-            {
-                Debug.LogError($"The little x object is null on {gameObject.name}. Make sure to set it in the <color=blue>inspector</color>");
-            }
-        }
+        [Header("Spell UI Objects")]
+        public GameObject usesUIObject;
+        public GameObject xUIObject;
 
         public override void SetDisplayElements_UsingData(CardStats s)
         {
@@ -48,13 +31,13 @@ namespace CardScripts.CardDisplays
         {
             base.ShowCardFlip(up);
             
-            _usesUIObject.SetActive(up);
-            _xUIObject.SetActive(up);
+            usesUIObject.SetActive(up);
+            xUIObject.SetActive(up);
         }
 
         public void UpdateUIUses(int newUses)
         {
-            SetText(_usesUIObject, newUses.ToString());
+            SetText(usesUIObject, newUses.ToString());
         }
     }
 }

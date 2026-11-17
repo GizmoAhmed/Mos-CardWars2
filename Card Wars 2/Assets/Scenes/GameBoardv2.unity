@@ -12255,10 +12255,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d6a89fa4313e88c4eafd7ada18f69760, type: 2}
   - {fileID: 11400000, guid: 1d4bab05fd6e91f4f888c8853305ef9b, type: 2}
   - {fileID: 11400000, guid: 249de86d13d6cee45bf384b8de6eb555, type: 2}
+  - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
   - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
   - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
   - {fileID: 11400000, guid: 0f7e2fd70145b1c4c81a997373446d79, type: 2}
-  - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
   - {fileID: 11400000, guid: bd67f097bf776ff44baee0a04ab5cd20, type: 2}
   masterDeckList: []
   rarityWeights:

@@ -281,7 +281,19 @@ MonoBehaviour:
   syncInterval: 0
   faceUp: 0
   cardData: {fileID: 0}
-  magicObj: {fileID: 0}
+  infoObj: {fileID: 5233284773968988223}
+  mainImageObj: {fileID: 6310508302512046434}
+  cardBackObj: {fileID: 2892391786918922170}
+  backDrop: {fileID: 3308533289107009338}
+  soulTextObj: {fileID: 1899805130875729660}
+  nameBackDrop: {fileID: 5797183322013034519}
+  nameTopTextObj: {fileID: 9026897269813181606}
+  infoRightObj: {fileID: 8937054042856641730}
+  abilityDescBackdrop: {fileID: 3384898521756304412}
+  abilityDescTextObj: {fileID: 3426477876342865648}
+  infoLeftObj: {fileID: 0}
+  burnCostTextObj: {fileID: 154202683152059473}
+  burnButtonObj: {fileID: 8763611855664038971}
   infoGrown: 0
   commonColor: {r: 1, g: 1, b: 1, a: 1}
   uncommonColor: {r: 0.8, g: 1, b: 0.92, a: 1}
@@ -555,7 +567,7 @@ MonoBehaviour:
   defenseColor: {r: 0.9019608, g: 0.3137255, b: 0.3137255, a: 1}
   stackWindow: 0.5
   stackSpacing: 45
-  infoScaling: 2
+  infoScaling: 1.75
 --- !u!1 &480858451546583628
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +580,7 @@ GameObject:
   - component: {fileID: 6518439287558751022}
   - component: {fileID: 8665544696224886999}
   m_Layer: 8
-  m_Name: BurnText (TMP)
+  m_Name: BurnTextDescriptor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,42 +702,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &1032738145185026548
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1234319629770491735}
-  m_Layer: 5
-  m_Name: InfoLeft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1234319629770491735
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032738145185026548}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1009362385028234901}
-  m_Father: {fileID: 7789097926513063734}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1899805130875729660
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,7 +714,7 @@ GameObject:
   - component: {fileID: 2403446835435616488}
   - component: {fileID: 2280692888978864959}
   m_Layer: 5
-  m_Name: Magic
+  m_Name: Soul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1036,7 +1012,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3384898521756304412}
   m_LocalRotation: {x: 0.014472061, y: -0.026121773, z: 0.00037820457, w: 0.999554}
-  m_LocalPosition: {x: 0, y: 0, z: 8.2}
+  m_LocalPosition: {x: 0, y: 0, z: 7.0899296}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1045,9 +1021,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 139, y: 20}
+  m_AnchoredPosition: {x: 78.976074, y: 89.97064}
   m_SizeDelta: {x: 120, y: 140}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &1585390071003819622
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1517,9 +1493,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 377463305581584438}
-  - {fileID: 1234319629770491735}
   - {fileID: 6330901075841656152}
   - {fileID: 833310727750341975}
+  - {fileID: 1009362385028234901}
   m_Father: {fileID: 2210672667692064360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1553,7 +1529,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5797183322013034519}
   m_LocalRotation: {x: 0.014472061, y: -0.026121773, z: 0.00037820457, w: 0.999554}
-  m_LocalPosition: {x: 0, y: 0, z: 13.4}
+  m_LocalPosition: {x: 0, y: 0, z: 17.077263}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1562,9 +1538,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.2, y: 120.3}
+  m_AnchoredPosition: {x: 81.71973, y: 99.358765}
   m_SizeDelta: {x: 164, y: 41.9}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0}
 --- !u!222 &2903728785661259708
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1711,7 +1687,7 @@ RectTransform:
   m_Children:
   - {fileID: 1285271123761822824}
   - {fileID: 4925123837859706351}
-  m_Father: {fileID: 1234319629770491735}
+  m_Father: {fileID: 7789097926513063734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

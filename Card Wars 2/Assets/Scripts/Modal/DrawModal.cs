@@ -103,8 +103,7 @@ namespace Modal
 
             if (_discardModal == null)
             {
-                Debug.LogWarning(
-                    "While opening the draw model, an attempt was made to close the _discardModal, but it wasn't found");
+                // Debug.LogWarning("While opening the draw model, an attempt was made to close the _discardModal, but it wasn't found");
                 return;
             }
 

@@ -1,16 +1,11 @@
-using System;
 using System.Text.RegularExpressions;
 using CardScripts.Abilities;
 using CardScripts.CardData;
 using CardScripts.CardStats_Folder;
-using CardScripts.CardStatss;
-using DG.Tweening;
 using Mirror;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using ColorUtility = UnityEngine.ColorUtility;
 
 // Assigns all the visual stuff from CardDataSO to a card game object this script is attached to
 namespace CardScripts.CardDisplays
@@ -21,17 +16,29 @@ namespace CardScripts.CardDisplays
 
         public CardDataSO cardData;
 
-        // ~~~ Main Stuff shown on backdrop ~~~
-        protected GameObject MainImageObj;
-        protected GameObject CardBackObj;
+        [Header("Main UI Object Refs")]
+        public GameObject infoObj;
+        
+        public GameObject mainImageObj;
+        public GameObject cardBackObj;
+        public GameObject backDrop;
+        public GameObject soulTextObj;
+        
+        [Header("Name Refs")]
+        public GameObject nameBackDrop;
+        public GameObject nameTopTextObj;
+        
+        [Header("Right Info Slide")]
+        public GameObject infoRightObj; // ▼
+        public GameObject abilityDescBackdrop;
+        public GameObject abilityDescTextObj;
 
-        private GameObject _nameBackDrop;
-        private GameObject _nameTopTextObj;
+        [Header("Left Info Slide")]
+        public GameObject infoLeftObj; // ▼
+        public GameObject burnCostTextObj;
+        public GameObject burnButtonObj;
 
-        [HideInInspector] public GameObject magicObj;
-
-        private GameObject _backDrop;
-
+        [Header("Info scaling")]
         public bool infoGrown;
 
         protected CardAnimator Animator; 
@@ -41,24 +48,11 @@ namespace CardScripts.CardDisplays
         [SerializeField] private Color uncommonColor = new Color(0.8f, 1f, 0.92f);
         [SerializeField] private Color rareColor     = new Color(0.4f, 0.7f, 1f);
         [SerializeField] private Color epicColor     = new Color(0.78f, 0.49f, 1f);
-
-        // ~~~ Stuff shown on left and right info cards ~~~
-        protected GameObject InfoObj; // parent of next line ▼
-
-        protected GameObject InfoRight; // ▼
-        protected GameObject AbilityDesc;
-
-        protected GameObject InfoLeft; // ▼
-        private GameObject _burnObj;
-        private GameObject _burnButtonObj;
-
+        
         private CardInfoHandler _cardInfoHandler;
 
         private void Awake()
         {
-            // find all object variables above
-            FindDisplayParts();
-            
             Animator = GetComponent<CardAnimator>();
 
             if (Animator == null)
@@ -78,15 +72,12 @@ namespace CardScripts.CardDisplays
             }
 
             // Set images
-            SetImage(MainImageObj, cardData.mainImage);
+            SetImage(mainImageObj, cardData.mainImage);
 
             // Set names
-            SetText(_nameTopTextObj, cardData.cardName, changeColorOfText_FromDefaultToBlack: true);
-
-            // set description
-            GameObject descTextChild = AbilityDesc.transform.GetChild(0).gameObject; // <-- child of AbilityDesc
+            SetText(nameTopTextObj, cardData.cardName, changeColorOfText_FromDefaultToBlack: true);
             
-            string textUsedForDesc = InitializeAbilityDescription(descTextChild, cardData.ability);
+            string textUsedForDesc = InitializeAbilityDescription(abilityDescTextObj, cardData.ability);
             
             // set syncvar to update on both clients
             // abilityDescription = textUsedForDesc;
@@ -100,7 +91,7 @@ namespace CardScripts.CardDisplays
 
             AddCardRarityColor();
 
-            HideUIElement(InfoObj); // initially hide the info card
+            HideUIElement(infoObj); // initially hide the info card
 
             _cardInfoHandler = FindObjectOfType<CardInfoHandler>();
         }
@@ -162,55 +153,6 @@ namespace CardScripts.CardDisplays
             }
         }
 
-        protected GameObject FindPart(string childName, Transform parent = null)
-        {
-            var searchRoot = parent ?? transform;
-
-            var obj = searchRoot.Find(childName)?.gameObject;
-
-            if (obj == null)
-            {
-                //Debug.LogWarning(
-                //$"Missing {childName} UI Obj on {gameObject.name}. This is a concern if it's a creature, charm, or building that triggered this");
-            }
-
-            return obj;
-        }
-
-        protected virtual void FindDisplayParts()
-        {
-            // main
-            MainImageObj = FindPart("MainImage");
-            CardBackObj = FindPart("CardBack");
-
-            magicObj = FindPart("Magic");
-
-            // info right + left
-            InfoObj = FindPart("Info");
-            
-            _backDrop = FindPart("BackDrop");
-
-            // some cascading logic here, if infoObj is find, you can find the rest and so on
-            if (InfoObj != null)
-            {
-                _nameBackDrop = FindPart("NameBackDrop", InfoObj.transform);
-                _nameTopTextObj = FindPart("NameTop", _nameBackDrop.transform);
-
-                // right >
-                InfoRight = FindPart("InfoRight", InfoObj.transform);
-                AbilityDesc = FindPart("AbilityDesc", InfoRight.transform);
-
-                // left <
-                InfoLeft = FindPart("InfoLeft", InfoObj.transform);
-                _burnButtonObj = FindPart("BurnButton", InfoLeft.transform);
-                _burnObj = FindPart("BurnCostText", _burnButtonObj.transform);
-            }
-            else
-            {
-                Debug.LogWarning($"Missing {InfoObj.name}, can't find the rest of the info");
-            }
-        }
-
         protected void SetImage(GameObject obj, Sprite sprite)
         {
             if (obj != null && obj.TryGetComponent(out Image img))
@@ -248,12 +190,12 @@ namespace CardScripts.CardDisplays
 
         protected virtual void ShowCardFlip(bool up)
         {
-            MainImageObj.SetActive(up);
-            _nameTopTextObj.SetActive(up);
+            mainImageObj.SetActive(up);
+            nameTopTextObj.SetActive(up);
 
-            if (magicObj != null) // runes and spells don't have this, so don't error if it's not there
+            if (soulTextObj != null) // runes and spells don't have this, so don't error if it's not there
             {
-                magicObj.SetActive(up);
+                soulTextObj.SetActive(up);
             }
             else
             {
@@ -261,19 +203,19 @@ namespace CardScripts.CardDisplays
                     $"{gameObject.name} <color=green>successfully</color> avoid null ref on the magic object, because it shouldn't have a magic object, when this flipping card. Double check that this is a <color=cyan>SPELL or RUNE</color>");*/
             }
 
-            CardBackObj.SetActive(!up);
+            cardBackObj.SetActive(!up);
         }
 
         private void AddCardRarityColor()
         {
-            Image backDropImage = _backDrop.GetComponent<Image>();
+            Image backDropImage = backDrop.GetComponent<Image>();
 
             Color color;
 
             switch (cardData.cardRarity)
             {
                 case CardDataSO.Rarity.Common:
-                    color = Color.white;
+                    color = commonColor;
                     break;
                 case CardDataSO.Rarity.Uncommon:
                     color = uncommonColor;
@@ -303,48 +245,48 @@ namespace CardScripts.CardDisplays
 
         public virtual void ToggleInfoSlide(bool show)
         {
-            if (!faceUp || InfoObj == null)
+            if (!faceUp || infoObj == null)
                 return;
 
             if (!show && infoGrown) // closing a grown slide: snap it back
             {
-                Animator.ScaleInfoSlide(_nameBackDrop, grow: false, instant: true);
-                Animator.ScaleInfoSlide(InfoRight, grow: false, instant: true);
+                Animator.ScaleInfoSlide(nameBackDrop, grow: false, instant: true);
+                Animator.ScaleInfoSlide(infoRightObj, grow: false, instant: true);
                 infoGrown = false;
             }
 
-            InfoObj.SetActive(show);
+            infoObj.SetActive(show);
 
             // move card to front, so other stuff can't cover the info
             gameObject.GetComponent<Canvas>().overrideSorting =
-                InfoObj.activeInHierarchy;
+                infoObj.activeInHierarchy;
         }
 
-        public void OnClick_ScaleInfoSlide()
+        public virtual void OnClick_ScaleInfoSlide()
         {
             infoGrown = !infoGrown;
-            Animator.ScaleInfoSlide(_nameBackDrop, grow: infoGrown);
-            Animator.ScaleInfoSlide(InfoRight, grow: infoGrown);
+            Animator.ScaleInfoSlide(nameBackDrop, grow: infoGrown);
+            Animator.ScaleInfoSlide(abilityDescBackdrop, grow: infoGrown);
         }
 
         public void UpdateUI_Soul(int newMagic)
         {
-            if (magicObj != null) // spells have null magic obj 
+            if (soulTextObj != null) // spells have null magic obj 
             {
-                SetText(magicObj, newMagic.ToString());
+                SetText(soulTextObj, newMagic.ToString());
             }
         }
 
         public void UpdateUI_Burn(int newCost)
         {
-            SetText(_burnObj, newCost.ToString());
+            SetText(burnCostTextObj, newCost.ToString());
         }
 
         public void FlipBurn_ToCostFromReturn(int burnCost)
         {
             UpdateUI_Burn(burnCost);
             
-            Button burnButton = _burnButtonObj.GetComponent<Button>();
+            Button burnButton = burnButtonObj.GetComponent<Button>();
             
             ChangeButtonColor(burnButton, Color.red);
         }
