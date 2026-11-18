@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc74177ebf214e89bcc315814ae71b9b, type: 3}
   m_Name: GamblerFallacy_Charm
   m_EditorClassIdentifier: 
-  cardName: GamblerFallacy
+  cardName: GAMBLER FALLACY
   mainImage: {fileID: 21300000, guid: 7c76dcbda4eb1254e8fba8454d37199e, type: 3}
   soul: 3
-  abilityDescription: 
   burnCost: 2
   burnReturn: 3
   ability: {fileID: 11400000, guid: b1d93ce0b307da34da01d069adf87f19, type: 2}

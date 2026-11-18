@@ -250,8 +250,8 @@ namespace CardScripts.CardDisplays
 
             if (!show && infoGrown) // closing a grown slide: snap it back
             {
-                Animator.ScaleInfoSlide(nameBackDrop, grow: false, instant: true);
-                Animator.ScaleInfoSlide(infoRightObj, grow: false, instant: true);
+                Animator.ScaleInfoSlide(nameBackDrop,           grow: false, instant: true);
+                Animator.ScaleInfoSlide(abilityDescBackdrop,    grow: false, instant: true);
                 infoGrown = false;
             }
 
