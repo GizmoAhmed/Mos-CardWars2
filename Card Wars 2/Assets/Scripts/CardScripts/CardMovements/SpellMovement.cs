@@ -187,11 +187,10 @@ namespace CardScripts.CardMovements
             GlobalBroadcast_AnyCardPlacement(); // ...then tell everyone you used this spell
             
             SpellStats stats = GetComponent<SpellStats>();
-            int usesLeft = stats.uses;
             
             RpcPlaceCardOnTile(tile.gameObject);
 
-            if (usesLeft <= 0) // error check, ideally should never get here
+            if (!UsesLeft) // error check, ideally should never get here
             {
                 // I know this is a good error check, because I should never have to comment this if you get what I'm saying
                 Debug.LogError($"CmdPlace in SpellMovement ({gameObject.name}) attempted to decrement a spell that has no uses left, which should have never reached here.");    
@@ -201,16 +200,7 @@ namespace CardScripts.CardMovements
                 // decrement uses, uses -= 1
                 stats.Server_UseSpell_DecrementUses();
 
-                if (!UsesLeft) // spent, discard
-                {
-                    // base.ServerDiscard();
-                    Target_SnapBack(connectionToClient);
-                }
-                else // still got more, move back to hand
-                {
-                    Target_SnapBack(connectionToClient);
-                    // todo make the spell face up
-                }
+                Target_SnapBack(connectionToClient);
             }
         }
 

@@ -301,5 +301,10 @@ namespace CardScripts.CardDisplays
             
             button.colors = cb;
         }
+
+        public void UpdateUI_BurnButtonActivity(bool active)
+        {
+            burnButtonObj.GetComponent<Button>().interactable = active;
+        }
     }
 }

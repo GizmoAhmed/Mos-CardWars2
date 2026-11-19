@@ -26,7 +26,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.DoubleUsageOnRandomSpell_
 
             if (usageRate > 1)
             {
-                spellChosen.uses *= usageRate;
+                spellChosen.UpdateConsumableUses(spellChosen.uses * usageRate, increase: true); 
                 
                 // AnimateAbilityExecute(spellChosen.gameObject);
                 AnimateAbilityExecute(thisCard);

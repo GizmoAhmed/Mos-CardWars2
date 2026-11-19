@@ -35,7 +35,7 @@ namespace CardScripts.CardStats_Folder
         [SyncVar(hook = nameof(Hook_UpdateUIBurnCost))]
         public int burnInHandReturn;
 
-        [SyncVar(hook = nameof(ToggleBurnability))]
+        [SyncVar(hook = nameof(Hook_ToggleBurnability))]
         public bool canBeBurned = true;
 
         [SyncVar]
@@ -188,8 +188,9 @@ namespace CardScripts.CardStats_Folder
             Display.UpdateUI_Burn(newCost);
         }
 
-        public void ToggleBurnability(bool oldValue, bool newValue)
+        public void Hook_ToggleBurnability(bool oldValue, bool newValue)
         {
+            Display.UpdateUI_BurnButtonActivity(newValue);
         }
     }
 }

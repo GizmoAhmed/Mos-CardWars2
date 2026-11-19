@@ -12251,17 +12251,19 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
+  - {fileID: 11400000, guid: 249de86d13d6cee45bf384b8de6eb555, type: 2}
   - {fileID: 11400000, guid: b9c3fd7a9b3dfd34ba2437a93f74d5d4, type: 2}
+  - {fileID: 11400000, guid: 97cc6be107577e54ea7b193187d0c773, type: 2}
   - {fileID: 11400000, guid: 81e16ca940190cd43bb2028c5f8f012d, type: 2}
   - {fileID: 11400000, guid: b2ee02cbdec3a9a4c968b0269f801229, type: 2}
   - {fileID: 11400000, guid: d6a89fa4313e88c4eafd7ada18f69760, type: 2}
   - {fileID: 11400000, guid: 1d4bab05fd6e91f4f888c8853305ef9b, type: 2}
-  - {fileID: 11400000, guid: 249de86d13d6cee45bf384b8de6eb555, type: 2}
   - {fileID: 11400000, guid: 65f9c92212438e145af02919c4a3290e, type: 2}
   - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
   - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
   - {fileID: 11400000, guid: 0f7e2fd70145b1c4c81a997373446d79, type: 2}
   - {fileID: 11400000, guid: bd67f097bf776ff44baee0a04ab5cd20, type: 2}
+  - {fileID: 11400000, guid: 228915c4fac40ce468a32f92b2c8e651, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0

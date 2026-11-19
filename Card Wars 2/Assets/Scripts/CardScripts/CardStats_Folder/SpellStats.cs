@@ -1,3 +1,4 @@
+using System;
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using Mirror;
@@ -55,6 +56,31 @@ namespace CardScripts.CardStats_Folder
             }
         }
 
+        [Server]
+        public void UpdateConsumableUses(int amount, bool increase)
+        {
+            if (increase)
+            {
+                uses += amount;
+            }
+            else
+            {
+                uses -= amount;
+                uses = Math.Max(0, uses); // keep above
+            }
+
+            if (uses == 0) // spent up
+            {
+                // turn off burn
+                canBeBurned = false;
+            }
+            else
+            {
+                // turn on burn
+                canBeBurned = true;
+            }
+        }
+
         /// <summary>
         /// called from server when the uses variable changes, then runs this on both clients
         /// </summary>
@@ -67,7 +93,7 @@ namespace CardScripts.CardStats_Folder
         [Server] // server allows hook to cascade onto client ui
         public void Server_UseSpell_DecrementUses()
         {
-            uses--;
+            UpdateConsumableUses(1, false);
         }
     }
 }
