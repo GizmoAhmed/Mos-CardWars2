@@ -237,22 +237,7 @@ namespace CardScripts.CardStatss
             RpcPopTextAnimate(AnimTarget.Defense, buff);
             score = strength + defense;
         }
-
-        private void CallAnim_ToFloatStatText(int amount, bool buff, Color color)
-        {
-            string textToFloat = amount.ToString();
-            if (buff) // positive
-            {
-                textToFloat = "+ " + textToFloat;
-            }
-            else // nerf? then negative
-            {
-                textToFloat = "- " + textToFloat;
-            }
-
-            anim.FloatStatText(textToFloat, color);
-        }
-
+        
         private void GlobalBroadCastStatChange(int amount, bool buff, bool str)
         {
             if (GlobalAbilityEventManager.GlobalAbilityManagerInstance != null)

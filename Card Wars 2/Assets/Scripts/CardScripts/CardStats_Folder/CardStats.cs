@@ -171,6 +171,21 @@ namespace CardScripts.CardStats_Folder
         {
             Display?.PopTextAnimate(target, isBuff);
         }
+        
+        protected void CallAnim_ToFloatStatText(int amount, bool buff, Color color)
+        {
+            string textToFloat = amount.ToString();
+            if (buff) // positive
+            {
+                textToFloat = "+ " + textToFloat;
+            }
+            else // nerf? then negative
+            {
+                textToFloat = "- " + textToFloat;
+            }
+
+            anim.FloatStatText(textToFloat, color);
+        }
 
         /// <summary>
         /// Call to change a cards soul when it's on the field
@@ -193,6 +208,11 @@ namespace CardScripts.CardStats_Folder
             }
             
             RpcPopTextAnimate(AnimTarget.Soul, true); // pop soul text 
+            
+            bool buff = diff >= 0 ? true : false;
+            CallAnim_ToFloatStatText(Math.Abs(diff), buff,new Color32(87, 169, 108, 255));
+            
+            // absolute here since diff can be negative, which is not the same for strength and defense
         }
 
         public void Hook_UpdateSoulUI_OnBothClients(int oldMagic, int newSoul)
