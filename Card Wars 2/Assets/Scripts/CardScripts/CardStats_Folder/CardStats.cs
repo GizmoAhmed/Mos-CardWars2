@@ -40,6 +40,15 @@ namespace CardScripts.CardStats_Folder
 
         [SyncVar]
         public bool canBeHandSold = true;
+        
+        public enum AnimTarget
+        {
+            Strength,
+            Defense,
+            Soul,
+            AbilityCost,
+            BurnCost
+        }
 
         protected virtual void Awake()
         {
@@ -156,6 +165,12 @@ namespace CardScripts.CardStats_Folder
             burnCost = cardData.burnCost;
             burnInHandReturn = _masterDeck.GetBurnReturn(cardData); // get burn return for this rarity
         }
+        
+        [ClientRpc]
+        protected void RpcPopTextAnimate(AnimTarget target, bool isBuff)
+        {
+            Display?.PopTextAnimate(target, isBuff);
+        }
 
         /// <summary>
         /// Call to change a cards soul when it's on the field
@@ -176,6 +191,8 @@ namespace CardScripts.CardStats_Folder
                 move.thisCardOwnerPlayerStats.AdjustPlayerCurrentSoul_ViaPlacement(usingSoul: true, amount: diff);
                 // move.thisCardOwnerPlayerStats.currentSoul -= diff;
             }
+            
+            RpcPopTextAnimate(AnimTarget.Soul, true); // pop soul text 
         }
 
         public void Hook_UpdateSoulUI_OnBothClients(int oldMagic, int newSoul)

@@ -306,5 +306,22 @@ namespace CardScripts.CardDisplays
         {
             burnButtonObj.GetComponent<Button>().interactable = active;
         }
+        
+        public virtual void PopTextAnimate(CardStats.AnimTarget target, bool isBuff = true)
+        {
+            Transform toAnimate = target switch
+            {
+                CardStats.AnimTarget.Soul => soulTextObj.transform,
+                _ => null
+            };
+    
+            if (toAnimate == null)
+            {
+                Debug.LogWarning($"No transform found for {target}");
+            }
+    
+            Animator.PopTextAnimate(toAnimate, isBuff);
+
+        }
     }
 }

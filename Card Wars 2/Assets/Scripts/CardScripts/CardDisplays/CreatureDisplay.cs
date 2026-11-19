@@ -34,8 +34,6 @@ namespace CardScripts.CardDisplays
         
         public GameObject runeIconFace1;
         public GameObject runeIconFace2;
-
-        private CardAnimator _anim;
         
         public override void SetDisplayElements_UsingData(CardStats s)
         {
@@ -52,9 +50,7 @@ namespace CardScripts.CardDisplays
                 Debug.LogError($"CardData is not a CreatureDataSO on {gameObject.name}");
                 return;
             }
-
-            _anim = FindObjectOfType<CardAnimator>();
-
+            
             SetImage(elementObj, creatureData.elementSprite);
 
             SetText(abilityCost, creatureData.abilityCost.ToString());
@@ -133,24 +129,23 @@ namespace CardScripts.CardDisplays
             // Anim.TextPop(_defenseObj);
         }
 
-        public Transform PopTextAnimate(CreatureStats.AnimTarget target, bool isBuff = true)
+        public override void PopTextAnimate(CardStats.AnimTarget target, bool isBuff = true)
         {
+            base.PopTextAnimate(target, isBuff); // strength and defense
+            
             Transform toAnimate = target switch
             {
-                CreatureStats.AnimTarget.Strength => strengthObj.transform,
-                CreatureStats.AnimTarget.Defense  => defenseObj.transform,
+                CardStats.AnimTarget.Strength => strengthObj.transform,
+                CardStats.AnimTarget.Defense  => defenseObj.transform,
                 _ => null
             };
     
             if (toAnimate == null)
             {
                 Debug.LogWarning($"No transform found for {target}");
-                return null;
             }
     
-            _anim.PopTextAnimate(toAnimate, isBuff);
-
-            return toAnimate;
+            Animator.PopTextAnimate(toAnimate, isBuff);
         }
         
         public void UpdateUI_AbilityCost(int newCost)

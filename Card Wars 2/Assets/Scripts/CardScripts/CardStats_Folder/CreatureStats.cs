@@ -60,15 +60,6 @@ namespace CardScripts.CardStatss
         [SyncVar] public int canBuffDefense = 0;
         // [SyncVar] public bool canBeBuffed = true;
 
-        public enum AnimTarget
-        {
-            Strength,
-            Defense,
-            Soul,
-            AbilityCost,
-            BurnCost
-        }
-
         protected override void Awake()
         {
             base.Awake(); // set base display 
@@ -300,13 +291,7 @@ namespace CardScripts.CardStatss
                     $"<color=Orange>Failed Stat Change Broadcast</color> {name} couldn't find the GlobalAbilityEventManage Instance");
             }
         }
-
-        [ClientRpc]
-        private void RpcPopTextAnimate(AnimTarget target, bool isBuff)
-        {
-            _creatureDisplay?.PopTextAnimate(target, isBuff);
-        }
-
+        
         [Server]
         public void ChangeAbilityCost(int amount, bool increase)
         {
