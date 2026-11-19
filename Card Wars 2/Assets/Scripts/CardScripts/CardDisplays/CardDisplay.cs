@@ -277,14 +277,14 @@ namespace CardScripts.CardDisplays
             }
         }
 
-        public void UpdateUI_Burn(int newCost)
+        public void UpdateUI_Burn(int newCost, string prefix = "+")
         {
-            SetText(burnCostTextObj, newCost.ToString());
+            SetText(burnCostTextObj, prefix + newCost);
         }
 
         public void FlipBurn_ToCostFromReturn(int burnCost)
         {
-            UpdateUI_Burn(burnCost);
+            UpdateUI_Burn(burnCost, "-"); // use minus when placing on baord, to indicate that you will lose shards now if you burn
             
             Button burnButton = burnButtonObj.GetComponent<Button>();
             
