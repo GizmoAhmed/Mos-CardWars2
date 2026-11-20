@@ -1,264 +1,272 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Buttons;
 using Mirror;
 using Modal;
-using PlayerStuff;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerStats))]
-public class PlayerUI : NetworkBehaviour
+namespace PlayerStuff
 {
-    [Header("Magic")] private GameObject _magic1;
-    private GameObject _magic2;
-    private readonly Color _soulGreen = new Color32(87, 169, 108, 255); // 0-255 constructor
-
-    [Header("Money")] private GameObject _money1;
-    private GameObject _money2;
-
-    [Header("Draws")] private GameObject _drawsLeft;
-    private GameObject _drawModalUI;
-
-    [Header("Score")] private GameObject _score1;
-    private GameObject _score2;
-
-    [Header("Health")] private GameObject _health1;
-    private GameObject _health2;
-    private GameObject _drain1;
-    private GameObject _drain2;
-
-    [Header("Rounds")] private GameObject _rounds1;
-    private GameObject _rounds2;
-    public GameObject winDotSprite;
-
-    [Header("Upgrade Cost")] private GameObject _costText;
-
-    private PlayerStats stats;
-
-    [Header("Opponent UI")] private GameObject _freeDrawsUIObj;
-    private const string FREE_DRAWS_PREFIX = "FREE DRAWS: ";
-    private GameObject _choicesTextObj;
-    private GameObject _offeringsTextObj;
-    private GameObject _oppUpgradeCostTextObj;
-
-    public void Init(PlayerStats s)
+    [RequireComponent(typeof(PlayerStats))]
+    [RequireComponent(typeof(PlayerAnimator))]
+    public class PlayerUI : NetworkBehaviour
     {
-        stats = s;
-        FindAllUI();
-    }
+        [Header("Magic")] private GameObject _magic1;
+        private GameObject _magic2;
+        private readonly Color _soulGreen = new Color32(87, 169, 108, 255); // 0-255 constructor
 
-    private GameObject SafeFind(string objectName)
-    {
-        var obj = GameObject.Find(objectName);
-        if (obj == null)
-            Debug.LogWarning($"UI elementSprite '{objectName}' not found!");
-        return obj;
-    }
+        [Header("Money")] private GameObject _money1;
+        private GameObject _money2;
 
-    private void FindAllUI()
-    {
-        _magic1 = SafeFind("Magic1");
-        _magic2 = SafeFind("Magic2");
-        _money1 = SafeFind("Money1");
-        _money2 = SafeFind("Money2");
-        _health1 = SafeFind("Health1");
-        _health2 = SafeFind("Health2");
-        _score1 = SafeFind("Score1");
-        _score2 = SafeFind("Score2");
-        _drawsLeft = GameObject.FindGameObjectWithTag("DrawsLeft");
-        _rounds1 = SafeFind("Rounds1");
-        _rounds2 = SafeFind("Rounds2");
-        _costText = SafeFind("CostText");
-        _drain1 = SafeFind("Drain1");
-        _drain2 = SafeFind("Drain2");
+        [Header("Draws")] private GameObject _drawsLeft;
+        private GameObject _drawModalUI;
 
-        // opponents ui
-        _freeDrawsUIObj = SafeFind("_FreeDraws");
-        _offeringsTextObj = SafeFind("Y_Offerings");
-        _choicesTextObj = SafeFind("X_Choices");
-        _oppUpgradeCostTextObj = SafeFind("OppUpgradeCost");
+        [Header("Score")] private GameObject _score1;
+        private GameObject _score2;
 
-        _drawModalUI = FindObjectOfType<DrawButton>().drawModalObj;
+        [Header("Health")] private GameObject _health1;
+        private GameObject _health2;
+        private GameObject _drain1;
+        private GameObject _drain2;
 
-        if (_drawModalUI == null)
+        [Header("Rounds")] private GameObject _rounds1;
+        private GameObject _rounds2;
+        public GameObject winDotSprite;
+
+        [Header("Upgrade Cost")] private GameObject _costText;
+
+        private PlayerStats _stats;
+        private PlayerAnimator _playerAnimator;
+
+        [Header("Opponent UI")] private GameObject _freeDrawsUIObj;
+        private const string FREE_DRAWS_PREFIX = "FREE DRAWS: ";
+        private GameObject _choicesTextObj;
+        private GameObject _offeringsTextObj;
+        private GameObject _oppUpgradeCostTextObj;
+
+        public void Init(PlayerStats s)
         {
-            Debug.LogError("_drawModalUI is null");
-        }
-    }
-
-    public void PlayerSoulUseUIUpdate(int magic, bool current_max, bool goingUnder = false)
-    {
-        // soulUse 1 or 2
-        TextMeshProUGUI magicText =
-            (isOwned) ? _magic1.GetComponent<TextMeshProUGUI>() : _magic2.GetComponent<TextMeshProUGUI>();
-
-        if (magicText == null)
-        {
-            Debug.LogError($"UI elementSprite '{magicText}' not found!");
-            return;
+            _stats = s;
+            _playerAnimator = GetComponent<PlayerAnimator>();
+            FindAllUI();
         }
 
-        if (stats == null)
+        private GameObject SafeFind(string objectName)
         {
-            Debug.LogError("Stats component not found on this UI component!");
-            return;
+            var obj = GameObject.Find(objectName);
+            if (obj == null)
+                Debug.LogWarning($"UI elementSprite '{objectName}' not found!");
+            return obj;
         }
 
-        magicText.text = (current_max) ? magic + " / " + stats.maxSoul : stats.currentSoul + " / " + magic;
-
-        if (stats.currentSoul < 0) // oversouled
+        // todo remove this function, and instead do this:
+        // 
+        // Creature a game references script on both 'ThisPlayer(1)' and 'ThatPlayer(2)'
+        // that holds all of these that you can set in the scene
+        private void FindAllUI()
         {
-            magicText.color = Color.red;
-        }
-        else
-        {
-            magicText.color = _soulGreen;
-        }
-    }
+            _magic1 = SafeFind("Magic1");
+            _magic2 = SafeFind("Magic2");
+            _money1 = SafeFind("Money1");
+            _money2 = SafeFind("Money2");
+            _health1 = SafeFind("Health1");
+            _health2 = SafeFind("Health2");
+            _score1 = SafeFind("Score1");
+            _score2 = SafeFind("Score2");
+            _drawsLeft = GameObject.FindGameObjectWithTag("DrawsLeft");
+            _rounds1 = SafeFind("Rounds1");
+            _rounds2 = SafeFind("Rounds2");
+            _costText = SafeFind("CostText");
+            _drain1 = SafeFind("Drain1");
+            _drain2 = SafeFind("Drain2");
 
-    public void MoneyUIUpdate(int newMoney)
-    {
-        TextMeshProUGUI moneyText =
-            (isOwned) ? _money1.GetComponent<TextMeshProUGUI>() : _money2.GetComponent<TextMeshProUGUI>();
+            // opponents ui
+            _freeDrawsUIObj = SafeFind("_FreeDraws");
+            _offeringsTextObj = SafeFind("Y_Offerings");
+            _choicesTextObj = SafeFind("X_Choices");
+            _oppUpgradeCostTextObj = SafeFind("OppUpgradeCost");
 
-        moneyText.text = newMoney.ToString();
-    }
+            _drawModalUI = FindObjectOfType<DrawButton>().drawModalObj;
 
-    public void FreeDrawsUpdate(int draws)
-    {
-        if (!isOwned) // opponent 
-        {
-            _freeDrawsUIObj.GetComponent<TextMeshProUGUI>().text = FREE_DRAWS_PREFIX.ToUpper() + draws;
-        }
-        else // you
-        {
             if (_drawModalUI == null)
             {
-                Debug.LogError("_drawModalUI is null for some reason");
+                Debug.LogError("_drawModalUI is null");
+            }
+        }
+
+        public void PlayerSoulUseUIUpdate(int magic, bool current_max, bool goingUnder = false)
+        {
+            // soulUse 1 or 2
+            TextMeshProUGUI magicText =
+                (isOwned) ? _magic1.GetComponent<TextMeshProUGUI>() : _magic2.GetComponent<TextMeshProUGUI>();
+
+            if (magicText == null)
+            {
+                Debug.LogError($"UI elementSprite '{magicText}' not found!");
                 return;
             }
 
-            _drawModalUI.GetComponent<DrawModal>().SetFreeDrawsLeft(draws);
-        }
-    }
-
-    public void FreeChoiceUIUpdate(int choice)
-    {
-        if (!isOwned) // opponent
-        {
-            _choicesTextObj.GetComponent<TextMeshProUGUI>().text = choice.ToString();
-        }
-        else
-        {
-            if (_drawModalUI == null)
+            if (_stats == null)
             {
-                Debug.LogError("_drawModalUI is null for some reason");
+                Debug.LogError("Stats component not found on this UI component!");
                 return;
             }
 
-            _drawModalUI.GetComponent<DrawModal>().SetFreeChoice(choice);
-        }
-    }
+            magicText.text = (current_max) ? magic + " / " + _stats.maxSoul : _stats.currentSoul + " / " + magic;
 
-    public void FreeOfferUIUpdate(int offer)
-    {
-        if (!isOwned) // opponent
-        {
-            _offeringsTextObj.GetComponent<TextMeshProUGUI>().text = offer.ToString();
-        }
-        else
-        {
-            if (_drawModalUI == null)
+            if (_stats.currentSoul < 0) // oversouled
             {
-                Debug.LogError("_drawModalUI is null for some reason");
-                return;
-            }
-
-            _drawModalUI.GetComponent<DrawModal>().SetFreeOffer(offer);
-        }
-    }
-
-    public void PlayerScoreUIUpdate(int newScore)
-    {
-        TextMeshProUGUI scoreText =
-            (isOwned) ? _score1.GetComponent<TextMeshProUGUI>() : _score2.GetComponent<TextMeshProUGUI>();
-
-        scoreText.text = newScore.ToString();
-    }
-
-    public void HealthUIUpdate(int newHealth)
-    {
-        TextMeshProUGUI healthText =
-            (isOwned) ? _health1.GetComponent<TextMeshProUGUI>() : _health2.GetComponent<TextMeshProUGUI>();
-
-        healthText.text = newHealth.ToString();
-    }
-
-    public void DrainUIUpdate(int newDrain)
-    {
-        TextMeshProUGUI drainText =
-            (isOwned) ? _drain1.GetComponent<TextMeshProUGUI>() : _drain2.GetComponent<TextMeshProUGUI>();
-
-        drainText.text = newDrain.ToString();
-    }
-
-    public void RoundsUIUpdate(int newRounds)
-    {
-        GameObject roundsParent = (isOwned) ? _rounds1 : _rounds2;
-
-        for (int i = 0; i < roundsParent.transform.childCount; i++)
-        {
-            Transform child = roundsParent.transform.GetChild(i);
-            Image bubbleImage = child.GetComponent<Image>();
-
-            if (bubbleImage != null)
-            {
-                if (i < newRounds)
-                {
-                    bubbleImage.color = Color.green;
-                }
-                else
-                {
-                    bubbleImage.color = Color.white;
-                }
-            }
-        }
-    }
-
-    public void UpgradeUIUpdate(int cost)
-    {
-        if (!isOwned) // opponent
-        {
-            _oppUpgradeCostTextObj.GetComponent<TextMeshProUGUI>().text = cost.ToString();
-        }
-        else // you
-        {
-            TextMeshProUGUI c = _costText.GetComponent<TextMeshProUGUI>();
-
-            c.text = cost.ToString();
-        }
-    }
-
-    public void PopulateWinDots(int numberOfRoundsToWin)
-    {
-        if (winDotSprite == null)
-        {
-            Debug.LogError("Win sprite object not set on player UI");
-            return;
-        }
-
-        for (int i = 0; i < numberOfRoundsToWin; i++)
-        {
-            if (isOwned)
-            {
-                Instantiate(winDotSprite, _rounds1.transform);
+                magicText.color = Color.red;
             }
             else
             {
-                Instantiate(winDotSprite, _rounds2.transform);
+                magicText.color = _soulGreen;
+            }
+        }
+
+        public void MoneyUIUpdate(int newMoney)
+        {
+            TextMeshProUGUI moneyText =
+                (isOwned) ? _money1.GetComponent<TextMeshProUGUI>() : _money2.GetComponent<TextMeshProUGUI>();
+
+            moneyText.text = newMoney.ToString();
+        
+            _playerAnimator.PopTextAnimate(moneyText.gameObject.transform);
+        }
+
+        public void FreeDrawsUpdate(int draws)
+        {
+            if (!isOwned) // opponent 
+            {
+                _freeDrawsUIObj.GetComponent<TextMeshProUGUI>().text = FREE_DRAWS_PREFIX.ToUpper() + draws;
+            }
+            else // you
+            {
+                if (_drawModalUI == null)
+                {
+                    Debug.LogError("_drawModalUI is null for some reason");
+                    return;
+                }
+
+                _drawModalUI.GetComponent<DrawModal>().SetFreeDrawsLeft(draws);
+            }
+        }
+
+        public void FreeChoiceUIUpdate(int choice)
+        {
+            if (!isOwned) // opponent
+            {
+                _choicesTextObj.GetComponent<TextMeshProUGUI>().text = choice.ToString();
+            }
+            else
+            {
+                if (_drawModalUI == null)
+                {
+                    Debug.LogError("_drawModalUI is null for some reason");
+                    return;
+                }
+
+                _drawModalUI.GetComponent<DrawModal>().SetFreeChoice(choice);
+            }
+        }
+
+        public void FreeOfferUIUpdate(int offer)
+        {
+            if (!isOwned) // opponent
+            {
+                _offeringsTextObj.GetComponent<TextMeshProUGUI>().text = offer.ToString();
+            }
+            else
+            {
+                if (_drawModalUI == null)
+                {
+                    Debug.LogError("_drawModalUI is null for some reason");
+                    return;
+                }
+
+                _drawModalUI.GetComponent<DrawModal>().SetFreeOffer(offer);
+            }
+        }
+
+        public void PlayerScoreUIUpdate(int newScore)
+        {
+            TextMeshProUGUI scoreText =
+                (isOwned) ? _score1.GetComponent<TextMeshProUGUI>() : _score2.GetComponent<TextMeshProUGUI>();
+
+            scoreText.text = newScore.ToString();
+        }
+
+        public void HealthUIUpdate(int newHealth)
+        {
+            TextMeshProUGUI healthText =
+                (isOwned) ? _health1.GetComponent<TextMeshProUGUI>() : _health2.GetComponent<TextMeshProUGUI>();
+
+            healthText.text = newHealth.ToString();
+        }
+
+        public void DrainUIUpdate(int newDrain)
+        {
+            TextMeshProUGUI drainText =
+                (isOwned) ? _drain1.GetComponent<TextMeshProUGUI>() : _drain2.GetComponent<TextMeshProUGUI>();
+
+            drainText.text = newDrain.ToString();
+        }
+
+        public void RoundsUIUpdate(int newRounds)
+        {
+            GameObject roundsParent = (isOwned) ? _rounds1 : _rounds2;
+
+            for (int i = 0; i < roundsParent.transform.childCount; i++)
+            {
+                Transform child = roundsParent.transform.GetChild(i);
+                Image bubbleImage = child.GetComponent<Image>();
+
+                if (bubbleImage != null)
+                {
+                    if (i < newRounds)
+                    {
+                        bubbleImage.color = Color.green;
+                    }
+                    else
+                    {
+                        bubbleImage.color = Color.white;
+                    }
+                }
+            }
+        }
+
+        public void UpgradeUIUpdate(int cost)
+        {
+            if (!isOwned) // opponent
+            {
+                _oppUpgradeCostTextObj.GetComponent<TextMeshProUGUI>().text = cost.ToString();
+            }
+            else // you
+            {
+                TextMeshProUGUI c = _costText.GetComponent<TextMeshProUGUI>();
+
+                c.text = cost.ToString();
+            }
+        }
+
+        public void PopulateWinDots(int numberOfRoundsToWin)
+        {
+            if (winDotSprite == null)
+            {
+                Debug.LogError("Win sprite object not set on player UI");
+                return;
+            }
+
+            for (int i = 0; i < numberOfRoundsToWin; i++)
+            {
+                if (isOwned)
+                {
+                    Instantiate(winDotSprite, _rounds1.transform);
+                }
+                else
+                {
+                    Instantiate(winDotSprite, _rounds2.transform);
+                }
             }
         }
     }
