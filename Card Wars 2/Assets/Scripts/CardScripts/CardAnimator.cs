@@ -22,7 +22,14 @@ namespace CardScripts
         [Header("Floating Text")] [SerializeField]
         private TextMeshProUGUI floatingTextPrefab; // simple TMP text prefab
 
-        [SerializeField] private float fadeOutDuration = 1.4f;
+        [Tooltip("How long it takes for text to fade out")]
+        [SerializeField] private float floatTextFadeOutDuration = 1.4f;
+        
+        [Tooltip("How high the text floats from the starting anchor")]
+        [SerializeField] private float floatHeight = 80f;
+        
+        [Tooltip("How long the text takes to rise in seconds")]
+        [SerializeField] private float floatDuration = 1.1f;
 
         [Header("Roll Chance Colors")] [SerializeField]
         private Color hitColor = new Color32(80, 220, 120, 255);
@@ -102,7 +109,7 @@ namespace CardScripts
         {
             if (target == null)
             {
-                Debug.LogWarning("PopAnimate: target is null!");
+                // Debug.LogWarning("PopAnimate: target is null!");
                 return;
             }
 
@@ -110,7 +117,7 @@ namespace CardScripts
             target.localScale = Vector3.one;
 
             target.DOPunchScale(
-                punch: Vector3.one * 0.75f, // todo increase punch depending on amount buffed
+                punch: Vector3.one * 0.95f, // todo increase punch depending on amount buffed
                 duration: 0.5f,
                 vibrato: 1,
                 elasticity: 0.6f
@@ -215,8 +222,8 @@ namespace CardScripts
             DOTween.Sequence()
                 .SetDelay(_floatStackIndex * 0.15f)
                 .Append(rt.DOScale(1f, 0.2f).SetEase(Ease.OutBack))
-                .Join(rt.DOLocalMoveY(start.y + 80f, 1.1f).SetEase(Ease.OutCubic))
-                .Insert(0.8f, cg.DOFade(0f, fadeOutDuration))
+                .Join(rt.DOLocalMoveY(start.y + floatHeight, floatDuration).SetEase(Ease.OutCubic))
+                .Insert(0.8f, cg.DOFade(0f, floatTextFadeOutDuration))
                 .OnComplete(() => Destroy(t.gameObject))
                 .SetLink(t.gameObject);
         }

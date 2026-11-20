@@ -391,27 +391,27 @@ namespace PlayerStuff
 
             if (currentSoul < 0)
             {
-                ui.PlayerSoulUseUIUpdate(newMagic, current_max: true, goingUnder: true);
+                ui.PlayerSoulUseUIUpdate(oldMagic, newMagic, updatingCurrentSoul: true, goingUnder: true);
                 return;
             }
 
-            ui.PlayerSoulUseUIUpdate(newMagic, current_max: true);
+            ui.PlayerSoulUseUIUpdate(oldMagic, newMagic, updatingCurrentSoul: true);
         }
 
         public void Hook_PlayerMaxSoulUIUpdate(int oldMagic, int newMagic)
         {
             if (currentSoul > maxSoul)
             {
-                ui.PlayerSoulUseUIUpdate(newMagic, current_max: false, goingUnder: true);
+                ui.PlayerSoulUseUIUpdate(oldMagic, newMagic, updatingCurrentSoul: false, goingUnder: true);
                 return;
             }
 
-            ui.PlayerSoulUseUIUpdate(newMagic, current_max: false);
+            ui.PlayerSoulUseUIUpdate(oldMagic, newMagic, updatingCurrentSoul: false);
         }
 
         public void ShardsUpdate(int oldMoney, int newMoney)
         {
-            ui.MoneyUIUpdate(newMoney);
+            ui.MoneyUIUpdate(oldMoney, newMoney);
         }
 
         public void FreeDrawsLeftUpdate(int oldDraws, int newDraws)

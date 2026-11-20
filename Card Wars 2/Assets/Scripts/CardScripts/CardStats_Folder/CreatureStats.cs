@@ -129,6 +129,7 @@ namespace CardScripts.CardStatss
         {
             if (amount == 0) // no point
             {
+                CallAnim_ToFloatStatText(amount, buff,new Color32(255,77,121, 255));
                 RpcPopTextAnimate(AnimTarget.Strength, buff);
                 return;
             }
@@ -177,6 +178,7 @@ namespace CardScripts.CardStatss
             if (amount == 0) // no point
             {
                 RpcPopTextAnimate(AnimTarget.Defense, buff);
+                CallAnim_ToFloatStatText(amount, buff,new Color32(48, 168, 165, 255));
                 return;
             }
 

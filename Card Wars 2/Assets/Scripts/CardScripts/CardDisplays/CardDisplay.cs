@@ -317,11 +317,12 @@ namespace CardScripts.CardDisplays
     
             if (toAnimate == null)
             {
-                Debug.LogWarning($"No transform found for {target}");
+                // Debug.LogWarning($"No transform found for {target}");
             }
-    
-            Animator.PopTextAnimate(toAnimate, isBuff);
-
+            else
+            {
+                Animator.PopTextAnimate(toAnimate, isBuff);
+            }
         }
     }
 }

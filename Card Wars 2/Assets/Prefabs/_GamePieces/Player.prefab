@@ -302,3 +302,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e239bd7fb076034a9706a4cbccb9b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatingTextPrefab: {fileID: 3252510850468919528, guid: efa2417838d5d274094ec232fe845506, type: 3}
+  fadeOutDuration: 2
+  floatHeight: 40
+  floatDuration: 1.4
+  stackWindow: 0.5
+  stackSpacing: 45

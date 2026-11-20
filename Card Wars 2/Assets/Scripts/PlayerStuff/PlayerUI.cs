@@ -94,7 +94,7 @@ namespace PlayerStuff
             }
         }
 
-        public void PlayerSoulUseUIUpdate(int magic, bool current_max, bool goingUnder = false)
+        public void PlayerSoulUseUIUpdate(int oldMagic, int newMagic, bool updatingCurrentSoul, bool goingUnder = false)
         {
             // soulUse 1 or 2
             TextMeshProUGUI magicText =
@@ -112,7 +112,7 @@ namespace PlayerStuff
                 return;
             }
 
-            magicText.text = (current_max) ? magic + " / " + _stats.maxSoul : _stats.currentSoul + " / " + magic;
+            magicText.text = (updatingCurrentSoul) ? newMagic + " / " + _stats.maxSoul : _stats.currentSoul + " / " + newMagic;
 
             if (_stats.currentSoul < 0) // oversouled
             {
@@ -122,16 +122,42 @@ namespace PlayerStuff
             {
                 magicText.color = _soulGreen;
             }
+
+            _playerAnimator.PopTextAnimate(magicText.gameObject.transform);
+            
+            if (!updatingCurrentSoul) // updating max soul
+            {
+                _playerAnimator.FloatPlayerStatText(
+                    GetSign(newMagic, oldMagic) + (newMagic - oldMagic), 
+                    _soulGreen, 
+                    magicText.gameObject.transform);
+            }
         }
 
-        public void MoneyUIUpdate(int newMoney)
+        public void MoneyUIUpdate(int oldMoney, int newMoney)
         {
             TextMeshProUGUI moneyText =
                 (isOwned) ? _money1.GetComponent<TextMeshProUGUI>() : _money2.GetComponent<TextMeshProUGUI>();
 
             moneyText.text = newMoney.ToString();
-        
+
             _playerAnimator.PopTextAnimate(moneyText.gameObject.transform);
+            
+            _playerAnimator.FloatPlayerStatText(
+                GetSign(newMoney, oldMoney) + (newMoney - oldMoney), 
+                Color.yellow, 
+                moneyText.gameObject.transform);
+        }
+
+        private string GetSign(int x, int y) // x - y
+        {
+            if (x - y > 0)
+            {
+                return "+";
+            }
+
+            // =
+            return "";
         }
 
         public void FreeDrawsUpdate(int draws)
