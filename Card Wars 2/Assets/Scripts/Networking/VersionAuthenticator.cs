@@ -1,5 +1,6 @@
 using System.Collections;
 using Mirror;
+using Networking;
 using UnityEngine;
 
 namespace GameManagement
@@ -44,7 +45,8 @@ namespace GameManagement
             }
             else
             {
-                Debug.LogWarning($"Rejected client: version {msg.version} != host {Application.version}");
+                DisconnectNotice.Set($"Rejected client: version {msg.version} != host {Application.version}");
+                // Debug.LogWarning($"Rejected client: version {msg.version} != host {Application.version}");
                 conn.isAuthenticated = false;
                 StartCoroutine(DelayedDisconnect(conn, 1f));   // let the response arrive first
             }
@@ -80,7 +82,7 @@ namespace GameManagement
             {
                 LastRejectReason =
                     $"Version mismatch. You have v{Application.version}, host has v{msg.hostVersion}.";
-                Debug.LogError(LastRejectReason);
+                DisconnectNotice.Set(LastRejectReason);
                 ClientReject();
             }
         }

@@ -1,5 +1,6 @@
 using GameManagement;
 using Mirror;
+using Networking;
 using UnityEngine;
 
 namespace Buttons.MainMenuUI
@@ -49,6 +50,10 @@ namespace Buttons.MainMenuUI
                 Debug.Log("Already offline, returning to menu scene.");
                 UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu_Offline");
             }
+            
+            // If the joiner presses your Return button, OnClientDisconnect also fires,
+            // and they'd see "Lost connection". Clear the notice in the button after stopping:
+            // DisconnectNotice.Clear();
         }
     }
 }

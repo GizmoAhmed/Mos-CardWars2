@@ -1,4 +1,5 @@
 using Mirror;
+using Networking;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -72,8 +73,21 @@ namespace GameManagement
             if (!inGame || _closing || conn == NetworkServer.localConnection) return;
 
             _closing = true;
-            Debug.Log("Opponent left the game, returning host to the menu");
+            DisconnectNotice.Set("Opponent left the game.");
             Invoke(nameof(CloseGame), 0.5f);   // let the disconnect finish before tearing down
+        }
+        
+        public override void OnClientDisconnect()
+        {
+            DisconnectNotice.Set("Lost connection to the host.");
+            DG.Tweening.DOTween.KillAll();
+            base.OnClientDisconnect();
+        }
+        
+        public override void OnClientError(TransportError error, string reason)
+        {
+            DisconnectNotice.Set($"Connection error: {reason}");
+            base.OnClientError(error, reason);
         }
 
         private void CloseGame()
