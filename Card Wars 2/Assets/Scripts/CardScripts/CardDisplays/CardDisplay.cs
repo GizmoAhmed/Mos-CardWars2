@@ -279,7 +279,7 @@ namespace CardScripts.CardDisplays
 
         public void UpdateUI_Burn(int newCost, string prefix = "+")
         {
-            SetText(burnCostTextObj, prefix + newCost);
+            SetText(burnCostTextObj, newCost.ToString()); // prefix + 
         }
 
         public void FlipBurn_ToCostFromReturn(int burnCost)

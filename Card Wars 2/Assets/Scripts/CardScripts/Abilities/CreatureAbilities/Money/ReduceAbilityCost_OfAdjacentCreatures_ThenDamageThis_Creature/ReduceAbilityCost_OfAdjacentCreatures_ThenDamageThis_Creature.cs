@@ -28,7 +28,8 @@ public class ReduceAbilityCost_OfAdjacentCreatures_ThenDamageThis_Creature : Act
             CreatureStats adjCreature = tile.logicalCreature.GetComponent<CreatureStats>();
             
             // if creature is there, buff it
-            adjCreature.abilityCost -= abilityCostReduction;
+            adjCreature.UpdateAbilityCost(amount: abilityCostReduction, increase: false, source: thisCard.transform);
+            // adjCreature.abilityCost -= abilityCostReduction;
         }
         
         thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: selfDamage, buff: false);

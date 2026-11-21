@@ -18,7 +18,7 @@ public class ReduceAbilityCost_OnPlace_Building : PassiveAbilitySO
         if (creatureStats != null)
         {
             // reduce by reduction amount
-            creatureStats.ChangeAbilityCost(reduction, increase:false);
+            creatureStats.UpdateAbilityCost(reduction, increase:false, source: thisCard.transform);
             AnimateAbilityExecute(thisCard);
         }
     }
@@ -30,8 +30,8 @@ public class ReduceAbilityCost_OnPlace_Building : PassiveAbilitySO
 
         if (creatureStats != null)
         {
-            // reduce by reduction amount
-            creatureStats.ChangeAbilityCost(reduction, increase:true);
+            // increase back to original
+            creatureStats.UpdateAbilityCost(reduction, increase:true, source: thisCard.transform);
         }
     }
 }

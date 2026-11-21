@@ -29,7 +29,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Money.LowerAbilityCost_Creatur
             if (creatureStats.abilityCost > lowestCostReduction) // for balance, don't let ability cost go to low that would give the player too much money
             {
                 // player experience: realize ability cost can go negative, eventually giving money
-                creatureStats.ChangeAbilityCost(amount: reduction, increase: false);
+                creatureStats.UpdateAbilityCost(amount: reduction, increase: false);
                 AnimateAbilityExecute(thisCard);
             }
         }

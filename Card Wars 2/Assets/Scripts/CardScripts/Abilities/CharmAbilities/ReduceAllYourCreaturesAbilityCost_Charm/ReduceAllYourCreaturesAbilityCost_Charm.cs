@@ -16,7 +16,7 @@ public class ReduceAllYourCreaturesAbilityCost_Charm : PassiveAbilitySO
     {
         if (eventData.eventType == AbilityEventType.CardPlacedOnTile)
         {
-            AdjustCost(card: thisCard, costReduction);
+            AdjustCost(card: thisCard, costReduction, increase: false); // reduce all 
             // AnimateAbilityExecute(thisCard);
         }
         else if (eventData.eventType == AbilityEventType.AnyCreaturePlaced)
@@ -27,7 +27,10 @@ public class ReduceAllYourCreaturesAbilityCost_Charm : PassiveAbilitySO
             {
                 CreatureStats placedCreature = eventData.target.GetComponent<CreatureStats>();
 
-                placedCreature.abilityCost -= costReduction;
+                // reduce the one that was just placed
+                placedCreature.UpdateAbilityCost(amount: costReduction, increase: false, source: thisCard.transform);
+
+                // placedCreature.abilityCost -= costReduction;
                 AnimateAbilityExecute(thisCard);
             }
         }
@@ -35,10 +38,10 @@ public class ReduceAllYourCreaturesAbilityCost_Charm : PassiveAbilitySO
     
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
     {
-        AdjustCost(card: thisCard, -costReduction); // negative, since increasing burn cost
+        AdjustCost(card: thisCard, costReduction, increase: true); // going back so increase
     }
     
-    private void AdjustCost(GameObject card, int amount)
+    private void AdjustCost(GameObject card, int amount, bool increase)
     {
         var creatures = card.Ext_GetAllActiveCreaturesForThisPlayer();
 
@@ -46,13 +49,13 @@ public class ReduceAllYourCreaturesAbilityCost_Charm : PassiveAbilitySO
         {
             CreatureStats stats = creature.GetComponent<CreatureStats>();
 
-            if (amount > 0) // reducing
+            if (increase) // increase all
             {
-                stats.abilityCost -= amount;
+                stats.UpdateAbilityCost(amount: costReduction, increase: true, source: card.transform);
             }
-            else // adding back from undo
+            else // reduce all
             {
-                stats.abilityCost -= amount;
+                stats.UpdateAbilityCost(amount: costReduction, increase: false, source: card.transform);
             }
         }
     }

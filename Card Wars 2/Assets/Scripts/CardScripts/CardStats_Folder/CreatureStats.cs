@@ -288,24 +288,6 @@ namespace CardScripts.CardStatss
                     $"<color=Orange>Failed Stat Change Broadcast</color> {name} couldn't find the GlobalAbilityEventManage Instance");
             }
         }
-        
-        [Server]
-        public void ChangeAbilityCost(int amount, bool increase)
-        {
-            if (increase)
-                abilityCost += amount;
-            else
-                abilityCost -= amount;
-
-            // Hook won't fire on host - manually update UI via RPC
-            RpcUpdateAbilityCostUI(abilityCost);
-        }
-
-        [ClientRpc]
-        private void RpcUpdateAbilityCostUI(int newCost)
-        {
-            _creatureDisplay.UpdateUI_AbilityCost(newCost);
-        }
 
         public void Hook_UpdateCreatureStrength(int old, int newStrength)
         {
@@ -471,6 +453,24 @@ namespace CardScripts.CardStatss
             else
             {
                 floopsLeft -= amount;
+            }
+            
+            if (source != null) // source was passed, use it to draw line
+            {
+                RpcDrawLineToTarget(from: source);
+            }
+        }
+        
+        [Server]
+        public void UpdateAbilityCost(int amount, bool increase, Transform source = null)
+        {
+            if (increase)
+            {
+                abilityCost += amount;
+            }
+            else
+            {
+                abilityCost -= amount;
             }
             
             if (source != null) // source was passed, use it to draw line

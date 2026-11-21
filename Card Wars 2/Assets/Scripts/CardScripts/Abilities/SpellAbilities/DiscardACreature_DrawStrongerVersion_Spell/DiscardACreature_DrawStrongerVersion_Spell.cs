@@ -38,7 +38,7 @@ public class DiscardACreature_DrawStrongerVersion_Spell : CastAbilitySO
          dupeStats.UpdateCreatureDefense(amount: defIncrease, buff:true, applyMult: false);
          dupeStats.UpdateCreatureStrength(amount: strIncrease, buff:true, applyMult: false);
          dupeStats.UpdateSyncSoulToPlayer(-soulReduction);
-         dupeStats.ChangeAbilityCost(abilityCostReduction, increase:false);
+         dupeStats.UpdateAbilityCost(abilityCostReduction, increase:false);
          
          // destroy creature on tile
          creatureOnTile.GetComponent<CreatureMovement>().ServerDiscard();
