@@ -461,6 +461,24 @@ namespace CardScripts.CardStatss
             tileEventManager.OnCreatureAbilityOnTile(creature.gameObject);
         }
 
+        [Server]
+        public void UpdateFloopsLeft(int amount, bool increase, Transform source = null)
+        {
+            if (increase)
+            {
+                floopsLeft += amount;
+            }
+            else
+            {
+                floopsLeft -= amount;
+            }
+            
+            if (source != null) // source was passed, use it to draw line
+            {
+                RpcDrawLineToTarget(from: source);
+            }
+        }
+
         public void Hook_UpdateAbilityCost(int oldCost, int newCost)
         {
             if (_creatureDisplay == null)

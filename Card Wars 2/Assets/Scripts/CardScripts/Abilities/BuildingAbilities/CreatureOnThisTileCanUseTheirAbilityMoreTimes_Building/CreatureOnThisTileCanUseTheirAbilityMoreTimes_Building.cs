@@ -21,7 +21,9 @@ public class CreatureOnThisTileCanUseTheirAbilityMoreTimes_Building : PassiveAbi
         if (creatureStats != null)
         {
             creatureStats.maxFloops += additionalFloops;
-            creatureStats.floopsLeft += additionalFloops;
+            // creatureStats.floopsLeft += additionalFloops;
+            
+            creatureStats.UpdateFloopsLeft(amount:additionalFloops, increase: true, source: thisCard.transform);
         }
     }
     
@@ -31,7 +33,8 @@ public class CreatureOnThisTileCanUseTheirAbilityMoreTimes_Building : PassiveAbi
 
         if (creatureStats != null)
         {
-            creatureStats.maxFloops -= additionalFloops;
+            creatureStats.UpdateFloopsLeft(amount:additionalFloops, increase: false, source: thisCard.transform);
+
         }
     }
 }
