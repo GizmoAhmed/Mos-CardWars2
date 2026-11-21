@@ -32,7 +32,7 @@ namespace CardScripts.CardStats_Folder
         [SyncVar(hook = nameof(Hook_UpdateUIBurnCost))]
         public int burnCost;
 
-        [SyncVar(hook = nameof(Hook_UpdateUIBurnCost))]
+        [SyncVar(hook = nameof(Hook_UpdateUIBurnReturn))]
         public int burnInHandReturn;
 
         [SyncVar(hook = nameof(Hook_ToggleBurnability))]
@@ -85,7 +85,9 @@ namespace CardScripts.CardStats_Folder
 
             Display = GetComponent<CardDisplay>();
             
-            if (serverCall)
+            SetStats_FromData(); 
+            
+            /*if (serverCall)
             {
                 // since server call, will use hooks to propagate to both clients
                 SetStats_FromData(); 
@@ -94,9 +96,13 @@ namespace CardScripts.CardStats_Folder
             {
                 // since client, you'll have to manually call the ui update functions that are inside the hooks
                 SetStats_FromData(); 
-                Display.UpdateUI_Soul(soulUse);
-                Display.UpdateUI_Burn(burnInHandReturn); // use return on set 
-            }
+                // Display.UpdateUI_Soul(soulUse);
+                
+                // Display.UpdateUI_BurnReturn(burnInHandReturn); // set both return... 
+                // Display.UpdateUI_BurnCost(burnCost); // ...and cost
+                
+                // Display.ToggleBurnCost(false); // turn off burn cost since init-ing
+            }*/
             
             if (serverCall) // called to spawn card on both clients
             {
@@ -251,7 +257,12 @@ namespace CardScripts.CardStats_Folder
 
         public void Hook_UpdateUIBurnCost(int oldCost, int newCost)
         {
-            Display.UpdateUI_Burn(newCost);
+            Display.UpdateUI_BurnCost(newCost);
+        }
+        
+        public void Hook_UpdateUIBurnReturn(int oldCost, int newReturn)
+        {
+            Display.UpdateUI_BurnReturn(newReturn);
         }
 
         public void Hook_ToggleBurnability(bool oldValue, bool newValue)

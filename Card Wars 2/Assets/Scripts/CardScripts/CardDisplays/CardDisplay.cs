@@ -1,6 +1,8 @@
+using System;
 using System.Text.RegularExpressions;
 using CardScripts.Abilities;
 using CardScripts.CardData;
+using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
 using Mirror;
 using TMPro;
@@ -36,12 +38,15 @@ namespace CardScripts.CardDisplays
         [Header("Left Info Slide")]
         public GameObject infoLeftObj; // ▼
         public GameObject burnCostTextObj;
+        public GameObject burnReturnTextObj;
         public GameObject burnButtonObj;
 
         [Header("Info scaling")]
         public bool infoGrown;
 
-        protected CardAnimator Animator; 
+        protected CardAnimator Animator;
+
+        private CardMovement _move;
         
         [Header("Rarity Colors")]
         [SerializeField] private Color commonColor   = Color.white;
@@ -53,7 +58,8 @@ namespace CardScripts.CardDisplays
 
         private void Awake()
         {
-            Animator = GetComponent<CardAnimator>();
+            Animator    = GetComponent<CardAnimator>();
+            _move       = GetComponent<CardMovement>();
 
             if (Animator == null)
             {
@@ -277,18 +283,59 @@ namespace CardScripts.CardDisplays
             }
         }
 
-        public void UpdateUI_Burn(int newCost, string prefix = "+")
+        public void UpdateUI_BurnCost(int newCost)
         {
-            SetText(burnCostTextObj, newCost.ToString()); // prefix + 
+            string prefix;
+            
+            // notice the mismatch +-, since a negative burn cost would give you money
+            if (newCost >= 0) // positive
+            {
+                prefix = "-";
+            }
+            else // negative
+            {
+                prefix = "+";
+            }
+
+            SetText(burnCostTextObj, prefix + Math.Abs(newCost));
+        }
+        
+        public void UpdateUI_BurnReturn(int newReturn)
+        {
+            string prefix = "";
+            
+            // notice the mismatch +-, since a negative burn cost would give you money
+            if (newReturn >= 0) // positive
+            {
+                prefix = "+";
+            }
+            
+            SetText(burnReturnTextObj, prefix + newReturn); // don't have to Math.Abs this one, since negative burn return actually means -, unlike cost up there
         }
 
-        public void FlipBurn_ToCostFromReturn(int burnCost)
+        public void FlipBurn_ToCostFromReturn()
         {
-            UpdateUI_Burn(burnCost, "-"); // use minus when placing on baord, to indicate that you will lose shards now if you burn
-            
             Button burnButton = burnButtonObj.GetComponent<Button>();
             
             ChangeButtonColor(burnButton, Color.red);
+            
+            ToggleBurnReturn(false); // hide return
+            ToggleBurnCost(true); // show cost
+        }
+
+        /// <summary>
+        /// I used scale here, since clicking on a card for it's info sets active the info of the entire card, so set active here won't work
+        /// </summary>
+        /// <param name="show"></param>
+        public void ToggleBurnCost(bool show)
+        {
+            // burnCostTextObj.SetActive(show);
+            burnCostTextObj.transform.localScale = show ? Vector3.one : new Vector3(0, 1, 1); // (0, 1, 1) hides it
+        }
+        
+        public void ToggleBurnReturn(bool show)
+        {
+            burnReturnTextObj.transform.localScale = show ? Vector3.one : new Vector3(0, 1, 1); // (0, 1, 1) hides it
         }
 
         private void ChangeButtonColor(Button button, Color color)

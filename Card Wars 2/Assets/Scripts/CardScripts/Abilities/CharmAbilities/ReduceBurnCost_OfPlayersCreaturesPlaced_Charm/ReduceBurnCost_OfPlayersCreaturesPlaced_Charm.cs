@@ -18,7 +18,7 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
 
         if (eventData.eventType == AbilityEventType.CardPlacedOnTile)
         {
-            AdjustBurnOfAllCreatures(card: thisCard, burnReduction);
+            AdjustBurnOfAllCreatures(card: thisCard, burnReduction, increase: false);
             // AnimateAbilityExecute(thisCard);
         }
         else if (eventData.eventType == AbilityEventType.AnyCreaturePlaced)
@@ -30,7 +30,6 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
                 CreatureStats placedCreature = eventData.target.GetComponent<CreatureStats>();
 
                 placedCreature.UpdateBurnCost(burnReduction, increase: false, source: thisCard.transform);
-                // placedCreature.burnCost -= burnReduction;
                 AnimateAbilityExecute(thisCard);
             }
         }
@@ -38,10 +37,10 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
 
     public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
     {
-        AdjustBurnOfAllCreatures(card: thisCard, -burnReduction); // negative, since increasing burn cost
+        AdjustBurnOfAllCreatures(card: thisCard, burnReduction , increase: true); // negative, since increasing burn cost
     }
 
-    private void AdjustBurnOfAllCreatures(GameObject card, int amount)
+    private void AdjustBurnOfAllCreatures(GameObject card, int amount, bool increase)
     {
         var creatures = card.Ext_GetAllActiveCreaturesForThisPlayer();
 
@@ -49,18 +48,8 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
         {
             CreatureStats stats = creature.GetComponent<CreatureStats>();
 
-            if (amount > 0) // reducing
-            {
-                if (stats.burnCost > 0) // if subtracting (amount > 0), don't let burn be negative
-                {
-                    stats.UpdateBurnCost(burnReduction, increase: false, source: card.transform);
-                    // stats.burnCost -= amount;
-                }
-            }
-            else // adding back from undo
-            {
-                stats.UpdateBurnCost(burnReduction, increase: false, source: card.transform);
-            }
+            stats.UpdateBurnCost(amount, increase: increase, source: card.transform);
+
         }
     }
 }
