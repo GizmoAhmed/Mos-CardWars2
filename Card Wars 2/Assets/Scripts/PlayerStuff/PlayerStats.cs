@@ -35,7 +35,7 @@ namespace PlayerStuff
         [Header("Score")] [SyncVar(hook = nameof(PlayerScoreStatUpdate))]
         public int playerTotalScore;
 
-        [Header("Health")] [SyncVar(hook = nameof(HealthUpdate))]
+        [Header("Health")] [SyncVar(hook = nameof(Hook_HealthUpdate))]
         public int health;
 
         [SyncVar(hook = nameof(Hook_DrainUpdate_ClientUI))]
@@ -434,14 +434,14 @@ namespace PlayerStuff
             ui.PlayerScoreUIUpdate(newScore);
         }
 
-        public void HealthUpdate(int oldHealth, int newHealth)
+        public void Hook_HealthUpdate(int oldHealth, int newHealth)
         {
-            ui.HealthUIUpdate(newHealth);
+            ui.HealthUIUpdate(oldHealth, newHealth);
         }
 
         public void Hook_DrainUpdate_ClientUI(int oldDrain, int newDrain)
         {
-            ui.DrainUIUpdate(newDrain);
+            ui.DrainUIUpdate(oldDrain, newDrain);
         }
 
         public void RoundsWonUpdate(int oldRounds, int newRounds)

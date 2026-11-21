@@ -222,20 +222,34 @@ namespace PlayerStuff
             scoreText.text = newScore.ToString();
         }
 
-        public void HealthUIUpdate(int newHealth)
+        public void HealthUIUpdate(int oldHealth, int newHealth)
         {
             TextMeshProUGUI healthText =
                 (isOwned) ? _health1.GetComponent<TextMeshProUGUI>() : _health2.GetComponent<TextMeshProUGUI>();
 
             healthText.text = newHealth.ToString();
+            
+            _playerAnimator.PopTextAnimate(healthText.gameObject.transform);
+            
+            _playerAnimator.FloatPlayerStatText(
+                GetSign(newHealth, oldHealth) + (newHealth - oldHealth), 
+                Color.magenta, 
+                healthText.gameObject.transform);
         }
 
-        public void DrainUIUpdate(int newDrain)
+        public void DrainUIUpdate(int oldDrain, int newDrain)
         {
             TextMeshProUGUI drainText =
                 (isOwned) ? _drain1.GetComponent<TextMeshProUGUI>() : _drain2.GetComponent<TextMeshProUGUI>();
 
             drainText.text = newDrain.ToString();
+            
+            _playerAnimator.PopTextAnimate(drainText.gameObject.transform);
+            
+            _playerAnimator.FloatPlayerStatText(
+                GetSign(newDrain, oldDrain) + (newDrain - oldDrain), 
+                Color.magenta, 
+                drainText.gameObject.transform);
         }
 
         public void RoundsUIUpdate(int newRounds)

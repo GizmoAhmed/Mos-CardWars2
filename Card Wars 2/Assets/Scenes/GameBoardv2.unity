@@ -12251,11 +12251,13 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
+  - {fileID: 11400000, guid: d461c2b8ee29d1642ba086f442cb0c04, type: 2}
   - {fileID: 11400000, guid: 89d14fe237ec2804e838460cb62895ab, type: 2}
   - {fileID: 11400000, guid: 41a2d3d2f8ba95d4aa51a693035e0186, type: 2}
   - {fileID: 11400000, guid: 87945ef6eabe77042b24de5acde1bd7c, type: 2}
   - {fileID: 11400000, guid: 6d3451ea336229f4db11a9ae643a9e02, type: 2}
   - {fileID: 11400000, guid: 7fa30b6ac55316042a93207caee9aec2, type: 2}
+  - {fileID: 11400000, guid: 98944520a68520741973431c75325872, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0
