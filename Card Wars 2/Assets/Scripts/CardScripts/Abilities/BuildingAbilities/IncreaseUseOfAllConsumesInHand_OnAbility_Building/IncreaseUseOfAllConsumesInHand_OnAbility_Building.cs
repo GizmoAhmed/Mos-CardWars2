@@ -20,7 +20,7 @@ public class IncreaseUseOfAllConsumesInHand_OnAbility_Building : PassiveAbilityS
         // increase use on each
         foreach (SpellStats spell in spells)
         {
-            spell.UpdateConsumableUses(usesIncrease, increase: true);//    uses +=  usesIncrease;
+            spell.UpdateConsumableUses(usesIncrease, increase: true, thisCard.transform);//    uses +=  usesIncrease;
             // AnimateAbilityExecute(spell.gameObject);
         }
 

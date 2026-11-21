@@ -57,7 +57,7 @@ namespace CardScripts.CardStats_Folder
         }
 
         [Server]
-        public void UpdateConsumableUses(int amount, bool increase)
+        public void UpdateConsumableUses(int amount, bool increase, Transform source = null)
         {
             if (increase)
             {
@@ -78,6 +78,11 @@ namespace CardScripts.CardStats_Folder
             {
                 // turn on burn
                 canBeBurned = true;
+            }
+            
+            if (source != null) // source was passed, use it to draw line
+            {
+                RpcDrawLineToTarget(from: source);
             }
         }
 
