@@ -47,7 +47,8 @@ namespace CardScripts.CardStats_Folder
             Defense,
             Soul,
             AbilityCost,
-            BurnCost
+            BurnCost,
+            Uses
         }
 
         protected virtual void Awake()

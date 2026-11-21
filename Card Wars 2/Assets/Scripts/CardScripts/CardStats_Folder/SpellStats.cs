@@ -80,6 +80,10 @@ namespace CardScripts.CardStats_Folder
                 canBeBurned = true;
             }
             
+            RpcPopTextAnimate(AnimTarget.Uses, true); // pop soul text 
+            
+            CallAnim_ToFloatStatText(amount, increase,Color.black);
+            
             if (source != null) // source was passed, use it to draw line
             {
                 RpcDrawLineToTarget(from: source);

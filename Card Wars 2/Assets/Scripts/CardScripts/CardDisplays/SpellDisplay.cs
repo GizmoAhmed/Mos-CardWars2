@@ -35,6 +35,26 @@ namespace CardScripts.CardDisplays
             xUIObject.SetActive(up);
         }
 
+        public override void PopTextAnimate(CardStats.AnimTarget target, bool isBuff = true)
+        {
+            base.PopTextAnimate(target, isBuff); // strength and defense
+            
+            Transform toAnimate = target switch
+            {
+                CardStats.AnimTarget.Uses => usesUIObject.transform,
+                _ => null
+            };
+    
+            if (toAnimate == null)
+            {
+                // Debug.LogWarning($"No transform found for {target}");
+            }
+            else
+            {
+                Animator.PopTextAnimate(toAnimate, isBuff);
+            }
+        }
+        
         public void UpdateUIUses(int newUses)
         {
             SetText(usesUIObject, newUses.ToString());
