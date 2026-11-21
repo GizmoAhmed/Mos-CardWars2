@@ -184,7 +184,13 @@ namespace CardScripts.CardStats_Folder
                 textToFloat = "- " + textToFloat;
             }
 
-            anim.FloatStatText(textToFloat, color);
+            anim.RpcFloatText(textToFloat, color);
+        }
+        
+        [ClientRpc]
+        protected void RpcDrawLineToTarget(Transform from)
+        {
+            anim.ShowTargetLine(from: from, to: transform);
         }
 
         /// <summary>
@@ -192,7 +198,7 @@ namespace CardScripts.CardStats_Folder
         /// Updates the player stat 'current soul use' whenever a field card has their soul changed
         /// </summary>
         /// <param name="diff">pass negative if reducing soul of this card, positive if increasing</param>
-        public void UpdateSyncSoulToPlayer(int diff)
+        public void UpdateSyncSoulToPlayer(int diff, Transform source = null)
         {
             // one is += and the other is -= lol it's confusing
             // cards become more expensive in soul when increased
@@ -213,6 +219,11 @@ namespace CardScripts.CardStats_Folder
             CallAnim_ToFloatStatText(Math.Abs(diff), buff,new Color32(87, 169, 108, 255));
             
             // absolute here since diff can be negative, which is not the same for strength and defense
+            
+            if (source != null) // source was passed, use it to draw line
+            {
+                RpcDrawLineToTarget(from: source);
+            }
         }
 
         public void Hook_UpdateSoulUI_OnBothClients(int oldMagic, int newSoul)

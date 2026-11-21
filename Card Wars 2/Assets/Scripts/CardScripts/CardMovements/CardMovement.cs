@@ -181,6 +181,7 @@ namespace CardScripts.CardMovements
                 if (CanPickFromPreview())
                 {
                     SpawnThisCardFromPreview();
+                    return;
                 }
             }
 
@@ -191,6 +192,9 @@ namespace CardScripts.CardMovements
             else
             {
                 StartCoroutine(SnapBackToHand());
+                
+                CardAnimator anim = GetComponent<CardAnimator>();
+                anim.FloatText("Can't place here", Color.red);
             }
 
             // Clear hovered tile

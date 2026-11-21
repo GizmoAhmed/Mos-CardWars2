@@ -41,7 +41,7 @@ public class ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature : ActiveAbilit
         }
 
         // buff that adjacent creature
-        adjCreature.GetComponent<CreatureStats>().UpdateSyncSoulToPlayer(-soulReduction);
+        adjCreature.GetComponent<CreatureStats>().UpdateSyncSoulToPlayer(-soulReduction, source: thisCard.transform);
         AnimateAbilityExecute(adjCreature);
 
         // damage thisCard

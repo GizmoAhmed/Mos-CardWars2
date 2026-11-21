@@ -93,13 +93,13 @@ namespace PlayerStuff
             else _floatStackIndex = 0;
             _lastFloatTime = Time.time;
 
-            float side = Random.Range(-1f, 1f);
+            float side = Random.Range(-0.5f, 0.5f);
             float offsetWorld = 90f * scale;
             float stackWorld = _floatStackIndex * stackSpacing * scale;
             float jitterX = Random.Range(-15f, 15f) * scale;
             float jitterY = Random.Range(-5f, 5f) * scale;
 
-            Vector3 worldStart = worldCenter;// + new Vector3(side * offsetWorld + jitterX, stackWorld + jitterY, 0f);
+            Vector3 worldStart = worldCenter + new Vector3(side * offsetWorld + jitterX, stackWorld + jitterY, 0f);
             Vector3 start = parent.InverseTransformPoint(worldStart);
 
             RectTransform rt = (RectTransform)t.transform;

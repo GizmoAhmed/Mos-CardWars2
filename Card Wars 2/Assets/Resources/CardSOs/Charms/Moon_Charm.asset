@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc74177ebf214e89bcc315814ae71b9b, type: 3}
   m_Name: Moon_Charm
   m_EditorClassIdentifier: 
-  cardName: MoonCharm
+  cardName: MOON CHARM
   mainImage: {fileID: 21300000, guid: c3db9c6a3c05f8d44ae5021341f1e51e, type: 3}
   soul: 3
-  abilityDescription: Fortify All Your Creatures whenever your magic is upgraded
   burnCost: 2
   burnReturn: 3
   ability: {fileID: 11400000, guid: ac518a11051b44442b567957dd6ae516, type: 2}

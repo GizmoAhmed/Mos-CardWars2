@@ -217,10 +217,10 @@ namespace CardScripts.CardMovements
         [ClientRpc]
         protected override void RpcPlaceCardOnTile(GameObject tileObj)
         {
-            Rpc_RevealSpell(tileObj);
+            RevealSpell_DrawTargetLine(tileObj);
         }
         
-        private void Rpc_RevealSpell(GameObject castTile)
+        private void RevealSpell_DrawTargetLine(GameObject castTile)
         {
             if (isOwned) return;   // the caster doesn't need to be revealed to, they already know the spell
 

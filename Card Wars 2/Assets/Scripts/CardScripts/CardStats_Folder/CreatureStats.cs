@@ -125,7 +125,7 @@ namespace CardScripts.CardStatss
         }
 
         [Server] // called from inside a command
-        public void UpdateCreatureStrength(int amount, bool buff, bool applyMult = true)
+        public void UpdateCreatureStrength(int amount, bool buff, bool applyMult = true, Transform source = null)
         {
             if (amount == 0) // no point
             {
@@ -170,10 +170,15 @@ namespace CardScripts.CardStatss
             CallAnim_ToFloatStatText(amount, buff,new Color32(255,77,121, 255));
             RpcPopTextAnimate(AnimTarget.Strength, buff);
             score = strength + defense;
+
+            if (source != null) // source was passed, use it to draw line
+            {
+                RpcDrawLineToTarget(from: source);
+            }
         }
 
         [Server]
-        public void UpdateCreatureDefense(int amount, bool buff, bool applyMult = true)
+        public void UpdateCreatureDefense(int amount, bool buff, bool applyMult = true, Transform source = null)
         {
             if (amount == 0) // no point
             {
@@ -238,6 +243,11 @@ namespace CardScripts.CardStatss
             CallAnim_ToFloatStatText(amount, buff,new Color32(48, 168, 165, 255));
             RpcPopTextAnimate(AnimTarget.Defense, buff);
             score = strength + defense;
+            
+            if (source != null) // source was passed, use it to draw line
+            {
+                RpcDrawLineToTarget(from: source);
+            }
         }
         
         private void GlobalBroadCastStatChange(int amount, bool buff, bool str)

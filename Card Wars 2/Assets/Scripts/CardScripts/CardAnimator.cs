@@ -171,19 +171,19 @@ namespace CardScripts
         }
 
         [ClientRpc]
-        public void FloatStatText(string text, Color color)
+        public void RpcFloatText(string text, Color color)
         {
             FloatText(text, color);
         }
 
-        private void FloatText(string text, Color textColor, Transform anchor = null)
+        public void FloatText(string text, Color textColor, Transform anchor = null)
         {
             Canvas canvas = GetComponentInParent<Canvas>()?.rootCanvas;
             if (canvas == null || floatingTextPrefab == null) return;
 
             RectTransform parent = EffectsLayer != null ? EffectsLayer : (RectTransform)canvas.transform;
             TextMeshProUGUI t = Instantiate(floatingTextPrefab, parent);
-            t.text = text;
+            t.text = text.ToUpper();
             t.color = textColor;
             t.raycastTarget = false;
             t.transform.SetAsLastSibling();
@@ -237,7 +237,9 @@ namespace CardScripts
         /// <param name="grow"></param>
         /// <param name="hold"></param>
         /// <param name="fade"></param>
-        public void ShowTargetLine(Transform from, Transform to, float grow = 0.25f, float hold = 0.8f,
+        public void ShowTargetLine(Transform from, Transform to, 
+            float grow = 0.25f, 
+            float hold = 0.8f,
             float fade = 0.4f)
         {
             // Prefer the effects layer, fall back to the root canvas if it isn't set up
@@ -254,7 +256,7 @@ namespace CardScripts
             float length = dir.magnitude;
             if (length < 1f) return;
 
-            GameObject go = new GameObject("SpellTargetLine", typeof(RectTransform), typeof(CanvasGroup),
+            GameObject go = new GameObject("TargetLine", typeof(RectTransform), typeof(CanvasGroup),
                 typeof(UnityEngine.UI.Image));
             RectTransform rt = (RectTransform)go.transform;
             rt.SetParent(parent, false);

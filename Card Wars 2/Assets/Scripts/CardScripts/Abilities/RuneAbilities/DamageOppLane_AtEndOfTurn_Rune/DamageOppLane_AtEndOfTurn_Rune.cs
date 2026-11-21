@@ -36,6 +36,8 @@ public class DamageOppLane_AtEndOfTurn_Rune : PassiveAbilitySO
             creatureStats.canBuffStrength += 1;
             creatureStats.canBuffDefense += 1;
             
+            AnimateAbilityExecute(creatureStats.gameObject);
+            
             return;
         } // if got through this block, then this ability was passed the end of turn exec, attack opp lane
         
