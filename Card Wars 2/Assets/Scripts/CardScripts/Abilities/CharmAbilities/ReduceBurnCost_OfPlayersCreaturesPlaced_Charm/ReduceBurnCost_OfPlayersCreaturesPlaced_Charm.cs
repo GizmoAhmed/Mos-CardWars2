@@ -29,7 +29,8 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
             {
                 CreatureStats placedCreature = eventData.target.GetComponent<CreatureStats>();
 
-                placedCreature.burnCost -= burnReduction;
+                placedCreature.UpdateBurnCost(burnReduction, increase: false, source: thisCard.transform);
+                // placedCreature.burnCost -= burnReduction;
                 AnimateAbilityExecute(thisCard);
             }
         }
@@ -52,12 +53,13 @@ public class ReduceBurnCost_OfPlayersCreaturesPlaced_Charm : PassiveAbilitySO
             {
                 if (stats.burnCost > 0) // if subtracting (amount > 0), don't let burn be negative
                 {
-                    stats.burnCost -= amount;
+                    stats.UpdateBurnCost(burnReduction, increase: false, source: card.transform);
+                    // stats.burnCost -= amount;
                 }
             }
             else // adding back from undo
             {
-                stats.burnCost -= amount;
+                stats.UpdateBurnCost(burnReduction, increase: false, source: card.transform);
             }
         }
     }

@@ -226,6 +226,24 @@ namespace CardScripts.CardStats_Folder
             }
         }
 
+        [Server]
+        public void UpdateBurnCost(int amount, bool increase, Transform source = null)
+        {
+            if (increase)
+            {
+                burnCost += amount;
+            }
+            else
+            {
+                burnCost -= amount;
+            }
+            
+            if (source != null) // source was passed, use it to draw line
+            {
+                RpcDrawLineToTarget(from: source);
+            }
+        }
+
         public void Hook_UpdateSoulUI_OnBothClients(int oldMagic, int newSoul)
         {
             Display.UpdateUI_Soul(newSoul); 

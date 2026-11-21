@@ -19,7 +19,8 @@ public class ReduceBurnCost_OfCreatureOnTile_Building : PassiveAbilitySO
         {
             if (creatureStats.burnCost > 0) // don't be negative
             {
-                creatureStats.burnCost -= burnReduction;
+                creatureStats.UpdateBurnCost(burnReduction, increase: false, source: thisCard.transform);
+                // creatureStats.burnCost -= burnReduction;
                 // AnimateAbilityExecute(thisCard);
             }
         }
@@ -31,7 +32,8 @@ public class ReduceBurnCost_OfCreatureOnTile_Building : PassiveAbilitySO
 
         if (creatureStats != null)
         {
-            creatureStats.burnCost += burnReduction;
+            creatureStats.UpdateBurnCost(burnReduction, increase: true, source: thisCard.transform);
+
         }
     }
 }
