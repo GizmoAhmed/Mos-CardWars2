@@ -57,7 +57,11 @@ namespace CardScripts.CardStats_Folder
         }
 
         [Server]
-        public void UpdateConsumableUses(int amount, bool increase, Transform source = null)
+        public void UpdateConsumableUses(
+            int amount, 
+            bool increase, 
+            Transform source = null, 
+            bool floatText = true)
         {
             if (increase)
             {
@@ -81,8 +85,13 @@ namespace CardScripts.CardStats_Folder
             }
             
             RpcPopTextAnimate(AnimTarget.Uses, true); // pop soul text 
-            
-            CallAnim_ToFloatStatText(amount, increase,Color.black);
+
+            // having float text on spell cast is jarring, but I still want text to float when spells uses are effected while in hand
+            // so the decrement call for spell uses will have this as false so we can have both
+            if (floatText)
+            {
+               CallAnim_ToFloatStatText(amount, increase,Color.black); 
+            }
             
             if (source != null) // source was passed, use it to draw line
             {
@@ -102,7 +111,7 @@ namespace CardScripts.CardStats_Folder
         [Server] // server allows hook to cascade onto client ui
         public void Server_UseSpell_DecrementUses()
         {
-            UpdateConsumableUses(1, false);
+            UpdateConsumableUses(1, false, floatText: false);
         }
     }
 }

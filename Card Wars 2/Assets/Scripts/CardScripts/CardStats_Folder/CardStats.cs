@@ -86,24 +86,22 @@ namespace CardScripts.CardStats_Folder
 
             Display = GetComponent<CardDisplay>();
             
-            SetStats_FromData(); 
-            
-            /*if (serverCall)
+            if (serverCall) // drawing from server
             {
                 // since server call, will use hooks to propagate to both clients
                 SetStats_FromData(); 
             }
-            else
+            else // set card data called client side, so draw modal
             {
                 // since client, you'll have to manually call the ui update functions that are inside the hooks
                 SetStats_FromData(); 
-                // Display.UpdateUI_Soul(soulUse);
+                Display.UpdateUI_Soul(soulUse);
                 
-                // Display.UpdateUI_BurnReturn(burnInHandReturn); // set both return... 
-                // Display.UpdateUI_BurnCost(burnCost); // ...and cost
+                Display.UpdateUI_BurnReturn(burnInHandReturn); // set both return... 
+                Display.UpdateUI_BurnCost(burnCost); // ...and cost
                 
                 // Display.ToggleBurnCost(false); // turn off burn cost since init-ing
-            }*/
+            }
             
             if (serverCall) // called to spawn card on both clients
             {
