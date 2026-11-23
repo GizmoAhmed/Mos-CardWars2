@@ -10190,7 +10190,7 @@ PrefabInstance:
       objectReference: {fileID: 1243263642205161095, guid: b1efdd37bf1fd294ebafc7890a269737, type: 3}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: debugMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: drawModal
@@ -12999,13 +12999,12 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
-  - {fileID: 11400000, guid: d461c2b8ee29d1642ba086f442cb0c04, type: 2}
-  - {fileID: 11400000, guid: 89d14fe237ec2804e838460cb62895ab, type: 2}
-  - {fileID: 11400000, guid: 6d3451ea336229f4db11a9ae643a9e02, type: 2}
-  - {fileID: 11400000, guid: 97cc6be107577e54ea7b193187d0c773, type: 2}
-  - {fileID: 11400000, guid: 41a2d3d2f8ba95d4aa51a693035e0186, type: 2}
-  - {fileID: 11400000, guid: 87945ef6eabe77042b24de5acde1bd7c, type: 2}
-  - {fileID: 11400000, guid: 290126a966512ef40bf49061958b626a, type: 2}
+  - {fileID: 11400000, guid: 9ca264ec965bd1d4aa68d563cd888f3d, type: 2}
+  - {fileID: 11400000, guid: bc6658f3308274d4eab6b0aae76a82de, type: 2}
+  - {fileID: 11400000, guid: 431d37ba1f503d84d86ae1f813b61fa9, type: 2}
+  - {fileID: 11400000, guid: 902470657f59aca4990584f4a1dedc2f, type: 2}
+  - {fileID: 11400000, guid: 9f69cc25b6a217c4ebecdef6a7596d84, type: 2}
+  - {fileID: 11400000, guid: 8559f16a97f893f4384ab9f7e1ac05cf, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0

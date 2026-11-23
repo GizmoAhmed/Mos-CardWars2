@@ -23,6 +23,9 @@ namespace PlayerStuff
         public int cardsPlacedThisTurn;
 
         public int creatureActivationsThisTurn;
+        
+        [Header("Temp Stats")]
+        [SyncVar] public int tempFreeOffering;
 
         /// <summary>
         /// Called when a card is discarded - tracked on server
@@ -126,6 +129,13 @@ namespace PlayerStuff
             numOfCardsDrawnThisTurn = 0;
             cardsPlacedThisTurn = 0;
             creatureActivationsThisTurn = 0;
+            
+            // temp stats
+            PlayerStats playerStats = GetComponent<PlayerStats>();
+            
+            // temp offering
+            playerStats.freeCardsOffered -= tempFreeOffering; // reset back to pre-temp offering
+            tempFreeOffering = 0; // reset temp offering
 
             Server_ResetFloops_OfAllCreatures();
 

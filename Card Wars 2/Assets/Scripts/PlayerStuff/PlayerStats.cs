@@ -17,6 +17,8 @@ namespace PlayerStuff
     public class PlayerStats : NetworkBehaviour
     {
         public PlayerUI ui;
+        
+        public PlayerCardTracker cardTracker;
 
         [Header("Soul")] [SyncVar(hook = nameof(Hook_PlayerCurrentSoulUIUpdate))]
         public int currentSoul;
@@ -345,7 +347,7 @@ namespace PlayerStuff
             }
 
             freeDrawsLeft--;
-
+            
             TargetOfferCardsOnModal(connectionToClient, freeCardsChosen, freeCardsOffered);
         }
 

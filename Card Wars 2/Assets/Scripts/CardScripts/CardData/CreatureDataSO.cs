@@ -5,7 +5,14 @@ namespace CardScripts.CardData
     [CreateAssetMenu(fileName = "-----_Creature", menuName = "New Creature")]
     public class CreatureDataSO : CardDataSO
     {
-        [Header("Creature Specific Data")]
+        [Header("Creature Specific Data")] 
+        
+        public int abilityCost;
+
+        public int attack;
+        public int defense;
+        
+        [Header("Element")]
         public Element element;
         public enum Element
         {
@@ -17,11 +24,7 @@ namespace CardScripts.CardData
             // None, don't have any reason for this, yet
             Any
         }
-
+        
         public Sprite elementSprite;
-        
-        public int abilityCost; 
-        
-        public int attack, defense;
     }
 }

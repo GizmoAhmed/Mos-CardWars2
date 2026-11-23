@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba13feafe0dc834ebf3fd0d103d52b7, type: 3}
   m_Name: FortifySelf_CreatureSO
   m_EditorClassIdentifier: 
-  fortify: 2
+  abilityDescription: Fortify +{fortify}
+  fortify: 3
