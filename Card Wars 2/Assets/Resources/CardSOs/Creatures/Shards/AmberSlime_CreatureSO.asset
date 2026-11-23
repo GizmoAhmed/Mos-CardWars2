@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
-  m_Name: HotSauceSlimey_Creature
+  m_Name: AmberSlime_CreatureSO
   m_EditorClassIdentifier: 
-  cardName: HOT SAUCE SLIMEY
-  mainImage: {fileID: 21300000, guid: 2323f4d15aa4f6947a292afede44ae1d, type: 3}
-  soul: 0
-  abilityDescription: XXXXXXX
+  cardName: AMber slime
+  mainImage: {fileID: 21300000, guid: 852c0a6c266218f41912ad73ae25b3e3, type: 3}
+  soul: 1
   burnCost: 2
   burnReturn: 3
-  ability: {fileID: 11400000, guid: 5efcddc6dd244c440bb243e471afe6a1, type: 2}
+  ability: {fileID: 11400000, guid: 99a4d79ab70c77d48b609b8e5490ce1a, type: 2}
   cardRarity: 0
-  element: 0
-  elementSprite: {fileID: 21300000, guid: 138148427b378e948a772d18bc751a5c, type: 3}
-  abilityCost: 1
+  abilityCost: 3
   attack: 0
   defense: 5
+  element: 4
+  elementSprite: {fileID: 21300000, guid: 0ede4adc0fc136c4daf93b2f0ecb5355, type: 3}

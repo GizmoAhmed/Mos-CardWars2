@@ -12999,12 +12999,23 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
-  - {fileID: 11400000, guid: 9ca264ec965bd1d4aa68d563cd888f3d, type: 2}
+  - {fileID: 11400000, guid: f07f67a0a94437b4b996c24f73346e9b, type: 2}
   - {fileID: 11400000, guid: bc6658f3308274d4eab6b0aae76a82de, type: 2}
-  - {fileID: 11400000, guid: 431d37ba1f503d84d86ae1f813b61fa9, type: 2}
-  - {fileID: 11400000, guid: 902470657f59aca4990584f4a1dedc2f, type: 2}
   - {fileID: 11400000, guid: 9f69cc25b6a217c4ebecdef6a7596d84, type: 2}
+  - {fileID: 11400000, guid: c99f1b42f39667a4685af9d8bf49b3ee, type: 2}
+  - {fileID: 11400000, guid: 902470657f59aca4990584f4a1dedc2f, type: 2}
+  - {fileID: 11400000, guid: 652eb14de9b897e488f79ab338880d28, type: 2}
+  - {fileID: 11400000, guid: 431d37ba1f503d84d86ae1f813b61fa9, type: 2}
+  - {fileID: 11400000, guid: 9ca264ec965bd1d4aa68d563cd888f3d, type: 2}
+  - {fileID: 11400000, guid: a20e4de97dcc24344a3ccf55d6606753, type: 2}
+  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
   - {fileID: 11400000, guid: 8559f16a97f893f4384ab9f7e1ac05cf, type: 2}
+  - {fileID: 11400000, guid: 3a6209d244887aa47a217ea3ba612854, type: 2}
+  - {fileID: 11400000, guid: bd67f097bf776ff44baee0a04ab5cd20, type: 2}
+  - {fileID: 11400000, guid: 74103ed5438175945a3ce0413bd14743, type: 2}
+  - {fileID: 11400000, guid: 74103ed5438175945a3ce0413bd14743, type: 2}
+  - {fileID: 11400000, guid: 74103ed5438175945a3ce0413bd14743, type: 2}
+  - {fileID: 11400000, guid: 74103ed5438175945a3ce0413bd14743, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0

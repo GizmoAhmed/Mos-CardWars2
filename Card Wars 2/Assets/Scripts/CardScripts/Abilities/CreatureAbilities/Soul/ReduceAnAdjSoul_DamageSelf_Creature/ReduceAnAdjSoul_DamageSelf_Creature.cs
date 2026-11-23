@@ -9,9 +9,9 @@ using GameManagement;
 using Tiles;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature",
-    menuName = "Abilities/Creature/Soul/ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature")]
-public class ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature : ActiveAbilitySO
+[CreateAssetMenu(fileName = "ReduceAnAdjSoul_DamageSelf_Creature",
+    menuName = "Abilities/Creature/Soul/ReduceAnAdjSoul_DamageSelf_Creature")]
+public class ReduceAnAdjSoul_DamageSelf_Creature : ActiveAbilitySO
 {
     public int selfDamage;
     public int soulReduction;
@@ -30,15 +30,14 @@ public class ReduceSoulOnAdjacentCreature_ThenDamageThis_Creature : ActiveAbilit
         
         MiddleTile adj = thisCard.Ext_GetEitherAdjacentTile(leftOrRight);
 
-        if (adj == null) return; // in a position where there is not right or left 
-
+        if (adj == null || adj.logicalCreature == null) // in a position where there is not right or left, or simply no creature on that tile 
+        {
+            thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: selfDamage, buff: false); // damage this anyway
+            return;
+        } 
+        
         // look at adjacent creature
         GameObject adjCreature = adj.logicalCreature;
-
-        if (adjCreature == null)
-        {
-            return; // no creature on this tile
-        }
 
         // buff that adjacent creature
         adjCreature.GetComponent<CreatureStats>().UpdateSyncSoulToPlayer(-soulReduction, source: thisCard.transform);

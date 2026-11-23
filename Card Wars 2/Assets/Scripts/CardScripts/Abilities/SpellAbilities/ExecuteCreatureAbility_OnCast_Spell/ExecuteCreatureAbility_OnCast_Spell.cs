@@ -10,8 +10,6 @@ using UnityEngine;
     menuName = "Abilities/Spell/ExecuteCreatureAbility_OnCast_Spell")]
 public class ExecuteCreatureAbility_OnCast_Spell : CastAbilitySO
 {
-    // TODO: Add your ability parameters here
-        
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
         // get creature
@@ -20,6 +18,6 @@ public class ExecuteCreatureAbility_OnCast_Spell : CastAbilitySO
         if (creature == null) return;
 
         // floop creature
-        creature.ActivateCreatureAbility();
+        creature.RemoteActivateThisCreature(source: null);
     }
 }

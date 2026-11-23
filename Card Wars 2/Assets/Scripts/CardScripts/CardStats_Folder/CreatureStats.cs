@@ -1,5 +1,6 @@
 using System;
 using AbilityEvents;
+using CardScripts.Abilities;
 using CardScripts.CardData;
 using CardScripts.CardDisplays;
 using CardScripts.CardMovements;
@@ -328,8 +329,7 @@ namespace CardScripts.CardStatss
         }
 
         /// <summary>
-        /// Usually, abilities are called by clicking a creature ability button
-        /// This function is for cases where it's done otherwise, typically from another ability
+        /// Two ways that creature activations get here: Remotely or via the ability click
         /// </summary>
         [Server]
         public void ActivateCreatureAbility()
@@ -359,9 +359,11 @@ namespace CardScripts.CardStatss
                             $"{gameObject.name} gambled on an additional floop and <color=green>won</color>: Activating Twice");
 
                         ExecuteAndBroadcastAbility();
+                        
+                        ActiveAbilitySO ability = cardData.ability as ActiveAbilitySO;
 
                         // check:
-                        if (ValidateAbilityReExecution()) // passed checks?
+                        if (ability.ValidateAbility(gameObject, null)) // passed checks?
                         {
                             ExecuteAndBroadcastAbility(); // go again
                         }
@@ -381,20 +383,21 @@ namespace CardScripts.CardStatss
         }
 
         /// <summary>
-        /// Check if ability can be re-executed after initial execute
+        /// This creature was activated by means other than clicking on it's ability button and spending shards
         /// </summary>
-        /// <returns></returns>
-        private bool ValidateAbilityReExecution()
+        public void RemoteActivateThisCreature(Transform source = null)
         {
-            // make sure it didn't invalidate its ability to floop with the first execute
+            ActiveAbilitySO ability = cardData.ability as ActiveAbilitySO;
 
-            if (floopBlockers > 0) return false; // can't floop, abort
-
-            if (_creatureMovement.cardState == CardMovement.CardState.Discard)
-                return false; // killed itself, abort
-
-            // todo and any other reasons below
-            return true;
+            if (ability.ValidateAbility(gameObject, null))
+            {
+                ActivateCreatureAbility();
+                
+                if (source != null) // source was passed, use it to draw line
+                {
+                    RpcDrawLineToTarget(from: source);
+                }
+            }
         }
 
         private void ExecuteAndBroadcastAbility()

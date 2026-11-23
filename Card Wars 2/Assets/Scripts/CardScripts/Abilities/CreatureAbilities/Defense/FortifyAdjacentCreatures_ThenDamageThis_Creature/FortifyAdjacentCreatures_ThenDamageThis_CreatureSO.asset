@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afa48b7998cc3234ba156a1202622bfd, type: 3}
   m_Name: FortifyAdjacentCreatures_ThenDamageThis_CreatureSO
   m_EditorClassIdentifier: 
-  abilityDescription: Fortify Adj Creatures +{fortify}, then damage this creature
+  abilityDescription: Adj Creatures Fortify +{fortify}, then damage this creature
     -{selfDamage}
   fortify: 4
   selfDamage: 5

@@ -9,7 +9,7 @@ using Tiles;
 
 [CreateAssetMenu(
     fileName = "GetXFreeDrawOfferingNextTurn_Creature", 
-    menuName = "Abilities/Creature/Draw/GetXFreeDrawOfferingNextTurn_Creature")]
+    menuName = "Abilities/Creature/Draw/GetXFreeDrawOfferingThisTurn_Creature")]
 public class GetXFreeDrawOfferingThisTurn_Creature : ActiveAbilitySO
 {
     public int tempOffering;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AbilityEvents;
 using Buttons;
 using CardScripts;
+using CardScripts.Abilities;
 using CardScripts.CardData;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
@@ -57,7 +58,7 @@ namespace PlayerStuff
 
         [SyncVar] public int freeDrawsPerTurn;
 
-        [SyncVar(hook = nameof(ChoiceUpdate))] public int freeCardsChosen;
+        [SyncVar(hook = nameof(ChoiceUpdate))] public int freeCardPicks;
         [SyncVar(hook = nameof(OfferUpdate))] public int freeCardsOffered;
 
         public void InitUI()
@@ -269,6 +270,7 @@ namespace PlayerStuff
             
             if (cardMove.cardState == CardMovement.CardState.Discard)
             {
+                // todo float this if needed
                 Debug.LogWarning($"Can't activate this creature ({creatureToActivate.name}), because it is in the discard pile");
                 return;
             }
@@ -292,10 +294,19 @@ namespace PlayerStuff
                     $"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>out of floops ({creatureStats.floopsLeft} floops left)</color>");
                 return;
             }
+            
+            ActiveAbilitySO ability = creatureStats.cardData.ability as ActiveAbilitySO;
 
-            // todo early abort ability activation would go here
-            // if ability has a prerequisite (ie hand count < x) that is not made,
-            // then abort so a floop isn't spent, similar to spell condition on those cards
+            if (ability == null)
+            {
+                Debug.LogError($"Ability on {creatureToActivate.name} has no active ability");
+                return;
+            }
+            
+            // todo overrides of this function will float text
+            bool canActivate = ability.ValidateAbility(creatureToActivate, null);
+
+            if (!canActivate) return; 
 
             int cost = creatureStats.abilityCost;
 
@@ -319,6 +330,7 @@ namespace PlayerStuff
             }
             else
             {
+                // todo float text 
                 Debug.LogWarning($"...Insufficient <color=yellow>shards</color> ({shards}) to activate {creatureToActivate.name} ({cost})");
             }
         }
@@ -348,7 +360,7 @@ namespace PlayerStuff
 
             freeDrawsLeft--;
             
-            TargetOfferCardsOnModal(connectionToClient, freeCardsChosen, freeCardsOffered);
+            TargetOfferCardsOnModal(connectionToClient, freeCardPicks, freeCardsOffered);
         }
 
         [Command]

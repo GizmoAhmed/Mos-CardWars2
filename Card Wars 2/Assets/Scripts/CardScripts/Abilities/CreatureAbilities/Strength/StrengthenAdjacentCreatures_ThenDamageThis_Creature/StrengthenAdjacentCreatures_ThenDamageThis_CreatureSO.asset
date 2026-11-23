@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72dd778911a888b4bb137a8ce78e192a, type: 3}
   m_Name: StrengthenAdjacentCreatures_ThenDamageThis_CreatureSO
   m_EditorClassIdentifier: 
+  abilityDescription: Adj Creatures Str +{strengthen}, then damage this creature
+    -{selfDamage}
   strengthen: 4
   selfDamage: 5

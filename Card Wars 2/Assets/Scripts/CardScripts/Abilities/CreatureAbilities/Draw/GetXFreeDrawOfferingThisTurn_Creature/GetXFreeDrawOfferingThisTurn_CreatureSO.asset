@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a22454c2762de4182d9f400f89279d, type: 3}
+  m_Script: {fileID: 11500000, guid: 760b3cea99541d04d9fd6b0b7ad15b15, type: 3}
   m_Name: GetXFreeDrawOfferingThisTurn_CreatureSO
   m_EditorClassIdentifier: 
   abilityDescription: Get +{tempOffering} free draw offering this turn

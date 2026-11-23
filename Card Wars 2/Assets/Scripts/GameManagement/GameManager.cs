@@ -207,8 +207,8 @@ namespace GameManagement
             _stats1.freeDrawsPerTurn = defaultFreeDrawsPerTurn;
             _stats2.freeDrawsPerTurn = defaultFreeDrawsPerTurn;
 
-            _stats1.freeCardsChosen = defaultFreeDrawChoices;
-            _stats2.freeCardsChosen = defaultFreeDrawChoices;
+            _stats1.freeCardPicks = defaultFreeDrawChoices;
+            _stats2.freeCardPicks = defaultFreeDrawChoices;
 
             _stats1.freeCardsOffered = defaultFreeDrawOffering;
             _stats2.freeCardsOffered = defaultFreeDrawOffering;

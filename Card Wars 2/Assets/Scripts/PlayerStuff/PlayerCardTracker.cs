@@ -23,8 +23,9 @@ namespace PlayerStuff
         public int cardsPlacedThisTurn;
 
         public int creatureActivationsThisTurn;
-        
-        [Header("Temp Stats")]
+
+        [Header("Temp Stats")] 
+        [SyncVar] public int tempFreePicks;
         [SyncVar] public int tempFreeOffering;
 
         /// <summary>
@@ -133,7 +134,11 @@ namespace PlayerStuff
             // temp stats
             PlayerStats playerStats = GetComponent<PlayerStats>();
             
-            // temp offering
+            // temp free picks
+            playerStats.freeCardPicks -= tempFreePicks;
+            tempFreePicks = 0;
+            
+            // temp free offering
             playerStats.freeCardsOffered -= tempFreeOffering; // reset back to pre-temp offering
             tempFreeOffering = 0; // reset temp offering
 

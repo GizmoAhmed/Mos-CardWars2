@@ -28,7 +28,7 @@ public class FortifyAdjacentCreatures_ThenDamageThis_Creature : ActiveAbilitySO
             CreatureStats adjCreature = tile.logicalCreature.GetComponent<CreatureStats>();
             
             // if creature is there, buff it
-            adjCreature.UpdateCreatureDefense(fortify, true);
+            adjCreature.UpdateCreatureDefense(fortify, true, source: thisCard.transform);
         }
         
         thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: selfDamage, buff: false);

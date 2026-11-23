@@ -105,8 +105,19 @@ namespace CardScripts.CardDisplays
         protected string InitializeAbilityDescription(GameObject textObj, CardAbilitySO ability)
         {
             string desc;
-            
-            if (string.IsNullOrEmpty(ability.abilityDescription)) // no description typed out in the SO
+
+            if (ability == null) // prob no ability was set in inspector
+            {
+                Debug.LogError($"Ability is null on {gameObject.name}");
+                
+                desc = "ERROR: No ability set to this creature";
+                
+                SetText(
+                    textObj,
+                    desc,
+                    changeColorOfText_FromDefaultToBlack: false);
+            }
+            else if (string.IsNullOrEmpty(ability.abilityDescription)) // no description typed out in the SO
             {
                 desc = ParseAbilityName_IntoDescription(ability.name); // pass name as the ability description
                 

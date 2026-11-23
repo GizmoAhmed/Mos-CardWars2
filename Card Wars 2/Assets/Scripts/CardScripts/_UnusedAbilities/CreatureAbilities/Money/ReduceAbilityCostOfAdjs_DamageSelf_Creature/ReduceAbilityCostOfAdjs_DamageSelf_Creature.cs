@@ -8,9 +8,9 @@ using Tiles;
 using UnityEngine;
 
 [CreateAssetMenu(
-    fileName = "ReduceAbilityCost_OfAdjacentCreatures_Creature", 
-    menuName = "Abilities/Creature/Money/ReduceAbilityCost_OfAdjacentCreatures_ThenDamageThis_Creature")]
-public class ReduceAbilityCost_OfAdjacentCreatures_ThenDamageThis_Creature : ActiveAbilitySO
+    fileName = "ReduceAbilityCostOfAdjs_DamageSelf_Creature", 
+    menuName = "Abilities/Creature/Money/ReduceAbilityCostOfAdjs_DamageSelf_Creature")]
+public class ReduceAbilityCostOfAdjs_DamageSelf_Creature : ActiveAbilitySO
 {
     public int selfDamage;
     public int abilityCostReduction;
