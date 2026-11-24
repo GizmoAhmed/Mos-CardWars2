@@ -284,6 +284,13 @@ namespace Extensions
             return track.Server_GetPlayerHandCount();
         }
 
+        public static List<GameObject> Ext_GetThisPlayerHand(this GameObject card)
+        {
+            PlayerCardTracker track = card.Ext_GetOwningCardTracker();
+
+            return track.GetThisPlayersHand();
+        }
+
         public static CreatureStats Ext_GetCreatureStats_FromSpellCastEventData(this AbilityEventData data)
         {
             MiddleTile middleTile = data.target.GetComponent<MiddleTile>();
@@ -359,6 +366,22 @@ namespace Extensions
             }
 
             return list.Count == 1 ? list[0] : list[Random.Range(0, list.Count)];
+        }
+        
+        public static List<T> PickRandomItemsFromList<T>(this IReadOnlyList<T> list, int count)
+        {
+            var pool = new List<T>(list);          // copy, so the real hand isn't touched
+            var picked = new List<T>();
+            count = Mathf.Min(count, pool.Count);
+
+            for (int i = 0; i < count; i++)
+            {
+                int index = Random.Range(0, pool.Count);
+                picked.Add(pool[index]);
+                pool.RemoveAt(index);              // can't be picked again
+            }
+
+            return picked;
         }
         
         public static bool IsSoulBasedCard(this GameObject card)
