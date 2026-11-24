@@ -545,6 +545,8 @@ namespace CardScripts.CardMovements
         [Server]
         public virtual void ServerDiscard()
         {
+            Tile thisTile = GetLogicalTile();
+            
             // bother unsubscribing if you are on field (as opposed to hand and preview)
             if (cardState == CardState.Field)
             {
@@ -554,11 +556,8 @@ namespace CardScripts.CardMovements
                 PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
                 if (listen != null) listen.UnsubscribeThisCardFromListening();
 
-                DetachFromTile(); // if on a tile, detach from that tile
+                // DetachFromTile(); // if on a tile, detach from that tile
             }
-
-            // set state to discard
-            cardState = CardState.Discard;
 
             // resets stats to base, to show on discard board
             cardStats.SetStats_FromData();
@@ -570,9 +569,14 @@ namespace CardScripts.CardMovements
 
             // also remove from hand if discarding from there ('if' since the below func simply won't do anything if not in hand)
             player.playerCardTracker.Server_RemoveFromHand(gameObject);
-
-            LocalWhisperCardDiscard(GetLogicalTile());
-
+            
+            if (cardState == CardState.Field) DetachFromTile(); 
+            
+            // set state to discard
+            cardState = CardState.Discard;
+            
+            LocalWhisperCardDiscard(thisTile); // saved the tile, so detach can be placed above discard state
+            
             // visually move card to discard board for each respective client
             RpcMoveDiscardedCard_ToBoard();
         }
@@ -593,7 +597,7 @@ namespace CardScripts.CardMovements
         }
 
         [ClientRpc]
-        private void RpcMoveDiscardedCard_ToBoard()
+        protected void RpcMoveDiscardedCard_ToBoard()
         {
             _cardInfoHandler.CloseAnyOpenInfo();
 

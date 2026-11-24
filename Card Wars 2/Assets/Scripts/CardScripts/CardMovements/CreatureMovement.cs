@@ -143,7 +143,7 @@ namespace CardScripts.CardMovements
         }
 
         [Server]
-        public override void ServerDiscard()
+        public override void ServerDiscard() // todo make bool to check if actually discarded 
         {
             // if being discarded from the field, returning magic
             if (cardState == CardState.Field)
@@ -160,7 +160,7 @@ namespace CardScripts.CardMovements
             GetComponentInChildren<RuneSlots>().UnbindAllRunes();
             
             // tell tile that a card was discarded on it
-            LocalWhisperCardDiscard(GetLogicalTile());
+            // LocalWhisperCardDiscard(GetLogicalTile());
             
             base.ServerDiscard();
         }

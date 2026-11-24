@@ -63,9 +63,47 @@ namespace CardScripts.CardMovements
 
         }
         
-        // uses base, keeping this here to remind YOU that
-        // [Server]
-        // public override void ServerDiscard()
+        
+        [Server]
+        public override void ServerDiscard()
+        {
+            Tile thisTile = GetLogicalTile();
+            
+            // bother unsubscribing if you are on field (as opposed to hand and preview)
+            if (cardState == CardState.Field)
+            {
+                // this (unsub) goes first (before detach) so that when data is sent from unsubscribe, the tile is still set in custom data in PassiveListenerCard.cs 
+
+                // if listener found, card is passive, unsubscribe its ability
+                PassiveListenerCard listen = GetComponent<PassiveListenerCard>();
+                if (listen != null) listen.UnsubscribeThisCardFromListening();
+
+                // DetachFromTile(); // if on a tile, detach from that tile
+            }
+
+            // resets stats to base, to show on discard board
+            cardStats.SetStats_FromData();
+
+            Player player = thisCardOwnerPlayerStats?.GetComponent<Player>();
+
+            // Track discard on server
+            player.playerCardTracker.Server_TrackDiscard(gameObject);
+
+            // also remove from hand if discarding from there ('if' since the below func simply won't do anything if not in hand)
+            player.playerCardTracker.Server_RemoveFromHand(gameObject);
+            
+            if (cardState == CardState.Field) DetachFromTile(); 
+            
+            // set state to discard
+            cardState = CardState.Discard;
+            
+            // only diff between this ServerDiscard and the base:
+            // don't whisper discard for a rune when it's discarded alongside it's bound creature
+            // LocalWhisperCardDiscard(thisTile); 
+            
+            // visually move card to discard board for each respective client
+            RpcMoveDiscardedCard_ToBoard();
+        }
 
         // override to ignore ClearLogicalPositionServer()
         protected override void DetachFromTile()

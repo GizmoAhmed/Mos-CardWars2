@@ -37,11 +37,11 @@ public class ActivateAnAdjacentCreature_ThenDamageThis_Creature : ActiveAbilityS
         // look at adjacent creature
         GameObject adjCreature = adj.logicalCreature;
 
-        // activate adj creature
-        adjCreature.GetComponent<CreatureStats>().RemoteActivateThisCreature(source: thisCard.transform);
-
         // damage thisCard
         thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: selfDamage, buff: false);
+        
+        // activate adj creature
+        adjCreature.GetComponent<CreatureStats>().RemoteActivateThisCreature(source: thisCard.transform);
 
         AnimateAbilityExecute(thisCard);
     }

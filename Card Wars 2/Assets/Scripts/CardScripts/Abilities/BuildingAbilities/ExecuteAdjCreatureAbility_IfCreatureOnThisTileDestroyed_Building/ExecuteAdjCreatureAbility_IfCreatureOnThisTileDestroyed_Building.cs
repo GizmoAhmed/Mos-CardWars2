@@ -1,4 +1,5 @@
 using AbilityEvents;
+using CardScripts.CardMovements;
 using CardScripts.CardStatss;
 using Extensions;
 using Tiles;
@@ -20,6 +21,12 @@ namespace CardScripts.Abilities.BuildingAbilities.ExecuteAdjCreatureAbility_IfCr
         }        
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
+            if (!eventData.target.TryGetComponent(out CreatureMovement creatureMovement))// double check that it was a creature that was discarded
+            {
+                // this can only ever be a creature, but at one point, runes were triggering this when destroyed with bound creature
+                return; 
+            }
+
             string leftOrRight = side == AdjacentSide.Left ? "left" : "right";
 
             MiddleTile adj = thisCard.Ext_GetEitherAdjacentTile(leftOrRight);
@@ -36,7 +43,6 @@ namespace CardScripts.Abilities.BuildingAbilities.ExecuteAdjCreatureAbility_IfCr
 
             CreatureStats adjCreatureStats = adjCreature.GetComponent<CreatureStats>();
         
-            // todo executing here doesn't follow the normal PlayerStats.cs route, keep that in mind
             adjCreatureStats.RemoteActivateThisCreature(source: thisCard.transform);
         
             AnimateAbilityExecute(thisCard);

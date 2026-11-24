@@ -311,8 +311,8 @@ namespace PlayerStuff
             }
             else
             {
-                // todo float text 
-                Debug.LogWarning($"...Insufficient <color=yellow>shards</color> ({shards}) to activate {creatureToActivate.name} ({cost})");
+                cardAnimator.RpcFloatText("Insufficient Shards", Color.red);
+                // Debug.LogWarning($"...Insufficient <color=yellow>shards</color> ({shards}) to activate {creatureToActivate.name} ({cost})");
             }
         }
 
