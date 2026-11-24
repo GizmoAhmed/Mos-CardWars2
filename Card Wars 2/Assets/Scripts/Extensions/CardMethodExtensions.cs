@@ -233,6 +233,20 @@ namespace Extensions
             return oppsCreatures;
         }
 
+        public static List<BuildingMovement> Ext_GetAllActiveBuildingsForThisPlayer(this GameObject card)
+        {
+            PlayerCardTracker thisCardOwnerStats = card.Ext_GetOwningCardTracker();
+
+            List<BuildingMovement> yourBuildings = thisCardOwnerStats.Server_GetThisPlayersActiveBuildings();
+
+            if (yourBuildings.Count == 0)
+            {
+                Debug.LogWarning("Attempted to get all active cards for this player, none found");
+            }
+
+            return yourBuildings;
+        }
+        
         public static List<CreatureStats> Ext_GetAllOpponentsActiveCreatures(this GameObject card)
         {
             PlayerCardTracker oppsCardTracker = card.Ext_GetOpponentCardTracker();

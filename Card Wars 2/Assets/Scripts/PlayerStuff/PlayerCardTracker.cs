@@ -249,6 +249,25 @@ namespace PlayerStuff
 
             return creatures;
         }
+        
+        /// <summary>
+        /// Get all Buildings currently on the field for this player
+        /// </summary>
+        [Server]
+        public List<BuildingMovement> Server_GetThisPlayersActiveBuildings()
+        {
+            List<BuildingMovement> builds = new List<BuildingMovement>();
+
+            foreach (GameObject card in serverActiveFieldCards)
+            {
+                if (card != null && card.TryGetComponent(out BuildingMovement build))
+                {
+                    builds.Add(build);
+                }
+            }
+
+            return builds;
+        }
 
         [Server]
         public List<SpellStats> Server_GetThisPlayerInHandSpells()

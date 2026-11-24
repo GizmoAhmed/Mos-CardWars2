@@ -15,6 +15,10 @@ public class EarnShards_Creature : ActiveAbilitySO
     {
         PlayerStats player = thisCard.Ext_GetOwningPlayerStats();
         
+        // todo notice ↓
+
+        // when this is called consecutively (ie pride), it stacks the calls
+        // so if this is +2, pride will right +4, giving the illusion that this ability only went off once
         player.shards += shards;
         
         AnimateAbilityExecute(thisCard);

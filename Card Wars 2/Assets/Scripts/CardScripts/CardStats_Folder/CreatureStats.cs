@@ -334,8 +334,6 @@ namespace CardScripts.CardStatss
         [Server]
         public void ActivateCreatureAbility()
         {
-            if (floopBlockers > 0) return; // if can't floop don't bother
-
             try
             {
                 if (cardData.ability == null)
@@ -363,16 +361,16 @@ namespace CardScripts.CardStatss
                         ActiveAbilitySO ability = cardData.ability as ActiveAbilitySO;
 
                         // check:
-                        if (ability.ValidateAbility(gameObject, null)) // passed checks?
+                        if (ability.ValidateAbility(gameObject)) // re-validate since something may have changed after the first execute
                         {
                             ExecuteAndBroadcastAbility(); // go again
                         }
                     }
-                    else
+                    /*else
                     {
                         Debug.Log($"{gameObject.name} gambled on an additional floop and <color=red>missed</color>");
                         // missed? too bad, ability wasn't set off at all
-                    }
+                    }*/
                 }
             }
             catch (Exception e)
@@ -389,7 +387,13 @@ namespace CardScripts.CardStatss
         {
             ActiveAbilitySO ability = cardData.ability as ActiveAbilitySO;
 
-            if (ability.ValidateAbility(gameObject, null))
+            if (ability == null)
+            {
+                Debug.LogError($"Failed to activate ability on {gameObject.name}: <color=orange>Ability is not set</color>");
+                return;
+            }
+
+            if (ability.ValidateAbility(gameObject))
             {
                 ActivateCreatureAbility();
                 
@@ -402,7 +406,7 @@ namespace CardScripts.CardStatss
 
         private void ExecuteAndBroadcastAbility()
         {
-            Debug.Log($"<color=green>ExecuteAndBroadCastAbility</color> on {gameObject.name}");
+            // Debug.Log($"<color=green>ExecuteAndBroadCastAbility</color> on {gameObject.name}");
             cardData.ability.ExecuteAbility(gameObject, null);
 
             PlayerCardTracker playerCardTracker = gameObject.Ext_GetOwningCardTracker();
@@ -455,7 +459,7 @@ namespace CardScripts.CardStatss
             }
             else
             {
-                floopsLeft -= amount;
+                floopsLeft = Math.Max(0, floopsLeft - amount); // floops can't be negative
             }
             
             if (source != null) // source was passed, use it to draw line

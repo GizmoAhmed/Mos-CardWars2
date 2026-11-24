@@ -266,35 +266,8 @@ namespace PlayerStuff
         [Command]
         public void CmdCreatureAbility_ButtonPress(GameObject creatureToActivate)
         {
-            CardMovement cardMove = creatureToActivate.GetComponent<CardMovement>();
-            
-            if (cardMove.cardState == CardMovement.CardState.Discard)
-            {
-                // todo float this if needed
-                Debug.LogWarning($"Can't activate this creature ({creatureToActivate.name}), because it is in the discard pile");
-                return;
-            }
-            
-            Player player = GetComponent<Player>();
-
-            if (!player.myTurn) // if not your turn, can't floop anyone
-            {
-                Debug.Log(
-                    $"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>not your turn</color>");
-                return;
-            }
-
             CreatureStats creatureStats = creatureToActivate.GetComponent<CreatureStats>();
 
-            if (creatureStats.floopBlockers > 0) return; // can't floop, don't spend money
-
-            if (creatureStats.floopsLeft <= 0 && !creatureStats.multiFloop) // not enough floops, return
-            {
-                Debug.LogWarning(
-                    $"<color=orange>Can't floop</color> {creatureToActivate.name} because <color=orange>out of floops ({creatureStats.floopsLeft} floops left)</color>");
-                return;
-            }
-            
             ActiveAbilitySO ability = creatureStats.cardData.ability as ActiveAbilitySO;
 
             if (ability == null)
@@ -302,9 +275,18 @@ namespace PlayerStuff
                 Debug.LogError($"Ability on {creatureToActivate.name} has no active ability");
                 return;
             }
+
+            CardAnimator cardAnimator = creatureToActivate.GetComponent<CardAnimator>();
+
+            // floop amount check
+            if (creatureStats.floopsLeft <= 0 && !creatureStats.multiFloop) // not enough floops, return
+            {
+                cardAnimator.RpcFloatText("Out Of ability uses", Color.red);
+                return;
+            }
             
-            // todo overrides of this function will float text
-            bool canActivate = ability.ValidateAbility(creatureToActivate, null);
+            // validate now so doesn't spend money 
+            bool canActivate = ability.ValidateAbility(creatureToActivate);
 
             if (!canActivate) return; 
 
@@ -326,7 +308,6 @@ namespace PlayerStuff
 
                 // activates and broadcasts
                 creatureStats.ActivateCreatureAbility();
-                // todo print creature ability activation
             }
             else
             {
