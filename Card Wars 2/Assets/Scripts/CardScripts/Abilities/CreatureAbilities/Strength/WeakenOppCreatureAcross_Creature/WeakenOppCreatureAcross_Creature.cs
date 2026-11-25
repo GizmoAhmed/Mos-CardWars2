@@ -7,7 +7,7 @@ using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "WeakenOppCreatureAcross_Creature",
-    menuName = "Abilities/Creature/WeakenOppCreatureAcross_Creature")]
+    menuName = "Abilities/Creature/Strength/WeakenOppCreatureAcross_Creature")]
 public class WeakenOppCreatureAcross_Creature : ActiveAbilitySO
 {
     public int weaken;

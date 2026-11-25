@@ -73,10 +73,12 @@ namespace CardScripts
             creatureDisplay.DisplayRune(newRune);
         }
 
-        public void UnbindAllRunes()
+        public int UnbindAllRunes()
         {
             currentRune1 = null;
             currentRune2 = null;
+            
+            int runesRemovedCount = 0;
             
             // discard each slotted rune
             foreach (Transform rune in transform)
@@ -91,7 +93,11 @@ namespace CardScripts
                 
                 // they are still hidden from the initial bind, activate them so they show up on discard board
                 RpcShowRune(rune.gameObject);
+                
+                runesRemovedCount++;
             }
+            
+            return runesRemovedCount;
         }
 
         [ClientRpc]

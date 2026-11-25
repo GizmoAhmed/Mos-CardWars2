@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDescription: Destroy the Creature to the {Side}. Fortify equal to {defMultiplier}X
     its Defense.
-  defMultiplier: 1.5
+  defMultiplier: 1.25
   Side: 0

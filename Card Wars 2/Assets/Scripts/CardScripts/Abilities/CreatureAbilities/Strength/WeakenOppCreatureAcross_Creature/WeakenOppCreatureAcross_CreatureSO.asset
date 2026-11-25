@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808b51caffea40248ba45f42bff387ee, type: 3}
   m_Name: WeakenOppCreatureAcross_CreatureSO
   m_EditorClassIdentifier: 
+  abilityDescription: Weaken -{weaken} to creature across
   weaken: 3

@@ -176,6 +176,15 @@ namespace GameManagement
             
             return GetTile(row, column, opponentSide);
         }
+        
+        /// <summary>
+        /// Diagonals are the left/right neighbours of the tile directly across
+        /// </summary>
+        public List<MiddleTile> GetDiagonalTiles(int playerSide, int column)
+        {
+            int opponentSide = playerSide == 0 ? 1 : 0;
+            return GetAdjacentTiles(opponentSide, column, opponentSide);   // row == side, as in GetAcrossTile
+        }
 
         /*/// <summary>
         /// Get the creature at a specific logical position
@@ -202,32 +211,6 @@ namespace GameManagement
         {
             MiddleTile middleTile = GetTile(playerSide, row, column);
             return middleTile != null && middleTile.IsOccupied;
-        }
-
-        /// <summary>
-        /// Get diagonal tiles
-        /// </summary>
-        public List<MiddleTile> GetDiagonalTiles(int playerSide, int row, int column)
-        {
-            List<MiddleTile> diagonal = new List<MiddleTile>();
-
-            // Top-left
-            MiddleTile topLeft = GetTile(playerSide, row + 1, column - 1);
-            if (topLeft != null) diagonal.Add(topLeft);
-
-            // Top-right
-            MiddleTile topRight = GetTile(playerSide, row + 1, column + 1);
-            if (topRight != null) diagonal.Add(topRight);
-
-            // Bottom-left
-            MiddleTile bottomLeft = GetTile(playerSide, row - 1, column - 1);
-            if (bottomLeft != null) diagonal.Add(bottomLeft);
-
-            // Bottom-right
-            MiddleTile bottomRight = GetTile(playerSide, row - 1, column + 1);
-            if (bottomRight != null) diagonal.Add(bottomRight);
-
-            return diagonal;
         }
 
         /// <summary>

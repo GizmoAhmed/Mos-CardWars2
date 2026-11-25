@@ -83,6 +83,38 @@ namespace Extensions
                 (thisTile.row, thisTile.column, thisTile.serverPlayerSide);
         }
 
+        public static List<MiddleTile> Ext_GetTilesDiagonalToThisCard(this GameObject card)
+        {
+            CreatureMovement move = card.GetComponent<CreatureMovement>();
+            MiddleTile thisTile = move.GetLogicalTile() as MiddleTile;
+
+            return TileManager.Instance.GetDiagonalTiles(thisTile.serverPlayerSide, thisTile.column);
+        }
+
+        // Damages the creature on this tile. Returns true if there was a creature to hit.
+        public static bool Ext_DamageTile(this MiddleTile tile, int damage, Transform source = null)
+        {
+            if (!NetworkServer.active)
+            {
+                Debug.LogError("<color=orange>DamageTile_Ext</color> called on client - ignoring!");
+                return false;
+            }
+
+            if (tile == null) return false;   // no tile
+
+            if (tile.logicalCreature == null) // empty tile
+            {
+                // todo do something, for now, just add player drain or lost money or sum
+            }
+            else // creature there
+            {
+                CreatureStats creature = tile.logicalCreature.GetComponent<CreatureStats>();
+                creature.UpdateCreatureDefense(damage, buff: false, source: source);
+            }
+
+            return true;
+        }
+
         public static void DamageTileAcross_Ext(this MiddleTile tile, int damage)
         {
             if (!NetworkServer.active)
@@ -93,17 +125,7 @@ namespace Extensions
 
             MiddleTile across = tile.Ext_GetTileAcrossFromThisTile() as MiddleTile;
 
-            if (across.logicalCreature != null) // creature over there
-            {
-                CreatureStats oppCreature = across.logicalCreature.GetComponent<CreatureStats>();
-
-                // deal damage
-                oppCreature.UpdateCreatureDefense(damage, buff: false);
-            }
-            else // empty lane 
-            {
-                // todo do something, for now, just add player drain or lost money or sum
-            }
+            Ext_DamageTile(tile: across, damage: damage);
         }
 
         /// <summary>
