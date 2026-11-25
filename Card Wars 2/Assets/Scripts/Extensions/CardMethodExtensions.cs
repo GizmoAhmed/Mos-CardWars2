@@ -26,10 +26,8 @@ namespace Extensions
                 return null;
             }
 
-            CardMovement cardMovement = card.GetComponent<CardMovement>();
-
-            Tile thisTile = cardMovement.GetLogicalTile();
-
+            Tile thisTile = LogicalTileOf(card)
+                ;
             if (thisTile == null)
             {
                 Debug.LogError(card.name + " has no Tile attached");
@@ -37,6 +35,15 @@ namespace Extensions
 
             return thisTile;
         }
+        
+        private static MiddleTile LogicalTileOf(GameObject card) =>
+            card.GetComponent<CreatureMovement>().GetLogicalTile() as MiddleTile;
+
+        public static MiddleTile Ext_GetOppLeftmostTile(this GameObject card) =>
+            TileManager.Instance.GetOpponentLeftmostTile(LogicalTileOf(card).serverPlayerSide);
+
+        public static MiddleTile Ext_GetOppRightmostTile(this GameObject card) =>
+            TileManager.Instance.GetOpponentRightmostTile(LogicalTileOf(card).serverPlayerSide);
 
         public static MiddleTile Ext_GetEitherAdjacentTile(this GameObject card, string rightORleft = "right")
         {
@@ -75,9 +82,7 @@ namespace Extensions
 
         public static List<MiddleTile> Ext_GetTilesAdjacentToThisCard(this GameObject card)
         {
-            CreatureMovement move =  card.GetComponent<CreatureMovement>();
-
-            MiddleTile thisTile = move.GetLogicalTile() as MiddleTile;
+            MiddleTile thisTile = LogicalTileOf(card);
             
             return TileManager.Instance.GetAdjacentTiles
                 (thisTile.row, thisTile.column, thisTile.serverPlayerSide);
@@ -85,8 +90,7 @@ namespace Extensions
 
         public static List<MiddleTile> Ext_GetTilesDiagonalToThisCard(this GameObject card)
         {
-            CreatureMovement move = card.GetComponent<CreatureMovement>();
-            MiddleTile thisTile = move.GetLogicalTile() as MiddleTile;
+            MiddleTile thisTile = LogicalTileOf(card);
 
             return TileManager.Instance.GetDiagonalTiles(thisTile.serverPlayerSide, thisTile.column);
         }

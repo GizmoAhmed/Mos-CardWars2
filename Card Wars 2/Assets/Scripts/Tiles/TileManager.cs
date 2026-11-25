@@ -11,6 +11,10 @@ namespace GameManagement
     public class TileManager : MonoBehaviour
     {
         public static TileManager Instance { get; private set; }
+        
+        private const int ColumnsPerSide = 4;   
+
+        private static int OpponentOf(int side) => side == 0 ? 1 : 0;
 
         [Header("Tile References")] [Tooltip("All grid tiles in the scene (automatically found on Awake)")]
         public List<Tile> allTiles = new List<Tile>();
@@ -128,6 +132,16 @@ namespace GameManagement
 
             return playerTiles;
         }
+        
+        public MiddleTile GetLeftmostTile(int playerSide) =>
+            GetTile(playerSide, 0, playerSide) as MiddleTile;
+
+        public MiddleTile GetRightmostTile(int playerSide) =>
+            GetTile(playerSide, ColumnsPerSide - 1, playerSide) as MiddleTile;
+
+        public MiddleTile GetOpponentLeftmostTile(int mySide) => GetLeftmostTile(OpponentOf(mySide));
+
+        public MiddleTile GetOpponentRightmostTile(int mySide) => GetRightmostTile(OpponentOf(mySide));
 
         public MiddleTile GetLeftAdjacentTile(MiddleTile thisTile)
         {
@@ -171,7 +185,7 @@ namespace GameManagement
         public Tile GetAcrossTile(int row, int column, int playerSide)
         {
             // Mirror to opponent's side, same row/column
-            int opponentSide = playerSide == 0 ? 1 : 0;
+            int opponentSide = OpponentOf(playerSide);
             row = opponentSide;
             
             return GetTile(row, column, opponentSide);
@@ -182,7 +196,7 @@ namespace GameManagement
         /// </summary>
         public List<MiddleTile> GetDiagonalTiles(int playerSide, int column)
         {
-            int opponentSide = playerSide == 0 ? 1 : 0;
+            int opponentSide = OpponentOf(playerSide) ;
             return GetAdjacentTiles(opponentSide, column, opponentSide);   // row == side, as in GetAcrossTile
         }
 
