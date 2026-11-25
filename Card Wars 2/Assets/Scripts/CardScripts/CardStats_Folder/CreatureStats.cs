@@ -148,8 +148,7 @@ namespace CardScripts.CardStatss
             {
                 if (canBuffStrength > 0) // > 0 means an ability incremented it, so can't buff
                 {
-                    Debug.Log(
-                        $"Attempted to <color=orange>strengthen</color> {gameObject.name} but was <color=red>blocked</color>");
+                    anim.RpcFloatText("Buff Blocked", Color.red);
                     return;
                 }
 
@@ -176,6 +175,8 @@ namespace CardScripts.CardStatss
             {
                 RpcDrawLineToTarget(from: source);
             }
+            
+            anim.Server_JiggleCard();
         }
 
         [Server]
@@ -201,8 +202,7 @@ namespace CardScripts.CardStatss
             {
                 if (canBuffDefense > 0) // > 0 means an ability incremented it, so can't buff
                 {
-                    Debug.Log(
-                        $"Attempted to <color=cyan>fortify</color> {gameObject.name} but was <color=red>blocked</color>");
+                    anim.RpcFloatText("Buff Blocked", Color.red);
                     return;
                 }
 
@@ -249,6 +249,8 @@ namespace CardScripts.CardStatss
             {
                 RpcDrawLineToTarget(from: source);
             }
+            
+            anim.Server_JiggleCard();
         }
         
         private void GlobalBroadCastStatChange(int amount, bool buff, bool str)

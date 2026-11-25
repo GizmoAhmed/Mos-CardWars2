@@ -229,6 +229,8 @@ namespace CardScripts.CardStats_Folder
             {
                 RpcDrawLineToTarget(from: source);
             }
+            
+            anim.Server_JiggleCard();
         }
 
         [Server]
@@ -247,6 +249,8 @@ namespace CardScripts.CardStats_Folder
             {
                 RpcDrawLineToTarget(from: source);
             }
+            
+            anim.Server_JiggleCard();
         }
 
         public void Hook_UpdateSoulUI_OnBothClients(int oldMagic, int newSoul)

@@ -1360,7 +1360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7990757678376404289, guid: 7ea13d0166ebdc146b644ed1e24de4c4, type: 3}
       propertyPath: m_Spacing
-      value: -130
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7927,7 +7927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7990757678376404289, guid: 7ea13d0166ebdc146b644ed1e24de4c4, type: 3}
       propertyPath: m_Spacing
-      value: -130
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7990757678376404289, guid: 7ea13d0166ebdc146b644ed1e24de4c4, type: 3}
       propertyPath: m_ChildAlignment
@@ -13017,11 +13017,11 @@ MonoBehaviour:
   debugDeck:
   - {fileID: 11400000, guid: 134fe0cbdac16cc449dca3276067c915, type: 2}
   - {fileID: 11400000, guid: 9ca264ec965bd1d4aa68d563cd888f3d, type: 2}
+  - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
+  - {fileID: 11400000, guid: 44a5ad2bcd12aa540af626adc8c13bc1, type: 2}
   - {fileID: 11400000, guid: c99f1b42f39667a4685af9d8bf49b3ee, type: 2}
   - {fileID: 11400000, guid: 902470657f59aca4990584f4a1dedc2f, type: 2}
   - {fileID: 11400000, guid: 0fadcee3f9184eb4aaf2684ba4b67689, type: 2}
-  - {fileID: 11400000, guid: 9d9373682cc161f42a5e47c0b1aa7fe4, type: 2}
-  - {fileID: 11400000, guid: 9d9373682cc161f42a5e47c0b1aa7fe4, type: 2}
   - {fileID: 11400000, guid: 9d9373682cc161f42a5e47c0b1aa7fe4, type: 2}
   masterDeckList: []
   rarityWeights:

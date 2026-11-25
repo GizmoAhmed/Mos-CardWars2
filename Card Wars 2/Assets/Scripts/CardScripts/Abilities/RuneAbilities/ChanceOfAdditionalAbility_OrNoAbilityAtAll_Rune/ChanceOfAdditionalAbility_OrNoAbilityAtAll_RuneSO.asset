@@ -16,4 +16,4 @@ MonoBehaviour:
     If missed, no ability activates at all'
   eventsThatTriggerThisAbility: 
   isExecutableOnPlaced: 1
-  chanceToDouble: 100
+  chanceToDouble: 60

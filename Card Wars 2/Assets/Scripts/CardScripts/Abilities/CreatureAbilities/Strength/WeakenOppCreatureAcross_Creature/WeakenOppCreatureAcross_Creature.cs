@@ -16,16 +16,28 @@ public class WeakenOppCreatureAcross_Creature : ActiveAbilitySO
     {
         MiddleTile acrossTile = thisCard.Ext_GetTileAcrossFromThisCard();
 
-        GameObject weakenMe = acrossTile.logicalCreature;
-        
-        if (weakenMe == null)
-        {
-            return;
-        }
-        
-        weakenMe.GetComponent<CreatureStats>().UpdateCreatureStrength(amount: weaken, buff: false);
+        if (acrossTile.logicalCreature == null) return; // no creature, return
+
+        CreatureStats acrossStats = acrossTile.logicalCreature.GetComponent<CreatureStats>();
         
         AnimateAbilityExecute(thisCard);
-        AnimateAbilityExecute(weakenMe);
+        
+        acrossStats.UpdateCreatureStrength(amount: weaken, buff: false, applyMult: true, source: thisCard.transform);
+    }
+    
+    [Header("Rejection Message")]
+    [SerializeField] [TextArea] private string rejectMessage;
+
+    public override bool ValidateAbility(GameObject thisCard)
+    {
+        MiddleTile acrossTile = thisCard.Ext_GetTileAcrossFromThisCard();
+
+        if (acrossTile.logicalCreature == null)
+        {
+            FloatCustomText_FromValidationReject(thisCard, rejectMessage);
+            return false;
+        }
+
+        return true;
     }
 }

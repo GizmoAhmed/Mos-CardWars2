@@ -81,7 +81,7 @@ namespace CardScripts
         }
 
         [Server] // called from an execution
-        public void JiggleCard()
+        public void Server_JiggleCard()
         {
             RpcJiggleCard();
         }

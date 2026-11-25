@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DealDamageToDiagonalTiles_CreatureSO
   m_EditorClassIdentifier: 
   abilityDescription: Deal {damage} damage to diagonal tiles
-  damage: 1
+  damage: 2

@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDescription: Weaken -{weaken} to creature across
   weaken: 3
+  rejectMessage: 'No Creature Across '
