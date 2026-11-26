@@ -40,6 +40,9 @@ namespace CardScripts.CardStats_Folder
 
         [SyncVar]
         public bool canBeHandSold = true;
+
+        [SyncVar(hook=nameof(Hook_UpdateLuck))] 
+        public int cardBonusLuck = -1;
         
         public enum AnimTarget
         {
@@ -99,6 +102,7 @@ namespace CardScripts.CardStats_Folder
                 
                 Display.UpdateUI_BurnReturn(burnInHandReturn); // set both return... 
                 Display.UpdateUI_BurnCost(burnCost); // ...and cost
+                Display.UpdateUI_Luck(cardBonusLuck);
                 
                 // Display.ToggleBurnCost(false); // turn off burn cost since init-ing
             }
@@ -169,6 +173,7 @@ namespace CardScripts.CardStats_Folder
             soulUse = cardData.soul;
             burnCost = cardData.burnCost;
             burnInHandReturn = _masterDeck.GetBurnReturn(cardData); // get burn return for this rarity
+            cardBonusLuck = 0;
         }
         
         [ClientRpc]
@@ -271,6 +276,11 @@ namespace CardScripts.CardStats_Folder
         public void Hook_ToggleBurnability(bool oldValue, bool newValue)
         {
             Display.UpdateUI_BurnButtonActivity(newValue);
+        }
+
+        public void Hook_UpdateLuck(int oldValue, int newValue)
+        {
+            Display.UpdateUI_Luck(newValue);
         }
     }
 }

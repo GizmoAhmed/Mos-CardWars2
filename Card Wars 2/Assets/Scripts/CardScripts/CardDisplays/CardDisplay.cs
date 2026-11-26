@@ -34,6 +34,8 @@ namespace CardScripts.CardDisplays
         public GameObject infoRightObj; // ▼
         public GameObject abilityDescBackdrop;
         public GameObject abilityDescTextObj;
+        public GameObject luckBackDrop;
+        public GameObject luckTextObj;
 
         [Header("Left Info Slide")]
         public GameObject infoLeftObj; // ▼
@@ -48,6 +50,8 @@ namespace CardScripts.CardDisplays
 
         private CardMovement _move;
         
+        private CardStats _stats;
+        
         [Header("Rarity Colors")]
         [SerializeField] private Color commonColor   = Color.white;
         [SerializeField] private Color uncommonColor = new Color(0.8f, 1f, 0.92f);
@@ -60,6 +64,7 @@ namespace CardScripts.CardDisplays
         {
             Animator    = GetComponent<CardAnimator>();
             _move       = GetComponent<CardMovement>();
+            _stats      = GetComponent<CardStats>();
 
             if (Animator == null)
             {
@@ -269,10 +274,13 @@ namespace CardScripts.CardDisplays
             {
                 Animator.ScaleInfoSlide(nameBackDrop,           grow: false, instant: true);
                 Animator.ScaleInfoSlide(abilityDescBackdrop,    grow: false, instant: true);
+                Animator.ScaleInfoSlide(luckBackDrop,           grow: false, instant: true);
                 infoGrown = false;
             }
 
             infoObj.SetActive(show);
+
+            luckBackDrop.SetActive(_stats.cardBonusLuck != 0); // only show luck, if it isn't zero
 
             // move card to front, so other stuff can't cover the info
             gameObject.GetComponent<Canvas>().overrideSorting =
@@ -284,6 +292,7 @@ namespace CardScripts.CardDisplays
             infoGrown = !infoGrown;
             Animator.ScaleInfoSlide(nameBackDrop, grow: infoGrown);
             Animator.ScaleInfoSlide(abilityDescBackdrop, grow: infoGrown);
+            Animator.ScaleInfoSlide(luckBackDrop, grow: infoGrown);
         }
 
         public void UpdateUI_Soul(int newMagic)
@@ -322,6 +331,11 @@ namespace CardScripts.CardDisplays
             }
             
             SetText(burnReturnTextObj, prefix + newReturn); // don't have to Math.Abs this one, since negative burn return actually means -, unlike cost up there
+        }
+
+        public void UpdateUI_Luck(int newLuck)
+        {
+            SetText(luckTextObj, newLuck + "%");
         }
 
         public void FlipBurn_ToCostFromReturn()

@@ -63,6 +63,8 @@ namespace PlayerStuff
         
         private const int MinFreeCardsOffered = 2;
 
+        [SyncVar] public int playerBonusLuck = 0;
+
         public void InitUI()
         {
             ui = GetComponent<PlayerUI>();

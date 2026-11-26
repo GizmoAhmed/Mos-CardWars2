@@ -13018,8 +13018,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1d8b0cadbeb2e8040b65c71cec033987, type: 2}
   - {fileID: 11400000, guid: 2a60b4e2930a9a1498b37d8e0d36937f, type: 2}
   - {fileID: 11400000, guid: c38392c5fa4b8b14880744b94ae17a13, type: 2}
+  - {fileID: 11400000, guid: 56443d9793e54a549a833690afc23d7c, type: 2}
+  - {fileID: 11400000, guid: 116fb94d0e19e47418e4e019228dd4d3, type: 2}
   - {fileID: 11400000, guid: c14698d50ee03854cb1d2eaae9c874bd, type: 2}
   - {fileID: 11400000, guid: ac3e286955711f64eb9f5969755a684f, type: 2}
+  - {fileID: 11400000, guid: d090b6208c1716143bbb36196edaac9a, type: 2}
+  - {fileID: 11400000, guid: ad02762590a937441ae88c1f34f052f5, type: 2}
+  - {fileID: 11400000, guid: 4e0d64378e08f2842bba79e6ce08efdb, type: 2}
+  - {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0

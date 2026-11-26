@@ -136,16 +136,20 @@ namespace CardScripts.Abilities
         /// <param name="chance">percentage to win</param>
         /// <returns>Hit or Miss</returns>
         [Server]
-        public bool RollChance(int chance, GameObject thisCard)
+        public bool RollChance(int chance, GameObject card)
         {
+            CardStats stats = card.GetComponent<CardStats>();
+            
+            chance += stats.cardBonusLuck; // any bonus luck this creature has
+            
             chance = Mathf.Clamp(chance, 1, 100);
             int roll = UnityEngine.Random.Range(1, 101);
             bool result = roll <= chance;
 
-            GlobalBroadCastRollChance(chance: chance, hit: result, cardTriggeredFrom: thisCard);
-            LocalTileWhisperRollChance(chance: chance, hit: result, cardTriggeredFrom: thisCard);
+            GlobalBroadCastRollChance(chance: chance, hit: result, cardTriggeredFrom: card);
+            LocalTileWhisperRollChance(chance: chance, hit: result, cardTriggeredFrom: card);
 
-            thisCard.GetComponent<CardAnimator>()?.Server_ShowRollResult(result);
+            card.GetComponent<CardAnimator>()?.Server_ShowRollResult(result);
 
             return result;
         }
