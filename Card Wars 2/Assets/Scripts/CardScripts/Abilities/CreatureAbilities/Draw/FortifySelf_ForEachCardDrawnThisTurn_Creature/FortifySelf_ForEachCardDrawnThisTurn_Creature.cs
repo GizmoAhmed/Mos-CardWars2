@@ -9,13 +9,16 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.FortifySelf_ForEachCardDr
 {
     [CreateAssetMenu(fileName = "FortifySelf_ForEachCardDrawnThisTurn_Creature",
         menuName = "Abilities/Creature/Draw/FortifySelf_ForEachCardDrawnThisTurn_Creature")]
+    
     public class FortifySelf_ForEachCardDrawnThisTurn_Creature : ActiveAbilitySO
     {
+        public int defPerCardDrawn;
+        
         public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
         {
             PlayerCardTracker playerCardTracker = thisCard.Ext_GetOwningCardTracker();
                         
-            int buffAmount = playerCardTracker.numOfCardsDrawnThisTurn;
+            int buffAmount = playerCardTracker.numOfCardsDrawnThisTurn * defPerCardDrawn;
             
             // this ability used to be passive
             // but then I learned that scriptable objects can't be used to track things like cards drawn...
@@ -28,6 +31,24 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.FortifySelf_ForEachCardDr
             stats.UpdateCreatureDefense(buffAmount, buff: true);
             
             AnimateAbilityExecute(thisCard);
+        }
+        
+        [Header("Rejection Message")]
+        [SerializeField] [TextArea] private string rejectMessage;
+    
+        public override bool ValidateAbility(GameObject thisCard)
+        {
+            PlayerCardTracker playerCardTracker = thisCard.Ext_GetOwningCardTracker();
+
+            int cards = playerCardTracker.numOfCardsDrawnThisTurn;
+
+            if (cards == 0)
+            {
+                FloatCustomText_FromValidationReject(thisCard, rejectMessage);
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
-  m_Name: RockSnake_Creature
+  m_Name: Cultist_CreatureSO
   m_EditorClassIdentifier: 
-  cardName: ROCK SNAKE
-  mainImage: {fileID: 21300000, guid: 2f83039bdbaf17e4882bd037eed0a351, type: 3}
-  soul: 1
-  abilityDescription: 
+  cardName: CULTIST
+  mainImage: {fileID: 21300000, guid: 91a59dd9237de6543832ec7a39796867, type: 3}
+  soul: 2
   burnCost: 2
   burnReturn: 3
-  ability: {fileID: 11400000, guid: 15cad5136a8b3e64fb8f8c5ce9590310, type: 2}
+  ability: {fileID: 11400000, guid: 5e1ac331fd8a5ee44bd7430677ac0848, type: 2}
   cardRarity: 0
-  element: 4
-  elementSprite: {fileID: 21300000, guid: 0ede4adc0fc136c4daf93b2f0ecb5355, type: 3}
   abilityCost: 3
   attack: 0
   defense: 10
+  element: 2
+  elementSprite: {fileID: 21300000, guid: b8e83590adce0604f9c8748f23bd5f53, type: 3}

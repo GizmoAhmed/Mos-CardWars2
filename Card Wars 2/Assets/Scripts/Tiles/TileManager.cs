@@ -116,21 +116,26 @@ namespace GameManagement
         }
         
         /// <summary>
-        /// Get all tiles for a specific player
+        /// Get all middle tiles for a specific player
         /// </summary>
-        public List<MiddleTile> GetTilesForPlayer(int playerSide)
+        public List<MiddleTile> GetMiddleTilesForSide(int playerSide)
         {
-            List<MiddleTile> playerTiles = new List<MiddleTile>();
+            var tiles = new List<MiddleTile>();
 
-            foreach (MiddleTile tile in allTiles)
+            for (int column = 0; column < ColumnsPerSide; column++)
             {
-                if (tile.serverPlayerSide == playerSide)
-                {
-                    playerTiles.Add(tile);
-                }
+                MiddleTile tile = GetTile(playerSide, column, playerSide) as MiddleTile;   // row == side
+                if (tile != null) tiles.Add(tile);
             }
 
-            return playerTiles;
+            return tiles;
+        }
+
+        public List<MiddleTile> GetAllMiddleTiles()
+        {
+            var tiles = GetMiddleTilesForSide(0);
+            tiles.AddRange(GetMiddleTilesForSide(1));
+            return tiles;
         }
         
         public MiddleTile GetLeftmostTile(int playerSide) =>

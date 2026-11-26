@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfcb224ff48e08f4abd01f9920a61f99, type: 3}
   m_Name: FortifySelf_ForEachCardDrawnThisTurn_CreatureSO
   m_EditorClassIdentifier: 
-  eventsThatTriggerThisAbility: 0200000001000000
-  isGlobalListener: 1
-  isExecutableOnPlaced: 0
-  numOfCardsDrawnThisTurn: 0
+  abilityDescription: Fortify +{defPerCardDrawn} for each card you drew this turn
+  defPerCardDrawn: 2
+  rejectMessage: No cards drawn this turn

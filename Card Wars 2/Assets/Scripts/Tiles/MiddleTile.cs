@@ -24,6 +24,10 @@ namespace Tiles
         public GameObject adjacentRight;
         public GameObject diagonalLeft;
         public GameObject diagonalRight;
+        
+        public bool HasCreature => logicalCreature != null;
+        public bool HasBuilding => logicalBuilding != null;
+        public bool HasCreatureAndBuilding => HasCreature && HasBuilding;
 
         void Awake()
         {

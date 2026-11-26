@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14841c805240d2c478fb1749b6315a81, type: 3}
   m_Name: BuffForEachAbilityYouUsedThisTurn_CreatureSO
   m_EditorClassIdentifier: 
+  abilityDescription: Strengthen +{strengthenPerAbilityUsedThisTurn} for each ability
+    activated this turn
   strengthenPerAbilityUsedThisTurn: 2

@@ -21,7 +21,7 @@ public class IncreaseRandomOppCharmSoul_Creature : ActiveAbilitySO
     {
         List<CharmMovement> oppCharms = thisCard.Ext_GetAllOppActiveCharms();
 
-        if (oppCharms.Count == 0) return;
+        if (oppCharms == null || oppCharms.Count == 0) return;
 
         // pick random opp charm
         CharmMovement randomOppCharm = oppCharms.Ext_GetRandomFromList();
@@ -40,7 +40,7 @@ public class IncreaseRandomOppCharmSoul_Creature : ActiveAbilitySO
     {
         List<CharmMovement> oppCharms = thisCard.Ext_GetAllOppActiveCharms();
 
-        if (oppCharms.Count == 0)
+        if (oppCharms == null || oppCharms.Count == 0)
         {
             FloatCustomText_FromValidationReject(thisCard, rejectMessage);
             return false;

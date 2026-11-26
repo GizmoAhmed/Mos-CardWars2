@@ -94,6 +94,18 @@ namespace Extensions
 
             return TileManager.Instance.GetDiagonalTiles(thisTile.serverPlayerSide, thisTile.column);
         }
+        
+        public static List<MiddleTile> Ext_GetAllMiddleTiles(this GameObject card) =>
+            TileManager.Instance.GetAllMiddleTiles();
+
+        public static List<MiddleTile> Ext_GetOwnMiddleTiles(this GameObject card) =>
+            TileManager.Instance.GetMiddleTilesForSide(LogicalTileOf(card).serverPlayerSide);
+
+        public static List<MiddleTile> Ext_GetOppMiddleTiles(this GameObject card)
+        {
+            int mySide = LogicalTileOf(card).serverPlayerSide;
+            return TileManager.Instance.GetMiddleTilesForSide(mySide == 0 ? 1 : 0);
+        }
 
         // Damages the creature on this tile. Returns true if there was a creature to hit.
         public static bool Ext_DamageTile(this MiddleTile tile, int damage, Transform source = null)
