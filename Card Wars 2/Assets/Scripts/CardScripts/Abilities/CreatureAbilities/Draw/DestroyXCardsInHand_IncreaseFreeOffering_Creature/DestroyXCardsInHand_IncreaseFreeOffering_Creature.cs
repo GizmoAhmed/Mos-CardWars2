@@ -34,7 +34,7 @@ public class DestroyXCardsInHand_IncreaseFreeOffering_Creature : ActiveAbilitySO
 
         PlayerStats playerStats = thisCard.Ext_GetOwningPlayerStats();
             
-        playerStats.freeCardsOffered += offeringsGiven;
+        playerStats.UpdateFreeCardsOffered(amount: offeringsGiven, increase: true);
     }
     
     [Header("Rejection Message")]

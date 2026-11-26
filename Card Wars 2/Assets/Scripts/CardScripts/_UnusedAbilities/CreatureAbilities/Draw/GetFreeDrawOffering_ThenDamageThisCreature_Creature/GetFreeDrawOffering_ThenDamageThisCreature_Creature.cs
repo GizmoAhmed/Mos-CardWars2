@@ -18,7 +18,7 @@ public class GetFreeDrawOffering_ThenDamageThisCreature_Creature : ActiveAbility
     {
         PlayerStats player = thisCard.Ext_GetOwningPlayerStats();
 
-        player.freeCardsOffered += amountOfExtraOffers;
+        player.UpdateFreeCardsOffered(amount: amountOfExtraOffers, increase: true);
         
         CreatureStats stats = thisCard.GetComponent<CreatureStats>();
         

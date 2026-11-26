@@ -17,10 +17,10 @@ public class GetXFreeDrawOfferingThisTurn_Creature : ActiveAbilitySO
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
         PlayerStats playerStats = thisCard.Ext_GetOwningPlayerStats(); 
-        playerStats.freeCardsOffered += tempOffering; // update this for the ui update
+        playerStats.UpdateFreeCardsOffered(amount: tempOffering, increase: true);
         
         PlayerCardTracker thisCardTracker = thisCard.Ext_GetOwningCardTracker();
-        thisCardTracker.tempFreeOffering += tempOffering; // update this so it uses it to reset the actual player stat later
+        thisCardTracker.tempFreeOffering_ResetOnSwapPhase += tempOffering; // update this so it uses it to reset the actual player stat later
         
         AnimateAbilityExecute(thisCard);
     }

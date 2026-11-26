@@ -60,6 +60,8 @@ namespace PlayerStuff
 
         [SyncVar(hook = nameof(ChoiceUpdate))] public int freeCardPicks;
         [SyncVar(hook = nameof(OfferUpdate))] public int freeCardsOffered;
+        
+        private const int MinFreeCardsOffered = 2;
 
         public void InitUI()
         {
@@ -368,6 +370,33 @@ namespace PlayerStuff
         private void TargetOfferCardsOnModal(NetworkConnection target, int cardsToChoose, int cardsToOffer)
         {
             GetComponent<Player>().deckCollection.OfferCardsPreview(cardsToChoose, cardsToOffer);
+        }
+
+        /// <summary>
+        /// Update this player's draw modal picks per free draw
+        /// Picks can be as low as zero, but can't be bigger than the current offering
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <param name="increase"></param>
+        [Server]
+        public void UpdateFreeCardPicks(int amount, bool increase)
+        {
+            int change = increase ? amount : -amount;
+            
+            freeCardPicks += change;
+        }
+
+        /// <summary>
+        /// Update this players draw modal offering for the free draw
+        /// Offering can be as big as it wants, but it can't be less that free card picks
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <param name="increase"></param>
+        [Server]
+        public void UpdateFreeCardsOffered(int amount, bool increase)
+        {
+            int change = increase ? amount : -amount;
+            freeCardsOffered += change;
         }
 
         public void Hook_PlayerCurrentSoulUIUpdate(int oldMagic, int newMagic)

@@ -14,20 +14,14 @@ namespace CardScripts.Abilities.CharmAbilities.Scripts
         {
             PlayerStats playerStats = thisCard.GetComponent<CharmMovement>().thisCardOwnerPlayerStats;
             
-            playerStats.freeCardsOffered += offeringsGiven;
-            
-            // AnimateAbilityExecute(thisCard);
-            
-            // Debug.Log($"<color=blue>{thisCard.name} ({name}) is giving {playerStats.gameObject.name} + {offeringsGiven} offering.\n{playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings</color>");
+            playerStats.UpdateFreeCardsOffered(amount: offeringsGiven, increase: true);
         }
 
         public override void UndoExecution(GameObject thisCard, AbilityEventData eventData)
         {
             PlayerStats playerStats = thisCard.GetComponent<CharmMovement>().thisCardOwnerPlayerStats;
 
-            playerStats.freeCardsOffered -= offeringsGiven;
-            
-            // Debug.Log($"{thisCard.name} ({name}) is removing {playerStats.gameObject.name} - {offeringsGiven} offering.\n{playerStats.gameObject.name} now has {playerStats.freeCardsOffered} offerings");
+            playerStats.UpdateFreeCardsOffered(amount: offeringsGiven, increase: false);
         }
 
         public void OnValidate()

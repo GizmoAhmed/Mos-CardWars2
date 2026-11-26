@@ -142,18 +142,14 @@ public class TurnManager : NetworkBehaviour
         _lastPlayed = gameManager.Player1.identity.GetComponent<Player>().myTurn ? 0 : 1;
 
         // disable both players
-        DisablePlayer(gameManager.Player1, false);
-        DisablePlayer(gameManager.Player2, false);
+        /*DisablePlayer(gameManager.Player1, false);
+        DisablePlayer(gameManager.Player2, false);*/
 
         PlayerStats stats0 = gameManager.Player1.identity.GetComponent<PlayerStats>();
         PlayerStats stats1 = gameManager.Player2.identity.GetComponent<PlayerStats>();
 
         stats0.DrainHealth();
         stats1.DrainHealth();
-
-        // todo ActivePhase(), everyone does there stuff, like watching the cards in balatro tick away when you play a hand
-        
-        // Debug.LogWarning("<color=grey>Ending Turn...</color>");
         
         GlobalBroadcastTurnEnd();
         
@@ -167,7 +163,8 @@ public class TurnManager : NetworkBehaviour
         }
         else // continue play
         {
-            Invoke(nameof(ContinuePlay), .2f); 
+            ContinuePlay();
+            // Invoke(nameof(ContinuePlay), .2f); 
         }
     }
 

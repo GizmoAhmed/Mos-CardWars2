@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb36eb825eb95843b86f449ccf2735e, type: 3}
   m_Name: BuffCreature_IfPlacedAsOnlyCreatureOnYourField_CharmSO
   m_EditorClassIdentifier: 
-  abilityDescription: Strengthen +{strengthBoost} a placed creature if it is the
-    only creature on your field
+  abilityDescription: If creature placed as only one on the field, Strengthen it
+    +{strengthBoost}
   eventsThatTriggerThisAbility: 08000000
   isExecutableOnPlaced: 0
   strengthBoost: 8

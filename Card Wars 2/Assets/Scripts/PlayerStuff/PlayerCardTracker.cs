@@ -25,8 +25,8 @@ namespace PlayerStuff
         public int creatureActivationsThisTurn;
 
         [Header("Temp Stats")] 
-        [SyncVar] public int tempFreePicks;
-        [SyncVar] public int tempFreeOffering;
+        [SyncVar] public int tempFreePicks_ResetOnSwapPhase;
+        [SyncVar] public int tempFreeOffering_ResetOnSwapPhase;
 
         /// <summary>
         /// Called when a card is discarded - tracked on server
@@ -125,6 +125,15 @@ namespace PlayerStuff
         }
 
         [Server]
+        public void Server_PlayerHitsReady()
+        {
+            
+        }
+
+        /// <summary>
+        /// Turn Manager calls this when the turn ends
+        /// </summary>
+        [Server]
         public void Server_EndOfTurnCardTrackerIncrement()
         {
             numOfCardsDrawnThisTurn = 0;
@@ -135,12 +144,13 @@ namespace PlayerStuff
             PlayerStats playerStats = GetComponent<PlayerStats>();
             
             // temp free picks
-            playerStats.freeCardPicks -= tempFreePicks;
-            tempFreePicks = 0;
+            playerStats.UpdateFreeCardPicks(amount: tempFreePicks_ResetOnSwapPhase, increase: false);
+            tempFreePicks_ResetOnSwapPhase = 0;
             
             // temp free offering
-            playerStats.freeCardsOffered -= tempFreeOffering; // reset back to pre-temp offering
-            tempFreeOffering = 0; // reset temp offering
+            // reset back to pre-temp offering
+            playerStats.UpdateFreeCardsOffered(amount: tempFreeOffering_ResetOnSwapPhase, increase: false); 
+            tempFreeOffering_ResetOnSwapPhase = 0; // reset temp offering
 
             Server_ResetFloops_OfAllCreatures();
 

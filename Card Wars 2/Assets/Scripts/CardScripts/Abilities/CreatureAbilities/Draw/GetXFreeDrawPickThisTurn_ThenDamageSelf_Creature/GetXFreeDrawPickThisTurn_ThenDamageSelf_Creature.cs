@@ -17,11 +17,11 @@ public class GetXFreeDrawPickThisTurn_ThenDamageSelf_Creature : ActiveAbilitySO
         
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        PlayerStats playerStats = thisCard.Ext_GetOwningPlayerStats(); 
-        playerStats.freeCardPicks += tempPicks; // update this for the ui update
+        PlayerStats playerStats = thisCard.Ext_GetOwningPlayerStats();
+        playerStats.UpdateFreeCardPicks(amount: tempPicks, increase: true);
         
         PlayerCardTracker thisCardTracker = thisCard.Ext_GetOwningCardTracker();
-        thisCardTracker.tempFreePicks += tempPicks; // update this so it uses it to reset the actual player stat later
+        thisCardTracker.tempFreePicks_ResetOnSwapPhase += tempPicks; // update this so it uses it to reset the actual player stat later
         
         CreatureStats stats = thisCard.GetComponent<CreatureStats>();
         
