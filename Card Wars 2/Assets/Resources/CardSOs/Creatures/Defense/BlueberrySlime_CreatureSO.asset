@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: BLUEBERRY SLIME
   mainImage: {fileID: 21300000, guid: e503bdb52f27c154897edf1374c2177d, type: 3}
-  soul: 1
+  soul: 0
   burnCost: 2
   burnReturn: 3
   ability: {fileID: 11400000, guid: ecc80144ae0c63442aa5212d4c8d950f, type: 2}

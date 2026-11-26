@@ -22,7 +22,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.DoubleUsageOnRandomSpell_
                 return;
             }
 
-            SpellStats spellChosen = spells.GetRandomFromList();
+            SpellStats spellChosen = spells.Ext_GetRandomFromList();
 
             if (usageRate > 1)
             {

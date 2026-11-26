@@ -288,6 +288,20 @@ namespace Extensions
             return oppsCreatures;
         }
 
+        public static List<CharmMovement> Ext_GetAllOppActiveCharms(this GameObject card)
+        {
+            PlayerCardTracker oppsCardTracker = card.Ext_GetOpponentCardTracker();
+
+            List<CharmMovement> oppCharms = oppsCardTracker.Server_GetThisPlayersActiveCharms();
+
+            if (oppCharms.Count == 0)
+            {
+                return null;
+            }
+            
+            return oppCharms;
+        }
+
         public static List<CardStats> Ext_GetAnyAndAllFieldCards(this GameObject card)
         {
             List<CardStats> final = new List<CardStats>();
@@ -383,7 +397,7 @@ namespace Extensions
                    == CardMovement.CardState.Field;
         }
 
-        public static T GetRandomFromList<T>(this IReadOnlyList<T> list)
+        public static T Ext_GetRandomFromList<T>(this IReadOnlyList<T> list)
         {
             if (list == null || list.Count == 0)
             {

@@ -20,7 +20,7 @@ public class DrawRandomCharm_FromCharmGroup_DrawnWithExtraSoul_Spell : CastAbili
 
         if (charmTile.charms.Count <= 0) return; // empty
 
-        GameObject charmPicked = charmTile.charms.GetRandomFromList(); // <-- errors here, can't resolve symbol
+        GameObject charmPicked = charmTile.charms.Ext_GetRandomFromList(); // <-- errors here, can't resolve symbol
 
         GameObject dupeCharm = RedrawCard
         (

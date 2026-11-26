@@ -28,7 +28,7 @@ public class BuffCreature_IfPlacedAsOnlyCreatureOnYourField_Charm : PassiveAbili
 
         if (activeCreatures.Count == 1) // thisCard
         {
-            placedCreature.UpdateCreatureDefense(amount: strengthBoost, buff: true, applyMult:true);
+            placedCreature.UpdateCreatureStrength(amount: strengthBoost, buff: true, applyMult:true, source: thisCard.transform);
             AnimateAbilityExecute(thisCard);
         }
     }

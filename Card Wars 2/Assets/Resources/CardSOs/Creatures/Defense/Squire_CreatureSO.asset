@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Squire_CreatureSO
   m_EditorClassIdentifier: 
   cardName: SQUIRE
-  mainImage: {fileID: 21300000, guid: ae13bf6a7f0107a4582d85813ff0141d, type: 3}
+  mainImage: {fileID: -1347553257, guid: ae13bf6a7f0107a4582d85813ff0141d, type: 3}
   soul: 1
   burnCost: 2
   burnReturn: 3

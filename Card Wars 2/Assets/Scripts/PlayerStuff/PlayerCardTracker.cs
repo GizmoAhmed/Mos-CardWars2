@@ -270,6 +270,22 @@ namespace PlayerStuff
         }
 
         [Server]
+        public List<CharmMovement> Server_GetThisPlayersActiveCharms()
+        {
+            List<CharmMovement> charms = new List<CharmMovement>();
+            
+            foreach (GameObject card in serverActiveFieldCards)
+            {
+                if (card != null && card.TryGetComponent(out CharmMovement build))
+                {
+                    charms.Add(build);
+                }
+            }
+
+            return charms;
+        }
+
+        [Server]
         public List<SpellStats> Server_GetThisPlayerInHandSpells()
         {
             List<SpellStats> spells = new List<SpellStats>();

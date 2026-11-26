@@ -24,7 +24,7 @@ public class ReduceSoul_RandomCardInYourHand_Creature : ActiveAbilitySO
 
         // pick random card, that uses magic
 
-        CardStats randomPicked = hand.GetRandomFromList().GetComponent<CardStats>();
+        CardStats randomPicked = hand.Ext_GetRandomFromList().GetComponent<CardStats>();
         
         randomPicked.UpdateSyncSoulToPlayer(-soulReduction);
         AnimateAbilityExecute(thisCard);

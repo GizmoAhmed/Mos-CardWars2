@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: AMber slime
   mainImage: {fileID: 21300000, guid: 852c0a6c266218f41912ad73ae25b3e3, type: 3}
-  soul: 1
+  soul: 0
   burnCost: 2
   burnReturn: 3
   ability: {fileID: 11400000, guid: 99a4d79ab70c77d48b609b8e5490ce1a, type: 2}
