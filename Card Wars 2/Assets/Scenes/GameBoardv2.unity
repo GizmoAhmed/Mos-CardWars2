@@ -10182,7 +10182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: money
-      value: 10
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 2739844181942296115, guid: 78cc5711dc9d3c8468d61b5d24b5e91b, type: 3}
       propertyPath: health
@@ -13015,21 +13015,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
+  - {fileID: 11400000, guid: 13efd2519c570474fb7a9c201af44523, type: 2}
   - {fileID: 11400000, guid: c99f1b42f39667a4685af9d8bf49b3ee, type: 2}
-  - {fileID: 11400000, guid: c99f1b42f39667a4685af9d8bf49b3ee, type: 2}
-  - {fileID: 11400000, guid: c99f1b42f39667a4685af9d8bf49b3ee, type: 2}
-  - {fileID: 11400000, guid: c99f1b42f39667a4685af9d8bf49b3ee, type: 2}
-  - {fileID: 11400000, guid: c99f1b42f39667a4685af9d8bf49b3ee, type: 2}
-  - {fileID: 11400000, guid: 4a29eae40c5a9794a9760823a765f96c, type: 2}
-  - {fileID: 11400000, guid: bc6658f3308274d4eab6b0aae76a82de, type: 2}
-  - {fileID: 11400000, guid: ac72aee6367168c439c399513b215c71, type: 2}
-  - {fileID: 11400000, guid: 7619ef2eff4d0ef4dbdb68217849ac42, type: 2}
-  - {fileID: 11400000, guid: ad02762590a937441ae88c1f34f052f5, type: 2}
-  - {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
-  - {fileID: 11400000, guid: 4eac58638f5adfb42abd55c4a3de5968, type: 2}
-  - {fileID: 11400000, guid: 9f69cc25b6a217c4ebecdef6a7596d84, type: 2}
-  - {fileID: 11400000, guid: 9f69cc25b6a217c4ebecdef6a7596d84, type: 2}
-  - {fileID: 11400000, guid: 9f69cc25b6a217c4ebecdef6a7596d84, type: 2}
+  - {fileID: 11400000, guid: 8559f16a97f893f4384ab9f7e1ac05cf, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0

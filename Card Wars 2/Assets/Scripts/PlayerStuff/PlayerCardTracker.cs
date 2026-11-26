@@ -25,8 +25,13 @@ namespace PlayerStuff
         public int creatureActivationsThisTurn;
 
         [Header("Temp Stats")] 
+        [Header("End Of Turn")]
         [SyncVar] public int tempFreePicks_ResetOnSwapPhase;
         [SyncVar] public int tempFreeOffering_ResetOnSwapPhase;
+        
+        [Header("When player hits ready")]
+        [SyncVar] public int tempFreePicks_ResetOnPlayerReady;
+        [SyncVar] public int tempFreeOffering_ResetOnPlayerReady;
 
         /// <summary>
         /// Called when a card is discarded - tracked on server
@@ -127,7 +132,13 @@ namespace PlayerStuff
         [Server]
         public void Server_PlayerHitsReady()
         {
+            PlayerStats playerStats = GetComponent<PlayerStats>();
+
+            playerStats.UpdateFreeCardPicks(amount: tempFreePicks_ResetOnPlayerReady, increase: true); 
+            tempFreePicks_ResetOnPlayerReady = 0;
             
+            playerStats.UpdateFreeCardsOffered(amount: tempFreeOffering_ResetOnPlayerReady, increase: true); 
+            tempFreeOffering_ResetOnPlayerReady = 0;
         }
 
         /// <summary>

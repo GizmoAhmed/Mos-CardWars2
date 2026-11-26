@@ -104,6 +104,8 @@ public class Player : NetworkBehaviour
     [Command]
     public void CmdSetReady()
     {
+        playerCardTracker.Server_PlayerHitsReady(); // reset temp stats on ready
+            
         turnManager.PlayerReady(connectionToClient);
 
         // tell only the player who readied up to close their own modals

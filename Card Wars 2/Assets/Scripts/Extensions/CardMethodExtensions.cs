@@ -184,6 +184,15 @@ namespace Extensions
 
             return player == p1 ? p2 : p1;
         }
+        
+        /// <summary>
+        /// Overload: Get the opponent of the player that owns this card
+        /// </summary>
+        public static PlayerStats Ext_GetOpponentPlayerStats(this GameObject card)
+        {
+            PlayerStats owner = card.Ext_GetOwningPlayerStats();
+            return owner == null ? null : owner.Ext_GetOpponentPlayerStats();
+        }
 
         public static PlayerCardTracker Ext_GetOpponentCardTracker(this GameObject card)
         {
