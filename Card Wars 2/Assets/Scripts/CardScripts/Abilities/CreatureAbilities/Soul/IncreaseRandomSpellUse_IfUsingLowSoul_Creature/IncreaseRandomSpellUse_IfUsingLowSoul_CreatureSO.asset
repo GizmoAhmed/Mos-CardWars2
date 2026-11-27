@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f317ed4825ec94fb10329e45e1efbf, type: 3}
   m_Name: IncreaseRandomSpellUse_IfUsingLowSoul_CreatureSO
   m_EditorClassIdentifier: 
-  abilityDescription: If using < {soulUseThreshold}% of you max soul, increase uses
-    +{increasePercentage}% to a random spell in your hand.
+  abilityDescription: If using < {soulUseThreshold}% of you max soul, increase the
+    uses of a random spell in your hand by +{increasePercentage}%
   soulUseThreshold: 50
   increasePercentage: 50
   rejectMessage: 

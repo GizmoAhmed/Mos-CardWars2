@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: IncreaseRandomSpellUse_IfYouHaveNegStrCreature_CreatureSO
   m_EditorClassIdentifier: 
   abilityDescription: If you have an active creature with negative strength, increase
-    uses +{increasePercentage}% to a random spell in your hand.
+    the uses of a random spell in your hand by +{increasePercentage}%
   increasePercentage: 50
   rejectMessage: 

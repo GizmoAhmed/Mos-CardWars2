@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IncreaseRandomSpellUse_IfYouLowMoney_CreatureSO
   m_EditorClassIdentifier: 
   abilityDescription: If you have less than {lessThanThisAmountOfMoney} shards, increase
-    uses +{increasePercentage}% to a random spell in your hand.
+    the uses of a random spell in your hand by +{increasePercentage}%
   increasePercentage: 50
   lessThanThisAmountOfMoney: 3
   rejectMessage: 

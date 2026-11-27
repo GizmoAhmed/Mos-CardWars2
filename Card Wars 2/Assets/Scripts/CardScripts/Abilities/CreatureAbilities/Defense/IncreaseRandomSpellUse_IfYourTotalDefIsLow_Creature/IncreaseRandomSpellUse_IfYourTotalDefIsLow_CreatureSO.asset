@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IncreaseRandomSpellUse_IfYourTotalDefIsLow_CreatureSO
   m_EditorClassIdentifier: 
   abilityDescription: If the total def of all your creaturs is < {defThreshold},
-    increase uses +{increasePercentage}% to a random spell in your hand.
+    increase the uses of a random spell in your hand by +{increasePercentage}%
   defThreshold: 40
   increasePercentage: 50
   rejectMessage: 

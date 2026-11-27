@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb09f486365391419248b9a8c5de283, type: 3}
   m_Name: SpendFreeDraw_ToIncreaseRandomSpellUse_CreatureSO
   m_EditorClassIdentifier: 
-  abilityDescription: Spend {freeDrawsExpenditure} free draw to increase uses +{increasePercentage}%
-    to a random spell in your hand.
+  abilityDescription: Spend {freeDrawsExpenditure} free draw to increase the uses
+    of a random spell in your hand by +{increasePercentage}%
   freeDrawsExpenditure: 1
   increasePercentage: 50
   rejectMessage: 

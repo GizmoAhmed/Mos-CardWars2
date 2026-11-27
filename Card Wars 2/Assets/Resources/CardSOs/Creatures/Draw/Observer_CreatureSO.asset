@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
-  m_Name: purplestar_CreatureSO
+  m_Name: Observer_CreatureSO
   m_EditorClassIdentifier: 
-  cardName: PurpleStar
-  mainImage: {fileID: 21300000, guid: d364561da828db541af9d2dab0ff8f95, type: 3}
+  cardName: OBSERVER
+  mainImage: {fileID: 21300000, guid: 5ae18ca3e791cd941889f83c340ccefc, type: 3}
   soul: 3
   burnCost: 2
   burnReturn: 3

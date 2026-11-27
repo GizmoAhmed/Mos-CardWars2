@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47b3e7333928459cbd56bcb6d380f0d1, type: 3}
-  m_Name: ShardSpellBoost_CreatureSO
+  m_Name: Ferryman_CreatureSO
   m_EditorClassIdentifier: 
-  cardName: Yellow Star
-  mainImage: {fileID: 21300000, guid: 3cb668679d4066244b26629707e67b0e, type: 3}
+  cardName: FERRYMAN
+  mainImage: {fileID: 21300000, guid: bd79be52e2d90f549ac7f81b24f20faa, type: 3}
   soul: 3
   burnCost: 2
   burnReturn: 3
-  ability: {fileID: 11400000, guid: 7ff4ea3095df0d8498e4f17bbb4b756e, type: 2}
+  ability: {fileID: 11400000, guid: d2cffeaca8871634da3cbca405e8c783, type: 2}
   cardRarity: 0
-  abilityCost: 0
+  abilityCost: 5
   attack: 0
   defense: 10
-  element: 4
-  elementSprite: {fileID: 21300000, guid: 0ede4adc0fc136c4daf93b2f0ecb5355, type: 3}
+  element: 2
+  elementSprite: {fileID: 21300000, guid: b8e83590adce0604f9c8748f23bd5f53, type: 3}
