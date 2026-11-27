@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using AbilityEvents;
 using CardScripts.CardMovements;
+using CardScripts.CardStats_Folder;
 using CardScripts.CardStatss;
 using Extensions;
 using UnityEngine;
@@ -35,15 +38,6 @@ namespace CardScripts.Abilities
                 cardAnimator.RpcFloatText("Not Your Turn!", Color.red);
                 return false;
             }
-
-            /*if (!stackedAbility) // who cares how many floops are left if Ive already flooped
-            {
-                if (creatureStats.floopsLeft == 0 && !creatureStats.multiFloop)
-                {
-                    cardAnimator.RpcFloatText("No Activations left for this creature", Color.red);
-                    return false;
-                }
-            }*/
             
             if (creatureStats.floopBlockers > 0)// can't floop
             {
@@ -60,6 +54,32 @@ namespace CardScripts.Abilities
             
             CardAnimator anim = thisCard.GetComponent<CardAnimator>();
             anim.RpcFloatText(message.ToUpper(), Color.red);
+        }
+
+        /// <summary>
+        /// Validates whether or not can use ability that buffs spells by checking if there is a spell to buff and if they have uses to begin with
+        /// </summary>
+        /// <param name="thisCard"></param>
+        /// <returns></returns>
+        protected bool ValidateRandomSpellUsesUpdate(GameObject thisCard)
+        {
+            SpellStats randomSpell = GetRandomSpellInHand(thisCard);
+
+            if (randomSpell == null)
+            {
+                FloatCustomText_FromValidationReject(thisCard, "No Spells to buff");
+                return false;
+            }
+
+            int currentUses = randomSpell.uses;
+
+            if (currentUses <= 0)
+            {
+                FloatCustomText_FromValidationReject(thisCard, "No Spells to buff");
+                return false;
+            }
+        
+            return true;
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using AbilityEvents;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
@@ -211,6 +212,45 @@ namespace CardScripts.Abilities
         {
             CardAnimator anim = card.GetComponent<CardAnimator>();
             anim.Server_JiggleCard();
+        }
+        
+        protected SpellStats GetRandomSpellInHand(GameObject card)
+        {
+            // get all spells in hand
+            List<SpellStats> spells = card.Ext_GetOwningCardTracker().Server_GetThisPlayerInHandSpells();
+
+            if (spells == null || spells.Count == 0)
+            {
+                return null;
+            }
+
+            return spells.Ext_GetRandomFromList();
+        }
+        
+        /// <summary>
+        /// Picks a random spell from your hand and increases it's usages by some percentage
+        /// </summary>
+        /// <param name="card">The Card using this function</param>
+        /// <param name="percentage">The percentage passed as a whole number (ie if % = 50, converts to 0.50 in the function)</param>
+        protected void IncreaseRandomConsumableUses_ByPercentage(GameObject card, int percentage)
+        {
+            // todo for balancing sake, make this get only of certain rarity
+            SpellStats randomSpell = GetRandomSpellInHand(card);
+
+            if (randomSpell == null) return;
+
+            int currentUses = randomSpell.uses;
+
+            if (currentUses <= 0) return; // nope
+        
+            /*
+             Claude says: Adding 99 before dividing by 100 rounds any remainder up, so 1 × 50 is 149 / 100 = 1. 
+             I'd use this form, since it can't have float rounding surprises. 
+             It also takes away the need for Math.Ceiling
+             */
+            int increase = (currentUses * percentage + 99) / 100;
+        
+            randomSpell.UpdateConsumableUses(amount: increase, increase: true, source: card.transform);
         }
     }
 }

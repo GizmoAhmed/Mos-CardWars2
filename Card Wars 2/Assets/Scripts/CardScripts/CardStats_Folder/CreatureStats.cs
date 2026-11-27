@@ -411,6 +411,8 @@ namespace CardScripts.CardStatss
             // Debug.Log($"<color=green>ExecuteAndBroadCastAbility</color> on {gameObject.name}");
             cardData.ability.ExecuteAbility(gameObject, null);
 
+            anim.Server_JiggleCard();
+            
             PlayerCardTracker playerCardTracker = gameObject.Ext_GetOwningCardTracker();
 
             // increment floop counter
