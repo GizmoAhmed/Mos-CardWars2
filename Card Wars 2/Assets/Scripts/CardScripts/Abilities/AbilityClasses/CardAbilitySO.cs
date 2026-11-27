@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AbilityEvents;
 using CardScripts.CardMovements;
 using CardScripts.CardStats_Folder;
@@ -216,10 +217,13 @@ namespace CardScripts.Abilities
         
         protected SpellStats GetRandomSpellInHand(GameObject card)
         {
-            // get all spells in hand
-            List<SpellStats> spells = card.Ext_GetOwningCardTracker().Server_GetThisPlayerInHandSpells();
-
-            if (spells == null || spells.Count == 0)
+            // get all spells in hand that can be buffed, so those with uses > 0
+            List<SpellStats> spells = card.Ext_GetOwningCardTracker()
+                .Server_GetThisPlayerInHandSpells()
+                .Where(spell => spell.uses > 0)
+                .ToList();
+            
+            if (spells.Count == 0)
             {
                 return null;
             }
@@ -240,9 +244,7 @@ namespace CardScripts.Abilities
             if (randomSpell == null) return;
 
             int currentUses = randomSpell.uses;
-
-            if (currentUses <= 0) return; // nope
-        
+            
             /*
              Claude says: Adding 99 before dividing by 100 rounds any remainder up, so 1 × 50 is 149 / 100 = 1. 
              I'd use this form, since it can't have float rounding surprises. 

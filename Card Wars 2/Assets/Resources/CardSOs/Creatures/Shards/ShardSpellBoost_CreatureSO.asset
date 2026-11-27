@@ -19,7 +19,7 @@ MonoBehaviour:
   burnReturn: 3
   ability: {fileID: 11400000, guid: 7ff4ea3095df0d8498e4f17bbb4b756e, type: 2}
   cardRarity: 0
-  abilityCost: 5
+  abilityCost: 0
   attack: 0
   defense: 10
   element: 4

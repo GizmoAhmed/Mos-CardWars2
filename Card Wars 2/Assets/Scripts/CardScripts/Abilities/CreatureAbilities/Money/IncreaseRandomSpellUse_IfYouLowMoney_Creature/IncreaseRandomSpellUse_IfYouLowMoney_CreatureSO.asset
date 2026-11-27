@@ -15,5 +15,5 @@ MonoBehaviour:
   abilityDescription: If you have less than {lessThanThisAmountOfMoney} shards, increase
     uses +{increasePercentage}% to a random spell in your hand.
   increasePercentage: 50
-  lessThanThisAmountOfMoney: 4
+  lessThanThisAmountOfMoney: 3
   rejectMessage: 
