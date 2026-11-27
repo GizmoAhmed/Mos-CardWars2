@@ -158,16 +158,16 @@ namespace CardScripts
         }
 
         [Server]
-        public void Server_ShowRollResult(bool hit)
+        public void Server_ShowRollResult(bool hit, int chance)
         {
-            RpcShowRollResult(hit);
+            RpcShowRollResult(hit, chance);
         }
 
         [ClientRpc]
-        private void RpcShowRollResult(bool hit)
+        private void RpcShowRollResult(bool hit, int chance)
         {
             string text = hit ? $"Hit!" : $"Missed!";
-            FloatText(text, hit ? hitColor : missColor);
+            FloatText(text + $" ({chance}%)", hit ? hitColor : missColor);
         }
 
         [ClientRpc]

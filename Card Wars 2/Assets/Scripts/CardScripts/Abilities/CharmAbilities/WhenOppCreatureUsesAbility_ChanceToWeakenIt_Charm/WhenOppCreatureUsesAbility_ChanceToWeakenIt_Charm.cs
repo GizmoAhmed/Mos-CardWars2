@@ -30,7 +30,7 @@ public class WhenOppCreatureUsesAbility_ChanceToWeakenIt_Charm : PassiveAbilityS
             CreatureStats stats = creatureActivated.GetComponent<CreatureStats>();
             
             stats.UpdateCreatureStrength(amount: weaken, buff: false, applyMult:true);
-            AnimateAbilityExecute(thisCard);
+            // AnimateAbilityExecute(thisCard);
         }
     }
 }

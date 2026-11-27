@@ -26,8 +26,8 @@ namespace Extensions
                 return null;
             }
 
-            Tile thisTile = LogicalTileOf(card)
-                ;
+            Tile thisTile = LogicalTileOf(card);
+            
             if (thisTile == null)
             {
                 Debug.LogError(card.name + " has no Tile attached");
@@ -37,7 +37,7 @@ namespace Extensions
         }
         
         private static MiddleTile LogicalTileOf(GameObject card) =>
-            card.GetComponent<CreatureMovement>().GetLogicalTile() as MiddleTile;
+            card.GetComponent<CardMovement>().GetLogicalTile() as MiddleTile;
 
         public static MiddleTile Ext_GetOppLeftmostTile(this GameObject card) =>
             TileManager.Instance.GetOpponentLeftmostTile(LogicalTileOf(card).serverPlayerSide);
@@ -54,7 +54,7 @@ namespace Extensions
             {
                 return TileManager.Instance.GetLeftAdjacentTile(thisTile);
             }
-            else if (rightORleft == "right")
+            if (rightORleft == "right")
             {
                 return TileManager.Instance.GetRightAdjacentTile(thisTile);
             }
@@ -379,26 +379,33 @@ namespace Extensions
 
             return building.GetComponent<BuildingMovement>();
         }
+        
+        public static List<CharmMovement> Ext_GetCharms_FromSpellCastEventData(this AbilityEventData data)
+        {
+            var charms = new List<CharmMovement>();
+
+            CharmTile charmTile = data.target.GetComponent<CharmTile>();
+            if (charmTile == null)
+            {
+                Debug.LogError($"Ext_GetCharms_FromSpellCastEventData: {data.target.name} is not a charm tile");
+                return charms;
+            }
+
+            foreach (GameObject charm in charmTile.charms)
+                charms.Add(charm.GetComponent<CharmMovement>());
+
+            return charms;
+        }
 
         public static CreatureStats Ext_GetCreatureStats_FromSharedBuildingsTile(this GameObject building)
         {
-            BuildingMovement build = building.GetComponent<BuildingMovement>();
-
-            if (build == null) // not a building
-            {
-                Debug.LogError(
-                    $"Attempted to retrieve creature from the tile of a non-building (Ext_GetCreatureStats_FromSharedBuildingsTile)");
-                return null;
-            }
-
-            MiddleTile thisTile = building.Ext_GetTile() as MiddleTile;
+            MiddleTile thisTile = LogicalTileOf(building);
 
             if (thisTile != null)
             {
                 if (thisTile.logicalCreature == null)
                 {
-                    Debug.Log(
-                        $"<color=orange>Ext_GetCreatureStats_FromSharedBuildingsTile</color> attempted to grab the creature at {thisTile}, but no creature was present, returning null");
+                    // Debug.Log($"<color=orange>Ext_GetCreatureStats_FromSharedBuildingsTile</color> attempted to grab the creature at {thisTile}, but no creature was present, returning null");
                     return null;
                 }
 

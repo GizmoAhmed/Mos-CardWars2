@@ -33,9 +33,9 @@ public class ChanceUpgradeSoul_EndOfTurn_IfNoCreatureActivatedThisTurn_Charm : P
                     amount: soulUpgradeAmount,
                     ignoreAnySoulUpgradeBlock: false);
             
-                AnimateAbilityExecute(thisCard);
+                // AnimateAbilityExecute(thisCard);
             
-                Debug.Log($"{this.name} on {thisCard.name} just <color=green>hit</color>");
+                // Debug.Log($"{this.name} on {thisCard.name} just <color=green>hit</color>");
             }
         }
     }

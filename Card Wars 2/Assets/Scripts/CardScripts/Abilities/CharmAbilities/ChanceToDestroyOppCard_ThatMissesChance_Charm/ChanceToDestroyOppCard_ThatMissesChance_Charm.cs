@@ -37,7 +37,7 @@ public class ChanceToDestroyOppCard_ThatMissesChance_Charm : PassiveAbilitySO
             // destroy card that missed
             cardThatMissed_Movement.ServerDiscard();
 
-            AnimateAbilityExecute(thisCard);
+            // AnimateAbilityExecute(thisCard);
         }
     }
 }

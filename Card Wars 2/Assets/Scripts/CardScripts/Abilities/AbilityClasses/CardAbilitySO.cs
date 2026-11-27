@@ -136,20 +136,29 @@ namespace CardScripts.Abilities
         /// <param name="chance">percentage to win</param>
         /// <returns>Hit or Miss</returns>
         [Server]
-        public bool RollChance(int chance, GameObject card)
+        public bool RollChance(int chance, GameObject card, bool jiggleOnHit = true)
         {
             CardStats stats = card.GetComponent<CardStats>();
             
+            // don't worry about pride for this bit, pride uses roll chance directly from the creature, so nothing extra needs to be done here to accomodate for it
             chance += stats.cardBonusLuck; // any bonus luck this creature has
             
             chance = Mathf.Clamp(chance, 1, 100);
+            
+            // Debug.Log($"Roll on {card.name}: <color=green>{chance}%</color> to hit...");
+            
             int roll = UnityEngine.Random.Range(1, 101);
             bool result = roll <= chance;
+
+            if (result && jiggleOnHit)
+            {
+                AnimateAbilityExecute(card);
+            }
 
             GlobalBroadCastRollChance(chance: chance, hit: result, cardTriggeredFrom: card);
             LocalTileWhisperRollChance(chance: chance, hit: result, cardTriggeredFrom: card);
 
-            card.GetComponent<CardAnimator>()?.Server_ShowRollResult(result);
+            card.GetComponent<CardAnimator>()?.Server_ShowRollResult(result, chance);
 
             return result;
         }

@@ -14,20 +14,20 @@ public class BuffStat_EachTurn_WithChanceToDestroySelf_Building : PassiveAbility
     public int strengthBoost;
     public int defenseBoost;
 
-    [Header("Chance to Destroy Each Turn")]
-    [Range(1, 100)] public int destroyChance;
+    [Header("Chance to buff Each Turn")]
+    [Range(1, 100)] public int buffChance;
     
     public override void ExecuteAbility(GameObject thisCard, AbilityEventData eventData)
     {
-        if (RollChance(destroyChance, thisCard)) // hit, buff
+        if (RollChance(buffChance, thisCard)) // hit, buff
         {
             CreatureStats creatureStats = thisCard.Ext_GetCreatureStats_FromSharedBuildingsTile();
 
             if (creatureStats != null) // null error check happens in above extension method
             {
-                creatureStats.UpdateCreatureStrength(strengthBoost, buff: true);
-                creatureStats.UpdateCreatureDefense(defenseBoost, buff: true);
-                AnimateAbilityExecute(thisCard);
+                creatureStats.UpdateCreatureStrength(strengthBoost, buff: true, applyMult: true, source: thisCard.transform);
+                creatureStats.UpdateCreatureDefense(defenseBoost, buff: true, applyMult: true, source: thisCard.transform);
+                // AnimateAbilityExecute(thisCard);
             }
         }
         else // miss, discard this building

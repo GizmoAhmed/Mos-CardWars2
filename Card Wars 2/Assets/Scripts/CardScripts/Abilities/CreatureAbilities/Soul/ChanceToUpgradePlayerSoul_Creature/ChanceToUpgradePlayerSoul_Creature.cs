@@ -27,13 +27,13 @@ public class ChanceToUpgradePlayerSoul_Creature : ActiveAbilitySO
                 amount: soulUpgradeAmount,
                 ignoreAnySoulUpgradeBlock: false);
             
-            AnimateAbilityExecute(thisCard);
+            // AnimateAbilityExecute(thisCard);
             
-            Debug.Log($"{this.name} on {thisCard.name} just <color=green>hit</color>");
+            // Debug.Log($"{this.name} on {thisCard.name} just <color=green>hit</color>");
         }
         else
         {
-            Debug.Log($"{this.name} on {thisCard.name} just <color=red>missed</color>");
+            // Debug.Log($"{this.name} on {thisCard.name} just <color=red>missed</color>");
 
         }
     }

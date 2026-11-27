@@ -20,12 +20,12 @@ public class BuffOrDestroy_OnChance_Spell : CastAbilitySO
         if (creatureOnTile == null)
             return; // error message inside above function
         
-        if (RollChance(chance, thisCard)) // hit
+        if (RollChance(chance, thisCard, jiggleOnHit: false)) // hit
         {
-            Debug.Log($"{name} hit! Buffing {creatureOnTile.name}");
+            bool isHeads = Random.value > 0.5f;
             
             // chance between attack or defense
-            if (RollChance(50, thisCard))
+            if (isHeads)
             {
                 int defense = creatureOnTile.defense;
                 creatureOnTile.UpdateCreatureDefense(defense, buff: true);
@@ -38,7 +38,7 @@ public class BuffOrDestroy_OnChance_Spell : CastAbilitySO
         }
         else // miss
         {
-            Debug.LogWarning($"{name} missed! Discarding {creatureOnTile.name}");
+            // Debug.LogWarning($"{name} missed! Discarding {creatureOnTile.name}");
             creatureOnTile.GetComponent<CreatureMovement>().ServerDiscard();
         }
     }

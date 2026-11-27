@@ -13015,6 +13015,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   debugDeck:
+  - {fileID: 11400000, guid: 84ea038b44e0cf4499e61811d06078e4, type: 2}
   - {fileID: 11400000, guid: 1d8b0cadbeb2e8040b65c71cec033987, type: 2}
   - {fileID: 11400000, guid: 2a60b4e2930a9a1498b37d8e0d36937f, type: 2}
   - {fileID: 11400000, guid: c38392c5fa4b8b14880744b94ae17a13, type: 2}
@@ -13026,6 +13027,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ad02762590a937441ae88c1f34f052f5, type: 2}
   - {fileID: 11400000, guid: 4e0d64378e08f2842bba79e6ce08efdb, type: 2}
   - {fileID: 11400000, guid: b0ffb05eca8393f458a9795e6aec8f5d, type: 2}
+  - {fileID: 11400000, guid: d8136de75f76bbd4dbf23bd022157d24, type: 2}
+  - {fileID: 11400000, guid: bc5639878438f02478a9c63e89dd115f, type: 2}
+  - {fileID: 11400000, guid: 32d4d84214ace4e439d7a0d65f1d28af, type: 2}
   masterDeckList: []
   rarityWeights:
   - rarity: 0

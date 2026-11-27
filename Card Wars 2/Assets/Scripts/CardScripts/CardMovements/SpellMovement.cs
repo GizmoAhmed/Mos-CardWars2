@@ -52,7 +52,7 @@ namespace CardScripts.CardMovements
             if (cardsPlayer != null &&
                 cardsPlayer.myTurn == false)
             {
-                Debug.LogWarning($"Not Player {cardsPlayer.name}'s turn");
+                // Debug.LogWarning($"Not Player {cardsPlayer.name}'s turn");
                 return false;
             }
 
@@ -139,7 +139,8 @@ namespace CardScripts.CardMovements
             // CharmTile specific
             if (tile is CharmTile charmTile)
             {
-                return requirement == CastAbilitySO.CastRequirementType.OnCharm
+                return requirement == CastAbilitySO.CastRequirementType.OnCharm || 
+                       requirement == CastAbilitySO.CastRequirementType.AnyTileWithCard
                        && charmTile.charms.Count > 0;
             }
 

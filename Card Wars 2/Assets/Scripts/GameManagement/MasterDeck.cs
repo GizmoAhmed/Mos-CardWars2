@@ -214,7 +214,7 @@ namespace GameManagement
                 return card;
             }
 
-            Debug.LogError($"Card not found: {cardID}");
+            Debug.LogError($"Card not found: {cardID}. Make sure it's in the Resources root that the master deck populates from.");
             return null;
         }
 

@@ -258,6 +258,21 @@ namespace CardScripts.CardStats_Folder
             anim.Server_JiggleCard();
         }
 
+        [Server]
+        public void UpdateBonusLuck(int amount, bool buff)
+        {
+            if (buff)
+            {
+                cardBonusLuck += amount;
+            }
+            else
+            {
+                cardBonusLuck -= amount;
+            }
+            
+            anim.Server_JiggleCard();
+        }
+
         public void Hook_UpdateSoulUI_OnBothClients(int oldMagic, int newSoul)
         {
             Display.UpdateUI_Soul(newSoul); 

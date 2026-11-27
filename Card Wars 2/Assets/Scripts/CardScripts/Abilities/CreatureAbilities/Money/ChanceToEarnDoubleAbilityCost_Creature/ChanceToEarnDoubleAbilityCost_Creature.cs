@@ -32,6 +32,6 @@ public class ChanceToEarnDoubleAbilityCost_Creature : ActiveAbilitySO
             Debug.Log($"<color=yellow>{this} on {thisCard.name}</color> just <color=red>missed</color>, no return...");
         }
 
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }
