@@ -36,6 +36,6 @@ public class FortifyForEachOppBuildingOnField_Creature : ActiveAbilitySO
         
         thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: fortify, buff: true);
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

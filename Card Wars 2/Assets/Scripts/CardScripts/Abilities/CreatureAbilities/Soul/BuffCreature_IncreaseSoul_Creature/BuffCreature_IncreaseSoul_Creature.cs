@@ -19,6 +19,6 @@ public class BuffCreature_IncreaseSoul_Creature : ActiveAbilitySO
         stats.UpdateCreatureStrength(amount: strengthen, buff:true);
         stats.UpdateCreatureDefense(amount: fortify, buff:true);
         stats.UpdateSyncSoulToPlayer(soulIncrease);
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

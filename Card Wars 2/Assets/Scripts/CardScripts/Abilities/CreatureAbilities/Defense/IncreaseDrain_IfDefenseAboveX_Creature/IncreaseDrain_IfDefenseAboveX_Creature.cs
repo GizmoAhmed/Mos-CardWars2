@@ -26,6 +26,6 @@ public class IncreaseDrain_IfDefenseAboveX_Creature : ActiveAbilitySO
         PlayerStats player = thisCard.Ext_GetOwningPlayerStats();
         
         player.drain += drainIncrease;
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

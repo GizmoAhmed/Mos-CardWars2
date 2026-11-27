@@ -27,7 +27,7 @@ public class ReduceSoul_RandomCardInYourHand_Creature : ActiveAbilitySO
         CardStats randomPicked = hand.Ext_GetRandomFromList().GetComponent<CardStats>();
         
         randomPicked.UpdateSyncSoulToPlayer(-soulReduction);
-        AnimateAbilityExecute(thisCard);
-        AnimateAbilityExecute(randomPicked.gameObject);
+        // AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(randomPicked.gameObject);
     }
 }

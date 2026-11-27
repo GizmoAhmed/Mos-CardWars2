@@ -29,7 +29,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.DoubleUsageOnRandomSpell_
                 spellChosen.UpdateConsumableUses(spellChosen.uses * usageRate, increase: true, source: thisCard.transform); 
                 
                 // AnimateAbilityExecute(spellChosen.gameObject);
-                AnimateAbilityExecute(thisCard);
+                // AnimateAbilityExecute(thisCard);
             }
             else
             {

@@ -28,6 +28,6 @@ public class BuffForEachAbilityYouUsedThisTurn_Creature : ActiveAbilitySO
 
         creature.UpdateCreatureStrength(amount: str, buff: true, applyMult: true);
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

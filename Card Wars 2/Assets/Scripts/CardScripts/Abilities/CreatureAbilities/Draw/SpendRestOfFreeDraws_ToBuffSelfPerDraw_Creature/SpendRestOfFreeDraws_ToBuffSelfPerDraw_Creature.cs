@@ -31,6 +31,6 @@ public class SpendRestOfFreeDraws_ToBuffSelfPerDraw_Creature : ActiveAbilitySO
         
         player.freeDrawsLeft = 0; // set to zero\
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

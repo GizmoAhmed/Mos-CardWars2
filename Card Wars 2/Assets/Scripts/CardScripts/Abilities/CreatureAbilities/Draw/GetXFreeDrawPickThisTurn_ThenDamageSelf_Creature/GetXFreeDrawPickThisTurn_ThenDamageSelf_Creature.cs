@@ -27,6 +27,6 @@ public class GetXFreeDrawPickThisTurn_ThenDamageSelf_Creature : ActiveAbilitySO
         
         stats.UpdateCreatureDefense(amount: selfDamage, buff: false);
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

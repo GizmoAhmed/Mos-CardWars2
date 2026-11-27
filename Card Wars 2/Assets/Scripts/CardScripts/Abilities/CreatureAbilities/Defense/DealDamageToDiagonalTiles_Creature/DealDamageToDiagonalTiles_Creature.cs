@@ -26,6 +26,6 @@ public class DealDamageToDiagonalTiles_Creature : ActiveAbilitySO
             tile.Ext_DamageTile(damage, source: thisCard.transform); // deal damage to tile
         }
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

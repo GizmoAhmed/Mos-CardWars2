@@ -20,7 +20,7 @@ public class WeakenOppCreatureAcross_Creature : ActiveAbilitySO
 
         CreatureStats acrossStats = acrossTile.logicalCreature.GetComponent<CreatureStats>();
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
         
         acrossStats.UpdateCreatureStrength(amount: weaken, buff: false, applyMult: true, source: thisCard.transform);
     }

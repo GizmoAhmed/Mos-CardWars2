@@ -30,7 +30,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.FortifySelf_ForEachCardDr
             CreatureStats stats = thisCard.GetComponent<CreatureStats>();
             stats.UpdateCreatureDefense(buffAmount, buff: true);
             
-            AnimateAbilityExecute(thisCard);
+            // AnimateAbilityExecute(thisCard);
         }
         
         [Header("Rejection Message")]

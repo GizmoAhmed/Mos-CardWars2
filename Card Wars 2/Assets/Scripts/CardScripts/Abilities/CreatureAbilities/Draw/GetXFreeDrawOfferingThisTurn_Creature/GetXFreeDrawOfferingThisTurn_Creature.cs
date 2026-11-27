@@ -22,6 +22,6 @@ public class GetXFreeDrawOfferingThisTurn_Creature : ActiveAbilitySO
         PlayerCardTracker thisCardTracker = thisCard.Ext_GetOwningCardTracker();
         thisCardTracker.tempFreeOffering_ResetOnSwapPhase += tempOffering; // update this so it uses it to reset the actual player stat later
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

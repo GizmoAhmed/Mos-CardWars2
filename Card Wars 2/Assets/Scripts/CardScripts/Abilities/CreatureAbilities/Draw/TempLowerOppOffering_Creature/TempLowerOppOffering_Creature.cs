@@ -20,7 +20,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.TempLowerOppOffering_Crea
             PlayerCardTracker oppTracker = thisCard.Ext_GetOpponentCardTracker();
             oppTracker.tempFreeOffering_ResetOnPlayerReady += lowerOffering; // negative so that when it adds back on ready, it's back to its og state
         
-            AnimateAbilityExecute(thisCard);
+            // AnimateAbilityExecute(thisCard);
         }
     }
 }

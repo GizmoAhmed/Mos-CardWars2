@@ -53,7 +53,7 @@ public class MatchDefenseOfAnAdjacentCreature_Creature : ActiveAbilitySO
                 applyMult: false);
         }
         
-        AnimateAbilityExecute(thisCard);
-        AnimateAbilityExecute(adjCreature);
+        // AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(adjCreature);
     }
 }

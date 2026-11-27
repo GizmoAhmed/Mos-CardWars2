@@ -30,7 +30,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Money.LowerAbilityCost_Creatur
             {
                 // player experience: realize ability cost can go negative, eventually giving money
                 creatureStats.UpdateAbilityCost(amount: reduction, increase: false);
-                AnimateAbilityExecute(thisCard);
+                // AnimateAbilityExecute(thisCard);
             }
         }
     }

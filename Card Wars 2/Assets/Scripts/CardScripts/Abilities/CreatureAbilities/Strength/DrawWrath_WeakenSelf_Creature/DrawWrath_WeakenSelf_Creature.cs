@@ -36,6 +36,6 @@ public class DrawWrath_WeakenSelf_Creature : ActiveAbilitySO
         creature.UpdateCreatureStrength(amount: weakenAmount, buff: false);
         
         // AnimateAbilityExecute(drawnWrath);
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

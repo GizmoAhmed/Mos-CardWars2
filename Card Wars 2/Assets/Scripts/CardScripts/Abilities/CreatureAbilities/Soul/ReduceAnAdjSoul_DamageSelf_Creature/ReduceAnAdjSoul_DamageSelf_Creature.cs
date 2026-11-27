@@ -41,11 +41,11 @@ public class ReduceAnAdjSoul_DamageSelf_Creature : ActiveAbilitySO
 
         // buff that adjacent creature
         adjCreature.GetComponent<CreatureStats>().UpdateSyncSoulToPlayer(-soulReduction, source: thisCard.transform);
-        AnimateAbilityExecute(adjCreature);
+        // AnimateAbilityExecute(adjCreature);
 
         // damage thisCard
         thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: selfDamage, buff: false);
 
-        AnimateAbilityExecute(thisCard);
+        //AnimateAbilityExecute(thisCard);
     }
 }

@@ -27,6 +27,6 @@ public class StrengthenAdjacent_Creature : ActiveAbilitySO
             // if creature is there, buff it
             adjCreature.UpdateCreatureStrength(str, true);
         }
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

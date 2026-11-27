@@ -21,6 +21,6 @@ public class EarnShards_Creature : ActiveAbilitySO
         // so if this is +2, pride will right +4, giving the illusion that this ability only went off once
         player.shards += shards;
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

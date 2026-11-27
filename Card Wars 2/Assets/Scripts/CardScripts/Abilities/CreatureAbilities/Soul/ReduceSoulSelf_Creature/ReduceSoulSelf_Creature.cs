@@ -20,6 +20,6 @@ public class ReduceSoulSelf_Creature : ActiveAbilitySO
         
         creature.UpdateSyncSoulToPlayer(diff: -soulReduction); // it adds this much, so send it as negative
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

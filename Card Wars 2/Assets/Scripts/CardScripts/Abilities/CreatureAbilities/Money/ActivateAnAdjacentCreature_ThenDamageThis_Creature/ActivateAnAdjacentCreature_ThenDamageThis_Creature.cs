@@ -43,6 +43,6 @@ public class ActivateAnAdjacentCreature_ThenDamageThis_Creature : ActiveAbilityS
         // activate adj creature
         adjCreature.GetComponent<CreatureStats>().RemoteActivateThisCreature(source: thisCard.transform);
 
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

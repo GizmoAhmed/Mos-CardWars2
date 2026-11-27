@@ -32,6 +32,6 @@ public class FortifyPerAbilityCost_RaiseAbilityCost_Creature : ActiveAbilitySO
         stats.UpdateAbilityCost(amount: 1, increase: true, source: thisCard.transform);
         // stats.abilityCost++;
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

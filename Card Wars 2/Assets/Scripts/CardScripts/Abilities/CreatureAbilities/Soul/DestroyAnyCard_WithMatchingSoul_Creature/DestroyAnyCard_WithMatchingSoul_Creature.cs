@@ -39,6 +39,6 @@ public class DestroyAnyCard_WithMatchingSoul_Creature : ActiveAbilitySO
             }
         }
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

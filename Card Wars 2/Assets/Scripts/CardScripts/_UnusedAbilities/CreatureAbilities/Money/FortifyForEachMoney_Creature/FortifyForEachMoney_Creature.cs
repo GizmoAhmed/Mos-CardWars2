@@ -27,6 +27,6 @@ public class FortifyForEachMoney_Creature : ActiveAbilitySO
         CreatureStats creature = thisCard.GetComponent<CreatureStats>();
         
         creature.UpdateCreatureDefense(amount: fortify, buff: true);
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

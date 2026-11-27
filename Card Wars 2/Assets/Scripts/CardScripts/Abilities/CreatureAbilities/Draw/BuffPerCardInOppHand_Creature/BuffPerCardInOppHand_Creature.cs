@@ -24,7 +24,7 @@ public class BuffPerCardInOppHand_Creature : ActiveAbilitySO
             thisCard.GetComponent<CreatureStats>()
                         .UpdateCreatureStrength(amount: strengthPerCardInOppHand * count, buff: true);
             
-            AnimateAbilityExecute(thisCard);
+            // AnimateAbilityExecute(thisCard);
         }
     }
 }

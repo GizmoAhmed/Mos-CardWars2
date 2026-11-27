@@ -29,6 +29,6 @@ public class Strengthen_StrengthenMoreIfBuildingOnThisTile_Creature : ActiveAbil
             stats.UpdateCreatureStrength(defaultStrength, buff: true);
         }
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

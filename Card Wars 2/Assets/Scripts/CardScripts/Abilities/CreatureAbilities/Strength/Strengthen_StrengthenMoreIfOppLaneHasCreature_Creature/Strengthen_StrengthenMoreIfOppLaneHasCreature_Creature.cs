@@ -40,11 +40,11 @@ public class Strengthen_StrengthenMoreIfOppLaneHasCreature_Creature : ActiveAbil
 
         thisCreature.UpdateCreatureStrength(amount: buffAmount, buff: true);
 
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
 
         if (acrossCreature != null) // jiggle the other one to I guess
         {
-            AnimateAbilityExecute(acrossCreature);
+            // AnimateAbilityExecute(acrossCreature);
         }
     }
 }

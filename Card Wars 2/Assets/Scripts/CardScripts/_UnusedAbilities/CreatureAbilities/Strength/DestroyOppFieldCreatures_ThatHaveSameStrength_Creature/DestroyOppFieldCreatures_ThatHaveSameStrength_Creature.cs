@@ -32,6 +32,6 @@ public class DestroyOppFieldCreatures_ThatHaveSameStrength_Creature : ActiveAbil
             }
         }
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

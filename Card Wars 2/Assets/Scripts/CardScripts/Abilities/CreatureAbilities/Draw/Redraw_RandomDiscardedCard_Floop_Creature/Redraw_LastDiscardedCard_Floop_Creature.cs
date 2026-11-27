@@ -24,7 +24,7 @@ namespace CardScripts.Abilities.CreatureAbilities.Draw.Redraw_RandomDiscardedCar
             }
             
             RedrawCard(lastCard);
-            AnimateAbilityExecute(thisCard);
+            // AnimateAbilityExecute(thisCard);
         }
     }
 }

@@ -33,6 +33,6 @@ public class StrengthenAdjacentCreatures_ThenDamageThis_Creature : ActiveAbility
         
         thisCard.GetComponent<CreatureStats>().UpdateCreatureDefense(amount: selfDamage, buff: false);
 
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

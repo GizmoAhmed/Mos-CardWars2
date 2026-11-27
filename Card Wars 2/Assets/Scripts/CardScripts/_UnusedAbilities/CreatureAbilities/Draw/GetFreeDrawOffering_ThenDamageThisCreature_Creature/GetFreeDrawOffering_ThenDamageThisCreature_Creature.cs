@@ -24,6 +24,6 @@ public class GetFreeDrawOffering_ThenDamageThisCreature_Creature : ActiveAbility
         
         stats.UpdateCreatureDefense(amount: selfDamage, buff: false);
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

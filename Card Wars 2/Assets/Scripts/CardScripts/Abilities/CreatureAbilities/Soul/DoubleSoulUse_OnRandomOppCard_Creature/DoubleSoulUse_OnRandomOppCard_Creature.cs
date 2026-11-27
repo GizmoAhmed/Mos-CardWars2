@@ -27,9 +27,9 @@ public class DoubleSoulUse_OnRandomOppCard_Creature : ActiveAbilitySO
 
         CardStats randomPicked = oppsActiveCards.Ext_GetRandomFromList();
         
-        randomPicked.UpdateSyncSoulToPlayer(randomPicked.soulUse); // double
+        randomPicked.UpdateSyncSoulToPlayer(randomPicked.soulUse, source: thisCard.transform); // double
         
-        AnimateAbilityExecute(thisCard);
-        AnimateAbilityExecute(randomPicked.gameObject);
+        // AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(randomPicked.gameObject);
     }
 }

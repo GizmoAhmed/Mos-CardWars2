@@ -22,7 +22,7 @@ public class IncreaseAcrossCreatureBurnCost_Creature : ActiveAbilitySO
 
         CreatureStats acrossStats = acrossTile.logicalCreature.GetComponent<CreatureStats>();
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
         
         acrossStats.UpdateBurnCost(amount: costIncrease, increase: true, source: thisCard.transform);
     }

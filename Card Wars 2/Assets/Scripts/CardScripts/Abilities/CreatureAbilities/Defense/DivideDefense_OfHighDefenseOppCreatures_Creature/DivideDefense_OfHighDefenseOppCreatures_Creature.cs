@@ -30,6 +30,6 @@ public class DivideDefense_OfHighDefenseOppCreatures_Creature : ActiveAbilitySO
             }
         }
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }

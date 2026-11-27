@@ -32,6 +32,6 @@ public class StrengthenPerAbilityCost_RaiseAbilityCost_Creature : ActiveAbilityS
         
         stats.UpdateAbilityCost(amount: cost, increase: true, source: thisCard.transform);
         
-        AnimateAbilityExecute(thisCard);
+        // AnimateAbilityExecute(thisCard);
     }
 }
